@@ -1,0 +1,62 @@
+{
+ "r01": {
+  "checkpoint": "fetalqrs_tcn_fold_r01.pt",
+  "threshold": 0.39999999999999997,
+  "lead_idx": 4,
+  "lead_name": "Abdomen_4",
+  "n_detected": 644,
+  "train_records": [
+   "r07",
+   "r08",
+   "r10"
+  ]
+ },
+ "r04": {
+  "checkpoint": "fetalqrs_tcn_fold_r04.pt",
+  "threshold": 0.5499999999999999,
+  "lead_idx": 4,
+  "lead_name": "Abdomen_4",
+  "n_detected": 633,
+  "train_records": [
+   "r07",
+   "r08",
+   "r10"
+  ]
+ },
+ "r07": {
+  "checkpoint": "fetalqrs_tcn_fold_r07.pt",
+  "threshold": 0.49999999999999994,
+  "lead_idx": 4,
+  "lead_name": "Abdomen_4",
+  "n_detected": 627,
+  "train_records": [
+   "r04",
+   "r08",
+   "r10"
+  ]
+ },
+ "r08": {
+  "checkpoint": "fetalqrs_tcn_fold_r08.pt",
+  "threshold": 0.44999999999999996,
+  "lead_idx": 4,
+  "lead_name": "Abdomen_4",
+  "n_detected": 652,
+  "train_records": [
+   "r04",
+   "r07",
+   "r10"
+  ]
+ },
+ "r10": {
+  "checkpoint": "fetalqrs_tcn_fold_r10.pt",
+  "threshold": 0.35,
+  "lead_idx": 1,
+  "lead_name": "Abdomen_1",
+  "n_detected": 662,
+  "train_records": [
+   "r04",
+   "r07",
+   "r08"
+  ]
+ }
+}

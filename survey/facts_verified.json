@@ -1,0 +1,198 @@
+{
+  "ghi_chu": "Moi con so trong file nay da duoc kiem chung lai bang cach chay code that trong phien lam viec ngay 09/09/2026. Cot 'nguon' ghi ro lenh hoac file sinh ra con so do.",
+
+  "mo_hinh": {
+    "ten": "FetalQRS-TCN",
+    "tham_so_huan_luyen": 113481,
+    "buffer_batchnorm": 891,
+    "truong_tiep_nhan_mau": 379,
+    "truong_tiep_nhan_ms": 1516,
+    "checkpoint_MB": 0.48,
+    "do_tre_1_cua_so_4s_CPU_ms": 4.35,
+    "he_so_thoi_gian_thuc": 920,
+    "may_do": "Intel64 Family 6 Model 151 Stepping 2",
+    "nguon": "benchmark_dpss/full_measure.py"
+  },
+
+  "adfecgdb_loro": {
+    "toan_bo_4_kenh_macro_F1": 97.43,
+    "toan_bo_4_kenh_sd": 4.37,
+    "toan_bo_4_kenh_micro": 97.41,
+    "Se": 97.69, "PPV": 97.18, "jitter_ms": 3.62,
+    "TP": 12468, "FP": 366, "FN": 296, "so_danh_gia": 20,
+    "ba_seed_macro": 97.16, "ba_seed_sd": 4.34,
+    "nguon": "model/train_final_log.txt, pilot_evidence/seq_loro_log.txt"
+  },
+
+  "adfecgdb_giao_thuc_kenh_don": {
+    "psd_mu_nhan_macro_F1": 99.21,
+    "dpss_quy_dinh_macro_F1": 99.18,
+    "oracle_dung_nhan_macro_F1": 99.21,
+    "trung_binh_4_kenh_macro_F1": 97.45,
+    "Se_dpss": 99.59, "PPV_dpss": 98.79, "jitter_dpss_ms": 3.05,
+    "micro_TP": 3178, "micro_FP": 40, "micro_FN": 13, "micro_F1": 99.17,
+    "MAE_fHR_that_bpm": 0.34,
+    "FHR_precision_chuan_DPSS": 98.39,
+    "ket_luan": "Quy tac chon kenh mu nhan bang PSD dat DUNG BANG oracle (99,21) va khong dung nhan that. Day la quy tac se dung trong bai bao.",
+    "nguon": "benchmark_dpss/blind_lead.py, benchmark_dpss/full_measure.py"
+  },
+
+  "xuyen_bo_du_lieu_cinc2013": {
+    "kenh_co_dinh_lead0_macro_F1": 77.34,
+    "psd_mu_nhan_macro_F1": 59.15,
+    "oracle_dung_nhan_macro_F1": 77.59,
+    "trung_binh_4_kenh_macro_F1": 61.96,
+    "phat_hien_quan_trong": "Quy tac PSD dat oracle trong mien (99,21) nhung SUP DO ngoai mien (59,15 so voi 77,34 cua kenh co dinh). Heuristic pho khong chuyen mien duoc. Day la dong co truc tiep va da do duoc cho dong gop C3.",
+    "phan_bo_luong_cuc": "4/10 ban ghi dat F1 = 100,00; 3/10 ban ghi duoi 50",
+    "nguon": "benchmark_dpss/blind_lead.py"
+  },
+
+  "khao_sat_dai_loc": {
+    "don_vi": "macro F1, LORO, 5 ban ghi x 2 dao trinh, GBM tren cua so du",
+    "bang": [
+      {"dai": "10-60", "F1": 91.06, "sd": 8.84, "nguon_y_van": "Xu 2026"},
+      {"dai": "8-45", "F1": 89.63, "sd": 11.10, "nguon_y_van": "Xu 2026"},
+      {"dai": "15-60", "F1": 89.01, "sd": 10.70, "nguon_y_van": "nhom tu do"},
+      {"dai": "3-90", "F1": 84.17, "sd": 17.55, "nguon_y_van": "pilot 1 cua nhom"},
+      {"dai": "3-100", "F1": 83.80, "sd": 18.63, "nguon_y_van": "Chen 2025 / Asadi 2025"},
+      {"dai": "1-45", "F1": 80.06, "sd": 24.69, "nguon_y_van": "mo hinh doi chieu"},
+      {"dai": "20-95", "F1": 77.39, "sd": null, "nguon_y_van": "Behar 2014 grid-search"},
+      {"dai": "0.5-100", "F1": 72.17, "sd": null, "nguon_y_van": "Zhong 2018"}
+    ],
+    "chenh_lech_cao_nhat_thap_nhat": 18.89,
+    "tuong_phan_co_kiem_soat": 11.00,
+    "canh_bao": "Con so +12,43 trong ban de cuong truoc la SAI vi tron hai thi nghiem khac nhau (80,06 do tren 2 dao trinh trong band_ablation; 92,49 do tren 4 dao trinh trong final_loro). Con so co kiem soat noi bo dung la +11,00 (91,06 so voi 80,06, cung mot thi nghiem).",
+    "nguon": "pilot_evidence/band_ablation.json"
+  },
+
+  "phan_ra_dong_gop": {
+    "tien_xu_ly_doi_dai_loc": 11.00,
+    "ngu_canh_va_dau_ra_tung_mau": 4.53,
+    "ho_kien_truc_o_ngu_canh_co_dinh": 0.41,
+    "p_value_ho_kien_truc": 0.7012,
+    "p_value_ngu_canh": 0.0000,
+    "canh_bao_phan_bien": "Buoc +4,53 KHONG THUAN TUY la tien xu ly: no gop ba thay doi (truong tiep nhan, tham so hoa dau ra tung mau, va so tham so 33k -> 113k). Phat bieu dung la phan ra BA TANG: front-end tin hieu (+11,00) > do dai ngu canh va do phan giai dau ra (+4,53) > ho kien truc o ngu canh co dinh (+0,41; khong y nghia).",
+    "nguon": "pilot_evidence/band_ablation.json, pilot_evidence/final_loro_log.txt, pilot_evidence/seq_loro_log.txt"
+  },
+
+  "quet_truong_tiep_nhan": {
+    "bang": [
+      {"rf_ms": 172, "F1": 98.73, "tham_so": 33265},
+      {"rf_ms": 748, "F1": 99.25, "tham_so": 90921},
+      {"rf_ms": 1516, "F1": 99.50, "tham_so": 113481},
+      {"rf_ms": 3052, "F1": 99.52, "tham_so": 136041}
+    ],
+    "loro_rf1516": 97.16, "loro_rf1516_sd": 4.34,
+    "loro_rf172": 92.67, "loro_rf172_sd": 10.46,
+    "wilcoxon_p": 0.0000,
+    "nguon": "pilot_evidence/seq_search_log.txt, pilot_evidence/seq_loro_log.txt"
+  },
+
+  "so_sanh_16_kien_truc": {
+    "canh_bao_nghiem_trong": "Bang nay chay o dai 3-90 Hz (khong phai 10-60 Hz toi uu), tren MOT ban ghi validation (r08), MOT seed, va F1 bao cao la GIA TRI LON NHAT quet tren 18 nguong ngay tren chinh ban ghi danh gia. Cac con so tuyet doi deu LAC QUAN. Chung chi dung de so sanh TUONG DOI giua cac kien truc vi moi kien truc deu chiu cung mot thien lech.",
+    "xep_hang": [
+      {"ten": "resnet1d", "tham_so": 92545, "F1": 98.96},
+      {"ten": "tcn", "tham_so": 63105, "F1": 98.88},
+      {"ten": "transformer", "tham_so": 80385, "F1": 98.81},
+      {"ten": "cnn_l", "tham_so": 83137, "F1": 98.77},
+      {"ten": "cnn_dil", "tham_so": 25953, "F1": 98.56},
+      {"ten": "cnn_gru", "tham_so": 28257, "F1": 98.25},
+      {"ten": "unet1d", "tham_so": 46345, "F1": 98.01},
+      {"ten": "cnn_wide_k", "tham_so": 38753, "F1": 97.93},
+      {"ten": "cnn_se", "tham_so": 29845, "F1": 97.65},
+      {"ten": "twostream", "tham_so": 53601, "F1": 97.24},
+      {"ten": "cnn_m", "tham_so": 25953, "F1": 97.14},
+      {"ten": "cnn_s", "tham_so": 13857, "F1": 96.60},
+      {"ten": "mlp", "tham_so": 27649, "F1": 96.41},
+      {"ten": "cnn2d_delay", "tham_so": 27633, "F1": 93.08},
+      {"ten": "linear", "tham_so": 151, "F1": 48.55},
+      {"ten": "cnn2d_pi", "tham_so": 27777, "F1": 27.42}
+    ],
+    "lap_luan_bao_ve_duoc": "cnn_dil xep hang 5, KHONG phai hang 1. Lap luan dung la HIEU QUA THAM SO: dat 99,6% hieu nang cua quan quan voi 28% so tham so. Khong duoc phat bieu 'TCN la kien truc toi uu'.",
+    "nguon": "pilot_evidence/arch_search_log.txt"
+  },
+
+  "tda_da_bac_bo": {
+    "persistence_image_cnn2d_F1": 27.42,
+    "cnn1d_cung_tham_so_F1": 97.14,
+    "two_stream_muc_tang": 0.88,
+    "two_stream_p": 0.6250,
+    "elder_trung_khop": "100% tren 2000 cua so, tuong quan 1,0000",
+    "chu_ky_tim_thai_ms": 430,
+    "cua_so_de_xuat_ban_dau_ms": 300,
+    "ket_luan": "Sublevel-set H0 cua tin hieu mot chieu chinh la peak prominence co dien (dinh ly Elder). Cua so 300 ms ngan hon mot chu ky tim thai nen khong the chua vong nhip trong nhung tre.",
+    "nguon": "pilot_evidence/pilot2_log.txt, pilot_evidence/arch_search_log.txt"
+  },
+
+  "doi_chuan_dpss": {
+    "trich_dan": "Shokouhmand A, Tavassolian N. Fetal Electrocardiogram Extraction Using Dual-Path Source Separation of Single-Channel Non-Invasive Abdominal Recordings. IEEE Trans Biomed Eng. 2023;70(1):283-295. DOI 10.1109/TBME.2022.3189617",
+    "so_that_trong_bai": {
+      "ADFECGDB_toan_bo_22_tin_hieu_F1": 97.7,
+      "ADFECGDB_nhom_chuyen_da_F1": 98.08,
+      "ADFECGDB_FHR_precision": 88.61,
+      "ADFECGDB_chuyen_da_FHR_precision": 89.22,
+      "NIFECGC_F1": 95.3,
+      "FECGSYNDB_F1": 99.03,
+      "trung_binh_bo_that_Se": 86.23,
+      "trung_binh_bo_that_PPV": 95.75,
+      "trung_binh_bo_that_F1": 93.43,
+      "thoi_gian_xu_ly_1_cua_so_4s_Intel_3.6GHz_s": 0.52,
+      "raspberry_pi_s": 1.2,
+      "snapdragon_s1_s": 1.8,
+      "apple_s7_s": 1.0,
+      "giao_thuc": "Huan luyen DUY NHAT tren FECGSYNDB tong hop (LOSO 10 fold) roi ap zero-shot sang ADFECGDB, KHONG tinh chinh. Do la ket qua TONG QUAT HOA XUYEN MIEN.",
+      "dung_sai": "50 ms, trich tu tai lieu [14] Behar va cong su 2016 Physiol Meas -- KHONG phai tu AAMI EC57"
+    },
+    "tuyen_bo_trong_goi_doi_chuan_khong_co_nguon": [
+      "F1 theo tung ban ghi r01/r04/r07/r08/r10: cac dinh danh nay xuat hien 0 lan trong toan van 13 trang",
+      "macro F1 91,03: khong co trong bai",
+      "6 con so jitter (25,0 / 28,5 / 26,0 / 22,0 / 27,0 / 25,70 ms): bai khong bao cao jitter; tu 'jittering' trong bai la ky thuat tang cuong du lieu bang nhieu Gauss",
+      "MAE fHR theo bpm: bai khong dung chi so nay, ho dung 'FHR precision' = phan tram cua so co fHR sai lech trong +/-5 bpm",
+      "6.800.000 tham so, 55,0 MB, >500 MB RAM: bai khong neu bat ky con so nao trong so nay",
+      "do tre 35-50 ms: so that la 520 ms tren CPU Intel 3,6 GHz, cham hon khoang 10 lan",
+      "'khong the trien khai Edge AI, can may chu Cloud': bai ket luan NGUOC LAI -- DPSS chay duoc tren Raspberry Pi, Snapdragon, Apple Watch va 'phu hop cho he thong theo doi thai nhi thoi gian thuc'",
+      "nhan giao thuc 'chuan AAMI EC57 +/-50 ms': cum 'AAMI' va 'EC57' xuat hien 0 lan trong bai DPSS; chuan AAMI EC57 that su dung cua so 150 ms"
+    ],
+    "dieu_dung_trong_goi": [
+      "Cot so lieu mo hinh TDA cua Le Xuan Khanh LA so chay may that: tai tao duoc ca 5 gia tri MAE_fHR tu GT/TP/FP bang chinh cong thuc trong ma nguon, khop 5/5",
+      "So nhip nhan chuan tung ban ghi (644/632/627/651/637, tong 3191) khop tuyet doi voi file .qrs goc",
+      "Ban do dao trinh Abdomen_4 cho r01/r04/r07/r08 va Abdomen_1 cho r10 la hop ly ve sinh ly va trung voi quy tac chon kenh mu nhan bang PSD o 2/5 ban ghi"
+    ],
+    "loi_ky_thuat_trong_ma_nguon": {
+      "ten_ham_sai": "bipartite_aami_ec57_matching khong phai khop cap song anh ma la tham lam theo thu tu mang. Phan vi du: gt=[0,60], det=[50,100], dung sai 50 -> tham lam TP=1; toi uu TP=2. Dao thu tu det=[100,50] -> TP=2. Ket qua phu thuoc thu tu mang.",
+      "anh_huong_thuc_te": "Tren du lieu that cua nhom, tham lam trung khop hoan toan voi Hungarian tren ca 5 ban ghi (chenh 0,00 diem). Day la loi dinh danh thuat toan, khong lam sai ket qua da do.",
+      "cong_thuc_mae_sai": "MAE_fHR = |so_dinh_du_doan - so_dinh_chuan| / 5 chi do SO LUONG nhip, khong do VI TRI. Phan vi du da chay: mot mo hinh du doan hoan toan ngau nhien voi F1 = 20,96% van dat MAE = 0,00 bpm."
+    },
+    "nguon": "papers/p05_Shokouhmand2023-DPSS.pdf doc toan van 13 trang; goi-danh-gia-doi-chuan-dpss/benchmark_evaluator.py"
+  },
+
+  "doi_thu_bo_sot": {
+    "trich_dan": "Jaeger KM, Nissen M, Rahm S, Titzmann A, Fasching PA, Beilner J, Eskofier BM, Leutheuser H. Power-MF: robust fetal QRS detection from non-invasive fetal electrocardiogram recordings. Physiol Meas. 2024;45(5):055009. DOI 10.1088/1361-6579/ad4952",
+    "ket_qua": "ADFECG B1 Pregnancy 99,5% +/- 0,5%; ADFECG B2 Labour 98,0% +/- 3,0%; NInFEA 84,5-90,5%",
+    "dung_sai": "50 ms tren ADFECG, 200 ms tren NInFEA",
+    "phuong_phap": "Xu ly tin hieu co dien: loc dao ham + dai thong, khu ECG me bang SVD va ICA, chon kenh theo mat do pho cong suat, do fQRS bang matched filter",
+    "ma_nguon_mo": "https://github.com/mad-lab-fau/fecg-benchmarking",
+    "vi_sao_khong_so_truc_tiep_duoc": "Power-MF dung DA KENH (4 kenh, can SVD/ICA da kenh de khu me) tren bo Silesia B1/B2 o 500 Hz voi 10 va 12 ban ghi. Mo hinh cua nhom la DON KENH tren 5 ban ghi ADFECGDB cong khai o 1000 Hz. Khac ca cau hinh dau vao lan tap du lieu.",
+    "dieu_phai_lam": "Bat buoc trich dan trong de cuong. Quy tac chon kenh theo PSD cua ho la thu nhom da muon va da kiem chung."
+  },
+
+  "mo_hinh_doi_chieu_cua_ban_trong_nhom": {
+    "ten": "TDA Persistence Image + Dual-Branch SE-Attention CNN",
+    "nguoi_lam": "Le Xuan Khanh",
+    "so_lieu_ho_cong_bo": {"macro_F1": 90.57, "micro_F1": 90.61, "Se": 90.40, "PPV": 90.76,
+                            "jitter_ms": 8.11, "MAE_fHR_bpm": 1.68, "within_subject_F1": 99.38},
+    "tham_so_ho_tuyen_bo": 350000,
+    "tham_so_do_that_trong_repo_github": 1522476,
+    "ghi_chu": "So lieu do la so chay may that va tai tao duoc. Van de nam o cot tham chieu DPSS va o dinh nghia chi so, khong nam o phep do mo hinh cua ban ay."
+  },
+
+  "gioi_han_phai_khai_bao": [
+    "Chi 5 san phu, tat ca deu dang chuyen da tuan 38-41. Khong co diem du lieu nao duoi 38 tuan trong khi gia tri lam sang chinh nam o tuan 24-37.",
+    "Khoang tin cay 95% cua 99,18 voi n=5 la [97,33; 101,03] -- vuot qua 100%, tuc gia dinh phan phoi chuan bi vi pham. Phai dung bootstrap hoac thang logit.",
+    "Bang 16 kien truc chay o dai 3-90 Hz, mot ban ghi, mot seed, nguong quet tren chinh ban ghi danh gia.",
+    "Chua cai lai baseline nao de so cong bang. Moi so sanh voi y van deu la so voi CON SO DA CONG BO, khong phai voi ban tu chay lai.",
+    "Chua chay thi nghiem tinh chinh (tien huan luyen FECGSYNDB roi tinh chinh tren du lieu that).",
+    "Dong gop C3 (fSQI dong dieu ben vung co quyen tu choi) chua co mot dong du lieu nao.",
+    "Chua co duong cong F1-SNR va duong cong hieu qua mau."
+  ]
+}

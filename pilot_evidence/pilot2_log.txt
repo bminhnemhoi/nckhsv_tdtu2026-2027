@@ -1,0 +1,83 @@
+=== extracting features (5 records x 2 leads, hop 20 ms) ===
+  r01 lead1: 14985 windows, 1436 pos, 3.21 ms/window (feature extraction)
+  r01 lead3: 14985 windows, 1436 pos, 3.22 ms/window (feature extraction)
+  r04 lead1: 14985 windows, 1396 pos, 3.08 ms/window (feature extraction)
+  r04 lead3: 14985 windows, 1396 pos, 3.14 ms/window (feature extraction)
+  r07 lead1: 14985 windows, 1372 pos, 3.09 ms/window (feature extraction)
+  r07 lead3: 14985 windows, 1372 pos, 3.03 ms/window (feature extraction)
+  r08 lead1: 14985 windows, 1417 pos, 3.07 ms/window (feature extraction)
+  r08 lead3: 14985 windows, 1417 pos, 3.16 ms/window (feature extraction)
+  r10 lead1: 14985 windows, 1402 pos, 3.14 ms/window (feature extraction)
+  r10 lead3: 14985 windows, 1402 pos, 3.09 ms/window (feature extraction)
+feature extraction done in 469s
+
+PROMINENCE CHECK on 400 windows: top sublevel-H0 persistence of (-w) == scipy max prominence of maxima in 0.035; top sublevel-H0 persistence of (w) == scipy max prominence of minima in 0.035
+
+raw          test=r01 lead1 thr=0.05 | Se  98.1 PPV  94.9 F1  96.5 | jitter 5.8 ms | winAUC 0.993
+raw          test=r01 lead3 thr=0.05 | Se  99.1 PPV  97.1 F1  98.1 | jitter 6.2 ms | winAUC 0.993
+raw          test=r04 lead1 thr=0.20 | Se  47.5 PPV  73.7 F1  57.7 | jitter 7.7 ms | winAUC 0.919
+raw          test=r04 lead3 thr=0.20 | Se  91.3 PPV  93.7 F1  92.5 | jitter 6.8 ms | winAUC 0.985
+raw          test=r07 lead1 thr=0.20 | Se  45.1 PPV  79.5 F1  57.6 | jitter 8.2 ms | winAUC 0.919
+raw          test=r07 lead3 thr=0.20 | Se  95.4 PPV  95.4 F1  95.4 | jitter 6.2 ms | winAUC 0.991
+raw          test=r08 lead1 thr=0.20 | Se  96.6 PPV  95.6 F1  96.1 | jitter 6.9 ms | winAUC 0.986
+raw          test=r08 lead3 thr=0.20 | Se  97.1 PPV  97.5 F1  97.3 | jitter 7.4 ms | winAUC 0.984
+raw          test=r10 lead1 thr=0.25 | Se  97.0 PPV  93.4 F1  95.2 | jitter 6.1 ms | winAUC 0.984
+raw          test=r10 lead3 thr=0.25 | Se  42.7 PPV  71.4 F1  53.4 | jitter 10.6 ms | winAUC 0.862
+>>> raw          macro F1 83.97 +- 18.23 | Se 80.99 | PPV 89.21 | micro F1 85.89 | mean window AUC 0.962
+
+amp          test=r01 lead1 thr=0.10 | Se  93.3 PPV  88.1 F1  90.6 | jitter 7.8 ms | winAUC 0.962
+amp          test=r01 lead3 thr=0.10 | Se  94.1 PPV  90.3 F1  92.2 | jitter 7.3 ms | winAUC 0.980
+amp          test=r04 lead1 thr=0.25 | Se  21.8 PPV  55.6 F1  31.4 | jitter 11.6 ms | winAUC 0.781
+amp          test=r04 lead3 thr=0.25 | Se  72.5 PPV  86.3 F1  78.8 | jitter 9.4 ms | winAUC 0.927
+amp          test=r07 lead1 thr=0.20 | Se  27.9 PPV  59.9 F1  38.1 | jitter 12.5 ms | winAUC 0.795
+amp          test=r07 lead3 thr=0.20 | Se  89.2 PPV  91.0 F1  90.1 | jitter 8.3 ms | winAUC 0.957
+amp          test=r08 lead1 thr=0.25 | Se  91.6 PPV  90.9 F1  91.2 | jitter 7.4 ms | winAUC 0.970
+amp          test=r08 lead3 thr=0.25 | Se  84.9 PPV  86.0 F1  85.5 | jitter 8.1 ms | winAUC 0.971
+amp          test=r10 lead1 thr=0.25 | Se  91.4 PPV  87.8 F1  89.5 | jitter 6.6 ms | winAUC 0.973
+amp          test=r10 lead3 thr=0.25 | Se  41.8 PPV  60.7 F1  49.5 | jitter 9.9 ms | winAUC 0.868
+>>> amp          macro F1 73.68 +- 22.95 | Se 70.84 | PPV 79.67 | micro F1 76.72 | mean window AUC 0.919
+
+tda          test=r01 lead1 thr=0.05 | Se  69.7 PPV  62.3 F1  65.8 | jitter 26.1 ms | winAUC 0.836
+tda          test=r01 lead3 thr=0.05 | Se  73.6 PPV  67.6 F1  70.5 | jitter 26.1 ms | winAUC 0.852
+tda          test=r04 lead1 thr=0.15 | Se  26.6 PPV  45.0 F1  33.4 | jitter 25.8 ms | winAUC 0.651
+tda          test=r04 lead3 thr=0.15 | Se  45.3 PPV  59.3 F1  51.3 | jitter 25.0 ms | winAUC 0.772
+tda          test=r07 lead1 thr=0.15 | Se  30.1 PPV  51.9 F1  38.1 | jitter 24.1 ms | winAUC 0.715
+tda          test=r07 lead3 thr=0.15 | Se  68.1 PPV  66.6 F1  67.4 | jitter 26.5 ms | winAUC 0.829
+tda          test=r08 lead1 thr=0.10 | Se  61.8 PPV  56.5 F1  59.0 | jitter 27.4 ms | winAUC 0.795
+tda          test=r08 lead3 thr=0.10 | Se  61.9 PPV  59.9 F1  60.9 | jitter 26.6 ms | winAUC 0.779
+tda          test=r10 lead1 thr=0.20 | Se  66.1 PPV  66.8 F1  66.5 | jitter 29.5 ms | winAUC 0.823
+tda          test=r10 lead3 thr=0.20 | Se  10.4 PPV  45.5 F1  16.9 | jitter 25.7 ms | winAUC 0.651
+>>> tda          macro F1 52.98 +- 16.93 | Se 51.35 | PPV 58.16 | micro F1 55.57 | mean window AUC 0.770
+
+amp+tda      test=r01 lead1 thr=0.05 | Se  95.2 PPV  90.9 F1  93.0 | jitter 7.7 ms | winAUC 0.973
+amp+tda      test=r01 lead3 thr=0.05 | Se  93.8 PPV  90.1 F1  91.9 | jitter 7.5 ms | winAUC 0.985
+amp+tda      test=r04 lead1 thr=0.20 | Se  35.8 PPV  59.3 F1  44.6 | jitter 13.5 ms | winAUC 0.787
+amp+tda      test=r04 lead3 thr=0.20 | Se  74.8 PPV  86.8 F1  80.4 | jitter 10.2 ms | winAUC 0.930
+amp+tda      test=r07 lead1 thr=0.25 | Se  38.9 PPV  72.2 F1  50.6 | jitter 12.6 ms | winAUC 0.838
+amp+tda      test=r07 lead3 thr=0.25 | Se  90.6 PPV  90.7 F1  90.7 | jitter 8.6 ms | winAUC 0.964
+amp+tda      test=r08 lead1 thr=0.25 | Se  90.6 PPV  92.0 F1  91.3 | jitter 7.5 ms | winAUC 0.974
+amp+tda      test=r08 lead3 thr=0.25 | Se  88.9 PPV  91.3 F1  90.1 | jitter 7.8 ms | winAUC 0.979
+amp+tda      test=r10 lead1 thr=0.25 | Se  94.5 PPV  92.0 F1  93.3 | jitter 6.7 ms | winAUC 0.978
+amp+tda      test=r10 lead3 thr=0.25 | Se  27.6 PPV  65.7 F1  38.9 | jitter 9.8 ms | winAUC 0.853
+>>> amp+tda      macro F1 76.48 +- 21.25 | Se 73.08 | PPV 83.12 | micro F1 79.15 | mean window AUC 0.926
+
+raw+amp+tda  test=r01 lead1 thr=0.05 | Se  99.1 PPV  96.7 F1  97.9 | jitter 5.8 ms | winAUC 0.995
+raw+amp+tda  test=r01 lead3 thr=0.05 | Se  97.8 PPV  96.5 F1  97.1 | jitter 6.0 ms | winAUC 0.995
+raw+amp+tda  test=r04 lead1 thr=0.20 | Se  46.5 PPV  71.5 F1  56.4 | jitter 8.0 ms | winAUC 0.896
+raw+amp+tda  test=r04 lead3 thr=0.20 | Se  87.2 PPV  92.0 F1  89.5 | jitter 7.1 ms | winAUC 0.979
+raw+amp+tda  test=r07 lead1 thr=0.15 | Se  66.2 PPV  80.9 F1  72.8 | jitter 8.5 ms | winAUC 0.933
+raw+amp+tda  test=r07 lead3 thr=0.15 | Se  95.7 PPV  95.1 F1  95.4 | jitter 6.2 ms | winAUC 0.990
+raw+amp+tda  test=r08 lead1 thr=0.30 | Se  95.1 PPV  97.2 F1  96.1 | jitter 6.2 ms | winAUC 0.984
+raw+amp+tda  test=r08 lead3 thr=0.30 | Se  92.6 PPV  97.7 F1  95.1 | jitter 6.9 ms | winAUC 0.986
+raw+amp+tda  test=r10 lead1 thr=0.15 | Se  97.0 PPV  92.1 F1  94.5 | jitter 5.8 ms | winAUC 0.986
+raw+amp+tda  test=r10 lead3 thr=0.15 | Se  44.0 PPV  69.1 F1  53.7 | jitter 8.8 ms | winAUC 0.888
+>>> raw+amp+tda  macro F1 84.86 +- 16.44 | Se 82.12 | PPV 88.88 | micro F1 86.18 | mean window AUC 0.963
+
+=== paired Wilcoxon on per-(record,lead) F1, n=10 ===
+raw          vs tda         : mean 83.97 vs 52.98  diff -30.99  p=0.0020
+raw          vs amp+tda     : mean 83.97 vs 76.48  diff -7.50  p=0.0020
+raw          vs raw+amp+tda : mean 83.97 vs 84.86  diff +0.88  p=0.6250
+amp          vs amp+tda     : mean 73.68 vs 76.48  diff +2.80  p=0.0840
+tda          vs amp+tda     : mean 52.98 vs 76.48  diff +23.50  p=0.0020
+
+DONE in 584s

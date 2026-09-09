@@ -1,0 +1,68 @@
+[
+ {
+  "model": "tcn_rf4s",
+  "params": 136041,
+  "rf": "763 samples = 3052 ms",
+  "val_F1": 99.52,
+  "thr": 0.55,
+  "Se": 99.12,
+  "PPV": 99.92,
+  "jitter": 1.0,
+  "sec": 164.8
+ },
+ {
+  "model": "tcn_rf2s",
+  "params": 113481,
+  "rf": "379 samples = 1516 ms",
+  "val_F1": 99.5,
+  "thr": 0.5,
+  "Se": 99.12,
+  "PPV": 99.88,
+  "jitter": 1.0,
+  "sec": 128.2
+ },
+ {
+  "model": "cnn_bigru",
+  "params": 43809,
+  "rf": "full 4 s (recurrent)",
+  "val_F1": 99.46,
+  "thr": 0.7500000000000001,
+  "Se": 99.08,
+  "PPV": 99.85,
+  "jitter": 2.8,
+  "sec": 154.7
+ },
+ {
+  "model": "unet1d",
+  "params": 678257,
+  "rf": "approx 1.5 s (4 poolings)",
+  "val_F1": 99.42,
+  "thr": 0.2,
+  "Se": 98.96,
+  "PPV": 99.88,
+  "jitter": 1.0,
+  "sec": 94.2
+ },
+ {
+  "model": "tcn_rf1s",
+  "params": 90921,
+  "rf": "187 samples = 748 ms",
+  "val_F1": 99.25,
+  "thr": 0.3,
+  "Se": 98.89,
+  "PPV": 99.61,
+  "jitter": 1.2,
+  "sec": 100.6
+ },
+ {
+  "model": "short_cnn_rf300ms",
+  "params": 33265,
+  "rf": "43 samples = 172 ms",
+  "val_F1": 98.73,
+  "thr": 0.6500000000000001,
+  "Se": 98.39,
+  "PPV": 99.07,
+  "jitter": 2.1,
+  "sec": 41.9
+ }
+]

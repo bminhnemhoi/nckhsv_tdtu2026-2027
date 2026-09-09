@@ -1,0 +1,39 @@
+
+=== SEQ LORO | band 10.0-60.0 Hz | 4 s segments | 4 leads | seeds [0, 1, 2] | epochs 6 | +/-50 ms ===
+data loaded 1s
+   tcn_rf2s seed0 test=r01 thr=0.40 F1=99.67
+   tcn_rf2s seed0 test=r04 thr=0.55 F1=98.53
+   tcn_rf2s seed0 test=r07 thr=0.50 F1=99.34
+   tcn_rf2s seed0 test=r08 thr=0.45 F1=95.14
+   tcn_rf2s seed0 test=r10 thr=0.35 F1=92.84
+   tcn_rf2s seed1 test=r01 thr=0.60 F1=99.69
+   tcn_rf2s seed1 test=r04 thr=0.50 F1=98.21
+   tcn_rf2s seed1 test=r07 thr=0.45 F1=99.36
+   tcn_rf2s seed1 test=r08 thr=0.50 F1=96.47
+   tcn_rf2s seed1 test=r10 thr=0.35 F1=92.46
+   tcn_rf2s seed2 test=r01 thr=0.25 F1=99.65
+   tcn_rf2s seed2 test=r04 thr=0.45 F1=98.29
+   tcn_rf2s seed2 test=r07 thr=0.55 F1=99.30
+   tcn_rf2s seed2 test=r08 thr=0.45 F1=96.20
+   tcn_rf2s seed2 test=r10 thr=0.30 F1=92.27
+>>> tcn_rf2s     macro F1  97.16 +- 4.34 | micro  97.15 | Se 97.05 | PPV 97.28 | jitter 3.64 ms | TP 37160 FP 1047 FN 1132 | 1893s
+   short_cnn seed0 test=r01 thr=0.30 F1=98.97
+   short_cnn seed0 test=r04 thr=0.50 F1=95.77
+   short_cnn seed0 test=r07 thr=0.20 F1=97.05
+   short_cnn seed0 test=r08 thr=0.50 F1=86.76
+   short_cnn seed0 test=r10 thr=0.30 F1=83.65
+   short_cnn seed1 test=r01 thr=0.30 F1=99.12
+   short_cnn seed1 test=r04 thr=0.40 F1=96.00
+   short_cnn seed1 test=r07 thr=0.45 F1=97.37
+   short_cnn seed1 test=r08 thr=0.55 F1=87.17
+   short_cnn seed1 test=r10 thr=0.35 F1=83.96
+   short_cnn seed2 test=r01 thr=0.30 F1=99.12
+   short_cnn seed2 test=r04 thr=0.20 F1=95.89
+   short_cnn seed2 test=r07 thr=0.25 F1=97.18
+   short_cnn seed2 test=r08 thr=0.70 F1=88.75
+   short_cnn seed2 test=r10 thr=0.20 F1=83.32
+>>> short_cnn    macro F1  92.67 +-10.46 | micro  92.74 | Se 92.78 | PPV 92.62 | jitter 4.11 ms | TP 35515 FP 2782 FN 2777 | 516s
+
+-- paired Wilcoxon on per-(record,lead) F1, seed 0 --
+  tcn_rf2s     vs short_cnn   :  97.10 vs  92.44  diff -4.66  p=0.0000
+DONE 2410s

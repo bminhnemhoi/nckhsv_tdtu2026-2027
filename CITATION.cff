@@ -1,0 +1,53 @@
+cff-version: 1.2.0
+title: "RelyFetal: Reliability-aware single-channel fetal QRS detection"
+message: "If you use this software or its results, please cite it as below."
+type: software
+authors:
+  - family-names: "Ngo"
+    given-names: "Binh Minh"
+    affiliation: "Faculty of Information Technology, Ton Duc Thang University"
+    city: "Ho Chi Minh City"
+    country: "VN"
+repository-code: "https://github.com/bminhnemhoi/nckhsv_tdtu2026-2027"
+abstract: >-
+  A reproducible pipeline for detecting fetal QRS complexes from single-channel
+  abdominal electrocardiography, together with the experimental evidence behind
+  every design decision. The central result is a three-tier contribution
+  decomposition showing that the signal front-end contributes +11.00 macro F1
+  points while the choice of network architecture family, at fixed temporal
+  context, contributes only +0.41 points and is not statistically significant
+  (paired Wilcoxon, p = 0.7012). The repository also documents a bimodal
+  cross-dataset failure mode that motivates a persistent-homology signal-quality
+  index with a reject option.
+keywords:
+  - fetal electrocardiography
+  - fetal QRS detection
+  - single-channel source separation
+  - temporal convolutional network
+  - signal quality index
+  - persistent homology
+  - topological data analysis
+  - reproducible research
+license: MIT
+license-url: "https://github.com/bminhnemhoi/nckhsv_tdtu2026-2027/blob/main/LICENSE"
+version: "3.0"
+date-released: "2026-09-09"
+references:
+  - type: database
+    title: "Abdominal and Direct Fetal ECG Database (ADFECGDB)"
+    doi: "10.13026/C2RP4B"
+    url: "https://physionet.org/content/adfecgdb/"
+    notes: "Primary evaluation dataset. Distributed under ODC-BY 1.0."
+  - type: article
+    title: "Power-MF: robust fetal QRS detection from non-invasive fetal electrocardiogram recordings"
+    doi: "10.1088/1361-6579/ad4952"
+    year: 2024
+    journal: "Physiological Measurement"
+    volume: "45"
+    issue: "5"
+    authors:
+      - family-names: "Jaeger"
+        given-names: "Katharina M."
+      - family-names: "Leutheuser"
+        given-names: "Heike"
+    notes: "Source of the label-blind power-spectral-density channel-selection rule."

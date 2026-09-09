@@ -1,0 +1,90 @@
+[
+ {
+  "band": "10-60",
+  "note": "Xu 2026 (dau ra)",
+  "contrast": 1.581,
+  "macro_F1": 91.06,
+  "sd": 8.84,
+  "micro_F1": 91.34,
+  "Se": 91.03,
+  "PPV": 91.24,
+  "sec": 75
+ },
+ {
+  "band": "8-45",
+  "note": "Xu 2026 (nhan)",
+  "contrast": 1.483,
+  "macro_F1": 89.63,
+  "sd": 11.1,
+  "micro_F1": 90.1,
+  "Se": 88.72,
+  "PPV": 90.81,
+  "sec": 89
+ },
+ {
+  "band": "15-60",
+  "note": "do duoc o Phan C",
+  "contrast": 1.875,
+  "macro_F1": 89.01,
+  "sd": 10.7,
+  "micro_F1": 89.26,
+  "Se": 88.82,
+  "PPV": 89.31,
+  "sec": 73
+ },
+ {
+  "band": "3-90",
+  "note": "pilot 1 cua chung toi",
+  "contrast": 1.377,
+  "macro_F1": 84.17,
+  "sd": 17.55,
+  "micro_F1": 85.87,
+  "Se": 81.52,
+  "PPV": 88.72,
+  "sec": 103
+ },
+ {
+  "band": "3-100",
+  "note": "Chen 2025 / Asadi 2025",
+  "contrast": 1.377,
+  "macro_F1": 83.8,
+  "sd": 18.63,
+  "micro_F1": 85.76,
+  "Se": 80.47,
+  "PPV": 89.57,
+  "sec": 89
+ },
+ {
+  "band": "1-45",
+  "note": "repo hien tai",
+  "contrast": 1.241,
+  "macro_F1": 80.06,
+  "sd": 24.69,
+  "micro_F1": 83.47,
+  "Se": 77.94,
+  "PPV": 86.05,
+  "sec": 108
+ },
+ {
+  "band": "20-95",
+  "note": "Behar 2014 grid-search",
+  "contrast": 2.123,
+  "macro_F1": 77.39,
+  "sd": 19.24,
+  "micro_F1": 77.53,
+  "Se": 78.88,
+  "PPV": 75.99,
+  "sec": 73
+ },
+ {
+  "band": "0.5-100",
+  "note": "Zhong 2018",
+  "contrast": 1.131,
+  "macro_F1": 72.17,
+  "sd": 25.48,
+  "micro_F1": 76.01,
+  "Se": 69.78,
+  "PPV": 78.45,
+  "sec": 106
+ }
+]

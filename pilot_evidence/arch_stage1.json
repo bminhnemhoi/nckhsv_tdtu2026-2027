@@ -1,0 +1,178 @@
+[
+ {
+  "arch": "resnet1d",
+  "kind": "1d",
+  "params": 92545,
+  "val_F1": 98.96,
+  "thr": 0.2,
+  "Se": 98.85,
+  "PPV": 99.08,
+  "jitter": 6.0,
+  "sec": 392.0
+ },
+ {
+  "arch": "tcn",
+  "kind": "1d",
+  "params": 63105,
+  "val_F1": 98.88,
+  "thr": 0.35000000000000003,
+  "Se": 98.62,
+  "PPV": 99.15,
+  "jitter": 5.9,
+  "sec": 772.2
+ },
+ {
+  "arch": "transformer",
+  "kind": "1d",
+  "params": 80385,
+  "val_F1": 98.81,
+  "thr": 0.35000000000000003,
+  "Se": 98.77,
+  "PPV": 98.85,
+  "jitter": 5.8,
+  "sec": 2108.6
+ },
+ {
+  "arch": "cnn_l",
+  "kind": "1d",
+  "params": 83137,
+  "val_F1": 98.77,
+  "thr": 0.25,
+  "Se": 98.46,
+  "PPV": 99.07,
+  "jitter": 5.6,
+  "sec": 213.1
+ },
+ {
+  "arch": "cnn_dil",
+  "kind": "1d",
+  "params": 25953,
+  "val_F1": 98.56,
+  "thr": 0.1,
+  "Se": 98.54,
+  "PPV": 98.58,
+  "jitter": 6.0,
+  "sec": 97.4
+ },
+ {
+  "arch": "cnn_gru",
+  "kind": "1d",
+  "params": 28257,
+  "val_F1": 98.25,
+  "thr": 0.45,
+  "Se": 98.12,
+  "PPV": 98.38,
+  "jitter": 6.7,
+  "sec": 261.7
+ },
+ {
+  "arch": "unet1d",
+  "kind": "1d",
+  "params": 46345,
+  "val_F1": 98.01,
+  "thr": 0.35000000000000003,
+  "Se": 97.96,
+  "PPV": 98.05,
+  "jitter": 6.2,
+  "sec": 892.3
+ },
+ {
+  "arch": "cnn_wide_k",
+  "kind": "1d",
+  "params": 38753,
+  "val_F1": 97.93,
+  "thr": 0.35000000000000003,
+  "Se": 97.54,
+  "PPV": 98.33,
+  "jitter": 5.9,
+  "sec": 182.3
+ },
+ {
+  "arch": "cnn_se",
+  "kind": "1d",
+  "params": 29845,
+  "val_F1": 97.65,
+  "thr": 0.4,
+  "Se": 97.73,
+  "PPV": 97.58,
+  "jitter": 11.4,
+  "sec": 134.4
+ },
+ {
+  "arch": "twostream",
+  "kind": "two",
+  "params": 53601,
+  "val_F1": 97.24,
+  "thr": 0.4,
+  "Se": 97.27,
+  "PPV": 97.2,
+  "jitter": 14.5,
+  "sec": 937.5
+ },
+ {
+  "arch": "cnn_m",
+  "kind": "1d",
+  "params": 25953,
+  "val_F1": 97.14,
+  "thr": 0.4,
+  "Se": 97.27,
+  "PPV": 97.01,
+  "jitter": 13.2,
+  "sec": 205.7
+ },
+ {
+  "arch": "cnn_s",
+  "kind": "1d",
+  "params": 13857,
+  "val_F1": 96.6,
+  "thr": 0.45,
+  "Se": 96.54,
+  "PPV": 96.65,
+  "jitter": 15.1,
+  "sec": 99.5
+ },
+ {
+  "arch": "mlp",
+  "kind": "1d",
+  "params": 27649,
+  "val_F1": 96.41,
+  "thr": 0.4,
+  "Se": 96.31,
+  "PPV": 96.51,
+  "jitter": 6.3,
+  "sec": 36.1
+ },
+ {
+  "arch": "cnn2d_delay",
+  "kind": "2d_delay",
+  "params": 27633,
+  "val_F1": 93.08,
+  "thr": 0.45,
+  "Se": 91.71,
+  "PPV": 94.69,
+  "jitter": 6.2,
+  "sec": 431.7
+ },
+ {
+  "arch": "linear",
+  "kind": "1d",
+  "params": 151,
+  "val_F1": 48.55,
+  "thr": 0.5,
+  "Se": 52.11,
+  "PPV": 45.46,
+  "jitter": 13.3,
+  "sec": 15.9
+ },
+ {
+  "arch": "cnn2d_pi",
+  "kind": "2d_pi",
+  "params": 27777,
+  "val_F1": 27.42,
+  "thr": 0.55,
+  "Se": 27.46,
+  "PPV": 27.51,
+  "jitter": 26.3,
+  "sec": 475.5
+ }
+]

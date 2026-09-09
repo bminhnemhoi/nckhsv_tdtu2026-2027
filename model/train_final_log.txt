@@ -1,0 +1,64 @@
+
+===== TRAIN FINAL | seed 0 | epochs 6 | band (10.0, 60.0) Hz | 4.0 s segments =====
+records loaded 1s
+model: 113,481 params, receptive field 379 samples = 1516 ms
+
+-- fold test=r01  val=r04  train=['r07', 'r08', 'r10'] --
+      epoch 1/6 loss 0.4424
+      epoch 2/6 loss 0.2498
+      epoch 3/6 loss 0.2314
+      epoch 4/6 loss 0.2209
+      epoch 5/6 loss 0.2160
+      epoch 6/6 loss 0.2138
+   val r04 F1 98.89 at thr 0.40  ->  TEST r01 macro F1 99.98 (Se 100.00, PPV 99.96, jitter 1.15 ms)
+
+-- fold test=r04  val=r01  train=['r07', 'r08', 'r10'] --
+      epoch 1/6 loss 0.4424
+      epoch 2/6 loss 0.2498
+      epoch 3/6 loss 0.2314
+      epoch 4/6 loss 0.2209
+      epoch 5/6 loss 0.2160
+      epoch 6/6 loss 0.2138
+   val r01 F1 100.00 at thr 0.55  ->  TEST r04 macro F1 98.85 (Se 98.69, PPV 99.00, jitter 2.57 ms)
+
+-- fold test=r07  val=r01  train=['r04', 'r08', 'r10'] --
+      epoch 1/6 loss 0.4530
+      epoch 2/6 loss 0.2567
+      epoch 3/6 loss 0.2371
+      epoch 4/6 loss 0.2247
+      epoch 5/6 loss 0.2181
+      epoch 6/6 loss 0.2160
+   val r01 F1 100.00 at thr 0.50  ->  TEST r07 macro F1 99.66 (Se 99.64, PPV 99.68, jitter 1.77 ms)
+
+-- fold test=r08  val=r01  train=['r04', 'r07', 'r10'] --
+      epoch 1/6 loss 0.4626
+      epoch 2/6 loss 0.2550
+      epoch 3/6 loss 0.2356
+      epoch 4/6 loss 0.2232
+      epoch 5/6 loss 0.2165
+      epoch 6/6 loss 0.2141
+   val r01 F1 97.88 at thr 0.45  ->  TEST r08 macro F1 95.55 (Se 95.43, PPV 95.67, jitter 6.07 ms)
+
+-- fold test=r10  val=r01  train=['r04', 'r07', 'r08'] --
+      epoch 1/6 loss 0.4352
+      epoch 2/6 loss 0.2313
+      epoch 3/6 loss 0.2177
+      epoch 4/6 loss 0.2112
+      epoch 5/6 loss 0.2082
+      epoch 6/6 loss 0.2071
+   val r01 F1 99.96 at thr 0.35  ->  TEST r10 macro F1 93.12 (Se 94.70, PPV 91.59, jitter 6.54 ms)
+
+===== LORO SUMMARY (seed 0) =====
+  macro F1 97.43 +- 4.37 | micro 97.41 | Se 97.69 | PPV 97.18 | jitter 3.62 ms
+  TP 12468  FP 366  FN 296  over 20 (record x lead) evaluations
+
+-- production model: training on ALL five records --
+      epoch 1/6 loss 0.3816
+      epoch 2/6 loss 0.2411
+      epoch 3/6 loss 0.2261
+      epoch 4/6 loss 0.2175
+      epoch 5/6 loss 0.2132
+      epoch 6/6 loss 0.2115
+  saved C:\Users\Admin\AppData\Local\Temp\claude\d--NCKHSV2026-2027\6d28f72f-143e-44dc-8fc9-44a5055f6415\scratchpad\pilot\checkpoints\fetalqrs_tcn_production.pt (threshold 0.45)
+
+DONE in 1882s. Checkpoints in C:\Users\Admin\AppData\Local\Temp\claude\d--NCKHSV2026-2027\6d28f72f-143e-44dc-8fc9-44a5055f6415\scratchpad\pilot\checkpoints

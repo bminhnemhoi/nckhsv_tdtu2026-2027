@@ -1,0 +1,18 @@
+
+=== SEQUENCE MODELS | 4 s segments @250 Hz | band 10.0-60.0 Hz | train r01,r04,r07 | val r08 | epochs 6 ===
+data loaded 1s
+train segments (3552, 2, 1000)  positive-sample rate 0.0592
+short_cnn_rf300ms    params  33,265 | RF 43 samples = 172 ms      | val F1  98.73 | Se  98.4 | PPV  99.1 | jitter  2.1 ms | 42s
+tcn_rf1s             params  90,921 | RF 187 samples = 748 ms     | val F1  99.25 | Se  98.9 | PPV  99.6 | jitter  1.2 ms | 101s
+tcn_rf2s             params 113,481 | RF 379 samples = 1516 ms    | val F1  99.50 | Se  99.1 | PPV  99.9 | jitter  1.0 ms | 128s
+tcn_rf4s             params 136,041 | RF 763 samples = 3052 ms    | val F1  99.52 | Se  99.1 | PPV  99.9 | jitter  1.0 ms | 165s
+unet1d               params 678,257 | RF approx 1.5 s (4 poolings) | val F1  99.42 | Se  99.0 | PPV  99.9 | jitter  1.0 ms | 94s
+cnn_bigru            params  43,809 | RF full 4 s (recurrent)     | val F1  99.46 | Se  99.1 | PPV  99.8 | jitter  2.8 ms | 155s
+
+-- ranking --
+   99.52  tcn_rf4s             RF 763 samples = 3052 ms
+   99.50  tcn_rf2s             RF 379 samples = 1516 ms
+   99.46  cnn_bigru            RF full 4 s (recurrent)
+   99.42  unet1d               RF approx 1.5 s (4 poolings)
+   99.25  tcn_rf1s             RF 187 samples = 748 ms
+   98.73  short_cnn_rf300ms    RF 43 samples = 172 ms

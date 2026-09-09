@@ -1,0 +1,62 @@
+# ---------------------------------------------------------------- data
+# Raw physiological recordings are NOT redistributed here.
+# Fetch them with:  python model/download_data.py --root model/data --only adfecgdb
+model/data/
+benchmark_dpss/pcdb/
+**/data/raw/
+*.edf
+*.edf.qrs
+*.dat
+*.hea
+*.fqrs
+*.atr
+
+# ---------------------------------------------------------------- third-party papers
+# Full-text PDFs of the 30 surveyed papers are copyrighted by their publishers
+# and are deliberately not redistributed. See survey/ for metadata and DOIs.
+papers/
+
+# ---------------------------------------------------------------- teammate material
+# Benchmark package authored by another team member; not ours to republish.
+goi-danh-gia-doi-chuan-dpss/
+
+# ---------------------------------------------------------------- LaTeX build
+*.aux
+*.log
+*.toc
+*.lot
+*.lof
+*.out
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.bbl
+*.blg
+de_cuong_latex/_flat.tex
+de_cuong_latex/_bc_flat.tex
+de_cuong_latex/fig_pipeline.pdf
+de_cuong_latex/de_cuong.pdf
+de_cuong_latex/bao_cao_30_paper.pdf
+de_cuong_latex/*.docx
+
+# ---------------------------------------------------------------- python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ---------------------------------------------------------------- os / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*~
+/Bao_cao_30_paper.pdf

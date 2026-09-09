@@ -1,0 +1,66 @@
+\documentclass[border=5pt,12pt]{standalone}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,backgrounds,calc}
+
+\definecolor{tdtblue}{HTML}{1F3864}
+\definecolor{okgreen}{HTML}{1E6B33}
+\definecolor{warnred}{HTML}{9B1C1C}
+\definecolor{lightb}{HTML}{DCE4F0}
+\definecolor{lightg}{HTML}{D6E8DC}
+\definecolor{lightr}{HTML}{F6DFDF}
+
+\begin{document}
+\begin{tikzpicture}[
+  font=\small,
+  node distance=7mm and 7mm,
+  blk/.style={draw=tdtblue,fill=lightb,rounded corners=2pt,line width=0.6pt,
+              minimum height=11mm,text width=28mm,align=center,inner sep=2.5pt},
+  net/.style={draw=okgreen,fill=lightg,rounded corners=2pt,line width=1pt,
+              minimum height=11mm,text width=28mm,align=center,inner sep=2.5pt},
+  fut/.style={draw=warnred,fill=lightr,rounded corners=2pt,line width=0.7pt,dashed,
+              minimum height=11mm,text width=28mm,align=center,inner sep=2.5pt},
+  io/.style={draw=black!55,fill=black!5,rounded corners=7pt,line width=0.6pt,
+             minimum height=11mm,text width=28mm,align=center,inner sep=2.5pt},
+  ar/.style={-{Stealth[length=2.2mm]},line width=0.7pt,draw=black!68},
+  dar/.style={-{Stealth[length=2.2mm]},line width=0.7pt,draw=warnred,dashed},
+]
+
+% ---------------- hang 1 : tien xu ly, trai sang phai
+\node[io]                (in)   {1 kênh aECG\\[-1pt]\scriptsize 1000 Hz};
+\node[blk,right=of in]   (pre)  {Butterworth 10--60 Hz\\[-1pt]\scriptsize notch 50 Hz $\rightarrow$ 250 Hz};
+\node[blk,right=of pre]  (mqrs) {Dò QRS mẹ\\[-1pt]\scriptsize dải 8--25 Hz, RR $\geq$ 350 ms};
+\node[blk,right=of mqrs] (canc) {Khử ECG mẹ\\[-1pt]\scriptsize mẫu trung vị + LS từng nhịp};
+
+\draw[ar] (in)--(pre);  \draw[ar] (pre)--(mqrs);  \draw[ar] (mqrs)--(canc);
+
+% ---------------- hang 2 : mang, phai sang trai
+\node[blk,below=11mm of canc] (seg)  {Đoạn 4 giây\\[-1pt]\scriptsize 2 $\times$ 1000 (dư + gốc)};
+\node[net,left=of seg]        (net)  {\textbf{FetalQRS-TCN}\\[-1pt]\scriptsize 5 khối dilated 1--16\\[-2.5pt]\scriptsize RF 1.516 ms};
+\node[blk,left=of net]        (out)  {Heatmap từng mẫu\\[-1pt]\scriptsize $\sigma = 12$ ms};
+\node[blk,left=of out]        (peak) {Lấy đỉnh\\[-1pt]\scriptsize ngưỡng $\tau$ + trơ 250 ms};
+
+\draw[ar] (canc)--(seg);
+\draw[ar] (seg)--(net);  \draw[ar] (net)--(out);  \draw[ar] (out)--(peak);
+
+% ---------------- hang 3 : nhanh do tin cay (chua trien khai) + dau ra
+\node[fut,below=11mm of seg] (sqi) {fSQI đồng điều bền vững\\[-1pt]\scriptsize \textbf{C3 --- chưa triển khai}};
+\node[fut,left=of sqi]       (rej) {Cổng từ chối trả lời\\[-1pt]\scriptsize loại đoạn fSQI thấp};
+\node[io,below=11mm of peak] (fhr) {Vị trí nhịp thai\\[-1pt]\scriptsize + nhịp tim thai};
+
+\draw[ar]  (peak)--(fhr);
+\draw[dar] (seg)--(sqi);
+\draw[dar] (sqi)--(rej);
+\draw[dar] (rej) -- node[font=\scriptsize\itshape,text=warnred,pos=0.55,above,rotate=90,anchor=south]{} (out.south -| rej.north);
+
+% ---------------- chu thich
+\node[font=\scriptsize\itshape,text=okgreen,above=1.5mm of net.north,anchor=south]
+      {113.481 tham số};
+\node[font=\scriptsize\itshape,text=warnred,below=2mm of rej.south west,anchor=north west]
+      {nhánh độ tin cậy sẽ xây dựng trong đề tài};
+\node[font=\scriptsize\itshape,text=black!55,below=2mm of fhr.south east,anchor=north east]
+      {đã chạy được};
+
+\end{tikzpicture}
+\end{document}

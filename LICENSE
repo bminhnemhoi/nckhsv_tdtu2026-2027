@@ -1,0 +1,54 @@
+MIT License
+
+Copyright (c) 2026 Ngo Binh Minh, Ton Duc Thang University
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+--------------------------------------------------------------------------------
+SCOPE NOTE
+
+The MIT license above covers the SOURCE CODE in this repository.
+
+Other material is licensed separately:
+
+  * Documentation, figures and the research proposal (docs/, de_cuong_latex/)
+    are released under Creative Commons Attribution 4.0 International
+    (CC BY 4.0) -- https://creativecommons.org/licenses/by/4.0/
+
+  * Trained model weights (model/checkpoints/) are released under
+    CC BY 4.0. They are derived from PhysioNet ADFECGDB, which is distributed
+    under the Open Data Commons Attribution License v1.0 (ODC-BY 1.0).
+    Attribution to the original database is required; see README.
+
+  * Physiological recordings are NOT redistributed in this repository.
+    Download them from PhysioNet with model/download_data.py and comply with
+    the licence of each source database.
+
+  * Full-text PDFs of the 30 surveyed publications are NOT redistributed.
+    They remain the copyright of their respective publishers. This repository
+    contains only bibliographic metadata, DOIs and our own analysis of them.
+
+--------------------------------------------------------------------------------
+CLINICAL DISCLAIMER
+
+This software is a research prototype. It is NOT a medical device, has NOT
+been clinically validated, and carries no regulatory clearance of any kind.
+It must not be used to make, support or influence any diagnostic or treatment
+decision. Fetal heart rate monitoring for clinical purposes requires
+appropriately certified equipment operated by qualified personnel.

@@ -1,0 +1,9 @@
+
+=== FINAL LORO | band 10.0-60.0 Hz | window 75 samples (300 ms) | 4 leads | seeds [0, 1, 2] | epochs 10 | +/-50 ms ===
+data built 6s
+gbm        macro F1  92.49 +- 8.23 | micro  92.55 | Se 93.19 | PPV 91.84 | jitter  7.2 ms | n=20 | 80s
+cnn_dil    macro F1  92.90 +- 9.89 | micro  93.10 | Se 92.97 | PPV 93.01 | jitter  7.0 ms | n=60 | 4843s
+
+-- paired Wilcoxon on per-(record,lead) F1, seed 0 --
+  gbm vs cnn_dil   :  92.49 vs  92.92  diff +0.42  p=0.7012
+DONE 4929s

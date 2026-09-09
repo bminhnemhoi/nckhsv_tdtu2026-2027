@@ -1,0 +1,71 @@
+\documentclass[12pt,a4paper]{article}
+\input{preamble.tex}
+
+\title{Đề cương nghiên cứu khoa học sinh viên --- RelyFetal}
+\author{Ngô Bình Minh}
+\date{09/09/2026}
+
+\begin{document}
+
+% ============================================================ TRANG BÌA
+\begin{titlepage}
+\centering
+\setstretch{1.0}
+\vspace*{0.1cm}
+
+{\large TRƯỜNG ĐẠI HỌC TÔN ĐỨC THẮNG}\\[2pt]
+{\large KHOA CÔNG NGHỆ THÔNG TIN}\\[1.0cm]
+
+{\Large\bfseries ĐỀ CƯƠNG NGHIÊN CỨU KHOA HỌC SINH VIÊN}\\[0.3cm]
+{\large Năm học 2026 --- 2027}\\[1.1cm]
+
+\rule{\textwidth}{0.8pt}\\[0.5cm]
+{\LARGE\bfseries\color{tdtblue} Dò phức bộ QRS thai nhi từ điện tim ổ bụng đơn kênh có nhận biết độ tin cậy\par}
+\vspace{0.35cm}
+{\large Đối chuẩn không rò rỉ giữa các họ biểu diễn tín hiệu\\ và chỉ số chất lượng dựa trên đồng điều bền vững\par}
+\vspace{0.45cm}
+\rule{\textwidth}{0.8pt}\\[0.4cm]
+
+{\normalsize\itshape Reliability-aware single-channel fetal QRS detection:\\
+a leakage-free representation benchmark and a persistent-homology signal-quality index\par}
+\vspace{0.9cm}
+
+\begin{tabular}{@{}r@{\hspace{1.2em}}l@{}}
+\textbf{Tên hệ thống}      & \textsc{RelyFetal} \\[3pt]
+\textbf{Chủ nhiệm đề tài}  & Ngô Bình Minh \\[3pt]
+\textbf{Nhóm thực hiện}    & 03 sinh viên \\[3pt]
+\textbf{Thời lượng}        & 24 tuần \\[3pt]
+\textbf{Phiên bản}         & 3.0 --- 09/09/2026 \\[3pt]
+\textbf{Mục tiêu công bố}  & \makecell[l]{01 tạp chí Q1 (\textit{Physiological Measurement} /\\ \textit{Biomed.\ Signal Process.\ Control} / \textit{IEEE JBHI})\\ 01 hội nghị \textit{Computing in Cardiology}\\ 01 báo cáo Euréka} \\
+\end{tabular}
+
+\vfill
+
+\begin{ghichu}[title={Điểm khác biệt của bản đề cương này}]
+\footnotesize
+\justifying
+Đây không phải một bản kế hoạch thuần lý thuyết. Trước khi viết, nhóm đã chạy hơn 600.000 cửa sổ
+tín hiệu qua khoảng sáu giờ tính toán, huấn luyện và lưu sáu mô hình, đọc toàn văn 30 công trình,
+và \textbf{tự bác bỏ giả thuyết trung tâm của chính bản đề cương phiên bản đầu tiên}.
+Mọi con số trong tài liệu này đều do nhóm tự đo, có mã nguồn và nhật ký kèm theo, và chạy lại được.
+Những chỗ nhóm còn chưa chắc chắn được ghi rõ trong \S\ref{sec:phanbien}.
+\end{ghichu}
+
+\vspace{0.5cm}
+{\small Thành phố Hồ Chí Minh --- Tháng 9 năm 2026}
+\end{titlepage}
+
+% ============================================================ MỤC LỤC
+\pagenumbering{roman}
+\tableofcontents
+\clearpage
+\listoftables
+\listoffigures
+\clearpage
+\pagenumbering{arabic}
+
+\input{sec_1_3.tex}
+\input{sec_4_6.tex}
+\input{sec_7_12.tex}
+
+\end{document}

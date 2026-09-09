@@ -1,0 +1,365 @@
+% ================================================================= 7. HỆ THỐNG AGENT
+\section{Khảo sát ý tưởng hệ thống nhiều mô hình}
+\label{sec:agent}
+
+Một hướng nhóm cân nhắc là: thay vì một mô hình duy nhất, xây một hệ thống nhiều tác tử, mỗi nhiệm vụ
+con dùng mô hình tối ưu riêng cho nó. Mục này là kết quả khảo sát nghiêm túc ý tưởng đó, dựa trên bằng
+chứng từ 30 công trình đã đọc và từ số đo của chính nhóm.
+
+\subsection{Nhận xét đầu tiên: pipeline hiện tại đã là hệ dị thể}
+
+Pipeline của nhóm hiện gồm bốn khối dùng bốn loại công cụ khác nhau: lọc Butterworth (xử lý tín hiệu
+cổ điển), mẫu trung vị kết hợp bình phương tối thiểu (thống kê cổ điển), mạng tích chập giãn nở (học sâu),
+và lấy đỉnh có thời gian trơ (luật xác định). Đây \textbf{đã là} nguyên tắc ``mỗi việc một công cụ tối ưu''.
+Thêm một tầng điều phối lên trên chỉ đổi tên gọi chứ không thêm năng lực.
+
+\subsection{Phân rã bảy nhiệm vụ con và mô hình tối ưu cho từng nhiệm vụ}
+
+\begin{table}[H]\centering\small
+\caption{Bảy nhiệm vụ con của bài toán và mô hình tối ưu theo bằng chứng từ y văn cùng số đo của nhóm.}
+\label{tab:nhiemvu}
+\begin{tabular}{@{}C{0.8cm} L{3.4cm} L{5.0cm} L{4.6cm}@{}}
+\toprule
+\textbf{\#} & \textbf{Nhiệm vụ con} & \textbf{Mô hình tối ưu theo bằng chứng} & \textbf{Trạng thái} \\
+\midrule
+1 & Đánh giá chất lượng tín hiệu & Còn bỏ ngỏ. Heuristic phổ sụp ngoài miền (\S\ref{sec:chonkenh}) &
+\xau{Đây chính là C3} \\
+2 & Dò QRS mẹ & Luật cổ điển kiểu Pan--Tompkins & Đã có, đủ tốt \\
+3 & Khử ECG mẹ & \textbf{Còn tranh chấp thật}: trừ mẫu, lọc Kalman mở rộng, hay mạng tái tạo &
+Cơ hội cải tiến \\
+4 & Dò QRS thai & Đã bão hoà: đổi kiến trúc chỉ $+0{,}41$ điểm, $p = 0{,}7012$ & Đã có, khó cải thiện \\
+5 & Sửa lỗi nhịp, nội suy khoảng mất & Làm mượt khoảng RR bằng luật sinh lý & Chưa làm \\
+6 & Ước lượng nhịp tim thai & Tính trực tiếp từ khoảng RR & Đã có \\
+7 & Quyết định từ chối trả lời & Chưa có tiền lệ cho tín hiệu thai & \xau{Đây chính là C3} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Trong bảy nhiệm vụ, \textbf{năm} có lời giải tốt nhất là giải pháp cổ điển xác định, \textbf{một} đã bão
+hoà, và chỉ \textbf{một} (khử ECG mẹ) còn tranh chấp thật sự về mô hình.
+
+\subsection{Y văn nói gì về hướng nhiều mô hình}
+
+Trong 30 công trình đã đọc, \textbf{không có công trình nào} dùng tác tử ngôn ngữ lớn hoặc kiến trúc
+hỗn hợp chuyên gia có cổng học được cho bài toán điện tim thai. Nhưng \textbf{có} tiền lệ rõ ràng cho
+hợp nhất và nối tầng:
+
+\begin{table}[H]\centering\small
+\caption{Tiền lệ hợp nhất và nối tầng trong y văn, kèm mức lợi ích công bố.}
+\label{tab:ensemble}
+\begin{tabular}{@{}L{5.4cm} L{4.4cm} L{4.6cm}@{}}
+\toprule
+\textbf{Công trình} & \textbf{Cơ chế} & \textbf{Mức lợi ích công bố} \\
+\midrule
+Behar và cộng sự 2014 (FUSE) & Hợp nhất nhiều bộ trích xuất & khoảng $+3{,}0$ điểm F1 so với phương
+pháp đơn tốt nhất \\
+Shokouhmand \& Tavassolian 2023 & Nối tầng khối khử nhiễu trước tách nguồn & $+22{,}45$ điểm \\
+Asadi và cộng sự 2025 & Nối tầng hai mạng U-Net & $+1{,}1$ đến $+1{,}6$ điểm độ nhạy \\
+Behar và cộng sự 2014 (cổng bSQI) & \textbf{Cổng từ chối} theo chất lượng & $+0{,}95$ đến $+1{,}11$ điểm
+khi chỉ loại 3,6\% tín hiệu \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{ghichu}[title={Kết luận quan trọng nhất của mục này}]
+Giá trị của ``tác tử'' trong y văn điện tim thai nằm ở \textbf{quyền chọn} và \textbf{quyền từ chối},
+không nằm ở việc luân chuyển giữa nhiều mô hình dò. Điều này trùng khít với đóng góp C3 mà nhóm đã đề xuất.
+\end{ghichu}
+
+\subsection{Còn bao nhiêu dư địa để cải tiến}
+
+Trong miền, nhóm đang ở 99,21 (kênh mù nhãn) và 97,45 (trung bình bốn kênh). Trần là 100. Nghĩa là dư địa
+còn lại chỉ \textbf{0,79} đến \textbf{2,55} điểm. Trong khi đó, ngưỡng phân giải thống kê thực nghiệm của
+nhóm nằm đâu đó giữa 0,41 điểm (không phân biệt được, $p = 0{,}70$) và 4,53 điểm (phân biệt rõ,
+$p = 0{,}0000$). Suy ra: \textbf{bất kỳ thành phần nào hứa hẹn dưới khoảng 0,8 điểm đều không chứng minh
+được với $n = 5$}, nên không đáng xây.
+
+Chỗ sụp thật sự là ngoài miền: 77,34 với phân bố lưỡng cực. Đó mới là nơi đáng đầu tư.
+
+\subsection{Rủi ro và khuyến nghị}
+
+\begin{canhbao}[title={Rủi ro lớn nhất không phải tốc độ}]
+Rủi ro lớn nhất của một hệ bảy tác tử là nó phá hỏng \textbf{hai tài sản duy nhất} khiến đề tài này có
+cửa đăng Q1:
+\begin{enumerate}[leftmargin=1.5em,itemsep=2pt]
+\item \textbf{Tính đơn giản tái lập được}: 113.481 tham số, 0,48\,MB, 4,35\,ms. Rất hiếm trong 30 công
+trình đã đọc, và là điểm mạnh thật khi phản biện.
+\item \textbf{Tính chặt chẽ thống kê trên $n = 5$ sản phụ.} Mỗi thành phần học được thêm vào là một chỗ
+mới cho rò rỉ dữ liệu ẩn nấp và một siêu tham số mới phải biện minh.
+\end{enumerate}
+Y văn có ví dụ cụ thể: FUSE với mười hai siêu tham số đã buộc chính tác giả phải báo cáo F1 trong mẫu.
+\end{canhbao}
+
+\textbf{Khuyến nghị của nhóm, theo thứ tự ưu tiên:}
+
+\begin{enumerate}[leftmargin=1.8em,itemsep=4pt]
+\item \textbf{Xây cổng từ chối dựa trên fSQI}, báo cáo bằng đường cong rủi ro--độ phủ kèm đường cơ sở
+cổng ngẫu nhiên. Đây là C3.
+\item \textbf{Làm mượt khoảng RR} bằng luật sinh lý, kèm bắt buộc so với đường cơ sở nhịp hằng số.
+\item \textbf{Thí nghiệm chẩn đoán} vì sao ba bản ghi CinC sụp đổ.
+\item Chỉ khi ba việc trên xong mới cân nhắc bộ chọn dải thông thích nghi --- dạng ``tác tử'' duy nhất
+có căn cứ, vì nhóm đã chứng minh dải thông là biến quan trọng nhất.
+\end{enumerate}
+
+\textbf{Không} xây hệ bảy tác tử. \textbf{Không} dùng mô hình ngôn ngữ lớn điều phối. Cả hai đều thêm độ
+phức tạp mà nhóm không chứng minh được là cần thiết, và phản biện Q1 sẽ đánh đúng vào đó.
+
+\clearpage
+
+% ================================================================= 8. TỰ PHẢN BIỆN
+\section{Những chỗ đề tài còn yếu}
+\label{sec:phanbien}
+
+Mục này nhóm viết ở vai phản biện của một tạp chí Q1, cố tình tìm cách bác bỏ chính mình. Nhóm đưa vào
+đề cương vì hội đồng sẽ hỏi những câu này, và tốt hơn là nhóm trả lời trước.
+
+\begin{table}[H]\centering\small
+\caption{Các điểm yếu nhóm tự xác định, mức nghiêm trọng và cách xử lý.}
+\label{tab:yeu}
+\begin{tabular}{@{}L{5.6cm} C{1.9cm} L{6.8cm}@{}}
+\toprule
+\textbf{Điểm yếu} & \textbf{Mức độ} & \textbf{Cách xử lý} \\
+\midrule
+Chỉ 5 sản phụ, tất cả đều đang chuyển dạ tuần 38--41. Không có điểm dữ liệu nào dưới 38 tuần, trong khi
+giá trị lâm sàng chính nằm ở tuần 24--37 &
+\xau{Nghiêm trọng} & Bổ sung bộ Silesia (Matonia 2020, 10 sản phụ thai kỳ) trong Phase P0, nâng $n$ lên
+khoảng 22 \\
+Khoảng tin cậy 95\% của 99,21 với $n = 5$ vượt quá 100\%, tức giả định phân phối chuẩn bị vi phạm &
+\xau{Nghiêm trọng} & Dùng bootstrap và thang logit thay vì phân phối $t$ \\
+Bảng 16 kiến trúc chạy ở dải sai, một bản ghi, một seed, ngưỡng quét trên chính bản ghi đánh giá &
+\xau{Nghiêm trọng} & Chạy lại toàn bộ ở 10--60\,Hz, tách bản ghi đầy đủ, ba seed --- Phase P1 \\
+Chưa cài lại baseline nào. Mọi so sánh với y văn là so với con số đã công bố &
+\xau{Nghiêm trọng} & Cài lại bốn baseline cổ điển, dùng mã mở của Power-MF làm tham chiếu \\
+Đóng góp C3 chưa có một dòng dữ liệu nào & Cao & Là trọng tâm Phase P4--P6 \\
+Chưa chạy thí nghiệm tinh chỉnh (E7) & Trung bình & Phase P7 \\
+Chưa có đường cong F1--SNR và đường cong hiệu quả mẫu & Trung bình & Phase P8 \\
+Chưa tăng cường dữ liệu & Thấp & Phase P3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Đánh giá thẳng thắn ba đóng góp}
+
+\begin{description}[leftmargin=2.4em,style=nextline,itemsep=6pt]
+
+\item[C2 --- đủ mạnh, là xương sống.]
+Phân rã đóng góp ba tầng là kết quả phản trực giác, có kiểm định thống kê, và trực tiếp phản bác cách
+làm của cả một dòng công trình. Sau khi phát biểu lại cho chính xác (\S\ref{sec:ketqua}), đây là phần
+vững nhất.
+
+\item[C3 --- tiềm năng cao nhất, nhưng chưa có dữ liệu.]
+Đây là điểm khác biệt thật sự và là chỗ duy nhất nhóm còn tuyên bố ``đầu tiên'' một cách an toàn.
+Kết quả ở \S\ref{sec:chonkenh} cho thấy động cơ là có thật và đã đo được. Nhưng hiện tại C3 vẫn là
+thiết kế trên giấy.
+
+\item[C1 --- yếu hơn nhóm tưởng.]
+Kho \texttt{mad-lab-fau/fecg-benchmarking} đi kèm Power-MF đã tồn tại và đã làm một phần việc đối chuẩn.
+Nhóm phải định vị lại C1: không phải ``đối chuẩn đầu tiên'' mà là ``đối chuẩn đầu tiên \textbf{giữa các
+họ biểu diễn} ở cấu hình \textbf{đơn kênh} với quy tắc chọn kênh \textbf{mù nhãn} đăng ký trước''.
+
+\end{description}
+
+\subsection{Kiến trúc nhóm đã cân nhắc và loại}
+
+Để phòng câu hỏi ``sao không dùng kiến trúc mới nhất'', nhóm đã rà soát các họ kiến trúc 2024--2026.
+
+\begin{table}[H]\centering\small
+\caption{Các họ kiến trúc mới được cân nhắc và lý do loại.}
+\label{tab:loai}
+\begin{tabular}{@{}L{4.2cm} C{2.0cm} L{8.0cm}@{}}
+\toprule
+\textbf{Họ kiến trúc} & \textbf{Quyết định} & \textbf{Lý do} \\
+\midrule
+Tiền huấn luyện tự giám sát kiểu wav2vec & \tot{Nên thử} & Nhóm chỉ có 5 chủ thể có nhãn, trong khi có
+sẵn kho tín hiệu ổ bụng không nhãn lớn. Đây là lý do đáng tin duy nhất \\
+Mamba, S4, S6 (mô hình không gian trạng thái) & Loại & Ưu thế của chúng là chuỗi rất dài. Ở đây chuỗi chỉ
+1.000 mẫu và quét trường tiếp nhận đã bão hoà ở 1,5 giây \\
+KAN, RetNet, xLSTM, PatchTST & Loại & Không tìm thấy căn cứ nào cho tín hiệu 4 giây ở 250\,Hz \\
+Neural ODE & Loại & Chi phí lớn, không có lợi thế rõ cho bài toán định vị đỉnh \\
+Transformer & Đã thử, loại & Chậm gấp 21,7 lần \texttt{cnn\_dil} để đổi lấy 0,25 điểm \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{canhbao}[title={Ranh giới của khẳng định trên}]
+Nhóm \textbf{không tìm thấy} công trình nào áp dụng Mamba cho dò QRS thai từ điện tim ổ bụng.
+``Không tìm thấy'' khác với ``không tồn tại''. Nếu muốn khẳng định trong bài báo, nhóm phải tự chạy
+thí nghiệm loại bỏ, chứ không được trích dẫn suy luận.
+\end{canhbao}
+
+\clearpage
+
+% ================================================================= 9. KẾ HOẠCH
+\section{Kế hoạch triển khai 24 tuần}
+
+\subsection{Mười hai giai đoạn}
+
+\begin{table}[H]\centering\small
+\caption{Kế hoạch 12 giai đoạn trong 24 tuần, kèm hai cổng quyết định.}
+\label{tab:plan}
+\begin{tabular}{@{}C{1.1cm} C{1.5cm} L{6.6cm} L{4.6cm}@{}}
+\toprule
+\textbf{Mã} & \textbf{Tuần} & \textbf{Nội dung} & \textbf{Sản phẩm} \\
+\midrule
+P0 & 1--2 & Bổ sung dữ liệu: Silesia B1/B2, FECGSYNDB, NInFEA. Viết thẻ dữ liệu và quy trình chống rò rỉ
+bốn tầng & Kho dữ liệu có mã băm \\
+P1 & 3--4 & Chạy lại bảng kiến trúc ở 10--60\,Hz, tách bản ghi đầy đủ, ba seed & Bảng kiến trúc đã sửa \\
+P2 & 5--6 & Cài lại bốn baseline cổ điển; đối chiếu với mã mở Power-MF & Baseline chạy được \\
+P3 & 7--8 & Tăng cường dữ liệu; huấn luyện lại mô hình chính & Mô hình v2 \\
+\midrule
+\multicolumn{4}{@{}l}{\cellcolor{rowbg}\textbf{Cổng 1 (tuần 8):} nếu chưa đạt F1 $\geq$ 95\% với $n \geq 15$
+chủ thể thì dừng mở rộng, tập trung viết C1 + C2} \\
+\midrule
+P4 & 9--11 & Cài đặt đặc trưng đồng điều bền vững cho đánh giá chất lượng & Thư viện fSQI \\
+P5 & 12--13 & So fSQI topo với SampEn, bSQI, kurtosis, entropy phổ & Bảng tương quan \\
+P6 & 14--16 & Cổng từ chối trả lời; đường cong rủi ro--độ phủ & Kết quả C3 \\
+\midrule
+\multicolumn{4}{@{}l}{\cellcolor{rowbg}\textbf{Cổng 2 (tuần 16):} nếu fSQI không đạt $|\rho| \geq 0{,}6$
+thì công bố kết quả phủ định có kiểm định, vẫn đủ cho một bài báo} \\
+\midrule
+P7 & 17--18 & Tiền huấn luyện FECGSYNDB rồi tinh chỉnh (E7) & Kết quả chuyển miền \\
+P8 & 19--20 & Đường cong F1--SNR, đường cong hiệu quả mẫu, kiểm định thống kê đầy đủ & Bộ hình cho bài báo \\
+P9 & 21 & Đóng gói: API, bảng điều khiển, Docker & Sản phẩm chạy được \\
+P10 & 22--23 & Viết bài hội nghị 4 trang và bản thảo tạp chí & Hai bản thảo \\
+P11 & 24 & Hoàn thiện, nộp, báo cáo Euréka & Hồ sơ nộp \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Phân vai ba sinh viên}
+
+\begin{table}[H]\centering\small
+\caption{Phân vai và trách nhiệm chính.}
+\label{tab:vai}
+\begin{tabular}{@{}L{3.2cm} L{5.4cm} L{5.6cm}@{}}
+\toprule
+\textbf{Vai} & \textbf{Trách nhiệm chính} & \textbf{Giai đoạn phụ trách} \\
+\midrule
+Chủ nhiệm đề tài & Kiến trúc mô hình, huấn luyện, thống kê, viết bài & P1, P3, P8, P10 \\
+Thành viên 2 & Dữ liệu, chống rò rỉ, baseline, tái lập & P0, P2, P7 \\
+Thành viên 3 & Đặc trưng topo, fSQI, cổng từ chối, đóng gói & P4, P5, P6, P9 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+
+% ================================================================= 10. SẢN PHẨM
+\section{Sản phẩm và công bố}
+
+\subsection{Sản phẩm bàn giao}
+
+\begin{table}[H]\centering\small
+\caption{Danh mục sản phẩm, kèm trạng thái hiện tại.}
+\label{tab:sanpham}
+\begin{tabular}{@{}L{5.6cm} L{6.0cm} C{2.6cm}@{}}
+\toprule
+\textbf{Sản phẩm} & \textbf{Mô tả} & \textbf{Trạng thái} \\
+\midrule
+Thư viện \texttt{fqrs\_model.py} & Cài đặt tham chiếu đầy đủ pipeline & \tot{Đã có} \\
+Sáu checkpoint đã huấn luyện & Năm mô hình tách bản ghi + một mô hình sản xuất & \tot{Đã có} \\
+Công cụ tải dữ liệu & Tải trực tiếp từ PhysioNet, ghi mã băm SHA-256 & \tot{Đã có} \\
+Công cụ suy luận dòng lệnh & Hỗ trợ EDF, WFDB, CSV, NPY & \tot{Đã có} \\
+Bộ mã đối chuẩn & Chạy đúng giao thức, kiểm chứng chéo Hungarian & \tot{Đã có} \\
+Thư viện fSQI topo & Đặc trưng đồng điều bền vững & Phase P4 \\
+Cổng từ chối trả lời & Kèm đường cong rủi ro--độ phủ & Phase P6 \\
+API và bảng điều khiển & Đóng gói Docker & Phase P9 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Kế hoạch công bố}
+
+\begin{enumerate}[leftmargin=1.8em,itemsep=4pt]
+\item \textbf{Hội nghị Computing in Cardiology} (4 trang, hạn tháng 4): trình bày C2, phân rã đóng góp
+ba tầng. Đây là kết quả đã có, viết được ngay sau Phase P1.
+\item \textbf{Tạp chí Q1} --- \textit{Physiological Measurement} hoặc \textit{Biomedical Signal Processing
+and Control} hoặc \textit{IEEE JBHI}: bài đầy đủ gồm C1, C2, C3.
+\item \textbf{Báo cáo Euréka}: bản tiếng Việt, nhấn mạnh sản phẩm chạy được và giá trị ứng dụng.
+\end{enumerate}
+
+\begin{ghichu}[title={Vì sao đề tài có cửa Q1}]
+Ba lý do, xếp theo độ vững:
+\begin{enumerate}[leftmargin=1.5em,itemsep=2pt]
+\item \textbf{Một kết quả phản trực giác có kiểm định thống kê} (C2): front-end tín hiệu quan trọng hơn
+họ kiến trúc mạng khoảng 27 lần. Điều này phản bác cách làm của cả một dòng công trình.
+\item \textbf{Một khoảng trống thật, đã kiểm tra bằng bốn cơ sở dữ liệu và ba ngôn ngữ} (G3).
+\item \textbf{Một động cơ lâm sàng đã đo được} cho C3: chỉ số chất lượng dựa trên phổ đạt oracle trong
+miền nhưng sụp đổ ngoài miền. Đây là bằng chứng, không phải phỏng đoán.
+\end{enumerate}
+Và kể cả khi C3 thất bại, giả thuyết H0 đã dự phòng: đối chuẩn cộng phân rã cộng kết quả phủ định có
+kiểm định vẫn là một bài báo hoàn chỉnh.
+\end{ghichu}
+
+\clearpage
+
+% ================================================================= 11. TÀI LIỆU
+\section{Tài liệu tham khảo}
+
+Ba mươi công trình dưới đây nhóm đã đọc \textbf{toàn văn}, không dừng ở tóm tắt. Bản PDF được lưu trong
+thư mục \texttt{papers/} kèm tệp \texttt{papers\_records.json} ghi nguồn tải và mức truy cập của từng bài.
+
+\input{tables/danhmuc.tex}
+
+\subsection*{Tài liệu bổ sung phát hiện trong quá trình rà soát}
+
+\begin{enumerate}[leftmargin=1.6em,itemsep=2pt,label={[\arabic*]},start=31]
+\item Jaeger KM, Nissen M, Rahm S, Titzmann A, Fasching PA, Beilner J, Eskofier BM, Leutheuser H.
+Power-MF: robust fetal QRS detection from non-invasive fetal electrocardiogram recordings.
+\textit{Physiological Measurement} 45(5):055009, 2024. DOI 10.1088/1361-6579/ad4952.
+Mã nguồn: \texttt{github.com/mad-lab-fau/fecg-benchmarking}.
+\end{enumerate}
+
+\clearpage
+
+% ================================================================= 12. PHỤ LỤC
+\section*{Phụ lục A --- Cách chạy lại toàn bộ kết quả}
+\addcontentsline{toc}{section}{Phụ lục A --- Cách chạy lại toàn bộ kết quả}
+
+\begin{verbatim}
+pip install numpy scipy scikit-learn torch mne wfdb
+
+# 1. Tải dữ liệu trực tiếp từ PhysioNet, ghi mã băm SHA-256
+cd model
+python download_data.py --root data --only adfecgdb
+
+# 2. Huấn luyện lại toàn bộ (khoảng 30 phút CPU), sinh 6 checkpoint
+python train_final.py --epochs 6 --seed 0
+
+# 3. Suy luận trên một bản ghi bằng checkpoint chưa từng thấy bản ghi đó
+python predict.py --input data/adfecgdb/r01.edf --lead 1 --annot qrs \
+                  --checkpoint checkpoints/fetalqrs_tcn_fold_r01.pt
+
+# 4. Chạy đối chuẩn và quy tắc chọn kênh mù nhãn
+cd ../benchmark_dpss
+python run_dpss_protocol.py --mode loro
+python full_measure.py
+python blind_lead.py
+\end{verbatim}
+
+\section*{Phụ lục B --- Cấu trúc thư mục bàn giao}
+\addcontentsline{toc}{section}{Phụ lục B --- Cấu trúc thư mục bàn giao}
+
+\begin{table}[H]\centering\small
+\begin{tabular}{@{}L{5.0cm} L{9.4cm}@{}}
+\toprule
+\textbf{Thư mục} & \textbf{Nội dung} \\
+\midrule
+\texttt{model/} & Thư viện tham chiếu, mã huấn luyện, mã suy luận, 6 checkpoint, dữ liệu ADFECGDB \\
+\texttt{pilot\_evidence/} & Mã và nhật ký của toàn bộ thí nghiệm tiền khả thi \\
+\texttt{benchmark\_dpss/} & Mã đối chuẩn, kiểm chứng Hungarian, quy tắc chọn kênh mù nhãn \\
+\texttt{papers/} & 30 bản PDF toàn văn và ma trận bằng chứng \\
+\texttt{survey/} & Dữ liệu khảo sát 30 công trình, tệp số liệu đã kiểm chứng \\
+\texttt{de\_cuong\_latex/} & Mã nguồn LaTeX của đề cương này, hình vector, mã sinh bảng \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vfill
+\begin{ghichu}[title={Cam kết về tính liêm chính}]
+\small
+Mọi con số trong đề cương này đều do nhóm tự đo và chạy lại được. Nơi nào nhóm chưa chắc chắn,
+nhóm ghi rõ. Nơi nào bản đề cương trước đó của nhóm phát biểu sai, nhóm nêu rõ chỗ sai và con số đúng
+(\S\ref{sec:ketqua}, \S\ref{sec:chonkenh}). Nhóm không tuyên bố ``vượt trội'' ở những chỗ giao thức
+không cho phép so sánh trực tiếp.
+\end{ghichu}

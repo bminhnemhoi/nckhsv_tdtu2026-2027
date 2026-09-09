@@ -1,0 +1,37 @@
+cache: r(299500, 125) pi(299500, 2, 24, 24) pos-rate 0.0937
+
+=== STAGE 1 architecture search | train r01,r04,r07 (179700 win) | val r08 | win=75 samples (300 ms), use_x=True, target=binary, epochs=10 ===
+linear         params      151 | val F1  48.55 | Se  52.1 | PPV  45.5 | jitter  13.3 ms | thr 0.50 | 16s
+mlp            params   27,649 | val F1  96.41 | Se  96.3 | PPV  96.5 | jitter   6.3 ms | thr 0.40 | 36s
+cnn_s          params   13,857 | val F1  96.60 | Se  96.5 | PPV  96.7 | jitter  15.1 ms | thr 0.45 | 100s
+cnn_m          params   25,953 | val F1  97.14 | Se  97.3 | PPV  97.0 | jitter  13.2 ms | thr 0.40 | 206s
+cnn_l          params   83,137 | val F1  98.77 | Se  98.5 | PPV  99.1 | jitter   5.6 ms | thr 0.25 | 213s
+cnn_dil        params   25,953 | val F1  98.56 | Se  98.5 | PPV  98.6 | jitter   6.0 ms | thr 0.10 | 97s
+cnn_se         params   29,845 | val F1  97.65 | Se  97.7 | PPV  97.6 | jitter  11.4 ms | thr 0.40 | 134s
+cnn_wide_k     params   38,753 | val F1  97.93 | Se  97.5 | PPV  98.3 | jitter   5.9 ms | thr 0.35 | 182s
+resnet1d       params   92,545 | val F1  98.96 | Se  98.8 | PPV  99.1 | jitter   6.0 ms | thr 0.20 | 392s
+tcn            params   63,105 | val F1  98.88 | Se  98.6 | PPV  99.2 | jitter   5.9 ms | thr 0.35 | 772s
+cnn_gru        params   28,257 | val F1  98.25 | Se  98.1 | PPV  98.4 | jitter   6.7 ms | thr 0.45 | 262s
+transformer    params   80,385 | val F1  98.81 | Se  98.8 | PPV  98.8 | jitter   5.8 ms | thr 0.35 | 2109s
+unet1d         params   46,345 | val F1  98.01 | Se  98.0 | PPV  98.0 | jitter   6.2 ms | thr 0.35 | 892s
+cnn2d_delay    params   27,633 | val F1  93.08 | Se  91.7 | PPV  94.7 | jitter   6.2 ms | thr 0.45 | 432s
+cnn2d_pi       params   27,777 | val F1  27.42 | Se  27.5 | PPV  27.5 | jitter  26.3 ms | thr 0.55 | 476s
+twostream      params   53,601 | val F1  97.24 | Se  97.3 | PPV  97.2 | jitter  14.5 ms | thr 0.40 | 938s
+
+-- ranking --
+   98.96  resnet1d       (92,545 params)
+   98.88  tcn            (63,105 params)
+   98.81  transformer    (80,385 params)
+   98.77  cnn_l          (83,137 params)
+   98.56  cnn_dil        (25,953 params)
+   98.25  cnn_gru        (28,257 params)
+   98.01  unet1d         (46,345 params)
+   97.93  cnn_wide_k     (38,753 params)
+   97.65  cnn_se         (29,845 params)
+   97.24  twostream      (53,601 params)
+   97.14  cnn_m          (25,953 params)
+   96.60  cnn_s          (13,857 params)
+   96.41  mlp            (27,649 params)
+   93.08  cnn2d_delay    (27,633 params)
+   48.55  linear         (151 params)
+   27.42  cnn2d_pi       (27,777 params)
