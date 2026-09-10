@@ -1,0 +1,112 @@
+% ================================================================= MỞ RỘNG SANG SILESIA
+\subsection{Mở rộng sang 22 sản phụ và sang thai kỳ}
+\label{sec:silesia}
+
+Điểm yếu lớn nhất của bản đề cương trước là chỉ có 5 sản phụ, tất cả đang chuyển dạ. Nhóm đã tải bộ
+Silesia (Matonia và cộng sự, \textit{Scientific Data} 7:200, 2020; figshare DOI 10.6084/m9.figshare.c.4740794,
+giấy phép CC0), gồm \textbf{10 sản phụ thai kỳ 32--42 tuần} (B1, mỗi người 20 phút) và \textbf{12 sản phụ chuyển
+dạ} (B2, mỗi người 5 phút), cùng bệnh viện và cùng hệ ghi KOMPOREL với dữ liệu huấn luyện. Toàn bộ do
+\texttt{model/download\_silesia.py} tải với mã băm SHA-256 ghi lại.
+
+\subsubsection{Kiểm tra rò rỉ trước khi đánh giá}
+
+Bài báo gốc tự khai rằng 5 bản ghi PhysioNet được lấy từ bộ chuyển dạ. Nhóm không tin lời khai mà đo lại
+bằng tín hiệu: đưa cả hai về 250\,Hz, trượt cửa sổ 60 giây của từng bản ghi PhysioNet trên toàn bộ từng
+bản ghi B2, thử mọi tổ hợp 4$\times$4 đạo trình và mọi độ lệch $\pm$5 phút.
+
+\begin{table}[H]\centering\small
+\caption{Kết quả kiểm tra rò rỉ. NCC là tương quan chéo chuẩn hoá cực đại. Cột ``hạng nhì'' là NCC với
+bản ghi B2 gần nhất còn lại, để thấy khoảng cách.}
+\label{tab:roriSilesia}
+\begin{tabular}{@{}C{1.6cm} C{1.6cm} C{1.6cm} C{2.0cm} C{1.8cm} C{2.2cm} C{2.2cm}@{}}
+\toprule
+\textbf{PhysioNet} & \textbf{Silesia} & \textbf{NCC} & \textbf{Lệch} & \textbf{Hạng nhì} &
+\textbf{Nhãn khớp} & \textbf{Số nhịp} \\
+\midrule
+r01 & B2\_01 & 0,989 & $-56$\,ms & 0,135 & 100,0\% & 644 / 644 \\
+r10 & B2\_02 & 0,993 & $-40$\,ms & 0,147 & 99,8\% & 637 / 637 \\
+r04 & B2\_07 & 0,994 & $-48$\,ms & 0,178 & 99,8\% & 632 / 632 \\
+r07 & B2\_10 & 0,994 & $-48$\,ms & 0,141 & 99,8\% & 627 / 627 \\
+r08 & B2\_11 & 0,988 & $-56$\,ms & 0,128 & 98,8\% & 651 / 646 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Kết luận: 5/12 bản ghi B2 \textbf{chính là} 5 bản ghi PhysioNet. Hệ quả thứ nhất: số sản phụ độc lập
+là \textbf{22}, không phải 27. Hệ quả thứ hai: với 5 bản ghi trùng, nhóm dùng checkpoint fold tương ứng
+(chưa từng thấy bản ghi đó); 7 bản ghi B2 còn lại và 10 bản ghi B1 dùng checkpoint production, zero-shot.
+
+\subsubsection{Kết quả}
+
+\begin{table}[H]\centering\small
+\caption{Cùng một mô hình, cùng giao thức $\pm$50\,ms, trên năm cấu hình dữ liệu. ``$\geq$90'' và ``$<$50''
+là số bản ghi có F1 (kênh PSD) trong khoảng đó.}
+\label{tab:silesia_tonghop}
+\begin{tabular}{@{}L{5.0cm} C{0.8cm} C{1.2cm} C{2.6cm} C{2.6cm} C{0.8cm} C{0.8cm}@{}}
+\toprule
+\textbf{Bộ dữ liệu} & $n$ & \textbf{Phút} & \textbf{F1, kênh PSD} & \textbf{F1, 4 kênh} & $\geq$90 & $<$50 \\
+\midrule
+ADFECGDB PhysioNet, tách bản ghi & 5 & 25 & $99{,}21 \pm 1{,}50$ & $97{,}45 \pm 2{,}96$ & 5 & 0 \\
+Silesia B2 chuyển dạ, 12 bản ghi & 12 & 60 & $97{,}17 \pm 7{,}45$ & $95{,}26 \pm 9{,}59$ & 11 & 0 \\
+\quad chỉ 7 bản ghi hoàn toàn mới, zero-shot & 7 & 35 & $95{,}87 \pm 9{,}75$ & $93{,}73 \pm 12{,}48$ & 6 & 0 \\
+\textbf{Silesia B1 thai kỳ 32--42 tuần, zero-shot} & 10 & 199,6 & $\mathbf{93{,}30 \pm 13{,}46}$ &
+$\mathbf{91{,}31 \pm 9{,}99}$ & 8 & 0 \\
+CinC 2013 set-a, zero-shot & 10 & 10 & $59{,}15 \pm 37{,}17$ & $61{,}96 \pm 34{,}09$ & 4 & 5 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]\centering\small
+\caption{Silesia B1 --- thai kỳ, từng bản ghi. Mô hình chưa từng thấy bất kỳ dữ liệu thai kỳ nào.
+Cột ``oracle'' là kênh tốt nhất theo nhãn, chỉ để tham chiếu.}
+\label{tab:silesiaB1}
+\begin{tabular}{@{}C{1.3cm} C{1.3cm} C{1.5cm} C{1.4cm} C{1.4cm} C{1.6cm} C{1.6cm} C{1.5cm}@{}}
+\toprule
+\textbf{Bản ghi} & \textbf{Kênh PSD} & \textbf{F1 PSD} & \textbf{Se} & \textbf{PPV} & \textbf{Jitter} &
+\textbf{F1 4 kênh} & \textbf{Oracle} \\
+\midrule
+B1\_01 & A3 & 97,70 & 96,70 & 98,72 & 10,3\,ms & 87,79 & 97,70 \\
+B1\_02 & A3 & 99,59 & 99,50 & 99,68 & 9,1\,ms & 97,97 & 99,59 \\
+B1\_03 & A3 & 99,86 & 99,88 & 99,84 & 2,5\,ms & 99,17 & 99,86 \\
+B1\_04 & A3 & 99,80 & 99,64 & 99,96 & 3,8\,ms & 98,59 & 99,96 \\
+B1\_05 & A3 & 99,78 & 99,75 & 99,82 & 3,6\,ms & 99,47 & 99,78 \\
+B1\_06 & A4 & 80,90 & 78,05 & 83,95 & 12,5\,ms & 92,43 & 98,28 \\
+B1\_07 & A4 & \xau{58,72} & 53,21 & 65,49 & 15,3\,ms & 67,96 & 78,52 \\
+B1\_08 & A1 & 99,52 & 99,28 & 99,76 & 7,3\,ms & 98,27 & 99,52 \\
+B1\_09 & A3 & 99,04 & 98,92 & 99,16 & 4,6\,ms & 86,66 & 99,04 \\
+B1\_10 & A3 & 98,12 & 98,46 & 97,78 & 13,2\,ms & 84,76 & 98,12 \\
+\midrule
+\textbf{Macro} & & $\mathbf{93{,}30 \pm 13{,}46}$ & 92,34 & 94,42 & 8,2\,ms & $91{,}31 \pm 9{,}99$ & $97{,}04 \pm 6{,}56$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Gộp toàn cục trên B1: 26.085 nhịp đúng, 1.451 báo động giả, 2.320 nhịp sót trên 28.405 nhịp có nhãn.
+
+\subsubsection{Đọc kết quả}
+
+\begin{enumerate}[leftmargin=1.6em,itemsep=4pt]
+\item \textbf{Mô hình tổng quát được sang thai kỳ.} Huấn luyện chỉ trên 5 ca chuyển dạ, chưa từng thấy dữ
+liệu thai kỳ, mà đạt 93,30 trên 10 sản phụ tuần 32--42. Tám trên mười bản ghi trên 90, \textbf{không bản
+ghi nào dưới 50}. Phân bố này \textit{không} lưỡng cực như CinC 2013.
+\item \textbf{Sụp đổ trên CinC 2013 không phải do giai đoạn thai.} Chuyển từ chuyển dạ sang thai kỳ trong
+cùng hệ ghi mất khoảng 4 điểm ($97 \to 93$). Chuyển sang hệ ghi khác mất 38 điểm ($97 \to 59$). Biến gây
+sụp đổ là \textbf{thiết bị và bố trí điện cực}, không phải tuổi thai.
+\item \textbf{Quy tắc chọn kênh PSD yếu đi khi tín hiệu thai yếu.} Hai bản ghi kém nhất (B1\_06, B1\_07) đều
+do quy tắc PSD chọn đúng kênh xấu nhất; với kênh tốt nhất chúng đạt 98,28 và 78,52. B1\_07 là bản ghi có
+tín hiệu thai yếu nhất bộ theo chính tác giả. Đây là bằng chứng thứ hai (sau CinC) rằng heuristic phổ
+cần được thay bằng cổng học được.
+\item \textbf{Bản ghi B2 yếu duy nhất có lý do ghi trong tài liệu gốc.} B2\_03 đạt 73,81; tác giả ghi
+``mất tín hiệu 27,5\%'' cho nhịp tim tham chiếu của chính bản ghi này.
+\end{enumerate}
+
+\begin{canhbao}[title={Nhãn B1 không phải chuẩn vàng --- phải nói rõ khi công bố}]
+Thai kỳ không thể gắn điện cực da đầu. Nhãn nhịp thai của B1 do tác giả tạo bằng cách khử ECG mẹ, dò tự
+động, rồi chuyên gia sửa tay và gắn cờ tin cậy (0,46\% nhịp cờ 0; bỏ chúng đi kết quả không đổi). Vì
+vậy F1 trên B1 đo \textit{mức đồng thuận với pipeline của tác giả}, không phải sự thật sinh lý. Nhóm còn
+đo được nhãn B1 lệch hệ thống 8--12\,ms sau đỉnh R bụng ở 5/10 bản ghi; lệch này nằm trong dung sai 50\,ms
+nên không ảnh hưởng F1, nhưng jitter trên B1 (8,2\,ms) không so sánh được với B2 (2,9\,ms).
+
+Silesia cùng bệnh viện, cùng hệ ghi, cùng bố trí điện cực với dữ liệu huấn luyện. Kết quả này chứng minh
+tổng quát sang \textbf{giai đoạn thai kỳ}, chưa chứng minh tổng quát sang \textbf{hệ thống ghi khác}.
+\end{canhbao}

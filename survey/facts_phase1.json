@@ -1,0 +1,68 @@
+{
+  "ghi_chu": "So lieu dot thuc thi 10-11/09/2026. Moi con so do that bang ma trong repo; cot nguon ghi file sinh ra no. Bo sung cho facts_verified.json, khong thay the.",
+
+  "A_bang_kien_truc_v2": {
+    "nguon": "pilot_evidence/arch_loro.py -> arch_loro.json + arch_loro_part2/arch_loro.json -> arch_loro_merged.json",
+    "giao_thuc": "dai 10-60 Hz, 5 fold tach ban ghi, val=others[0], nguong chon TREN VAL roi ap sang test, 20 (ban ghi x kenh), +/-50 ms, cua so 300 ms, 1 seed, 3 epoch, train_stride 2",
+    "xep_hang": [
+      {"hang": 1, "arch": "cnn_l", "tham_so": 83137, "macro_F1": 92.43, "sd": 8.73, "hieu_so_vs_cnn_dil": 0.73, "p": 0.388},
+      {"hang": 2, "arch": "cnn_dil", "tham_so": 25953, "macro_F1": 91.70, "sd": 9.68, "hieu_so_vs_cnn_dil": null, "p": null},
+      {"hang": 3, "arch": "mlp", "tham_so": 27649, "macro_F1": 91.64, "sd": 7.64, "hieu_so_vs_cnn_dil": -0.07, "p": 0.927},
+      {"hang": 4, "arch": "cnn_gru", "tham_so": 28257, "macro_F1": 91.59, "sd": 9.10, "hieu_so_vs_cnn_dil": -0.12, "p": 0.330},
+      {"hang": 5, "arch": "tcn", "tham_so": 63105, "macro_F1": 91.07, "sd": 11.41, "hieu_so_vs_cnn_dil": -0.64, "p": 0.260},
+      {"hang": 6, "arch": "resnet1d", "tham_so": 92545, "macro_F1": 90.90, "sd": 10.98, "hieu_so_vs_cnn_dil": -0.81, "p": 0.105},
+      {"hang": 7, "arch": "cnn_m", "tham_so": 25953, "macro_F1": 88.76, "sd": 10.61, "hieu_so_vs_cnn_dil": -2.95, "p": 0.0001},
+      {"hang": 8, "arch": "linear", "tham_so": 151, "macro_F1": 37.47, "sd": 6.47, "hieu_so_vs_cnn_dil": -54.24, "p": 0.0000}
+    ],
+    "ket_luan": "Sau kien truc nam trong 1,5 diem, KHONG kien truc nao khac cnn_dil co y nghia (moi p >= 0,105). Chi gian no (cnn_m vs cnn_dil, cung tham so, p=0,0001) va linear la khac. Tat ca <= 92,43 so voi 97,43 cua mo hinh 4 s dau ra tung mau.",
+    "gioi_han": "1 seed, 3 epoch (loss van giam), bo transformer va hai bien the 2D vi qua cham; cnn_l/resnet1d/tcn chay lai rieng sau khi lan dau het RAM."
+  },
+
+  "B_baseline_co_dien": {
+    "nguon": "baselines/ts_baseline.py -> baselines/results.json",
+    "tuning": "sieu tham so chon CHI tren r01, ap nguyen cho 4 ban ghi con lai",
+    "bang": [
+      {"baseline": "TS + Pan-Tompkins", "macro_20": 78.96, "sd": 23.52, "heldout_16": 75.55, "psd_5": 87.68, "hieu_so": -18.49, "p": 5.7e-06, "thua": "19/20"},
+      {"baseline": "TS-PCA + Pan-Tompkins", "macro_20": 91.05, "sd": 10.17, "heldout_16": 90.94, "psd_5": 96.74, "hieu_so": -6.40, "p": 1.9e-06, "thua": "20/20"},
+      {"baseline": "Prominence (cung front-end)", "macro_20": 86.39, "sd": 11.14, "heldout_16": 84.99, "psd_5": 92.03, "hieu_so": -11.06, "p": 1.9e-06, "thua": "20/20"},
+      {"baseline": "FetalQRS-TCN", "macro_20": 97.45, "sd": 4.44, "heldout_16": 96.81, "psd_5": 99.21}
+    ],
+    "ket_luan": "Mang dang +11,06 diem so voi lay dinh tren cung tin hieu du. TS-PCA tren kenh PSD dat 96,74, chi kem mo hinh 2,47 diem.",
+    "power_mf": "khong chay lai duoc: MATLAB, thieu 8 ham Varanini 2014, da kenh; ghi tai baselines/powermf_status.json"
+  },
+
+  "C_silesia": {
+    "nguon": "model/download_silesia.py, model/silesia_loader.py, benchmark_dpss/silesia_eval.py -> silesia_eval.json",
+    "du_lieu": "Matonia 2020 Sci Data 7:200, figshare 10.6084/m9.figshare.c.4740794, CC0; zip 195,1 MB sha256 a7da9beefe1ce94f86ee99515848b8b853a44d1758cf30e7c7d87546536d77f6; .ecg int16 big-endian /10, 500 Hz, 4 kenh bung A1-A4",
+    "ro_ri": {
+      "ket_luan": "5/12 ban ghi B2 CHINH LA 5 ban ghi PhysioNet -> so san phu doc lap = 22, khong phai 27",
+      "cap": [["r01", "B2_01", 0.989], ["r10", "B2_02", 0.993], ["r04", "B2_07", 0.994], ["r07", "B2_10", 0.994], ["r08", "B2_11", 0.988]],
+      "xu_ly": "5 ban ghi trung dung fold checkpoint; con lai dung production"
+    },
+    "B1_thai_ky": {"n": 10, "phut": 199.6, "F1_psd": 93.30, "sd_psd": 13.46, "F1_4kenh": 91.31, "sd_4kenh": 9.99, "oracle": 97.04, "ge90": 8, "lt50": 0, "TP": 26085, "FP": 1451, "FN": 2320,
+                    "nhan": "GIAN TIEP (khong co dien cuc da dau); lech he thong 8-12 ms o 5/10 ban ghi"},
+    "B2_chuyen_da": {"n": 12, "F1_psd": 97.17, "sd_psd": 7.45, "F1_4kenh": 95.26, "sd_4kenh": 9.59, "ge90": 11, "lt50": 0,
+                     "7_moi_zero_shot": {"F1_psd": 95.87, "sd": 9.75, "F1_4kenh": 93.73},
+                     "5_trung_fold": {"F1_psd": 99.00, "sd": 1.71}},
+    "ket_luan": "Tong quat sang thai ky: 97 -> 93 (cung he ghi). Sang he ghi khac (CinC): 97 -> 59/77. Bien gay sup do la thiet bi/bo tri dien cuc, khong phai tuoi thai."
+  },
+
+  "D_fsqi_C3": {
+    "nguon": "fsqi/fsqi.py, fsqi/eval_fsqi.py -> fsqi/results.json, risk_coverage.png, sqi_correlation.png",
+    "giao_thuc": "nhan doan xau = F1 < 80 tren doan 4 s; train ADFECGDB (1500 doan, fold checkpoint) -> test CinC (600 doan, production); bootstrap 1000; 2 lan chay trung 1327/1327 truong",
+    "auroc_cinc": {"random": 0.500, "topo_16": 0.566, "classical_signal_only_6": 0.666, "classical_12": 0.929, "combined_28": 0.905},
+    "risk_coverage_cinc_F1": {"cov100": 61.96, "random_cov80": 62.03, "topo_cov80": 63.40, "classical_cov80": 69.40, "oracle_cov80": 74.55, "classical_cov50": 84.51, "oracle_cov50": 97.81},
+    "single_feature_auroc": {"prob_max": 0.970, "peak_prob_mean": 0.956, "rr_cv": 0.915, "band_ratio_10_60": 0.904},
+    "thoi_gian_ms_doan": {"topo": 51.6, "sublevel": 1.1, "classical": 12.5, "tong": 65.2, "p95": 79.7},
+    "ket_luan": "KET QUA PHU DINH cho dong dieu ben vung: AUROC 0,566 vs 0,929; gop vao con giam. Cong tu choi CO tac dung bang chi so co dien (+7,4 diem o do phu 80%). C3 phat bieu lai: cong tu choi tren do tu tin mo hinh + tinh hop ly nhip, kem ket qua phu dinh co kiem soat ve TDA."
+  },
+
+  "E_demo": {
+    "nguon": "demo/core.py, demo/app.py, demo/run_check.py -> demo/results/demo_check.json, demo/screenshots/",
+    "moi_truong": "gradio 6.26.0, plotly 7.0.0, playwright 1.62.0 (chup anh)",
+    "kiem_thu": "pytest demo/test_core.py 8/8; smoke_app.py HTTP 200 + API /run F1 100,00 tren r01; run_check 16/16",
+    "den_tin_cay_15_ban_ghi": {"xanh": {"n": 8, "F1_tb": 99.54, "F1_min": 96.54}, "vang": {"n": 5, "F1_tb": 50.51}, "do": {"n": 2, "F1_tb": 19.36}},
+    "tinh_chat_quan_trong": "Khong ban ghi nao den xanh ma F1 < 96,54. Sai duy nhat theo chieu than trong (r04 vang du F1 99,76).",
+    "loi_da_sua": "Gradio 6 tu choi khoa int trong gr.JSON -> nut Phan tich loi o che do tu dong; da doi sang khoa chuoi"
+  }
+}

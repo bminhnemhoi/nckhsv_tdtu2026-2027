@@ -227,7 +227,42 @@ def fig_dongop():
     save(fig, 'fig7_dong_gop')
 
 
+# ---------------------------------------------------------------- 13. bang kien truc chay lai dung giao thuc
+def fig_arch_v2():
+    import json as _j
+    d = _j.load(open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                                 'pilot_evidence', 'arch_loro_merged.json'), encoding='utf-8'))
+    rows = [(v['summary']['macro_F1'], k, v['summary']['sd_F1'], v.get('params', 0))
+            for k, v in d['results'].items()]
+    rows.sort()
+    names = [r[1] for r in rows]; f1 = [r[0] for r in rows]; sd = [r[2] for r in rows]; pr = [r[3] for r in rows]
+    pv = {'cnn_l': 'p = 0,39', 'cnn_dil': 'mốc', 'mlp': 'p = 0,93', 'cnn_gru': 'p = 0,33',
+          'tcn': 'p = 0,26', 'resnet1d': 'p = 0,11', 'cnn_m': 'p = 0,0001', 'linear': 'p < 0,0001'}
+    cols = [GREEN if n == 'cnn_dil' else (RED if n in ('linear', 'cnn_m') else BLUE) for n in names]
+    fig, ax = plt.subplots(figsize=(6.2, 3.6))
+    y = np.arange(len(rows))
+    ax.barh(y, f1, xerr=sd, height=0.62, color=cols, edgecolor='white', linewidth=0.7,
+            error_kw=dict(lw=0.7, capsize=2, ecolor='#555555'), zorder=3)
+    for i in range(len(rows)):
+        ax.text(112, y[i], vn(f1[i]), va='center', ha='right', fontsize=8.4, fontweight='bold')
+        ax.text(117, y[i], pv.get(names[i], ''), va='center', ha='left', fontsize=7.2,
+                color='#444444', style='italic')
+        ax.text(146, y[i], f'{pr[i]:,}'.replace(',', '.'), va='center', ha='right', fontsize=7.2, color='#555555')
+    ax.text(112, len(rows) - 0.35, 'F1', ha='right', fontsize=7.6, fontweight='bold', color='#333333')
+    ax.text(117, len(rows) - 0.35, 'p vs cnn_dil', ha='left', fontsize=7.6, fontweight='bold', color='#444444')
+    ax.text(146, len(rows) - 0.35, 'tham số', ha='right', fontsize=7.6, fontweight='bold', color='#555555')
+    ax.axvline(97.43, color=GREEN, ls='--', lw=1.0, zorder=2)
+    ax.text(96.2, len(rows) - 0.35, 'mô hình chính 97,43 →', ha='right', fontsize=7.2, color=GREEN)
+    ax.set_ylim(-0.6, len(rows) - 0.05)
+    ax.set_yticks(y); ax.set_yticklabels(names, fontsize=8.3, fontfamily='Consolas')
+    ax.set_xlim(0, 148); ax.set_xticks([0, 20, 40, 60, 80, 100])
+    ax.set_xlabel('Macro F1 (%) trên 20 (bản ghi × kênh), tách bản ghi, ngưỡng chọn trên validation')
+    ax.grid(axis='x', lw=0.4, color='#DDDDDD', zorder=0)
+    ax.set_title('Bảng kiến trúc chạy lại đúng giao thức, dải 10–60 Hz, cửa sổ 300 ms', fontsize=9.5, pad=8)
+    save(fig, 'fig13_kien_truc_v2')
+
+
 if __name__ == '__main__':
     print('Sinh hinh vao', OUT)
-    fig_waterfall(); fig_band(); fig_arch(); fig_rf(); fig_bench(); fig_bimodal(); fig_dongop()
+    fig_waterfall(); fig_band(); fig_arch(); fig_rf(); fig_bench(); fig_bimodal(); fig_dongop(); fig_arch_v2()
     print('XONG')

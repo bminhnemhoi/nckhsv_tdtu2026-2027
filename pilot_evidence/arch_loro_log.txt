@@ -1,0 +1,46 @@
+===== ARCH LORO | 2026-09-10 19:15:31 | band (10.0, 60.0) Hz notch 50.0 | win 75 mau (300 ms) hop 5 (20 ms) | train_stride 2 | epochs 3 | seed 0 (1 seed) | threads 4 | quick=False =====
+  giao thuc: 5 fold LORO, val = others[0], nguong chon TREN VAL (luoi 0.05..0.90) roi ap co dinh sang test; +/-50 ms tai 1000 Hz; 20 (ban ghi x kenh); Wilcoxon ghep cap 2 phia vs cnn_dil + Holm
+  archs: ['cnn_dil', 'linear', 'mlp', 'cnn_m', 'cnn_gru', 'cnn_l', 'resnet1d', 'tcn']
+  data: 20 (ban ghi x kenh), 299700 cua so, ti le duong 0.0937, 3s
+
+-- cnn_dil (25,953 tham so) --
+  cnn_dil   fold test=r01 val=r04 n_train= 89916 | val F1  93.95 @thr 0.30 -> TEST macro F1  97.71 [ 98.0  94.7  98.6  99.5] | loss 0.697 0.226 0.165 | 27s
+  cnn_dil   fold test=r04 val=r01 n_train= 89916 | val F1  97.93 @thr 0.45 -> TEST macro F1  93.68 [ 86.5  96.4  93.7  98.0] | loss 0.697 0.226 0.165 | 23s
+  cnn_dil   fold test=r07 val=r01 n_train= 89916 | val F1  97.37 @thr 0.50 -> TEST macro F1  94.80 [ 90.7  95.5  94.3  98.6] | loss 0.724 0.247 0.184 | 22s
+  cnn_dil   fold test=r08 val=r01 n_train= 89916 | val F1  92.63 @thr 0.45 -> TEST macro F1  88.21 [ 95.3  69.5  92.2  95.9] | loss 0.729 0.244 0.178 | 22s
+  cnn_dil   fold test=r10 val=r01 n_train= 89916 | val F1  97.15 @thr 0.60 -> TEST macro F1  84.13 [ 94.7  93.9  60.0  87.9] | loss 0.701 0.186 0.122 | 22s
+>> cnn_dil   macro F1  91.70 +-  9.68 | micro  92.03 | Se  91.21 | PPV  92.50 | jitter  6.6 ms | min  60.0 | n=20 | 116s | tong 2.0 phut
+
+-- linear (151 tham so) --
+  linear    fold test=r01 val=r04 n_train= 89916 | val F1  37.22 @thr 0.50 -> TEST macro F1  40.91 [ 41.0  34.9  43.9  43.7] | loss 1.294 1.166 1.157 | 1s
+  linear    fold test=r04 val=r01 n_train= 89916 | val F1  40.91 @thr 0.50 -> TEST macro F1  37.22 [ 28.5  43.3  32.0  45.1] | loss 1.294 1.166 1.157 | 1s
+  linear    fold test=r07 val=r01 n_train= 89916 | val F1  39.29 @thr 0.50 -> TEST macro F1  38.98 [ 28.9  42.6  39.1  45.3] | loss 1.298 1.169 1.159 | 1s
+  linear    fold test=r08 val=r01 n_train= 89916 | val F1  38.32 @thr 0.50 -> TEST macro F1  32.50 [ 32.2  29.1  37.6  31.1] | loss 1.297 1.133 1.120 | 1s
+  linear    fold test=r10 val=r01 n_train= 89916 | val F1  41.44 @thr 0.50 -> TEST macro F1  37.72 [ 47.1  42.7  27.6  33.5] | loss 1.315 1.180 1.168 | 1s
+>> linear    macro F1  37.47 +-  6.47 | micro  37.56 | Se  39.66 | PPV  35.55 | jitter 12.5 ms | min  27.6 | n=20 | 3s | tong 2.0 phut
+
+-- mlp (27,649 tham so) --
+  mlp       fold test=r01 val=r04 n_train= 89916 | val F1  89.47 @thr 0.35 -> TEST macro F1  97.57 [ 98.0  94.0  99.0  99.3] | loss 0.790 0.353 0.283 | 2s
+  mlp       fold test=r04 val=r01 n_train= 89916 | val F1  97.88 @thr 0.50 -> TEST macro F1  88.00 [ 79.0  96.2  82.0  94.8] | loss 0.790 0.353 0.283 | 2s
+  mlp       fold test=r07 val=r01 n_train= 89916 | val F1  97.32 @thr 0.50 -> TEST macro F1  89.64 [ 84.4  94.8  82.5  96.9] | loss 0.815 0.380 0.307 | 2s
+  mlp       fold test=r08 val=r01 n_train= 89916 | val F1  96.13 @thr 0.45 -> TEST macro F1  92.54 [ 97.1  75.9  98.2  99.0] | loss 0.850 0.379 0.304 | 2s
+  mlp       fold test=r10 val=r01 n_train= 89916 | val F1  97.32 @thr 0.45 -> TEST macro F1  90.44 [ 95.8  94.3  79.2  92.5] | loss 0.824 0.330 0.260 | 2s
+>> mlp       macro F1  91.64 +-  7.64 | micro  91.81 | Se  91.04 | PPV  92.43 | jitter  6.7 ms | min  75.9 | n=20 | 10s | tong 2.2 phut
+
+-- cnn_m (25,953 tham so) --
+  cnn_m     fold test=r01 val=r04 n_train= 89916 | val F1  89.07 @thr 0.45 -> TEST macro F1  95.88 [ 97.7  91.1  96.5  98.2] | loss 1.059 0.729 0.587 | 23s
+  cnn_m     fold test=r04 val=r01 n_train= 89916 | val F1  96.14 @thr 0.60 -> TEST macro F1  87.86 [ 77.2  95.3  83.0  96.0] | loss 1.059 0.729 0.587 | 21s
+  cnn_m     fold test=r07 val=r01 n_train= 89916 | val F1  96.18 @thr 0.60 -> TEST macro F1  89.80 [ 80.7  96.1  84.7  97.8] | loss 1.070 0.754 0.617 | 19s
+  cnn_m     fold test=r08 val=r01 n_train= 89916 | val F1  91.80 @thr 0.55 -> TEST macro F1  86.30 [ 94.8  65.3  91.0  94.2] | loss 1.071 0.728 0.596 | 21s
+  cnn_m     fold test=r10 val=r01 n_train= 89916 | val F1  95.87 @thr 0.60 -> TEST macro F1  83.95 [ 94.7  93.2  59.4  88.5] | loss 1.067 0.743 0.590 | 20s
+>> cnn_m     macro F1  88.76 +- 10.61 | micro  89.16 | Se  88.09 | PPV  89.79 | jitter 18.7 ms | min  59.4 | n=20 | 105s | tong 4.0 phut
+
+-- cnn_gru (28,257 tham so) --
+  cnn_gru   fold test=r01 val=r04 n_train= 89916 | val F1  93.49 @thr 0.25 -> TEST macro F1  96.66 [ 95.6  93.6  97.9  99.5] | loss 0.918 0.291 0.214 | 27s
+  cnn_gru   fold test=r04 val=r01 n_train= 89916 | val F1  97.19 @thr 0.50 -> TEST macro F1  92.94 [ 84.8  97.1  93.3  96.6] | loss 0.918 0.291 0.214 | 29s
+  cnn_gru   fold test=r07 val=r01 n_train= 89916 | val F1  97.45 @thr 0.55 -> TEST macro F1  95.10 [ 89.8  96.8  96.2  97.6] | loss 0.943 0.298 0.217 | 29s
+  cnn_gru   fold test=r08 val=r01 n_train= 89916 | val F1  91.41 @thr 0.45 -> TEST macro F1  87.70 [ 95.2  64.9  92.8  97.9] | loss 0.940 0.303 0.227 | 27s
+  cnn_gru   fold test=r10 val=r01 n_train= 89916 | val F1  96.94 @thr 0.60 -> TEST macro F1  85.52 [ 93.3  92.6  68.0  88.2] | loss 0.926 0.249 0.165 | 28s
+>> cnn_gru   macro F1  91.59 +-  9.10 | micro  91.75 | Se  91.01 | PPV  92.32 | jitter  7.3 ms | min  64.9 | n=20 | 141s | tong 6.3 phut
+
+-- cnn_l (83,137 tham so) --

@@ -1,0 +1,47 @@
+===== ARCH LORO | 2026-09-10 19:23:19 | band (10.0, 60.0) Hz notch 50.0 | win 75 mau (300 ms) hop 5 (20 ms) | train_stride 2 | epochs 3 | seed 0 (1 seed) | threads 4 | quick=False =====
+  giao thuc: 5 fold LORO, val = others[0], nguong chon TREN VAL (luoi 0.05..0.90) roi ap co dinh sang test; +/-50 ms tai 1000 Hz; 20 (ban ghi x kenh); Wilcoxon ghep cap 2 phia vs cnn_dil + Holm
+  archs: ['cnn_l', 'resnet1d', 'tcn']
+  data: 20 (ban ghi x kenh), 299700 cua so, ti le duong 0.0937, 2s
+
+-- cnn_l (83,137 tham so) --
+  cnn_l     fold test=r01 val=r04 n_train= 89916 | val F1  94.95 @thr 0.20 -> TEST macro F1  97.21 [ 96.9  94.5  98.1  99.4] | loss 0.689 0.222 0.151 | 33s
+  cnn_l     fold test=r04 val=r01 n_train= 89916 | val F1  97.34 @thr 0.30 -> TEST macro F1  94.95 [ 89.0  96.9  96.1  97.7] | loss 0.689 0.222 0.151 | 36s
+  cnn_l     fold test=r07 val=r01 n_train= 89916 | val F1  97.18 @thr 0.55 -> TEST macro F1  95.58 [ 89.5  97.4  96.9  98.6] | loss 0.707 0.237 0.162 | 37s
+  cnn_l     fold test=r08 val=r01 n_train= 89916 | val F1  91.64 @thr 0.35 -> TEST macro F1  88.78 [ 95.2  69.6  91.8  98.5] | loss 0.712 0.238 0.161 | 36s
+  cnn_l     fold test=r10 val=r01 n_train= 89916 | val F1  97.62 @thr 0.35 -> TEST macro F1  85.64 [ 93.6  93.5  66.4  89.0] | loss 0.668 0.177 0.108 | 38s
+>> cnn_l     macro F1  92.43 +-  8.73 | micro  92.55 | Se  92.75 | PPV  92.21 | jitter  6.9 ms | min  66.4 | n=20 | 181s | tong 3.1 phut
+
+-- resnet1d (92,545 tham so) --
+  resnet1d  fold test=r01 val=r04 n_train= 89916 | val F1  93.93 @thr 0.35 -> TEST macro F1  97.63 [ 96.8  96.4  98.5  98.8] | loss 0.918 0.322 0.208 | 63s
+  resnet1d  fold test=r04 val=r01 n_train= 89916 | val F1  97.77 @thr 0.60 -> TEST macro F1  92.32 [ 84.4  97.1  90.8  97.0] | loss 0.918 0.322 0.208 | 56s
+  resnet1d  fold test=r07 val=r01 n_train= 89916 | val F1  98.03 @thr 0.55 -> TEST macro F1  95.18 [ 90.1  97.9  95.7  97.1] | loss 0.927 0.342 0.226 | 73s
+  resnet1d  fold test=r08 val=r01 n_train= 89916 | val F1  92.51 @thr 0.50 -> TEST macro F1  88.32 [ 96.0  68.3  92.9  96.0] | loss 0.949 0.327 0.208 | 75s
+  resnet1d  fold test=r10 val=r01 n_train= 89916 | val F1  97.62 @thr 0.55 -> TEST macro F1  81.04 [ 92.1  92.0  53.3  86.7] | loss 0.911 0.284 0.156 | 65s
+>> resnet1d  macro F1  90.90 +- 10.98 | micro  91.30 | Se  90.12 | PPV  92.04 | jitter  6.9 ms | min  53.3 | n=20 | 332s | tong 8.6 phut
+
+-- tcn (63,105 tham so) --
+  tcn       fold test=r01 val=r04 n_train= 89916 | val F1  94.62 @thr 0.20 -> TEST macro F1  96.82 [ 95.5  94.2  98.6  99.0] | loss 0.878 0.253 0.159 | 114s
+  tcn       fold test=r04 val=r01 n_train= 89916 | val F1  97.19 @thr 0.60 -> TEST macro F1  93.21 [ 85.6  96.6  93.7  97.0] | loss 0.878 0.253 0.159 | 113s
+  tcn       fold test=r07 val=r01 n_train= 89916 | val F1  96.76 @thr 0.55 -> TEST macro F1  95.34 [ 90.1  96.7  96.8  97.8] | loss 0.876 0.264 0.169 | 156s
+  tcn       fold test=r08 val=r01 n_train= 89916 | val F1  91.83 @thr 0.50 -> TEST macro F1  87.48 [ 95.2  63.3  93.8  97.6] | loss 0.874 0.275 0.179 | 125s
+  tcn       fold test=r10 val=r01 n_train= 89916 | val F1  97.61 @thr 0.60 -> TEST macro F1  82.47 [ 94.0  93.6  53.9  88.4] | loss 0.861 0.226 0.119 | 113s
+>> tcn       macro F1  91.07 +- 11.41 | micro  91.50 | Se  90.34 | PPV  92.23 | jitter  6.6 ms | min  53.9 | n=20 | 622s | tong 19.0 phut
+
+===== XEP HANG (macro F1 +/- SD tren 20 (ban ghi x kenh) test, nguong chon tren val, 1 seed) =====
+hang kien truc    tham so  macro F1     SD   micro      Se     PPV  jit ms  vs cnn_dil  p Wilcoxon   p Holm  hang cu   F1 cu
+   1 cnn_l         83,137     92.43   8.73   92.55   92.75   92.21     6.9  (baseline)                             4   98.77
+   2 tcn           63,105     91.07  11.41   91.50   90.34   92.23     6.6  (baseline)                             2   98.88
+   3 resnet1d      92,545     90.90  10.98   91.30   90.12   92.04     6.9  (baseline)                             1   98.96
+
+-- F1 trung binh 4 kenh theo ban ghi test --
+kien truc      r01     r04     r07     r08     r10
+cnn_l        97.21   94.95   95.58   88.78   85.64
+tcn          96.82   93.21   95.34   87.48   82.47
+resnet1d     97.63   92.32   95.18   88.32   81.04
+
+-- Wilcoxon ghep cap (2 phia) tren 20 cap F1 (ban ghi x kenh), kien truc - cnn_dil --
+
+-- Doi chieu (khong nam trong bang): FetalQRSTCN (chuoi 4 s, heatmap, model/train_final.py): macro F1 97.43 +- 4.37 (cung 5 fold LORO / nguong tren val / +-50 ms / 20 (ban ghi x kenh); KHAC ngu canh (4 s vs 300 ms) va nhan (heatmap))
+
+TRA LOI: chua co cnn_dil
+DONE 19.0 phut. JSON: pilot_evidence/arch_loro_part2\arch_loro.json

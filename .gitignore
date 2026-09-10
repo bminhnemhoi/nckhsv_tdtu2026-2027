@@ -60,3 +60,13 @@ desktop.ini
 *.swp
 *~
 /Bao_cao_30_paper.pdf
+
+# ---------------------------------------------------------------- phase-1 tracks
+model/data/silesia/
+baselines/fecg-benchmarking/
+demo/assets/*.edf
+demo/assets/*.dat
+demo/flagged/
+demo/screenshots/*.mp4
+fsqi/cache/
+*.npz

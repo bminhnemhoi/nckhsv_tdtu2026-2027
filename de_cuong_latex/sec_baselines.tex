@@ -1,0 +1,67 @@
+% ================================================================= BASELINE TỰ CÀI LẠI
+\subsection{Baseline cổ điển tự cài lại}
+\label{sec:baselines}
+
+Bản đề cương trước thừa nhận một điểm yếu: mọi so sánh với y văn đều là so với \textit{con số đã công
+bố}, không phải với bản tự chạy. Nhóm đã khắc phục. Ba baseline không dùng học máy được cài lại từ đầu
+trong \texttt{baselines/ts\_baseline.py} và chấm trên \textbf{cùng dữ liệu, cùng giao thức, cùng hàm khớp
+nhịp} với mô hình của nhóm.
+
+\begin{table}[H]\centering\small
+\caption{Ba baseline cổ điển. Siêu tham số của mỗi baseline được chọn \textbf{chỉ trên r01} rồi áp
+nguyên cho bốn bản ghi còn lại; cột ``16 giữ lại'' loại r01 khỏi phép tính.}
+\label{tab:baseline_mota}
+\begin{tabular}{@{}L{2.6cm} L{6.2cm} L{5.6cm}@{}}
+\toprule
+\textbf{Baseline} & \textbf{Khử ECG mẹ} & \textbf{Dò QRS thai} \\
+\midrule
+TS & Mẫu trung bình, trừ trực tiếp & Pan--Tompkins thích nghi, trơ 250\,ms \\
+TS-PCA & Mẫu từ 2 thành phần chính của các nhịp mẹ (theo Behar 2014) & Pan--Tompkins thích nghi \\
+Prominence & \textbf{Đúng front-end của nhóm}: mẫu trung vị + bình phương tối thiểu từng nhịp &
+\texttt{find\_peaks}, độ nhô $\geq$ trung vị $+ 3\,$MAD, cách nhau $\geq$ 250\,ms \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Baseline thứ ba là quan trọng nhất về mặt khoa học: nó dùng \textbf{cùng tín hiệu dư} mà mạng nhận vào,
+chỉ thay mạng bằng phép lấy đỉnh đơn giản. Hiệu số giữa nó và mô hình đo \textbf{đúng phần đóng góp của
+mạng nơ-ron}, tách khỏi phần đóng góp của tiền xử lý.
+
+\begin{table}[H]\centering\small
+\caption{Kết quả trên ADFECGDB, dung sai $\pm$50\,ms. Wilcoxon ghép cặp trên 20 (bản ghi $\times$ kênh).
+``Thua'' là số cặp trong đó baseline thấp hơn mô hình.}
+\label{tab:baseline_kq}
+\begin{tabular}{@{}L{2.7cm} C{2.5cm} C{1.8cm} C{2.1cm} C{1.9cm} C{2.0cm}@{}}
+\toprule
+\textbf{Phương pháp} & \textbf{4 kênh (20)} & \textbf{16 giữ lại} & \textbf{Kênh PSD (5)} &
+\textbf{Hiệu số} & \textbf{$p$ / thua} \\
+\midrule
+TS + PT & $78{,}96 \pm 23{,}52$ & 75,55 & 87,68 & $-18{,}49$ & $5{,}7\times10^{-6}$ / 19/20 \\
+TS-PCA + PT & $91{,}05 \pm 10{,}17$ & 90,94 & 96,74 & $-6{,}40$ & $1{,}9\times10^{-6}$ / 20/20 \\
+Prominence & $86{,}39 \pm 11{,}14$ & 84,99 & 92,03 & $-11{,}06$ & $1{,}9\times10^{-6}$ / 20/20 \\
+\midrule
+\textbf{\mh{}} & $\mathbf{97{,}45 \pm 4{,}44}$ & \textbf{96,81} & \textbf{99,21} & --- & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Ba điều rút ra, xếp theo mức quan trọng:
+
+\begin{enumerate}[leftmargin=1.6em,itemsep=4pt]
+\item \textbf{Mạng nơ-ron đáng $+11{,}06$ điểm} so với lấy đỉnh trên cùng tín hiệu dư, thua ở 20/20 cặp,
+$p = 1{,}9\times10^{-6}$. Đây là con số trả lời câu hỏi ``mạng có thật sự cần không'' --- và câu trả lời
+là có, nhưng chỉ khi front-end đã đúng.
+\item \textbf{TS-PCA là baseline cổ điển mạnh.} Trên kênh chọn mù nhãn nó đạt 96,74, chỉ kém mô hình
+2,47 điểm. Điều này nhất quán với Power-MF (98,0 bằng phương pháp cổ điển) và củng cố luận điểm chính:
+phần lớn hiệu năng nằm ở front-end, không ở mạng.
+\item \textbf{Độ lệch chuẩn giảm hơn một nửa} (4,44 so với 10,17 của baseline tốt nhất). Mạng không chỉ
+cao hơn trung bình mà còn \textit{ổn định hơn} giữa các sản phụ và kênh.
+\end{enumerate}
+
+\begin{canhbao}[title={Power-MF không chạy lại được tại chỗ}]
+Mã Power-MF là MATLAB R2021a, gọi tám hàm tiền xử lý và ICA đa kênh từ Varanini 2014 không nằm trong
+kho mã công bố, và bản thân thuật toán cần \textbf{bốn kênh}. Máy của nhóm không có MATLAB. Nhóm đã tải
+kho \texttt{mad-lab-fau/fecg-benchmarking}, xác nhận các phụ thuộc còn thiếu và ghi lại trong
+\texttt{baselines/powermf\_status.json}. Con số 98,0 của Power-MF vì vậy vẫn là con số \textit{đã công bố},
+và nhóm ghi rõ điều đó.
+\end{canhbao}

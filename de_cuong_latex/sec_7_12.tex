@@ -93,8 +93,9 @@ Y văn có ví dụ cụ thể: FUSE với mười hai siêu tham số đã bu�
 \textbf{Khuyến nghị của nhóm, theo thứ tự ưu tiên:}
 
 \begin{enumerate}[leftmargin=1.8em,itemsep=4pt]
-\item \textbf{Xây cổng từ chối dựa trên fSQI}, báo cáo bằng đường cong rủi ro--độ phủ kèm đường cơ sở
-cổng ngẫu nhiên. Đây là C3.
+\item \textbf{Xây cổng từ chối}, báo cáo bằng đường cong rủi ro--độ phủ kèm đường cơ sở cổng ngẫu nhiên.
+Đây là C3 --- \textit{đã làm} (\S\ref{sec:fsqi}); việc còn lại là thay luật cứng trong demo bằng bộ
+phân loại cổ điển đã huấn luyện.
 \item \textbf{Làm mượt khoảng RR} bằng luật sinh lý, kèm bắt buộc so với đường cơ sở nhịp hằng số.
 \item \textbf{Thí nghiệm chẩn đoán} vì sao ba bản ghi CinC sụp đổ.
 \item Chỉ khi ba việc trên xong mới cân nhắc bộ chọn dải thông thích nghi --- dạng ``tác tử'' duy nhất
@@ -120,17 +121,19 @@ Mục này nhóm viết ở vai phản biện của một tạp chí Q1, cố t�
 \toprule
 \textbf{Điểm yếu} & \textbf{Mức độ} & \textbf{Cách xử lý} \\
 \midrule
-Chỉ 5 sản phụ, tất cả đều đang chuyển dạ tuần 38--41. Không có điểm dữ liệu nào dưới 38 tuần, trong khi
-giá trị lâm sàng chính nằm ở tuần 24--37 &
-\xau{Nghiêm trọng} & Bổ sung bộ Silesia (Matonia 2020, 10 sản phụ thai kỳ) trong Phase P0, nâng $n$ lên
-khoảng 22 \\
-Khoảng tin cậy 95\% của 99,21 với $n = 5$ vượt quá 100\%, tức giả định phân phối chuẩn bị vi phạm &
-\xau{Nghiêm trọng} & Dùng bootstrap và thang logit thay vì phân phối $t$ \\
-Bảng 16 kiến trúc chạy ở dải sai, một bản ghi, một seed, ngưỡng quét trên chính bản ghi đánh giá &
-\xau{Nghiêm trọng} & Chạy lại toàn bộ ở 10--60\,Hz, tách bản ghi đầy đủ, ba seed --- Phase P1 \\
-Chưa cài lại baseline nào. Mọi so sánh với y văn là so với con số đã công bố &
-\xau{Nghiêm trọng} & Cài lại bốn baseline cổ điển, dùng mã mở của Power-MF làm tham chiếu \\
-Đóng góp C3 chưa có một dòng dữ liệu nào & Cao & Là trọng tâm Phase P4--P6 \\
+Chỉ 5 sản phụ, tất cả đang chuyển dạ &
+\tot{Đã xử lý một phần} & Bộ Silesia đã tích hợp: 22 sản phụ độc lập, trong đó 10 thai kỳ 32--42 tuần
+(\S\ref{sec:silesia}). \textbf{Huấn luyện} vẫn chỉ trên 5 ca; huấn luyện lại trên 22 ca là Phase P3 \\
+Khoảng tin cậy 95\% của 99,21 với $n = 5$ vượt quá 100\% &
+Trung bình & Với $n = 22$ vấn đề giảm; vẫn dùng bootstrap thay phân phối $t$ khi viết bài \\
+Bảng 16 kiến trúc chạy ở dải sai, một bản ghi, ngưỡng quét trên bản ghi đánh giá &
+\tot{Đã xử lý} & Chạy lại 8 kiến trúc ở 10--60\,Hz, tách bản ghi đầy đủ, ngưỡng trên validation
+(\S\ref{sec:phuongphap}). Còn thiếu: ba seed và ba kiến trúc nặng (transformer, hai biến thể 2D) \\
+Chưa cài lại baseline nào &
+\tot{Đã xử lý} & Ba baseline cổ điển đã cài lại và chấm cùng giao thức (\S\ref{sec:baselines}). Power-MF
+không chạy lại được vì cần MATLAB và mã đa kênh chưa công bố \\
+Đóng góp C3 chưa có dữ liệu & \tot{Đã xử lý} & Prototype đã chạy. Phần topo cho kết quả phủ định, phần cổng
+từ chối có tác dụng (\S\ref{sec:fsqi}, \S\ref{sec:demo}) \\
 Chưa chạy thí nghiệm tinh chỉnh (E7) & Trung bình & Phase P7 \\
 Chưa có đường cong F1--SNR và đường cong hiệu quả mẫu & Trung bình & Phase P8 \\
 Chưa tăng cường dữ liệu & Thấp & Phase P3 \\
@@ -147,10 +150,13 @@ Phân rã đóng góp ba tầng là kết quả phản trực giác, có kiểm 
 làm của cả một dòng công trình. Sau khi phát biểu lại cho chính xác (\S\ref{sec:ketqua}), đây là phần
 vững nhất.
 
-\item[C3 --- tiềm năng cao nhất, nhưng chưa có dữ liệu.]
-Đây là điểm khác biệt thật sự và là chỗ duy nhất nhóm còn tuyên bố ``đầu tiên'' một cách an toàn.
-Kết quả ở \S\ref{sec:chonkenh} cho thấy động cơ là có thật và đã đo được. Nhưng hiện tại C3 vẫn là
-thiết kế trên giấy.
+\item[C3 --- đã chạy prototype; nửa khẳng định, nửa phủ định.]
+Phần \textit{cổng từ chối} có tác dụng thật: $+7{,}4$ điểm F1 ở độ phủ 80\% trên CinC 2013 so với từ
+chối ngẫu nhiên, và bản demo bắt đúng hai bản ghi tệ nhất mà không bỏ lọt bản ghi tốt nào. Phần
+\textit{đồng điều bền vững} thất bại có kiểm soát: AUROC 0,566 so với 0,929 của chỉ số cổ điển
+(\S\ref{sec:fsqi}). Nhóm rút lại phần topo và giữ phần cổng. Điểm ``đầu tiên'' còn lại là: thử nghiệm có
+kiểm soát đầu tiên của TDA trên tín hiệu tim thai --- với kết quả phủ định. Yếu hơn về mặt tiếp thị,
+nhưng đúng, và giả thuyết H0 đã dự phòng cho đúng tình huống này.
 
 \item[C1 --- yếu hơn nhóm tưởng.]
 Kho \texttt{mad-lab-fau/fecg-benchmarking} đi kèm Power-MF đã tồn tại và đã làm một phần việc đối chuẩn.
@@ -226,6 +232,22 @@ P11 & 24 & Hoàn thiện, nộp, báo cáo Euréka & Hồ sơ nộp \\
 \end{tabular}
 \end{table}
 
+\begin{ghichu}[title={Những phase đã được kéo lên làm sớm trong đợt thực thi ngày 10--11/09/2026}]
+\begin{itemize}[leftmargin=1.4em,itemsep=2pt]
+\item \textbf{P0} một phần: Silesia đã tải, kiểm tra rò rỉ, đánh giá zero-shot (\S\ref{sec:silesia}).
+Còn FECGSYNDB và NInFEA.
+\item \textbf{P1} phần lớn: 8 kiến trúc chạy lại đúng giao thức (\S\ref{sec:phuongphap}). Còn ba seed và
+ba kiến trúc nặng.
+\item \textbf{P2} xong: ba baseline cổ điển (\S\ref{sec:baselines}). Power-MF không chạy lại được, đã ghi lý do.
+\item \textbf{P4--P6} prototype xong với kết quả phủ định cho topo và khẳng định cho cổng từ chối
+(\S\ref{sec:fsqi}). Việc còn lại là thay luật cứng trong demo bằng bộ phân loại cổ điển.
+\item \textbf{P9} một phần: demo Gradio chạy được, kiểm thử ba tầng, ảnh chụp thật (\S\ref{sec:demo}).
+Còn API và Docker.
+\end{itemize}
+Chưa động tới: P3 (huấn luyện lại trên 22 ca), P7 (tiền huấn luyện FECGSYNDB), P8 (đường cong F1--SNR),
+P10--P11 (viết và nộp bài).
+\end{ghichu}
+
 \subsection{Phân vai ba sinh viên}
 
 \begin{table}[H]\centering\small
@@ -261,9 +283,11 @@ Sáu checkpoint đã huấn luyện & Năm mô hình tách bản ghi + một mô
 Công cụ tải dữ liệu & Tải trực tiếp từ PhysioNet, ghi mã băm SHA-256 & \tot{Đã có} \\
 Công cụ suy luận dòng lệnh & Hỗ trợ EDF, WFDB, CSV, NPY & \tot{Đã có} \\
 Bộ mã đối chuẩn & Chạy đúng giao thức, kiểm chứng chéo Hungarian & \tot{Đã có} \\
-Thư viện fSQI topo & Đặc trưng đồng điều bền vững & Phase P4 \\
-Cổng từ chối trả lời & Kèm đường cong rủi ro--độ phủ & Phase P6 \\
-API và bảng điều khiển & Đóng gói Docker & Phase P9 \\
+Ba baseline cổ điển & TS, TS-PCA, Prominence; cùng giao thức, Wilcoxon & \tot{Đã có} \\
+Thư viện fSQI & 28 đặc trưng topo và cổ điển, có kiểm thử tự đối chiếu & \tot{Đã có} \\
+Cổng từ chối trả lời & Đường cong rủi ro--độ phủ, đối chứng ngẫu nhiên và oracle & \tot{Đã có} \\
+Bản demo web & Gradio, năm tầng tín hiệu, đèn tin cậy, kiểm thử ba tầng & \tot{Đã có} \\
+API và đóng gói Docker & & Phase P9 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -284,8 +308,8 @@ Ba lý do, xếp theo độ vững:
 \item \textbf{Một kết quả phản trực giác có kiểm định thống kê} (C2): front-end tín hiệu quan trọng hơn
 họ kiến trúc mạng khoảng 27 lần. Điều này phản bác cách làm của cả một dòng công trình.
 \item \textbf{Một khoảng trống thật, đã kiểm tra bằng bốn cơ sở dữ liệu và ba ngôn ngữ} (G3).
-\item \textbf{Một động cơ lâm sàng đã đo được} cho C3: chỉ số chất lượng dựa trên phổ đạt oracle trong
-miền nhưng sụp đổ ngoài miền. Đây là bằng chứng, không phải phỏng đoán.
+\item \textbf{Một cổng từ chối đã đo được} cho C3: $+7{,}4$ điểm F1 ở độ phủ 80\% ngoài miền, kèm một
+kết quả phủ định có kiểm soát về TDA. Đây là bằng chứng, không phải phỏng đoán.
 \end{enumerate}
 Và kể cả khi C3 thất bại, giả thuyết H0 đã dự phòng: đối chuẩn cộng phân rã cộng kết quả phủ định có
 kiểm định vẫn là một bài báo hoàn chỉnh.

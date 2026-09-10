@@ -1,0 +1,871 @@
+{
+ "generated": "2026-09-10 19:25:47",
+ "rule": {
+  "band_lo": 0.2,
+  "band_hi": 0.55,
+  "cv_good": 0.05,
+  "cv_bad": 0.3,
+  "p_conf": 0.9,
+  "fhr_lo": 100.0,
+  "fhr_hi": 200.0,
+  "min_beats": 10,
+  "maternal_lock": 0.6,
+  "maternal_tol_ms": 50.0,
+  "weights": {
+   "band": 0.2,
+   "rr": 0.3,
+   "prob": 0.3,
+   "fhr": 0.2
+  },
+  "level_cao": 0.75,
+  "level_tb": 0.45
+ },
+ "rows": {
+  "r01_leadauto": {
+   "record": "r01",
+   "lead": 4,
+   "lead_mode": "auto (PSD)",
+   "checkpoint": "fetalqrs_tcn_fold_r01.pt",
+   "threshold": 0.39999999999999997,
+   "duration_s": 300.0,
+   "n_beats": 644,
+   "fhr_mean": 129.113157084266,
+   "latency_ms": 570.5860999878496,
+   "latency_frontend_ms": 20.152500015683472,
+   "latency_model_ms": 550.4335999721661,
+   "confidence": {
+    "level": "cao",
+    "score": 0.8575570737401959,
+    "reasons": [
+     "Năng lượng 10–60 Hz trên phần dư: 31% (trung gian)",
+     "Khoảng RR: CV = 0.05 (hơi bất thường)",
+     "100% đỉnh có xác suất > 0.9",
+     "fHR trung bình 129 bpm nằm trong 100–200 bpm",
+     "16% nhịp thai trùng đỉnh R mẹ (±50 ms; ngẫu nhiên ≈ 13–22%)"
+    ],
+    "components": {
+     "band_ratio": 0.30805856749725113,
+     "s_band": 0.30873876427786034,
+     "rr_cv": 0.05349223259614679,
+     "s_rr": 0.9860310696154128,
+     "frac_conf_peaks": 1.0,
+     "s_prob": 1.0,
+     "fhr_mean": 129.113157084266,
+     "s_fhr": 1.0,
+     "maternal_lock": 0.16459627329192547
+    }
+   },
+   "lead_scores": {
+    "1": 7.959891824296624e-12,
+    "2": 7.59656154062878e-12,
+    "3": 1.212829756345394e-11,
+    "4": 3.9081003279618266e-11
+   },
+   "metrics": {
+    "TP": 644.0,
+    "FP": 0.0,
+    "FN": 0.0,
+    "Se": 100.0,
+    "PPV": 100.0,
+    "F1": 100.0,
+    "jitter_ms": 1.2546583850931676
+   },
+   "dataset": "ADFECGDB",
+   "lead_requested": "auto"
+  },
+  "r04_leadauto": {
+   "record": "r04",
+   "lead": 2,
+   "lead_mode": "auto (PSD)",
+   "checkpoint": "fetalqrs_tcn_fold_r04.pt",
+   "threshold": 0.5499999999999999,
+   "duration_s": 300.0,
+   "n_beats": 631,
+   "fhr_mean": 126.43482943498638,
+   "latency_ms": 617.756899970118,
+   "latency_frontend_ms": 27.36830001231283,
+   "latency_model_ms": 590.3885999578051,
+   "confidence": {
+    "level": "trung_binh",
+    "score": 0.7443114883738147,
+    "reasons": [
+     "Năng lượng 10–60 Hz trên phần dư: 16% (tràn ra ngoài dải QRS: trôi nền/EMG)",
+     "Khoảng RR: CV = 0.09 (hơi bất thường)",
+     "98% đỉnh có xác suất > 0.9",
+     "fHR trung bình 126 bpm nằm trong 100–200 bpm",
+     "15% nhịp thai trùng đỉnh R mẹ (±50 ms; ngẫu nhiên ≈ 13–22%)"
+    ],
+    "components": {
+     "band_ratio": 0.15508981369545402,
+     "s_band": 0.0,
+     "rr_cv": 0.0924451278871142,
+     "s_rr": 0.8302194884515431,
+     "frac_conf_peaks": 0.9841521394611727,
+     "s_prob": 0.9841521394611727,
+     "fhr_mean": 126.43482943498638,
+     "s_fhr": 1.0,
+     "maternal_lock": 0.15055467511885895
+    }
+   },
+   "lead_scores": {
+    "1": 7.471826724025816e-13,
+    "2": 1.3464842571309565e-11,
+    "3": 4.506438002373451e-12,
+    "4": 8.190295514348623e-12
+   },
+   "metrics": {
+    "TP": 630.0,
+    "FP": 1.0,
+    "FN": 2.0,
+    "Se": 99.68354430379746,
+    "PPV": 99.84152139461173,
+    "F1": 99.7624703087886,
+    "jitter_ms": 2.026984126984127
+   },
+   "dataset": "ADFECGDB",
+   "lead_requested": "auto"
+  },
+  "r07_leadauto": {
+   "record": "r07",
+   "lead": 2,
+   "lead_mode": "auto (PSD)",
+   "checkpoint": "fetalqrs_tcn_fold_r07.pt",
+   "threshold": 0.49999999999999994,
+   "duration_s": 300.0,
+   "n_beats": 627,
+   "fhr_mean": 125.47037211525388,
+   "latency_ms": 667.3608999699354,
+   "latency_frontend_ms": 28.53989996947348,
+   "latency_model_ms": 638.8210000004619,
+   "confidence": {
+    "level": "cao",
+    "score": 0.8,
+    "reasons": [
+     "Năng lượng 10–60 Hz trên phần dư: 19% (tràn ra ngoài dải QRS: trôi nền/EMG)",
+     "Khoảng RR: CV = 0.02 (đều)",
+     "100% đỉnh có xác suất > 0.9",
+     "fHR trung bình 125 bpm nằm trong 100–200 bpm",
+     "13% nhịp thai trùng đỉnh R mẹ (±50 ms; ngẫu nhiên ≈ 13–22%)"
+    ],
+    "components": {
+     "band_ratio": 0.19123112349357635,
+     "s_band": 0.0,
+     "rr_cv": 0.02351348636478096,
+     "s_rr": 1.0,
+     "frac_conf_peaks": 1.0,
+     "s_prob": 1.0,
+     "fhr_mean": 125.47037211525388,
+     "s_fhr": 1.0,
+     "maternal_lock": 0.12759170653907495
+    }
+   },
+   "lead_scores": {
+    "1": 1.1387027497200407e-12,
+    "2": 1.6158592024477797e-11,
+    "3": 8.814347367973188e-12,
+    "4": 1.5466033420714897e-11
+   },
+   "metrics": {
+    "TP": 627.0,
+    "FP": 0.0,
+    "FN": 0.0,
+    "Se": 100.0,
+    "PPV": 100.0,
+    "F1": 100.0,
+    "jitter_ms": 1.722488038277512
+   },
+   "dataset": "ADFECGDB",
+   "lead_requested": "auto"
+  },
+  "r08_leadauto": {
+   "record": "r08",
+   "lead": 4,
+   "lead_mode": "auto (PSD)",
+   "checkpoint": "fetalqrs_tcn_fold_r08.pt",
+   "threshold": 0.44999999999999996,
+   "duration_s": 300.0,
+   "n_beats": 652,
+   "fhr_mean": 130.51447999768564,
+   "latency_ms": 647.7795999962837,
+   "latency_frontend_ms": 30.370899999979883,
+   "latency_model_ms": 617.4086999963038,
+   "confidence": {
+    "level": "cao",
+    "score": 0.8964310215868374,
+    "reasons": [
+     "Năng lượng 10–60 Hz trên phần dư: 41% (trung gian)",
+     "Khoảng RR: CV = 0.07 (hơi bất thường)",
+     "100% đỉnh có xác suất > 0.9",
+     "fHR trung bình 131 bpm nằm trong 100–200 bpm",
+     "20% nhịp thai trùng đỉnh R mẹ (±50 ms; ngẫu nhiên ≈ 13–22%)"
+    ],
+    "components": {
+     "band_ratio": 0.41266492241841896,
+     "s_band": 0.6076140640526255,
+     "rr_cv": 0.06975951927127355,
+     "s_rr": 0.9209619229149058,
+     "frac_conf_peaks": 0.995398773006135,
+     "s_prob": 0.995398773006135,
+     "fhr_mean": 130.51447999768564,
+     "s_fhr": 1.0,
+     "maternal_lock": 0.20398773006134968
+    }
+   },
+   "lead_scores": {
+    "1": 1.2202615510148341e-11,
+    "2": 7.86941011564833e-12,
+    "3": 1.4274477091681711e-11,
+    "4": 4.3872612741209465e-11
+   },
+   "metrics": {
+    "TP": 650.0,
+    "FP": 2.0,
+    "FN": 1.0,
+    "Se": 99.84639016897081,
+    "PPV": 99.69325153374233,
+    "F1": 99.76976208749039,
+    "jitter_ms": 5.184615384615385
+   },
+   "dataset": "ADFECGDB",
+   "lead_requested": "auto"
+  },
+  "r10_leadauto": {
+   "record": "r10",
+   "lead": 1,
+   "lead_mode": "auto (PSD)",
+   "checkpoint": "fetalqrs_tcn_fold_r10.pt",
+   "threshold": 0.35,
+   "duration_s": 300.0,
+   "n_beats": 662,
+   "fhr_mean": 132.03805738334745,
+   "latency_ms": 759.0959999943152,
+   "latency_frontend_ms": 41.70300002442673,
+   "latency_model_ms": 717.3929999698885,
+   "confidence": {
+    "level": "cao",
+    "score": 0.9165756012563837,
+    "reasons": [
+     "Năng lượng 10–60 Hz trên phần dư: 49% (trung gian)",
+     "Khoảng RR: CV = 0.08 (hơi bất thường)",
+     "97% đỉnh có xác suất > 0.9",
+     "fHR trung bình 132 bpm nằm trong 100–200 bpm",
+     "14% nhịp thai trùng đỉnh R mẹ (±50 ms; ngẫu nhiên ≈ 13–22%)"
+    ],
+    "components": {
+     "band_ratio": 0.4878785202818095,
+     "s_band": 0.822510057948027,
+     "rr_cv": 0.08200816168251862,
+     "s_rr": 0.8719673532699255,
+     "frac_conf_peaks": 0.9682779456193353,
+     "s_prob": 0.9682779456193353,
+     "fhr_mean": 132.03805738334745,
+     "s_fhr": 1.0,
+     "maternal_lock": 0.13595166163141995
+    }
+   },
+   "lead_scores": {
+    "1": 5.299563667548474e-11,
+    "2": 3.3878388307883975e-11,
+    "3": 1.5514579300925287e-12,
+    "4": 1.0261933228042156e-11
+   },
+   "metrics": {
+    "TP": 627.0,
+    "FP": 35.0,
+    "FN": 10.0,
+    "Se": 98.43014128728414,
+    "PPV": 94.7129909365559,
+    "F1": 96.53579676674364,
+    "jitter_ms": 4.681020733652312
+   },
+   "dataset": "ADFECGDB",
+   "lead_requested": "auto"
+  },
+  "a01_leadauto": {
+   "record": "a01",
+   "lead": 2,
+   "lead_mode": "auto (PSD)",
+   "checkpoint": "fetalqrs_tcn_production.pt",
+   "threshold": 0.44999999999999996,
+   "duration_s": 60.0,
+   "n_beats": 122,
+   "fhr_mean": 129.75353077785584,
+   "latency_ms": 127.21550004789606,
+   "latency_frontend_ms": 8.938700018916279,
+   "latency_model_ms": 118.27680002897978,
+   "confidence": {
+    "level": "trung_binh",
+    "score": 0.572411611069482,
+    "reasons": [
+     "Năng lượng 10–60 Hz trên phần dư: 56% (tập trung ở dải QRS thai)",
+     "Khoảng RR: CV = 0.29 (hơi bất thường)",
+     "55% đỉnh có xác suất > 0.9",
+     "fHR trung bình 130 bpm nằm trong 100–200 bpm",
+     "23% nhịp thai trùng đỉnh R mẹ (±50 ms; ngẫu nhiên ≈ 13–22%)"
+    ],
+    "components": {
+     "band_ratio": 0.5590986648625879,
+     "s_band": 1.0,
+     "rr_cv": 0.29361873940931144,
+     "s_rr": 0.025525042362754213,
+     "frac_conf_peaks": 0.5491803278688525,
+     "s_prob": 0.5491803278688525,
+     "fhr_mean": 129.75353077785584,
+     "s_fhr": 1.0,
+     "maternal_lock": 0.22950819672131148
+    }
+   },
+   "lead_scores": {
+    "1": 3.7026635901473433,
+    "2": 4.718454216055537,
+    "3": 1.6877991640324348,
+    "4": 2.069761394355936
+   },
+   "metrics": {
+    "TP": 79.0,
+    "FP": 43.0,
+    "FN": 66.0,
+    "Se": 54.48275862068965,
+    "PPV": 64.75409836065575,
+    "F1": 59.176029962546814,
+    "jitter_ms": 10.443037974683545
+   },
+   "dataset": "CinC 2013 set-a",
+   "lead_requested": "auto"
+  },
+  "a02_leadauto": {
+   "record": "a02",
+   "lead": 2,
+   "lead_mode": "auto (PSD)",
+   "checkpoint": "fetalqrs_tcn_production.pt",
+   "threshold": 0.44999999999999996,
+   "duration_s": 60.0,
+   "n_beats": 125,
+   "fhr_mean": 125.79836326288405,
+   "latency_ms": 130.83599996753037,
+   "latency_frontend_ms": 7.6135999988764524,
+   "latency_model_ms": 123.22239996865392,
+   "confidence": {
+    "level": "thap",
+    "score": 0.8720572087659642,
+    "reasons": [
+     "Năng lượng 10–60 Hz trên phần dư: 69% (tập trung ở dải QRS thai)",
+     "Khoảng RR: CV = 0.13 (hơi bất thường)",
+     "90% đỉnh có xác suất > 0.9",
+     "fHR trung bình 126 bpm nằm trong 100–200 bpm",
+     "97% nhịp thai trùng đỉnh R mẹ (±50 ms; ngẫu nhiên ≈ 13–22%) → mô hình đang BÁM NHỊP MẸ"
+    ],
+    "components": {
+     "band_ratio": 0.6934419069794975,
+     "s_band": 1.0,
+     "rr_cv": 0.13261899269502989,
+     "s_rr": 0.6695240292198804,
+     "frac_conf_peaks": 0.904,
+     "s_prob": 0.904,
+     "fhr_mean": 125.79836326288405,
+     "s_fhr": 1.0,
+     "maternal_lock": 0.968
+    }
+   },
+   "lead_scores": {
+    "1": 17.72217482996778,
+    "2": 73.51426008335038,
+    "3": 23.209511106300994,
+    "4": 30.92807556388654
+   },
+   "metrics": {
+    "TP": 31.0,
+    "FP": 94.0,
+    "FN": 129.0,
+    "Se": 19.375,
+    "PPV": 24.8,
+    "F1": 21.75438596491228,
+    "jitter_ms": 24.483870967741936
+   },
+   "dataset": "CinC 2013 set-a",
+   "lead_requested": "auto"
+  },
+  "a03_leadauto": {
+   "record": "a03",
+   "lead": 1,
+   "lead_mode": "auto (PSD)",
+   "checkpoint": "fetalqrs_tcn_production.pt",
+   "threshold": 0.44999999999999996,
+   "duration_s": 60.0,
+   "n_beats": 128,
+   "fhr_mean": 127.97013727284966,
+   "latency_ms": 115.94460002379492,
+   "latency_frontend_ms": 7.333900022786111,
+   "latency_model_ms": 108.61070000100881,
+   "confidence": {
+    "level": "cao",
+    "score": 0.9935982929519305,
+    "reasons": [
+     "Năng lượng 10–60 Hz trên phần dư: 61% (tập trung ở dải QRS thai)",
+     "Khoảng RR: CV = 0.06 (hơi bất thường)",
+     "100% đỉnh có xác suất > 0.9",
+     "fHR trung bình 128 bpm nằm trong 100–200 bpm",
+     "16% nhịp thai trùng đỉnh R mẹ (±50 ms; ngẫu nhiên ≈ 13–22%)"
+    ],
+    "components": {
+     "band_ratio": 0.6084097583956396,
+     "s_band": 1.0,
+     "rr_cv": 0.05533475587339125,
+     "s_rr": 0.9786609765064349,
+     "frac_conf_peaks": 1.0,
+     "s_prob": 1.0,
+     "fhr_mean": 127.97013727284966,
+     "s_fhr": 1.0,
+     "maternal_lock": 0.15625
+    }
+   },
+   "lead_scores": {
+    "1": 53.659697858471695,
+    "2": 36.991040563375044,
+    "3": 1.6461249013460773,
+    "4": 11.042006263240538
+   },
+   "metrics": {
+    "TP": 128.0,
+    "FP": 0.0,
+    "FN": 0.0,
+    "Se": 100.0,
+    "PPV": 100.0,
+    "F1": 100.0,
+    "jitter_ms": 1.9140625
+   },
+   "dataset": "CinC 2013 set-a",
+   "lead_requested": "auto"
+  },
+  "a04_leadauto": {
+   "record": "a04",
+   "lead": 4,
+   "lead_mode": "auto (PSD)",
+   "checkpoint": "fetalqrs_tcn_production.pt",
+   "threshold": 0.44999999999999996,
+   "duration_s": 60.0,
+   "n_beats": 129,
+   "fhr_mean": 130.9370854195595,
+   "latency_ms": 140.9278999781236,
+   "latency_frontend_ms": 8.996999997179955,
+   "latency_model_ms": 131.93089998094365,
+   "confidence": {
+    "level": "cao",
+    "score": 0.9374936077964398,
+    "reasons": [
+     "Năng lượng 10–60 Hz trên phần dư: 53% (trung gian)",
+     "Khoảng RR: CV = 0.09 (hơi bất thường)",
+     "100% đỉnh có xác suất > 0.9",
+     "fHR trung bình 131 bpm nằm trong 100–200 bpm",
+     "16% nhịp thai trùng đỉnh R mẹ (±50 ms; ngẫu nhiên ≈ 13–22%)"
+    ],
+    "components": {
+     "band_ratio": 0.5293213711989139,
+     "s_band": 0.9409182034254681,
+     "rr_cv": 0.0922416940738781,
+     "s_rr": 0.8310332237044875,
+     "frac_conf_peaks": 1.0,
+     "s_prob": 1.0,
+     "fhr_mean": 130.9370854195595,
+     "s_fhr": 1.0,
+     "maternal_lock": 0.15503875968992248
+    }
+   },
+   "lead_scores": {
+    "1": 7.4138515160091645,
+    "2": 4.256051190688681,
+    "3": 8.903037503566098,
+    "4": 38.96611342516545
+   },
+   "metrics": {
+    "TP": 129.0,
+    "FP": 0.0,
+    "FN": 0.0,
+    "Se": 100.0,
+    "PPV": 100.0,
+    "F1": 100.0,
+    "jitter_ms": 1.069767441860465
+   },
+   "dataset": "CinC 2013 set-a",
+   "lead_requested": "auto"
+  },
+  "a05_leadauto": {
+   "record": "a05",
+   "lead": 4,
+   "lead_mode": "auto (PSD)",
+   "checkpoint": "fetalqrs_tcn_production.pt",
+   "threshold": 0.44999999999999996,
+   "duration_s": 60.0,
+   "n_beats": 129,
+   "fhr_mean": 128.9512562162108,
+   "latency_ms": 130.48089999938384,
+   "latency_frontend_ms": 6.27459998941049,
+   "latency_model_ms": 124.20630000997335,
+   "confidence": {
+    "level": "cao",
+    "score": 0.9449888071232209,
+    "reasons": [
+     "Năng lượng 10–60 Hz trên phần dư: 45% (trung gian)",
+     "Khoảng RR: CV = 0.01 (đều)",
+     "100% đỉnh có xác suất > 0.9",
+     "fHR trung bình 129 bpm nằm trong 100–200 bpm",
+     "19% nhịp thai trùng đỉnh R mẹ (±50 ms; ngẫu nhiên ≈ 13–22%)"
+    ],
+    "components": {
+     "band_ratio": 0.45373041246563683,
+     "s_band": 0.7249440356161051,
+     "rr_cv": 0.011198114369165346,
+     "s_rr": 1.0,
+     "frac_conf_peaks": 1.0,
+     "s_prob": 1.0,
+     "fhr_mean": 128.9512562162108,
+     "s_fhr": 1.0,
+     "maternal_lock": 0.1937984496124031
+    }
+   },
+   "lead_scores": {
+    "1": 9.401804859553396,
+    "2": 6.976487723264498,
+    "3": 17.191927913561376,
+    "4": 59.58453757975783
+   },
+   "metrics": {
+    "TP": 129.0,
+    "FP": 0.0,
+    "FN": 0.0,
+    "Se": 100.0,
+    "PPV": 100.0,
+    "F1": 100.0,
+    "jitter_ms": 1.0852713178294573
+   },
+   "dataset": "CinC 2013 set-a",
+   "lead_requested": "auto"
+  },
+  "a06_leadauto": {
+   "record": "a06",
+   "lead": 1,
+   "lead_mode": "auto (PSD)",
+   "checkpoint": "fetalqrs_tcn_production.pt",
+   "threshold": 0.44999999999999996,
+   "duration_s": 60.0,
+   "n_beats": 116,
+   "fhr_mean": 121.57259940003426,
+   "latency_ms": 120.34319998929277,
+   "latency_frontend_ms": 4.628500028047711,
+   "latency_model_ms": 115.71469996124506,
+   "confidence": {
+    "level": "trung_binh",
+    "score": 0.48172009589094644,
+    "reasons": [
+     "Năng lượng 10–60 Hz trên phần dư: 30% (trung gian)",
+     "Khoảng RR: CV = 0.23 (hơi bất thường)",
+     "48% đỉnh có xác suất > 0.9",
+     "fHR trung bình 122 bpm nằm trong 100–200 bpm",
+     "41% nhịp thai trùng đỉnh R mẹ (±50 ms; ngẫu nhiên ≈ 13–22%)"
+    ],
+    "components": {
+     "band_ratio": 0.29651415900462613,
+     "s_band": 0.2757547400132175,
+     "rr_cv": 0.23188203193216134,
+     "s_rr": 0.2724718722713546,
+     "frac_conf_peaks": 0.4827586206896552,
+     "s_prob": 0.4827586206896552,
+     "fhr_mean": 121.57259940003426,
+     "s_fhr": 1.0,
+     "maternal_lock": 0.4051724137931034
+    }
+   },
+   "lead_scores": {
+    "1": 2.574062658621711,
+    "2": 2.275919800094077,
+    "3": 0.7785555227441309,
+    "4": 1.2226149337168843
+   },
+   "metrics": {
+    "TP": 59.0,
+    "FP": 57.0,
+    "FN": 101.0,
+    "Se": 36.875,
+    "PPV": 50.86206896551724,
+    "F1": 42.7536231884058,
+    "jitter_ms": 10.271186440677965
+   },
+   "dataset": "CinC 2013 set-a",
+   "lead_requested": "auto"
+  },
+  "a07_leadauto": {
+   "record": "a07",
+   "lead": 2,
+   "lead_mode": "auto (PSD)",
+   "checkpoint": "fetalqrs_tcn_production.pt",
+   "threshold": 0.44999999999999996,
+   "duration_s": 60.0,
+   "n_beats": 98,
+   "fhr_mean": 115.43309673976705,
+   "latency_ms": 163.59600005671382,
+   "latency_frontend_ms": 9.60520002990961,
+   "latency_model_ms": 153.9908000268042,
+   "confidence": {
+    "level": "trung_binh",
+    "score": 0.4826530612244898,
+    "reasons": [
+     "Năng lượng 10–60 Hz trên phần dư: 76% (tập trung ở dải QRS thai)",
+     "Khoảng RR: CV = 0.44 (rất bất thường)",
+     "28% đỉnh có xác suất > 0.9",
+     "fHR trung bình 115 bpm nằm trong 100–200 bpm",
+     "37% nhịp thai trùng đỉnh R mẹ (±50 ms; ngẫu nhiên ≈ 13–22%)"
+    ],
+    "components": {
+     "band_ratio": 0.7631246314184552,
+     "s_band": 1.0,
+     "rr_cv": 0.44440902558657974,
+     "s_rr": 0.0,
+     "frac_conf_peaks": 0.2755102040816326,
+     "s_prob": 0.2755102040816326,
+     "fhr_mean": 115.43309673976705,
+     "s_fhr": 1.0,
+     "maternal_lock": 0.3673469387755102
+    }
+   },
+   "lead_scores": {
+    "1": 2.1616825419228016,
+    "2": 2.9309440044123676,
+    "3": 1.7588487868693476,
+    "4": 1.6362328507776664
+   },
+   "metrics": {
+    "TP": 34.0,
+    "FP": 64.0,
+    "FN": 96.0,
+    "Se": 26.153846153846157,
+    "PPV": 34.69387755102041,
+    "F1": 29.824561403508774,
+    "jitter_ms": 15.941176470588236
+   },
+   "dataset": "CinC 2013 set-a",
+   "lead_requested": "auto"
+  },
+  "a08_leadauto": {
+   "record": "a08",
+   "lead": 4,
+   "lead_mode": "auto (PSD)",
+   "checkpoint": "fetalqrs_tcn_production.pt",
+   "threshold": 0.44999999999999996,
+   "duration_s": 60.0,
+   "n_beats": 128,
+   "fhr_mean": 127.57511998554725,
+   "latency_ms": 139.0603999607265,
+   "latency_frontend_ms": 9.10739996470511,
+   "latency_model_ms": 129.9529999960214,
+   "confidence": {
+    "level": "cao",
+    "score": 1.0,
+    "reasons": [
+     "Năng lượng 10–60 Hz trên phần dư: 72% (tập trung ở dải QRS thai)",
+     "Khoảng RR: CV = 0.01 (đều)",
+     "100% đỉnh có xác suất > 0.9",
+     "fHR trung bình 128 bpm nằm trong 100–200 bpm",
+     "25% nhịp thai trùng đỉnh R mẹ (±50 ms; ngẫu nhiên ≈ 13–22%)"
+    ],
+    "components": {
+     "band_ratio": 0.7176717350495331,
+     "s_band": 1.0,
+     "rr_cv": 0.013244995786533053,
+     "s_rr": 1.0,
+     "frac_conf_peaks": 1.0,
+     "s_prob": 1.0,
+     "fhr_mean": 127.57511998554725,
+     "s_fhr": 1.0,
+     "maternal_lock": 0.25
+    }
+   },
+   "lead_scores": {
+    "1": 20.122625322425083,
+    "2": 10.044549052040567,
+    "3": 28.154207494479127,
+    "4": 58.409556285878146
+   },
+   "metrics": {
+    "TP": 128.0,
+    "FP": 0.0,
+    "FN": 0.0,
+    "Se": 100.0,
+    "PPV": 100.0,
+    "F1": 100.0,
+    "jitter_ms": 0.9453125
+   },
+   "dataset": "CinC 2013 set-a",
+   "lead_requested": "auto"
+  },
+  "a09_leadauto": {
+   "record": "a09",
+   "lead": 2,
+   "lead_mode": "auto (PSD)",
+   "checkpoint": "fetalqrs_tcn_production.pt",
+   "threshold": 0.44999999999999996,
+   "duration_s": 60.0,
+   "n_beats": 94,
+   "fhr_mean": 96.15375680551746,
+   "latency_ms": 131.53600000077859,
+   "latency_frontend_ms": 4.608299990650266,
+   "latency_model_ms": 126.92770001012832,
+   "confidence": {
+    "level": "thap",
+    "score": 0.26634126389967,
+    "reasons": [
+     "Năng lượng 10–60 Hz trên phần dư: 59% (tập trung ở dải QRS thai)",
+     "Khoảng RR: CV = 0.27 (hơi bất thường)",
+     "9% đỉnh có xác suất > 0.9",
+     "fHR trung bình 96 bpm NGOÀI 100–200 bpm",
+     "89% nhịp thai trùng đỉnh R mẹ (±50 ms; ngẫu nhiên ≈ 13–22%) → mô hình đang BÁM NHỊP MẸ"
+    ],
+    "components": {
+     "band_ratio": 0.5874775042902737,
+     "s_band": 1.0,
+     "rr_cv": 0.26599220916162253,
+     "s_rr": 0.13603116335350984,
+     "frac_conf_peaks": 0.0851063829787234,
+     "s_prob": 0.0851063829787234,
+     "fhr_mean": 96.15375680551746,
+     "s_fhr": 0.0,
+     "maternal_lock": 0.8936170212765957
+    }
+   },
+   "lead_scores": {
+    "1": 16.86571142996247,
+    "2": 53.57435435651049,
+    "3": 23.451393444726254,
+    "4": 32.06446713628818
+   },
+   "metrics": {
+    "TP": 19.0,
+    "FP": 75.0,
+    "FN": 111.0,
+    "Se": 14.615384615384617,
+    "PPV": 20.212765957446805,
+    "F1": 16.964285714285715,
+    "jitter_ms": 31.42105263157895
+   },
+   "dataset": "CinC 2013 set-a",
+   "lead_requested": "auto"
+  },
+  "a10_leadauto": {
+   "record": "a10",
+   "lead": 2,
+   "lead_mode": "auto (PSD)",
+   "checkpoint": "fetalqrs_tcn_production.pt",
+   "threshold": 0.44999999999999996,
+   "duration_s": 60.0,
+   "n_beats": 110,
+   "fhr_mean": 117.46060973089666,
+   "latency_ms": 126.01569999242201,
+   "latency_frontend_ms": 9.699899994302541,
+   "latency_model_ms": 116.31579999811947,
+   "confidence": {
+    "level": "trung_binh",
+    "score": 0.6288241497170022,
+    "reasons": [
+     "Năng lượng 10–60 Hz trên phần dư: 79% (tập trung ở dải QRS thai)",
+     "Khoảng RR: CV = 0.25 (hơi bất thường)",
+     "55% đỉnh có xác suất > 0.9",
+     "fHR trung bình 117 bpm nằm trong 100–200 bpm",
+     "57% nhịp thai trùng đỉnh R mẹ (±50 ms; ngẫu nhiên ≈ 13–22%)"
+    ],
+    "components": {
+     "band_ratio": 0.7892040938644497,
+     "s_band": 1.0,
+     "rr_cv": 0.24794957220552855,
+     "s_rr": 0.20820171117788577,
+     "frac_conf_peaks": 0.5545454545454546,
+     "s_prob": 0.5545454545454546,
+     "fhr_mean": 117.46060973089666,
+     "s_fhr": 1.0,
+     "maternal_lock": 0.5727272727272728
+    }
+   },
+   "lead_scores": {
+    "1": 1.1643980712075908,
+    "2": 5.932168632132499,
+    "3": 5.873691393248705,
+    "4": 2.0189849389455032
+   },
+   "metrics": {
+    "TP": 30.0,
+    "FP": 80.0,
+    "FN": 145.0,
+    "Se": 17.142857142857142,
+    "PPV": 27.27272727272727,
+    "F1": 21.052631578947366,
+    "jitter_ms": 19.0
+   },
+   "dataset": "CinC 2013 set-a",
+   "lead_requested": "auto"
+  },
+  "r01_lead4": {
+   "record": "r01",
+   "lead": 4,
+   "lead_mode": "thủ công",
+   "checkpoint": "fetalqrs_tcn_fold_r01.pt",
+   "threshold": 0.39999999999999997,
+   "duration_s": 300.0,
+   "n_beats": 644,
+   "fhr_mean": 129.113157084266,
+   "latency_ms": 657.7526000328362,
+   "latency_frontend_ms": 26.33880003122613,
+   "latency_model_ms": 631.4138000016101,
+   "confidence": {
+    "level": "cao",
+    "score": 0.8575570737401959,
+    "reasons": [
+     "Năng lượng 10–60 Hz trên phần dư: 31% (trung gian)",
+     "Khoảng RR: CV = 0.05 (hơi bất thường)",
+     "100% đỉnh có xác suất > 0.9",
+     "fHR trung bình 129 bpm nằm trong 100–200 bpm",
+     "16% nhịp thai trùng đỉnh R mẹ (±50 ms; ngẫu nhiên ≈ 13–22%)"
+    ],
+    "components": {
+     "band_ratio": 0.30805856749725113,
+     "s_band": 0.30873876427786034,
+     "rr_cv": 0.05349223259614679,
+     "s_rr": 0.9860310696154128,
+     "frac_conf_peaks": 1.0,
+     "s_prob": 1.0,
+     "fhr_mean": 129.113157084266,
+     "s_fhr": 1.0,
+     "maternal_lock": 0.16459627329192547
+    }
+   },
+   "metrics": {
+    "TP": 644.0,
+    "FP": 0.0,
+    "FN": 0.0,
+    "Se": 100.0,
+    "PPV": 100.0,
+    "F1": 100.0,
+    "jitter_ms": 1.2546583850931676
+   },
+   "dataset": "ADFECGDB",
+   "lead_requested": "4"
+  }
+ },
+ "by_level": {
+  "cao": {
+   "n": 8,
+   "F1_mean": 99.53819485677926,
+   "F1_min": 96.53579676674364,
+   "F1_max": 100.0
+  },
+  "trung_binh": {
+   "n": 5,
+   "F1_mean": 50.51386328843947,
+   "F1_min": 21.052631578947366,
+   "F1_max": 99.7624703087886
+  },
+  "thap": {
+   "n": 2,
+   "F1_mean": 19.359335839598998,
+   "F1_min": 16.964285714285715,
+   "F1_max": 21.75438596491228
+  }
+ }
+}

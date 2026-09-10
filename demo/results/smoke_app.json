@@ -1,0 +1,39 @@
+{
+ "gradio": "6.26.0",
+ "plotly": "7.0.0",
+ "python": "3.12.6",
+ "port": 7861,
+ "build_s": 3.92,
+ "ok": true,
+ "http_status": 200,
+ "launch_s": 0.97,
+ "n_components": 23,
+ "n_dependencies": 3,
+ "direct_wall_s": 2.0,
+ "direct": {
+  "record": "r01",
+  "lead": 4,
+  "checkpoint": "fetalqrs_tcn_fold_r01.pt",
+  "F1": 100.0,
+  "Se": 100.0,
+  "PPV": 100.0,
+  "n_beats": 644,
+  "fhr_mean": 129.113157084266,
+  "level": "cao",
+  "latency_ms": 668.8854999374598,
+  "n_traces_fig1": 9,
+  "n_rows_cmp": 200
+ },
+ "api_endpoints": [
+  "/_toggle",
+  "/run",
+  "/run_1"
+ ],
+ "client": {
+  "endpoint": "/run",
+  "wall_s": 2.11,
+  "n_outputs": 7,
+  "F1": 100.0,
+  "level": "cao"
+ }
+}

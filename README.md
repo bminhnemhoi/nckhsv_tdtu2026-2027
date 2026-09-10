@@ -4,17 +4,17 @@
 
 **Reliability-aware single-channel fetal QRS detection**
 
-*A leakage-free representation benchmark and a persistent-homology signal-quality index*
+*A leakage-free benchmark, a three-tier contribution decomposition, and a reject-option gate — with a controlled negative result on persistent homology*
 
 [![License: MIT](https://img.shields.io/badge/Code-MIT-blue.svg)](LICENSE)
 [![Docs: CC BY 4.0](https://img.shields.io/badge/Docs-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB.svg)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-CPU%20only-EE4C2C.svg)](https://pytorch.org/)
-[![Data: PhysioNet](https://img.shields.io/badge/Data-PhysioNet%20ADFECGDB-006699.svg)](https://physionet.org/content/adfecgdb/)
+[![Tests](https://img.shields.io/badge/tests-24%20passing-brightgreen.svg)](tests/)
 
 Undergraduate research project · Faculty of Information Technology · Ton Duc Thang University · 2026–2027
 
-[Vietnamese README](README.vi.md) · [Full proposal (PDF)](docs/De_cuong_NCKH_RelyFetal.pdf) · [30-paper survey (PDF)](docs/Bao_cao_30_paper.pdf)
+[Vietnamese README](README.vi.md) · [Full proposal (PDF)](docs/De_cuong_NCKH_RelyFetal.pdf) · [30-paper survey (PDF)](docs/Bao_cao_30_paper.pdf) · [Demo](demo/)
 
 </div>
 
@@ -24,17 +24,19 @@ Undergraduate research project · Faculty of Information Technology · Ton Duc T
 
 Detecting the fetal heartbeat from **a single abdominal ECG electrode** is the cheapest and most wearable
 configuration for at-home pregnancy monitoring, and the hardest one to solve. The maternal QRS complex is
-several times larger than the fetal one, the two overlap in frequency, and with one channel you cannot
-fall back on multi-channel blind source separation.
+several times larger than the fetal one, the two overlap in frequency, and with one channel there is no
+multi-channel blind source separation to fall back on.
 
-This repository contains a complete, reproducible pipeline for that problem, plus the experimental
-evidence behind every design decision.
+This repository contains a complete, reproducible pipeline for that problem, the experimental evidence
+behind every design decision, three re-implemented classical baselines, a working demo with a confidence
+light, and one carefully controlled negative result.
 
-**The main scientific result is counter-intuitive and is the point of the project:**
+**The main scientific result is counter-intuitive:**
 
 > Changing the band-pass filter is worth **+11.00 F1 points**.
-> Changing the entire network architecture family, at fixed temporal context, is worth **+0.41 points**
-> and is *not statistically distinguishable from noise* (Wilcoxon paired, `p = 0.7012`).
+> Under a leakage-free protocol, **six network architectures land within 1.5 points of each other and none
+> differs significantly from a 26 k-parameter dilated CNN** (all paired-Wilcoxon `p ≥ 0.105`). The only
+> architectural variable that matters is the receptive field (`p = 0.0001`).
 
 A field that has spent a decade designing ever-larger networks has been optimising the wrong stage.
 
@@ -42,46 +44,74 @@ A field that has spent a decade designing ever-larger networks has been optimisi
 
 ## Headline results
 
-All numbers below were produced by the code in this repository and can be regenerated end-to-end.
-Protocol: PhysioNet ADFECGDB, **leave-one-record-out**, event-level scoring, **±50 ms** tolerance
-(the CinC 2013 convention — three times stricter than the 150 ms of ANSI/AAMI EC57).
+Every number below is produced by code in this repository. Protocol throughout: event-level scoring,
+**±50 ms** tolerance (CinC 2013 convention — three times stricter than ANSI/AAMI EC57), greedy one-to-one
+matching cross-checked against optimal Hungarian assignment, **label-blind** channel selection.
 
-### In-domain, ADFECGDB (5 subjects)
+### One model, five data configurations
 
-| Channel-selection rule | Macro F1 | Se | PPV | Jitter |
-|---|---:|---:|---:|---:|
-| **Blind, power-spectral-density (reported)** | **99.21** | 99.59 | 98.79 | 3.05 ms |
-| Fixed lead map prescribed by an external protocol | 99.18 | 99.59 | 98.79 | 3.05 ms |
-| Oracle — uses ground-truth labels, *not reportable* | *99.21* | — | — | — |
-| Mean over all four abdominal leads | 97.45 | 97.69 | 97.18 | 3.62 ms |
+| Dataset | Subjects | Minutes | Labels | F1, blind PSD lead | F1, mean of 4 leads |
+|---|---:|---:|---|---:|---:|
+| ADFECGDB (PhysioNet), leave-one-record-out | 5 | 25 | scalp electrode | **99.21 ± 1.50** | 97.45 ± 2.96 |
+| Silesia B2 labour, 12 records | 12 | 60 | scalp electrode | 97.17 ± 7.45 | 95.26 ± 9.59 |
+| Silesia B2, only the 7 unseen records, zero-shot | 7 | 35 | scalp electrode | 95.87 ± 9.75 | 93.73 ± 12.48 |
+| **Silesia B1 pregnancy, 32–42 weeks, zero-shot** | 10 | 200 | indirect | **93.30 ± 13.46** | 91.31 ± 9.99 |
+| CinC 2013 set-a, zero-shot | 10 | 10 | crowd-sourced | 59.15 ± 37.17 | 61.96 ± 34.09 |
 
-Micro-averaged over 3 191 annotated beats: **TP 3 178 · FP 40 · FN 13**.
+The model was trained on 5 labour recordings only and had never seen pregnancy data. Moving from labour
+to pregnancy *within the same recording system* costs ~4 points; moving to a *different recording system*
+(CinC 2013) costs ~38 and produces a **bimodal** distribution — 4/10 records perfect, 5/10 below 50.
+The variable that breaks generalisation is hardware and electrode placement, not gestational age.
 
-### Cross-dataset, PhysioNet/CinC 2013 set-a — no fine-tuning
-
-| Channel-selection rule | Macro F1 |
-|---|---:|
-| Fixed lead | **77.34 ± 28.54** |
-| Blind PSD rule | 59.15 ± 37.17 |
-| Oracle | 77.59 ± 28.14 |
-
-The mean hides the real problem. The distribution is **bimodal**: 4 of 10 records score a perfect 100.0,
-three collapse below 50. **The system does not know when it is wrong** — and that observation is what the
-project's main novel contribution is built to fix.
+A leakage check by cross-correlation showed that **5 of the 12 Silesia B2 records are the 5 PhysioNet
+records** (NCC 0.988–0.994). Those five are scored with fold checkpoints that never saw them; the
+independent subject count is therefore **22**, not 27.
 
 ### Three-tier contribution decomposition
 
 | Stage | Δ Macro F1 | p | Verdict |
 |---|---:|---:|---|
 | Signal front-end (band-pass choice) | **+11.00** | < 0.001 | significant |
-| Temporal context & output resolution | +4.53 | 0.0000 | significant |
+| Temporal context & per-sample output | +4.53 | 0.0000 | significant |
 | Architecture family, at fixed context | +0.41 | **0.7012** | **not significant** |
+
+### Re-implemented classical baselines (ADFECGDB, same protocol, hyper-parameters tuned on r01 only)
+
+| Method | Mean of 4 leads (n=20) | Blind PSD lead (n=5) | Δ vs model | p, worse in |
+|---|---:|---:|---:|---|
+| Template subtraction + Pan–Tompkins | 78.96 ± 23.52 | 87.68 | −18.49 | 5.7×10⁻⁶, 19/20 |
+| TS-PCA + Pan–Tompkins | 91.05 ± 10.17 | 96.74 | −6.40 | 1.9×10⁻⁶, 20/20 |
+| Peak prominence on the **same front-end** | 86.39 ± 11.14 | 92.03 | −11.06 | 1.9×10⁻⁶, 20/20 |
+| **FetalQRS-TCN** | **97.45 ± 4.44** | **99.21** | — | — |
+
+The third baseline isolates the network's contribution: same residual, peak-picking instead of the
+network → the network is worth **+11.06 points**. TS-PCA on the best lead reaches 96.74 — classical
+methods remain strong, consistent with the front-end finding.
+
+### Reject-option gate and a negative result on persistent homology
+
+A segment-level "will the model fail here?" classifier was trained on ADFECGDB and tested **cross-domain**
+on CinC 2013:
+
+| Feature set | AUROC | F1 at 80 % coverage | F1 at 50 % coverage |
+|---|---:|---:|---:|
+| Random rejection | 0.500 | 62.03 | 62.14 |
+| 16 topological features (Takens + ripser, sublevel H0) | **0.566** | 63.40 | 64.44 |
+| 12 classical SQIs | **0.929** | **69.40** | **84.51** |
+| All 28 | 0.905 | 69.41 | 82.44 |
+| Oracle | — | 74.55 | 97.81 |
+
+Persistent-homology features barely beat random, add nothing to classical features, and flip correlation
+sign between datasets. The strongest single predictors of failure are the model's own confidence
+(`prob_max`, AUROC 0.970), RR regularity (0.915) and the 10–60 Hz band-energy ratio (0.904). The reject
+gate itself works: +7.4 F1 at 80 % coverage. **The topological contribution originally proposed was
+tested with proper controls and withdrawn.**
 
 ---
 
 ## Model
 
-`FetalQRS-TCN` — a dilated residual temporal convolutional network, sequence-to-sequence.
+`FetalQRS-TCN` — dilated residual temporal convolutional network, sequence-to-sequence.
 
 | Property | Value |
 |---|---|
@@ -89,103 +119,109 @@ project's main novel contribution is built to fix.
 | Checkpoint size | 0.48 MB |
 | Receptive field | 379 samples = **1 516 ms** |
 | Latency, one 4 s window | **4.35 ms** on CPU (920× real time) |
-| Input | 2 × 1000 — maternal-cancelled residual + original signal, 4 s at 250 Hz |
-| Output | one logit **per sample**; target is a Gaussian heat-map, σ = 12 ms |
+| Input | 2 × 1000 — maternal-cancelled residual + original, 4 s at 250 Hz |
+| Output | one logit **per sample**; Gaussian heat-map target, σ = 12 ms |
 
 ```
 1-channel aECG @ 1000 Hz
-   ↓  Butterworth 10–60 Hz zero-phase + 50 Hz notch → resample to 250 Hz
+   ↓  Butterworth 10–60 Hz zero-phase + 50 Hz notch → 250 Hz
    ↓  maternal QRS detection (8–25 Hz, RR ≥ 350 ms)
-   ↓  median-template cancellation with per-beat least-squares scaling
+   ↓  median-template cancellation, per-beat least-squares scaling
    ↓  4-second segments, 2 × 1000
    ↓  FetalQRS-TCN — stem Conv1d(k=7) + 5 residual blocks, dilations 1,2,4,8,16
    ↓  per-sample heat-map → peak picking, threshold τ + 250 ms refractory
-fetal beat positions + fetal heart rate
+   ↓  confidence gate (model confidence, RR plausibility, band ratio, maternal-lock check)
+fetal beat positions + fetal heart rate + confidence level
 ```
 
-The architecture was **not** chosen because dilated TCNs are inherently superior. Across 16 architectures
-at matched parameter budget, 13 reasonable ones span only 2.55 F1 points. What actually matters is the
-**receptive field** (172 ms → 98.73; 748 ms → 99.25; 1 516 ms → 99.50; saturating thereafter,
-`p = 0.0000` against the short-context baseline) and **per-sample output resolution** (localisation jitter
-drops from 5.6–6.0 ms to 1.0 ms). A dilated TCN is simply the cheapest way to buy both: at comparable
-receptive field a 1-D U-Net costs 678 257 parameters for a *lower* F1, and a Transformer is 21.7× slower
-for +0.25 points.
+Under the corrected protocol (10–60 Hz, 5-fold LORO, threshold chosen on an inner validation record),
+eight 300 ms-window architectures score 37.5–92.4; the full 4 s sequence-to-sequence model scores 97.43.
+The dilated CNN was kept for **parameter efficiency**, not because its family is superior.
 
 ---
 
-## Evaluation protocol
+## Demo
 
-Three rules are enforced throughout, because each is a common source of inflated numbers in this
-literature:
+```bash
+python demo/app.py        # → http://127.0.0.1:7860
+```
 
-1. **No training on the test subject.** Each record is scored by a checkpoint trained only on other
-   records. Decision thresholds are selected on a *separate* inner validation record, never on the
-   test record.
-2. **±50 ms matching tolerance**, with greedy one-to-one event matching cross-checked against optimal
-   Hungarian assignment (identical on all our data).
-3. **Label-blind channel selection.** Picking the best of four leads by comparing against ground truth is
-   oracle selection and is not reportable. We use a power-spectral-density rule
-   (after Jaeger et al., *Physiol. Meas.* 2024) that never touches the labels.
+Gradio, one page: upload EDF/WFDB/CSV or pick a sample record, automatic label-blind channel selection,
+five-tier signal view (raw → filtered → residual → probability → result), fetal heart-rate trace, and a
+**confidence light**. Selecting an ADFECGDB record automatically uses the fold checkpoint that never saw it.
+
+| Light | Records | Mean F1 | Min F1 |
+|---|---:|---:|---:|
+| Green | 8 | 99.54 | 96.54 |
+| Yellow | 5 | 50.51 | 21.05 |
+| Red | 2 | 19.36 | 16.96 |
+
+No record with F1 < 96.5 was ever marked green. The two worst CinC records are caught by a maternal-lock
+rule (≥ 60 % of "fetal" beats coincide with maternal R-peaks). Tested at three levels: unit tests on the
+core, HTTP smoke test, and `gradio_client` API call. Screenshots in [`demo/screenshots/`](demo/screenshots/).
+
+> Research prototype. Not a medical device. Not for diagnostic use.
 
 ---
 
 ## Repository layout
 
 ```
-model/                    Core library, training, inference, trained weights
+model/                    Core library, training, inference, weights
 ├─ fqrs_model.py            Reference implementation — every constant traced to an experiment
-├─ train_final.py           LORO training, writes 5 fold checkpoints + 1 production model
+├─ train_final.py           LORO training → 5 fold checkpoints + 1 production model
 ├─ predict.py               CLI inference: EDF / WFDB / CSV / NPY
-├─ download_data.py         Fetches PhysioNet sources, writes SHA-256 data card
-└─ checkpoints/             6 trained models (0.48 MB each)
+├─ download_data.py         PhysioNet sources with SHA-256 data card
+├─ download_silesia.py      Resumable figshare download (URL expires in 10 s, needs Range + retry)
+├─ silesia_loader.py        Silesia .ecg reader (int16 big-endian, 500 Hz) → 1 kHz
+└─ checkpoints/             6 trained models, 0.48 MB each
 
 benchmark_dpss/           Benchmark harness
-├─ _paths.py                Data-path resolution, keeps the repo self-contained
-├─ run_dpss_protocol.py     Runs the model under an external benchmark protocol
+├─ _paths.py                Data-path resolution (repo is self-contained)
 ├─ full_measure.py          Full metric suite + measured compute cost
-├─ blind_lead.py            Label-blind PSD channel selection (in- and cross-domain)
+├─ blind_lead.py            Label-blind PSD channel selection, in- and cross-domain
+├─ silesia_eval.py          Silesia B1/B2 evaluation + cross-correlation leakage check
 └─ all_leads.py             Per-lead breakdown
 
-pilot_evidence/           Every pilot experiment, with logs
+baselines/                Re-implemented classical methods
+├─ ts_baseline.py           TS, TS-PCA, prominence; Pan–Tompkins detector; Wilcoxon vs model
+└─ powermf_status.json      Why Power-MF could not be re-run locally
+
+fsqi/                     Signal-quality index experiment (contribution C3)
+├─ fsqi.py                  28 features: Takens+ripser H0/H1, sublevel H0, classical SQIs
+├─ eval_fsqi.py             Cross-domain failure prediction, risk–coverage curves
+└─ README.md                Full negative-result report
+
+demo/                     Gradio application
+├─ core.py                  Pipeline logic, no UI dependency, unit-tested
+├─ app.py                   One-page UI with confidence light
+└─ screenshots/             Real captures from the running app
+
+pilot_evidence/           Every pilot experiment with logs
+├─ arch_loro.py             Corrected 8-architecture comparison (LORO, 10–60 Hz)
 ├─ band_ablation.py         8 band-pass candidates
-├─ arch_search.py           16 architectures at matched parameter budget
 ├─ seq_search.py            Receptive-field sweep
-├─ seq_loro.py              3-seed LORO + paired Wilcoxon
-└─ final_loro.py            Final leave-one-record-out run
+└─ seq_loro.py              3-seed LORO + paired Wilcoxon
 
-de_cuong_latex/           Research proposal — LaTeX source
-├─ make_figs.py             8 vector figures, data-driven
-├─ gen_tables.py            LaTeX tables generated from the survey JSON
-└─ make_docx.py             PDF → DOCX export via pandoc
-
-survey/                   30-paper survey data + verified-facts ledger
+de_cuong_latex/           Research proposal — LaTeX source, data-driven figures and tables
+survey/                   30-paper survey + verified-facts ledgers
 docs/                     Compiled deliverables (PDF + DOCX)
-tests/                    Smoke tests
+tests/                    Smoke tests pinning every quoted number
 ```
 
 ---
 
-## Installation
+## Installation and quickstart
 
 ```bash
 git clone https://github.com/bminhnemhoi/nckhsv_tdtu2026-2027.git
 cd nckhsv_tdtu2026-2027
 python -m venv .venv && source .venv/bin/activate     # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-```
 
-CPU is sufficient. The model trains in roughly 30 minutes on a laptop CPU; no GPU is required.
-
-## Quickstart
-
-```bash
-# 1. Fetch ADFECGDB from PhysioNet (~15 MB) and write a SHA-256 data card
-python model/download_data.py --root model/data --only adfecgdb
-
-# 2. Run inference with a checkpoint that never saw this record
-python model/predict.py \
-    --input model/data/adfecgdb/r01.edf --lead 1 --annot qrs \
-    --checkpoint model/checkpoints/fetalqrs_tcn_fold_r01.pt
+python model/download_data.py --root model/data --only adfecgdb    # ~15 MB from PhysioNet
+python model/predict.py --input model/data/adfecgdb/r01.edf --lead 1 --annot qrs \
+                        --checkpoint model/checkpoints/fetalqrs_tcn_fold_r01.pt
 ```
 
 ```
@@ -193,76 +229,55 @@ fetal beats  645     fetal HR 127.7 bpm     maternal HR 82.0 bpm
 Se 100.00   PPV 99.84   F1 99.92   jitter 1.58 ms   (TP 644, FP 1, FN 0)
 ```
 
+CPU only. Retraining all six checkpoints takes ~30 minutes on a laptop.
+
 ## Reproducing every number
 
 ```bash
-python model/train_final.py --epochs 6 --seed 0   # retrain all 6 checkpoints (~30 min CPU)
-
-python benchmark_dpss/full_measure.py             # full metric suite + compute cost
-python benchmark_dpss/blind_lead.py               # label-blind channel selection
-python benchmark_dpss/all_leads.py                # per-lead breakdown
-
-python pilot_evidence/band_ablation.py            # 8-band ablation
-python pilot_evidence/seq_loro.py                 # 3-seed LORO + Wilcoxon
-```
-
-Rebuilding the proposal documents:
-
-```bash
-cd de_cuong_latex
-python make_figs.py && python gen_tables.py
-xelatex de_cuong.tex && xelatex de_cuong.tex && xelatex de_cuong.tex
-python make_docx.py
+python model/train_final.py --epochs 6 --seed 0          # 6 checkpoints
+python benchmark_dpss/full_measure.py                    # metrics + compute cost
+python benchmark_dpss/blind_lead.py                      # channel-selection rules
+python baselines/ts_baseline.py                          # classical baselines (~2 min)
+python pilot_evidence/arch_loro.py                       # corrected architecture table (~20 min)
+python model/download_silesia.py && python benchmark_dpss/silesia_eval.py   # Silesia (~4 min after download)
+python fsqi/eval_fsqi.py                                 # reject gate + negative result (~4 min)
+python demo/run_check.py && python demo/smoke_app.py     # demo checks
+pytest tests/ demo/test_core.py                          # 24 tests
 ```
 
 ---
 
 ## Data
 
-No physiological recordings are redistributed here. `model/download_data.py` fetches them from the
-original sources and records a SHA-256 for every file.
+No physiological recordings are redistributed. Download scripts record a SHA-256 for every file.
 
-| Dataset | Source | Licence |
-|---|---|---|
-| ADFECGDB | [physionet.org/content/adfecgdb](https://physionet.org/content/adfecgdb/) · DOI 10.13026/C2RP4B | ODC-BY 1.0 |
-| CinC 2013 set-a | [physionet.org/content/challenge-2013](https://physionet.org/content/challenge-2013/) | ODC-BY 1.0 |
-| NSTDB | [physionet.org/content/nstdb](https://physionet.org/content/nstdb/) | ODC-BY 1.0 |
-| NIFEADB | [physionet.org/content/nifeadb](https://physionet.org/content/nifeadb/) · DOI 10.13026/C2CT0S | ODC-BY 1.0 |
-| Silesia (Matonia 2020) | figshare DOI 10.6084/m9.figshare.c.4740794 | manual download |
-| FECGSYNDB | [physionet.org/content/fecgsyndb](https://physionet.org/content/fecgsyndb/) | ODC-BY 1.0 |
+| Dataset | Source | Licence | Used for |
+|---|---|---|---|
+| ADFECGDB | physionet.org/content/adfecgdb · DOI 10.13026/C2RP4B | ODC-BY 1.0 | training, LORO evaluation |
+| Silesia B1/B2 (Matonia 2020) | figshare DOI 10.6084/m9.figshare.c.4740794 · *Sci Data* 7:200 | CC0 | zero-shot generalisation |
+| CinC 2013 set-a | physionet.org/content/challenge-2013 | ODC-BY 1.0 | cross-system generalisation |
 
-ADFECGDB is the primary set: 5 women in labour, weeks 38–41, four abdominal channels at 1 kHz, with
-ground-truth fetal R-peaks taken from a **direct fetal scalp electrode** and verified by a cardiologist.
+Silesia B1 (pregnancy) has **no scalp electrode**; its labels are indirect (author's maternal cancellation
++ automatic detection + expert correction) and sit 8–12 ms after the abdominal R-peak in 5/10 records.
+F1 on B1 measures agreement with that pipeline, not physiological ground truth.
 
 ---
 
 ## Known limitations
 
-Stated plainly, because a reviewer will find them anyway.
-
-- **n = 5 subjects, all in labour at weeks 38–41.** No data below 38 weeks, whereas the clinical value of
-  at-home monitoring lies in weeks 24–37. Extending to the Silesia set is the first planned task.
-- **The 95 % confidence interval on 99.21 at n = 5 exceeds 100 %**, so the normal approximation is
-  violated. Bootstrap or logit-scale intervals are required.
-- **The 16-architecture table is optimistic in absolute terms.** It was run at 3–90 Hz rather than the
-  optimal 10–60 Hz, on one validation record, one seed, with F1 taken as the maximum over an
-  18-point threshold sweep *on the evaluation record itself*. It supports only *relative* comparison,
-  because every architecture carries the same bias. Under it, `cnn_dil` ranks 5th, not 1st — the
-  defensible claim is **parameter efficiency**, not architectural superiority.
-- **No baseline has been re-implemented yet.** All comparisons with the literature are against
-  *published* numbers, not against our own re-runs.
-- **The persistent-homology signal-quality index is designed but not yet implemented.**
-
----
-
-## Related work note
-
-[Power-MF](https://doi.org/10.1088/1361-6579/ad4952) (Jaeger et al., *Physiol. Meas.* 45(5):055009, 2024;
-code at [mad-lab-fau/fecg-benchmarking](https://github.com/mad-lab-fau/fecg-benchmarking)) reports
-98.0 ± 3.0 % F1 on ADFECG B2 at the same 50 ms tolerance using **classical** signal processing. It is not
-directly comparable — it uses four channels on the 500 Hz Silesia subsets whereas this work is
-single-channel on the public 1 kHz records — but it is the strongest competing result and its
-PSD-based channel-selection rule is the one adopted here.
+- **Training set is still 5 subjects, all in labour.** Evaluation now spans 22 independent subjects
+  including 10 in pregnancy, but retraining on all 22 (Phase P3) has not been done.
+- **Cross-system generalisation is unsolved.** 59–77 F1 on CinC 2013 with a bimodal distribution. The
+  reject gate mitigates it (+7.4 points at 80 % coverage); pre-training on FECGSYNDB (Phase P7) is the
+  planned fix.
+- **Architecture table is one seed, three epochs**, and omits the Transformer and both 2-D variants for
+  cost. Rankings are unchanged in direction but absolute numbers are under-trained.
+- **Confidence light in the demo is a hand-set rule.** The maternal-lock threshold (60 %) was set after
+  looking at one evaluation record. The learned classical-SQI classifier from `fsqi/` should replace it.
+- **Power-MF was not re-run** (MATLAB, missing multi-channel dependencies); its 98.0 % remains a
+  published number.
+- **The proposed topological signal-quality index does not work** (AUROC 0.566 vs 0.929). This is
+  reported as a negative result, not hidden.
 
 ---
 
@@ -274,24 +289,21 @@ PSD-based channel-selection rule is the one adopted here.
   title  = {RelyFetal: Reliability-aware single-channel fetal QRS detection},
   year   = {2026},
   school = {Ton Duc Thang University},
-  note   = {Undergraduate research project},
+  note   = {Undergraduate research project, v3.1},
   url    = {https://github.com/bminhnemhoi/nckhsv_tdtu2026-2027}
 }
 ```
 
-See [`CITATION.cff`](CITATION.cff) for machine-readable metadata.
-
----
+See [`CITATION.cff`](CITATION.cff).
 
 ## Licence
 
-Source code is **MIT**. Documentation, figures and trained weights are **CC BY 4.0**. Physiological data
-and third-party publications are **not** redistributed — see [`LICENSE`](LICENSE) for the full scope note.
+Source code **MIT**. Documentation, figures and trained weights **CC BY 4.0**. Physiological data and
+third-party publications are **not** redistributed — see [`LICENSE`](LICENSE).
 
-> **Not a medical device.** This is a research prototype with no clinical validation and no regulatory
-> clearance. It must not be used to inform any diagnostic or treatment decision.
+> **Not a medical device.** Research prototype with no clinical validation and no regulatory clearance.
 
 ## Acknowledgements
 
-PhysioNet and the authors of the ADFECGDB, CinC 2013, NIFEADB and FECGSYNDB databases for making this
-work possible. The MaD Lab at FAU Erlangen-Nürnberg for releasing the Power-MF benchmark code.
+PhysioNet; the Silesian Institute of Technology group (Matonia, Jezewski et al.) for the Silesia dataset;
+the MaD Lab at FAU Erlangen-Nürnberg for the Power-MF benchmark code.

@@ -1,0 +1,179 @@
+# profile_one.py r01 kenh 3 -- TRUOC khi them tran cung (fsqi.py ban 14:43); chay 2026-09-10 ~19:19
+profile_one.py  r01 kenh 3  fsqi.DEFAULT={'dim': 3, 'tau': 5, 'n_points': 300, 'seed': 0, 'abs_thr': 0.5, 'rel_thr': 0.2, 'sl_rel_thr': 0.25}
+pipeline (preprocess+cancel+TCN+peaks) toan ban ghi: 1.1 s, 644 dinh
+
+[A] sublevel + classical (ham con) tren 75 doan
+ seg   sublev   sampen    kurt   spent    band  psdfhr  tauacf    bsqi  classic
+   0      1.7     13.0     1.6    21.1     2.2     1.7     0.0     1.4     17.4
+   1      1.6      8.8     0.9     0.6     0.6     0.5     0.0     0.3     11.4
+   2      1.0      8.8     0.7     0.5     0.6     0.5     0.0     0.4     12.5
+   3      1.1      7.9     0.7     0.6     0.8     0.6     0.0     0.4     12.6
+   4      1.1      7.9     0.7     0.5     0.6     0.6     0.0     0.4     11.7
+   5      0.9      7.9     0.7     0.5     0.8     0.6     0.0     0.3     12.2
+   6      1.1      8.4     0.8     0.6     1.0     0.8     0.0     0.5     13.0
+   7      1.1      9.6     1.3     1.1     1.6     0.9     0.0     0.4     14.2
+   8      1.2     12.0     0.7     1.8     1.3     1.1     0.0     0.4     13.2
+   9      0.7      7.0     0.5     0.5     0.5     0.4     0.0     0.3     11.4
+  10      1.1      8.0     0.8     0.5     0.5     0.6     0.0     0.4     11.9
+  11      1.3      7.8     0.8     0.7     0.8     1.1     0.1     0.9     11.9
+  12      1.0      8.5     0.8     0.6     0.7     0.6     0.0     0.4     11.4
+  13      1.0      7.3     1.3     0.6     0.6     0.5     0.0     0.4     11.4
+  14      0.9      7.8     1.0     0.8     0.7     0.5     0.0     0.4     11.7
+  15      1.4      7.8     0.6     0.4     0.4     0.4     0.0     0.3     12.2
+  16      1.1      7.0     1.2     1.1     0.9     1.0     0.1     0.7     19.9
+  17      0.9      7.3     0.8     0.8     0.7     0.5     0.0     0.3      8.5
+  18      0.7      7.1     0.7     0.5     0.7     0.9     0.1     0.4      8.7
+  19      1.9      6.8     0.6     0.5     0.4     0.3     0.0     0.3     11.9
+  20      0.6      7.7     0.8     0.5     0.6     0.5     0.0     0.4     13.1
+  21      1.0      8.2     0.6     0.5     0.5     0.4     0.0     0.3      9.9
+  22      0.6      8.0     1.1     1.0     1.0     0.6     0.0     0.4     14.7
+  23      1.2      9.8     0.7     0.5     0.6     0.5     0.0     0.4     11.5
+  24      1.2      7.5     0.7     0.4     0.4     0.4     0.0     0.3     16.4
+  25      1.3     12.2     1.0     0.9     1.0     0.8     0.0     0.6     17.4
+  26      1.2      7.8     0.6     0.4     0.4     0.5     0.0     0.3     12.3
+  27      0.7      8.6     0.8     0.5     0.5     0.4     0.0     0.3     10.9
+  28      1.3     10.9     0.8     0.5     1.1     1.1     0.0     0.3     11.4
+  29      1.0      8.3     0.9     0.6     0.6     0.6     0.0     0.4     11.6
+  30      1.0      9.7     0.6     0.4     0.4     0.4     0.0     0.3     12.4
+  31      0.8      7.8     0.8     0.6     0.7     0.6     0.1     0.6     11.9
+  32      1.1      8.1     0.8     0.5     0.4     0.4     0.0     0.3     13.3
+  33      0.7     11.3     1.3     1.0     1.3     1.0     0.0     0.6     18.6
+  34      1.3     12.0     1.2     1.1     1.1     1.0     0.0     0.4     14.2
+  35      1.3     10.4     0.8     0.7     0.6     0.6     0.0     0.3     14.6
+  36      1.4      8.9     0.7     0.6     0.5     0.4     0.0     0.4     19.5
+  37      1.3     11.4     0.7     0.5     0.5     0.6     0.0     0.4     18.2
+  38      1.3     12.2     1.2     1.2     1.6     1.2     0.1     0.8     18.6
+  39      1.3     13.3     1.5     1.1     1.1     0.9     0.0     0.6     17.5
+  40      1.4     11.8     1.0     0.6     0.5     0.4     0.0     0.3     13.2
+  41      0.9     11.7     1.2     0.7     0.6     0.4     0.0     0.5     15.5
+  42      1.4      9.8     1.1     0.6     0.8     0.9     0.1     0.5     13.6
+  43      1.5     10.3     1.1     1.3     0.9     0.7     0.0     0.4     13.7
+  44      1.1     10.0     0.9     0.6     0.5     0.8     0.0     0.8     15.7
+  45      0.9     11.3     0.8     0.6     0.6     0.6     0.0     0.4     14.0
+  46      1.0      8.7     1.3     1.3     1.3     0.7     0.0     0.3     13.3
+  47      1.1      7.7     0.7     0.6     1.6     0.8     0.0     0.5     13.6
+  48      1.4     10.9     1.0     0.9     0.7     0.5     0.0     0.4     14.0
+  49      0.8      8.2     1.8     1.0     1.1     0.9     0.0     0.4     17.9
+  50      0.8      9.9     0.9     1.0     0.9     0.6     0.0     0.4     13.2
+  51      1.4     11.9     1.2     1.5     1.4     1.0     0.0     0.6     16.7
+  52      1.3     11.2     1.1     1.0     1.1     0.9     0.0     0.6     18.1
+  53      1.4      9.9     1.3     0.7     1.1     0.6     0.0     0.4     15.3
+  54      1.1      9.1     0.6     0.7     0.7     0.7     0.0     0.4     39.5
+  55      1.3     13.7     1.2     1.0     1.1     0.9     0.0     0.6     14.4
+  56      1.3     13.0     1.3     1.0     0.8     0.9     0.0     0.4     14.4
+  57      1.4      7.9     1.0     0.6     0.6     0.4     0.0     0.3      8.8
+  58      0.8     13.1     0.7     0.6     1.9     0.9     0.0     0.5     13.4
+  59      1.1     11.6     0.7     0.6     0.6     1.3     0.0     0.4     11.5
+  60      0.7      7.8     0.8     1.1     1.5     1.0     0.0     0.7     13.3
+  61      1.1      8.7     0.7     0.5     0.5     0.4     0.0     0.3     13.7
+  62      1.3      9.6     0.8     0.6     0.7     0.7     0.0     0.4     14.9
+  63      1.1     12.0     0.7     0.6     0.7     0.7     0.0     0.5     14.2
+  64      1.0      9.4     0.7     1.3     0.9     0.9     0.0     0.6     15.4
+  65      1.3      8.6     0.6     0.6     0.8     0.7     0.0     0.4     11.8
+  66      1.0      9.7     0.8     0.7     0.7     0.5     0.0     0.3     16.8
+  67      1.3     11.1     1.1     0.7     0.9     0.6     0.0     0.4     12.3
+  68      1.2      9.4     1.5     1.3     2.0     1.1     0.0     0.7     17.1
+  69      1.1     10.1     0.9     0.6     0.7     1.0     0.1     0.5     16.8
+  70      2.0      8.5     1.1     1.8     1.4     1.0     0.0     0.6     13.8
+  71      1.3      8.9     1.1     0.9     0.7     0.5     0.0     0.4     12.2
+  72      1.0     11.0     0.6     0.5     0.6     0.7     0.0     0.5     13.5
+  73      1.4     12.1     1.1     1.0     1.5     1.0     0.0     0.5     15.2
+  74      0.9     10.4     0.8     0.7     0.6     0.6     0.0     0.4     14.5
+
+[B] topo (Takens + ripser) tren 75 doan -- chan doan dam may TRUOC khi goi ripser
+  seg   0: cloud n=300 unique=300 rank=3 dmin=6.23e-02 zero_dist_pairs=0 iqr=2.345e-06 std=3.127e-06 -> ripser ...    105.1 ms  (h1_count=114, h0_total=139.34)
+  seg   1: cloud n=300 unique=300 rank=3 dmin=1.92e-02 zero_dist_pairs=0 iqr=2.405e-06 std=2.876e-06 -> ripser ...     39.1 ms  (h1_count=116, h0_total=131.80)
+  seg   2: cloud n=300 unique=300 rank=3 dmin=2.43e-02 zero_dist_pairs=0 iqr=2.458e-06 std=3.719e-06 -> ripser ...     37.1 ms  (h1_count=119, h0_total=167.71)
+  seg   3: cloud n=300 unique=300 rank=3 dmin=5.29e-02 zero_dist_pairs=0 iqr=2.483e-06 std=3.232e-06 -> ripser ...     37.5 ms  (h1_count=103, h0_total=136.95)
+  seg   4: cloud n=300 unique=300 rank=3 dmin=2.88e-02 zero_dist_pairs=0 iqr=2.208e-06 std=2.981e-06 -> ripser ...     32.4 ms  (h1_count=128, h0_total=140.77)
+  seg   5: cloud n=300 unique=300 rank=3 dmin=3.24e-02 zero_dist_pairs=0 iqr=2.509e-06 std=3.182e-06 -> ripser ...     31.5 ms  (h1_count=112, h0_total=135.47)
+  seg   6: cloud n=300 unique=300 rank=3 dmin=1.14e-02 zero_dist_pairs=0 iqr=2.607e-06 std=3.311e-06 -> ripser ...     36.5 ms  (h1_count=113, h0_total=132.15)
+  seg   7: cloud n=300 unique=300 rank=3 dmin=4.23e-02 zero_dist_pairs=0 iqr=2.308e-06 std=3.278e-06 -> ripser ...     30.6 ms  (h1_count=127, h0_total=167.30)
+  seg   8: cloud n=300 unique=300 rank=3 dmin=3.82e-02 zero_dist_pairs=0 iqr=2.251e-06 std=3.055e-06 -> ripser ...     35.7 ms  (h1_count=120, h0_total=142.29)
+  seg   9: cloud n=300 unique=300 rank=3 dmin=1.49e-02 zero_dist_pairs=0 iqr=2.445e-06 std=3.075e-06 -> ripser ...     37.8 ms  (h1_count=101, h0_total=133.35)
+  seg  10: cloud n=300 unique=300 rank=3 dmin=4.00e-02 zero_dist_pairs=0 iqr=2.471e-06 std=3.196e-06 -> ripser ...     36.8 ms  (h1_count=127, h0_total=151.33)
+  seg  11: cloud n=300 unique=300 rank=3 dmin=4.50e-02 zero_dist_pairs=0 iqr=2.283e-06 std=2.860e-06 -> ripser ...     38.5 ms  (h1_count=123, h0_total=133.55)
+  seg  12: cloud n=300 unique=300 rank=3 dmin=3.46e-02 zero_dist_pairs=0 iqr=2.653e-06 std=3.026e-06 -> ripser ...     41.0 ms  (h1_count=120, h0_total=126.89)
+  seg  13: cloud n=300 unique=300 rank=3 dmin=2.76e-02 zero_dist_pairs=0 iqr=2.668e-06 std=3.059e-06 -> ripser ...     43.3 ms  (h1_count=114, h0_total=119.84)
+  seg  14: cloud n=300 unique=300 rank=3 dmin=3.74e-02 zero_dist_pairs=0 iqr=2.570e-06 std=3.288e-06 -> ripser ...     39.0 ms  (h1_count=104, h0_total=149.80)
+  seg  15: cloud n=300 unique=300 rank=3 dmin=2.06e-02 zero_dist_pairs=0 iqr=2.990e-06 std=3.945e-06 -> ripser ...     38.0 ms  (h1_count=129, h0_total=153.85)
+  seg  16: cloud n=300 unique=300 rank=3 dmin=7.23e-02 zero_dist_pairs=0 iqr=2.531e-06 std=2.708e-06 -> ripser ...     30.4 ms  (h1_count=128, h0_total=120.62)
+  seg  17: cloud n=300 unique=300 rank=3 dmin=2.17e-02 zero_dist_pairs=0 iqr=2.513e-06 std=2.575e-06 -> ripser ...     36.6 ms  (h1_count=119, h0_total=113.28)
+  seg  18: cloud n=300 unique=300 rank=3 dmin=3.49e-02 zero_dist_pairs=0 iqr=2.849e-06 std=3.705e-06 -> ripser ...     32.5 ms  (h1_count=133, h0_total=143.57)
+  seg  19: cloud n=300 unique=300 rank=3 dmin=4.09e-02 zero_dist_pairs=0 iqr=2.379e-06 std=3.160e-06 -> ripser ...     34.0 ms  (h1_count=124, h0_total=152.40)
+  seg  20: cloud n=300 unique=300 rank=3 dmin=5.37e-02 zero_dist_pairs=0 iqr=2.836e-06 std=4.941e-06 -> ripser ...     28.4 ms  (h1_count=107, h0_total=181.76)
+  seg  21: cloud n=300 unique=300 rank=3 dmin=3.60e-02 zero_dist_pairs=0 iqr=2.801e-06 std=4.493e-06 -> ripser ...     28.9 ms  (h1_count=120, h0_total=179.78)
+  seg  22: cloud n=300 unique=300 rank=3 dmin=4.71e-02 zero_dist_pairs=0 iqr=2.748e-06 std=5.470e-06 -> ripser ...     36.7 ms  (h1_count=114, h0_total=194.44)
+  seg  23: cloud n=300 unique=300 rank=3 dmin=2.25e-02 zero_dist_pairs=0 iqr=1.959e-06 std=2.395e-06 -> ripser ...     40.9 ms  (h1_count=115, h0_total=132.65)
+  seg  24: cloud n=300 unique=300 rank=3 dmin=4.21e-02 zero_dist_pairs=0 iqr=2.421e-06 std=3.622e-06 -> ripser ...     41.4 ms  (h1_count=107, h0_total=176.35)
+  seg  25: cloud n=300 unique=300 rank=3 dmin=4.07e-02 zero_dist_pairs=0 iqr=2.409e-06 std=3.724e-06 -> ripser ...     36.3 ms  (h1_count=130, h0_total=178.22)
+  seg  26: cloud n=300 unique=300 rank=3 dmin=4.52e-02 zero_dist_pairs=0 iqr=1.770e-06 std=2.750e-06 -> ripser ...     34.8 ms  (h1_count=110, h0_total=157.45)
+  seg  27: cloud n=300 unique=300 rank=3 dmin=5.54e-02 zero_dist_pairs=0 iqr=1.722e-06 std=2.524e-06 -> ripser ...     33.4 ms  (h1_count=105, h0_total=142.33)
+  seg  28: cloud n=300 unique=300 rank=3 dmin=5.83e-02 zero_dist_pairs=0 iqr=1.613e-06 std=2.349e-06 -> ripser ...     37.1 ms  (h1_count=115, h0_total=146.31)
+  seg  29: cloud n=300 unique=300 rank=3 dmin=2.92e-02 zero_dist_pairs=0 iqr=2.282e-06 std=3.117e-06 -> ripser ...     35.7 ms  (h1_count=106, h0_total=142.87)
+  seg  30: cloud n=300 unique=300 rank=3 dmin=6.23e-02 zero_dist_pairs=0 iqr=1.880e-06 std=3.176e-06 -> ripser ...     38.3 ms  (h1_count=114, h0_total=176.60)
+  seg  31: cloud n=300 unique=300 rank=3 dmin=6.53e-02 zero_dist_pairs=0 iqr=1.980e-06 std=2.838e-06 -> ripser ...     31.6 ms  (h1_count=101, h0_total=154.54)
+  seg  32: cloud n=300 unique=300 rank=3 dmin=1.44e-02 zero_dist_pairs=0 iqr=1.958e-06 std=2.533e-06 -> ripser ...     32.3 ms  (h1_count=129, h0_total=133.57)
+  seg  33: cloud n=300 unique=300 rank=3 dmin=6.21e-02 zero_dist_pairs=0 iqr=1.826e-06 std=3.236e-06 -> ripser ...     28.8 ms  (h1_count=103, h0_total=178.03)
+  seg  34: cloud n=300 unique=300 rank=3 dmin=3.07e-02 zero_dist_pairs=0 iqr=1.761e-06 std=2.659e-06 -> ripser ...     35.5 ms  (h1_count=113, h0_total=143.18)
+  seg  35: cloud n=300 unique=300 rank=3 dmin=8.49e-02 zero_dist_pairs=0 iqr=1.666e-06 std=2.844e-06 -> ripser ...     39.6 ms  (h1_count=116, h0_total=167.48)
+  seg  36: cloud n=300 unique=300 rank=3 dmin=8.13e-02 zero_dist_pairs=0 iqr=1.779e-06 std=2.815e-06 -> ripser ...     39.3 ms  (h1_count=124, h0_total=157.32)
+  seg  37: cloud n=300 unique=300 rank=3 dmin=4.23e-02 zero_dist_pairs=0 iqr=1.618e-06 std=2.401e-06 -> ripser ...     36.6 ms  (h1_count=120, h0_total=136.87)
+  seg  38: cloud n=300 unique=300 rank=3 dmin=3.66e-02 zero_dist_pairs=0 iqr=1.790e-06 std=2.618e-06 -> ripser ...     39.4 ms  (h1_count=98, h0_total=139.78)
+  seg  39: cloud n=300 unique=300 rank=3 dmin=1.47e-02 zero_dist_pairs=0 iqr=2.001e-06 std=3.161e-06 -> ripser ...     30.8 ms  (h1_count=113, h0_total=166.70)
+  seg  40: cloud n=300 unique=300 rank=3 dmin=1.70e-02 zero_dist_pairs=0 iqr=1.711e-06 std=2.785e-06 -> ripser ...     31.6 ms  (h1_count=113, h0_total=149.85)
+  seg  41: cloud n=300 unique=300 rank=3 dmin=3.63e-02 zero_dist_pairs=0 iqr=1.792e-06 std=3.134e-06 -> ripser ...     27.2 ms  (h1_count=111, h0_total=170.69)
+  seg  42: cloud n=300 unique=300 rank=3 dmin=4.35e-02 zero_dist_pairs=0 iqr=1.611e-06 std=2.731e-06 -> ripser ...     33.5 ms  (h1_count=126, h0_total=149.45)
+  seg  43: cloud n=300 unique=300 rank=3 dmin=4.71e-02 zero_dist_pairs=0 iqr=1.770e-06 std=3.065e-06 -> ripser ...     30.2 ms  (h1_count=106, h0_total=177.30)
+  seg  44: cloud n=300 unique=300 rank=3 dmin=2.61e-02 zero_dist_pairs=0 iqr=2.115e-06 std=3.837e-06 -> ripser ...     32.3 ms  (h1_count=109, h0_total=187.42)
+  seg  45: cloud n=300 unique=300 rank=3 dmin=2.62e-02 zero_dist_pairs=0 iqr=2.309e-06 std=3.627e-06 -> ripser ...     28.0 ms  (h1_count=109, h0_total=162.99)
+  seg  46: cloud n=300 unique=300 rank=3 dmin=3.38e-02 zero_dist_pairs=0 iqr=1.998e-06 std=2.968e-06 -> ripser ...     30.8 ms  (h1_count=118, h0_total=151.84)
+  seg  47: cloud n=300 unique=300 rank=3 dmin=4.05e-02 zero_dist_pairs=0 iqr=2.063e-06 std=2.647e-06 -> ripser ...     30.5 ms  (h1_count=97, h0_total=135.93)
+  seg  48: cloud n=300 unique=300 rank=3 dmin=1.21e-02 zero_dist_pairs=0 iqr=2.866e-06 std=4.435e-06 -> ripser ...     35.0 ms  (h1_count=112, h0_total=145.65)
+  seg  49: cloud n=300 unique=300 rank=3 dmin=3.21e-02 zero_dist_pairs=0 iqr=2.000e-06 std=3.447e-06 -> ripser ...     30.2 ms  (h1_count=121, h0_total=169.76)
+  seg  50: cloud n=300 unique=300 rank=3 dmin=1.61e-02 zero_dist_pairs=0 iqr=2.381e-06 std=4.523e-06 -> ripser ...     29.5 ms  (h1_count=113, h0_total=210.18)
+  seg  51: cloud n=300 unique=300 rank=3 dmin=4.24e-02 zero_dist_pairs=0 iqr=2.214e-06 std=2.991e-06 -> ripser ...     33.9 ms  (h1_count=113, h0_total=135.26)
+  seg  52: cloud n=300 unique=300 rank=3 dmin=5.23e-02 zero_dist_pairs=0 iqr=3.172e-06 std=4.527e-06 -> ripser ...     30.9 ms  (h1_count=107, h0_total=171.28)
+  seg  53: cloud n=300 unique=300 rank=3 dmin=5.38e-02 zero_dist_pairs=0 iqr=2.447e-06 std=3.557e-06 -> ripser ...     28.3 ms  (h1_count=98, h0_total=165.75)
+  seg  54: cloud n=300 unique=300 rank=3 dmin=5.93e-02 zero_dist_pairs=0 iqr=2.444e-06 std=3.451e-06 -> ripser ...     25.4 ms  (h1_count=104, h0_total=145.02)
+  seg  55: cloud n=300 unique=300 rank=3 dmin=4.36e-02 zero_dist_pairs=0 iqr=2.332e-06 std=3.475e-06 -> ripser ...     25.6 ms  (h1_count=105, h0_total=150.56)
+  seg  56: cloud n=300 unique=300 rank=3 dmin=1.32e-02 zero_dist_pairs=0 iqr=2.155e-06 std=2.901e-06 -> ripser ...     28.0 ms  (h1_count=118, h0_total=142.99)
+  seg  57: cloud n=300 unique=300 rank=3 dmin=2.72e-02 zero_dist_pairs=0 iqr=2.329e-06 std=3.111e-06 -> ripser ...     30.4 ms  (h1_count=108, h0_total=143.08)
+  seg  58: cloud n=300 unique=300 rank=3 dmin=2.97e-02 zero_dist_pairs=0 iqr=1.948e-06 std=3.176e-06 -> ripser ...     24.8 ms  (h1_count=110, h0_total=161.80)
+  seg  59: cloud n=300 unique=300 rank=3 dmin=3.27e-02 zero_dist_pairs=0 iqr=2.147e-06 std=2.978e-06 -> ripser ...     30.9 ms  (h1_count=117, h0_total=144.41)
+  seg  60: cloud n=300 unique=300 rank=3 dmin=4.75e-02 zero_dist_pairs=0 iqr=2.219e-06 std=3.380e-06 -> ripser ...     37.0 ms  (h1_count=110, h0_total=163.70)
+  seg  61: cloud n=300 unique=300 rank=3 dmin=1.98e-02 zero_dist_pairs=0 iqr=4.326e-06 std=6.830e-06 -> ripser ...     33.9 ms  (h1_count=115, h0_total=165.85)
+  seg  62: cloud n=300 unique=300 rank=3 dmin=5.45e-02 zero_dist_pairs=0 iqr=2.506e-06 std=3.693e-06 -> ripser ...     26.9 ms  (h1_count=97, h0_total=159.75)
+  seg  63: cloud n=300 unique=300 rank=3 dmin=1.28e-02 zero_dist_pairs=0 iqr=1.983e-06 std=3.509e-06 -> ripser ...     31.1 ms  (h1_count=109, h0_total=173.16)
+  seg  64: cloud n=300 unique=300 rank=3 dmin=3.61e-02 zero_dist_pairs=0 iqr=2.198e-06 std=3.235e-06 -> ripser ...     37.5 ms  (h1_count=119, h0_total=153.92)
+  seg  65: cloud n=300 unique=300 rank=3 dmin=5.83e-02 zero_dist_pairs=0 iqr=2.405e-06 std=3.418e-06 -> ripser ...     29.4 ms  (h1_count=110, h0_total=149.33)
+  seg  66: cloud n=300 unique=300 rank=3 dmin=4.49e-02 zero_dist_pairs=0 iqr=2.112e-06 std=3.113e-06 -> ripser ...     35.7 ms  (h1_count=115, h0_total=149.44)
+  seg  67: cloud n=300 unique=300 rank=3 dmin=3.99e-02 zero_dist_pairs=0 iqr=2.365e-06 std=3.016e-06 -> ripser ...     28.6 ms  (h1_count=113, h0_total=121.48)
+  seg  68: cloud n=300 unique=300 rank=3 dmin=3.55e-02 zero_dist_pairs=0 iqr=2.014e-06 std=3.026e-06 -> ripser ...     28.7 ms  (h1_count=119, h0_total=155.27)
+  seg  69: cloud n=300 unique=300 rank=3 dmin=3.37e-02 zero_dist_pairs=0 iqr=2.136e-06 std=3.002e-06 -> ripser ...     33.1 ms  (h1_count=125, h0_total=145.75)
+  seg  70: cloud n=300 unique=300 rank=3 dmin=5.95e-02 zero_dist_pairs=0 iqr=2.063e-06 std=2.931e-06 -> ripser ...     28.5 ms  (h1_count=108, h0_total=131.84)
+  seg  71: cloud n=300 unique=300 rank=3 dmin=2.39e-02 zero_dist_pairs=0 iqr=2.095e-06 std=3.310e-06 -> ripser ...     27.6 ms  (h1_count=112, h0_total=161.90)
+  seg  72: cloud n=300 unique=300 rank=3 dmin=6.13e-02 zero_dist_pairs=0 iqr=1.983e-06 std=2.868e-06 -> ripser ...     33.1 ms  (h1_count=122, h0_total=137.14)
+  seg  73: cloud n=300 unique=300 rank=3 dmin=4.66e-02 zero_dist_pairs=0 iqr=2.266e-06 std=3.162e-06 -> ripser ...     34.8 ms  (h1_count=120, h0_total=138.71)
+  seg  74: cloud n=300 unique=300 rank=3 dmin=2.97e-02 zero_dist_pairs=0 iqr=2.166e-06 std=3.236e-06 -> ripser ...     28.5 ms  (h1_count=105, h0_total=142.98)
+
+[C] TONG KET (ms/doan)
+  topo          TB     34.3  trung vi     33.1  p95     41.0  max     105.1  tong     2.6 s
+  sublevel      TB      1.1  trung vi      1.1  p95      1.6  max       2.0  tong     0.1 s
+  classical     TB     14.2  trung vi     13.5  p95     18.6  max      39.5  tong     1.1 s
+  sampen        TB      9.6  trung vi      9.4  p95     13.0  max      13.7  tong     0.7 s
+  bsqi          TB      0.5  trung vi      0.4  p95      0.8  max       1.4  tong     0.0 s
+  psd_fhr       TB      0.7  trung vi      0.6  p95      1.1  max       1.7  tong     0.1 s
+  spec_entropy  TB      1.0  trung vi      0.6  p95      1.4  max      21.1  tong     0.1 s
+  band_ratio    TB      0.9  trung vi      0.7  p95      1.6  max       2.2  tong     0.1 s
+  tau_acf       TB      0.0  trung vi      0.0  p95      0.1  max       0.1  tong     0.0 s
+  total         TB     49.6  trung vi     48.7  p95     59.1  max     124.2  tong     3.7 s
+
+5 doan cham nhat (tong = topo + sublevel + classical):
+  seg   0: tong     124.2 ms  ham cham nhat = topo (105.1 ms)  [topo 105.1 / sublevel 1.7 / classical 17.4; classical con: spec_entropy 21.1]  cloud unique=300 rank=3 dmin=6.2e-02
+  seg  54: tong      66.0 ms  ham cham nhat = classical (39.5 ms)  [topo 25.4 / sublevel 1.1 / classical 39.5; classical con: sampen 9.1]  cloud unique=300 rank=3 dmin=5.9e-02
+  seg  36: tong      60.3 ms  ham cham nhat = topo (39.3 ms)  [topo 39.3 / sublevel 1.4 / classical 19.5; classical con: sampen 8.9]  cloud unique=300 rank=3 dmin=8.1e-02
+  seg  38: tong      59.3 ms  ham cham nhat = topo (39.4 ms)  [topo 39.4 / sublevel 1.3 / classical 18.6; classical con: sampen 12.2]  cloud unique=300 rank=3 dmin=3.7e-02
+  seg  24: tong      59.0 ms  ham cham nhat = topo (41.4 ms)  [topo 41.4 / sublevel 1.2 / classical 16.4; classical con: sampen 7.5]  cloud unique=300 rank=3 dmin=4.2e-02
+
+so doan vuot 100 ms tong: 1/75  [0]

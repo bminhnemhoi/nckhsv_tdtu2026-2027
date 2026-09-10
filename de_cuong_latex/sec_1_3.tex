@@ -20,22 +20,26 @@ Chỉ đổi dải thông từ 1--45\,Hz sang 10--60\,Hz nâng macro F1 thêm \t
 thí nghiệm có kiểm soát. Trong khi đó, khi giữ cố định ngữ cảnh thời gian, việc thay gradient boosting
 bằng mạng học sâu chỉ đáng \xau{+0,41 điểm} với $p = 0{,}7012$, tức không có ý nghĩa thống kê.
 
-\item \textbf{Biểu diễn topo không phù hợp cho bài toán dò đỉnh.}
-Persistence Image kết hợp CNN 2D đứng \xau{cuối cùng trong 16 kiến trúc} được so ở cùng ngân sách
-tham số (F1 27,42 so với 97,14 của CNN 1D cùng 27 nghìn tham số). Nhóm cũng chứng minh được bằng số
-rằng đặc trưng $H_0$ của lọc dưới mức trên tín hiệu một chiều \textbf{trùng khớp 100\%} với độ nhô đỉnh
-cổ điển, tức không phải một đặc trưng mới.
+\item \textbf{Biểu diễn topo không phù hợp cho bài toán này, ở cả hai vai trò nhóm đã thử.}
+Làm đặc trưng dò đỉnh: Persistence Image kết hợp CNN 2D đứng \xau{cuối cùng trong 16 kiến trúc} ở cùng
+ngân sách tham số (F1 27,42 so với 97,14). Làm chỉ số chất lượng tín hiệu: đặc trưng đồng điều bền vững
+dự báo lỗi mô hình với AUROC \xau{0,566} ngoài miền, so với \tot{0,929} của chỉ số cổ điển, và gộp vào
+còn làm giảm. Nhóm cũng chứng minh bằng số rằng $H_0$ của lọc dưới mức \textbf{trùng khớp 100\%} với
+độ nhô đỉnh cổ điển.
 
 \item \textbf{Rào cản thật không phải độ chính xác trung bình mà là độ tin cậy.}
-Mô hình của nhóm đạt macro F1 \tot{99,21} trên ADFECGDB khi tách theo bản ghi, nhưng khi chuyển sang
-PhysioNet/CinC 2013 mà không tinh chỉnh thì chỉ còn \xau{77,34}. Quan trọng hơn con số trung bình là
-hình dạng phân bố: bốn trên mười bản ghi đạt F1 tuyệt đối 100\%, ba bản khác sụp xuống dưới 50\%.
+Mô hình của nhóm đạt macro F1 \tot{99,21} trên ADFECGDB khi tách theo bản ghi, và tổng quát được sang
+\tot{93,30} trên 10 sản phụ \textbf{thai kỳ} chưa từng thấy (Silesia B1). Nhưng khi chuyển sang một hệ ghi
+khác (PhysioNet/CinC 2013) mà không tinh chỉnh thì chỉ còn \xau{77,34}, và quan trọng hơn con số trung bình
+là hình dạng phân bố: bốn trên mười bản ghi đạt F1 tuyệt đối 100\%, ba bản khác sụp xuống dưới 50\%.
 \textbf{Hệ thống không biết khi nào nó sai.}
 \end{enumerate}
 
-Từ ba quan sát đó, đề tài đề xuất \hethong{}: một bộ dò QRS thai đơn kênh \textbf{kèm chỉ số chất lượng
-tín hiệu thai dựa trên đồng điều bền vững}, cho phép hệ thống \textbf{từ chối trả lời} khi tín hiệu
-không đủ tin cậy, thay vì im lặng đưa ra một nhịp tim sai.
+Từ ba quan sát đó, đề tài đề xuất \hethong{}: một bộ dò QRS thai đơn kênh \textbf{kèm cổng từ chối trả
+lời}, cho phép hệ thống nói ``không đọc được'' khi tín hiệu không đủ tin cậy, thay vì im lặng đưa ra một
+nhịp tim sai. Prototype của cổng này đã chạy: trên CinC 2013, từ chối 20\% đoạn kém tin cậy nhất nâng
+F1 phần còn lại từ 62,0 lên 69,4, và bản demo bắt đúng hai bản ghi tệ nhất mà không bỏ lọt bản ghi tốt
+nào.
 
 \begin{ghichu}[title={Ba đóng góp}]
 \begin{description}[leftmargin=2.2em,style=nextline,itemsep=3pt]
@@ -44,8 +48,10 @@ cùng bộ phân loại, cùng ngân sách huấn luyện, trên ba bộ dữ li
 \textbf{mù nhãn} có thể đăng ký trước.
 \item[C2 --- Phân rã đóng góp ba tầng.] Trả lời định lượng câu hỏi: trong toàn bộ pipeline, phần nào
 thực sự tạo ra hiệu năng? Đây là xương sống khoa học của đề tài.
-\item[C3 --- Chỉ số chất lượng tín hiệu thai dựa trên đồng điều bền vững, có quyền từ chối trả lời.]
-Đây là ứng dụng đầu tiên của phân tích dữ liệu topo cho tín hiệu tim thai mà nhóm tìm được.
+\item[C3 --- Cổng từ chối trả lời cho bộ dò fQRS đơn kênh, kèm kết quả phủ định có kiểm soát về đồng
+điều bền vững.] Cổng xây trên độ tự tin của mô hình và tính hợp lý của nhịp. Phần topo là thử nghiệm có
+kiểm soát đầu tiên của phân tích dữ liệu topo trên tín hiệu tim thai mà nhóm tìm được, và kết quả là
+\textbf{không có lợi ích} --- được công bố nguyên trạng.
 \end{description}
 \end{ghichu}
 

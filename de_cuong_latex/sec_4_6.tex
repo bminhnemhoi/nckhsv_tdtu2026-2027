@@ -96,7 +96,8 @@ Bảng dưới đây là cơ sở để nhóm khẳng định rằng các con s�
 \begin{figure}[H]\centering
 \includegraphics[width=\textwidth]{figs/fig0_pipeline.pdf}
 \caption{Pipeline \hethong{}. Khối màu xanh lá là mạng học sâu. Các khối viền đỏ nét đứt là nhánh độ
-tin cậy (đóng góp C3), hiện \textbf{chưa triển khai} --- đây là phần chính nhóm sẽ xây trong 24 tuần.}
+tin cậy (đóng góp C3). Prototype của nhánh này đã chạy: phần \textit{cổng từ chối} có tác dụng và đã
+vào demo; phần \textit{đồng điều bền vững} cho kết quả phủ định và được rút lại (\S\ref{sec:fsqi}).}
 \label{fig:pipeline}
 \end{figure}
 
@@ -158,18 +159,59 @@ Ba thí nghiệm có kiểm soát dưới đây là cơ sở của lựa chọn.
 \label{fig:arch}
 \end{figure}
 
-\begin{canhbao}[title={Nhóm tự nêu giới hạn của bảng này}]
-Bảng \ref{fig:arch} chạy ở dải \textbf{3--90\,Hz}, không phải dải 10--60\,Hz tối ưu; đánh giá trên
-\textbf{một} bản ghi validation với \textbf{một} seed; và F1 báo cáo là \textbf{giá trị lớn nhất} quét
-trên 18 ngưỡng ngay trên chính bản ghi đánh giá. Vì vậy \textbf{các con số tuyệt đối đều lạc quan}.
-Chúng chỉ dùng để so sánh \textbf{tương đối} giữa các kiến trúc, vì mọi kiến trúc đều chịu cùng một
-thiên lệch.
-
-Đọc đúng bảng này thì \texttt{cnn\_dil} xếp \textbf{hạng 5}, sau \texttt{resnet1d} và \texttt{tcn}.
-Vì vậy nhóm \textbf{không} phát biểu ``TCN là kiến trúc tối ưu''. Lập luận bảo vệ được là
-\textbf{hiệu quả tham số}: \texttt{cnn\_dil} đạt 99,6\% hiệu năng của quán quân với 28\% số tham số.
-Chạy lại bảng này ở dải 10--60\,Hz theo giao thức tách bản ghi đầy đủ là công việc đầu tiên của Phase P1.
+\begin{canhbao}[title={Bảng \ref{fig:arch} là bảng cũ và lạc quan --- giữ lại để minh bạch}]
+Bảng đó chạy ở dải 3--90\,Hz, trên một bản ghi validation, một seed, và F1 là giá trị lớn nhất quét trên
+18 ngưỡng ngay trên bản ghi đánh giá. Nhóm đã \textbf{chạy lại} với giao thức đúng; kết quả ở ngay dưới.
+Bảng cũ chỉ còn giá trị ở một điểm: Persistence Image thua ở mức không thể cứu (27,42), và điều đó không
+đổi dưới bất kỳ giao thức nào.
 \end{canhbao}
+
+\paragraph{Bảng kiến trúc chạy lại đúng giao thức.} Dải 10--60\,Hz, tách theo bản ghi 5 fold, ngưỡng chọn
+\textbf{trên bản ghi validation riêng} rồi áp cố định sang bản ghi test, 20 đánh giá (bản ghi $\times$ kênh),
+Wilcoxon ghép cặp so với \texttt{cnn\_dil}. Cửa sổ 300\,ms như bảng cũ, để so được với nó. Mã tại
+\texttt{pilot\_evidence/arch\_loro.py}.
+
+\begin{figure}[H]\centering
+\includegraphics[width=0.96\textwidth]{figs/fig13_kien_truc_v2.pdf}
+\caption{Tám kiến trúc dưới giao thức trung thực. Sáu kiến trúc nằm trong 1,5 điểm nhau và \textbf{không
+kiến trúc nào khác \texttt{cnn\_dil} có ý nghĩa thống kê}. Đường đứt xanh là mô hình chính (ngữ cảnh 4 giây,
+đầu ra từng mẫu) --- cách xa cả nhóm.}
+\label{fig:arch_v2}
+\end{figure}
+
+\begin{table}[H]\centering\small
+\caption{Số liệu của hình \ref{fig:arch_v2}. Một seed, ba epoch (loss vẫn đang giảm ở epoch cuối, nên
+mọi con số đều còn dư địa nhưng \textit{cùng} dư địa).}
+\label{tab:arch_v2}
+\begin{tabular}{@{}C{0.9cm} L{2.2cm} R{1.8cm} C{2.6cm} C{1.9cm} C{2.2cm} C{1.5cm}@{}}
+\toprule
+\textbf{Hạng} & \textbf{Kiến trúc} & \textbf{Tham số} & \textbf{Macro F1} & \textbf{Hiệu số} &
+\textbf{$p$ Wilcoxon} & \textbf{Hạng cũ} \\
+\midrule
+1 & \texttt{cnn\_l} & 83.137 & $92{,}43 \pm 8{,}73$ & $+0{,}73$ & 0,388 & 4 \\
+2 & \texttt{cnn\_dil} & 25.953 & $91{,}70 \pm 9{,}68$ & mốc & --- & 5 \\
+3 & \texttt{mlp} & 27.649 & $91{,}64 \pm 7{,}64$ & $-0{,}07$ & 0,927 & 13 \\
+4 & \texttt{cnn\_gru} & 28.257 & $91{,}59 \pm 9{,}10$ & $-0{,}12$ & 0,330 & 6 \\
+5 & \texttt{tcn} & 63.105 & $91{,}07 \pm 11{,}41$ & $-0{,}64$ & 0,260 & 2 \\
+6 & \texttt{resnet1d} & 92.545 & $90{,}90 \pm 10{,}98$ & $-0{,}81$ & 0,105 & 1 \\
+7 & \texttt{cnn\_m} & 25.953 & $88{,}76 \pm 10{,}61$ & $-2{,}95$ & \textbf{0,0001} & 11 \\
+8 & \texttt{linear} & 151 & $37{,}47 \pm 6{,}47$ & $-54{,}24$ & \textbf{$<$0,0001} & 15 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Ba điều bảng này nói, rõ hơn bảng cũ rất nhiều:
+
+\begin{enumerate}[leftmargin=1.6em,itemsep=3pt]
+\item \textbf{Họ kiến trúc không quan trọng.} Mạng dư 92 nghìn tham số, TCN 63 nghìn, GRU, và cả một MLP
+27 nghìn tham số đều không phân biệt được với CNN giãn nở 26 nghìn tham số. Quán quân cũ
+(\texttt{resnet1d}) rơi xuống hạng 6.
+\item \textbf{Giãn nở có quan trọng.} \texttt{cnn\_m} và \texttt{cnn\_dil} có \textit{cùng} 25.953 tham số,
+chỉ khác lịch giãn nở, chênh 2,95 điểm với $p = 0{,}0001$. Đây là bằng chứng có kiểm soát chặt nhất trong
+đề tài rằng trường tiếp nhận là biến chi phối.
+\item \textbf{Cả tám đều thua xa mô hình chính.} Tốt nhất trong bảng là 92,43; mô hình 4 giây đầu ra từng
+mẫu đạt 97,43 trên cùng giao thức. Chênh 5 điểm đến từ ngữ cảnh và độ phân giải đầu ra, không từ họ mạng.
+\end{enumerate}
 
 \paragraph{Thí nghiệm 2 --- quét trường tiếp nhận.}
 Đây mới là biến kiến trúc thực sự quan trọng. Cùng một họ mạng, chỉ đổi lịch giãn nở:
@@ -347,6 +389,10 @@ cần giải.}
 
 Một hệ thống theo dõi thai mà im lặng đưa ra nhịp tim với độ chính xác 23\% thì nguy hiểm hơn một hệ
 thống nói ``tôi không đọc được tín hiệu này''. Đó chính là lý do C3 tồn tại.
+
+\input{sec_baselines.tex}
+
+\input{sec_silesia.tex}
 
 \clearpage
 
