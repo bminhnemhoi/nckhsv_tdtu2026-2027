@@ -6,7 +6,12 @@ Bao bọc pipeline chuẩn của model/fqrs_model.py:
     preprocess -> cancel_maternal -> FetalQRSTCN -> pick_peaks
 và bổ sung: đọc bản ghi (EDF / WFDB / CSV / NPY / mảng numpy), chọn kênh mù nhãn
 theo PSD (Power-MF), chuỗi nhịp tim thai theo cửa sổ 4 s, đối chiếu với nhãn
-(nếu có) và một quy tắc "đèn tin cậy" tạm thời (sẽ thay bằng fSQI tô-pô sau).
+(nếu có) và đèn tin cậy HAI CHẾ ĐỘ (`confidence_mode`):
+    'hoc'  (mặc định) -- bộ phân loại GBM học được trên 12 chỉ số cổ điển của từng đoạn 4 s (fsqi/gate.py,
+                         huấn luyện bởi fsqi/train_gate.py trên ADFECGDB, ngưỡng hiệu chuẩn ngoài fold)
+    'luat'            -- quy tắc cứng 4 thành phần + ngưỡng đặt tay (phiên bản đầu của demo)
+    'ca_hai'          -- tính cả hai (out['confidence_by_mode']), out['confidence'] = 'hoc'
+Cổng "bám nhịp mẹ" ≥ 60 % là luật ghi đè -> 'thap' ở CẢ HAI chế độ.
 
 Không sửa model/fqrs_model.py -- mọi thứ ở đây chỉ gọi nó.
 """
@@ -18,11 +23,12 @@ import numpy as np
 import torch
 from scipy import signal as sg
 
-torch.set_num_threads(4)          # máy 12 nhân, chạy song song với các agent khác
+torch.set_num_threads(int(os.environ.get('RELYFETAL_THREADS', '4')))   # máy 12 nhân, chạy song song với các agent khác
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(ROOT, 'benchmark_dpss'))
+sys.path.insert(0, os.path.join(ROOT, 'fsqi'))          # gate.py + fsqi.py (đèn tin cậy học được)
 from _paths import adfecgdb_dir as _adfecgdb_dir, cinc2013_dir as _cinc2013_dir, checkpoint as _ckpt  # noqa: E402
 
 _spec = importlib.util.spec_from_file_location('fqrs', os.path.join(ROOT, 'model', 'fqrs_model.py'))
@@ -51,6 +57,10 @@ CONF_RULE = dict(
 )
 LEVEL_COLOR = {'cao': '#0ca30c', 'trung_binh': '#fab219', 'thap': '#d03b3b'}
 LEVEL_LABEL = {'cao': 'CAO (xanh)', 'trung_binh': 'TRUNG BÌNH (vàng)', 'thap': 'THẤP (đỏ)'}
+CONFIDENCE_MODES = ('hoc', 'luat', 'ca_hai')
+CONFIDENCE_MODE_DEFAULT = 'hoc'
+CONF_MODE_LABEL = {'hoc': 'học (GBM trên 12 chỉ số cổ điển / đoạn 4 s, fsqi/gate.py)',
+                   'luat': 'luật cứng (4 thành phần, ngưỡng đặt tay)'}
 
 
 # =========================================================================== dữ liệu mẫu
@@ -386,15 +396,47 @@ def confidence(sig_1000, prob, peaks_250, fhr_mean, maternal_250=None, rule=CONF
     if score >= R['level_cao'] and not in_range and n >= R['min_beats'] and not locked:
         reasons.append('Hạ xuống trung bình vì fHR ngoài dải sinh lý')
     return dict(level=level, score=float(score), reasons=reasons, components=comp,
-                color=LEVEL_COLOR[level], label=LEVEL_LABEL[level])
+                color=LEVEL_COLOR[level], label=LEVEL_LABEL[level], mode='luat')
+
+
+confidence_rule = confidence      # tên rõ nghĩa cho chế độ 'luat'
+
+
+def confidence_learned(sig_1000, res_250, prob, peaks_250, maternal_250=None, x250=None):
+    """
+    Chế độ 'hoc' (mặc định): cổng tin cậy học được -- fsqi/gate.py, huấn luyện bởi fsqi/train_gate.py.
+      * mỗi đoạn 4 s: 12 chỉ số cổ điển (SampEn, kurtosis, entropy phổ, tỉ số năng lượng 10–60 Hz, CV RR,
+        tỉ lệ RR hợp lý, bSQI, số đỉnh, đỉnh PSD dải thai, τ ACF, xác suất trung bình tại đỉnh, xác suất cực đại)
+        -> HistGradientBoosting (huấn luyện trên 1500 đoạn ADFECGDB, checkpoint fold) -> p_bad = P(F1 đoạn < 80)
+      * ngưỡng đoạn q1/q2 hiệu chuẩn trên ADFECGDB ngoài fold (85 % đoạn xanh, 5 % đoạn đỏ);
+        quy tắc bản ghi: > 30 % đoạn đỏ -> thấp; > 70 % đoạn xanh -> cao; còn lại trung bình; điểm = 1 − TB p_bad
+      * cổng bám nhịp mẹ ≥ 60 % ghi đè -> thấp (giữ từ chế độ luật)
+    Không dùng đặc trưng tô-pô (kết quả phủ định trong fsqi/results.json). Trả về dict như confidence() + 'segments'.
+    """
+    import gate as fgate
+    t0 = time.perf_counter()
+    pk = np.asarray(peaks_250, int)
+    p_bad = fgate.score_segments(res_250, x250, prob, pk, raw1000=sig_1000, fs=FS, raw_fs=FS_IN)
+    lock = maternal_coincidence(pk, maternal_250, CONF_RULE['maternal_tol_ms']) if maternal_250 is not None else float('nan')
+    c = fgate.record_confidence(p_bad, lock)
+    c['components']['gate_ms'] = (time.perf_counter() - t0) * 1000.0
+    g = fgate.load_gate()
+    c.update(color=LEVEL_COLOR[c['level']], label=LEVEL_LABEL[c['level']], mode='hoc',
+             segments=dict(p_bad=[float(v) for v in p_bad], level=[str(v) for v in fgate.segment_levels(p_bad)],
+                           seg_s=float(g['seg_s']), q1=float(g['q1']), q2=float(g['q2'])))
+    return c
 
 
 # =========================================================================== phân tích
-def analyze(signal_1000hz, labels_1000=None, model='production', fs=1000, front=None):
+def analyze(signal_1000hz, labels_1000=None, model='production', fs=1000, front=None,
+            confidence_mode=CONFIDENCE_MODE_DEFAULT):
     """
     Phân tích MỘT kênh ECG bụng. signal_1000hz: mảng 1-D (nếu fs != 1000 sẽ được tái lấy mẫu).
     model: 'production' | đường dẫn .pt | tên checkpoint.  front: (x250, res, mpk) đã tính sẵn (tuỳ chọn).
+    confidence_mode: 'hoc' (mặc định) | 'luat' | 'ca_hai' (tính cả hai, out['confidence'] = 'hoc').
     """
+    if confidence_mode not in CONFIDENCE_MODES:
+        raise ValueError(f'confidence_mode phải là một trong {CONFIDENCE_MODES}, nhận {confidence_mode!r}')
     sig = np.asarray(signal_1000hz, float).ravel()
     if fs != FS_IN:
         sig = _to_1000hz(sig, fs)
@@ -410,7 +452,13 @@ def analyze(signal_1000hz, labels_1000=None, model='production', fs=1000, front=
 
     fhr_t, fhr_bpm = fhr_series(det250, len(res))
     fhr_mean = float(np.nanmean(fhr_bpm)) if np.isfinite(fhr_bpm).any() else float('nan')
-    conf = confidence(sig, prob, det250, fhr_mean, maternal_250=mpk)
+    by_mode = {}
+    if confidence_mode in ('luat', 'ca_hai'):
+        by_mode['luat'] = confidence(sig, prob, det250, fhr_mean, maternal_250=mpk)
+    if confidence_mode in ('hoc', 'ca_hai'):
+        by_mode['hoc'] = confidence_learned(sig, res, prob, det250, maternal_250=mpk, x250=x250)
+    main_mode = 'hoc' if 'hoc' in by_mode else 'luat'
+    conf = by_mode[main_mode]
 
     out = dict(
         raw=sig, fs_raw=FS_IN, filtered_250=x250, residual_250=res, fs=FS,
@@ -419,6 +467,7 @@ def analyze(signal_1000hz, labels_1000=None, model='production', fs=1000, front=
         fhr_time_s=fhr_t, fhr_series=fhr_bpm, fhr_mean=fhr_mean,
         n_beats=int(len(det250)), latency_ms=float(latency_ms),
         duration_s=len(sig) / FS_IN, confidence=conf,
+        confidence_mode=main_mode, confidence_by_mode=by_mode,
         checkpoint=meta['name'], checkpoint_path=meta['path'],
     )
     if labels_1000 is not None:
@@ -430,9 +479,10 @@ def analyze(signal_1000hz, labels_1000=None, model='production', fs=1000, front=
     return out
 
 
-def analyze_record(rec, lead='auto', model=None):
+def analyze_record(rec, lead='auto', model=None, confidence_mode=CONFIDENCE_MODE_DEFAULT):
     """
     rec: dict từ load_record(). lead: 'auto' | 1..K. model: None -> checkpoint_for(rec['name']).
+    confidence_mode: 'hoc' | 'luat' | 'ca_hai' (xem analyze).
     Trả về dict của analyze() + lead, lead_name, lead_scores, checkpoint_note.
     """
     if model is None:
@@ -440,7 +490,8 @@ def analyze_record(rec, lead='auto', model=None):
     else:
         note = str(model)
     lead, fronts, scores, fe_ms = select_lead(rec['signals'], lead)
-    out = analyze(rec['signals'][lead - 1], rec.get('labels'), model=model, front=fronts[lead])
+    out = analyze(rec['signals'][lead - 1], rec.get('labels'), model=model, front=fronts[lead],
+                  confidence_mode=confidence_mode)
     # latency_ms = tiền xử lý + khử mẹ của kênh được chọn + mô hình + chọn đỉnh (KHÔNG tính đọc file)
     out['latency_model_ms'] = out['latency_ms']
     out['latency_frontend_ms'] = float(fe_ms[lead])
@@ -458,6 +509,28 @@ def _jf(v):
     return v if np.isfinite(v) else None
 
 
+def _jv(v):
+    """giá trị JSON-an toàn: bool/int giữ nguyên, số thực -> _jf."""
+    if isinstance(v, (bool, np.bool_)):
+        return bool(v)
+    if isinstance(v, (int, np.integer)):
+        return int(v)
+    return _jf(v)
+
+
+def _conf_summary(c, with_reasons=True):
+    d = dict(mode=c.get('mode'), level=c['level'], score=_jf(c['score']),
+             components={k: _jv(v) for k, v in c['components'].items()})
+    if with_reasons:
+        d['reasons'] = c['reasons']
+    if c.get('segments'):
+        sg_ = c['segments']
+        d['segments'] = dict(n=len(sg_['p_bad']), seg_s=sg_['seg_s'], q1=_jf(sg_['q1']), q2=_jf(sg_['q2']),
+                             p_bad=[round(float(v), 4) for v in sg_['p_bad']],
+                             level=''.join({'xanh': 'X', 'vang': 'V', 'do': 'D'}[l] for l in sg_['level']))
+    return d
+
+
 def summary(out):
     """dict JSON-hoá được (không có mảng lớn) -- để ghi log / kiểm thử."""
     c = out['confidence']
@@ -467,8 +540,9 @@ def summary(out):
              latency_ms=_jf(out['latency_ms']),
              latency_frontend_ms=_jf(out.get('latency_frontend_ms', float('nan'))),
              latency_model_ms=_jf(out.get('latency_model_ms', out['latency_ms'])),
-             confidence=dict(level=c['level'], score=_jf(c['score']), reasons=c['reasons'],
-                             components={k: _jf(v) for k, v in c['components'].items()}))
+             confidence_mode=out.get('confidence_mode', c.get('mode', 'luat')),
+             confidence=_conf_summary(c),
+             confidence_by_mode={m: _conf_summary(cc) for m, cc in out.get('confidence_by_mode', {}).items()})
     if out.get('lead_scores'):
         # khóa phải là str: gr.JSON (orjson) của Gradio 6 từ chối khóa int ("Dict key must be str")
         s['lead_scores'] = {str(int(k)): _jf(v) for k, v in out['lead_scores'].items()}

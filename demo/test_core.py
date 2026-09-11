@@ -2,7 +2,7 @@
 """
 Kiểm thử lõi demo (không cần gradio).  Chạy:  python -m pytest demo/test_core.py -v
 
-Hai kiểm thử "bám mốc" bắt buộc theo đề cương P9:
+Hai kiểm thử "bám mốc" bắt buộc theo đề cương P9, chạy ở CẢ HAI chế độ đèn tin cậy ('luat' và 'hoc'):
   * r01 kênh 4 (fold checkpoint chưa từng thấy r01): F1 > 99 và đèn tin cậy = 'cao'
   * a02 của CinC 2013 (zero-shot, production checkpoint): đèn tin cậy KHÔNG phải 'cao'
 """
@@ -20,14 +20,15 @@ need_r01 = pytest.mark.skipif('r01' not in RECS, reason='chưa có ADFECGDB r01'
 need_a02 = pytest.mark.skipif('a02' not in RECS, reason='chưa có CinC 2013 a02')
 
 
-# ------------------------------------------------------------------ hai mốc bắt buộc
+# ------------------------------------------------------------------ hai mốc bắt buộc -- chế độ 'luat'
 @need_r01
 def test_r01_lead4_f1_above_99_and_confidence_high():
     rec = core.load_record(RECS['r01']['path'])
     assert rec['signals'].shape == (4, 300000) and rec['labels'] is not None
-    out = core.analyze_record(rec, lead=4)
+    out = core.analyze_record(rec, lead=4, confidence_mode='luat')
     assert out['checkpoint'] == 'fetalqrs_tcn_fold_r01.pt'          # chưa từng thấy r01
     assert out['metrics']['F1'] > 99.0
+    assert out['confidence']['mode'] == 'luat'
     assert out['confidence']['level'] == 'cao'
     assert 100 <= out['fhr_mean'] <= 200
     assert out['n_beats'] > 500
@@ -36,11 +37,45 @@ def test_r01_lead4_f1_above_99_and_confidence_high():
 @need_a02
 def test_a02_cinc_confidence_not_high():
     rec = core.load_record(RECS['a02']['path'])
-    out = core.analyze_record(rec, lead='auto')
+    out = core.analyze_record(rec, lead='auto', confidence_mode='luat')
     assert out['checkpoint'] == 'fetalqrs_tcn_production.pt'
+    assert out['confidence']['mode'] == 'luat'
     assert out['confidence']['level'] != 'cao'
     assert out['confidence']['level'] in ('trung_binh', 'thap')
     assert any('BÁM NHỊP MẸ' in r or 'nhịp' in r for r in out['confidence']['reasons'])
+
+
+# ------------------------------------------------------------------ hai mốc bắt buộc -- chế độ 'hoc' (GBM, fsqi/gate.py)
+@need_r01
+def test_r01_lead4_learned_gate_confidence_high():
+    """Chế độ 'hoc' trên r01 kênh 4: đèn 'cao', có đèn từng đoạn 4 s (75 đoạn / 300 s), ngưỡng đoạn lấy từ gate_classical.pkl."""
+    rec = core.load_record(RECS['r01']['path'])
+    out = core.analyze_record(rec, lead=4, confidence_mode='hoc')
+    assert out['checkpoint'] == 'fetalqrs_tcn_fold_r01.pt'
+    assert out['metrics']['F1'] > 99.0
+    c = out['confidence']
+    assert c['mode'] == 'hoc' and out['confidence_mode'] == 'hoc'
+    assert c['level'] == 'cao'
+    assert 0.0 <= c['score'] <= 1.0
+    seg = c['segments']
+    assert len(seg['p_bad']) == 75 and len(seg['level']) == 75
+    assert 0.0 < seg['q1'] < seg['q2'] < 1.0
+    assert c['components']['frac_green'] > 0.7 and c['components']['frac_red'] <= 0.3
+    assert not c['components']['locked']
+
+
+@need_a02
+def test_a02_cinc_learned_gate_confidence_not_high():
+    """Chế độ 'hoc' trên a02 (zero-shot, mô hình bám nhịp mẹ): đèn KHÔNG được 'cao'."""
+    rec = core.load_record(RECS['a02']['path'])
+    out = core.analyze_record(rec, lead='auto', confidence_mode='hoc')
+    assert out['checkpoint'] == 'fetalqrs_tcn_production.pt'
+    c = out['confidence']
+    assert c['mode'] == 'hoc'
+    assert c['level'] != 'cao'
+    assert c['level'] in ('trung_binh', 'thap')
+    assert len(c['segments']['p_bad']) == 15                          # 60 s / 4 s
+    assert any('BÁM NHỊP MẸ' in r or 'đoạn' in r for r in c['reasons'])
 
 
 # ------------------------------------------------------------------ hợp đồng của analyze()

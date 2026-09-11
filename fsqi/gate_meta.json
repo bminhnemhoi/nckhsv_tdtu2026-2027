@@ -1,0 +1,177 @@
+{
+ "date": "2026-09-11 15:27:14.288597",
+ "features": [
+  "sampen",
+  "kurtosis",
+  "spec_entropy",
+  "band_ratio",
+  "rr_cv",
+  "rr_plaus",
+  "bsqi",
+  "n_det",
+  "psd_fhr",
+  "tau_acf",
+  "peak_prob_mean",
+  "prob_max"
+ ],
+ "n_features": 12,
+ "sklearn_version": "1.9.0",
+ "numpy_version": "2.4.6",
+ "python_version": "3.12.6",
+ "learner": "HistGradientBoostingClassifier",
+ "learner_params": {
+  "max_depth": 3,
+  "max_iter": 200,
+  "learning_rate": 0.05,
+  "class_weight": "balanced",
+  "random_state": 0
+ },
+ "nan_imputation": "trung vi tap huan luyen",
+ "medians": {
+  "sampen": 0.7794437993460218,
+  "kurtosis": 7.340386312255308,
+  "spec_entropy": 0.7392265057074634,
+  "band_ratio": 0.36830715204089515,
+  "rr_cv": 0.0113206741152286,
+  "rr_plaus": 1.0,
+  "bsqi": 0.875,
+  "n_det": 9.0,
+  "psd_fhr": 0.13291713184219592,
+  "tau_acf": 3.0,
+  "peak_prob_mean": 0.9964096769690514,
+  "prob_max": 0.9988332390785217
+ },
+ "training": {
+  "dataset": "ADFECGDB",
+  "records": [
+   "r01",
+   "r04",
+   "r07",
+   "r08",
+   "r10"
+  ],
+  "checkpoints": "fold (test_record = ban ghi)",
+  "n_segments": 1500,
+  "n_bad": 71,
+  "frac_bad": 0.04733333333333333,
+  "bad_threshold_F1": 80.0,
+  "seg_s": 4.0,
+  "fs": 250,
+  "features_from": "tinh lai tu dau"
+ },
+ "thresholds": {
+  "q1": 0.05203095466734646,
+  "q2": 0.5397610220831106,
+  "quantiles": {
+   "q1": 0.85,
+   "q2": 0.95
+  },
+  "calibrated_on": "ADFECGDB, xac suat ngoai fold (LORO)",
+  "rule": "xanh neu p_bad < q1; do neu p_bad > q2; con lai vang"
+ },
+ "calibration_fractions": {
+  "adfecgdb_out_of_fold": {
+   "green": 0.85,
+   "red": 0.05,
+   "yellow": 0.10000000000000002
+  },
+  "adfecgdb_in_sample_final_model": {
+   "green": 0.7866666666666666,
+   "red": 0.08866666666666667,
+   "yellow": 0.1246666666666667
+  }
+ },
+ "segment_levels": {
+  "adfecgdb_out_of_fold": {
+   "xanh": {
+    "n": 1275,
+    "n_bad": 24,
+    "F1_mean": 98.77636314594974
+   },
+   "vang": {
+    "n": 150,
+    "n_bad": 22,
+    "F1_mean": 92.19041721951938
+   },
+   "do": {
+    "n": 75,
+    "n_bad": 25,
+    "F1_mean": 80.90685663379162
+   }
+  },
+  "cinc_production": {
+   "xanh": {
+    "n": 253,
+    "n_bad": 32,
+    "F1_mean": 90.14916807217251
+   },
+   "vang": {
+    "n": 116,
+    "n_bad": 70,
+    "F1_mean": 53.105481349783155
+   },
+   "do": {
+    "n": 231,
+    "n_bad": 211,
+    "F1_mean": 35.40621490417656
+   }
+  }
+ },
+ "record_rule": {
+  "red_frac_thr": 0.3,
+  "green_frac_thr": 0.7,
+  "maternal_lock": 0.6,
+  "score": "1 - trung binh p_bad",
+  "rule": "thap neu ti le doan do > red_frac_thr; cao neu ti le doan xanh > green_frac_thr; con lai trung_binh; bam me >= maternal_lock -> thap (ghi de)"
+ },
+ "checks": {
+  "cv_auroc_adfecgdb_folds": {
+   "r01": null,
+   "r04": 0.9762711864406779,
+   "r07": 1.0,
+   "r08": 0.8653381642512078,
+   "r10": 0.7635370562199829
+  },
+  "cv_auroc_adfecgdb_mean": 0.9012866017279672,
+  "oof_auroc_pooled": 0.7505297706462709,
+  "cinc_auroc": 0.9288775589718472,
+  "cinc_auprc": 0.9265018870019834,
+  "cinc_n_segments": 600,
+  "cinc_n_bad": 313,
+  "reference_results_json": {
+   "classical_gb_auroc_cinc": 0.9288775589718472,
+   "cv_auroc_adfecgdb": 0.9012866017279672
+  },
+  "reproduced": true,
+  "feature_reproducibility_vs_segments_csv": {
+   "n_compared": 2100,
+   "max_abs_diff": 1.1920928955078125e-07,
+   "worst": [
+    [
+     "adfecgdb",
+     "r04",
+     3,
+     47
+    ],
+    "prob_max",
+    0.997546374797821,
+    0.9975464940071106
+   ]
+  }
+ },
+ "permutation_importance_cinc_delta_auroc": {
+  "sampen": 0.010185793323017722,
+  "kurtosis": -0.01683160601574063,
+  "spec_entropy": -0.005799779586111664,
+  "band_ratio": 0.01952555353942409,
+  "rr_cv": 0.11015128407787966,
+  "rr_plaus": 0.0,
+  "bsqi": 0.005566007280337515,
+  "n_det": 0.0022264029121351614,
+  "psd_fhr": -0.0053433669891239655,
+  "tau_acf": 0.0,
+  "peak_prob_mean": 0.11288975965980574,
+  "prob_max": 0.012234084002181955
+ },
+ "runtime_min": 0.6699397246042887
+}

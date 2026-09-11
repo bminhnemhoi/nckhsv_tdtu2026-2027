@@ -139,6 +139,20 @@ Không bản ghi nào F1 < 96,5 bị đèn xanh. Hai bản ghi tệ nhất của
 
 > Bản mẫu nghiên cứu. Không phải thiết bị y tế. Không dùng cho chẩn đoán.
 
+## API
+
+```bash
+uvicorn api.main:app --host 0.0.0.0 --port 8000          # hoặc: docker compose up --build
+curl http://127.0.0.1:8000/health
+curl -F "file=@signal.npy" -F "lead=auto" -F "fs=1000" http://127.0.0.1:8000/analyze
+```
+
+Lớp FastAPI bọc `demo/core.py`, ba điểm cuối: `GET /health` (checkpoint production có sẵn không),
+`GET /model` (số tham số, trường tiếp nhận, ngưỡng, cấu hình) và `POST /analyze` (nhận EDF/CSV/TXT/NPY;
+trả `n_beats`, `fhr_mean`, `beats_ms`, `confidence{level,score,reasons}`, `latency_ms`, thêm `metrics` nếu
+gửi kèm file nhãn). Lỗi đầu vào trả về JSON `4xx`, không bao giờ là traceback. Lược đồ yêu cầu/phản hồi trong
+[`api/README.md`](api/README.md); kiểm thử ở `tests/test_api.py` (không cần mạng, `fastapi.testclient`).
+
 ---
 
 ## Cấu trúc kho mã

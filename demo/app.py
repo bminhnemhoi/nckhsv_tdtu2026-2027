@@ -23,6 +23,9 @@ DISCLAIMER = 'Bản mẫu nghiên cứu. Không phải thiết bị y tế. Khô
 UPLOAD_DIR = os.path.join(HERE, '_uploads')
 RECS = core.sample_records()
 LEAD_CHOICES = ['Tự động (PSD)', '1', '2', '3', '4']
+CONF_CHOICES = ['Học (GBM, 12 chỉ số / đoạn 4 s)', 'Luật cứng (4 thành phần)']       # -> core.confidence_mode 'hoc' | 'luat'
+CONF_MODE = {CONF_CHOICES[0]: 'hoc', CONF_CHOICES[1]: 'luat'}
+SEG_COLOR = {'xanh': '#0ca30c', 'vang': '#fab219', 'do': '#d03b3b'}
 VIEW_S = 10.0                       # cửa sổ hiển thị ban đầu (giây); kéo/thả để phóng to, cuộn để dịch
 
 COL = dict(raw='#6b7280', filt='#2563eb', mat='#dc2626', res='#0f766e', lab='#111827',
@@ -145,6 +148,15 @@ def fhr_figure(out):
     fig.add_trace(go.Scatter(x=out['fhr_time_s'], y=out['fhr_series'], mode='lines+markers', name='Mô hình (cửa sổ 4 s)',
                              line=dict(color=COL['filt'], width=2.5), marker=dict(size=7),
                              hovertemplate='%{x:.0f} s<br>%{y:.1f} bpm<extra>mô hình</extra>'))
+    segs = out['confidence'].get('segments')
+    if segs:                                   # chế độ 'hoc': đèn từng đoạn 4 s (cùng lưới cửa sổ với fHR)
+        n = min(len(segs['p_bad']), len(out['fhr_time_s']))
+        y = np.where(np.isfinite(out['fhr_series'][:n]), out['fhr_series'][:n], 65.0)
+        fig.add_trace(go.Scatter(x=out['fhr_time_s'][:n], y=y, mode='markers', name='Đèn đoạn 4 s (xanh/vàng/đỏ)',
+                                 marker=dict(size=11, color=[SEG_COLOR[l] for l in segs['level'][:n]], symbol='square',
+                                             line=dict(width=1, color='#ffffff')),
+                                 customdata=np.round(np.asarray(segs['p_bad'][:n]), 3),
+                                 hovertemplate='%{x:.0f} s<br>p(đoạn lỗi) = %{customdata:.3f}<extra>đèn đoạn</extra>'))
     if np.isfinite(out['fhr_mean']):
         fig.add_hline(y=out['fhr_mean'], line=dict(color=COL['filt'], width=1, dash='dash'),
                       annotation_text=f'trung bình {out["fhr_mean"]:.0f} bpm', annotation_position='bottom right')
@@ -177,7 +189,7 @@ def cards_html(out, wall_ms=None):
   <div class="rf-card rf-conf" style="border-color:{c['color']};background:{c['color']}14">
     <div class="rf-k">Đèn tin cậy</div>
     <div class="rf-v" style="color:{c['color']}">● {c['label']}</div>
-    <div class="rf-s">điểm {c['score']:.2f} / 1 — quy tắc cứng tạm thời, sẽ thay bằng fSQI tô-pô</div>
+    <div class="rf-s">điểm {c['score']:.2f} / 1 — chế độ <b>{core.CONF_MODE_LABEL.get(c.get('mode', 'luat'), c.get('mode'))}</b>{f" · {c['components'].get('gate_ms', 0):,.0f} ms" if c.get('mode') == 'hoc' else ''}</div>
     <ul class="rf-r">{reasons}</ul></div>
   <div class="rf-card"><div class="rf-k">Thời gian xử lý</div>
     <div class="rf-v">{lat:,.0f}<span class="rf-u"> ms</span></div>
@@ -221,8 +233,9 @@ def compare_df(out):
 
 
 # =========================================================================== xử lý sự kiện
-def run(source, upload_files, sample_label, lead_choice, fs_in):
+def run(source, upload_files, sample_label, lead_choice, fs_in, conf_choice=CONF_CHOICES[0]):
     t0 = time.perf_counter()
+    conf_mode = CONF_MODE.get(conf_choice, 'hoc')
     try:
         if source.startswith('Tải'):
             if not upload_files:
@@ -240,7 +253,7 @@ def run(source, upload_files, sample_label, lead_choice, fs_in):
                 raise gr.Error('Chưa có bản ghi mẫu nào trên đĩa — hãy tải dữ liệu (xem README) hoặc tải file lên.')
             rec = core.load_record(RECS[name]['path'])
         lead = 'auto' if lead_choice.startswith('Tự') else int(lead_choice)
-        out = core.analyze_record(rec, lead=lead)
+        out = core.analyze_record(rec, lead=lead, confidence_mode=conf_mode)
     except gr.Error:
         raise
     except Exception as e:                       # noqa: BLE001
@@ -252,7 +265,8 @@ def run(source, upload_files, sample_label, lead_choice, fs_in):
     if out.get('lead_scores'):
         lead_txt = ' · PSD dải thai từng kênh: ' + ', '.join(f'k{k}={v:.2e}' for k, v in out['lead_scores'].items())
     status = (f'Đã phân tích **{out["record"]}** ({out["source"]}, {out["duration_s"]:.0f} s, {rec["signals"].shape[0]} kênh) '
-              f'— kênh **{out["lead"]}** ({out["lead_mode"]}){lead_txt} — checkpoint *{out["checkpoint_note"]}*.')
+              f'— kênh **{out["lead"]}** ({out["lead_mode"]}){lead_txt} — checkpoint *{out["checkpoint_note"]}* '
+              f'— đèn tin cậy: *{core.CONF_MODE_LABEL[out["confidence_mode"]]}*.')
     return fig1, fig2, cards_html(out, wall), compare_md(out), compare_df(out), s, status
 
 
@@ -291,6 +305,7 @@ def build_app():
                              file_count='multiple', visible=False, scale=3)
             fs_in = gr.Number(value=1000, label='fs của CSV/NPY (Hz)', precision=0, visible=False, scale=1)
             lead = gr.Dropdown(choices=LEAD_CHOICES, value=LEAD_CHOICES[0], label='Kênh bụng', scale=1)
+            conf = gr.Dropdown(choices=CONF_CHOICES, value=CONF_CHOICES[0], label='Đèn tin cậy', scale=2)
             btn = gr.Button('Phân tích', variant='primary', scale=1)
         status = gr.Markdown('Chọn bản ghi rồi bấm **Phân tích**.')
         cards = gr.HTML()
@@ -311,9 +326,9 @@ def build_app():
             return gr.update(visible=not up), gr.update(visible=up), gr.update(visible=up)
         source.change(_toggle, source, [sample, upload, fs_in])
         outs = [fig_sig, fig_fhr, cards, cmp_md, cmp_df, js, status]
-        btn.click(run, [source, upload, sample, lead, fs_in], outs)
+        btn.click(run, [source, upload, sample, lead, fs_in, conf], outs)
         if REC_LABELS and os.environ.get('RELYFETAL_AUTORUN', '1') == '1':
-            demo.load(run, [source, upload, sample, lead, fs_in], outs)     # mở trang là thấy ngay kết quả r01
+            demo.load(run, [source, upload, sample, lead, fs_in, conf], outs)     # mở trang là thấy ngay kết quả r01
     return demo
 
 

@@ -1,0 +1,52 @@
+
+===== TRAIN 22 | 2026-09-11 16:27:08 | seed 0 | augment True | threads 9 | torch 2.13.0+cpu | Windows-11-10.0.22631-SP0 =====
+   fold  1: test ['B1_08', 'B2_12']  val r10  train n=19
+   fold  2: test ['B1_09', 'r10']  val B2_09  train n=19
+   fold  3: test ['B1_02', 'B2_09']  val B2_04  train n=19
+   fold  4: test ['B1_06', 'B2_04']  val r01  train n=19
+   fold  5: test ['B1_04', 'r01']  val r04  train n=19
+   fold  6: test ['B1_05', 'r04']  val B2_05  train n=19
+   fold  7: test ['B1_03', 'B2_05']  val r07  train n=19
+   fold  8: test ['B1_01', 'r07']  val B2_06  train n=19
+   fold  9: test ['B1_10', 'B2_06']  val r08  train n=19
+   fold 10: test ['B1_07', 'r08']  val B2_08  train n=19
+   fold 11: test ['B2_08', 'B2_03']  val B2_12  train n=19
+nap 22 chu the ...
+   r01    PhysioNet   5.0 phut    644 nhan  (1s)
+   r04    PhysioNet   5.0 phut    632 nhan  (1s)
+   r07    PhysioNet   5.0 phut    627 nhan  (1s)
+   r08    PhysioNet   5.0 phut    651 nhan  (1s)
+   r10    PhysioNet   5.0 phut    637 nhan  (1s)
+   B1_01  B1         20.0 phut   3120 nhan  (2s)
+   B1_02  B1         20.0 phut   2804 nhan  (3s)
+   B1_03  B1         20.0 phut   2565 nhan  (3s)
+   B1_04  B1         20.0 phut   2774 nhan  (4s)
+   B1_05  B1         20.0 phut   2770 nhan  (4s)
+   B1_06  B1         20.0 phut   2889 nhan  (5s)
+   B1_07  B1         20.0 phut   3114 nhan  (6s)
+   B1_08  B1         20.0 phut   2911 nhan  (6s)
+   B1_09  B1         20.0 phut   2866 nhan  (7s)
+   B1_10  B1         20.0 phut   2592 nhan  (7s)
+   B2_03  B2          5.0 phut    716 nhan  (8s)
+   B2_04  B2          5.0 phut    681 nhan  (8s)
+   B2_05  B2          5.0 phut    660 nhan  (8s)
+   B2_06  B2          5.0 phut    684 nhan  (8s)
+   B2_08  B2          5.0 phut    645 nhan  (8s)
+   B2_09  B2          5.0 phut    674 nhan  (8s)
+   B2_12  B2          5.0 phut    657 nhan  (8s)
+model: 113,481 tham so, truong tiep nhan 379 mau = 1516 ms; tang cuong: {'p': 0.5, 'amp': (0.7, 1.4), 'snr_db': (10.0, 30.0), 'bw_hz': (0.1, 0.5), 'bw_amp': (0.1, 0.3), 'shift_ms': 100.0, 'fs': 250, 'ops': ['amplitude', 'white_noise_snr', 'baseline_wander_sin', 'time_shift_via_sampler'], 'note': 'moi phep p=0,5 doc lap; ap nhat quan tren ca hai hang (du + goc); dich thoi gian dich ca nhan'}
+hieu chuan: 178 ms/buoc (batch 32), 33332 doan fold 1 = 1042 buoc/epoch; production 1191 buoc/epoch; eval B1 4 kenh 6.2s
+   du kien tong: 6 epoch = 230.3 phut | 4 epoch = 155.1 phut | ngan sach 420 phut
+   -> epoch co dinh 4
+
+-- fold 01  test=['B1_08', 'B2_12']  val=r10  train=['r01', 'r04', 'r07', 'r08', 'B1_01', 'B1_02', 'B1_03', 'B1_04', 'B1_05', 'B1_06', 'B1_07', 'B1_09', 'B1_10', 'B2_03', 'B2_04', 'B2_05', 'B2_06', 'B2_08', 'B2_09'] --
+      epoch 1/4 loss 0.3474  (203s, 33332 doan, pos_w 13.6)
+      epoch 2/4 loss 0.2844  (427s, 33332 doan, pos_w 13.6)
+      epoch 3/4 loss 0.2694  (636s, 33332 doan, pos_w 13.6)
+      epoch 4/4 loss 0.2586  (841s, 33332 doan, pos_w 13.6)
+   val r10 F1 96.22 @thr 0.80 -> TEST B1_08 (B1): PSD A1 F1 99.83 | TB4 99.70 | kenh 99.83 99.83 99.85 99.30 | lech PSD -6.0 ms, TB4 -5.5 ms
+   val r10 F1 96.22 @thr 0.80 -> TEST B2_12 (B2): PSD A4 F1 100.00 | TB4 98.04 | kenh 97.11 95.13 99.92 100.00 | lech PSD +0.0 ms, TB4 -0.2 ms
+   fold 01 xong 14.2 phut; tong 14.7 phut
+
+-- fold 02  test=['B1_09', 'r10']  val=B2_09  train=['r01', 'r04', 'r07', 'r08', 'B1_01', 'B1_02', 'B1_03', 'B1_04', 'B1_05', 'B1_06', 'B1_07', 'B1_08', 'B1_10', 'B2_03', 'B2_04', 'B2_05', 'B2_06', 'B2_08', 'B2_12'] --
+      epoch 1/4 loss 0.3354  (209s, 33332 doan, pos_w 13.6)

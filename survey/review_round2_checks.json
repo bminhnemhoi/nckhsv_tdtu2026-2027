@@ -1,0 +1,35 @@
+{
+  "ghi_chu": "Kiem tra do phan bien vong 2 (11/09/2026). Moi so o day tinh lai truc tiep tu file JSON ket qua trong repo bang scipy.stats.wilcoxon / numpy; script: scratchpad chk_a.py, chk_b.py.",
+  "tang_2_wilcoxon_truc_tiep": {
+    "cau_hoi": "Bai ghi '+4,53 (p<0,001)' cho buoc 300 ms window CNN -> 4 s per-sample TCN, nhung facts_verified chi co p tu seq_loro (short_cnn vs tcn_rf2s), khong phai cap nay.",
+    "du_lieu": "pilot_evidence/final_loro_10_60_w75.json cnn_dil rows seed 0 (20 ban ghi x kenh) vs pilot_evidence/train_final.json folds rows (20)",
+    "cnn_dil_seed0_macro": 92.92,
+    "cnn_dil_3seed_macro": 92.90,
+    "tcn_macro": 97.43,
+    "hieu_so_seed0": 4.52,
+    "wilcoxon_p_seed0": 8.845e-05,
+    "thang": "20/20",
+    "hieu_so_vs_3seed_mean": 4.53,
+    "wilcoxon_p_vs_3seed_mean": 1.907e-06,
+    "ket_luan": "p<0,001 DUNG khi tinh truc tiep; bai nen trich dan con so nay thay vi p cua seq_loro."
+  },
+  "tang_3_kiem_tra_lai": {"gbm_vs_cnn_dil_seed0_diff": 0.42, "p": 0.7012, "khop_final_loro_log": true},
+  "97_43_vs_97_45": {
+    "train_final_250Hz_macro": 97.43, "sd_20": 4.37,
+    "all_leads_1kHz_rescore_macro": 97.45, "sd_20": 4.44, "sd_5_ban_ghi": 2.96,
+    "chenh_trung_binh_tung_cap": 0.016, "chenh_lon_nhat": 0.155,
+    "ket_luan": "Cung phat hien, khac buoc cham (250 Hz vs 1000 Hz). Da them mot cau giai thich vao main.tex."
+  },
+  "cinc2013_tu_blind_lead_json": {
+    "lead0": {"mean": 77.34, "sd": 28.54, "ge90": 5, "lt50": 3},
+    "psd": {"mean": 59.15, "sd": 37.17, "ge90": 4, "lt50": 5},
+    "mean4": {"mean": 61.96, "sd": 34.09, "ge90": 4, "lt50": 5}
+  },
+  "fsqi_dao_dau_spearman": {
+    "topo": {"n_flip": 8, "n": 16, "ten": ["h1_total", "h0_total", "h0_max", "h0_entropy", "h0_ratio", "sl_total", "sl_max", "sl_ratio"]},
+    "classical": {"n_flip": 3, "n": 12, "ten": ["sampen", "kurtosis", "n_det"]}
+  },
+  "elder_rule": {"n_compared": 2011, "max_abs_diff": 0.0, "nguon": "fsqi/fsqi_log.txt dong 73"},
+  "abstract_so_tu": 229,
+  "pdf_truoc_khi_sua": {"trang": 4, "bibtex_da_chay": false, "so_trich_dan_hien_thi_dau_hoi": "tat ca [?]", "loi_latex": "Command \\pm already defined (main.log dong 596)", "bang_tran_cot_pt": [23.4, 59.9, 97.3]}
+}

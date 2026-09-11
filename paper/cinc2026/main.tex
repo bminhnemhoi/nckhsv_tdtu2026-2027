@@ -1,0 +1,367 @@
+% ------------------------------------------------------------------
+%  Computing in Cardiology 2026 -- draft manuscript
+%  Build: build.bat  (pdflatex -> bibtex -> pdflatex x2)
+%  NOTE: the official CinC class (cinc.cls) is not installed on this
+%  machine; the layout below imitates it with the article class.
+%  Replace the preamble by the official template before submission.
+% ------------------------------------------------------------------
+\documentclass[10pt,twocolumn,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{newtxtext,newtxmath}
+\usepackage[a4paper,top=2.3cm,bottom=2.3cm,left=1.9cm,right=1.9cm,columnsep=0.6cm]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{caption}
+\usepackage{titlesec}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+
+\pagestyle{empty}
+\setlength{\parindent}{1.2em}
+\setlength{\parskip}{0pt}
+\captionsetup{font=small,labelfont=bf,skip=4pt}
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection.}{0.5em}{}
+\titlespacing*{\section}{0pt}{8pt plus 2pt minus 2pt}{3pt}
+\titlespacing*{\subsection}{0pt}{6pt plus 2pt minus 2pt}{2pt}
+\setlength{\tabcolsep}{3.5pt}
+\newcommand{\fitwidth}[1]{\resizebox{\ifdim\width>\columnwidth\columnwidth\else\width\fi}{!}{#1}}
+\renewcommand{\arraystretch}{1.08}
+\newcommand{\ms}{\,ms}
+\newcommand{\Hz}{\,Hz}
+
+\title{\vspace{-1.2em}\Large\bfseries Single-Channel Fetal QRS Detection:\\ Where the Performance Actually Comes From}
+\author{Ngo Binh Minh$^{1}$, [Co-author]$^{1}$, [Supervisor]$^{1}$\\[3pt]
+\normalsize $^{1}$Faculty of Information Technology, Ton Duc Thang University, Ho Chi Minh City, Vietnam}
+\date{}
+
+\begin{document}
+\twocolumn[
+\begin{@twocolumnfalse}
+\maketitle
+\vspace{-2.0em}
+\begin{center}
+\begin{minipage}{0.92\textwidth}
+\section*{\centering\normalsize Abstract}
+\small\itshape
+Deep detectors for fetal QRS complexes in single-channel abdominal ECG are usually reported as a
+whole, so it is unclear which design choices produce the accuracy. We hold the evaluation protocol
+fixed (leave-one-record-out, $\pm$50\ms\ tolerance, decision threshold chosen on an inner validation
+record, label-blind lead selection) and vary one factor at a time. A dilated temporal convolutional
+network with 113\,481 parameters, trained on five labour recordings of ADFECGDB, reaches a macro F1 of
+99.21\% on the label-blind lead and 97.45\% averaged over four leads. Applied zero-shot to ten
+pregnancy recordings of the Silesian database (32--42 weeks, same recorder) it scores
+93.30\,$\pm$\,13.46\%; on ten records of the CinC 2013 set-a (different recorder) it falls to 59.15\%
+(PSD lead) or 77.34\% (fixed lead). A three-tier decomposition attributes the gain over a naive
+pipeline first to the signal front-end (10--60\Hz\ band: +11.00 F1), then to temporal context and
+per-sample output (+4.53, $p<0.001$), and last to the architecture family at fixed context (+0.41,
+$p=0.70$). Under the same protocol six architectures lie within 1.5 F1 points and none differs
+significantly from a dilated CNN. Against re-implemented classical baselines the network adds
++11.06 points over peak picking on the same residual. A reject gate built from model confidence and
+rhythm regularity (cross-dataset AUROC 0.929) raises F1 by 7.4 points at 80\% coverage;
+persistent-homology features give AUROC 0.566, a negative result we report in full.
+\end{minipage}
+\end{center}
+\vspace{1.2em}
+\end{@twocolumnfalse}
+]
+
+\section{Introduction}
+Fetal heart rate from abdominal electrodes needs a reliable fetal QRS (fQRS) detector, and a
+single-channel detector keeps the hardware small. The PhysioNet/CinC Challenge 2013 fixed the
+metric still in use, F1 with a $\pm$50\ms\ window \cite{clifford2014}, and Behar et al.\
+benchmarked template subtraction, Kalman and blind-source methods under it, grid-searching the
+band-pass filter as part of the method \cite{behar2014}. Andreotti et al.\ showed with a synthetic
+stress-test that pre-processing choices change the ranking of extraction algorithms
+\cite{andreotti2016}. Since the convolutional fQRS detector of Zhong et al.\ \cite{zhong2018}, deep single-channel
+methods have been reported with many simultaneous changes: dual-path source separation trained only
+on synthetic data (98.08\% F1 on the ADFECGDB labour group, zero-shot) \cite{shokouhmand2023}, a
+classical matched-filter pipeline with power-spectral-density (PSD) lead selection (99.5\,$\pm$\,0.5\% on
+Silesian pregnancy records, 98.0\,$\pm$\,3.0\% in labour, four channels) \cite{jaeger2024}, and
+deep-learning-guided empirical mode decomposition with a 10--60\Hz\ band \cite{xu2026}.
+
+Each of these papers changes the band, the sampling rate, the temporal context, the architecture and
+sometimes the lead-selection rule at once, and the lead is often chosen with the test labels. None of
+them holds the protocol fixed and asks which of these choices carries the performance. We do that. The
+contributions are:
+\begin{itemize}\setlength{\itemsep}{0pt}
+\item a leakage-free single-channel protocol with a three-tier decomposition of the gain into
+  front-end, temporal context and architecture family;
+\item an eight-architecture benchmark under that protocol, showing that the family does not matter
+  while the receptive field does;
+\item cross-dataset evidence on 22 independent women (after a signal-level duplicate check) that
+  generalisation breaks across recorders rather than across gestation, plus a reject gate with a
+  controlled negative result for topological signal-quality features.
+\end{itemize}
+
+\section{Methods}
+\subsection{Data}
+\textbf{ADFECGDB} \cite{goldberger2000}: five labour recordings (r01, r04, r07, r08, r10), four
+abdominal leads at 1\,kHz, 5\,min each, with fQRS annotations from a scalp electrode (3\,191 beats).
+\textbf{Silesian database} \cite{matonia2020}: ten pregnancy recordings (B1, 32--42 weeks, 20\,min,
+199.6\,min in total) and twelve labour recordings (B2, 5\,min), four abdominal leads at 500\,Hz, same
+hospital and recorder as ADFECGDB. B1 annotations are indirect (no scalp electrode; author pipeline
+plus expert correction), and in 5/10 records they sit systematically 8--12\ms\ after the abdominal R
+peak; B2 annotations come from a scalp electrode. Before evaluation we cross-correlated every
+ADFECGDB record against every B2 record at 250\,Hz over all $4\times4$ lead pairs and $\pm$5\,min lags:
+five B2 records are the ADFECGDB records (B2\_01\,=\,r01, B2\_02\,=\,r10, B2\_07\,=\,r04,
+B2\_10\,=\,r07, B2\_11\,=\,r08; normalised cross-correlation 0.988--0.994). The independent set is
+therefore 22 women (5 ADFECGDB, 10 B1, 7 new B2); the five duplicates are scored only with the fold
+model that never saw them. \textbf{CinC 2013 set-a} \cite{clifford2014}: records a01--a10, four
+channels at 1\,kHz, 1\,min each, a different recorder.
+
+\subsection{Detector}
+One abdominal lead is band-passed 10--60\Hz\ (4th-order Butterworth, zero-phase) with a 50\Hz\ notch
+and resampled to 250\,Hz. Maternal QRS are located on an 8--25\Hz\ energy envelope and removed by
+subtracting a median beat template with per-beat least-squares scaling. The residual and the filtered
+signal, each robust-scaled by median and interquartile range, form a two-channel input of
+4\,s (1\,000 samples). The network is a dilated residual temporal convolutional network (TCN): a stem
+and five residual blocks (dilations 1, 2, 4, 8, 16; 40 channels; kernel 7; BatchNorm; GELU) with a
+$1\times1$ output convolution, 113\,481 trainable parameters, receptive field 379 samples
+(1\,516\ms). It emits one logit per input sample; the target is a Gaussian heat-map
+($\sigma=3$ samples) around each annotated fQRS. Training uses binary cross-entropy with positive
+class weighting, AdamW (learning rate $3\times10^{-3}$, one-cycle schedule, weight decay $10^{-4}$),
+six epochs, batch 32, segments cut with a 1\,s stride. At inference, windows overlap by 1\,s and
+probabilities are averaged; peaks above a threshold with a 250\ms\ refractory period are the fQRS.
+The checkpoint is 0.48\,MB and one 4\,s window takes 4.35\ms\ on a desktop CPU
+(920$\times$ real time).
+
+\subsection{Protocol}
+Leave-one-record-out (LORO) on ADFECGDB with five folds: one test record, one inner validation record
+(the first of the remaining four) and three training records. The decision threshold is chosen on the
+validation record from a grid 0.20--0.75 and applied unchanged to the test record. Detections are
+matched one-to-one to annotations with greedy nearest matching within $\pm$50\ms; macro F1 is the mean
+over the 20 (record$\times$lead) evaluations. Because a clinical device sees one lead, we also report a
+\emph{label-blind} lead: following Power-MF \cite{jaeger2024}, the lead whose residual envelope has
+the largest Welch PSD peak in 1.8--3.0\Hz\ (108--180\,bpm). This rule never touches annotations.
+Silesian and CinC records are scored zero-shot with the model trained on all five ADFECGDB records
+(threshold = median of the fold thresholds). Paired comparisons use the Wilcoxon signed-rank test on
+the 20 (record$\times$lead) scores.
+
+\subsection{Experiments}
+\textbf{Classical baselines}, re-implemented and scored with the same matcher: template subtraction
+(TS) and TS with a two-component principal-component template (TS-PCA) \cite{behar2014}, each
+followed by an adaptive Pan--Tompkins detector \cite{pan1985}; and \emph{Prominence}, our own
+front-end followed by \texttt{scipy} peak picking (prominence above median\,$+\,3$\,MAD, 250\ms\
+spacing). Hyper-parameters were tuned on r01 only and frozen for the other four records.
+
+\textbf{Three-tier decomposition.} Tier 1 (front-end): eight literature band-pass settings, LORO,
+gradient-boosted trees on 300\ms\ windows of two leads. Tier 2 (temporal context and output
+parameterisation): a 300\ms\ window classifier versus the 4\,s per-sample TCN, four leads. Tier 3
+(architecture family at fixed context): gradient boosting versus a dilated CNN on the same 300\ms\
+windows. A receptive-field sweep of the TCN (172--3\,052\ms) isolates context within one family.
+
+\textbf{Architecture benchmark.} Eight families (linear, MLP, plain CNN, dilated CNN, large CNN,
+CNN-GRU, TCN, ResNet-1D) trained on 300\ms\ windows, band 10--60\Hz, LORO with threshold chosen on the
+validation record, one seed, three epochs, $\pm$50\ms\ scoring.
+
+\textbf{Reject gate.} Each 4\,s segment is labelled \emph{bad} if the detector's F1 on it is below 80.
+A classifier is trained on 1\,500 ADFECGDB segments (fold models) and tested on 600 CinC 2013
+segments (zero-shot model). Feature groups: 16 topological features (Takens embedding, dimension 3,
+$H_0$/$H_1$ persistence statistics \cite{perea2015,adams2017}, and sublevel-set $H_0$ of the 1-D
+residual), 12 classical features (6 signal-only: sample entropy, kurtosis, spectral entropy,
+10--60\Hz\ energy ratio, fetal-band PSD peak, autocorrelation lag; 6 model-output: RR coefficient of
+variation, plausible-RR fraction, bSQI, detection count, mean peak probability, maximum probability),
+and their union. The learner (logistic regression or gradient boosting) is picked by inner
+cross-validation on ADFECGDB only. Rejecting the least-confident segments gives a risk--coverage
+curve; bootstrap over 1\,000 resamples.
+
+\section{Results}
+\subsection{Detection across five data configurations}
+Table~\ref{tab:data} gives the same model under the same $\pm$50\ms\ protocol on five configurations.
+On ADFECGDB the label-blind PSD rule reaches 99.21\%, identical to the label-using oracle lead in every
+record, and 99.18\% (Se 99.59, PPV 98.79, mean timing error 3.05\ms) on the leads prescribed by the
+DPSS benchmark \cite{shokouhmand2023}. Across four leads the LORO macro F1 is 97.43\,$\pm$\,4.37\% (Se
+97.69, PPV 97.18, jitter 3.62\ms; 12\,468 TP, 366 FP, 296 FN) and 97.16\,$\pm$\,4.34\% over three seeds.
+Re-scoring the same detections at 1\,kHz gives 97.45\,$\pm$\,4.44 (SD over the 20 evaluations; 2.96 over
+records), the value used in Tables~\ref{tab:data} and \ref{tab:base}.
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{Macro F1 (\%) of one model, $\pm$50\ms, on five data configurations. SD across records.
+``$\ge$90''/``$<$50'': number of records with PSD-lead F1 in that range.}
+\label{tab:data}
+\fitwidth{\begin{tabular}{@{}lccccc@{}}
+\toprule
+Configuration & $n$ & PSD lead & 4-lead mean & $\ge$90 & $<$50\\
+\midrule
+ADFECGDB, LORO & 5 & 99.21\,$\pm$\,1.50 & 97.45\,$\pm$\,2.96 & 5 & 0\\
+Silesia B2 labour, all & 12 & 97.17\,$\pm$\,7.45 & 95.26\,$\pm$\,9.59 & 11 & 0\\
+\quad 7 new women, zero-shot & 7 & 95.87\,$\pm$\,9.75 & 93.73\,$\pm$\,12.48 & 6 & 0\\
+Silesia B1 pregnancy, zero-shot & 10 & 93.30\,$\pm$\,13.46 & 91.31\,$\pm$\,9.99 & 8 & 0\\
+CinC 2013 set-a, zero-shot & 10 & 59.15\,$\pm$\,37.17 & 61.96\,$\pm$\,34.09 & 4 & 5\\
+\quad fixed lead 0 & 10 & 77.34\,$\pm$\,28.54 & -- & 5 & 3\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+Zero-shot on Silesian pregnancy records the model keeps 93.30\%; eight of ten records exceed 90 and
+none falls below 50 (oracle lead 97.04\%). The two weakest B1 records are those where the PSD rule
+picks the worst lead. On CinC 2013 the distribution is bimodal: with a fixed lead, five records are
+above 90 and three below 50; the PSD rule, which equalled the oracle in-domain, picks the wrong lead
+out-of-domain and loses 18 points (59.15 vs 77.34).
+
+\subsection{Where the performance comes from}
+Table~\ref{tab:tiers} decomposes the gain. Changing only the band from 1--45\Hz\ to 10--60\Hz\ adds
+11.00 points; the spread over eight literature bands is 18.89 points (72.17 for 0.5--100\Hz\ to
+91.06 for 10--60\Hz). Moving from a 300\ms\ window classifier to the 4\,s per-sample TCN adds 4.53
+points ($p<0.001$); this step bundles receptive field, output parameterisation and parameter count
+(33\,k to 113\,k). Replacing gradient boosting by a dilated CNN at the same 300\ms\ context adds 0.41
+points ($p=0.70$). Within the TCN family, LORO F1 rises from 92.67\,$\pm$\,10.46 at a 172\ms\ receptive
+field to 97.16\,$\pm$\,4.34 at 1\,516\ms\ (three seeds, $p<0.001$); on the validation record the sweep
+reads 98.73, 99.25, 99.50 and 99.52 for 172, 748, 1\,516 and 3\,052\ms, so the benefit saturates near
+1.5\,s.
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{Three-tier decomposition on ADFECGDB, LORO, $\pm$50\ms. Tier 1 uses two leads, tiers 2--3
+four leads. Paired Wilcoxon on (record$\times$lead) scores; tier 1 was not tested pairwise.}
+\label{tab:tiers}
+\fitwidth{\begin{tabular}{@{}llccc@{}}
+\toprule
+Tier & Change & From & To & $\Delta$F1 ($p$)\\
+\midrule
+1 Front-end & 1--45 $\to$ 10--60\Hz\ (GBM, 300\ms) & 80.06 & 91.06 & +11.00\\
+2 Context & 300\ms\ window $\to$ 4\,s per-sample & 92.90 & 97.43 & +4.53 ($<$0.001)\\
+3 Family & GBM $\to$ dilated CNN (300\ms) & 92.49 & 92.90 & +0.41 (0.70)\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\subsection{Classical baselines}
+Table~\ref{tab:base} shows the network gains 11.06 points over peak picking on exactly the residual it
+receives, winning 20/20 paired evaluations ($p=1.9\times10^{-6}$); it also more than halves the
+spread across women and leads (SD 4.44 vs 10.17 for the best baseline). TS-PCA on the PSD lead reaches
+96.74, only 2.47 points below the network, consistent with the strength of purely classical
+pipelines \cite{jaeger2024}.
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{Re-implemented baselines on ADFECGDB, $\pm$50\ms, hyper-parameters tuned on r01 only.
+Columns: macro F1 over 20 (record$\times$lead), over the 16 evaluations excluding r01, and on the
+PSD lead (5 records); difference to the TCN and number of losing pairs (Wilcoxon $p$: TS
+$5.7{\times}10^{-6}$, TS-PCA and Prominence $1.9{\times}10^{-6}$). PT = adaptive Pan--Tompkins.}
+\label{tab:base}
+\fitwidth{\begin{tabular}{@{}lcccc@{}}
+\toprule
+Method & 4 leads (20) & Held-out (16) & PSD lead (5) & $\Delta$ (lost)\\
+\midrule
+TS + PT & 78.96\,$\pm$\,23.52 & 75.55 & 87.68 & $-18.49$ (19/20)\\
+TS-PCA + PT & 91.05\,$\pm$\,10.17 & 90.94 & 96.74 & $-6.40$ (20/20)\\
+Prominence (our front-end) & 86.39\,$\pm$\,11.14 & 84.99 & 92.03 & $-11.06$ (20/20)\\
+FetalQRS-TCN (ours) & \textbf{97.45}\,$\pm$\,4.44 & \textbf{96.81} & \textbf{99.21} & --\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\subsection{Architecture family}
+Figure~\ref{fig:arch} shows the eight-family benchmark. Six families (large CNN 92.43, dilated CNN
+91.70, MLP 91.64, CNN-GRU 91.59, TCN 91.07, ResNet-1D 90.90) lie within 1.53 points and none differs
+significantly from the dilated CNN (all $p\ge0.105$). Only the plain CNN with the same parameter count
+but no dilation (88.76, $p=0.0001$) and the linear model (37.47) are different. All eight, limited to
+300\ms\ of context, stay below the 97.43 of the 4\,s per-sample model.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figs/fig13_arch_en.pdf}
+\caption{Eight architectures under the same protocol (10--60\Hz, 300\ms\ windows, LORO, threshold on
+validation, one seed, three epochs). Bars: macro F1 over 20 (record$\times$lead) with SD; right-hand
+columns: F1, Wilcoxon $p$ against the dilated CNN (ref.), trainable parameters.
+Dashed line: the 4\,s per-sample TCN (97.43).}
+\label{fig:arch}
+\end{figure}
+
+\subsection{Reject gate and a negative topological result}
+Table~\ref{tab:gate} and Figure~\ref{fig:rc} give the cross-dataset reject gate. The 12 classical
+features predict bad segments with AUROC 0.929 and lift the retained-segment F1 from 61.96 at full
+coverage to 69.40 at 80\% coverage (random rejection: 62.03; oracle: 74.55) and to 84.51 at 50\%
+coverage (oracle 97.81). The strongest single features are the model's own maximum probability
+(AUROC 0.970), mean peak probability (0.956), RR coefficient of variation (0.915) and the 10--60\Hz\
+energy ratio (0.904). The 16 topological features reach AUROC 0.566, 1.4 points above random rejection
+at 80\% coverage, and adding them to the classical set lowers AUROC to 0.905. Even the six signal-only
+classical features (0.666) beat topology.
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{Bad-segment prediction on CinC 2013 (600 segments) by a classifier trained on ADFECGDB
+(1\,500 segments). F1: macro F1 of retained segments at the given coverage.}
+\label{tab:gate}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Feature set & AUROC & F1 @ 80\% cov. & F1 @ 50\% cov.\\
+\midrule
+Random rejection & 0.500 & 62.03 & --\\
+Topological (16) & 0.566 & 63.40 & --\\
+Classical, signal-only (6) & 0.666 & -- & --\\
+Classical (12) & \textbf{0.929} & \textbf{69.40} & \textbf{84.51}\\
+Combined (28) & 0.905 & -- & --\\
+Oracle (true F1) & -- & 74.55 & 97.81\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figs/fig9_risk_coverage_en.pdf}
+\caption{Risk--coverage curves on CinC 2013 for a gate trained on ADFECGDB. Dashed: oracle; grey:
+random rejection; blue: topological; orange: classical; green: combined. Labels: classical at 80\% and 50\% coverage.}
+\label{fig:rc}
+\end{figure}
+
+Three earlier controls point the same way (3--90\Hz\ pilot, one validation record, threshold swept on
+it, so optimistic for every entry). As a detector input, a persistence-image CNN scored 27.42 where a
+1-D CNN with the same parameter budget scored 97.14, and a two-stream fusion added 0.88 points
+($p=0.625$). The sublevel-set $H_0$ persistence of a 1-D signal equals classical peak prominence
+(Elder rule); we verified zero difference against \texttt{scipy} on 2\,011 peaks, so those five
+features are a re-parameterisation of prominence. And 8 of the 16 topological features change the sign
+of their Spearman correlation with segment F1 between ADFECGDB and CinC 2013 (3 of 12 classical
+features do). We therefore report the topological signal-quality index as a negative result.
+
+\section{Discussion}
+\textbf{The front-end dominates.} Of the 15.9 points gained over the three tiers of Table~\ref{tab:tiers},
+11.0 come from the pass-band alone; the same band also appears as the strongest signal-only
+error predictor. This matches the observation of \cite{andreotti2016} that pre-processing reorders
+methods, and it means that architecture comparisons run under different bands are not comparisons of
+architectures.
+
+\textbf{The family does not matter; the receptive field does.} Six families are statistically
+indistinguishable at fixed context, while dilation ($+2.95$ at equal parameters) and a longer
+receptive field (172 to 1\,516\ms: $+4.5$ LORO) are the only architectural variables with a
+measurable effect. Roughly one fetal RR interval and its neighbours is what the detector needs.
+
+\textbf{Generalisation breaks across recorders, not gestation.} Trained on five labour records, the
+model loses about four points on pregnancy records from the same recorder (97 to 93) and 20--38
+points on a different recorder (97 to 77 or 59). The PSD lead rule equals the oracle in-domain but
+collapses out-of-domain, so a learned gate should replace the spectral heuristic. The gate we tested
+is such a replacement: it needs no labels at test time and recovers 7.4 points at 80\% coverage.
+
+\textbf{Why topology failed here.} Sublevel-set persistence on a 1-D signal is prominence, which the
+classical set already contains; delay-embedding $H_1$ features depend on residual maternal amplitude
+and muscle noise, which differ between recorders, and their correlation sign flips; and the dominant
+failure mode is rhythmic (locking onto maternal beats over seconds) rather than morphological
+(milliseconds), so rhythm regularity and model confidence are the informative quantities. Computing
+cost is not the obstacle (65\ms\ per segment).
+
+\textbf{Limitations.} Training uses five women, all in labour at 38--41 weeks, and one seed for the
+main model (three seeds for the receptive-field claim). B1 labels are indirect, so B1 F1 measures
+agreement with the authors' pipeline, and its timing error (8.2\ms) is not comparable with B2. CinC
+2013 results rest on ten 1-min records and are bimodal, so record-level confidence intervals are
+wide. The architecture benchmark uses one seed and three epochs. Published numbers of DPSS and
+Power-MF are quoted, not re-run: Power-MF needs four channels and MATLAB dependencies not in its
+repository. Only one topological configuration was tried, deliberately without tuning on test labels.
+
+\section{Conclusion}
+With protocol held fixed, single-channel fQRS detection on ADFECGDB reaches 99.21\% F1 on a
+label-blind lead and 93.30\% zero-shot on pregnancy recordings, and the gain over a naive pipeline
+comes from the 10--60\Hz\ front-end and from 1.5\,s of temporal context, not from the network family.
+Cross-recorder transfer, not gestational age, is the open problem; a confidence-and-rhythm reject
+gate mitigates it, and persistent-homology features do not. Code, checkpoints and logs are available
+from the authors.
+
+\bibliographystyle{vancouver}
+\small
+\bibliography{refs}
+\end{document}

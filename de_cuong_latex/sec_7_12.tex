@@ -241,11 +241,16 @@ ba kiến trúc nặng.
 \item \textbf{P2} xong: ba baseline cổ điển (\S\ref{sec:baselines}). Power-MF không chạy lại được, đã ghi lý do.
 \item \textbf{P4--P6} prototype xong với kết quả phủ định cho topo và khẳng định cho cổng từ chối
 (\S\ref{sec:fsqi}). Việc còn lại là thay luật cứng trong demo bằng bộ phân loại cổ điển.
-\item \textbf{P9} một phần: demo Gradio chạy được, kiểm thử ba tầng, ảnh chụp thật (\S\ref{sec:demo}).
-Còn API và Docker.
+\item \textbf{P8} một phần: đường cong F1--SNR với nhiễu MIT-BIH xong (\S\ref{sec:snr}); đường cong hiệu
+quả mẫu đang chạy.
+\item \textbf{P9} phần lớn: demo Gradio với đèn học được, API REST, 53 test, CI (\S\ref{sec:demo}). Docker
+đã viết chưa build.
+\item \textbf{P10} bản nháp: bài Computing in Cardiology 4 trang đã viết và qua một vòng phản biện đối
+kháng nội bộ (\texttt{survey/review\_round2.md}: không phát hiện số sai; đã sửa 8 lỗi trình bày).
+\item \textbf{P3} đang chạy: huấn luyện lại trên 22 sản phụ, 11 fold theo nhóm, có tăng cường dữ liệu,
+khoảng 3 giờ CPU; kết quả sẽ vào phiên bản kế tiếp.
 \end{itemize}
-Chưa động tới: P3 (huấn luyện lại trên 22 ca), P7 (tiền huấn luyện FECGSYNDB), P8 (đường cong F1--SNR),
-P10--P11 (viết và nộp bài).
+Chưa động tới: P7 (tiền huấn luyện FECGSYNDB, cần 40 GB), P11 (nộp bài).
 \end{ghichu}
 
 \subsection{Phân vai ba sinh viên}
@@ -286,8 +291,13 @@ Bộ mã đối chuẩn & Chạy đúng giao thức, kiểm chứng chéo Hungar
 Ba baseline cổ điển & TS, TS-PCA, Prominence; cùng giao thức, Wilcoxon & \tot{Đã có} \\
 Thư viện fSQI & 28 đặc trưng topo và cổ điển, có kiểm thử tự đối chiếu & \tot{Đã có} \\
 Cổng từ chối trả lời & Đường cong rủi ro--độ phủ, đối chứng ngẫu nhiên và oracle & \tot{Đã có} \\
-Bản demo web & Gradio, năm tầng tín hiệu, đèn tin cậy, kiểm thử ba tầng & \tot{Đã có} \\
-API và đóng gói Docker & & Phase P9 \\
+Bản demo web & Gradio, năm tầng tín hiệu, đèn tin cậy hai chế độ, kiểm thử ba tầng & \tot{Đã có} \\
+Cổng tin cậy học được & GBM trên 12 chỉ số, hiệu chuẩn chỉ trên ADFECGDB, 0 lỗi nguy hiểm / 32 bản ghi & \tot{Đã có} \\
+API REST & FastAPI, ba điểm cuối, kiểm thử bằng dịch vụ thật & \tot{Đã có} \\
+Đóng gói Docker & Dockerfile và compose đã viết; chưa build vì máy không có Docker engine & Một phần \\
+Đường cong F1--SNR & 4 loại nhiễu MIT-BIH $\times$ 6 mức, mô hình và TS-PCA & \tot{Đã có} \\
+Bản thảo Computing in Cardiology & 4 trang, hai cột, 12 tài liệu, đã qua phản biện đối kháng & \tot{Bản nháp} \\
+Bộ kiểm thử & 53 test, CI hai phiên bản Python & \tot{Đã có} \\
 \bottomrule
 \end{tabular}
 \end{table}

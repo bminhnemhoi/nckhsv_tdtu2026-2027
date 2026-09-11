@@ -15,6 +15,12 @@ pillow>=10.0
 # Tests
 pytest>=7.4
 
+# API (api/main.py) -- REST wrapper around demo/core.py; httpx is needed only for tests/test_api.py
+fastapi>=0.110
+uvicorn>=0.29
+httpx>=0.27
+python-multipart>=0.0.9
+
 # External tools, NOT installable via pip -- needed only to rebuild documents:
 #   xelatex   (MiKTeX or TeX Live)  -- compiles the LaTeX proposal
 #   pandoc    (>= 3.0)              -- exports PDF sources to DOCX

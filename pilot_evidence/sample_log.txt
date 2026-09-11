@@ -1,0 +1,6 @@
+================================================================================================
+HIEU QUA MAU -- train tren k chu the PhysioNet (k=1,2), test tren chu the con lai; k=3 = LORO da co
+bat dau: 2026-09-11T16:39:17 | torch threads 3 | seed 0 | ngan sach 60.0 phut
+numpy 2.4.6 torch 2.13.0+cpu mne 1.12.1 wfdb 4.3.1
+================================================================================================
+ADFECGDB: D:\NCKHSV2026-2027\model\data\adfecgdb

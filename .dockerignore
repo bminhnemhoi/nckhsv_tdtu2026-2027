@@ -1,0 +1,65 @@
+# Keep the build context small: the API needs only model/fqrs_model.py, model/checkpoints/,
+# demo/core.py, fsqi/fsqi.py, benchmark_dpss/_paths.py and api/ (see Dockerfile COPY lines).
+.git
+.github
+.pytest_cache
+**/__pycache__
+**/*.pyc
+.venv
+venv
+env
+
+# physiological data, third-party papers, teammate material
+model/data
+benchmark_dpss/pcdb
+goi-danh-gia-doi-chuan-dpss
+papers
+docs
+*.edf
+*.edf.qrs
+*.dat
+*.hea
+*.fqrs
+*.atr
+*.npz
+*.zip
+
+# documents, figures, experiment artefacts
+de_cuong_latex
+pilot_evidence
+survey
+baselines
+tests
+*.pdf
+*.png
+*.jpg
+*.docx
+*.csv
+*.md
+!fsqi/README.md
+!api/README.md
+
+# demo UI and its captures (the API imports only demo/core.py)
+demo/app.py
+demo/screenshot.py
+demo/smoke_app.py
+demo/run_check.py
+demo/test_core.py
+demo/results
+demo/screenshots
+demo/assets
+demo/flagged
+
+# API self-check outputs (api/check_server.py)
+api/logs
+
+# fsqi experiment outputs
+fsqi/eval_fsqi.py
+fsqi/profile_one.py
+fsqi/*.txt
+fsqi/results.json
+fsqi/cache
+
+Dockerfile
+docker-compose.yml
+.dockerignore

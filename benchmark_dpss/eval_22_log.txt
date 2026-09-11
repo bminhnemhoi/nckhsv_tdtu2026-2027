@@ -1,0 +1,3 @@
+eval_22.py  2026-09-11 16:36:37  torch 2.13.0+cpu  threads 2  Windows-11-10.0.22631-SP0  partial=True
+tham chieu n=5: silesia_eval.json co | all_leads.json co | blind_lead.json co
+   16:36:37 chua co fold checkpoint nao trong D:\NCKHSV2026-2027\model\checkpoints; doi 120 s (con 20.0 phut)

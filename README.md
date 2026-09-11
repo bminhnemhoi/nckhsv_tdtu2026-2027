@@ -162,6 +162,20 @@ core, HTTP smoke test, and `gradio_client` API call. Screenshots in [`demo/scree
 
 > Research prototype. Not a medical device. Not for diagnostic use.
 
+## API
+
+```bash
+uvicorn api.main:app --host 0.0.0.0 --port 8000          # or: docker compose up --build
+curl http://127.0.0.1:8000/health
+curl -F "file=@signal.npy" -F "lead=auto" -F "fs=1000" http://127.0.0.1:8000/analyze
+```
+
+FastAPI wrapper around `demo/core.py`, three endpoints: `GET /health` (is the production checkpoint present),
+`GET /model` (parameter count, receptive field, threshold, config) and `POST /analyze` (EDF/CSV/TXT/NPY in;
+`n_beats`, `fhr_mean`, `beats_ms`, `confidence{level,score,reasons}`, `latency_ms` out, plus `metrics` when a
+label file is supplied). Input errors come back as `4xx` JSON, never a traceback. Request/response schema in
+[`api/README.md`](api/README.md); tests in `tests/test_api.py` (no network, `fastapi.testclient`).
+
 ---
 
 ## Repository layout

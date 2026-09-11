@@ -29,11 +29,14 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install numpy scipy scikit-learn mne wfdb pytest
+          pip install fastapi uvicorn httpx python-multipart
           pip install torch --index-url https://download.pytorch.org/whl/cpu
 
-      - name: Run smoke tests
-        run: pytest tests/ -v
+      # Data-dependent cases (ADFECGDB, Silesia) and fsqi (needs ripser) skip on the runner;
+      # the API tests run against the checked-in checkpoints via fastapi.testclient.
+      - name: Run tests
+        run: pytest tests/ demo/test_core.py -v
 
       - name: Check every source file compiles
         run: |
-          python -m compileall -q model benchmark_dpss pilot_evidence tests
+          python -m compileall -q model benchmark_dpss pilot_evidence tests api demo baselines fsqi

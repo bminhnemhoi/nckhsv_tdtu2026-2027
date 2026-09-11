@@ -1,0 +1,93 @@
+train_gate.py  2026-09-11 15:26  torch 2.13.0+cpu (2 luong)  sklearn 1.9.0  numpy 2.4.6
+dac trung (12): ['sampen', 'kurtosis', 'spec_entropy', 'band_ratio', 'rr_cv', 'rr_plaus', 'bsqi', 'n_det', 'psd_fhr', 'tau_acf', 'peak_prob_mean', 'prob_max']
+GB: {'max_depth': 3, 'max_iter': 200, 'learning_rate': 0.05, 'class_weight': 'balanced', 'random_state': 0}; nhan xau = F1 doan < 80; doan 4 s @ 250 Hz; dung sai +/-50 ms
+
+[1] Trich 12 chi so co dien + F1 doan (tinh lai tu dau, KHONG topo)
+  ADFECGDB r01 kenh 1: F1 ban ghi  99.92  doan 75/75  thr 0.40    1.3s  (dac trung 10.3 ms/doan)
+  ADFECGDB r01 kenh 2: F1 ban ghi 100.00  doan 75/75  thr 0.40    1.2s  (dac trung 8.8 ms/doan)
+  ADFECGDB r01 kenh 3: F1 ban ghi 100.00  doan 75/75  thr 0.40    1.3s  (dac trung 10.1 ms/doan)
+  ADFECGDB r01 kenh 4: F1 ban ghi 100.00  doan 75/75  thr 0.40    1.4s  (dac trung 12.0 ms/doan)
+  ADFECGDB r04 kenh 1: F1 ban ghi  96.58  doan 75/75  thr 0.55    1.2s  (dac trung 9.4 ms/doan)
+  ADFECGDB r04 kenh 2: F1 ban ghi  99.76  doan 75/75  thr 0.55    1.3s  (dac trung 10.1 ms/doan)
+  ADFECGDB r04 kenh 3: F1 ban ghi  99.45  doan 75/75  thr 0.55    1.3s  (dac trung 10.6 ms/doan)
+  ADFECGDB r04 kenh 4: F1 ban ghi  99.60  doan 75/75  thr 0.55    1.2s  (dac trung 9.4 ms/doan)
+  ADFECGDB r07 kenh 1: F1 ban ghi  98.64  doan 75/75  thr 0.50    1.4s  (dac trung 10.0 ms/doan)
+  ADFECGDB r07 kenh 2: F1 ban ghi 100.00  doan 75/75  thr 0.50    1.3s  (dac trung 10.7 ms/doan)
+  ADFECGDB r07 kenh 3: F1 ban ghi 100.00  doan 75/75  thr 0.50    1.3s  (dac trung 11.2 ms/doan)
+  ADFECGDB r07 kenh 4: F1 ban ghi 100.00  doan 75/75  thr 0.50    1.2s  (dac trung 9.9 ms/doan)
+  ADFECGDB r08 kenh 1: F1 ban ghi  98.77  doan 75/75  thr 0.45    1.3s  (dac trung 9.8 ms/doan)
+  ADFECGDB r08 kenh 2: F1 ban ghi  85.03  doan 75/75  thr 0.45    1.1s  (dac trung 8.6 ms/doan)
+  ADFECGDB r08 kenh 3: F1 ban ghi  98.77  doan 75/75  thr 0.45    1.3s  (dac trung 10.8 ms/doan)
+  ADFECGDB r08 kenh 4: F1 ban ghi  99.77  doan 75/75  thr 0.45    1.4s  (dac trung 12.0 ms/doan)
+  ADFECGDB r10 kenh 1: F1 ban ghi  96.54  doan 75/75  thr 0.35    1.2s  (dac trung 10.0 ms/doan)
+  ADFECGDB r10 kenh 2: F1 ban ghi  96.38  doan 75/75  thr 0.35    1.2s  (dac trung 9.7 ms/doan)
+  ADFECGDB r10 kenh 3: F1 ban ghi  85.82  doan 75/75  thr 0.35    1.3s  (dac trung 9.0 ms/doan)
+  ADFECGDB r10 kenh 4: F1 ban ghi  93.90  doan 75/75  thr 0.35    1.5s  (dac trung 10.5 ms/doan)
+  CinC a01 kenh 0: F1 ban ghi  94.29  doan 15/15  thr 0.45    0.3s  (dac trung 9.6 ms/doan)
+  CinC a01 kenh 1: F1 ban ghi  59.18  doan 15/15  thr 0.45    0.3s  (dac trung 9.9 ms/doan)
+  CinC a01 kenh 2: F1 ban ghi  20.60  doan 15/15  thr 0.45    0.2s  (dac trung 9.4 ms/doan)
+  CinC a01 kenh 3: F1 ban ghi  64.91  doan 15/15  thr 0.45    0.2s  (dac trung 9.3 ms/doan)
+  CinC a02 kenh 0: F1 ban ghi  23.08  doan 15/15  thr 0.45    0.3s  (dac trung 10.9 ms/doan)
+  CinC a02 kenh 1: F1 ban ghi  21.75  doan 15/15  thr 0.45    0.3s  (dac trung 10.4 ms/doan)
+  CinC a02 kenh 2: F1 ban ghi  21.05  doan 15/15  thr 0.45    0.3s  (dac trung 10.1 ms/doan)
+  CinC a02 kenh 3: F1 ban ghi  25.17  doan 15/15  thr 0.45    0.3s  (dac trung 12.3 ms/doan)
+  CinC a03 kenh 0: F1 ban ghi 100.00  doan 15/15  thr 0.45    0.3s  (dac trung 11.0 ms/doan)
+  CinC a03 kenh 1: F1 ban ghi 100.00  doan 15/15  thr 0.45    0.3s  (dac trung 13.1 ms/doan)
+  CinC a03 kenh 2: F1 ban ghi 100.00  doan 15/15  thr 0.45    0.3s  (dac trung 9.1 ms/doan)
+  CinC a03 kenh 3: F1 ban ghi 100.00  doan 15/15  thr 0.45    0.3s  (dac trung 10.4 ms/doan)
+  CinC a04 kenh 0: F1 ban ghi  99.61  doan 15/15  thr 0.45    0.3s  (dac trung 11.5 ms/doan)
+  CinC a04 kenh 1: F1 ban ghi 100.00  doan 15/15  thr 0.45    0.2s  (dac trung 9.0 ms/doan)
+  CinC a04 kenh 2: F1 ban ghi 100.00  doan 15/15  thr 0.45    0.3s  (dac trung 10.3 ms/doan)
+  CinC a04 kenh 3: F1 ban ghi 100.00  doan 15/15  thr 0.45    0.3s  (dac trung 13.0 ms/doan)
+  CinC a05 kenh 0: F1 ban ghi 100.00  doan 15/15  thr 0.45    0.2s  (dac trung 8.6 ms/doan)
+  CinC a05 kenh 1: F1 ban ghi 100.00  doan 15/15  thr 0.45    0.2s  (dac trung 8.6 ms/doan)
+  CinC a05 kenh 2: F1 ban ghi 100.00  doan 15/15  thr 0.45    0.2s  (dac trung 9.3 ms/doan)
+  CinC a05 kenh 3: F1 ban ghi 100.00  doan 15/15  thr 0.45    0.3s  (dac trung 11.5 ms/doan)
+  CinC a06 kenh 0: F1 ban ghi  42.75  doan 15/15  thr 0.45    0.2s  (dac trung 9.0 ms/doan)
+  CinC a06 kenh 1: F1 ban ghi  22.96  doan 15/15  thr 0.45    0.2s  (dac trung 9.3 ms/doan)
+  CinC a06 kenh 2: F1 ban ghi  19.48  doan 15/15  thr 0.45    0.3s  (dac trung 10.0 ms/doan)
+  CinC a06 kenh 3: F1 ban ghi  34.22  doan 15/15  thr 0.45    0.2s  (dac trung 9.2 ms/doan)
+  CinC a07 kenh 0: F1 ban ghi  84.82  doan 15/15  thr 0.45    0.2s  (dac trung 8.7 ms/doan)
+  CinC a07 kenh 1: F1 ban ghi  29.82  doan 15/15  thr 0.45    0.2s  (dac trung 9.1 ms/doan)
+  CinC a07 kenh 2: F1 ban ghi  16.24  doan 15/15  thr 0.45    0.2s  (dac trung 8.9 ms/doan)
+  CinC a07 kenh 3: F1 ban ghi  36.13  doan 15/15  thr 0.45    0.2s  (dac trung 8.9 ms/doan)
+  CinC a08 kenh 0: F1 ban ghi 100.00  doan 15/15  thr 0.45    0.2s  (dac trung 9.9 ms/doan)
+  CinC a08 kenh 1: F1 ban ghi 100.00  doan 15/15  thr 0.45    0.2s  (dac trung 8.8 ms/doan)
+  CinC a08 kenh 2: F1 ban ghi 100.00  doan 15/15  thr 0.45    0.2s  (dac trung 10.1 ms/doan)
+  CinC a08 kenh 3: F1 ban ghi 100.00  doan 15/15  thr 0.45    0.3s  (dac trung 11.5 ms/doan)
+  CinC a09 kenh 0: F1 ban ghi  79.84  doan 15/15  thr 0.45    0.3s  (dac trung 12.2 ms/doan)
+  CinC a09 kenh 1: F1 ban ghi  16.96  doan 15/15  thr 0.45    0.3s  (dac trung 12.0 ms/doan)
+  CinC a09 kenh 2: F1 ban ghi  19.21  doan 15/15  thr 0.45    0.3s  (dac trung 11.0 ms/doan)
+  CinC a09 kenh 3: F1 ban ghi  14.78  doan 15/15  thr 0.45    0.3s  (dac trung 11.8 ms/doan)
+  CinC a10 kenh 0: F1 ban ghi  48.98  doan 15/15  thr 0.45    0.2s  (dac trung 8.5 ms/doan)
+  CinC a10 kenh 1: F1 ban ghi  21.05  doan 15/15  thr 0.45    0.2s  (dac trung 9.7 ms/doan)
+  CinC a10 kenh 2: F1 ban ghi  25.78  doan 15/15  thr 0.45    0.3s  (dac trung 10.4 ms/doan)
+  CinC a10 kenh 3: F1 ban ghi  35.86  doan 15/15  thr 0.45    0.3s  (dac trung 10.0 ms/doan)
+  doi chieu voi segments.csv cua eval_fsqi.py: 2100 doan, sai lech tuyet doi lon nhat 1.192e-07  (tai (('adfecgdb', 'r04', 3, 47), 'prob_max', 0.997546374797821, 0.9975464940071106))
+  so doan: ADFECGDB 1500 (xau 71 = 4.7%), CinC 600 (xau 313 = 52.2%)
+  macro F1 ban ghi x kenh (kiem tra pipeline): ADFECGDB 97.45  CinC 61.96
+
+[2] LORO-CV noi bo ADFECGDB (chia theo ban ghi) -> xac suat NGOAI FOLD de hieu chuan q1/q2
+  fold r01: 300 doan, xau 0, AUROC ngoai fold None
+  fold r04: 300 doan, xau 5, AUROC ngoai fold 0.976
+  fold r07: 300 doan, xau 1, AUROC ngoai fold 1.0
+  fold r08: 300 doan, xau 24, AUROC ngoai fold 0.865
+  fold r10: 300 doan, xau 41, AUROC ngoai fold 0.764
+  AUROC ngoai fold: trung binh cac fold 0.901 (results.json classical gb: 0.901), gop 1500 doan 0.751
+  nguong: q1 (phan vi 85) = 0.0520, q2 (phan vi 95) = 0.5398
+  ti le doan ADFECGDB ngoai fold: xanh 85.0%  vang 10.0%  do 5.0%
+    doan xanh : n 1275, trong do xau  24, F1 doan TB 98.77636314594974
+    doan vang : n  150, trong do xau  22, F1 doan TB 92.19041721951938
+    doan do   : n   75, trong do xau  25, F1 doan TB 80.90685663379162
+
+[3] Mo hinh cuoi: huan luyen tren toan bo 1500 doan ADFECGDB -> kiem tra tren 600 doan CinC (production)
+  CinC AUROC 0.9289  AUPRC 0.9265   (results.json classical gb: AUROC 0.9289, AUPRC 0.9265)
+  ti le doan ADFECGDB TRONG MAU (mo hinh cuoi, chi de tham khao): xanh 78.7%  vang 12.5%  do 8.9%
+  CinC theo mau doan (nguong tu ADFECGDB, khong chinh):
+    doan xanh : n  253, trong do xau  32, F1 doan TB 90.15
+    doan vang : n  116, trong do xau  70, F1 doan TB 53.11
+    doan do   : n  231, trong do xau 211, F1 doan TB 35.41
+  giam AUROC CinC khi hoan vi tung dac trung: peak_prob_mean +0.113, rr_cv +0.110, band_ratio +0.020, prob_max +0.012, sampen +0.010, bsqi +0.006, n_det +0.002, rr_plaus +0.000, tau_acf +0.000, psd_fhr -0.005, spec_entropy -0.006, kurtosis -0.017
+
+da ghi gate_classical.pkl, gate_meta.json, gate_segments.csv, train_gate_results.json, train_gate_log.txt (0.7 phut)
+TAI LAP AUROC CinC: DAT (0.9289 so voi 0.9289)

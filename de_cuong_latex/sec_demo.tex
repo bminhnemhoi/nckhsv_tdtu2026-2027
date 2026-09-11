@@ -110,14 +110,64 @@ Vàng & 5 & 50,51 & 21,05 & 99,76 \\
 \end{table}
 
 \begin{ghichu}[title={Điều quan trọng nhất trong bảng \ref{tab:den_tonghop}}]
-\textbf{Không có bản ghi nào bị đèn xanh mà F1 dưới 96.} Tức là luật cứng đơn giản này, dù chưa dùng
-đặc trưng topo, đã đạt tính chất cần thiết nhất của một cổng an toàn: \textit{khi nó nói ``tin được'' thì
-tin được}. Sai số duy nhất là theo chiều thận trọng --- r04 bị đèn vàng dù F1 là 99,76.
-
-Trên CinC 2013, nếu chỉ trả lời khi đèn xanh thì macro F1 của phần được trả lời là \textbf{100,00}
-trên 4/10 bản ghi, và hệ thống \textit{từ chối} 6 bản ghi còn lại thay vì báo sai. Đây là minh hoạ cụ thể
-cho đóng góp C3 trước khi thay luật cứng bằng chỉ số topo học được.
+\textbf{Không có bản ghi nào bị đèn xanh mà F1 dưới 96.} Tức là luật cứng đơn giản này đã đạt tính chất
+cần thiết nhất của một cổng an toàn: \textit{khi nó nói ``tin được'' thì tin được}. Sai số duy nhất là
+theo chiều thận trọng --- r04 bị đèn vàng dù F1 là 99,76.
 \end{ghichu}
+
+\subsection{Đèn học được: thay luật cứng bằng bộ phân loại}
+\label{sec:den_hoc}
+
+Sau kết quả \S\ref{sec:fsqi}, nhóm huấn luyện một bộ phân loại gradient boosting trên 12 chỉ số cổ điển
+của từng đoạn 4 giây (\texttt{fsqi/train\_gate.py}), \textbf{chỉ trên ADFECGDB}, ngưỡng hai mức cũng hiệu
+chuẩn chỉ trên ADFECGDB, rồi ghép vào demo làm chế độ \texttt{hoc}. Luật bám mẹ 60\% được giữ làm luật ghi
+đè trong cả hai chế độ. Hai chế độ được chấm trên \textbf{32 bản ghi}: 5 ADFECGDB (fold), 10 CinC 2013 và
+17 Silesia (production, zero-shot).
+
+\begin{table}[H]\centering\small
+\caption{Hai chế độ đèn trên 32 bản ghi. ``Nguy hiểm'' là xanh nhưng F1 $<$ 90; ``thận trọng'' là đỏ
+nhưng F1 $\geq$ 95.}
+\label{tab:den2}
+\begin{tabular}{@{}L{2.0cm} C{1.4cm} C{2.2cm} C{2.0cm} C{1.6cm} C{1.6cm} C{2.4cm}@{}}
+\toprule
+\textbf{Chế độ} & \textbf{Đèn} & \textbf{Số bản ghi} & \textbf{F1 trung bình} & \textbf{F1 thấp nhất} &
+\textbf{F1 cao nhất} & \textbf{Lỗi nguy hiểm / thận trọng} \\
+\midrule
+\multirow{3}{*}{Học} & \tot{xanh} & 14 & \textbf{99,92} & 99,76 & 100,00 & \multirow{3}{*}{\textbf{0 / 0}} \\
+ & vàng & 9 & 98,66 & 96,54 & 100,00 & \\
+ & \xau{đỏ} & 9 & 44,99 & 16,96 & 80,90 & \\
+\midrule
+\multirow{3}{*}{Luật} & \tot{xanh} & 22 & 99,41 & 96,54 & 100,00 & \multirow{3}{*}{\textbf{0 / 0}} \\
+ & vàng & 7 & 58,18 & 21,05 & 99,76 & \\
+ & \xau{đỏ} & 3 & 32,48 & 16,96 & 58,72 & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Hai chế độ hoà nhau ở tiêu chí quan trọng nhất --- không lỗi nguy hiểm --- nhưng khác nhau ở cách xử lý
+vùng giữa. Chế độ học đưa \textbf{cả 6 bản ghi mô hình thất bại} (a01, a06, a07, a10, B1\_06, B2\_03)
+xuống đỏ, trong khi luật để chúng ở vàng lẫn với bản ghi tốt. Nhóm vàng của chế độ học vì vậy sạch
+(F1 thấp nhất 96,54); nhóm vàng của luật trộn 21,05 với 99,76. Tương quan Spearman giữa điểm tin cậy và F1
+thật: học 0,90, luật 0,71.
+
+Giá phải trả là độ phủ: chế độ học chỉ bật xanh 43,8\% bản ghi so với 68,8\% của luật. Trên 17 bản ghi
+Silesia --- tập độc lập thật sự với cả hai chế độ --- luật phủ xanh 82,4\% (F1 thấp nhất 97,70) còn học chỉ
+35,3\%, cùng 0 lỗi nguy hiểm. Chế độ học \textit{quá thận trọng} trên thai kỳ vì ngưỡng hiệu chuẩn trên dữ
+liệu chuyển dạ. Nhóm giữ \texttt{hoc} làm mặc định vì an toàn hơn ở vùng giữa, và ghi rõ việc hiệu chuẩn
+lại ngưỡng trên dữ liệu thai kỳ là bước tiếp theo --- \textbf{không được dùng 32 bản ghi này} để làm việc đó.
+
+\subsection{Giao diện lập trình và đóng gói}
+
+Ngoài giao diện web, nhóm bọc cùng lõi \texttt{demo/core.py} thành dịch vụ REST (\texttt{api/main.py},
+FastAPI): \texttt{GET /health}, \texttt{GET /model}, \texttt{POST /analyze} nhận EDF/CSV/NPY và trả JSON
+gồm vị trí nhịp, nhịp tim, đèn tin cậy và độ trễ. Lỗi đầu vào trả mã 4xx có thông điệp, không bao giờ là
+traceback. Đã kiểm thử bằng \texttt{TestClient} và bằng dịch vụ thật qua \texttt{curl}: \texttt{/analyze}
+trên 10 giây r01 trả 22 nhịp, 128,6 nhịp/phút, độ trễ mô hình 68\,ms. \texttt{Dockerfile} và
+\texttt{docker-compose.yml} đã viết; chưa build được vì máy phát triển không chạy Docker engine, đã ghi
+rõ trong \texttt{api/README.md}.
+
+Bộ kiểm thử tự động hiện có \textbf{53 test} (API 13, kiểm thử nhanh 16, lõi demo 10, fSQI 6, baseline 4,
+loader Silesia 4), chạy 17 giây, và chạy trên CI với hai phiên bản Python.
 
 \subsection{Kịch bản trình bày ba phút}
 
