@@ -56,6 +56,25 @@ Kiểm tra rò rỉ bằng tương quan chéo cho thấy **5 trong 12 bản ghi 
 PhysioNet** (NCC 0,988–0,994). Năm bản đó được chấm bằng fold checkpoint chưa thấy chúng; số sản phụ độc
 lập vì vậy là **22**, không phải 27.
 
+### Huấn luyện lại trên 22 sản phụ
+
+Tách theo nhóm 11 fold trên 22 sản phụ độc lập (19 huấn luyện / 1 validation / 2 kiểm thử mỗi fold, tăng
+cường dữ liệu khi huấn luyện, ngưỡng chọn trên chủ thể validation). Wilcoxon ghép cặp với mô hình 5 ca trên
+cùng chủ thể và kênh:
+
+| Nhóm | n | Mô hình 5 ca | **Mô hình 22 ca** | p | thắng/thua |
+|---|---:|---:|---:|---:|---|
+| PhysioNet chuyển dạ | 5 | 99,21 | 99,40 | 1,00 | 2/2 |
+| Silesia B2 chuyển dạ, chưa thấy | 7 | 95,87 | 96,82 | 0,125 | 4/0 |
+| **Silesia B1 thai kỳ** | 10 | 93,30 | **97,15** | **0,037** | 9/1 |
+| Toàn bộ 22 | 22 | 95,46 | **97,56** | **0,007** | 15/3 |
+
+**Zero-shot sang hệ ghi khác, CinC 2013 (kênh cố định): 77,34 ± 28,54 → 90,34 ± 12,03**, p = 0,016, 7/0;
+số bản ghi dưới 50 từ 3/10 xuống **0/10**. Trung vị lệch so với nhãn da đầu giữ ở 0,0 ms, nên nhãn gián
+tiếp của B1 không kéo mô hình. Đường cong hiệu quả mẫu (1 → 2 → 3 ca huấn luyện: 91,2 → 93,4 → 97,5) chưa
+bão hoà — vì thế 22 ca vẫn còn giúp. Kết luận trước rằng "chỉ thiết bị phá tổng quát hoá" được sửa lại:
+phần lớn sụp đổ là do thiếu dữ liệu; khoảng cách còn lại 90 so với 99 mới là cái giá thật của thiết bị.
+
 ### Phân rã đóng góp ba tầng
 
 | Tầng | Δ Macro F1 | p | Kết luận |
@@ -251,10 +270,11 @@ phải sự thật sinh lý.
 
 ## Hạn chế còn tồn tại
 
-- **Tập huấn luyện vẫn là 5 sản phụ, đều chuyển dạ.** Đánh giá đã phủ 22 sản phụ độc lập gồm 10 thai kỳ,
-  nhưng huấn luyện lại trên cả 22 (Phase P3) chưa làm.
-- **Tổng quát sang hệ ghi khác chưa giải quyết.** 59–77 F1 trên CinC 2013 với phân bố lưỡng cực. Cổng từ
-  chối giảm nhẹ (+7,4 điểm ở độ phủ 80 %); tiền huấn luyện FECGSYNDB (Phase P7) là hướng xử lý.
+- **Cả 22 sản phụ đều từ một bệnh viện, một hệ ghi.** Mô hình 22 ca đạt 90,3 trên hệ ghi khác (CinC 2013)
+  nhưng chưa tới 97–99 như trong miền; dữ liệu đa trung tâm là khoảng trống còn lại. Lần chạy 22 ca chỉ một
+  seed, bốn epoch, và chưa tách riêng đóng góp của tăng cường dữ liệu.
+- **Cổng tin cậy học được hiệu chuẩn theo mô hình 5 ca**, quá thận trọng trên thai kỳ (35 % xanh trên Silesia
+  so với 82 % của luật). Chưa hiệu chuẩn lại cho mô hình 22 ca.
 - **Bảng kiến trúc chỉ một seed, ba epoch**, và bỏ Transformer cùng hai biến thể 2D vì chi phí. Thứ tự
   không đổi nhưng con số tuyệt đối còn thiếu huấn luyện.
 - **Đèn tin cậy trong demo là luật đặt tay.** Ngưỡng bám mẹ 60 % được đặt sau khi nhìn một bản ghi đánh giá.

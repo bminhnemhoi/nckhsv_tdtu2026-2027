@@ -1,31 +1,39 @@
 # Đề tài fECG đơn kênh — RelyFetal
 
-Cập nhật 11/09/2026, phiên bản 3.1.
+Cập nhật 11/09/2026, phiên bản 3.2.
 
 ## Tài liệu gửi giảng viên hướng dẫn
 
 | Tệp | Nội dung |
 |---|---|
-| **`De_cuong_NCKH_RelyFetal.pdf`** | **Đề cương chính thức v3.1** — đã cập nhật baseline, Silesia, C3 sau prototype, demo |
+| **`De_cuong_NCKH_RelyFetal.pdf`** | **Đề cương chính thức v3.2** |
 | `De_cuong_NCKH_RelyFetal.docx` | Bản Word để GVHD sửa trực tiếp |
-| **`Bao_cao_30_paper.pdf`** | Báo cáo đọc 30 công trình, mỗi bài một mục |
+| **`Bao_cao_30_paper.pdf`** | Báo cáo đọc 30 công trình |
 | `Bao_cao_30_paper.docx` | Bản Word của báo cáo 30 công trình |
+| `../paper/cinc2026/main.pdf` | Bản thảo Computing in Cardiology, 4 trang, đã qua phản biện nội bộ |
 
-## Thay đổi so với v3.0 (09/09)
+## Thay đổi v3.1 → v3.2 (cùng ngày)
 
-| Mục | v3.0 | v3.1 |
+| Mục | v3.1 | v3.2 |
 |---|---|---|
-| Số sản phụ đánh giá | 5 | **22** (10 thai kỳ + 12 chuyển dạ, sau khi loại 5 trùng) |
-| Dữ liệu thai kỳ | không có | Silesia B1 zero-shot **93,30** |
-| Baseline tự chạy | không | 3 baseline, Wilcoxon, mạng đáng +11,06 điểm |
-| Bảng kiến trúc | 16, giao thức lỗi | 8, giao thức đúng, không kiến trúc nào khác cnn_dil có ý nghĩa |
-| Đóng góp C3 | thiết kế trên giấy | prototype: topo **thất bại** (AUROC 0,566), cổng từ chối **có tác dụng** (+7,4) |
-| Demo | chưa có | Gradio chạy được, đèn tin cậy, ảnh chụp thật |
+| Mô hình | học trên 5 ca | **học trên 22 ca**, 11 fold, có tăng cường; 12 checkpoint mới |
+| Thai kỳ (Silesia B1) | 93,30 zero-shot | **97,15** (p = 0,037), SD 13,46 → 4,95 |
+| Hệ ghi khác (CinC 2013) | 77,34, lưỡng cực, 3/10 dưới 50 | **90,34**, 0/10 dưới 50 (p = 0,016) |
+| Hiệu quả mẫu | chưa đo | 1/2/3 ca: 91,2 / 93,4 / 97,5 — chưa bão hoà |
+| Độ bền nhiễu | chưa đo | 4 loại nhiễu MIT-BIH × 6 SNR; mạng gãy chậm hơn TS-PCA |
+| Đèn tin cậy | luật cứng | thêm chế độ học (GBM 12 chỉ số); 0 lỗi nguy hiểm trên 32 bản ghi |
+| API / kiểm thử | chưa có / 24 test | FastAPI 3 điểm cuối / **53 test**, CI |
+| Bài báo | chưa có | bản thảo CinC 4 trang, 12 tài liệu |
+| Phản biện nội bộ | 1 vòng | 2 vòng (mã nguồn K; kết quả tự kiểm chứng) |
 
-## Ba việc kế tiếp theo kế hoạch
+## Kết luận đã sửa
 
-1. Huấn luyện lại trên 22 sản phụ (Phase P3).
-2. Tiền huấn luyện FECGSYNDB để chữa sụp đổ trên hệ ghi khác (Phase P7).
-3. Thay luật cứng của đèn tin cậy bằng bộ phân loại chỉ số cổ điển đã học trong `fsqi/`.
+Bản v3.1 viết "thứ phá vỡ tổng quát hoá là thiết bị, không phải tuổi thai". Với 22 ca, mô hình chuyển sang hệ
+ghi khác ở mức 90 chứ không phải 77 — phần lớn sụp đổ là do **thiếu dữ liệu**. Khoảng cách còn lại 90 so với
+97–99 mới là phần thật sự do thiết bị.
 
-Chi tiết ở mục 10 của đề cương.
+## Ba việc kế tiếp
+
+1. Hiệu chuẩn lại cổng tin cậy cho mô hình 22 ca (hiện vẫn theo mô hình 5 ca, quá thận trọng trên thai kỳ).
+2. Đo riêng đóng góp của tăng cường dữ liệu; thêm 2 seed cho mô hình 22 ca và bảng kiến trúc.
+3. Dữ liệu đa trung tâm — khoảng trống duy nhất còn lại về tổng quát hoá.

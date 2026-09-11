@@ -27,12 +27,13 @@ dự báo lỗi mô hình với AUROC \xau{0,566} ngoài miền, so với \tot{0
 còn làm giảm. Nhóm cũng chứng minh bằng số rằng $H_0$ của lọc dưới mức \textbf{trùng khớp 100\%} với
 độ nhô đỉnh cổ điển.
 
-\item \textbf{Rào cản thật không phải độ chính xác trung bình mà là độ tin cậy.}
-Mô hình của nhóm đạt macro F1 \tot{99,21} trên ADFECGDB khi tách theo bản ghi, và tổng quát được sang
-\tot{93,30} trên 10 sản phụ \textbf{thai kỳ} chưa từng thấy (Silesia B1). Nhưng khi chuyển sang một hệ ghi
-khác (PhysioNet/CinC 2013) mà không tinh chỉnh thì chỉ còn \xau{77,34}, và quan trọng hơn con số trung bình
-là hình dạng phân bố: bốn trên mười bản ghi đạt F1 tuyệt đối 100\%, ba bản khác sụp xuống dưới 50\%.
-\textbf{Hệ thống không biết khi nào nó sai.}
+\item \textbf{Dữ liệu là đòn bẩy lớn nhất, và độ tin cậy là rào cản thật.}
+Mô hình học trên 5 ca đạt macro F1 \tot{99,21} trên ADFECGDB khi tách theo bản ghi, nhưng khi chuyển sang
+một hệ ghi khác (PhysioNet/CinC 2013) chỉ còn \xau{77,34} với phân bố lưỡng cực: ba trên mười bản ghi sụp
+dưới 50\%. Huấn luyện lại trên \textbf{22 sản phụ} --- thêm 17 ca cùng bệnh viện, trong đó 10 ca thai kỳ ---
+nâng thai kỳ từ 93,30 lên \tot{97,15} ($p = 0{,}037$) và nâng CinC 2013 từ 77,34 lên \tot{90,34}
+($p = 0{,}016$), \textbf{không còn bản ghi nào dưới 50}. Nhưng ở 90 vẫn còn cách 99 trong miền, và hệ thống
+vẫn cần biết khi nào nó sai.
 \end{enumerate}
 
 Từ ba quan sát đó, đề tài đề xuất \hethong{}: một bộ dò QRS thai đơn kênh \textbf{kèm cổng từ chối trả

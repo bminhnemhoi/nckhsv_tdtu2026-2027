@@ -70,3 +70,16 @@ demo/flagged/
 demo/screenshots/*.mp4
 fsqi/cache/
 *.npz
+
+# ---------------------------------------------------------------- round-2 clutter
+paper/cinc2026/*.bak*
+paper/cinc2026/*.aux
+paper/cinc2026/*.bbl
+paper/cinc2026/*.blg
+paper/cinc2026/_preview.png
+api/logs/
+pilot_evidence/*_stdout.txt
+model/train_22_stdout.txt
+model/train_22_stderr.txt
+benchmark_dpss/eval_22_stdout.txt
+benchmark_dpss/eval_22_watch.log

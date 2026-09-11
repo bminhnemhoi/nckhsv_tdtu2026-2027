@@ -1,0 +1,7 @@
+thoi diem: 2026-09-11 19:42:26
+fold da danh gia: 11/11 -> ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11']
+fold chua co: []
+chu the da danh gia (22/22): ['B1_01', 'B1_02', 'B1_03', 'B1_04', 'B1_05', 'B1_06', 'B1_07', 'B1_08', 'B1_09', 'B1_10', 'B2_03', 'B2_04', 'B2_05', 'B2_06', 'B2_08', 'B2_09', 'B2_12', 'r01', 'r04', 'r07', 'r08', 'r10']
+production_22: co -> CinC 2013 da chay
+trang thai: HOAN TAT
+ket qua: D:\NCKHSV2026-2027\benchmark_dpss\eval_22.json | D:\NCKHSV2026-2027\benchmark_dpss\eval_22_log.txt | thoi gian 1.6 phut

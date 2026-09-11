@@ -4,3 +4,123 @@ bat dau: 2026-09-11T16:39:17 | torch threads 3 | seed 0 | ngan sach 60.0 phut
 numpy 2.4.6 torch 2.13.0+cpu mne 1.12.1 wfdb 4.3.1
 ================================================================================================
 ADFECGDB: D:\NCKHSV2026-2027\model\data\adfecgdb
+nap 20 (ban ghi x kenh) trong 2s
+k=3 (LORO da co): train_final.json macro 20 = 97.43 ; all_leads.json macro 20 = 97.45 ; theo fold: ['r01 99.98', 'r04 98.85', 'r07 99.66', 'r08 95.59', 'r10 93.16']
+do thu: 1 epoch tren 1184 doan (1 ban ghi) = 20.0s -> du kien 6 epoch toan bo = 31.9 phut => epochs = 6 (du kien 31.9 phut <= ngan sach 60 phut)
+
+===== k = 1 (5 lan, nguong co dinh 0.45) =====
+-- k=1 train=r01 test=['r04', 'r07', 'r08', 'r10']
+      epoch 1/6 loss 0.5154
+      epoch 2/6 loss 0.2213
+      epoch 3/6 loss 0.2111
+      epoch 4/6 loss 0.2083
+      epoch 5/6 loss 0.2072
+      epoch 6/6 loss 0.2065
+   train 103s | nguong co dinh 0.45: macro 86.28 (min 30.70, max 100.00) | [phu] nguong in-sample 0.20 (F1 train 100.00): macro 88.28
+   theo ban ghi test: r04 79.02, r07 83.15, r08 99.87, r10 83.09
+   [2.3 phut da troi]
+-- k=1 train=r04 test=['r01', 'r07', 'r08', 'r10']
+      epoch 1/6 loss 0.6607
+      epoch 2/6 loss 0.2573
+      epoch 3/6 loss 0.2279
+      epoch 4/6 loss 0.2165
+      epoch 5/6 loss 0.2117
+      epoch 6/6 loss 0.2098
+   train 103s | nguong co dinh 0.45: macro 95.50 (min 76.92, max 100.00) | [phu] nguong in-sample 0.50 (F1 train 99.96): macro 95.48
+   theo ban ghi test: r01 96.04, r07 99.76, r08 93.00, r10 93.19
+   [4.3 phut da troi]
+-- k=1 train=r07 test=['r01', 'r04', 'r08', 'r10']
+      epoch 1/6 loss 0.6248
+      epoch 2/6 loss 0.2339
+      epoch 3/6 loss 0.2137
+      epoch 4/6 loss 0.2086
+      epoch 5/6 loss 0.2063
+      epoch 6/6 loss 0.2056
+   train 106s | nguong co dinh 0.45: macro 94.76 (min 78.80, max 99.84) | [phu] nguong in-sample 0.20 (F1 train 100.00): macro 94.80
+   theo ban ghi test: r01 96.36, r04 98.13, r08 94.30, r10 90.26
+   [6.4 phut da troi]
+-- k=1 train=r08 test=['r01', 'r04', 'r07', 'r10']
+      epoch 1/6 loss 0.5134
+      epoch 2/6 loss 0.2237
+      epoch 3/6 loss 0.2130
+      epoch 4/6 loss 0.2096
+      epoch 5/6 loss 0.2084
+      epoch 6/6 loss 0.2080
+   train 108s | nguong co dinh 0.45: macro 83.26 (min 23.41, max 100.00) | [phu] nguong in-sample 0.20 (F1 train 100.00): macro 84.37
+   theo ban ghi test: r01 100.00, r04 74.18, r07 80.54, r10 78.31
+   [8.4 phut da troi]
+-- k=1 train=r10 test=['r01', 'r04', 'r07', 'r08']
+      epoch 1/6 loss 0.6124
+      epoch 2/6 loss 0.2975
+      epoch 3/6 loss 0.2597
+      epoch 4/6 loss 0.2412
+      epoch 5/6 loss 0.2341
+      epoch 6/6 loss 0.2296
+   train 110s | nguong co dinh 0.45: macro 96.12 (min 84.08, max 100.00) | [phu] nguong in-sample 0.30 (F1 train 97.73): macro 96.09
+   theo ban ghi test: r01 97.37, r04 95.82, r07 96.07, r08 95.22
+   [10.6 phut da troi]
+
+===== k = 2 (5 cap ngau nhien seed 0 tu 10 cap: [('r01', 'r08'), ('r01', 'r10'), ('r04', 'r07'), ('r04', 'r08'), ('r07', 'r08')]; nguong tren ban ghi thu nhat cua cap, in-sample) =====
+-- k=2 train=['r01', 'r08'] (val in-sample=r01) test=['r04', 'r07', 'r10']
+      epoch 1/6 loss 0.4070
+      epoch 2/6 loss 0.2147
+      epoch 3/6 loss 0.2090
+      epoch 4/6 loss 0.2075
+      epoch 5/6 loss 0.2065
+      epoch 6/6 loss 0.2062
+   train 204s | val r01 F1 100.00 tai thr 0.20 -> TEST macro 81.67 (min 31.75, max 98.88) | [phu] nguong co dinh 0.45: macro 80.17
+   theo ban ghi test: r04 79.26, r07 83.34, r10 82.42
+   [14.2 phut da troi]
+-- k=2 train=['r01', 'r10'] (val in-sample=r01) test=['r04', 'r07', 'r08']
+      epoch 1/6 loss 0.4711
+      epoch 2/6 loss 0.2543
+      epoch 3/6 loss 0.2349
+      epoch 4/6 loss 0.2227
+      epoch 5/6 loss 0.2176
+      epoch 6/6 loss 0.2156
+   train 205s | val r01 F1 100.00 tai thr 0.50 -> TEST macro 97.64 (min 88.46, max 100.00) | [phu] nguong co dinh 0.45: macro 97.72
+   theo ban ghi test: r04 96.18, r07 97.01, r08 99.73
+   [17.8 phut da troi]
+-- k=2 train=['r04', 'r07'] (val in-sample=r04) test=['r01', 'r08', 'r10']
+      epoch 1/6 loss 0.5041
+      epoch 2/6 loss 0.2337
+      epoch 3/6 loss 0.2172
+      epoch 4/6 loss 0.2113
+      epoch 5/6 loss 0.2073
+      epoch 6/6 loss 0.2061
+   train 205s | val r04 F1 100.00 tai thr 0.30 -> TEST macro 94.07 (min 77.67, max 99.92) | [phu] nguong co dinh 0.45: macro 94.08
+   theo ban ghi test: r01 96.48, r08 93.42, r10 92.32
+   [21.5 phut da troi]
+-- k=2 train=['r04', 'r08'] (val in-sample=r04) test=['r01', 'r07', 'r10']
+      epoch 1/6 loss 0.4942
+      epoch 2/6 loss 0.2400
+      epoch 3/6 loss 0.2216
+      epoch 4/6 loss 0.2150
+      epoch 5/6 loss 0.2107
+      epoch 6/6 loss 0.2092
+   train 203s | val r04 F1 100.00 tai thr 0.35 -> TEST macro 97.39 (min 82.40, max 100.00) | [phu] nguong co dinh 0.45: macro 97.35
+   theo ban ghi test: r01 100.00, r07 99.72, r10 92.44
+   [25.0 phut da troi]
+-- k=2 train=['r07', 'r08'] (val in-sample=r07) test=['r01', 'r04', 'r10']
+      epoch 1/6 loss 0.4745
+      epoch 2/6 loss 0.2258
+      epoch 3/6 loss 0.2153
+      epoch 4/6 loss 0.2098
+      epoch 5/6 loss 0.2077
+      epoch 6/6 loss 0.2069
+   train 207s | val r07 F1 100.00 tai thr 0.20 -> TEST macro 96.17 (min 74.88, max 100.00) | [phu] nguong co dinh 0.45: macro 96.10
+   theo ban ghi test: r01 99.96, r04 98.62, r10 89.92
+   [28.7 phut da troi]
+
+------------------------------------------------------------------------------------------------
+k     so lan    nguong                                       macro gop      TB lan     min lan     max lan
+1     5         co dinh 0,45                                     91.18       91.18       83.26       96.12
+2     5         val in-sample                                    93.39       93.39       81.67       97.64
+3     5         val rieng (LORO)                                 97.45       97.45       93.16       99.98
+1     5         [phu] in-sample                                  91.80       91.80       84.37       96.09
+2     5         [phu] co dinh 0,45                               93.08       93.08       80.17       97.72
+------------------------------------------------------------------------------------------------
+
+da ghi D:\NCKHSV2026-2027\pilot_evidence\sample_efficiency.json (28.7 phut)
+da ghi D:\NCKHSV2026-2027\pilot_evidence\sample_efficiency.png
+xong: 2026-09-11T17:08:00

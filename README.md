@@ -10,7 +10,7 @@
 [![Docs: CC BY 4.0](https://img.shields.io/badge/Docs-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB.svg)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-CPU%20only-EE4C2C.svg)](https://pytorch.org/)
-[![Tests](https://img.shields.io/badge/tests-24%20passing-brightgreen.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-53%20passing-brightgreen.svg)](tests/)
 
 Undergraduate research project · Faculty of Information Technology · Ton Duc Thang University · 2026–2027
 
@@ -66,6 +66,26 @@ The variable that breaks generalisation is hardware and electrode placement, not
 A leakage check by cross-correlation showed that **5 of the 12 Silesia B2 records are the 5 PhysioNet
 records** (NCC 0.988–0.994). Those five are scored with fold checkpoints that never saw them; the
 independent subject count is therefore **22**, not 27.
+
+### Retraining on 22 subjects
+
+Retrained with grouped 11-fold CV over all 22 independent subjects (19 train / 1 validation / 2 test per
+fold, on-the-fly augmentation, threshold chosen on the validation subject). Paired Wilcoxon against the
+5-subject model on the same subjects and leads:
+
+| Group | n | 5-subject model | **22-subject model** | p | wins/losses |
+|---|---:|---:|---:|---:|---|
+| PhysioNet labour | 5 | 99.21 | 99.40 | 1.00 | 2/2 |
+| Silesia B2 labour, unseen | 7 | 95.87 | 96.82 | 0.125 | 4/0 |
+| **Silesia B1 pregnancy** | 10 | 93.30 | **97.15** | **0.037** | 9/1 |
+| All 22 | 22 | 95.46 | **97.56** | **0.007** | 15/3 |
+
+**Cross-system, zero-shot on CinC 2013 (fixed lead): 77.34 ± 28.54 → 90.34 ± 12.03**, p = 0.016, 7/0;
+records below 50 F1 go from 3/10 to **0/10**. Median signed offset against scalp-electrode labels stays at
+0.0 ms, so the indirect B1 labels did not pull the model. The sample-efficiency curve (1 → 2 → 3 training
+subjects: 91.2 → 93.4 → 97.5) is not saturated, which is why 22 subjects still help. The earlier claim that
+hardware alone breaks generalisation is therefore revised: most of the collapse was a data-quantity effect;
+the residual 90-vs-99 gap is what hardware actually costs.
 
 ### Three-tier contribution decomposition
 
@@ -279,11 +299,13 @@ F1 on B1 measures agreement with that pipeline, not physiological ground truth.
 
 ## Known limitations
 
-- **Training set is still 5 subjects, all in labour.** Evaluation now spans 22 independent subjects
-  including 10 in pregnancy, but retraining on all 22 (Phase P3) has not been done.
-- **Cross-system generalisation is unsolved.** 59–77 F1 on CinC 2013 with a bimodal distribution. The
-  reject gate mitigates it (+7.4 points at 80 % coverage); pre-training on FECGSYNDB (Phase P7) is the
-  planned fix.
+- **All 22 subjects come from one hospital and one recording system.** The 22-subject model reaches
+  90.3 on a different system (CinC 2013) but not the 97–99 seen in-domain; multi-centre data is the
+  remaining gap. The 22-subject run is one seed, four epochs, and the augmentation contribution has not
+  been isolated.
+- **The learned confidence gate is calibrated for the 5-subject model** and is over-conservative on
+  pregnancy recordings (35 % green on Silesia vs 82 % for the rule). It has not been re-calibrated for
+  the 22-subject model.
 - **Architecture table is one seed, three epochs**, and omits the Transformer and both 2-D variants for
   cost. Rankings are unchanged in direction but absolute numbers are under-trained.
 - **Confidence light in the demo is a hand-set rule.** The maternal-lock threshold (60 %) was set after

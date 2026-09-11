@@ -122,8 +122,11 @@ Mục này nhóm viết ở vai phản biện của một tạp chí Q1, cố t�
 \textbf{Điểm yếu} & \textbf{Mức độ} & \textbf{Cách xử lý} \\
 \midrule
 Chỉ 5 sản phụ, tất cả đang chuyển dạ &
-\tot{Đã xử lý một phần} & Bộ Silesia đã tích hợp: 22 sản phụ độc lập, trong đó 10 thai kỳ 32--42 tuần
-(\S\ref{sec:silesia}). \textbf{Huấn luyện} vẫn chỉ trên 5 ca; huấn luyện lại trên 22 ca là Phase P3 \\
+\tot{Đã xử lý} & Đánh giá và \textbf{huấn luyện} đều trên 22 sản phụ độc lập, 10 thai kỳ
+(\S\ref{sec:silesia}, \S\ref{sec:model22}). Còn lại: vẫn một bệnh viện, một hệ ghi \\
+Sụp đổ xuyên hệ ghi (CinC 2013: 77,34, lưỡng cực) &
+\tot{Đã xử lý phần lớn} & Mô hình 22 ca đạt 90,34, không bản ghi nào dưới 50 (\S\ref{sec:model22}).
+Khoảng cách còn lại 90 so với 97--99 là phần thật sự do thiết bị \\
 Khoảng tin cậy 95\% của 99,21 với $n = 5$ vượt quá 100\% &
 Trung bình & Với $n = 22$ vấn đề giảm; vẫn dùng bootstrap thay phân phối $t$ khi viết bài \\
 Bảng 16 kiến trúc chạy ở dải sai, một bản ghi, ngưỡng quét trên bản ghi đánh giá &
@@ -241,16 +244,18 @@ ba kiến trúc nặng.
 \item \textbf{P2} xong: ba baseline cổ điển (\S\ref{sec:baselines}). Power-MF không chạy lại được, đã ghi lý do.
 \item \textbf{P4--P6} prototype xong với kết quả phủ định cho topo và khẳng định cho cổng từ chối
 (\S\ref{sec:fsqi}). Việc còn lại là thay luật cứng trong demo bằng bộ phân loại cổ điển.
-\item \textbf{P8} một phần: đường cong F1--SNR với nhiễu MIT-BIH xong (\S\ref{sec:snr}); đường cong hiệu
-quả mẫu đang chạy.
+\item \textbf{P8} phần lớn: đường cong F1--SNR với nhiễu MIT-BIH (\S\ref{sec:snr}) và đường cong hiệu quả
+mẫu (\S\ref{sec:model22}) xong. Còn ba seed cho bảng kiến trúc.
 \item \textbf{P9} phần lớn: demo Gradio với đèn học được, API REST, 53 test, CI (\S\ref{sec:demo}). Docker
 đã viết chưa build.
 \item \textbf{P10} bản nháp: bài Computing in Cardiology 4 trang đã viết và qua một vòng phản biện đối
 kháng nội bộ (\texttt{survey/review\_round2.md}: không phát hiện số sai; đã sửa 8 lỗi trình bày).
-\item \textbf{P3} đang chạy: huấn luyện lại trên 22 sản phụ, 11 fold theo nhóm, có tăng cường dữ liệu,
-khoảng 3 giờ CPU; kết quả sẽ vào phiên bản kế tiếp.
+\item \textbf{P3} xong: huấn luyện lại trên 22 sản phụ, 11 fold theo nhóm, có tăng cường dữ liệu, 190 phút
+CPU; 12 checkpoint mới (\S\ref{sec:model22}). Còn: đo riêng đóng góp của tăng cường; hiệu chuẩn lại cổng
+tin cậy cho mô hình 22 ca.
 \end{itemize}
-Chưa động tới: P7 (tiền huấn luyện FECGSYNDB, cần 40 GB), P11 (nộp bài).
+Chưa động tới: P7 (tiền huấn luyện FECGSYNDB, cần 40 GB --- sau kết quả 22 ca, có thể không còn cần
+thiết), P11 (nộp bài).
 \end{ghichu}
 
 \subsection{Phân vai ba sinh viên}
@@ -284,7 +289,8 @@ Thành viên 3 & Đặc trưng topo, fSQI, cổng từ chối, đóng gói & P4,
 \textbf{Sản phẩm} & \textbf{Mô tả} & \textbf{Trạng thái} \\
 \midrule
 Thư viện \texttt{fqrs\_model.py} & Cài đặt tham chiếu đầy đủ pipeline & \tot{Đã có} \\
-Sáu checkpoint đã huấn luyện & Năm mô hình tách bản ghi + một mô hình sản xuất & \tot{Đã có} \\
+Sáu checkpoint mô hình 5 ca & Năm mô hình tách bản ghi + một mô hình sản xuất & \tot{Đã có} \\
+Mười hai checkpoint mô hình 22 ca & Mười một fold theo nhóm + một mô hình sản xuất, có tăng cường & \tot{Đã có} \\
 Công cụ tải dữ liệu & Tải trực tiếp từ PhysioNet, ghi mã băm SHA-256 & \tot{Đã có} \\
 Công cụ suy luận dòng lệnh & Hỗ trợ EDF, WFDB, CSV, NPY & \tot{Đã có} \\
 Bộ mã đối chuẩn & Chạy đúng giao thức, kiểm chứng chéo Hungarian & \tot{Đã có} \\

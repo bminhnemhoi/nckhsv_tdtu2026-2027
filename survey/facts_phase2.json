@@ -1,0 +1,60 @@
+{
+  "ghi_chu": "So lieu vong 2 (11/09/2026). Moi con so do that; cot nguon ghi file sinh ra. Da tu kiem chung: 11 fold roi nhau, 22 chu the moi nguoi 1 lan, khong trung PhysioNet; tom tat khop tinh lai tung chu so; sample_efficiency khong co test trung train.",
+
+  "F_mo_hinh_22_ca": {
+    "nguon": "model/train_22.py, model/augment.py -> model/train_22.json, model/checkpoints/fetalqrs_tcn_22_fold_01..11.pt + fetalqrs_tcn_22_production.pt; benchmark_dpss/eval_22.py -> eval_22.json",
+    "giao_thuc": "22 chu the doc lap (5 PhysioNet + 7 B2 khong trung + 10 B1); 11 fold theo nhom (2 test, 1 val rieng nhan da dau, 19 train); nguong tren val; tang cuong chi khi train (bien do 0,7-1,4; Gauss SNR 10-30 dB; troi nen sin 0,1-0,5 Hz; dich +/-100 ms; p=0,5 moi phep); 4 epoch; seed 0; 190,8 phut CPU 9 luong",
+    "so_sanh_model5_vs_model22": {
+      "PhysioNet_5":  {"PSD_5": 99.21, "PSD_22": 99.40, "p_PSD": 1.000, "thang_thua": "2/2", "4k_5": 97.45, "4k_22": 98.69, "p_4k": 0.2445, "n_cap_4k": 20},
+      "B2_moi_7":     {"PSD_5": 95.87, "PSD_22": 96.82, "p_PSD": 0.125, "thang_thua": "4/0", "4k_5": 93.73, "4k_22": 94.50, "p_4k": 0.0156, "n_cap_4k": 28},
+      "B1_thai_ky_10":{"PSD_5": 93.30, "PSD_22": 97.15, "p_PSD": 0.0371, "thang_thua": "9/1", "4k_5": 91.31, "4k_22": 97.01, "p_4k": 0.0000, "n_cap_4k": 40, "sd_PSD_5": 13.46, "sd_PSD_22": 4.95},
+      "ALL_22":       {"PSD_5": 95.46, "PSD_22": 97.56, "p_PSD": 0.0074, "thang_thua": "15/3", "4k_5": 93.47, "4k_22": 96.59, "p_4k": 0.0000, "n_cap_4k": 88}
+    },
+    "B1_tung_chu_the_PSD_5_to_22": {"B1_06": [80.9, 89.5], "B1_07": [58.7, 86.6], "B1_10": [98.1, 97.1]},
+    "lech_nhan_trung_vi_ms_model22": {"PhysioNet": 0.0, "B2": 0.0, "B1": -1.0},
+    "nguong_fold": [0.80, 0.80, 0.75, 0.75, 0.75, 0.75, 0.80, 0.65, 0.80, 0.20, 0.35],
+    "nguong_production": 0.75,
+    "canh_bao": "fold 10 nguong 0,20 cuc doan; 1 seed; 4 epoch loss van giam; chua do rieng dong gop tang cuong; van mot benh vien"
+  },
+
+  "F_cinc2013_production22": {
+    "nguon": "benchmark_dpss/eval_22.json['cinc2013']",
+    "kenh_co_dinh": {"m5": 77.34, "sd5": 28.54, "m22": 90.34, "sd22": 12.03, "p": 0.0156, "thang_thua": "7/0", "ge90_5": 5, "ge90_22": 6, "lt50_5": 3, "lt50_22": 0},
+    "PSD":          {"m5": 59.15, "sd5": 37.17, "m22": 69.31, "sd22": 32.38, "p": 0.0312, "thang_thua": "6/1"},
+    "TB_4_kenh":    {"m5": 61.96, "sd5": 34.09, "m22": 72.64, "sd22": 25.76, "p": 0.0312, "thang_thua": "6/1"},
+    "oracle_22": 91.64,
+    "tung_ban_ghi_kenh0_5_to_22": {"a01": [94, 100], "a02": [23, 76], "a06": [43, 75], "a07": [85, 87], "a09": [80, 94], "a10": [49, 71]},
+    "ket_luan": "Phan bo luong cuc bien mat. Sua lai ket luan vong truoc: phan lon sup do xuyen he ghi la do thieu du lieu; khoang cach con lai 90 vs 97-99 moi la phan do thiet bi."
+  },
+
+  "G_hieu_qua_mau": {
+    "nguon": "pilot_evidence/sample_efficiency.py -> sample_efficiency.json/.png",
+    "bang": {"k1": {"macro_F1": 91.18, "n_run": 5, "min": 83.3, "max": 96.1, "nguong": "co dinh 0,45"},
+             "k2": {"macro_F1": 93.39, "n_run": 5, "min": 81.7, "max": 97.6, "nguong": "tren 1 ca trong train (in-sample)"},
+             "k3": {"macro_F1": 97.45, "n_run": 5, "min": 93.2, "max": 100.0, "nguong": "LORO, val rieng (da co)"}},
+    "ket_luan": "Chua bao hoa o 3 ca -> nhat quan voi loi ich cua 22 ca",
+    "thoi_gian_s": 1721.9
+  },
+
+  "G_snr": {
+    "nguon": "pilot_evidence/snr_curve.py -> snr_curve.json/.png",
+    "dinh_nghia": "SNR_dB = 10log10(P_signal/P_noise), P_signal = phuong sai TOAN BO tin hieu bung tho (me ap dao); nhieu MIT-BIH NSTDB bw/em/ma/mix 360->1000 Hz; cung doan nhieu cho mo hinh va TS-PCA",
+    "mo_hinh_4k": {"sach": 97.45, "bw_-5": 93.33, "em_-5": 71.55, "ma_-5": 48.03, "mix_20": 96.71, "mix_10": 90.57, "mix_0": 73.62, "mix_-5": 59.31},
+    "tspca_4k":   {"sach": 91.05, "bw_-5": 85.76, "em_-5": 56.79, "ma_-5": 35.50, "mix_20": 89.58, "mix_10": 80.52, "mix_0": 60.22, "mix_-5": 47.00},
+    "chenh_mix": {"20": 7.13, "15": 8.28, "10": 10.04, "5": 11.04, "0": 13.40, "-5": 12.31},
+    "PSD_giu_kenh": {"20": "4/5", "15": "4/5", "10": "4/5", "5": "5/5", "0": "4/5", "-5": "3/5"},
+    "ket_luan": "Troi nen vo hai (bo loc); nhieu co hai nhat; khoang cach mang - co dien tang theo nhieu"
+  },
+
+  "H_cong_hoc_duoc": {
+    "nguon": "fsqi/train_gate.py, fsqi/gate.py, demo/run_check.py -> demo/results/demo_check_2modes.json",
+    "32_ban_ghi": {"hoc": {"xanh": [14, 99.92, 99.76], "vang": [9, 98.66, 96.54], "do": [9, 44.99, 16.96], "loi_nguy_hiem": 0, "loi_than_trong": 0, "phu_xanh_pct": 43.8, "spearman": 0.90},
+                   "luat": {"xanh": [22, 99.41, 96.54], "vang": [7, 58.18, 21.05], "do": [3, 32.48, 16.96], "loi_nguy_hiem": 0, "loi_than_trong": 0, "phu_xanh_pct": 68.8, "spearman": 0.71}},
+    "silesia_17_doc_lap": {"hoc_phu_xanh_pct": 35.3, "luat_phu_xanh_pct": 82.4, "luat_min_xanh": 97.70},
+    "mac_dinh": "hoc"
+  },
+
+  "I_api_test": {"tests": 53, "thoi_gian_s": 17.3, "api": "FastAPI /health /model /analyze; r01 10 s -> 22 nhip, 128,6 bpm, 68 ms", "docker": "Dockerfile+compose viet, chua build (khong co engine)"},
+
+  "J_bai_bao": {"nguon": "paper/cinc2026/main.tex -> main.pdf", "trang": 4, "tai_lieu": 12, "phan_bien_K": "khong phat hien so bia/sai; sua 8 loi trinh bay; J = DAT CO DIEU KIEN"}
+}

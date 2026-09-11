@@ -262,7 +262,30 @@ def fig_arch_v2():
     save(fig, 'fig13_kien_truc_v2')
 
 
+# ---------------------------------------------------------------- 16. mo hinh 5 ca vs 22 ca
+def fig_m22():
+    groups = ['PhysioNet\nchuyển dạ (5)', 'Silesia B2\nchuyển dạ mới (7)', 'Silesia B1\nthai kỳ (10)',
+              'CinC 2013\nhệ ghi khác (10)']
+    m5 = [99.21, 95.87, 93.30, 77.34]; m22 = [99.40, 96.82, 97.15, 90.34]
+    pv = ['p = 1,00', 'p = 0,13', 'p = 0,037', 'p = 0,016']
+    fig, ax = plt.subplots(figsize=(6.0, 3.2))
+    x = np.arange(4); w = 0.36
+    ax.bar(x - w / 2, m5, w, label='mô hình 5 ca', color=GRAY, edgecolor='white', linewidth=0.7, zorder=3)
+    ax.bar(x + w / 2, m22, w, label='mô hình 22 ca', color=GREEN, edgecolor='white', linewidth=0.7, zorder=3)
+    for i in range(4):
+        ax.text(x[i] - w / 2, m5[i] + 0.6, vn(m5[i]), ha='center', fontsize=7.6)
+        ax.text(x[i] + w / 2, m22[i] + 0.6, vn(m22[i]), ha='center', fontsize=7.6, fontweight='bold')
+        ax.text(x[i], 72.5, pv[i], ha='center', fontsize=7.2, style='italic',
+                color=GREEN if i >= 2 else '#666666')
+    ax.set_xticks(x); ax.set_xticklabels(groups, fontsize=8.0, linespacing=1.35)
+    ax.set_ylim(70, 104); ax.set_yticks([70, 80, 90, 100]); ax.set_ylabel('Macro F1 (%), kênh PSD mù nhãn')
+    ax.legend(fontsize=7.8, frameon=False, loc='upper right', ncol=2)
+    ax.grid(axis='y', lw=0.4, color='#DDDDDD', zorder=0)
+    ax.set_title('Huấn luyện trên 22 sản phụ thay vì 5: cùng chủ thể, cùng giao thức', fontsize=9.5, pad=8)
+    save(fig, 'fig16_m22')
+
+
 if __name__ == '__main__':
     print('Sinh hinh vao', OUT)
-    fig_waterfall(); fig_band(); fig_arch(); fig_rf(); fig_bench(); fig_bimodal(); fig_dongop(); fig_arch_v2()
+    fig_waterfall(); fig_band(); fig_arch(); fig_rf(); fig_bench(); fig_bimodal(); fig_dongop(); fig_arch_v2(); fig_m22()
     print('XONG')

@@ -1,0 +1,991 @@
+{
+ "A_i_fold": {
+  "fold_loi": [],
+  "moi_chu_the_test_1_lan": true,
+  "n_test_tong": 22,
+  "khong_co_dup": true,
+  "nguong_fold": {
+   "1": 0.8,
+   "2": 0.8,
+   "3": 0.75,
+   "4": 0.75,
+   "5": 0.75,
+   "6": 0.75,
+   "7": 0.8,
+   "8": 0.65,
+   "9": 0.8,
+   "10": 0.2,
+   "11": 0.35
+  },
+  "nguong_cuc_doan": {
+   "1": 0.8,
+   "2": 0.8,
+   "7": 0.8,
+   "9": 0.8,
+   "10": 0.2
+  },
+  "val_F1_fold": {
+   "1": 96.2228,
+   "2": 97.3239,
+   "3": 95.9298,
+   "4": 99.9612,
+   "5": 98.5971,
+   "6": 99.7731,
+   "7": 99.4,
+   "8": 99.598,
+   "9": 99.8658,
+   "10": 100.0,
+   "11": 98.4824
+  },
+  "luoi_that": [
+   0.2,
+   0.25,
+   0.3,
+   0.35,
+   0.4,
+   0.45,
+   0.5,
+   0.55,
+   0.6,
+   0.65,
+   0.7,
+   0.75,
+   0.8
+  ],
+  "production_thr": 0.75,
+  "production_thr_la_trung_vi": true,
+  "epochs": 4
+ },
+ "A_ii_macro": {
+  "PhysioNet": {
+   "model_22": {
+    "F1_psd_mean": 99.3972,
+    "F1_psd_sd": 1.0068,
+    "F1_mean4_mean": 98.6851,
+    "F1_mean4_sd": 1.562,
+    "n": 5,
+    "ge90_psd": 5,
+    "lt50_psd": 0,
+    "mean4_tu_per_lead_khop": true,
+    "psd_tu_per_lead_khop": true,
+    "khop_file": {
+     "psd_mean": true,
+     "psd_sd": true,
+     "m4_mean": true,
+     "m4_sd": true,
+     "ge90": true,
+     "lt50": true
+    }
+   },
+   "model_5": {
+    "F1_psd_mean": 99.2136,
+    "F1_psd_sd": 1.5015,
+    "F1_mean4_mean": 97.4469,
+    "F1_mean4_sd": 2.9637,
+    "n": 5,
+    "ge90_psd": 5,
+    "lt50_psd": 0,
+    "mean4_tu_per_lead_khop": true,
+    "psd_tu_per_lead_khop": true,
+    "khop_file": {
+     "psd_mean": true,
+     "psd_sd": true,
+     "m4_mean": true,
+     "m4_sd": true,
+     "ge90": true,
+     "lt50": true
+    }
+   }
+  },
+  "B2": {
+   "model_22": {
+    "F1_psd_mean": 96.8192,
+    "F1_psd_sd": 7.5539,
+    "F1_mean4_mean": 94.5009,
+    "F1_mean4_sd": 10.4517,
+    "n": 7,
+    "ge90_psd": 6,
+    "lt50_psd": 0,
+    "mean4_tu_per_lead_khop": true,
+    "psd_tu_per_lead_khop": true,
+    "khop_file": {
+     "psd_mean": true,
+     "psd_sd": true,
+     "m4_mean": true,
+     "m4_sd": true,
+     "ge90": true,
+     "lt50": true
+    }
+   },
+   "model_5": {
+    "F1_psd_mean": 95.8696,
+    "F1_psd_sd": 9.745,
+    "F1_mean4_mean": 93.7338,
+    "F1_mean4_sd": 12.4787,
+    "n": 7,
+    "ge90_psd": 6,
+    "lt50_psd": 0,
+    "mean4_tu_per_lead_khop": true,
+    "psd_tu_per_lead_khop": true,
+    "khop_file": {
+     "psd_mean": true,
+     "psd_sd": true,
+     "m4_mean": true,
+     "m4_sd": true,
+     "ge90": true,
+     "lt50": true
+    }
+   }
+  },
+  "B1": {
+   "model_22": {
+    "F1_psd_mean": 97.152,
+    "F1_psd_sd": 4.9483,
+    "F1_mean4_mean": 97.0131,
+    "F1_mean4_sd": 3.6694,
+    "n": 10,
+    "ge90_psd": 8,
+    "lt50_psd": 0,
+    "mean4_tu_per_lead_khop": true,
+    "psd_tu_per_lead_khop": true,
+    "khop_file": {
+     "psd_mean": true,
+     "psd_sd": true,
+     "m4_mean": true,
+     "m4_sd": true,
+     "ge90": true,
+     "lt50": true
+    }
+   },
+   "model_5": {
+    "F1_psd_mean": 93.3026,
+    "F1_psd_sd": 13.4615,
+    "F1_mean4_mean": 91.3064,
+    "F1_mean4_sd": 9.9853,
+    "n": 10,
+    "ge90_psd": 8,
+    "lt50_psd": 0,
+    "mean4_tu_per_lead_khop": true,
+    "psd_tu_per_lead_khop": true,
+    "khop_file": {
+     "psd_mean": true,
+     "psd_sd": true,
+     "m4_mean": true,
+     "m4_sd": true,
+     "ge90": true,
+     "lt50": true
+    }
+   }
+  },
+  "ALL": {
+   "model_22": {
+    "F1_psd_mean": 97.5564,
+    "F1_psd_sd": 5.2968,
+    "F1_mean4_mean": 96.5938,
+    "F1_mean4_sd": 6.327,
+    "n": 22,
+    "ge90_psd": 19,
+    "lt50_psd": 0,
+    "mean4_tu_per_lead_khop": true,
+    "psd_tu_per_lead_khop": true,
+    "khop_file": {
+     "psd_mean": true,
+     "psd_sd": true,
+     "m4_mean": true,
+     "m4_sd": true,
+     "ge90": true,
+     "lt50": true
+    }
+   },
+   "model_5": {
+    "F1_psd_mean": 95.4628,
+    "F1_psd_sd": 10.5286,
+    "F1_mean4_mean": 93.4743,
+    "F1_mean4_sd": 9.7423,
+    "n": 22,
+    "ge90_psd": 19,
+    "lt50_psd": 0,
+    "mean4_tu_per_lead_khop": true,
+    "psd_tu_per_lead_khop": true,
+    "khop_file": {
+     "psd_mean": true,
+     "psd_sd": true,
+     "m4_mean": true,
+     "m4_sd": true,
+     "ge90": true,
+     "lt50": true
+    }
+   }
+  }
+ },
+ "A_ii_train22_vs_eval22": {
+  "PhysioNet": {
+   "psd": 0.0,
+   "m4": 0.0
+  },
+  "B2": {
+   "psd": 0.0,
+   "m4": 0.0
+  },
+  "B1": {
+   "psd": 0.0,
+   "m4": 0.0
+  },
+  "max_abs_dF1_per_lead": 0.0
+ },
+ "A_iii_model5_nguon": {
+  "max_abs_dF1_silesia": 0.0,
+  "max_abs_dF1_all_leads": 0.0,
+  "psd_lead_khop": true,
+  "psd_lead_22_vs_5_giong_nhau": true
+ },
+ "A_iii_wilcoxon": {
+  "PhysioNet": {
+   "subject_x_lead": {
+    "n": 20,
+    "mean_diff": 1.2383,
+    "median_diff": 0.0002,
+    "n_pos": 10,
+    "n_neg": 6,
+    "n_zero": 4,
+    "p": 0.2445,
+    "p_pratt": 0.2523,
+    "p_raw": 0.2444903379295854
+   },
+   "psd": {
+    "n": 5,
+    "mean_diff": 0.1836,
+    "median_diff": 0.0,
+    "n_pos": 2,
+    "n_neg": 2,
+    "n_zero": 1,
+    "p": 1.0,
+    "p_pratt": 1.0,
+    "p_raw": 1.0
+   },
+   "mean4": {
+    "n": 5,
+    "mean_diff": 1.2383,
+    "median_diff": -0.0388,
+    "n_pos": 2,
+    "n_neg": 3,
+    "n_zero": 0,
+    "p": 0.8125,
+    "p_pratt": 0.8125,
+    "p_raw": 0.8125
+   },
+   "khop_file": {
+    "sxl": true,
+    "psd": true,
+    "m4": true
+   },
+   "oracle_22": 99.4127,
+   "oracle_5": 99.2136
+  },
+  "B2": {
+   "subject_x_lead": {
+    "n": 28,
+    "mean_diff": 0.7671,
+    "median_diff": 0.1492,
+    "n_pos": 18,
+    "n_neg": 4,
+    "n_zero": 6,
+    "p": 0.0156,
+    "p_pratt": 0.0076,
+    "p_raw": 0.015576468116855436
+   },
+   "psd": {
+    "n": 7,
+    "mean_diff": 0.9497,
+    "median_diff": 0.0749,
+    "n_pos": 4,
+    "n_neg": 0,
+    "n_zero": 3,
+    "p": 0.125,
+    "p_pratt": 0.125,
+    "p_raw": 0.125
+   },
+   "mean4": {
+    "n": 7,
+    "mean_diff": 0.7671,
+    "median_diff": 0.1469,
+    "n_pos": 5,
+    "n_neg": 2,
+    "n_zero": 0,
+    "p": 0.4688,
+    "p_pratt": 0.4688,
+    "p_raw": 0.46875
+   },
+   "khop_file": {
+    "sxl": true,
+    "psd": true,
+    "m4": true
+   },
+   "oracle_22": 97.48,
+   "oracle_5": 96.6434
+  },
+  "B1": {
+   "subject_x_lead": {
+    "n": 40,
+    "mean_diff": 5.7066,
+    "median_diff": 1.4108,
+    "n_pos": 37,
+    "n_neg": 3,
+    "n_zero": 0,
+    "p": 0.0,
+    "p_pratt": 0.0,
+    "p_raw": 4.320099833421409e-09
+   },
+   "psd": {
+    "n": 10,
+    "mean_diff": 3.8494,
+    "median_diff": 0.1976,
+    "n_pos": 9,
+    "n_neg": 1,
+    "n_zero": 0,
+    "p": 0.0371,
+    "p_pratt": 0.0371,
+    "p_raw": 0.037109375
+   },
+   "mean4": {
+    "n": 10,
+    "mean_diff": 5.7066,
+    "median_diff": 2.9234,
+    "n_pos": 9,
+    "n_neg": 1,
+    "n_zero": 0,
+    "p": 0.0039,
+    "p_pratt": 0.0039,
+    "p_raw": 0.00390625
+   },
+   "khop_file": {
+    "sxl": true,
+    "psd": true,
+    "m4": true
+   },
+   "oracle_22": 99.0502,
+   "oracle_5": 97.0378,
+   "verified_only_psd_22": 97.2518,
+   "verified_only_psd_5": 93.4068
+  },
+  "ALL": {
+   "subject_x_lead": {
+    "n": 88,
+    "mean_diff": 3.1194,
+    "median_diff": 0.3833,
+    "n_pos": 65,
+    "n_neg": 13,
+    "n_zero": 10,
+    "p": 0.0,
+    "p_pratt": 0.0,
+    "p_raw": 1.486338893265709e-08
+   },
+   "psd": {
+    "n": 22,
+    "mean_diff": 2.0936,
+    "median_diff": 0.0826,
+    "n_pos": 15,
+    "n_neg": 3,
+    "n_zero": 4,
+    "p": 0.0074,
+    "p_pratt": 0.0053,
+    "p_raw": 0.007398655365388617
+   },
+   "mean4": {
+    "n": 22,
+    "mean_diff": 3.1194,
+    "median_diff": 0.7155,
+    "n_pos": 16,
+    "n_neg": 6,
+    "n_zero": 0,
+    "p": 0.0039,
+    "p_pratt": 0.0039,
+    "p_raw": 0.0038569152582468734
+   },
+   "khop_file": {
+    "sxl": true,
+    "psd": true,
+    "m4": true
+   },
+   "oracle_22": 98.633,
+   "oracle_5": 97.4068
+  },
+  "GOLD_B2_PhysioNet": {
+   "subject_x_lead": {
+    "n": 48,
+    "mean_diff": 0.9634,
+    "median_diff": 0.0768,
+    "n_pos": 28,
+    "n_neg": 10,
+    "n_zero": 10,
+    "p": 0.0094,
+    "p_pratt": 0.0056,
+    "p_raw": 0.009432276488067479
+   },
+   "psd": {
+    "n": 12,
+    "mean_diff": 0.6305,
+    "median_diff": 0.0002,
+    "n_pos": 6,
+    "n_neg": 2,
+    "n_zero": 4,
+    "p": 0.1484,
+    "p_pratt": 0.1406,
+    "p_raw": 0.1484375
+   },
+   "mean4": {
+    "n": 12,
+    "mean_diff": 0.9634,
+    "median_diff": 0.0928,
+    "n_pos": 7,
+    "n_neg": 5,
+    "n_zero": 0,
+    "p": 0.4351,
+    "p_pratt": 0.4351,
+    "p_raw": 0.43505859375
+   }
+  }
+ },
+ "A_iv_cinc": {
+  "F1_lead0": {
+   "p22_mean": 90.343,
+   "p22_sd": 12.0263,
+   "p22_ge90": 6,
+   "p22_lt50": 0,
+   "p5_mean": 77.3377,
+   "p5_sd": 28.5404,
+   "p5_ge90": 5,
+   "p5_lt50": 3,
+   "wilcoxon": {
+    "n": 10,
+    "mean_diff": 13.0054,
+    "median_diff": 3.9062,
+    "n_pos": 7,
+    "n_neg": 0,
+    "n_zero": 3,
+    "p": 0.0156,
+    "p_pratt": 0.0156,
+    "p_raw": 0.015625
+   },
+   "khop_file_mean": true,
+   "khop_file_p": true,
+   "lt50_records_22": [],
+   "lt50_records_5": [
+    "a02",
+    "a06",
+    "a10"
+   ]
+  },
+  "F1_psd": {
+   "p22_mean": 69.3113,
+   "p22_sd": 32.3825,
+   "p22_ge90": 4,
+   "p22_lt50": 4,
+   "p5_mean": 59.1526,
+   "p5_sd": 37.1681,
+   "p5_ge90": 4,
+   "p5_lt50": 5,
+   "wilcoxon": {
+    "n": 10,
+    "mean_diff": 10.1588,
+    "median_diff": 2.7748,
+    "n_pos": 6,
+    "n_neg": 1,
+    "n_zero": 3,
+    "p": 0.0312,
+    "p_pratt": 0.0312,
+    "p_raw": 0.03125
+   },
+   "khop_file_mean": true,
+   "khop_file_p": true,
+   "lt50_records_22": [
+    "a02",
+    "a07",
+    "a09",
+    "a10"
+   ],
+   "lt50_records_5": [
+    "a02",
+    "a06",
+    "a07",
+    "a09",
+    "a10"
+   ]
+  },
+  "F1_mean4": {
+   "p22_mean": 72.6407,
+   "p22_sd": 25.7624,
+   "p22_ge90": 4,
+   "p22_lt50": 2,
+   "p5_mean": 61.9639,
+   "p5_sd": 34.0923,
+   "p5_ge90": 4,
+   "p5_lt50": 5,
+   "wilcoxon": {
+    "n": 10,
+    "mean_diff": 10.6768,
+    "median_diff": 13.2215,
+    "n_pos": 6,
+    "n_neg": 1,
+    "n_zero": 3,
+    "p": 0.0312,
+    "p_pratt": 0.0312,
+    "p_raw": 0.03125
+   },
+   "khop_file_mean": true,
+   "khop_file_p": true,
+   "lt50_records_22": [
+    "a02",
+    "a09"
+   ],
+   "lt50_records_5": [
+    "a02",
+    "a06",
+    "a07",
+    "a09",
+    "a10"
+   ]
+  },
+  "F1_oracle": {
+   "p22_mean": 91.6408,
+   "p22_sd": 10.8914,
+   "p22_ge90": 6,
+   "p22_lt50": 0,
+   "p5_mean": 77.5861,
+   "p5_sd": 28.1355,
+   "p5_ge90": 5,
+   "p5_lt50": 3,
+   "wilcoxon": {
+    "n": 10,
+    "mean_diff": 14.0547,
+    "median_diff": 3.9062,
+    "n_pos": 6,
+    "n_neg": 0,
+    "n_zero": 4,
+    "p": 0.0312,
+    "p_pratt": 0.0312,
+    "p_raw": 0.03125
+   },
+   "khop_file_mean": true,
+   "khop_file_p": null,
+   "lt50_records_22": [],
+   "lt50_records_5": [
+    "a02",
+    "a06",
+    "a10"
+   ]
+  },
+  "record_x_lead": {
+   "n": 40,
+   "mean_diff": 10.6768,
+   "median_diff": 2.0751,
+   "n_pos": 23,
+   "n_neg": 4,
+   "n_zero": 13,
+   "p": 0.0,
+   "p_pratt": 0.0001,
+   "p_raw": 3.9862558382584066e-05
+  },
+  "psd_lead_same_22_vs_5": true,
+  "gap_lead0_minus_psd_22": 21.0317,
+  "gap_lead0_minus_psd_5": 18.1851,
+  "threshold_22": 0.7499999999999998,
+  "bias_lead0_22": {
+   "a01": -2.0,
+   "a02": -2.0,
+   "a03": -1.0,
+   "a04": -2.0,
+   "a05": -1.0,
+   "a06": 0.0,
+   "a07": -1.0,
+   "a08": 0.0,
+   "a09": -1.0,
+   "a10": -1.0
+  },
+  "bias_lead0_median_22": -1.0
+ },
+ "A_v_bias": {
+  "PhysioNet_model_22": {
+   "median_all_leads": 0.0,
+   "mean_all_leads": 1.05,
+   "median_psd": 0.0,
+   "mean_abs_psd": 1.4,
+   "per_record_median4": {
+    "r01": -1.0,
+    "r04": 3.5,
+    "r07": 3.5,
+    "r08": 0.0,
+    "r10": -1.0
+   },
+   "max_abs_per_record": 3.5,
+   "records_abs_gt4": []
+  },
+  "PhysioNet_model_5": {
+   "median_all_leads": 0.0,
+   "mean_all_leads": -1.8,
+   "median_psd": 0.0,
+   "mean_abs_psd": 2.2,
+   "per_record_median4": {
+    "r01": 0.0,
+    "r04": 0.5,
+    "r07": 1.0,
+    "r08": -5.0,
+    "r10": -5.5
+   },
+   "max_abs_per_record": 5.5,
+   "records_abs_gt4": [
+    "r08",
+    "r10"
+   ]
+  },
+  "PhysioNet_wilcoxon_22_minus_5": {
+   "n": 20,
+   "mean_diff": 2.85,
+   "median_diff": 3.5,
+   "n_pos": 16,
+   "n_neg": 3,
+   "n_zero": 1,
+   "p": 0.0004,
+   "p_pratt": 0.0004,
+   "p_raw": 0.00040418032152981267
+  },
+  "B2_model_22": {
+   "median_all_leads": 0.0,
+   "mean_all_leads": 0.4643,
+   "median_psd": 0.0,
+   "mean_abs_psd": 0.4286,
+   "per_record_median4": {
+    "B2_03": 0.5,
+    "B2_04": 0.5,
+    "B2_05": 0.5,
+    "B2_06": 1.0,
+    "B2_08": 0.0,
+    "B2_09": 0.5,
+    "B2_12": 0.0
+   },
+   "max_abs_per_record": 1.0,
+   "records_abs_gt4": []
+  },
+  "B2_model_5": {
+   "median_all_leads": 0.0,
+   "mean_all_leads": 0.3929,
+   "median_psd": 1.0,
+   "mean_abs_psd": 1.0,
+   "per_record_median4": {
+    "B2_03": -1.0,
+    "B2_04": 0.5,
+    "B2_05": 0.5,
+    "B2_06": 1.5,
+    "B2_08": 1.0,
+    "B2_09": 0.5,
+    "B2_12": 0.0
+   },
+   "max_abs_per_record": 1.5,
+   "records_abs_gt4": []
+  },
+  "B2_wilcoxon_22_minus_5": {
+   "n": 28,
+   "mean_diff": 0.0714,
+   "median_diff": 0.0,
+   "n_pos": 7,
+   "n_neg": 8,
+   "n_zero": 13,
+   "p": 0.7659,
+   "p_pratt": 0.9709,
+   "p_raw": 0.7658972859712722
+  },
+  "B1_model_22": {
+   "median_all_leads": -1.0,
+   "mean_all_leads": -1.25,
+   "median_psd": -1.0,
+   "mean_abs_psd": 3.4,
+   "per_record_median4": {
+    "B1_01": 6.0,
+    "B1_02": -6.0,
+    "B1_03": 0.0,
+    "B1_04": 4.0,
+    "B1_05": 0.0,
+    "B1_06": -4.0,
+    "B1_07": -6.0,
+    "B1_08": -6.0,
+    "B1_09": 2.0,
+    "B1_10": -4.0
+   },
+   "max_abs_per_record": 6.0,
+   "records_abs_gt4": [
+    "B1_01",
+    "B1_02",
+    "B1_07",
+    "B1_08"
+   ]
+  },
+  "B1_model_5": {
+   "median_all_leads": -6.0,
+   "mean_all_leads": -4.55,
+   "median_psd": -6.0,
+   "mean_abs_psd": 6.2,
+   "per_record_median4": {
+    "B1_01": -10.0,
+    "B1_02": -10.0,
+    "B1_03": 0.0,
+    "B1_04": 4.0,
+    "B1_05": 2.0,
+    "B1_06": -8.0,
+    "B1_07": -10.0,
+    "B1_08": -7.0,
+    "B1_09": -4.0,
+    "B1_10": -5.0
+   },
+   "max_abs_per_record": 10.0,
+   "records_abs_gt4": [
+    "B1_01",
+    "B1_02",
+    "B1_06",
+    "B1_07",
+    "B1_08",
+    "B1_10"
+   ]
+  },
+  "B1_wilcoxon_22_minus_5": {
+   "n": 40,
+   "mean_diff": 3.3,
+   "median_diff": 2.0,
+   "n_pos": 24,
+   "n_neg": 11,
+   "n_zero": 5,
+   "p": 0.0019,
+   "p_pratt": 0.0028,
+   "p_raw": 0.0018703771300681718
+  },
+  "GOLD_model_22": {
+   "median_all_leads": 0.0,
+   "mean_all_leads": 0.7083,
+   "median_psd": 0.0,
+   "mean_abs_psd": 0.8333,
+   "per_record_median4": {
+    "r01": -1.0,
+    "r04": 3.5,
+    "r07": 3.5,
+    "r08": 0.0,
+    "r10": -1.0,
+    "B2_03": 0.5,
+    "B2_04": 0.5,
+    "B2_05": 0.5,
+    "B2_06": 1.0,
+    "B2_08": 0.0,
+    "B2_09": 0.5,
+    "B2_12": 0.0
+   },
+   "max_abs_per_record": 3.5,
+   "records_abs_gt4": []
+  },
+  "GOLD_model_5": {
+   "median_all_leads": 0.0,
+   "mean_all_leads": -0.5208,
+   "median_psd": 0.5,
+   "mean_abs_psd": 1.5,
+   "per_record_median4": {
+    "r01": 0.0,
+    "r04": 0.5,
+    "r07": 1.0,
+    "r08": -5.0,
+    "r10": -5.5,
+    "B2_03": -1.0,
+    "B2_04": 0.5,
+    "B2_05": 0.5,
+    "B2_06": 1.5,
+    "B2_08": 1.0,
+    "B2_09": 0.5,
+    "B2_12": 0.0
+   },
+   "max_abs_per_record": 5.5,
+   "records_abs_gt4": [
+    "r08",
+    "r10"
+   ]
+  },
+  "GOLD_wilcoxon_22_minus_5": {
+   "n": 48,
+   "mean_diff": 1.2292,
+   "median_diff": 0.0,
+   "n_pos": 23,
+   "n_neg": 11,
+   "n_zero": 14,
+   "p": 0.0005,
+   "p_pratt": 0.003,
+   "p_raw": 0.0005461741553581069
+  },
+  "PhysioNet_jitter_psd": {
+   "m22": 2.158,
+   "m5": 2.974
+  },
+  "B2_jitter_psd": {
+   "m22": 2.4855,
+   "m5": 2.8226
+  },
+  "B1_jitter_psd": {
+   "m22": 4.7861,
+   "m5": 8.218
+  }
+ },
+ "A_vi_T7": {
+  "seg_est": {
+   "B1": 23880,
+   "B2": 8288,
+   "PhysioNet": 5920
+  },
+  "B1_pct": 62.6969,
+  "n_segments_production_file": 38088,
+  "PhysioNet_dPSD": 0.1836,
+  "PhysioNet_dTB4": 1.2382,
+  "B2_dPSD": 0.9496,
+  "B2_dTB4": 0.7671,
+  "B1_dPSD": 3.8494,
+  "B1_dTB4": 5.7067
+ },
+ "B_sample_efficiency": {
+  "k1": {
+   "n_runs": 5,
+   "n_rows": 80,
+   "pooled_macro": 91.1846,
+   "sd": 17.2166,
+   "per_run_macro": [
+    86.2822,
+    95.499,
+    94.7638,
+    83.2568,
+    96.121
+   ],
+   "mean_of_runs": 91.1846,
+   "min_run": 83.2568,
+   "max_run": 96.121,
+   "balanced_per_record": 91.1846,
+   "per_record_mean": {
+    "r04": 86.7871,
+    "r07": 89.8811,
+    "r08": 95.5974,
+    "r10": 86.2139,
+    "r01": 97.4434
+   },
+   "n_times_as_test": {
+    "r04": 4,
+    "r07": 4,
+    "r08": 4,
+    "r10": 4,
+    "r01": 4
+   },
+   "train_test_overlap": false,
+   "thresholds_primary": [
+    0.45
+   ],
+   "epochs": [
+    6
+   ],
+   "khop_file": true,
+   "variant": {
+    "name": "in_sample",
+    "pooled_macro": 91.8033,
+    "thresholds": [
+     0.2,
+     0.49999999999999994,
+     0.2,
+     0.2,
+     0.3
+    ],
+    "balanced_per_record": 91.8033
+   }
+  },
+  "k2": {
+   "n_runs": 5,
+   "n_rows": 60,
+   "pooled_macro": 93.3884,
+   "sd": 13.6282,
+   "per_run_macro": [
+    81.6731,
+    97.6427,
+    94.0718,
+    97.3871,
+    96.1672
+   ],
+   "mean_of_runs": 93.3884,
+   "min_run": 81.6731,
+   "max_run": 97.6427,
+   "balanced_per_record": 93.8752,
+   "per_record_mean": {
+    "r04": 91.3523,
+    "r07": 93.3597,
+    "r10": 89.2743,
+    "r08": 96.5769,
+    "r01": 98.8129
+   },
+   "n_times_as_test": {
+    "r04": 3,
+    "r07": 3,
+    "r10": 4,
+    "r08": 2,
+    "r01": 3
+   },
+   "train_test_overlap": false,
+   "thresholds_primary": [
+    0.2,
+    0.3,
+    0.35,
+    0.49999999999999994
+   ],
+   "epochs": [
+    6
+   ],
+   "khop_file": true,
+   "variant": {
+    "name": "fixed_045",
+    "pooled_macro": 93.0832,
+    "thresholds": [
+     0.45,
+     0.45,
+     0.45,
+     0.45,
+     0.45
+    ],
+    "balanced_per_record": 93.6033
+   }
+  },
+  "k3": {
+   "pooled_macro_all_leads": 97.4469,
+   "sd": 4.438,
+   "per_record": {
+    "r01": 99.9806,
+    "r04": 98.848,
+    "r07": 99.6608,
+    "r08": 95.5857,
+    "r10": 93.1592
+   },
+   "khop_file": true,
+   "ghi_chu": "LORO: 3 train + 1 val (chon nguong) + 1 test -> k_train = 3, so chu the co nhan da dung = 4"
+  },
+  "duong_cong": {
+   "chinh": [
+    91.1846,
+    93.3884,
+    97.4469
+   ],
+   "don_dieu_chinh": true,
+   "bien_the": [
+    91.8033,
+    93.0832,
+    97.4469
+   ],
+   "don_dieu_bien_the": true,
+   "can_bang_ban_ghi": [
+    91.1846,
+    93.8752,
+    97.4469
+   ],
+   "don_dieu_can_bang": true,
+   "min_run": [
+    83.2568,
+    81.6731,
+    93.1592
+   ]
+  }
+ }
+}
