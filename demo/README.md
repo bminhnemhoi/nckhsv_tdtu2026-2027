@@ -1,3 +1,11 @@
+> **Cập nhật vòng 7 (12/09/2026).** Bảng kết quả ở mục 4 dưới đây là lần chạy 32 bản ghi cũ và **có 4 bản
+> CinC là bản sao ADFECGDB** (a03, a04, a05, a08 — F1 = 100 vì là dữ liệu huấn luyện). Lần chạy hiện hành
+> `results/demo_check_2modes.json` (17:07, `python demo/run_check.py --threads 2`, quy tắc kênh `peakprob`,
+> loại bản trùng và bản rò rỉ) chấm 82 bản có nhãn (5 ADFECGDB + 60 CinC sạch + 17 Silesia): chế độ *học* —
+> 46 xanh (F1 TB 95,70; 3 bản xanh có F1 < 90: a52, a54, a57), 17 vàng, 19 đỏ (F1 TB 54,26), không bản đỏ
+> nào có F1 ≥ 95; chế độ *luật* — 58 xanh (97,79; 5 bản xanh có F1 < 90), 19 vàng, 5 đỏ (`summary_by_mode`).
+> Bảng mục 4 giữ để truy vết.
+
 # RelyFetal — demo dò phức bộ QRS thai nhi từ điện tim ổ bụng đơn kênh
 
 > **Bản mẫu nghiên cứu. Không phải thiết bị y tế. Không dùng cho chẩn đoán.**
@@ -225,7 +233,7 @@ python demo/run_check.py --mode luat --no-silesia    # tái tạo 15 bản ghi m
 ## 8. Hạn chế
 
 * Đèn tin cậy: trên 32 bản ghi có nhãn, cả hai chế độ đều không có bản ghi xanh mà F1 < 90, nhưng chế độ học (mặc định) **thận trọng quá mức** — 9 bản ghi F1 96,5–100 chỉ được vàng, phủ xanh 43,8 % (luật: 68,8 %); ngưỡng của nó hiệu chuẩn trên 5 bản ghi ADFECGDB chuyển dạ, chưa hiệu chuẩn lại trên thai kỳ. Chế độ luật thì nhóm vàng lẫn (F1 21–99,76). Xem mục 4.3.
-* CinC 2013 là zero-shot với checkpoint production huấn luyện trên ADFECGDB: F1 lưỡng cực (4/10 = 100, 5/10 < 45, còn lại a01 = 59) — demo cho thấy đúng thực trạng này, không che.
+* CinC 2013 là zero-shot với checkpoint production huấn luyện trên ADFECGDB: F1 lưỡng cực (4/10 = 100, 5/10 < 45, còn lại a01 = 59) — demo cho thấy đúng thực trạng này, không che. *(⚠ số trên mẫu 10 bản ghi cũ — đã rút; xem `analysis/dulieu_results.json` cho 60 bản sạch)*
 * Chỉ hỗ trợ bản ghi ≤ vài phút trong trình duyệt (Plotly WebGL, bản ghi 300 s ở 250 Hz vẽ mượt; thô 1000 Hz hiển thị 1/4 mẫu).
 * Chưa có xử lý theo thời gian thực/luồng; mỗi lần bấm phân tích cả bản ghi.
 

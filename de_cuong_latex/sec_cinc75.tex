@@ -1,8 +1,56 @@
 % ================================================================= CINC 2013 TOÀN BỘ 75 BẢN GHI
-\subsubsection{PhysioNet/CinC 2013: chạy toàn bộ 75 bản ghi thay vì mẫu 10}
+\subsubsection{PhysioNet/CinC 2013: 60 bản ghi sạch, không phải 75}
 \label{sec:cinc75}
 
-\begin{canhbao}[title={Nhóm thay toàn bộ con số CinC 2013 của bản v3.2}]
+\begin{canhbao}[title={RÚT LẠI (bản 3.5, vòng 7): mọi con số CinC 2013 trên 75 bản ghi trong mục này}]
+\textbf{Sự kiện.} Tập set-a của PhysioNet/CinC 2013 \textbf{không độc lập} với ADFECGDB. \textbf{Như ban tổ
+chức đã ghi nhận} [Silva và cs., CinC 2013;40:149--152, Bảng 1: ``Abdominal and Direct FECG --- 25'';
+Clifford và cs., Physiol Meas 2014;35:1521, Bảng 2], 25 trong 447 bản ghi của Challenge được cắt từ
+ADFECGDB, và Clifford và cs.\ (2014) đã cảnh báo rằng một thuật toán dự thi huấn luyện trên ADFECGDB
+``may have led to a bias in the results as this database was included in set-a, set-b (and possibly a few
+records in set-c)''. Câu đó nằm ngay trong ghi chú đọc bài của nhóm (Bảng bài học, mục p20) và nhóm
+\textbf{đã bỏ sót} nó khi viết bản 3.4. Đây \textbf{không} phải phát hiện của nhóm.
+
+\textbf{Phần nhóm đo được} (\texttt{analysis/dulieu\_audit.py}, cài đặt độc lập thứ hai
+\texttt{analysis/dulieu\_m4b\_verify.py}): không tài liệu nào cho biết \emph{bản ghi set-a nào} là ADFECGDB;
+bằng tương quan chéo chuẩn hoá trên tín hiệu thô, đúng \textbf{15/75 bản} --- a03, a04, a05, a08, a12, a13,
+a14, a15, a17, a19, a20, a22, a23, a24, a25 --- là bản sao nguyên văn (NCC $= 1{,}0000$ cả 4 kênh đúng thứ
+tự, $|\Delta$RR$| = 0{,}0$\,ms) của các cửa sổ 0--60, 120--180, 240--300\,s của r01, r04, r07, r08, r10; 60
+bản còn lại có NCC tối đa 0,62. Vì mọi mô hình của nhóm huấn luyện trên chính 5 sản phụ đó, các con số
+75 bản bị thổi phồng \textbf{3,27--7,18 điểm F1}.
+
+\textbf{Số đúng, 60 bản sạch} (\texttt{benchmark\_dpss/eval\_cinc60\_sach.json}, bootstrap 10.000 lần theo
+bản ghi, seed 0):
+\begin{center}\small
+\begin{tabular}{@{}L{4.2cm} C{1.5cm} C{1.5cm} C{1.6cm} C{2.6cm} C{1.5cm}@{}}
+\toprule
+\textbf{Quy tắc chọn kênh} & \textbf{5 ca} & \textbf{22 ca} & \textbf{Hiệu số} & \textbf{KTC 95\%} & \textbf{T/Th/H} \\
+\midrule
+\textbf{PSD mù nhãn (khai báo trước)} & 64,04 & \tot{74,28} & $+10{,}24$ & $[+7{,}13;\ +13{,}60]$ & 52/3/5 \\
+Trung bình 4 kênh & 56,00 & 67,69 & $+11{,}69$ & $[+9{,}03;\ +14{,}37]$ & 58/2/0 \\
+Kênh 0 cố định (hậu kiểm, đã rút) & 48,43 & 61,78 & $+13{,}35$ & $[+9{,}67;\ +17{,}10]$ & 50/--/-- \\
+Oracle (dùng nhãn) & 72,76 & 83,60 & $+10{,}84$ & $[+7{,}55;\ +14{,}37]$ & 49/--/-- \\
+\texttt{peakprob} (hậu kiểm, giả thuyết) & --- & 82,01 & $+7{,}73$ so PSD & $[+3{,}82;\ +12{,}41]$ & 19/6/35 \\
+\midrule
+PSD, 53 bản (loại 7 bản nhãn sai) & 64,19 & \tot{75,27} & $+11{,}08$ & $[+7{,}54;\ +14{,}82]$ & 46/2/-- \\
+\bottomrule
+\end{tabular}
+\end{center}
+Mô hình 22 ca: 33/60 bản $\geq 90$, 16/60 bản $< 50$, trung vị 95,07; PSD kém oracle \textbf{9,32} điểm
+$[+5{,}10;\ +14{,}15]$ và chỉ chọn trúng kênh oracle ở 17/60 bản. Power-MF đơn kênh trên 60 bản sạch: 55,97.
+Quy tắc \texttt{peakprob} (+7,73, $p_{\text{Holm}} = 0{,}0039$ trên 7 quy tắc khai báo) được chọn \emph{sau}
+khi nhìn kết quả; quy tắc chỉ định trước (\texttt{gate}, +6,44) \textbf{trượt} Holm ($p = 0{,}051$); trên
+thang logit quy tắc đứng đầu là \texttt{gate4}; và \textbf{không có bộ dữ liệu công khai thứ ba có nhãn fQRS
+thật} để xác nhận (NIFEADB, NInFEA không có nhãn; \texttt{.qrs} của nifecgdb là nhịp mẹ; set-b chưa công bố
+nhãn --- \texttt{analysis/XACNHAN.md}). Vì vậy \texttt{peakprob} là \textbf{giả thuyết mạnh, chưa xác nhận}.
+
+\textbf{Các bảng và hình còn lại của mục này giữ nguyên số trên 75 bản ghi để đối chiếu; mọi con số 71,21 /
+79,40 / 86,87 / 74,09 / 69,33 / 80,70 / +8,18 / +7,47 / 22/75 trong đó đều ĐÃ RÚT.} Kết luận định tính (thêm
+dữ liệu giúp; quy tắc chọn kênh mất giá trị ngoài miền; vẫn còn 16 bản dưới 50) không đổi; các số trong
+\S\ref{sec:powermf}, \S\ref{sec:model22} và phần phản biện dùng 75 bản cũng đọc theo hộp này.
+\end{canhbao}
+
+\begin{canhbao}[title={(Bản 3.4) Nhóm thay toàn bộ con số CinC 2013 của bản v3.2 --- các số 75 bản dưới đây đã rút ở bản 3.5}]
 Mọi con số CinC 2013 trong các bản đề cương trước --- 59,15 / 69,31 / 77,34 / 90,34 --- đều đo trên
 \textbf{mẫu 10 bản ghi} (a01--a10) của tập set-a, trong khi set-a có \textbf{75 bản ghi}. Nhóm đã chạy
 toàn bộ 75 bản ghi (\texttt{benchmark\_dpss/eval\_cinc75.py} $\to$ \texttt{eval\_cinc75.json}).

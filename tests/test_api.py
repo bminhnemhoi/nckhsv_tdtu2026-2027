@@ -98,7 +98,9 @@ def test_analyze_npy_10s_from_r01(client, r01_10s):
     assert 0.0 <= j['confidence']['score'] <= 1.0
     assert j['latency_ms'] is not None and j['latency_ms'] > 0
     assert j['lead'] == 1 and j['n_channels'] == 1 and j['duration_s'] == pytest.approx(10.0)
-    assert j['checkpoint'] == 'fetalqrs_tcn_fold_r01.pt'      # tên r01 -> fold chưa thấy r01
+    # tên r01 -> checkpoint CHƯA THẤY r01: fold 05 của mô hình 22 ca (r01 là bản kiểm thử của fold đó,
+    # model/train_22.json) hoặc, nếu thiếu, fold r01 của mô hình 5 ca (demo/core.checkpoint_for)
+    assert j['checkpoint'] in ('fetalqrs_tcn_22_fold_05.pt', 'fetalqrs_tcn_fold_r01.pt'), j['checkpoint']
     assert 'metrics' not in j                                  # không gửi nhãn
 
 
@@ -128,7 +130,8 @@ def test_analyze_csv_at_500hz_is_resampled(client, r01_10s):
     assert r.status_code == 200, r.text
     j = r.json()
     assert j['duration_s'] == pytest.approx(10.0) and 15 <= j['n_beats'] <= 30
-    assert j['checkpoint'] == 'fetalqrs_tcn_production.pt'       # tên lạ -> production
+    # tên lạ -> production (22 ca nếu có, 5 ca nếu thiếu)
+    assert j['checkpoint'] in ('fetalqrs_tcn_22_production.pt', 'fetalqrs_tcn_production.pt'), j['checkpoint']
 
 
 # ------------------------------------------------------------------ /analyze: lỗi đầu vào -> 4xx

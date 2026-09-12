@@ -1,3 +1,8 @@
+> **Báo cáo vòng cũ — giữ để truy vết, KHÔNG phải trạng thái hiện hành.** Nhiều con số trong tệp này đã rút
+> (mẫu 10 bản CinC; 75 bản CinC nhiễm 15 bản sao ADFECGDB; Power-MF cổng chuyển hỏng; +11,00 dải lọc; "8 kiến
+> trúc"; "mô hình không phải nút thắt"; "Physiological Measurement là Q1"). Số hiện hành: `README.md` mục
+> *Retractions* và `survey/facts_phase4.json`.
+
 # THẨM ĐỊNH ĐỘC LẬP VÒNG 6 — RelyFetal
 
 **Người thẩm định:** phản biện độc lập (không phải tác giả của bất kỳ kết quả nào dưới đây)

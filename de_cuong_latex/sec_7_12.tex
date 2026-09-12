@@ -77,7 +77,8 @@ còn lại chỉ \textbf{0,79} đến \textbf{2,55} điểm. Trong khi đó, ki�
 không đáng xây --- và điều này đúng theo nghĩa \textit{thiếu công suất}, không theo nghĩa \textit{đã
 chứng minh là vô ích}.
 
-Chỗ sụp thật sự là ngoài miền: \textbf{71,21 trên 75 bản ghi CinC 2013}, với 22 bản ghi dưới 50
+Chỗ sụp thật sự là ngoài miền: \textbf{64,04 trên 60 bản ghi sạch của CinC 2013} (mô hình 5 ca; 74,28
+với mô hình 22 ca --- \S\ref{sec:cinc75}), với 22 bản ghi dưới 50
 (\S\ref{sec:cinc75}). Đó mới là nơi đáng đầu tư. Và mục tiêu định lượng đã rõ: quy tắc chọn kênh một
 mình đang mất \textbf{7,47 điểm} so với oracle ngoài miền, trong khi trong miền chỉ mất 0,02--1,90 điểm.
 
@@ -262,7 +263,9 @@ baseline đã bị nhóm sửa tham số nên không còn đối chiếu đượ
 Bản 3.2 đưa 90,34 lên làm con số chính --- con số đó nay \textbf{đã bị rút}.
 
 \textbf{Đo thật:} chạy \textbf{toàn bộ 75 bản ghi} set-a (\texttt{benchmark\_dpss/eval\_cinc75.json}).
-Quy tắc kênh 0 rơi xuống \xau{69,33}, trong khi quy tắc PSD mù nhãn đạt \tot{79,40}. Kênh 0 hoá ra là
+Quy tắc kênh 0 rơi xuống \xau{69,33}, trong khi quy tắc PSD mù nhãn đạt \tot{79,40} \textit{(cả hai số này
+tính trên 75 bản, đã rút ở bản 3.5; trên 60 bản sạch: kênh 0 = 61,78, PSD = 74,28 --- kết luận định tính
+giữ nguyên)}. Kênh 0 hoá ra là
 quy tắc \textbf{tệ nhất trong bốn quy tắc}, kém quy tắc PSD hơn 10 điểm. \textbf{Giả thuyết sai.}
 
 \begin{table}[H]\centering\small
@@ -471,8 +474,10 @@ Bộ kiểm thử & 53 test, CI hai phiên bản Python & \tot{Đã có} \\
 \begin{enumerate}[leftmargin=1.8em,itemsep=4pt]
 \item \textbf{Hội nghị Computing in Cardiology} (4 trang, hạn tháng 4): trình bày C2, phân rã đóng góp
 ba tầng. Đây là kết quả đã có, viết được ngay sau Phase P1.
-\item \textbf{Tạp chí Q1} --- \textit{Physiological Measurement} hoặc \textit{Biomedical Signal Processing
-and Control} hoặc \textit{IEEE JBHI}: bài đầy đủ gồm C1, C2, C3.
+\item \textbf{Tạp chí} --- \textit{IEEE JBHI} hoặc \textit{Biomedical Signal Processing and Control}
+(Q1 Scimago) nếu có được bộ dữ liệu thứ ba có nhãn thật để xác nhận quy tắc chọn kênh; nếu không,
+\textit{Physiological Measurement} (sân nhà của fECG, nhưng là \textbf{Q2/Q3 Scimago 2024, không phải Q1}
+như bản 3.4 ghi): bài đầy đủ gồm C1, C2, C3.
 \item \textbf{Báo cáo Euréka}: bản tiếng Việt, nhấn mạnh sản phẩm chạy được và giá trị ứng dụng.
 \end{enumerate}
 

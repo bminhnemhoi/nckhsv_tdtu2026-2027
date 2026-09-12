@@ -1,3 +1,13 @@
+> **⚠ CẢNH BÁO (12/09/2026, sau vòng 7).** Tài liệu này được viết khi CinC 2013 set-a còn được tính trên **75 bản ghi**. Sau đó xác định 15 bản (a03 a04 a05 a08 a12 a13 a14 a15 a17 a19 a20 a22 a23 a24 a25) là bản sao nguyên văn của dữ liệu huấn luyện ADFECGDB — điều ban tổ chức đã ghi nhận [Silva 2013; Clifford 2014] và nhóm đã bỏ sót. **Mọi con số CinC dưới đây (79,40 / 85,60 / 86,87 / 71,21 / 62,82, AUROC 0,980…) bị thổi 3–7 điểm và đã bị rút.** Số chính thức trên **60 bản sạch**: PSD 74,28 · peakprob 82,01 · oracle 83,60 (`analysis/dulieu_results.json`, `benchmark_dpss/eval_cinc60_sach.json`). Kết luận định tính trong tài liệu giữ nguyên trừ khi ghi khác trong `THAMDINH_VONG7.md`. Cụm "tiền đăng ký" trong tài liệu này **không đúng** — tệp khai báo không neo git.
+
+> **RÚT LẠI (vòng 7, 12/09/2026).** Kết luận "Mô hình KHÔNG phải nút thắt" dưới đây **không còn đứng được**:
+> phép thử nhìn thấy dùng để định nghĩa nhóm lỗi (b) "không có tín hiệu" có tỉ lệ âm tính giả **18,0 %
+> [12,1; 25,0]** trên 60 bản CinC sạch (ngưỡng khai báo 10 %), 55–70 % trên bản có F1 < 90; sau hiệu chỉnh tỉ
+> lệ dư địa "thiếu tín hiệu" từ 86,0 % xuống 26,0 % nhưng con số hiệu chỉnh cũng không định danh được.
+> Phát biểu đúng: *chưa chứng minh được mô hình là hay không là nút thắt*. Các số "71 % dư địa", "1,85 điểm
+> thuộc mô hình", "8 bản giới hạn cứng" đều đã rút. Chi tiết: `analysis/XACNHAN.md` (việc 4),
+> `analysis/xacnhan_results.json → viec4_phep_thu_nhin_thay`. Tệp này giữ nguyên để truy vết.
+
 # Chẩn đoán: mô hình có phải nút thắt không?
 
 > ## KẾT LUẬN

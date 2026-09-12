@@ -1,13 +1,21 @@
 # -*- coding: utf-8 -*-
 """
-Chụp màn hình demo bằng playwright (Chromium headless) -> demo/screenshots/*.png  (cho đề cương / báo cáo).
+Chụp màn hình demo bằng playwright (Chromium headless) -> demo/screenshots/*.png
+(dùng cho docs/HUONG_DAN_DEMO.md và làm ảnh dự phòng khi demo trực tiếp gặp sự cố).
 
-  01_r01_tin_hieu.png   r01, tự động chọn kênh: thẻ số + tab "Tín hiệu (5 tầng)"   (toàn trang)
-  02_r01_fhr.png        r01: tab "Nhịp tim thai theo thời gian"
-  03_r01_so_sanh.png    r01: tab "So sánh với nhãn"
-  04_r01_the_so.png     r01: chỉ 4 thẻ số (fHR, số nhịp, đèn tin cậy, thời gian) -- cắt gọn
-  05_a02_den_do.png     a02 (CinC 2013, zero-shot): đèn ĐỎ vì bám nhịp mẹ -- thẻ số + tab fHR
-  06_a02_tin_hieu.png   a02: tab tín hiệu (toàn trang)
+Theo đúng kịch bản 5 bản minh hoạ (core.DEMO_SHOWCASE):
+  01_r01_tong_quan.png       r01: thẻ số + tab "Tín hiệu (5 tầng)"                  (toàn trang)
+  02_r01_the_so.png          r01: chỉ 4 thẻ số
+  03_r01_so_sanh.png         r01: tab "So sánh với nhãn"
+  04_a09_chon_kenh.png       a09: tab "Chọn kênh — cả 4 kênh" (peakprob chọn kênh 1, PSD chọn kênh 2)
+  05_a09_the_so.png          a09: thẻ số (đèn xanh, kênh 1)
+  06_a09_psd_the_so.png      a09 với quy tắc PSD: thẻ số (đèn đỏ/vàng, F1 thấp) -- để so sánh
+  07_B2_03_fhr_den_doan.png  B2_03: tab "Nhịp tim thai + đèn đoạn" (đoạn đỏ tô nền)
+  08_B2_03_the_so.png        B2_03: thẻ số (đèn ĐỎ chế độ học)
+  09_a02_the_so.png          a02: thẻ số (đèn ĐỎ vì bám nhịp mẹ)
+  10_a02_fhr.png             a02: tab fHR (mô hình ~130 bpm bám mẹ)
+  11_a27_the_so.png          a27: thẻ số (đèn ĐỎ, không có tín hiệu)
+  12_tong_hop.png            tab "Kết quả tổng hợp (60 bản sạch)"
 
 Cần:  pip install playwright && python -m playwright install chromium
 Chạy: python demo/screenshot.py          (server tạm ở cổng 7862, tự tắt khi xong)
@@ -23,7 +31,7 @@ from playwright.sync_api import sync_playwright
 import app
 
 url = f'http://127.0.0.1:{PORT}/'
-log = dict(port=PORT, shots={}, ok=False)
+log = dict(port=PORT, shots={}, records={}, ok=False)
 
 
 def wait_plot(page, timeout=60_000):
@@ -46,21 +54,36 @@ def shot(page, name, full=True, clip_sel=None):
     print(f'  đã chụp {name}  ({os.path.getsize(p)/1024:.0f} KB)')
 
 
-def run_record(page, name):
-    """chọn bản ghi trong dropdown rồi bấm Phân tích; đợi thẻ số đổi."""
-    label = next(l for l, n in app.REC_LABELS.items() if n == name)
+def pick_option(page, combobox_index, typed, option_label):
+    box = page.get_by_role('combobox').nth(combobox_index)
+    box.click(); box.fill(typed); page.wait_for_timeout(400)
+    page.get_by_role('option', name=option_label).first.click()
+    page.wait_for_timeout(300)
+
+
+def run_showcase(page, name, lead_choice=None):
+    """chọn bản minh hoạ trong dropdown (combobox 0) [+ kênh (combobox 1)] rồi bấm Phân tích; đợi thẻ số đổi."""
+    label = next(l for l, n in app.SHOWCASE_LABELS.items() if n == name)
     before = cards_text(page)
-    box = page.get_by_role('combobox').nth(0)          # dropdown "Bản ghi mẫu" là combobox đầu tiên (Radio không phải combobox)
-    box.click(); box.fill(name); page.wait_for_timeout(400)
-    page.get_by_role('option', name=label).first.click()
+    pick_option(page, 0, name, label)
+    if lead_choice is not None:
+        pick_option(page, 1, lead_choice.split(' ')[0], lead_choice)
+    t0 = time.perf_counter()
     page.get_by_role('button', name='Phân tích').click()
-    for _ in range(240):                                # tối đa 120 s
+    for _ in range(360):                                # tối đa 180 s
         page.wait_for_timeout(500)
         txt = cards_text(page)
         if txt != before and 'Đèn tin cậy' in txt:
             break
     page.wait_for_timeout(1500)
-    return cards_text(page)
+    txt = cards_text(page)
+    log['records'][f'{name}{"" if lead_choice is None else " " + lead_choice}'] = dict(
+        wall_s=round(time.perf_counter() - t0, 1), cards=txt.replace('\n', ' | ')[:300])
+    return txt
+
+
+def tab(page, name):
+    page.get_by_role('tab', name=name).click(); page.wait_for_timeout(800)
 
 
 demo = app.demo
@@ -71,27 +94,50 @@ try:
         page = br.new_page(viewport=dict(width=1500, height=1000), device_scale_factor=1.5)
         t0 = time.perf_counter()
         page.goto(url, wait_until='networkidle', timeout=90_000)
-        page.wait_for_selector('.rf-cards', timeout=120_000)       # autorun r01 xong
+        page.wait_for_selector('.rf-cards', timeout=180_000)       # autorun r01 xong
         wait_plot(page)
         log['first_result_s'] = round(time.perf_counter() - t0, 1)
-        txt = cards_text(page); log['r01_cards'] = txt
+        txt = cards_text(page); log['records']['r01 (autorun)'] = dict(wall_s=log['first_result_s'], cards=txt.replace('\n', ' | ')[:300])
         print(f'r01 xong sau {log["first_result_s"]} s:', txt.replace('\n', ' | ')[:160])
         assert 'CAO' in txt, 'r01 phải là đèn CAO'
-        shot(page, '01_r01_tin_hieu.png')
-        shot(page, '04_r01_the_so.png', clip_sel='.rf-cards')
-        page.get_by_role('tab', name='Nhịp tim thai theo thời gian').click(); wait_plot(page)
-        shot(page, '02_r01_fhr.png')
-        page.get_by_role('tab', name='So sánh với nhãn').click(); page.wait_for_timeout(1500)
+        shot(page, '01_r01_tong_quan.png')
+        shot(page, '02_r01_the_so.png', clip_sel='.rf-cards')
+        tab(page, 'So sánh với nhãn'); page.wait_for_timeout(1000)
         shot(page, '03_r01_so_sanh.png')
 
-        # ---- a02: bản ghi zero-shot, mô hình bám nhịp mẹ -> đèn đỏ
-        txt = run_record(page, 'a02'); log['a02_cards'] = txt
+        # ---- a09: peakprob cứu được so với PSD
+        txt = run_showcase(page, 'a09')
+        print('a09:', txt.replace('\n', ' | ')[:160])
+        tab(page, 'Chọn kênh — cả 4 kênh'); wait_plot(page)
+        shot(page, '04_a09_chon_kenh.png')
+        shot(page, '05_a09_the_so.png', clip_sel='.rf-cards')
+        txt = run_showcase(page, 'a09', app.LEAD_CHOICES[1])
+        print('a09 PSD:', txt.replace('\n', ' | ')[:160])
+        shot(page, '06_a09_psd_the_so.png', clip_sel='.rf-cards')
+        pick_option(page, 1, 'Tự động — peakprob', app.LEAD_CHOICES[0])
+
+        # ---- B2_03: bản khó, cổng học phải báo đỏ
+        txt = run_showcase(page, 'B2_03')
+        print('B2_03:', txt.replace('\n', ' | ')[:160])
+        tab(page, 'Nhịp tim thai + đèn đoạn'); wait_plot(page)
+        shot(page, '07_B2_03_fhr_den_doan.png')
+        shot(page, '08_B2_03_the_so.png', clip_sel='.rf-cards')
+
+        # ---- a02: bám nhịp mẹ -> đỏ
+        txt = run_showcase(page, 'a02')
         print('a02:', txt.replace('\n', ' | ')[:160])
         assert 'THẤP' in txt, 'a02 phải là đèn THẤP'
-        page.get_by_role('tab', name='Nhịp tim thai theo thời gian').click(); wait_plot(page)
-        shot(page, '05_a02_den_do.png')
-        page.get_by_role('tab', name='Tín hiệu (5 tầng)').click(); wait_plot(page)
-        shot(page, '06_a02_tin_hieu.png')
+        shot(page, '09_a02_the_so.png', clip_sel='.rf-cards')
+        tab(page, 'Nhịp tim thai + đèn đoạn'); wait_plot(page)
+        shot(page, '10_a02_fhr.png')
+
+        # ---- a27: không có tín hiệu -> đỏ
+        txt = run_showcase(page, 'a27')
+        print('a27:', txt.replace('\n', ' | ')[:160])
+        shot(page, '11_a27_the_so.png', clip_sel='.rf-cards')
+
+        tab(page, 'Kết quả tổng hợp (60 bản sạch)'); page.wait_for_timeout(800)
+        shot(page, '12_tong_hop.png')
         br.close()
     log['ok'] = True
 except Exception as e:                                       # noqa: BLE001

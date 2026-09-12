@@ -1,0 +1,67 @@
+git khai bao: ed819e3af5a23b0d5927cb15af658df34226628a
+
+== LOGIT 22, kep A: dung dau gate | xep hang ['gate', 'rrcv', 'peakprob', 'gate4', 'rrplaus', 'learned', 'fuse']
+  psd       logitTB  5.545 (F1~ 99.61)  hieu +0.000 [+0.000;+0.000] p=1 holm=-  T/H/Th 0/22/0
+  gate      logitTB  5.770 (F1~ 99.69)  hieu +0.225 [+0.004;+0.589] p=0.0679 holm=0.475  T/H/Th 4/18/0
+  gate4     logitTB  5.661 (F1~ 99.65)  hieu +0.116 [-0.176;+0.514] p=0.917 holm=1  T/H/Th 3/16/3
+  rrcv      logitTB  5.685 (F1~ 99.66)  hieu +0.140 [-0.188;+0.547] p=0.401 holm=1  T/H/Th 6/14/2
+  peakprob  logitTB  5.679 (F1~ 99.66)  hieu +0.134 [-0.038;+0.407] p=0.176 holm=1  T/H/Th 6/15/1
+  rrplaus   logitTB  5.589 (F1~ 99.63)  hieu +0.043 [-0.326;+0.472] p=0.959 holm=1  T/H/Th 6/12/4
+  fuse      logitTB  5.532 (F1~ 99.61)  hieu -0.013 [-0.345;+0.394] p=0.463 holm=1  T/H/Th 4/9/9
+  learned   logitTB  5.559 (F1~ 99.62)  hieu +0.014 [-0.229;+0.326] p=0.575 holm=1  T/H/Th 5/12/5
+  mean4     logitTB  4.446 (F1~ 98.84)  hieu -1.099 [-1.544;-0.663] p=0.000543 holm=-  T/H/Th 3/1/18
+  oracle    logitTB  5.836 (F1~ 99.71)  hieu +0.291 [+0.060;+0.654] p=0.0117 holm=-  T/H/Th 8/14/0
+
+== LOGIT 22, kep B: dung dau gate | xep hang ['gate', 'rrcv', 'gate4', 'peakprob', 'rrplaus', 'fuse', 'learned']
+  psd       logitTB  5.438 (F1~ 99.57)  hieu +0.000 [+0.000;+0.000] p=1 holm=-  T/H/Th 0/22/0
+  gate      logitTB  5.665 (F1~ 99.65)  hieu +0.228 [+0.005;+0.596] p=0.0679 holm=0.475  T/H/Th 4/18/0
+  gate4     logitTB  5.585 (F1~ 99.63)  hieu +0.147 [-0.115;+0.540] p=0.753 holm=1  T/H/Th 3/16/3
+  rrcv      logitTB  5.597 (F1~ 99.63)  hieu +0.159 [-0.138;+0.563] p=0.401 holm=1  T/H/Th 6/14/2
+  peakprob  logitTB  5.569 (F1~ 99.62)  hieu +0.131 [-0.042;+0.406] p=0.176 holm=1  T/H/Th 6/15/1
+  rrplaus   logitTB  5.497 (F1~ 99.59)  hieu +0.059 [-0.289;+0.481] p=0.959 holm=1  T/H/Th 6/12/4
+  fuse      logitTB  5.473 (F1~ 99.58)  hieu +0.035 [-0.266;+0.436] p=0.583 holm=1  T/H/Th 4/10/8
+  learned   logitTB  5.439 (F1~ 99.57)  hieu +0.002 [-0.253;+0.321] p=0.508 holm=1  T/H/Th 5/12/5
+  mean4     logitTB  4.509 (F1~ 98.91)  hieu -0.929 [-1.311;-0.546] p=0.000681 holm=-  T/H/Th 2/2/18
+  oracle    logitTB  5.699 (F1~ 99.67)  hieu +0.261 [+0.038;+0.633] p=0.018 holm=-  T/H/Th 7/15/0
+
+== LOGIT 22, kep C: dung dau rrcv | xep hang ['rrcv', 'rrplaus', 'gate', 'gate4', 'fuse', 'peakprob', 'learned']
+  psd       logitTB  4.571 (F1~ 98.98)  hieu +0.000 [+0.000;+0.000] p=1 holm=-  T/H/Th 0/22/0
+  gate      logitTB  4.780 (F1~ 99.17)  hieu +0.208 [+0.000;+0.548] p=0.109 holm=0.475  T/H/Th 3/19/0
+  gate4     logitTB  4.776 (F1~ 99.16)  hieu +0.205 [-0.003;+0.548] p=0.144 holm=0.475  T/H/Th 3/18/1
+  rrcv      logitTB  4.794 (F1~ 99.18)  hieu +0.223 [+0.013;+0.563] p=0.0679 holm=0.475  T/H/Th 4/18/0
+  peakprob  logitTB  4.720 (F1~ 99.12)  hieu +0.148 [+0.002;+0.402] p=0.0679 holm=0.475  T/H/Th 4/18/0
+  rrplaus   logitTB  4.791 (F1~ 99.18)  hieu +0.219 [+0.010;+0.562] p=0.0796 holm=0.475  T/H/Th 4/17/1
+  fuse      logitTB  4.727 (F1~ 99.12)  hieu +0.156 [-0.049;+0.497] p=0.612 holm=1  T/H/Th 3/15/4
+  learned   logitTB  4.666 (F1~ 99.07)  hieu +0.095 [-0.076;+0.371] p=0.889 holm=1  T/H/Th 4/14/4
+  mean4     logitTB  4.170 (F1~ 98.48)  hieu -0.401 [-0.701;-0.113] p=0.0192 holm=-  T/H/Th 2/9/11
+  oracle    logitTB  4.802 (F1~ 99.19)  hieu +0.231 [+0.021;+0.574] p=0.0431 holm=-  T/H/Th 5/17/0
+xep hang tho F1: ['gate', 'rrcv', 'gate4', 'rrplaus', 'fuse', 'peakprob', 'learned']
+van de hau kiem bien mat: False
+
+== CinC60 logit dung dau: {'A': 'gate4', 'B': 'gate4', 'C': 'gate4'}
+
+== AM TINH GIA phep thu nhin thay
+  s22|psd        n_TP  35307  am tinh gia 0.049 [0.005;0.104]  trung vi ban 0.002  p90 0.238  >10%: 3 ban  | tang: {'F1>=90': 0.004953686424863434, '50<=F1<90': 0.2720260541652383, 'F1<50': None} | a/b tho 78/171, frac_a hc 0.2922058652720421
+  cinc60|psd     n_TP   6365  am tinh gia 0.180 [0.121;0.250]  trung vi ban 0.209  p90 0.759  >10%: 31 ban  | tang: {'F1>=90': 0.03129625713681539, '50<=F1<90': 0.5520728008088979, 'F1<50': 0.6955177743431221} | a/b tho 43/803, frac_a hc 0.0010742029398514992
+  cinc75|psd     n_TP   8289  am tinh gia 0.138 [0.093;0.192]  trung vi ban 0.007  p90 0.708  >10%: 31 ban  | tang: {'F1>=90': 0.022696527882158424, '50<=F1<90': 0.5520728008088979, 'F1<50': 0.6955177743431221} | a/b tho 43/803, frac_a hc 0.0010194663195810993
+  s22|oracle     n_TP  35932  am tinh gia 0.015 [0.004;0.031]  trung vi ban 0.004  p90 0.030  >10%: 1 ban  | tang: {'F1>=90': 0.010588301908159221, '50<=F1<90': 0.28032786885245903, 'F1<50': None} | a/b tho 56/52, frac_a hc 0.5011791287810626
+  cinc60|oracle  n_TP   7161  am tinh gia 0.164 [0.112;0.227]  trung vi ban 0.039  p90 0.649  >10%: 29 ban  | tang: {'F1>=90': 0.03904515173945226, '50<=F1<90': 0.5094476744186046, 'F1<50': 0.6929133858267716} | a/b tho 57/472, frac_a hc 0.07349472346750921
+  cinc75|oracle  n_TP   9086  am tinh gia 0.142 [0.098;0.193]  trung vi ban 0.015  p90 0.639  >10%: 32 ban  | tang: {'F1>=90': 0.044207941056078594, '50<=F1<90': 0.5094476744186046, 'F1<50': 0.6929133858267716} | a/b tho 57/472, frac_a hc 0.07146155963757891
+kiem tai lap: {'s22_psd_do_nhay': 0.9509162489024839, 'cinc75_psd_do_nhay': 0.8616238388225359, 'ghi_chu': 'vong truoc: 0,951 (22) / 0,862 (CinC 75), tinh bang trong so TP tren per_lead sens_test_on_TP'}
+dac hieu ngoai mau 3 ban: {"khop_tau_tat_ca": true, "fp_an_toan_ngoai_mau_median": 0.05433333333333333, "fp_an_toan_ngoai_mau_max": 0.067, "fp_dinh_me_median": 0.3791181115806548, "fp_dinh_me_max": 0.8353909465020576, "fp_diem_giua_median": 0.04778858705491134, "fp_diem_giua_max": 0.06281833616298811, "ghi_chu": "chi 3 ban kho trong mien (B1_06, B1_07, B2_03) co phan du luu san; khong dai dien cho CinC"}
+
+== DU DIA 60 sach: tong 16.40
+  nhin_thay_tho|0.3            n=13  12.20 diem  74.4%
+  nhin_thay_hieu_chinh|0.3     n= 0  0.00 diem  0.0%
+  nhin_thay_tho|0.5            n=17  14.11 diem  86.0%
+  nhin_thay_hieu_chinh|0.5     n= 4  4.26 diem  26.0%
+  nhin_thay_tho|0.7            n=20  14.92 diem  91.0%
+  nhin_thay_hieu_chinh|0.7     n=12  11.18 diem  68.2%
+doi nhom khi hieu chinh (0,5): ['a07', 'a16', 'a18', 'a32', 'a38', 'a50', 'a54', 'a60', 'a63', 'a64', 'a68', 'a71', 'a75']
+
+== SEED: fold giong: False | psd_lead trung 22 /22
+  F1_psd    seed0 97.56 seed1 97.59 hieu +0.03 [-0.18;+0.34] p=0.301  |d|>1: 1  |d|>5: 0  max 2.81 (B2_03)
+  F1_mean4  seed0 96.59 seed1 96.59 hieu -0.01 [-0.14;+0.11] p=0.775  |d|>1: 0  |d|>5: 0  max 0.74 (B1_10)
+  F1_oracle seed0 98.63 seed1 98.59 hieu -0.04 [-0.24;+0.17] p=0.301  |d|>1: 2  |d|>5: 0  max 1.57 (B1_07)
+
+DONE -> D:\NCKHSV2026-2027\analysis\xacnhan_results.json

@@ -1,24 +1,25 @@
 # -*- coding: utf-8 -*-
 """
-Chạy lõi demo trên các bản ghi có nhãn, chọn kênh tự động (PSD, mù nhãn), rồi chấm đèn tin cậy
-ở một hoặc cả hai chế độ (`--mode hoc | luat | ca_hai`) và ghi:
+Chạy lõi demo trên các bản ghi mẫu có nhãn (core.sample_records), chọn kênh tự động mù nhãn
+(`--lead peakprob | psd`, mặc định peakprob), rồi chấm đèn tin cậy ở một hoặc cả hai chế độ
+(`--mode hoc | luat | ca_hai`) và ghi:
     demo/results/demo_check_2modes.json / .log   (mặc định, --mode ca_hai)
-    demo/results/demo_check_<mode>.json / .log   (chế độ đơn)
+    demo/results/<--out>.json / .log
 Không dùng nhãn để chọn bất cứ thứ gì; nhãn chỉ để chấm F1 sau khi đã phân tích.
 
-Bản ghi (32):
-    5  ADFECGDB  r01 r04 r07 r08 r10           checkpoint fold rXX (chưa từng thấy rXX), 300 s, nhãn điện cực da đầu
-    10 CinC 2013 set-a a01..a10               production (zero-shot), 60 s
-    17 Silesia   B1_01..10 (thai kỳ, 20 phút, nhãn GIÁN TIẾP) + B2_03,04,05,06,08,09,12 (chuyển dạ, 5 phút, nhãn da đầu)
-                 production (zero-shot). Loại B2_01,02,07,10,11 vì chính là r01,r10,r04,r07,r08 của ADFECGDB
-                 (benchmark_dpss/silesia_eval.json['leak_check']: NCC 0,988–0,994).
+Bản ghi (mô hình 22 chủ thể, checkpoint theo core.checkpoint_for):
+    5  ADFECGDB  r01 r04 r07 r08 r10           fold 22 ca không chứa chủ thể, 300 s, nhãn điện cực da đầu
+    60 CinC 2013 set-a SẠCH                    22_production (zero-shot), 60 s. 15 bản RÒ RỈ (bản sao ADFECGDB)
+                                              bị loại mặc định (--include-leak để chạy cả, chỉ để đối chiếu)
+    17 Silesia   B1_01..10 (thai kỳ, 20 phút, nhãn GIÁN TIẾP) + B2_03,04,05,06,08,09,12 (chuyển dạ, 5 phút)
+                 fold 22 ca không chứa chủ thể. Loại B2_01,02,07,10,11 vì trùng ADFECGDB.
     + r01 kênh 4 thủ công (mốc kiểm thử).
 JSON được ghi lại sau MỖI bản ghi -> ngắt giữa chừng vẫn giữ được phần đã chạy.
 
 Chạy:  python demo/run_check.py --mode ca_hai --threads 2
-       python demo/run_check.py --mode luat --no-silesia        # tái tạo bảng 15 bản ghi cũ
+       python demo/run_check.py --only r01,a09,B2_03,a02,a27 --out demo_check_showcase   # 5 bản minh hoạ
 """
-import os, sys, json, time, argparse, importlib.util, traceback
+import os, sys, json, time, argparse, traceback
 
 
 def _args():
@@ -27,7 +28,10 @@ def _args():
                     help="chế độ đèn tin cậy: 'hoc' (GBM), 'luat' (quy tắc cứng), 'ca_hai' (mặc định)")
     ap.add_argument('--threads', type=int, default=None,
                     help='số luồng torch (đặt RELYFETAL_THREADS; đồng thời OMP/OPENBLAS/MKL_NUM_THREADS=1). Mặc định: core.py (4)')
-    ap.add_argument('--no-silesia', action='store_true', help='bỏ 17 bản ghi Silesia (chỉ 15 bản ghi ADFECGDB + CinC)')
+    ap.add_argument('--no-silesia', action='store_true', help='bỏ 17 bản ghi Silesia')
+    ap.add_argument('--lead', choices=('peakprob', 'psd'), default='peakprob', help='quy tắc chọn kênh mù nhãn (mặc định peakprob)')
+    ap.add_argument('--only', default='', help='chỉ chạy các bản ghi này (phẩy), ví dụ r01,a09,B2_03,a02,a27')
+    ap.add_argument('--include-leak', action='store_true', help='chạy cả 15 bản CinC rò rỉ (mặc định loại)')
     ap.add_argument('--out', default=None, help='tên gốc tệp kết quả trong demo/results (không đuôi)')
     return ap.parse_args()
 
@@ -43,8 +47,6 @@ ROOT = os.path.dirname(HERE)
 import numpy as np                      # noqa: E402  (sau khi đặt biến môi trường luồng)
 import core                             # noqa: E402
 
-SILESIA_RECS = tuple(f'B1_{i:02d}' for i in range(1, 11)) + ('B2_03', 'B2_04', 'B2_05', 'B2_06', 'B2_08', 'B2_09', 'B2_12')
-SILESIA_EXCLUDED = {'B2_01': 'r01', 'B2_02': 'r10', 'B2_07': 'r04', 'B2_10': 'r07', 'B2_11': 'r08'}   # silesia_eval.json leak_check
 MODES = ('hoc', 'luat') if ARGS.mode == 'ca_hai' else (ARGS.mode,)
 OUT = os.path.join(HERE, 'results'); os.makedirs(OUT, exist_ok=True)
 BASE = ARGS.out or ('demo_check_2modes' if ARGS.mode == 'ca_hai' else f'demo_check_{ARGS.mode}')
@@ -56,46 +58,25 @@ def say(*a):
     s = ' '.join(str(x) for x in a); print(s, flush=True); LOG.write(s + '\n'); LOG.flush()
 
 
-def _silesia_loader():
-    p = os.path.join(ROOT, 'model', 'silesia_loader.py')
-    spec = importlib.util.spec_from_file_location('silesia_loader', p)
-    m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
-    return m
-
-
-def silesia_record(SL, rid):
-    """model/silesia_loader.load(id) -> dict giống core.load_record (4 kênh bụng A1..A4 @1000 Hz, nhãn @1000 Hz)."""
-    abd, fq, meta = SL.load(rid)
-    return dict(name=rid, signals=np.asarray(abd, float), lead_names=['A1', 'A2', 'A3', 'A4'], fs=1000,
-                fs_orig=float(meta['fs_native']), labels=np.asarray(fq, int), source='Silesia',
-                duration_s=abd.shape[1] / 1000.0,
-                extra=dict(stage=meta['stage'], reference_source=meta['reference_source'],
-                           n_fqrs=int(meta['n_fqrs']), n_fqrs_flag0=int(meta['n_fqrs_flag0']),
-                           fhr_median_label_bpm=float(meta['fhr_median_bpm'])))
-
-
 def jobs():
     recs = core.sample_records()
+    only = set(x.strip() for x in ARGS.only.split(',') if x.strip())
     out = []
-    for n in recs:
-        out.append(dict(name=n, dataset=recs[n]['dataset'], lead='auto', kind='sample', path=recs[n]['path']))
-    if not ARGS.no_silesia:
-        try:
-            SL = _silesia_loader(); SL.silesia_dir()
-            for rid in SILESIA_RECS:
-                out.append(dict(name=rid, dataset='Silesia ' + rid[:2] + (' thai kỳ' if rid.startswith('B1') else ' chuyển dạ'),
-                                lead='auto', kind='silesia', loader=SL))
-        except SystemExit as e:
-            say(f'!! bỏ qua Silesia: {e}')
-    if 'r01' in recs:
-        out.append(dict(name='r01', dataset=recs['r01']['dataset'], lead=4, kind='sample', path=recs['r01']['path']))
+    for n, info in recs.items():
+        if only and n not in only:
+            continue
+        if info.get('leak') and not ARGS.include_leak:
+            continue
+        if info['kind'] == 'silesia' and ARGS.no_silesia:
+            continue
+        out.append(dict(name=n, dataset=info['dataset'], lead=ARGS.lead, kind=info['kind'], note=info.get('note', '')))
+    if 'r01' in recs and (not only or 'r01' in only):
+        out.append(dict(name='r01', dataset=recs['r01']['dataset'], lead=4, kind='edf', note='mốc kiểm thử'))
     return out
 
 
 def load(job):
-    if job['kind'] == 'silesia':
-        return silesia_record(job['loader'], job['name'])
-    return core.load_record(job['path'])
+    return core.load_sample(job['name'])
 
 
 def fmt_row(name, dataset, s):
@@ -107,7 +88,7 @@ def fmt_row(name, dataset, s):
         cells += f'{c["level"]:>11}{c["score"]:>7.3f}'
     lock = s['confidence']['components'].get('maternal_lock')
     gate_ms = bm['hoc']['components'].get('gate_ms') if 'hoc' in bm else None
-    return (f'{name:<8}{dataset:<20}{s["checkpoint"].replace("fetalqrs_tcn_", "").replace(".pt", ""):<12}'
+    return (f'{name:<8}{dataset:<20}{s["checkpoint"].replace("fetalqrs_tcn_", "").replace(".pt", ""):<14}'
             f'{s["lead"]:>3}{s["duration_s"]:>6.0f}{s["n_beats"]:>6}{(s["fhr_mean"] or float("nan")):>7.1f}'
             f'{m.get("F1", float("nan")):>8.2f}{m.get("Se", float("nan")):>7.2f}{m.get("PPV", float("nan")):>7.2f}'
             f'{cells}{(lock if lock is not None else float("nan")):>7.2f}{s["latency_ms"]:>7.0f}'
@@ -116,13 +97,13 @@ def fmt_row(name, dataset, s):
 
 def header():
     cells = ''.join(f'{"đèn(" + md + ")":>11}{"điểm":>7}' for md in MODES)
-    return (f'{"bản ghi":<8}{"bộ dữ liệu":<20}{"checkpoint":<12}{"k":>3}{"s":>6}{"nhịp":>6}{"fHR":>7}'
+    return (f'{"bản ghi":<8}{"bộ dữ liệu":<20}{"checkpoint":<14}{"k":>3}{"s":>6}{"nhịp":>6}{"fHR":>7}'
             f'{"F1":>8}{"Se":>7}{"PPV":>7}{cells}{"bám mẹ":>7}{"ms":>7}{"gate":>7}')
 
 
 def aggregate(rows):
     """Cho từng chế độ: bảng đèn x {n, F1 TB/min/max}, lỗi nguy hiểm, lỗi thận trọng, macro F1 và độ phủ."""
-    auto = {k: s for k, s in rows.items() if 'metrics' in s and s['lead_requested'] == 'auto'}
+    auto = {k: s for k, s in rows.items() if 'metrics' in s and s['lead_requested'] in ('auto', 'peakprob', 'psd')}
     summ = {}
     for md in MODES:
         lv = {}; ds = {}
@@ -178,10 +159,12 @@ def dump(rows, summ, t0, done, total, suggested=None):
         except Exception as e:
             gate = dict(error=str(e))
     json.dump(dict(generated=time.strftime('%Y-%m-%d %H:%M:%S'), mode=ARGS.mode, modes=list(MODES),
+                   lead_rule=ARGS.lead, only=ARGS.only, include_leak=ARGS.include_leak, gate_note=core.GATE_NOTE,
                    torch_threads=core.torch.get_num_threads(), runtime_s=time.time() - t0,
                    records_done=done, records_total=total, complete=done == total,
                    rule=core.CONF_RULE, gate=gate,
-                   silesia_records=list(SILESIA_RECS), silesia_excluded_duplicates_of_adfecgdb=SILESIA_EXCLUDED,
+                   silesia_records=list(core.SILESIA_RECS), silesia_excluded_duplicates_of_adfecgdb=core.SILESIA_DUP,
+                   cinc_leak=core.CINC_LEAK, cinc_bad_annotation=list(core.CINC_BAD_ANN),
                    rows=rows, summary_by_mode=summ, suggested_default=suggested),
               open(JSON_PATH, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
 
@@ -189,7 +172,8 @@ def dump(rows, summ, t0, done, total, suggested=None):
 def main():
     t0 = time.time()
     J = jobs()
-    say(f'RelyFetal demo -- kiểm tra lõi, chế độ đèn = {ARGS.mode}, {len(J)} lần phân tích  ({time.strftime("%Y-%m-%d %H:%M:%S")})')
+    say(f'RelyFetal demo -- kiểm tra lõi, chế độ đèn = {ARGS.mode}, chọn kênh = {ARGS.lead}, {len(J)} lần phân tích  ({time.strftime("%Y-%m-%d %H:%M:%S")})')
+    say(core.GATE_NOTE)
     say(f'torch threads = {core.torch.get_num_threads()}  OMP_NUM_THREADS={os.environ.get("OMP_NUM_THREADS")}')
     say('=' * 140); say(header()); say('-' * 140)
     rows = {}; summ = {}
@@ -202,6 +186,7 @@ def main():
             s['dataset'] = job['dataset']; s['lead_requested'] = str(lead)
             s['dataset_group'] = ('ADFECGDB' if job['dataset'].startswith('ADFECGDB') else
                                   'CinC' if job['dataset'].startswith('CinC') else job['dataset'].split()[1])
+            s['note'] = job.get('note', ''); s['leak'] = name in core.CINC_LEAK; s['bad_annotation'] = name in core.CINC_BAD_ANN
             s['n_labels'] = int(len(rec['labels'])) if rec.get('labels') is not None else None
             if rec.get('extra'):
                 s['silesia'] = rec['extra']

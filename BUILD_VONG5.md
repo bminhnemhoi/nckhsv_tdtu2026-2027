@@ -1,3 +1,8 @@
+> **Báo cáo vòng cũ — giữ để truy vết, KHÔNG phải trạng thái hiện hành.** Nhiều con số trong tệp này đã rút
+> (mẫu 10 bản CinC; 75 bản CinC nhiễm 15 bản sao ADFECGDB; Power-MF cổng chuyển hỏng; +11,00 dải lọc; "8 kiến
+> trúc"; "mô hình không phải nút thắt"; "Physiological Measurement là Q1"). Số hiện hành: `README.md` mục
+> *Retractions* và `survey/facts_phase4.json`.
+
 # BUILD VÒNG 5 — sinh lại hình, dựng lại tài liệu, kiểm sạch số liệu trên chính PDF/DOCX
 
 **Ngày:** 12/09/2026 · **Tác nhân:** E2 (sinh lại hình và bản dựng)

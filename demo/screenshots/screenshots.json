@@ -1,15 +1,23 @@
 {
  "port": 7862,
  "shots": {
-  "01_r01_tin_hieu.png": 570028,
-  "04_r01_the_so.png": 84216,
-  "02_r01_fhr.png": 266424,
-  "03_r01_so_sanh.png": 306417,
-  "05_a02_den_do.png": 263878,
-  "06_a02_tin_hieu.png": 513624
+  "01_r01_tong_quan.png": 672527,
+  "02_r01_the_so.png": 156826,
+  "03_r01_so_sanh.png": 411701,
+  "04_a09_chon_kenh.png": 506509,
+  "05_a09_the_so.png": 155400
  },
- "ok": true,
- "first_result_s": 13.2,
- "r01_cards": "FHR TRUNG BÌNH\n129 bpm\nmedian RR trong từng cửa sổ 4 s\nSỐ NHỊP THAI PHÁT HIỆN\n644\n300 s · kênh 4 (auto (PSD))\nĐÈN TIN CẬY\n● CAO (xanh)\nđiểm 0.86 / 1 — quy tắc cứng tạm thời, sẽ thay bằng fSQI tô-pô\nNăng lượng 10–60 Hz trên phần dư: 31% (trung gian)\nKhoảng RR: CV = 0.05 (hơi bất thường)\n100% đỉnh có xác suất > 0.9\nfHR trung bình 129 bpm nằm trong 100–200 bpm\n16% nhịp thai trùng đỉnh R mẹ (±50 ms; ngẫu nhiên ≈ 13–22%)\nTHỜI GIAN XỬ LÝ\n690 ms\ntiền xử lý + khử mẹ + mô hình, CPU 4 luồng · toàn bộ kể cả đọc file & vẽ: 1,560 ms\ncheckpoint: fold r01 (bản ghi r01 KHÔNG nằm trong tập huấn luyện)",
- "a02_cards": "FHR TRUNG BÌNH\n126 bpm\nmedian RR trong từng cửa sổ 4 s\nSỐ NHỊP THAI PHÁT HIỆN\n125\n60 s · kênh 2 (auto (PSD))\nĐÈN TIN CẬY\n● THẤP (đỏ)\nđiểm 0.87 / 1 — quy tắc cứng tạm thời, sẽ thay bằng fSQI tô-pô\nNăng lượng 10–60 Hz trên phần dư: 69% (tập trung ở dải QRS thai)\nKhoảng RR: CV = 0.13 (hơi bất thường)\n90% đỉnh có xác suất > 0.9\nfHR trung bình 126 bpm nằm trong 100–200 bpm\n97% nhịp thai trùng đỉnh R mẹ (±50 ms; ngẫu nhiên ≈ 13–22%) → mô hình đang BÁM NHỊP MẸ\nTHỜI GIAN XỬ LÝ\n173 ms\ntiền xử lý + khử mẹ + mô hình, CPU 4 luồng · toàn bộ kể cả đọc file & vẽ: 316 ms\ncheckpoint: production (huấn luyện trên toàn bộ ADFECGDB)"
+ "records": {
+  "r01 (autorun)": {
+   "wall_s": 15.2,
+   "cards": "FHR TRUNG BÌNH | 129 bpm | median RR trong từng cửa sổ 4 s · 645 nhịp thai / 300 s | KÊNH ĐƯỢC CHỌN (AUTO (PEAKPROB)) | kênh 4 / 4 | k1: 0.998 · F1 100.0 | k2: 0.998 · F1 99.8 | k3: 0.998 · F1 100.0 | k4: 0.998 · F1 99.9 | quy tắc peakprob — trung vị xác suất tại đỉnh, chạy mô hình trên mọi kênh | Đ"
+  },
+  "a09": {
+   "wall_s": 187.8,
+   "cards": "FHR TRUNG BÌNH | 130 bpm | median RR trong từng cửa sổ 4 s · 131 nhịp thai / 60 s | KÊNH ĐƯỢC CHỌN (AUTO (PEAKPROB)) | kênh 1 / 4 | k1: 0.990 · F1 94.3 | k2: 0.905 · F1 19.4 | k3: 0.919 · F1 37.1 | k4: 0.932 · F1 35.4 | quy tắc peakprob — trung vị xác suất tại đỉnh, chạy mô hình trên mọi kênh | ĐÈN "
+  }
+ },
+ "ok": false,
+ "first_result_s": 15.2,
+ "error": "TimeoutError: Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for get_by_role(\"button\", name=\"Phân tích\")\n    - locator resolved to <button class=\"lg primary  svelte-xzq5jh\">…</button>\n  - attempting click action\n    - waiting for element to be visible, enabled and stable\n    - element is visible, enabled and stable\n    - scrolling into view if needed\n    - done scrolling\n    - performing click action\n"
 }

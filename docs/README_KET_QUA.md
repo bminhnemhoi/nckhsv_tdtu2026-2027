@@ -1,3 +1,8 @@
+> **Báo cáo vòng cũ — giữ để truy vết, KHÔNG phải trạng thái hiện hành.** Nhiều con số trong tệp này đã rút
+> (mẫu 10 bản CinC; 75 bản CinC nhiễm 15 bản sao ADFECGDB; Power-MF cổng chuyển hỏng; +11,00 dải lọc; "8 kiến
+> trúc"; "mô hình không phải nút thắt"; "Physiological Measurement là Q1"). Số hiện hành: `README.md` mục
+> *Retractions* và `survey/facts_phase4.json`.
+
 # Đề tài fECG đơn kênh — RelyFetal
 
 Cập nhật 12/09/2026 (chiều), phiên bản **3.4**.

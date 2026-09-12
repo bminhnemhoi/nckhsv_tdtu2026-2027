@@ -11,14 +11,16 @@ authors:
 repository-code: "https://github.com/bminhnemhoi/nckhsv_tdtu2026-2027"
 abstract: >-
   A reproducible pipeline for detecting fetal QRS complexes from single-channel
-  abdominal electrocardiography, together with the experimental evidence behind
-  every design decision. The central result is a three-tier contribution
-  decomposition showing that the signal front-end contributes +11.00 macro F1
-  points while the choice of network architecture family, at fixed temporal
-  context, contributes only +0.41 points and is not statistically significant
-  (paired Wilcoxon, p = 0.7012). The repository also documents a bimodal
-  cross-dataset failure mode that motivates a persistent-homology signal-quality
-  index with a reject option.
+  abdominal electrocardiography, with the experimental evidence behind every
+  design decision and every retraction recorded in place. A 113,481-parameter
+  dilated temporal convolutional network reaches 97.56 macro F1 over 22
+  independent women (label-blind lead), against 98.83 for the four-lead Power-MF
+  pipeline re-run locally and 86.71 for Power-MF restricted to one lead. On the
+  60 CinC 2013 set-a records that are not copies of the training data (the
+  overlap was documented by the Challenge organisers; we identified the 15
+  records by measurement) the label-blind score is 74.28. The proposed
+  persistent-homology signal-quality index is reported as a negative result
+  (AUROC 0.566 vs 0.929 for classical indices); a classical reject gate is kept.
 keywords:
   - fetal electrocardiography
   - fetal QRS detection
@@ -30,8 +32,8 @@ keywords:
   - reproducible research
 license: MIT
 license-url: "https://github.com/bminhnemhoi/nckhsv_tdtu2026-2027/blob/main/LICENSE"
-version: "3.0"
-date-released: "2026-09-09"
+version: "3.5"
+date-released: "2026-09-12"
 references:
   - type: database
     title: "Abdominal and Direct Fetal ECG Database (ADFECGDB)"

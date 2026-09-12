@@ -2,7 +2,7 @@
 """
 Khởi động thử demo Gradio (không mở trình duyệt) -- kiểm tra 3 tầng:
   1. server lên, HTTP GET / trả 200
-  2. gọi TRỰC TIẾP hàm xử lý app.run() theo đúng đường đi của nút "Phân tích" với r01 (tự động chọn kênh)
+  2. gọi TRỰC TIẾP hàm xử lý app.run() theo đúng đường đi của nút "Phân tích" với r01 (tự động chọn kênh peakprob)
      -> phải có F1 trong JSON tóm tắt
   3. gọi qua gradio_client (API /run) -- nếu phiên bản gradio hỗ trợ; lỗi ở tầng này chỉ cảnh báo
 Ghi demo/results/smoke_app.json.  Chạy:  python demo/smoke_app.py
@@ -48,9 +48,10 @@ try:
     # ---------------------------------------------------------------- 2. gọi thẳng hàm xử lý
     label = next(l for l, n in app.REC_LABELS.items() if n == 'r01')
     t0 = time.perf_counter()
-    fig1, fig2, cards, cmp_md, cmp_df, summ, status = app.run('Bản ghi mẫu', None, label, app.LEAD_CHOICES[0], 1000)
+    fig1, fig_leads, leads_md, fig2, cards, cmp_md, cmp_df, summ, status = app.run('Bản ghi mẫu', None, label, app.LEAD_CHOICES[0], 1000)
     res['direct_wall_s'] = round(time.perf_counter() - t0, 2)
-    assert fig1 is not None and fig2 is not None and 'rf-cards' in cards
+    assert fig1 is not None and fig2 is not None and fig_leads is not None and 'rf-cards' in cards
+    assert summ['lead_rule'] == 'peakprob' and len(summ['leads']) == 4
     assert 'metrics' in summ and summ['metrics']['F1'] is not None
     res['direct'] = dict(record=summ['record'], lead=summ['lead'], checkpoint=summ['checkpoint'],
                          F1=summ['metrics']['F1'], Se=summ['metrics']['Se'], PPV=summ['metrics']['PPV'],
@@ -73,8 +74,8 @@ try:
         ep = '/run' if '/run' in names else (names[0] if names else None)
         assert ep, 'không có endpoint nào'
         t0 = time.perf_counter()
-        out = cl.predict('Bản ghi mẫu', None, label, app.LEAD_CHOICES[0], 1000, api_name=ep)
-        js = out[5]
+        out = cl.predict('Bản ghi mẫu', None, label, app.LEAD_CHOICES[0], 1000, app.CONF_CHOICES[0], None, api_name=ep)
+        js = out[7]
         if isinstance(js, str):
             js = json.loads(js)
         res['client'] = dict(endpoint=ep, wall_s=round(time.perf_counter() - t0, 2), n_outputs=len(out),

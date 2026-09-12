@@ -1,3 +1,11 @@
+> **⚠ CẢNH BÁO (12/09/2026, sau vòng 7).** Tài liệu này được viết khi CinC 2013 set-a còn được tính trên **75 bản ghi**. Sau đó xác định 15 bản (a03 a04 a05 a08 a12 a13 a14 a15 a17 a19 a20 a22 a23 a24 a25) là bản sao nguyên văn của dữ liệu huấn luyện ADFECGDB — điều ban tổ chức đã ghi nhận [Silva 2013; Clifford 2014] và nhóm đã bỏ sót. **Mọi con số CinC dưới đây (79,40 / 85,60 / 86,87 / 71,21 / 62,82, AUROC 0,980…) bị thổi 3–7 điểm và đã bị rút.** Số chính thức trên **60 bản sạch**: PSD 74,28 · peakprob 82,01 · oracle 83,60 (`analysis/dulieu_results.json`, `benchmark_dpss/eval_cinc60_sach.json`). Kết luận định tính trong tài liệu giữ nguyên trừ khi ghi khác trong `THAMDINH_VONG7.md`. Cụm "tiền đăng ký" trong tài liệu này **không đúng** — tệp khai báo không neo git.
+
+> **Đính chính vòng 7 (12/09/2026).** Mục 0 dưới đây trình bày sự chồng lấn CinC set-a ↔ ADFECGDB như một
+> phát hiện của nhóm. **Không phải.** Ban tổ chức đã ghi nhận từ 2013 (Silva 2013, Bảng 1; Clifford 2014,
+> Bảng 2 và cảnh báo về Rodrigues) — xem `survey/RO_RI_VANLIEU.md` và mục 6.12 đã sửa. Phần của nhóm là
+> định danh đúng 15 bản ghi và đo mức thổi phồng. Mọi số 75 bản trong tệp này (79,40 / 85,60 / +6,20 …) đã
+> rút; số hiện hành ở `benchmark_dpss/eval_cinc60_sach.json` và `survey/facts_phase4.json`.
+
 # M4 — Dữ liệu huấn luyện đã tốt chưa?
 
 Kiểm toán nhãn · chồng lấn dữ liệu · đường cong số chủ thể · tăng cường · cân bằng nguồn.
@@ -680,9 +688,18 @@ nhiều bậc.
     Không fold nào được chọn ngẫu nhiên: fold 4, 10, 11 được chọn **vì** chúng chứa các bản ghi
     khó đã biết. Đó là lựa chọn có chủ đích nhằm tăng phương sai quan sát được, và nó làm mẫu
     **không đại diện** cho 22 chủ thể. Hiệu số đo ở đây không suy rộng ra toàn tập được.
-12. **Danh sách 15 bản ghi rò rỉ là kết quả của nhóm, chưa đối chiếu với y văn.** Nếu đã có công
-   bố nào ghi nhận sự chồng lấn này thì phải trích dẫn; nhóm **chưa tìm**. Không được viết
-   trong bài báo rằng đây là phát hiện của mình khi chưa kiểm.
+12. **(Đã đối chiếu y văn ở vòng 7 — `survey/RO_RI_VANLIEU.md`.) Sự chồng lấn set-a ↔ ADFECGDB KHÔNG phải
+   phát hiện của nhóm.** Ban tổ chức đã ghi từ 2013: Silva và cs., CinC 2013;40:149–152, Bảng 1
+   ("Abdominal and Direct FECG — 25"); Clifford và cs., Physiol Meas 2014;35:1521, Bảng 2, kèm cảnh báo
+   nguyên văn: *"The authors also used the MIT Abdominal and Direct Fetal Electrocardiogram Database in order
+   to train their algorithm, which may have led to a bias in the results as this database was included in
+   set-a, set-b (and possibly a few records in set-c)."* Câu này đã nằm trong ghi chú đọc bài của chính nhóm
+   (`de_cuong_latex/tables/bang_baihoc.tex`, mục p20) — **nhóm bỏ sót một cảnh báo đã biết**, và bản trước
+   của mục này ghi "nhóm chưa tìm" là sai. Cái mới của nhóm chỉ ở mức bản ghi: định danh đúng 15 bản
+   (a03 a04 a05 a08 a12 a13 a14 a15 a17 a19 a20 a22 a23 a24 a25), cửa sổ 0–60/120–180/240–300 s,
+   NCC = 1,0000 đúng thứ tự 4 kênh, và mức thổi phồng 3,27–7,18 điểm. Phát biểu đúng: *"Như ban tổ chức đã
+   ghi nhận [Silva 2013; Clifford 2014], set-a chứa bản ghi ADFECGDB; chúng tôi xác định bằng đo lường đúng
+   15 bản ghi nào và mức thổi phồng."* **Không** viết "chúng tôi phát hiện rò rỉ".
 
 ---
 

@@ -1,0 +1,18 @@
+{
+ "mo_ta": "Ti le mang DON KENH lay lai duoc bao nhieu phan loi ich cua TACH NGUON DA KENH (Power-MF 4 kenh vs 1 kenh), 22 chu the",
+ "nguon": "baselines/powermf_fair_stats.json per_subject",
+ "seed": 0,
+ "n_boot": 10000,
+ "gia_tri_da_kenh_diem": 12.1212,
+ "phan_lay_lai_diem": 10.847,
+ "ti_le_pct": 89.49,
+ "ktc95_cluster_bootstrap_chu_the": [
+  81.4,
+  103.16
+ ],
+ "jackknife_bo_tung_chu_the_min_max": [
+  88.62,
+  93.43
+ ],
+ "ti_le_boot_tren_80pct": 99.1
+}

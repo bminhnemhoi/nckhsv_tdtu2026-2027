@@ -38,7 +38,25 @@ FS_IN = 1000            # mọi bản ghi được đưa về 1000 Hz trước k
 FS = CFG['fs']          # 250 Hz sau tiền xử lý
 FHR_BAND = (1.8, 3.0)   # 108-180 bpm -- dải chọn kênh của Power-MF (Jaeger 2024)
 ADFECGDB_RECS = ('r01', 'r04', 'r07', 'r08', 'r10')
-CINC_RECS = tuple(f'a{i:02d}' for i in range(1, 11))
+CINC_RECS = tuple(f'a{i:02d}' for i in range(1, 76))
+# 15 bản ghi CinC set-a là BẢN SAO NGUYÊN VĂN của ADFECGDB (analysis/DULIEU.md: NCC = 1,0000, lệch RR = 0,0 ms)
+# -> KHÔNG phải ngoài miền; không được dùng làm ví dụ "zero-shot".
+CINC_LEAK = {'a04': 'r01', 'a05': 'r01', 'a22': 'r01', 'a13': 'r04', 'a20': 'r04', 'a25': 'r04',
+             'a19': 'r07', 'a23': 'r07', 'a24': 'r07', 'a08': 'r08', 'a15': 'r08', 'a17': 'r08',
+             'a03': 'r10', 'a12': 'r10', 'a14': 'r10'}
+CINC_BAD_ANN = ('a33', 'a38', 'a47', 'a52', 'a54', 'a71', 'a74')     # 7 bản chú thích sai đã khai báo trước
+CINC_CLEAN = tuple(r for r in CINC_RECS if r not in CINC_LEAK)      # 60 bản sạch -- số chính của đề tài
+SILESIA_RECS = tuple(f'B1_{i:02d}' for i in range(1, 11)) + ('B2_03', 'B2_04', 'B2_05', 'B2_06', 'B2_08', 'B2_09', 'B2_12')
+SILESIA_DUP = {'B2_01': 'r01', 'B2_02': 'r10', 'B2_07': 'r04', 'B2_10': 'r07', 'B2_11': 'r08'}   # trùng PhysioNet, loại
+# 22 chủ thể huấn luyện (5 ADFECGDB + 10 Silesia B1 + 7 Silesia B2) -> checkpoint fold KHÔNG chứa chủ thể đó
+SUBJECTS_22 = ADFECGDB_RECS + SILESIA_RECS
+LEAD_RULES = ('peakprob', 'psd')
+LEAD_RULE_DEFAULT = 'peakprob'
+LEAD_RULE_LABEL = {'peakprob': 'auto (peakprob)', 'psd': 'auto (PSD)'}
+SEG_S = 4.0             # đoạn 4 s dùng cho peakprob và cho đèn tin cậy học (cùng lưới)
+
+# Bản ghi minh hoạ cho buổi demo (docs/HUONG_DAN_DEMO.md). Lý do chọn ở đó; con số kiểm bằng demo/run_check.py.
+DEMO_SHOWCASE = ('r01', 'a09', 'B2_03', 'a02', 'a27')
 
 # --------------------------------------------------------------------------- quy tắc đèn tin cậy
 # Ngưỡng CỐ ĐỊNH TRƯỚC, không tinh chỉnh trên bản ghi đánh giá (xem README, mục "Đèn tin cậy").
@@ -61,6 +79,10 @@ CONFIDENCE_MODES = ('hoc', 'luat', 'ca_hai')
 CONFIDENCE_MODE_DEFAULT = 'hoc'
 CONF_MODE_LABEL = {'hoc': 'học (GBM trên 12 chỉ số cổ điển / đoạn 4 s, fsqi/gate.py)',
                    'luat': 'luật cứng (4 thành phần, ngưỡng đặt tay)'}
+# Cổng đang dùng là bản hiệu chuẩn trên MÔ HÌNH 5 CA (fsqi/gate_classical.pkl, train_gate.py trên ADFECGDB).
+# Cổng 22 ca (analysis/GATE22.md, LOSO, AUROC trong bản ghi 0,934) hiện CHỈ là kết quả phân tích, chưa có tệp tải được.
+GATE_NOTE = ('Cổng tin cậy: GBM hiệu chuẩn trên mô hình 5 ca ADFECGDB (fsqi/gate_classical.pkl). '
+             'Cổng 22 ca trong analysis/GATE22.md chưa được xuất thành tệp -> chưa dùng ở demo.')
 
 
 # =========================================================================== dữ liệu mẫu
@@ -75,22 +97,86 @@ def cinc2013_dir():
     return _cinc2013_dir()
 
 
+_SILESIA = None
+
+
+def silesia_loader():
+    """model/silesia_loader.py (nạp lười); None nếu chưa có bộ Silesia trên đĩa."""
+    global _SILESIA
+    if _SILESIA is None:
+        try:
+            spec = importlib.util.spec_from_file_location('silesia_loader', os.path.join(ROOT, 'model', 'silesia_loader.py'))
+            m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
+            m.silesia_dir()
+            _SILESIA = m
+        except (SystemExit, Exception):        # noqa: BLE001
+            _SILESIA = False
+    return _SILESIA or None
+
+
 def sample_records():
-    """dict tên -> {path, kind, dataset}; chỉ liệt kê bản ghi thực sự có trên đĩa."""
+    """
+    dict tên -> {path|None, kind, dataset, note, group}; chỉ liệt kê bản ghi thực sự có trên đĩa.
+      ADFECGDB r01..r10 (5)     EDF, nhãn da đầu, checkpoint fold 22 ca không chứa chủ thể
+      CinC 2013 set-a a01..a75  WFDB, 60 s; 15 bản RÒ RỈ (bản sao ADFECGDB) và 7 bản nhãn sai được gắn cờ
+      Silesia B1/B2 (17)        qua model/silesia_loader.py; loại 5 bản trùng PhysioNet
+    """
     out = {}
     d = adfecgdb_dir()
     if d:
         for r in ADFECGDB_RECS:
             p = os.path.join(d, r + '.edf')
             if os.path.isfile(p):
-                out[r] = dict(path=p, kind='edf', dataset='ADFECGDB')
+                out[r] = dict(path=p, kind='edf', dataset='ADFECGDB', group='ADFECGDB', note='nhãn da đầu, 300 s')
     c = cinc2013_dir()
     if c:
         for r in CINC_RECS:
             p = os.path.join(c, r + '.hea')
             if os.path.isfile(p):
-                out[r] = dict(path=p, kind='wfdb', dataset='CinC 2013 set-a')
+                if r in CINC_LEAK:
+                    note = f'RÒ RỈ: bản sao {CINC_LEAK[r]} của ADFECGDB — KHÔNG phải ngoài miền'
+                elif r in CINC_BAD_ANN:
+                    note = 'bản sạch nhưng nhãn tham chiếu SAI (đã khai báo trước)'
+                else:
+                    note = 'bản sạch, zero-shot'
+                out[r] = dict(path=p, kind='wfdb', dataset='CinC 2013 set-a', group='CinC', note=note,
+                              leak=r in CINC_LEAK, bad_annotation=r in CINC_BAD_ANN)
+    SL = silesia_loader()
+    if SL:
+        for r in SILESIA_RECS:
+            g, i = SL.parse_record_id(r)
+            if os.path.isfile(os.path.join(SL.record_dir(g, i), f'{g}_abSignals_{i:02d}.ecg')):
+                out[r] = dict(path=None, kind='silesia', group='Silesia ' + g,
+                              dataset='Silesia ' + g + (' thai kỳ' if g == 'B1' else ' chuyển dạ'),
+                              note='nhãn GIÁN TIẾP, 20 phút' if g == 'B1' else 'nhãn da đầu, 5 phút')
     return out
+
+
+def load_silesia(rid):
+    """Silesia B1_xx / B2_xx -> dict giống load_record (4 kênh bụng A1..A4 @1000 Hz, nhãn @1000 Hz)."""
+    SL = silesia_loader()
+    if SL is None:
+        raise FileNotFoundError('Chưa có bộ Silesia trên đĩa (model/download_silesia.py)')
+    abd, fq, meta = SL.load(rid)
+    abd = np.asarray(abd, float)
+    return dict(name=rid, signals=abd, lead_names=['A1', 'A2', 'A3', 'A4'], fs=FS_IN,
+                fs_orig=float(meta['fs_native']), labels=np.asarray(fq, int), source='Silesia',
+                duration_s=abd.shape[1] / FS_IN,
+                extra=dict(stage=meta['stage'], reference_source=meta['reference_source'],
+                           n_fqrs=int(meta['n_fqrs']), fhr_median_label_bpm=float(meta['fhr_median_bpm'])))
+
+
+def load_sample(name, recs=None):
+    """Đọc một bản ghi mẫu theo tên (r01 / a09 / B2_03) -> dict như load_record."""
+    recs = recs or sample_records()
+    if name not in recs:
+        raise KeyError(f'Không có bản ghi mẫu {name!r} trên đĩa')
+    info = recs[name]
+    if info['kind'] == 'silesia':
+        return load_silesia(name)
+    rec = load_record(info['path'])
+    rec['note'] = info.get('note', '')
+    return rec
 
 
 # =========================================================================== đọc bản ghi
@@ -181,14 +267,45 @@ def load_record(path_or_array, fs=1000, lead=None, labels=None, name=None):
 
 
 # =========================================================================== mô hình
-def checkpoint_for(record_name):
-    """ADFECGDB rXX -> fold checkpoint chưa từng thấy rXX; mọi trường hợp khác -> production."""
-    n = (record_name or '').lower().strip()
-    if n in ADFECGDB_RECS:
-        p = _ckpt(f'fetalqrs_tcn_fold_{n}.pt')
+_FOLD22 = None
+
+
+def fold22_of(subject):
+    """chủ thể trong 22 ca -> số fold (chuỗi '01'..'11') mà chủ thể đó là TEST (benchmark_dpss/eval_22.json)."""
+    global _FOLD22
+    if _FOLD22 is None:
+        _FOLD22 = {}
+        p = os.path.join(ROOT, 'benchmark_dpss', 'eval_22.json')
         if os.path.isfile(p):
-            return p, f'fold {n} (bản ghi {n} KHÔNG nằm trong tập huấn luyện)'
-    return _ckpt('fetalqrs_tcn_production.pt'), 'production (huấn luyện trên toàn bộ ADFECGDB)'
+            import json
+            with open(p, encoding='utf-8') as f:
+                for fold, v in json.load(f)['folds'].items():
+                    for s in v['test_subjects']:
+                        _FOLD22[s] = fold
+    return _FOLD22.get(subject)
+
+
+def checkpoint_for(record_name):
+    """
+    Mô hình 22 chủ thể (5 ADFECGDB + 17 Silesia, grouped 11-fold):
+      * chủ thể thuộc 22 ca -> fetalqrs_tcn_22_fold_XX.pt với XX là fold KHÔNG chứa chủ thể đó
+      * mọi bản ghi khác (CinC 2013, file tải lên) -> fetalqrs_tcn_22_production.pt (zero-shot)
+    Dự phòng: nếu thiếu checkpoint 22 ca thì rơi về mô hình 5 ca cũ (fold_rXX / production).
+    """
+    n = (record_name or '').strip()
+    if n.lower() in ADFECGDB_RECS:
+        n = n.lower()
+    fold = fold22_of(n)
+    if fold is not None:
+        p = _ckpt(f'fetalqrs_tcn_22_fold_{fold}.pt')
+        if os.path.isfile(p):
+            return p, f'22 ca, fold {fold} (chủ thể {n} KHÔNG nằm trong tập huấn luyện)'
+    p = _ckpt('fetalqrs_tcn_22_production.pt')
+    if os.path.isfile(p):
+        return p, '22 ca, production (zero-shot: bản ghi không thuộc 22 chủ thể huấn luyện)'
+    if n in ADFECGDB_RECS and os.path.isfile(_ckpt(f'fetalqrs_tcn_fold_{n}.pt')):
+        return _ckpt(f'fetalqrs_tcn_fold_{n}.pt'), f'5 ca, fold {n} (dự phòng: thiếu checkpoint 22 ca)'
+    return _ckpt('fetalqrs_tcn_production.pt'), '5 ca, production (dự phòng: thiếu checkpoint 22 ca)'
 
 
 _MODELS = {}
@@ -224,6 +341,25 @@ def pick_blind(residuals):
     return max(residuals, key=lambda l: psd_score(residuals[l]))
 
 
+def peakprob_score(prob, det250, fs=FS, seg_s=SEG_S):
+    """
+    Quy tắc peakprob (analysis/chonkenh_rules.py, rule_select 'peakprob'; đặc trưng peak_prob_mean của fsqi/gate.py):
+    chia bản ghi thành các đoạn 4 s không chồng; trong mỗi đoạn lấy XÁC SUẤT TRUNG BÌNH của mô hình tại các
+    đỉnh đã phát hiện (0 nếu đoạn không có đỉnh); điểm của kênh = TRUNG VỊ qua các đoạn. Không nhãn, không tham số học.
+    Chọn kênh có điểm cao nhất. Cảnh báo bắt buộc: quy tắc này là lựa chọn HẬU KIỂM trên CinC (quy tắc khai báo trước là GATE).
+    """
+    prob = np.asarray(prob, float); det = np.asarray(det250, int)
+    seg = int(round(seg_s * fs)); n_seg = len(prob) // seg
+    if n_seg == 0:
+        return float(np.mean(prob[det])) if len(det) else 0.0
+    v = np.zeros(n_seg)
+    for k in range(n_seg):
+        a, b = k * seg, (k + 1) * seg
+        d = det[(det >= a) & (det < b)]
+        v[k] = float(np.mean(prob[d])) if len(d) else 0.0
+    return float(np.median(v))
+
+
 def front_end(sig_1000):
     """tiền xử lý + khử mẹ cho MỘT kênh -> (x250, residual, maternal_peaks_250)"""
     x = M.preprocess(np.asarray(sig_1000, float), FS_IN, CFG)
@@ -231,25 +367,66 @@ def front_end(sig_1000):
     return x, r, mpk
 
 
-def select_lead(signals_1000, mode='auto'):
+def infer(net, thr, front):
+    """chạy FetalQRS-TCN trên một kênh đã tiền xử lý -> (prob, det250, ms)"""
+    t0 = time.perf_counter()
+    x250, res, _ = front
+    prob = M.probability_series(net, M.robust_scale(res).astype(np.float32),
+                                M.robust_scale(x250).astype(np.float32), CFG)
+    det250 = M.pick_peaks(prob, thr, CFG).astype(np.int64)
+    return prob, det250, (time.perf_counter() - t0) * 1000.0
+
+
+def _norm_lead_mode(mode):
+    """'auto' | 'peakprob' | 'psd' | 1..K -> ('peakprob'|'psd'|int)"""
+    if isinstance(mode, str):
+        s = mode.strip().lower()
+        if s in ('auto', 'peakprob', 'auto (peakprob)'):
+            return 'peakprob'
+        if s in ('psd', 'auto (psd)'):
+            return 'psd'
+        return int(s)
+    return int(mode)
+
+
+def select_lead(signals_1000, mode='auto', model=None):
     """
-    mode = 'auto' -> quy tắc PSD (Power-MF), hoặc số kênh 1..K.
-    Trả về (lead_1based, fronts) với fronts[lead] = (x250, residual, mpk) đã tính cho từng kênh.
+    mode = 'peakprob' / 'auto' (mặc định): chạy mô hình trên CẢ K kênh, chọn kênh có peakprob_score cao nhất
+           'psd'                          : quy tắc PSD của Power-MF (Jaeger 2024) trên đường bao phần dư
+           1..K                           : chọn tay
+    model: (net, thr) -- bắt buộc với 'peakprob'.
+    Trả về (lead_1based, fronts, per_lead, fe_ms) với
+       fronts[k]   = (x250, residual, mpk)
+       per_lead[k] = dict(psd, peakprob, prob, det250, n_beats, fhr_mean, model_ms)  (prob/det chỉ có ở 'peakprob')
+       hoặc per_lead = None khi chọn tay.
     """
     K = signals_1000.shape[0]
+    rule = _norm_lead_mode(mode)
 
     def _timed(k):
         t0 = time.perf_counter(); fr = front_end(signals_1000[k - 1])
         return fr, (time.perf_counter() - t0) * 1000.0
 
-    if isinstance(mode, str) and mode.lower().startswith('auto'):
-        fronts, fe_ms = {}, {}
+    if rule in LEAD_RULES:
+        fronts, fe_ms, per = {}, {}, {}
         for k in range(1, K + 1):
             fronts[k], fe_ms[k] = _timed(k)
-        scores = {k: psd_score(fronts[k][1]) for k in fronts}
-        lead = max(scores, key=scores.get)
-        return lead, fronts, scores, fe_ms
-    lead = int(mode)
+            per[k] = dict(psd=psd_score(fronts[k][1]))
+        if rule == 'peakprob':
+            if model is None:
+                raise ValueError("select_lead('peakprob') cần model=(net, thr)")
+            net, thr = model
+            for k in per:
+                prob, det, ms = infer(net, thr, fronts[k])
+                _, bpm = fhr_series(det, len(prob))
+                per[k].update(peakprob=peakprob_score(prob, det), prob=prob, det250=det, n_beats=int(len(det)),
+                              fhr_mean=float(np.nanmean(bpm)) if np.isfinite(bpm).any() else float('nan'), model_ms=ms)
+        key = 'peakprob' if rule == 'peakprob' else 'psd'
+        lead = max(per, key=lambda k: per[k][key])
+        for k in per:
+            per[k]['selected'] = (k == lead)
+        return lead, fronts, per, fe_ms
+    lead = rule
     if not 1 <= lead <= K:
         raise ValueError(f'Kênh {lead} không tồn tại (có {K} kênh)')
     fr, ms = _timed(lead)
@@ -428,11 +605,12 @@ def confidence_learned(sig_1000, res_250, prob, peaks_250, maternal_250=None, x2
 
 
 # =========================================================================== phân tích
-def analyze(signal_1000hz, labels_1000=None, model='production', fs=1000, front=None,
-            confidence_mode=CONFIDENCE_MODE_DEFAULT):
+def analyze(signal_1000hz, labels_1000=None, model='22_production', fs=1000, front=None,
+            confidence_mode=CONFIDENCE_MODE_DEFAULT, inference=None):
     """
     Phân tích MỘT kênh ECG bụng. signal_1000hz: mảng 1-D (nếu fs != 1000 sẽ được tái lấy mẫu).
-    model: 'production' | đường dẫn .pt | tên checkpoint.  front: (x250, res, mpk) đã tính sẵn (tuỳ chọn).
+    model: '22_production' (mặc định) | đường dẫn .pt | tên checkpoint.  front: (x250, res, mpk) đã tính sẵn (tuỳ chọn).
+    inference: (prob, det250) đã tính sẵn cho kênh này (tuỳ chọn -- select_lead('peakprob') đã chạy mô hình rồi).
     confidence_mode: 'hoc' (mặc định) | 'luat' | 'ca_hai' (tính cả hai, out['confidence'] = 'hoc').
     """
     if confidence_mode not in CONFIDENCE_MODES:
@@ -444,9 +622,10 @@ def analyze(signal_1000hz, labels_1000=None, model='production', fs=1000, front=
 
     t0 = time.perf_counter()
     x250, res, mpk = front if front is not None else front_end(sig)
-    prob = M.probability_series(net, M.robust_scale(res).astype(np.float32),
-                                M.robust_scale(x250).astype(np.float32), CFG)
-    det250 = M.pick_peaks(prob, thr, CFG).astype(np.int64)
+    if inference is not None:
+        prob, det250 = inference; det250 = np.asarray(det250, np.int64)
+    else:
+        prob, det250, _ = infer(net, thr, (x250, res, mpk))
     latency_ms = (time.perf_counter() - t0) * 1000.0
     det1000 = det250 * int(FS_IN // FS)
 
@@ -481,25 +660,53 @@ def analyze(signal_1000hz, labels_1000=None, model='production', fs=1000, front=
 
 def analyze_record(rec, lead='auto', model=None, confidence_mode=CONFIDENCE_MODE_DEFAULT):
     """
-    rec: dict từ load_record(). lead: 'auto' | 1..K. model: None -> checkpoint_for(rec['name']).
-    confidence_mode: 'hoc' | 'luat' | 'ca_hai' (xem analyze).
-    Trả về dict của analyze() + lead, lead_name, lead_scores, checkpoint_note.
+    rec: dict từ load_record()/load_sample(). lead: 'auto' (= 'peakprob') | 'psd' | 1..K.
+    model: None -> checkpoint_for(rec['name']).  confidence_mode: 'hoc' | 'luat' | 'ca_hai' (xem analyze).
+    Trả về dict của analyze() + lead, lead_name, lead_rule, lead_mode, lead_scores, leads (kết quả từng kênh), checkpoint_note.
+      leads[k] = dict(psd, peakprob, n_beats, fhr_mean, residual_250, prob, det250, F1/Se/PPV nếu có nhãn, selected)
+                 -- có ở chế độ tự động; None khi chọn tay.
     """
     if model is None:
         model, note = checkpoint_for(rec['name'])
     else:
         note = str(model)
-    lead, fronts, scores, fe_ms = select_lead(rec['signals'], lead)
+    net, thr, _meta = load_model(model)
+    rule = _norm_lead_mode(lead)
+    lead, fronts, per, fe_ms = select_lead(rec['signals'], rule, model=(net, thr))
+    inf = (per[lead]['prob'], per[lead]['det250']) if per is not None and 'prob' in per[lead] else None
     out = analyze(rec['signals'][lead - 1], rec.get('labels'), model=model, front=fronts[lead],
-                  confidence_mode=confidence_mode)
+                  confidence_mode=confidence_mode, inference=inf)
     # latency_ms = tiền xử lý + khử mẹ của kênh được chọn + mô hình + chọn đỉnh (KHÔNG tính đọc file)
-    out['latency_model_ms'] = out['latency_ms']
+    model_ms = per[lead]['model_ms'] if inf is not None else out['latency_ms']
+    out['latency_model_ms'] = float(model_ms)
     out['latency_frontend_ms'] = float(fe_ms[lead])
     out['latency_ms'] = out['latency_model_ms'] + out['latency_frontend_ms']
-    out['latency_all_leads_ms'] = out['latency_model_ms'] + float(sum(fe_ms.values()))
-    out.update(lead=lead, lead_name=rec['lead_names'][lead - 1],
-               lead_scores=scores, lead_mode='auto (PSD)' if scores is not None else 'thủ công',
-               checkpoint_note=note, record=rec['name'], source=rec['source'])
+    # chi phí THẬT của quy tắc tự động: tiền xử lý mọi kênh (+ mô hình trên mọi kênh với peakprob)
+    all_model = sum(p.get('model_ms', 0.0) for p in per.values()) if per else out['latency_model_ms']
+    if per and rule == 'psd':
+        all_model = out['latency_model_ms']
+    out['latency_all_leads_ms'] = float(all_model + sum(fe_ms.values()))
+
+    leads = None; lead_scores = None
+    if per is not None:
+        leads, lead_scores = {}, {}
+        lab = rec.get('labels')
+        for k, p in per.items():
+            d = dict(psd=p['psd'], peakprob=p.get('peakprob'), selected=bool(p['selected']),
+                     residual_250=fronts[k][1], name=rec['lead_names'][k - 1])
+            if 'prob' in p:
+                d.update(prob=p['prob'], det250=p['det250'], n_beats=p['n_beats'], fhr_mean=p['fhr_mean'],
+                         model_ms=p['model_ms'])
+                if lab is not None:
+                    m = match_with_lists(p['det250'] * int(FS_IN // FS), np.asarray(lab, int), FS_IN, CFG['tolerance_ms'])
+                    d.update(F1=m['F1'], Se=m['Se'], PPV=m['PPV'], jitter_ms=m['jitter_ms'])
+            leads[k] = d
+            lead_scores[k] = p['peakprob'] if rule == 'peakprob' else p['psd']
+    out.update(lead=lead, lead_name=rec['lead_names'][lead - 1], lead_rule=rule if per is not None else 'manual',
+               lead_scores=lead_scores, leads=leads,
+               lead_mode=LEAD_RULE_LABEL[rule] if per is not None else 'thủ công',
+               n_leads=int(rec['signals'].shape[0]),
+               checkpoint_note=note, record=rec['name'], source=rec['source'], record_note=rec.get('note', ''))
     return out
 
 
@@ -510,7 +717,9 @@ def _jf(v):
 
 
 def _jv(v):
-    """giá trị JSON-an toàn: bool/int giữ nguyên, số thực -> _jf."""
+    """giá trị JSON-an toàn: None/bool/int giữ nguyên, số thực -> _jf."""
+    if v is None:
+        return None
     if isinstance(v, (bool, np.bool_)):
         return bool(v)
     if isinstance(v, (int, np.integer)):
@@ -535,17 +744,24 @@ def summary(out):
     """dict JSON-hoá được (không có mảng lớn) -- để ghi log / kiểm thử."""
     c = out['confidence']
     s = dict(record=out.get('record'), lead=out.get('lead'), lead_mode=out.get('lead_mode'),
-             checkpoint=out['checkpoint'], threshold=_jf(out['threshold']),
+             lead_rule=out.get('lead_rule'),
+             checkpoint=out['checkpoint'], checkpoint_note=out.get('checkpoint_note'), threshold=_jf(out['threshold']),
              duration_s=_jf(out['duration_s']), n_beats=int(out['n_beats']), fhr_mean=_jf(out['fhr_mean']),
              latency_ms=_jf(out['latency_ms']),
              latency_frontend_ms=_jf(out.get('latency_frontend_ms', float('nan'))),
              latency_model_ms=_jf(out.get('latency_model_ms', out['latency_ms'])),
+             latency_all_leads_ms=_jf(out.get('latency_all_leads_ms', float('nan'))),
              confidence_mode=out.get('confidence_mode', c.get('mode', 'luat')),
              confidence=_conf_summary(c),
-             confidence_by_mode={m: _conf_summary(cc) for m, cc in out.get('confidence_by_mode', {}).items()})
+             confidence_by_mode={m: _conf_summary(cc) for m, cc in out.get('confidence_by_mode', {}).items()},
+             gate_note=GATE_NOTE)
     if out.get('lead_scores'):
         # khóa phải là str: gr.JSON (orjson) của Gradio 6 từ chối khóa int ("Dict key must be str")
         s['lead_scores'] = {str(int(k)): _jf(v) for k, v in out['lead_scores'].items()}
+    if out.get('leads'):
+        s['leads'] = {str(int(k)): {kk: _jv(v) for kk, v in d.items()
+                                    if kk in ('psd', 'peakprob', 'selected', 'n_beats', 'fhr_mean', 'F1', 'Se', 'PPV', 'jitter_ms', 'model_ms')}
+                      for k, d in out['leads'].items()}
     if 'metrics' in out:
         s['metrics'] = {k: _jf(v) for k, v in out['metrics'].items()}
     return s

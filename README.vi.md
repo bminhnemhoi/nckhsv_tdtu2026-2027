@@ -21,62 +21,73 @@ tại nhà, và khó nhất về xử lý tín hiệu: sóng tim mẹ lớn gấ
 tần, và khi chỉ có một kênh thì không dùng được tách nguồn mù đa kênh.
 
 Kho mã này chứa pipeline chạy được, bằng chứng thực nghiệm cho từng quyết định thiết kế, ba baseline cổ
-điển tự cài lại, bản demo chạy được với đèn tin cậy, và một kết quả phủ định được kiểm soát chặt.
+điển tự cài lại, bản demo với đèn tin cậy, và một kết quả phủ định được kiểm soát chặt. Mọi con số trong
+README này truy ngược được về một tệp JSON trên đĩa; tệp tổng hợp là
+[`survey/facts_phase4.json`](survey/facts_phase4.json). Mọi phát biểu đã rút được ghi ngay tại chỗ nó
+từng đứng (mục *Rút lại — danh sách đầy đủ* ở cuối), không xoá lặng lẽ.
 
-**Kết quả khoa học chính là phản trực giác:**
+**Kết quả chính, nói thẳng:**
 
-> Đổi dải thông của bộ lọc ăn **+11,00 điểm F1**.
-> Dưới giao thức không rò rỉ, sáu kiến trúc mạng nằm trong **1,53 điểm** của nhau, và với **n = 5 chủ
-> thể nghiên cứu này không đủ lực để phân biệt chúng theo bất kỳ chiều nào**: kiểm định tương đương
-> (TOST) ở biên 1,0 điểm đã khai báo trước cho **0/7 kiến trúc là tương đương** với CNN giãn nở 26
-> nghìn tham số, và để 6/7 ở trạng thái không kết luận được. Hai biến kiến trúc đủ lớn để phân giải ở
-> cỡ mẫu này là giãn nở (+2,95 ở cùng số tham số) và trường tiếp nhận (+4,49).
+> Trên bộ học cửa sổ 300 ms, đổi dải thông bộ lọc ăn **+11,00 điểm F1**; đo lại trên chính TCN với 22 sản
+> phụ, cùng thay đổi đó chỉ đáng **+2,44 [−0,05; +6,30]** (khoảng chứa 0, `pilot_evidence/band_tcn.json`),
+> nên **con số +11,00 bị rút** với tư cách một phát biểu về mô hình phát hành ở đây. Dưới giao thức không rò
+> rỉ, sáu kiến trúc mạng nằm trong **1,53 điểm** của nhau và với **n = 5 chủ thể nghiên cứu này không đủ lực
+> để phân biệt chúng theo bất kỳ chiều nào** (TOST biên 1,0 điểm: 0/7 tương đương, 6/7 không kết luận).
+> Hai biến kiến trúc đủ lớn để phân giải là giãn nở (+2,95 ở cùng số tham số) và trường tiếp nhận (+4,49).
 
-Cách viết cũ của README — *"tám kiến trúc không phân biệt được"* — là một kết luận tương đương rút ra
-từ `p > 0,05`, tức từ **vắng mặt bằng chứng**. Tuyên bố đó được rút lại. Câu suy rộng kèm theo ("cả
-ngành đã tối ưu sai tầng") cũng được rút lại: nghiên cứu này đo 5 sản phụ, không đo một thập kỷ công
-trình.
+Cách viết cũ — *"tám kiến trúc không phân biệt được"* — là kết luận tương đương rút từ `p > 0,05`, tức từ
+vắng mặt bằng chứng. Đã rút. Câu suy rộng cho cả ngành cũng đã rút: nghiên cứu này đo 5 sản phụ.
 
 ---
 
 ## Kết quả chính
 
-Giao thức xuyên suốt: chấm ở mức sự kiện, dung sai **±50 ms**, ghép một-đối-một tham lam đối chiếu với
-Hungarian, chọn kênh **mù nhãn**.
+Giao thức xuyên suốt: chấm ở mức sự kiện, dung sai **±50 ms** (quy ước CinC 2013 — chặt gấp ba ANSI/AAMI
+EC57), ghép một-đối-một tham lam đối chiếu với Hungarian, chọn kênh **mù nhãn**.
 
 ### Một mô hình, năm cấu hình dữ liệu
 
-| Bộ dữ liệu | Sản phụ | Phút | Nhãn | F1, kênh PSD mù nhãn | KTC 95 % (bootstrap cụm) | F1, trung bình 4 kênh |
+| Bộ dữ liệu | Sản phụ | Phút | Nhãn | F1, kênh PSD mù nhãn | KTC 95 % (bootstrap cụm) | F1, TB 4 kênh |
 |---|---:|---:|---|---:|---|---:|
 | ADFECGDB (PhysioNet), tách bản ghi | 5 | 25 | điện cực da đầu | **99,21** | [97,87; 99,95] | 97,45 |
 | Silesia B2 chuyển dạ, 12 bản ghi | 12 | 60 | điện cực da đầu | 97,17 | [92,68; 99,75] | 95,26 |
-| Silesia B2, chỉ 7 bản ghi chưa thấy, zero-shot | 7 | 35 | điện cực da đầu | 95,87 | [88,41; 99,84] | 93,73 |
+| Silesia B2, chỉ 7 bản chưa thấy, zero-shot | 7 | 35 | điện cực da đầu | 95,87 | [88,41; 99,84] | 93,73 |
 | **Silesia B1 thai kỳ 32–42 tuần, zero-shot** | 10 | 200 | gián tiếp | **93,30** | [84,93; 99,37] | 91,31 |
-| CinC 2013 set-a, zero-shot, **đủ 75 bản ghi** | 75 | 75 | cộng đồng gán | 71,21 | SD 33,96, trung vị 94,34¹ | 64,78 |
+| CinC 2013 set-a, zero-shot, **60 bản ghi sạch**¹ | 60 | 60 | cộng đồng gán | 64,04 | [55,4; 72,5] | 56,00 |
 
-Khoảng tin cậy là bootstrap cụm theo chủ thể, phân vị 95 % (10.000 lần lấy mẫu lại, seed 0;
-`analysis/boot_ci_table1.py` → `analysis/boot_ci_table1.json`). Chúng thay cho `± SD` của bản trước,
-vì khoảng t theo SD chạy vượt quá 100 % F1.
+Khoảng tin cậy là bootstrap cụm theo chủ thể, phân vị 95 % (10.000 lần, seed 0;
+`analysis/boot_ci_table1.py` → `analysis/boot_ci_table1.json`).
 
-¹ **Rút lại.** Các bản trước của bảng này ghi **59,15 [38,32; 81,01]** cho CinC 2013, đo trên **mẫu 10
-bản ghi** của set-a. Con số đó **bị rút**: mẫu 10 bị lệch, và trên đủ 75 bản ghi cùng mô hình, cùng quy
-tắc mù nhãn cho **71,21**. Chưa tính bootstrap cụm cho trung bình trên 75 bản ghi, nên ở đây ghi SD và
-trung vị thay vì bịa ra một khoảng tin cậy (`benchmark_dpss/eval_cinc75.json`).
+¹ **Rút lại (hai lần), và đính chính về việc ai tìm ra điều gì.** Các bản trước ghi **59,15 [38,32; 81,01]**
+(mẫu 10 bản) rồi **71,21** (đủ 75 bản) cho CinC 2013. **Cả hai bị rút.** Set-a không độc lập với ADFECGDB,
+và **điều này ban tổ chức Challenge đã ghi nhận từ đầu**: Silva và cs. (CinC 2013;40:149–152, Bảng 1:
+"Abdominal and Direct FECG — 25 bản ghi") và Clifford và cs. (Physiol Meas 2014;35:1521, Bảng 2), kèm cảnh
+báo rằng một thuật toán dự thi huấn luyện trên ADFECGDB "may have led to a bias in the results as this
+database was included in set-a, set-b (and possibly a few records in set-c)". Câu đó đã nằm trong ghi chú
+đọc bài của chính nhóm (`de_cuong_latex/tables/bang_baihoc.tex`, mục p20) mà nhóm bỏ sót; bản trước của
+README này và của `analysis/DULIEU.md` trình bày sự chồng lấn như phát hiện của nhóm — **cách viết đó bị
+rút** (`survey/RO_RI_VANLIEU.md`). Điều không nguồn nào ghi là *bản ghi set-a nào* là ADFECGDB, và phần đó
+nhóm đo (`analysis/dulieu_audit.py`, cài đặt độc lập thứ hai `analysis/dulieu_m4b_verify.py`): đúng
+**15/75 bản là bản sao nguyên văn của 5 bản huấn luyện** (NCC = 1,0000 cả 4 kênh đúng thứ tự, lệch RR
+0,0 ms; đối chứng dương — các bản trùng B2↔PhysioNet đã biết — chỉ đạt 0,86–0,98; 60 bản còn lại tối đa
+0,44 đã lọc / 0,62 thô). Mỗi bản ADFECGDB xuất hiện ba lần, là các cửa sổ 0–60, 120–180, 240–300 s:
+r01→a04,a05,a22 · r04→a13,a20,a25 · r07→a19,a23,a24 · r08→a08,a15,a17 · r10→a03,a12,a14. Mọi số CinC
+chính nay tính trên **60 bản sạch** (`benchmark_dpss/eval_cinc60_sach.py` → `eval_cinc60_sach.json`;
+bootstrap 10.000 lần theo bản ghi, seed 0). 15 bản rò rỉ đạt 99,87 với mô hình 22 ca — đó là cách chúng
+thổi phồng trung bình cũ 3,27–7,18 điểm.
 
-Mô hình chỉ huấn luyện trên 5 ca chuyển dạ, chưa từng thấy dữ liệu thai kỳ. Chuyển từ chuyển dạ sang
-thai kỳ *cùng hệ ghi* mất ~4 điểm; chuyển sang *hệ ghi khác* (CinC 2013) mất ~26 điểm và phân bố
-**lưỡng cực** — 15/75 bản ghi hoàn hảo, 22/75 dưới 50. Thứ phá vỡ tổng quát hoá là thiết bị và bố trí
-điện cực, không phải tuổi thai.
+Mô hình chỉ huấn luyện trên 5 ca chuyển dạ. Chuyển sang thai kỳ *cùng hệ ghi* mất ~4 điểm; chuyển sang *hệ
+ghi khác* (CinC 2013, 60 bản sạch) mất ~35 điểm và phân bố tách đôi — 27/60 bản ≥ 90, 22/60 dưới 50 (chỉ
+mô tả: hai đỉnh là hệ quả của chọn kênh, không phải hai quần thể, `analysis/LUONGCUC.md`). Thứ phá vỡ tổng
+quát hoá là thiết bị và bố trí điện cực, không phải tuổi thai.
 
-Kiểm tra rò rỉ bằng tương quan chéo cho thấy **5 trong 12 bản ghi Silesia B2 chính là 5 bản ghi
-PhysioNet** (NCC 0,988–0,994). Năm bản đó được chấm bằng fold checkpoint chưa thấy chúng; số sản phụ độc
-lập vì vậy là **22**, không phải 27.
+Kiểm tra rò rỉ bằng tương quan chéo: **5 trong 12 bản Silesia B2 chính là 5 bản PhysioNet** (NCC
+0,988–0,994); chúng được chấm bằng fold checkpoint chưa thấy chúng; số sản phụ độc lập là **22**.
 
 ### Huấn luyện lại trên 22 sản phụ
 
-Tách theo nhóm 11 fold trên 22 sản phụ độc lập (19 huấn luyện / 1 validation / 2 kiểm thử mỗi fold, tăng
-cường dữ liệu khi huấn luyện, ngưỡng chọn trên chủ thể validation). Wilcoxon ghép cặp với mô hình 5 ca trên
-cùng chủ thể và kênh:
+Tách theo nhóm 11 fold (19 huấn luyện / 1 validation / 2 kiểm thử mỗi fold, tăng cường dữ liệu, ngưỡng
+chọn trên chủ thể validation). Wilcoxon ghép cặp với mô hình 5 ca trên cùng chủ thể và kênh:
 
 | Nhóm | n | Mô hình 5 ca | **Mô hình 22 ca** | p | thắng/thua |
 |---|---:|---:|---:|---:|---|
@@ -85,108 +96,123 @@ cùng chủ thể và kênh:
 | **Silesia B1 thai kỳ** | 10 | 93,30 | **97,15** | **0,037** | 9/1 |
 | Toàn bộ 22 | 22 | 95,46 | **97,56** | **0,007** | 15/3 |
 
-#### Zero-shot sang hệ ghi khác (CinC 2013) — nay đã chạy đủ 75 bản ghi
+#### Zero-shot sang hệ ghi khác (CinC 2013) — 60 bản ghi sạch
 
-> **Rút lại.** Mọi con số CinC 2013 mà README này từng ghi trước ngày 12/09/2026 — **59,15**, **69,31**,
-> **77,34**, **90,34** — đều đo trên **mẫu 10 bản ghi** của set-a. Cả bốn đều **bị rút**. Mẫu 10 bị lệch
-> **cả hai chiều**, nên đây không phải chuyện làm tròn: nó đổi cả kết luận xem quy tắc chọn kênh nào
-> thắng. Toàn bộ 75 bản ghi nay đã chạy (`benchmark_dpss/eval_cinc75.py` → `eval_cinc75.json`).
+> **Rút lại.** Mọi con số CinC 2013 README này từng ghi trước 12/09/2026 — **59,15**, **69,31**, **77,34**,
+> **90,34** (mẫu 10 bản) rồi **71,21 / 79,40 / 86,87 / +8,18 / +7,47** và mọi số khác tính trên **đủ 75
+> bản** — đều **bị rút**. Bộ đầu là mẫu lệch; bộ sau nhiễm 15 bản là bản sao dữ liệu huấn luyện (chú thích
+> ¹), và còn vi phạm độc lập mức bản ghi vì 15 bản đó đến từ 5 sản phụ. Số 75 bản giữ trong
+> `benchmark_dpss/eval_cinc75.json` và các báo cáo phân tích chỉ để truy vết.
 
-Con số chính là **quy tắc PSD mù nhãn, khai báo trước**, trên đủ 75 bản ghi:
+Con số chính là **quy tắc PSD mù nhãn** trên 60 bản sạch (`benchmark_dpss/eval_cinc60_sach.json`):
 
 | Quy tắc chọn kênh | Mô hình 5 ca | **Mô hình 22 ca** | Mù nhãn? |
 |---|---:|---:|---|
-| **PSD (khai báo trước, mù nhãn)** — **con số chính** | 71,21 | **79,40** | có |
-| Trung bình 4 kênh | 64,78 | 74,09 | có |
-| Kênh 0 cố định (**chọn hậu kiểm**) | 58,72 | 69,33 | **không** |
-| Kênh oracle (dùng nhãn kiểm thử) | 78,21 | 86,87 | **không** |
+| **PSD (khai báo trước, mù nhãn)** — **con số chính** | 64,04 | **74,28** [66,6; 81,8] | có |
+| Trung bình 4 kênh | 56,00 | 67,69 | có |
+| Kênh 0 cố định (**hậu kiểm, đã rút**) | 48,43 | 61,78 | **không** |
+| Kênh oracle (dùng nhãn kiểm thử) | 72,76 | 83,60 | **không** |
 
-Đi từ 5 lên 22 sản phụ huấn luyện đáng **+8,18 điểm** trên quy tắc mù nhãn (Wilcoxon ghép cặp
-*p* = 3,2 × 10⁻¹⁰; 53 thắng / 5 thua / 17 hoà; Cliff δ = 0,23; KTC bootstrap [5,62; 11,09]). Số bản ghi
-đạt F1 ≥ 90 tăng từ 42 lên 48; số bản dưới 50 giảm từ 22 xuống 16.
+5 → 22 sản phụ huấn luyện đáng **+10,24 điểm** trên quy tắc mù nhãn (Wilcoxon ghép cặp *p* = 3,5e-10; 52
+thắng / 3 thua / 5 hoà; KTC bootstrap [+7,13; +13,60]). Bản ≥ 90: 27 → 33/60; bản < 50: 22 → 16. Trung vị
+F1 của mô hình 22 ca là 95,07.
 
-**Quy tắc hậu kiểm không chỉ sai về liêm chính — nó còn sai về sự kiện.** Trên mẫu 10 bản ghi, kênh 0 cố
-định có vẻ hơn quy tắc PSD mù nhãn tới 21 điểm (90,34 so với 69,31), và chính khoảng cách biểu kiến đó là
-lý do kênh cố định từng được đưa lên. Trên đủ 75 bản ghi, kênh 0 cố định chỉ đạt **69,33**, tức **kém quy
-tắc PSD mù nhãn 10,07 điểm** và là **quy tắc tệ nhất trong bốn**. Chọn siêu tham số sau khi nhìn tập đánh
-giá đã sinh ra một con số lạc quan khoảng 21 điểm và một kết luận đảo ngược khi xét đủ mẫu.
+Quy tắc chọn kênh mất độ chính xác khi đổi hệ ghi: trong miền PSD kém oracle **0,02–1,90 điểm**; trên 60 bản
+CinC sạch kém **9,32 điểm** (74,28 so với 83,60, KTC [+5,10; +14,15]) và chỉ chọn trúng kênh oracle ở
+17/60 bản.
 
-Quy tắc chọn kênh, chứ không chỉ bộ dò, có mất độ chính xác khi đổi hệ ghi — nhưng ít hơn nhiều so với
-bản công bố cũ: trong miền quy tắc PSD kém oracle **0,02–1,90 điểm** (ADFECGDB 0,02, Silesia B2 0,66,
-Silesia B1 1,90); ngoài miền kém **7,47 điểm** (79,40 so với 86,87). Con số **22,33 điểm** trước đây
-**bị rút** — nó cũng đến từ mẫu 10 bản ghi.
+**Biến thể loại trừ khai báo trước.** Bảy bản set-a có chú thích không đáng tin (a33, a38, a47, a52, a54,
+a71, a74 — Behar/Oster/Clifford, CinC 2013;40:297–300); trên 53 bản sạch còn lại PSD mù nhãn cho
+**64,19 → 75,27**. Cả hai biến thể đều báo cáo; không biến thể nào chọn sau khi thấy kết quả.
 
-**Biến thể loại trừ khai báo trước.** Bảy bản ghi set-a có chú thích tham chiếu không đáng tin (a33, a38,
-a47, a52, a54, a71, a74 — Behar/Oster/Clifford, CinC 2013;40:297–300); quy tắc loại được khai báo trước
-khi chạy. Trên 68 bản còn lại, quy tắc PSD mù nhãn cho **72,08 → 80,70** (mô hình 5 ca → 22 ca). Cả hai
-biến thể đều được báo cáo; không biến thể nào được chọn sau khi đã thấy kết quả.
+#### Một quy tắc chọn kênh mù nhãn tốt hơn — báo cáo như giả thuyết, không phải kết quả đã xác nhận
+
+Bảy quy tắc mù nhãn được so với PSD trên cùng 60 bản sạch (`analysis/CHONKENH.md`,
+`analysis/dulieu_results.json → chon_kenh_60_sach`). Mạnh nhất là **`peakprob`**: chạy bộ dò trên cả bốn
+kênh và giữ kênh có xác suất trung bình tại chính các đỉnh nó dò được cao nhất — không huấn luyện, không
+siêu tham số.
+
+| Quy tắc (22 ca, 60 bản sạch) | F1 TB | Δ so PSD | KTC 95 % | p Wilcoxon | p Holm (7 quy tắc) | < 50 |
+|---|---:|---:|---|---:|---:|---:|
+| PSD (hiện hành) | 74,28 | — | — | — | — | 16 |
+| `gate` — **quy tắc kế hoạch phân tích chỉ định** | 80,72 | +6,44 | [+2,49; +11,10] | 0,010 | **0,0505 — trượt** | 12 |
+| `gate4` | 81,01 | +6,72 | [+2,85; +11,18] | 0,0025 | 0,0150 | 12 |
+| `rrcv` | 80,00 | +5,72 | [+1,61; +10,41] | 0,101 | 0,406 | 12 |
+| **`peakprob`** — tốt nhất trong bảy, **chọn sau khi thấy dữ liệu** | **82,01** | **+7,73** | [+3,82; +12,41] | 5,6e-04 | **0,0039** | **9** |
+| Kênh oracle (nhãn) | 83,60 | +9,32 | — | — | — | 8 |
+
+`peakprob` lấy lại **82,9 %** dư địa oracle, thắng 19 / hoà 35 / thua 6 bản, không bản nào mất quá 3,90
+điểm. Kiểm tra xáo nhãn (`analysis/chonkenh_leakcheck.py`) đổi 0/776 lựa chọn kênh, nên bước *chọn* là mù
+nhãn.
+
+**Các ràng buộc bắt buộc.** (1) Kế hoạch phân tích (`analysis/chonkenh_khaibao_truoc.json`) chỉ định `gate`
+là quy tắc xác nhận, và `gate` **không qua được Holm** (0,0505 trên 60 bản sạch) — theo chính luật của kế
+hoạch, phép thử xác nhận **đã trượt**. (2) `peakprob` chọn **sau** khi thấy kết quả CinC; cơ sở thống kê duy
+nhất để báo cáo nó là hiệu ứng sống sót qua Holm trên cả họ bảy quy tắc đã khai báo. (3) Tệp kế hoạch viết
+trước khi chấm quy tắc nào nhưng **sau** khi F1 từng kênh của CinC đã có trên đĩa, và không được neo git
+hay đóng dấu thời gian bởi bên thứ ba, nên nghiên cứu này **không "tiền đăng ký"** và không dùng từ đó.
+(4) Kết quả **chưa được lặp lại trên bộ dữ liệu thứ ba độc lập, và hiện tại không thể**: NIFEADB không phân
+phối chú thích thai; NInFEA không có nhãn nhịp (tham chiếu là Doppler); tệp `.qrs` của nifecgdb đánh dấu
+QRS **mẹ** (RR trung vị 0,695 s = 86 nhịp/phút); nhãn set-b của CinC 2013 chưa công bố (`analysis/XACNHAN.md`,
+`xacnhan_results.json → viec2_bo_thu_ba`). (5) **Trên thang logit, vấn đề hậu kiểm không biến mất**
+(`analysis/XACNHAN.md`, khai báo trước ở `analysis/xacnhan_khaibao.md`, git `ed819e3`): trên 22 chủ thể
+trong miền, quy tắc đứng đầu là `gate` ở hai trong ba cách kẹp và `rrcv` ở cách thứ ba, `peakprob` xếp
+3/4/6 và khoảng tin cậy chứa 0; trên 60 bản CinC sạch, đứng đầu trên logit là `gate4`. Điều dữ liệu ủng hộ
+là *"chọn kênh bằng chính đầu ra mô hình tốt hơn PSD ngoài miền"*; quy tắc cụ thể nào tốt nhất tuỳ thang đo.
+Vì vậy `peakprob` là **giả thuyết mạnh, chưa phải kết quả xác nhận**.
 
 Trung vị lệch so với nhãn da đầu giữ ở 0,0 ms, nên nhãn gián tiếp của B1 không kéo mô hình. Đường cong
-hiệu quả mẫu (1 → 2 → 3 ca huấn luyện: 91,2 → 93,4 → 97,5) chưa bão hoà — vì thế 22 ca vẫn còn giúp.
+hiệu quả mẫu (1 → 2 → 3 ca: 91,2 → 93,4 → 97,5) chưa bão hoà.
 
-**Độ ổn định theo seed (kết quả mới).** Huấn luyện lại mô hình 22 ca với seed 1 làm F1 từng chủ thể
-đổi trung bình **0,28 điểm** trên 20 chủ thể chung, lớn nhất **2,81** (B2_03). Ngưỡng quyết định từng
-fold kém ổn định hơn: seed 1 trải 0,50–0,80 so với 0,20–0,80 của seed 0 (seed 0 có fold 10 dùng ngưỡng
-cực đoan 0,20).
+**Ổn định theo seed.** Huấn luyện lại mô hình 22 ca với seed 1 làm F1 từng chủ thể đổi trung bình **0,28
+điểm** trên 20 chủ thể chung, lớn nhất 2,81 (B2_03); ở mức chủ thể F1 kênh PSD là 97,56 (seed 0) so với
+97,59 (seed 1), hiệu +0,03 [−0,18; +0,34] (`analysis/xacnhan_results.json → viec5_seed`; phân fold khác
+nhau giữa hai seed nên hiệu này gồm cả phương sai phân fold). Ngưỡng từng fold kém ổn định hơn (0,50–0,80
+so với 0,20–0,80). Checkpoint seed 1 **không được lưu** (`train_22.py` chỉ lưu khi `--tag` rỗng), nên
+không có con số seed 1 nào ngoài miền.
 
 ### Phân rã đóng góp ba tầng
 
 | Tầng | Δ Macro F1 (mức chủ thể) | KTC 95 % | Kết luận |
 |---|---:|---|---|
-| Front-end tín hiệu (chọn dải thông) | **+11,00** | không kiểm chứng lại được¹ | hiệu ứng lớn nhất |
-| Độ dài ngữ cảnh và đầu ra từng mẫu | +4,49 | [1,58; 7,43] bootstrap; [−0,29; 9,27] t ghép cặp | dương, khoảng rộng |
+| Front-end tín hiệu (chọn dải thông) | **+11,00** | không kiểm chứng lại được¹ | lớn nhất trên bộ học 300 ms; **rút** với TCN |
+| Ngữ cảnh thời gian và đầu ra từng mẫu | +4,49 | [1,58; 7,43] bootstrap; [−0,29; 9,27] t ghép cặp | dương, khoảng rộng |
 | Họ kiến trúc, ở ngữ cảnh cố định | +0,41 | nằm trong biên 1,0 điểm | **không phân giải được ở n = 5** |
 
-¹ `pilot_evidence/band_ablation.json` chỉ lưu tổng hợp theo dải, không lưu F1 từng bản ghi × kênh, nên
-so sánh tầng 1 không kiểm định lại được ở mức chủ thể. Giá trị `p < 0,001` từng công bố cho tầng này
-được **rút lại vì không kiểm chứng được**, chứ không phải được xác nhận.
+¹ `pilot_evidence/band_ablation.json` chỉ lưu tổng hợp theo dải, nên so sánh tầng 1 không kiểm định lại được
+ở mức chủ thể; `p < 0,001` từng công bố **rút vì không kiểm chứng được**.
 
-**Mọi giá trị p trên ADFECGDB đã bị bỏ.** Với n = 5 chủ thể, giá trị p hai phía nhỏ nhất mà kiểm định
-Wilcoxon hạng có dấu chính xác có thể cho là 2/2⁵ = **0,0625**, nên *không* so sánh nào trên bộ này đạt
-được p < 0,05 ở mức chủ thể, bất kể hiệu ứng lớn đến đâu. Các con số `1,9 × 10⁻⁶`, `5,7 × 10⁻⁶` và
-`0,0000` trước đây được tính trên 20–60 hàng (bản ghi × kênh × seed) coi như độc lập — đó là giả lập
-(pseudo-replication). Bảng đối chiếu đầy đủ ở [`analysis/STATS.md`](analysis/STATS.md).
+**Mọi giá trị p trên ADFECGDB đã bị bỏ.** Với n = 5, p hai phía nhỏ nhất của Wilcoxon chính xác là 2/2⁵ =
+**0,0625**; các số `1,9 × 10⁻⁶`, `5,7 × 10⁻⁶`, `0,0000` trước đây là giả lập (record × kênh × seed). Xem
+[`analysis/STATS.md`](analysis/STATS.md).
 
 ### Baseline cổ điển tự cài lại (ADFECGDB, cùng giao thức, siêu tham số chỉ chọn trên r01)
 
-| Phương pháp | 4 kênh (n=20) | Kênh PSD (n=5) | Δ so với mô hình (mức chủ thể) | KTC 95 % bootstrap | KTC 95 % t ghép cặp | Vững? |
+| Phương pháp | 4 kênh (n=20) | Kênh PSD (n=5) | Δ so mô hình | KTC bootstrap | KTC t ghép cặp | Vững? |
 |---|---:|---:|---:|---|---|---|
 | Trừ mẫu + Pan–Tompkins | 78,96 ± 23,52 | 87,68 | −18,49 | [−30,60; −6,38] | **[−38,80; +1,81]** | **không — chứa 0** |
 | TS-PCA + Pan–Tompkins | 91,05 ± 10,17 | 96,74 | −6,40 | [−8,09; −4,70] | [−9,10; −3,69] | có |
 | Độ nhô đỉnh trên **cùng front-end** | 86,39 ± 11,14 | 92,03 | −11,06 | [−14,51; −7,80] | [−16,38; −5,73] | có |
 | **FetalQRS-TCN** | **97,45 ± 4,44** | **99,21** | — | — | — | — |
 
-**Ba baseline này không vững như nhau và không được đọc chung một khối.** Với TS-PCA và độ nhô đỉnh,
-khoảng tin cậy loại trừ 0 trên cả hai thang. Với TS thuần thì không: khoảng t bảo thủ là
-[−38,80; +1,81], **chứa 0**, nên khoảng cách 18,49 điểm là do biến thiên giữa các sản phụ (một bản ghi
-TS sụp hẳn), không phải một lợi thế ổn định.
+Ba baseline không vững như nhau. Baseline thứ ba tách riêng phần đóng góp của mạng: cùng tín hiệu dư, thay
+mạng bằng lấy đỉnh → mạng đáng **+11,06 điểm** [7,80; 14,51], 5/5 sản phụ. TS-PCA trên kênh tốt nhất đạt
+96,74 — phương pháp cổ điển vẫn mạnh.
 
-Baseline thứ ba tách riêng phần đóng góp của mạng: cùng tín hiệu dư, chỉ thay mạng bằng lấy đỉnh → mạng
-đáng **+11,06 điểm**, KTC 95 % [7,80; 14,51], tốt hơn ở 5/5 sản phụ. TS-PCA trên kênh tốt nhất đạt
-96,74 — phương pháp cổ điển vẫn mạnh, nhất quán với phát hiện về front-end.
+### Power-MF — chạy lại tại chỗ, và câu hỏi repo này thật sự trả lời
 
-### Power-MF — đã chạy lại tại chỗ, và câu hỏi mà repo này thật sự trả lời
+Power-MF (Jaeger và cs. 2024) là phương pháp **đa kênh** (4 đạo trình, hai vòng ICA), đã **chạy lại từ chính
+mã MATLAB của tác giả** dưới GNU Octave, chấm bằng bộ chấm của nhóm trên cùng 22 chủ thể
+(`baselines/powermf_fair_run.py`, [`baselines/BASELINES.md`](baselines/BASELINES.md)).
 
-Power-MF (Jaeger và cs. 2024) là phương pháp **đa kênh**: dùng 4 đạo trình bụng và hai vòng ICA. Nay nó
-đã được **chạy lại từ chính mã nguồn MATLAB của tác giả** dưới GNU Octave, chấm bằng *bộ chấm của nhóm*
-(±50 ms, ghép tham lam 1-1) trên cùng 22 chủ thể (`baselines/powermf_fair_run.py`,
-[`baselines/BASELINES.md`](baselines/BASELINES.md)).
+> **Rút lại.** So sánh Power-MF sáng 12/09/2026 — *"94,87 so với 97,61, +2,74"* và *"98,38 so với 97,33,
+> −1,06"* — **bị rút toàn bộ**: đứng trên một **bản cổng chuyển hỏng** (`findpeaks` của Octave dùng ma trận
+> khoảng cách O(k²), tràn bộ nhớ trên 6 bản B1 dài). **Lỗi của nhóm, không phải của phương pháp.** Giả
+> thuyết `ms_minpeakdistance = 340 ms` quá sát **cũng rút** (0,00 % RR của B1_01 dưới 340 ms).
+> `baselines/octave/findpeaks_mpd.m` tái lập ngữ nghĩa MATLAB, O(k), 48/48 trường hợp.
 
-> **Rút lại.** Phần so sánh Power-MF công bố sáng 12/09/2026 — *"94,87 so với 97,61, hiệu +2,74"* và
-> *"98,38 so với 97,33, hiệu −1,06"* — **bị rút toàn bộ**. Cả hai dựa trên một **bản cổng chuyển hỏng**,
-> không phải trên Power-MF. Hàm `findpeaks` của gói `signal` trong Octave cài `MinPeakDistance` bằng ma
-> trận khoảng cách đôi một O(k²), gây tràn bộ nhớ trên 6 bản ghi Silesia B1 dài (2.395.600 mẫu sau nội
-> suy ×4); MATLAB — nền tảng của tác giả — dùng thuật toán tham O(k log k) nên không bao giờ gặp lỗi này.
-> **Đây là lỗi của nhóm, không phải tính chất của phương pháp.** Giả thuyết cũ rằng
-> `ms_minpeakdistance = 340 ms` quá sát **cũng bị rút**: đo trên chính nhãn tham chiếu, **0,00 %** khoảng
-> RR của B1_01 nằm dưới 340 ms (`baselines/powermf_rr_diag.json`), và tham số này được giữ nguyên ở giá
-> trị mặc định của tác giả suốt quá trình. `baselines/octave/findpeaks_mpd.m` tái lập đúng ngữ nghĩa của
-> MATLAB bằng danh sách liên kết đôi, O(k), kiểm chứng 48/48 trường hợp.
-
-**Kiểm chứng ngoài cho bản vá.** Sau khi vá, Power-MF đạt **99,40 ± 0,51** trên Silesia B1. Số **đã công
-bố của chính tác giả** trên tập đó là **99,46** (`baselines/powermf_published.json`, trích từ
-`Results/*.mat` của repo gốc). Lệch 0,06 điểm — cổng chuyển giờ đã đúng, và đó chính là lý do mọi con số
-trước khi vá phải bị rút.
+**Kiểm chứng ngoài.** Sau vá, Power-MF đạt **99,40 ± 0,51** trên B1; tác giả công bố **99,46**
+(`baselines/powermf_published.json`). Lệch 0,06.
 
 | Bộ dữ liệu | n | Power-MF, **4 kênh** | Power-MF, **1 kênh** | **RelyFetal, 1 kênh** |
 |---|---:|---:|---:|---:|
@@ -194,42 +220,28 @@ trước khi vá phải bị rút.
 | Silesia B2 (chuyển dạ) | 7 | 97,90 | 87,28 | 96,82 |
 | Silesia B1 (thai kỳ) | 10 | **99,40** | 83,48 | 97,15 |
 | **Toàn bộ 22 chủ thể** | 22 | **98,83** | 86,71 | 97,56 |
-| CinC 2013 set-a | 75 | chưa chạy | 62,82 | **79,40** |
+| CinC 2013 set-a, 60 bản sạch | 60 | chưa chạy | 55,97 | **74,28** (PSD) / 82,01 (`peakprob`, hậu kiểm) |
 
-Thống kê mức chủ thể (bootstrap cụm, 10.000 lần lấy mẫu lại **chủ thể**, seed 0; Wilcoxon ghép cặp;
-Cliff δ), toàn bộ 22 chủ thể:
-
-| So sánh | Δ F1 | KTC 95 % | p | Cliff δ | thắng/hoà/thua |
+| So sánh (22 chủ thể, bootstrap cụm 10.000 lần) | Δ F1 | KTC 95 % | p | Cliff δ | thắng/hoà/thua |
 |---|---:|---|---:|---:|---|
 | RelyFetal − Power-MF (4 kênh) | −1,27 | [−3,08; +0,27] | 0,156 | 0,260 | 18/0/4 |
 | RelyFetal − Power-MF (1 kênh) | **+10,85** | [+6,80; +15,40] | 4,8 × 10⁻⁷ | 0,698 | **22/0/0** |
 | Power-MF (1 kênh) − Power-MF (4 kênh) | −12,12 | [−18,27; −6,90] | 1,4 × 10⁻⁶ | — | 1/0/21 |
 
-Theo từng tập, RelyFetal − Power-MF (4 kênh): ADFECGDB **+0,39** [+0,22; +0,60], 5/0/0 — khoảng tin cậy
-**không chứa 0**, tức **ta hơn** ở tập này; Silesia B2 −1,08 [−4,04; +0,54], 6/0/1; Silesia B1 −2,25
-[−5,55; +0,32], 7/0/3.
+Theo từng tập, RelyFetal − Power-MF (4 kênh): ADFECGDB **+0,39** [+0,22; +0,60], 5/0/0; Silesia B2 −1,08
+[−4,04; +0,54]; Silesia B1 −2,25 [−5,55; +0,32]. **Trung vị** hiệu theo chủ thể là **+0,23**; trung bình bị
+kéo âm bởi ba bản B1_07 (−12,88), B1_06 (−10,51), B2_03 (−9,77).
 
-**Trung bình che mất hình dạng của kết quả.** **Trung vị** hiệu số theo chủ thể là **+0,23** và RelyFetal
-thắng **18 trong 22** chủ thể. Trung bình bị kéo âm bởi đúng ba bản ghi — B1_07 (86,56 so với 99,44;
-−12,88), B1_06 (89,45 so với 99,97; −10,51) và B2_03 (79,72 so với 89,49; −9,77), cộng một bản thứ tư
-nhẹ hơn là B1_10 (−1,86). Bất cứ bản tóm tắt nào chỉ nêu trung bình đều mô tả sai phân bố này.
-
-**Đại lượng thật sự được đo.** Câu hỏi không phải "ai thắng", mà là: *một mạng đơn kênh 113.481 tham số
-lấy lại được bao nhiêu phần lợi ích mà tách nguồn đa kênh mang lại?* Lợi ích đó nay đo được, vì Power-MF
-đã chạy ở cả hai cấu hình: bỏ tách nguồn đa kênh khiến **chính Power-MF mất 12,12 điểm F1**
-(98,83 → 86,71). Mạng đơn kênh lấy lại **10,85 điểm trong số đó — tức 89,5 % — chỉ bằng một đạo trình**.
-Kết quả: **không phân biệt được với Power-MF đa kênh** (−1,27; KTC [−3,08; +0,27]; p = 0,156), và **hơn
-hẳn Power-MF khi Power-MF bị giới hạn về cùng một đạo trình** (+10,85; 22/22 chủ thể).
-
-Đây **không** phải tuyên bố vượt SOTA, và từ đó không được dùng ở đây. Power-MF với 4 kênh vẫn hơn về
-trung bình thô.
+**Đại lượng được đo:** bỏ tách nguồn đa kênh khiến chính Power-MF mất **12,12 điểm** (98,83 → 86,71); mạng
+đơn kênh lấy lại **10,85 điểm — 89,5 %** — bằng một đạo trình; **không phân biệt được với Power-MF đa
+kênh** và **hơn hẳn Power-MF cùng một đạo trình** (22/22). Đây **không** phải tuyên bố "vượt trội"; Power-MF
+4 kênh vẫn hơn về trung bình thô.
 
 ### Cổng từ chối trả lời và kết quả phủ định về đồng điều bền vững
 
-Bộ phân loại "mô hình sẽ sai ở đoạn này không?" huấn luyện trên ADFECGDB, kiểm thử **xuyên miền** trên
-CinC 2013:
+Bộ phân loại "mô hình sẽ sai ở đoạn này không?" huấn luyện trên ADFECGDB, kiểm thử xuyên miền trên CinC 2013:
 
-| Nhóm đặc trưng | AUROC | KTC 95 % (bootstrap theo 10 bản ghi) | F1 ở độ phủ 80 % | F1 ở độ phủ 50 % |
+| Nhóm đặc trưng | AUROC | KTC 95 % | F1 ở độ phủ 80 % | F1 ở độ phủ 50 % |
 |---|---:|---|---:|---:|
 | Từ chối ngẫu nhiên | 0,500 | — | 62,03 | 62,14 |
 | 16 đặc trưng topo (Takens + ripser, sublevel H0) | **0,566** | — | 63,40 | 64,44 |
@@ -237,35 +249,31 @@ CinC 2013:
 | Cả 28 | 0,905 | — | 69,41 | 82,44 |
 | Oracle | — | — | 74,55 | 97,81 |
 
-**Con số 0,929 phần lớn là hiệu ứng GIỮA bản ghi.** Năm trong mười bản ghi CinC không có đoạn xấu nào,
-nên AUROC gộp chủ yếu trả lời câu *"đây có phải bản ghi xấu không?"*. Trung bình trên năm bản ghi có
-cả hai lớp, **AUROC TRONG bản ghi chỉ 0,721** [0,517; 0,898] — và chỉ con số này mới mô tả điều cổng
-từ chối làm được bên trong một phiên theo dõi, tức đúng tình huống lâm sàng.
-
-Đặc trưng đồng điều bền vững gần như không hơn ngẫu nhiên, không bổ sung gì cho chỉ số cổ điển, và đổi
-dấu tương quan giữa hai bộ dữ liệu. Chỉ số dự báo lỗi mạnh nhất là độ tự tin của chính mô hình
-(`prob_max`, AUROC 0,970), độ đều khoảng RR (0,915) và tỉ lệ năng lượng 10–60 Hz (0,904). Bản thân cổng
-từ chối có tác dụng: +7,4 điểm F1 ở độ phủ 80 %. **Phần đóng góp topo đề xuất ban đầu đã được kiểm chứng
-có kiểm soát và rút lại.**
+0,929 phần lớn là hiệu ứng **giữa** bản ghi; AUROC **trong** bản ghi chỉ **0,721** [0,517; 0,898]. Đặc trưng
+topo gần như không hơn ngẫu nhiên và không bổ sung gì. **Đóng góp topo đề xuất ban đầu đã kiểm chứng có kiểm
+soát và rút lại.**
 
 ---
 
 ## Mô hình
 
-`FetalQRS-TCN` — mạng tích chập giãn nở có kết nối dư, chuỗi sang chuỗi.
+`FetalQRS-TCN` — mạng tích chập giãn nở có kết nối dư, chuỗi sang chuỗi: **113.481** tham số, checkpoint
+0,48 MB, trường tiếp nhận 379 mẫu = **1.516 ms**, độ trễ một cửa sổ 4 s **4,35 ms** trên CPU, đầu vào
+2 × 1000 (tín hiệu dư sau khử mẹ + tín hiệu gốc, 250 Hz), đầu ra một logit từng mẫu (bản đồ nhiệt Gauss,
+σ = 12 ms).
 
-| Thuộc tính | Giá trị |
-|---|---|
-| Tham số huấn luyện được | **113.481** |
-| Kích thước checkpoint | 0,48 MB |
-| Trường tiếp nhận | 379 mẫu = **1.516 ms** |
-| Độ trễ một cửa sổ 4 giây | **4,35 ms** trên CPU (920× thời gian thực) |
-| Đầu vào | 2 × 1000 — tín hiệu dư sau khử mẹ + tín hiệu gốc, đoạn 4 s ở 250 Hz |
-| Đầu ra | một logit cho **từng mẫu**; nhãn bản đồ nhiệt Gauss, σ = 12 ms |
+```
+aECG 1 kênh @ 1000 Hz
+   ↓  Butterworth 10–60 Hz zero-phase + notch 50 Hz → 250 Hz
+   ↓  dò QRS mẹ (8–25 Hz, RR ≥ 350 ms) → khử bằng mẫu trung vị, co giãn LS từng nhịp
+   ↓  đoạn 4 s, 2 × 1000
+   ↓  FetalQRS-TCN — stem Conv1d(k=7) + 5 khối dư, giãn nở 1,2,4,8,16
+   ↓  bản đồ nhiệt từng mẫu → lấy đỉnh, ngưỡng τ + khoảng trơ 250 ms
+   ↓  cổng tin cậy (độ tự tin mô hình, hợp lý RR, tỉ số dải, kiểm tra bám nhịp mẹ)
+vị trí nhịp thai + nhịp tim thai + mức tin cậy
+```
 
-Dưới giao thức đã sửa (10–60 Hz, 5 fold tách bản ghi, ngưỡng chọn trên bản ghi validation riêng), tám kiến
-trúc cửa sổ 300 ms đạt 37,5–92,4; mô hình chuỗi 4 giây đầy đủ đạt 97,43. CNN giãn nở được giữ vì **hiệu
-quả tham số**, không phải vì họ kiến trúc ưu việt.
+CNN giãn nở được giữ vì **hiệu quả tham số**, không phải vì họ kiến trúc ưu việt.
 
 ---
 
@@ -275,19 +283,19 @@ quả tham số**, không phải vì họ kiến trúc ưu việt.
 python demo/app.py        # → http://127.0.0.1:7860
 ```
 
-Gradio, một trang: tải EDF/WFDB/CSV hoặc chọn bản ghi mẫu, tự động chọn kênh mù nhãn, năm tầng tín hiệu
-(thô → lọc → dư → xác suất → kết quả), đồ thị nhịp tim thai, và **đèn tin cậy**. Chọn bản ghi ADFECGDB
-thì tự động dùng fold checkpoint chưa thấy bản ghi đó.
+Gradio một trang: tải EDF/WFDB/CSV hoặc chọn bản mẫu, chọn kênh mù nhãn, năm tầng tín hiệu, đồ thị nhịp
+tim thai, **đèn tin cậy** hai chế độ — *học* (GBM trên 12 chỉ số cổ điển từng đoạn 4 s, `fsqi/gate.py`,
+mặc định) và *luật*. Chạy lại 12/09/2026 (17:07) trên 82 bản có nhãn không trùng huấn luyện và không rò rỉ
+(5 ADFECGDB với fold checkpoint, 60 CinC sạch, 17 Silesia; `python demo/run_check.py --threads 2` →
+`demo/results/demo_check_2modes.json`, `summary_by_mode`):
 
-| Đèn | Bản ghi | F1 trung bình | F1 thấp nhất |
-|---|---:|---:|---:|
-| Xanh | 8 | 99,54 | 96,54 |
-| Vàng | 5 | 50,51 | 21,05 |
-| Đỏ | 2 | 19,36 | 16,96 |
+| Chế độ | Xanh (n · F1 TB · min) | Vàng (n · F1 TB) | Đỏ (n · F1 TB) | Xanh nhưng F1 < 90 | Đỏ nhưng F1 ≥ 95 |
+|---|---|---|---|---|---|
+| học (mặc định) | 46 · 95,70 · 17,02 | 17 · 96,94 | 19 · 54,26 | 3 (a52, a54, a57) | 0 |
+| luật | 58 · 97,79 · 78,79 | 19 · 63,82 | 5 · 39,34 | 5 (a06, a11, a16, B1_07, B2_03) | 0 |
 
-Không bản ghi nào F1 < 96,5 bị đèn xanh. Hai bản ghi tệ nhất của CinC bị bắt bởi luật "bám nhịp mẹ"
-(≥ 60 % nhịp "thai" trùng đỉnh R mẹ). Kiểm thử ba tầng: unit test lõi, HTTP, và gọi API `gradio_client`.
-Ảnh chụp thật trong [`demo/screenshots/`](demo/screenshots/).
+Bảng cũ (8 xanh / 5 vàng / 2 đỏ) tính trên 15 bản mẫu, 4 trong đó là bản CinC rò rỉ — đã thay. Cổng học
+hiệu chuẩn theo mô hình 5 ca; cổng 22 ca ở `analysis/GATE22.md` chưa xuất vào demo.
 
 > Bản mẫu nghiên cứu. Không phải thiết bị y tế. Không dùng cho chẩn đoán.
 
@@ -295,64 +303,34 @@ Không bản ghi nào F1 < 96,5 bị đèn xanh. Hai bản ghi tệ nhất của
 
 ```bash
 uvicorn api.main:app --host 0.0.0.0 --port 8000          # hoặc: docker compose up --build
-curl http://127.0.0.1:8000/health
-curl -F "file=@signal.npy" -F "lead=auto" -F "fs=1000" http://127.0.0.1:8000/analyze
 ```
 
-Lớp FastAPI bọc `demo/core.py`, ba điểm cuối: `GET /health` (checkpoint production có sẵn không),
-`GET /model` (số tham số, trường tiếp nhận, ngưỡng, cấu hình) và `POST /analyze` (nhận EDF/CSV/TXT/NPY;
-trả `n_beats`, `fhr_mean`, `beats_ms`, `confidence{level,score,reasons}`, `latency_ms`, thêm `metrics` nếu
-gửi kèm file nhãn). Lỗi đầu vào trả về JSON `4xx`, không bao giờ là traceback. Lược đồ yêu cầu/phản hồi trong
-[`api/README.md`](api/README.md); kiểm thử ở `tests/test_api.py` (không cần mạng, `fastapi.testclient`).
+FastAPI bọc `demo/core.py`: `GET /health`, `GET /model`, `POST /analyze` (EDF/CSV/TXT/NPY → `n_beats`,
+`fhr_mean`, `beats_ms`, `confidence{level,score,reasons}`, `latency_ms`, thêm `metrics` nếu gửi nhãn).
+Lược đồ trong [`api/README.md`](api/README.md); kiểm thử `tests/test_api.py`.
 
 ---
 
-## Cấu trúc kho mã
+## Cấu trúc kho mã (sau đợt dọn vòng 7)
 
 ```
-model/                    Thư viện lõi, huấn luyện, suy luận, trọng số
-├─ fqrs_model.py            Cài đặt tham chiếu — mọi hằng số truy được về một thí nghiệm
-├─ train_final.py           Huấn luyện tách bản ghi → 5 checkpoint fold + 1 production
-├─ predict.py               Suy luận dòng lệnh: EDF / WFDB / CSV / NPY
-├─ download_data.py         Nguồn PhysioNet với thẻ dữ liệu SHA-256
-├─ download_silesia.py      Tải figshare có tiếp tục (URL hết hạn sau 10 s, cần Range + thử lại)
-├─ silesia_loader.py        Đọc .ecg Silesia (int16 big-endian, 500 Hz) → 1 kHz
-└─ checkpoints/             6 mô hình đã huấn luyện, 0,48 MB mỗi cái
-
-benchmark_dpss/           Bộ đối chuẩn
-├─ _paths.py                Giải quyết đường dẫn (kho mã tự chứa)
-├─ full_measure.py          Bộ chỉ số đầy đủ + chi phí tính toán đo thật
-├─ blind_lead.py            Chọn kênh mù nhãn theo PSD, trong và ngoài miền
-├─ silesia_eval.py          Đánh giá Silesia B1/B2 + kiểm tra rò rỉ bằng tương quan chéo
-└─ all_leads.py             Phân tích từng kênh
-
-baselines/                Phương pháp cổ điển tự cài lại
-├─ ts_baseline.py           TS, TS-PCA, độ nhô; bộ dò Pan–Tompkins; Wilcoxon so với mô hình
-├─ powermf_fair_run.py      Power-MF (4 kênh) chạy lại dưới Octave, kèm bản vá findpeaks P7
-├─ powermf_1ch.py           Power-MF giới hạn về một đạo trình (bản cài lại Python)
-├─ octave/findpeaks_mpd.m   MinPeakDistance O(k) đúng ngữ nghĩa MATLAB (kiểm chứng 48/48)
-└─ BASELINES.md             Báo cáo baseline đầy đủ, chẩn đoán lỗi cổng chuyển và phần rút lại
-
-fsqi/                     Thí nghiệm chỉ số chất lượng tín hiệu (đóng góp C3)
-├─ fsqi.py                  28 đặc trưng: Takens+ripser H0/H1, sublevel H0, chỉ số cổ điển
-├─ eval_fsqi.py             Dự báo lỗi xuyên miền, đường cong rủi ro–độ phủ
-└─ README.md                Báo cáo kết quả phủ định đầy đủ
-
-demo/                     Ứng dụng Gradio
-├─ core.py                  Logic pipeline, không phụ thuộc giao diện, có unit test
-├─ app.py                   Giao diện một trang với đèn tin cậy
-└─ screenshots/             Ảnh chụp thật từ ứng dụng đang chạy
-
-pilot_evidence/           Toàn bộ thí nghiệm tiền khả thi, kèm nhật ký
-├─ arch_loro.py             Bảng 8 kiến trúc đã sửa (tách bản ghi, 10–60 Hz)
-├─ band_ablation.py         8 dải thông ứng viên
-├─ seq_search.py            Quét trường tiếp nhận
-└─ seq_loro.py              3 seed + Wilcoxon ghép cặp
-
-de_cuong_latex/           Đề cương — mã nguồn LaTeX, hình và bảng sinh từ dữ liệu
-survey/                   Khảo sát 30 công trình + sổ số liệu đã kiểm chứng
-docs/                     Tài liệu đã biên dịch (PDF + DOCX)
-tests/                    Kiểm thử nhanh ghim mọi con số được trích dẫn
+model/                    Thư viện lõi, huấn luyện, suy luận, 20 checkpoint (5 / 12 / 22 ca + production)
+benchmark_dpss/           Bộ đối chuẩn: full_measure, blind_lead, silesia_eval, eval_22, eval_cinc75, eval_cinc60_sach
+baselines/                TS / TS-PCA / độ nhô; Power-MF 4 kênh (Octave) và 1 kênh; BASELINES.md
+fsqi/                     Chỉ số chất lượng tín hiệu (C3): kết quả phủ định về topo, cổng cổ điển
+demo/                     Gradio (core.py không phụ thuộc UI, có unit test), ảnh chụp thật
+api/                      FastAPI (main.py), lược đồ trong api/README.md
+pilot_evidence/           Thí nghiệm tiền khả thi kèm nhật ký (dải lọc, kiến trúc, trường tiếp nhận, band_tcn)
+adapt/                    Thích nghi miền không nhãn — bốn phương pháp, đều thất bại (adapt_results.json)
+analysis/                 DULIEU.md (15 bản trùng), CHONKENH.md (7 quy tắc), XACNHAN.md (vòng 7), KIENTRUC.md,
+                          STATS.md, CLINICAL.md, THICHNGHI.md, CHANDOAN_MOHINH.md (đã rút kết luận), dulieu_results.json
+survey/                   Khảo sát 30 công trình; RO_RI_VANLIEU.md (ai đã ghi nhận chồng lấn); facts_phase4.json (nguồn số duy nhất)
+de_cuong_latex/           Đề cương v3.5 — LaTeX (xelatex), 141 trang
+paper/cinc2026/           Bản thảo Computing in Cardiology 4 trang (pdflatex + bibtex), CHANGELOG.md
+docs/                     PDF/DOCX đã biên dịch; CHIEN_LUOC_CONG_BO.md, EUREKA.md, HUONG_DAN_DEMO.md, KICH_BAN_TRINH_BAY.md, TOM_TAT_1_TRANG.md
+archive/                  Script vá một lần đã rút khỏi cây làm việc (kèm README)
+tests/                    Kiểm thử ghim số tham số, trường tiếp nhận, API
+DON_REPO_VONG7.md         Biên bản dọn repo vòng 7: bảng tệp dư thừa, chỗ đã sửa, kết quả kiểm thử
 ```
 
 ---
@@ -364,106 +342,112 @@ git clone https://github.com/bminhnemhoi/nckhsv_tdtu2026-2027.git
 cd nckhsv_tdtu2026-2027
 python -m venv .venv && .venv\Scripts\activate     # Linux/macOS: source .venv/bin/activate
 pip install -r requirements.txt
-
 python model/download_data.py --root model/data --only adfecgdb    # ~15 MB từ PhysioNet
 python model/predict.py --input model/data/adfecgdb/r01.edf --lead 1 --annot qrs \
                         --checkpoint model/checkpoints/fetalqrs_tcn_fold_r01.pt
 ```
 
-Chỉ cần CPU. Huấn luyện lại sáu checkpoint mất ~30 phút trên laptop.
-
-Chạy lại toàn bộ:
-
-```bash
-python model/train_final.py --epochs 6 --seed 0
-python benchmark_dpss/full_measure.py
-python benchmark_dpss/blind_lead.py
-python baselines/ts_baseline.py                          # ~2 phút
-python pilot_evidence/arch_loro.py                       # ~20 phút
-python model/download_silesia.py && python benchmark_dpss/silesia_eval.py
-python fsqi/eval_fsqi.py                                 # ~4 phút
-python demo/run_check.py && python demo/smoke_app.py
-pytest tests/ demo/test_core.py                          # 53 kiểm thử
-```
+Chạy lại toàn bộ (thứ tự trong `README.md`, mục *Reproducing every number*); riêng số CinC:
+`python benchmark_dpss/eval_cinc75.py && python benchmark_dpss/eval_cinc60_sach.py`, kiểm toán trùng:
+`python analysis/dulieu_audit.py && python analysis/dulieu_m4b_verify.py`, kiểm thử:
+`pytest tests/ demo/test_core.py`.
 
 ---
 
 ## Dữ liệu
 
-Không phân phối lại bản ghi sinh lý nào. Script tải ghi SHA-256 cho từng tệp.
-
-| Bộ dữ liệu | Nguồn | Giấy phép | Dùng cho |
-|---|---|---|---|
-| ADFECGDB | physionet.org/content/adfecgdb · DOI 10.13026/C2RP4B | ODC-BY 1.0 | huấn luyện, đánh giá tách bản ghi |
-| Silesia B1/B2 (Matonia 2020) | figshare DOI 10.6084/m9.figshare.c.4740794 · *Sci Data* 7:200 | CC0 | tổng quát hoá zero-shot |
-| CinC 2013 set-a | physionet.org/content/challenge-2013 | ODC-BY 1.0 | tổng quát hoá sang hệ ghi khác |
-
-Silesia B1 (thai kỳ) **không có điện cực da đầu**; nhãn là gián tiếp (tác giả khử mẹ + dò tự động + chuyên
-gia sửa) và lệch 8–12 ms sau đỉnh R bụng ở 5/10 bản ghi. F1 trên B1 đo mức đồng thuận với pipeline đó, không
-phải sự thật sinh lý.
+Không phân phối lại bản ghi sinh lý nào. ADFECGDB (PhysioNet, ODC-BY 1.0) — huấn luyện, đánh giá tách bản
+ghi; Silesia B1/B2 (Matonia 2020, figshare, CC0) — zero-shot; CinC 2013 set-a (PhysioNet, ODC-BY 1.0) —
+hệ ghi khác, **60 bản sạch**. Silesia B1 không có điện cực da đầu; nhãn gián tiếp, lệch 8–12 ms ở 5/10 bản.
 
 ---
 
 ## Hạn chế còn tồn tại
 
-- **Cả 22 sản phụ đều từ một bệnh viện, một hệ ghi.** Trên hệ ghi khác (CinC 2013, đủ 75 bản ghi) mô
-  hình 22 ca đạt **79,4 theo quy tắc chọn kênh mù nhãn**, so với 97–99 trong miền; dữ liệu đa trung tâm
-  là khoảng trống còn lại. Lần chạy 22 ca là bốn epoch và chưa tách riêng đóng góp của tăng cường dữ
-  liệu; seed thứ hai làm F1 từng chủ thể đổi trung bình 0,28 điểm.
-- **Cỡ mẫu là hạn chế ràng buộc nhất.** ADFECGDB có 5 sản phụ, nên không so sánh nào trên ADFECGDB đạt
-  được ý nghĩa thống kê ở mức chủ thể và mọi khoảng tin cậy ở đây đều rộng. Bảng kiến trúc thiếu lực về
-  mặt thiết kế, không phải "không kết luận được" do ngẫu nhiên. (CinC 2013 nay có đủ 75 bản ghi nên
-  không còn là ràng buộc cỡ mẫu.)
-- **CinC 2013 set-a nay đã đánh giá đủ (75 bản ghi, và 68 bản theo quy tắc loại khai báo trước).** Việc
-  chấm vẫn dùng bộ chấm ±50 ms của nhóm chứ không phải bộ chấm chính thức của cuộc thi, nên đây *không*
-  phải bài dự thi chính thức dù tập bản ghi đã khớp.
-- **Cổng tin cậy học được hiệu chuẩn theo mô hình 5 ca**, quá thận trọng trên thai kỳ (35 % xanh trên Silesia
-  so với 82 % của luật). Chưa hiệu chuẩn lại cho mô hình 22 ca.
-- **Bảng kiến trúc chỉ một seed, ba epoch**, và bỏ Transformer cùng hai biến thể 2D vì chi phí. Thứ tự
-  không đổi nhưng con số tuyệt đối còn thiếu huấn luyện.
-- **Đèn tin cậy trong demo là luật đặt tay.** Ngưỡng bám mẹ 60 % được đặt sau khi nhìn một bản ghi đánh giá.
-  Bộ phân loại chỉ số cổ điển đã học trong `fsqi/` nên thay vào.
-- **Power-MF nay đã chạy lại tại chỗ, nhưng mới trên 22 chủ thể của nhóm** — chưa chạy trên CinC 2013,
-  nơi mới chỉ đo được bản đơn kênh. Bản đơn kênh là phần cài lại của nhóm theo mô tả đã công bố, không
-  phải mã của tác giả, nên nó mang theo cách hiểu của nhóm về phương pháp.
-- **Con số +11,00 điểm của dải thông đo trên GBM cửa sổ 300 ms, không phải trên TCN.** Khảo sát dải lọc
-  trên chính TCN vẫn đang chạy (`pilot_evidence/band_tcn.py`; đến giờ dải 10–60 Hz = 98,07 ± 4,05, còn 3
-  dải). Đến khi chạy xong, con số tầng 1 mô tả một mô hình khác với mô hình mà repo này phát hành.
-- **Chỉ số chất lượng topo đề xuất ban đầu không hoạt động** (AUROC 0,566 so với 0,929). Được báo cáo là
-  kết quả phủ định, không giấu.
+- **22 sản phụ từ một bệnh viện, một hệ ghi.** Trên hệ ghi khác (CinC 2013, 60 bản sạch) mô hình 22 ca đạt
+  **74,28 theo PSD mù nhãn** (82,01 theo `peakprob` hậu kiểm) so với 97–99 trong miền. Bốn phương pháp thích
+  nghi miền không nhãn **đều thất bại** (notch thích nghi +0,25, p = 0,70; self-training −0,68; AdaBN −1,58;
+  TENT −2,43; `analysis/THICHNGHI.md`).
+- **Cỡ mẫu là ràng buộc chặt nhất.** Không so sánh nào trên ADFECGDB có ý nghĩa thống kê ở mức chủ thể.
+- **CinC 2013 chấm trên 60 bản sạch (53 theo loại trừ khai báo), không phải 75**; chưa kiểm 60 bản có từ 60
+  sản phụ khác nhau không (NCC ≤ 0,62 chỉ loại bản sao nguyên văn). Bộ chấm ±50 ms của nhóm, không phải bộ
+  chấm chính thức.
+- **Kết luận "mô hình không phải nút thắt" (`analysis/CHANDOAN_MOHINH.md`) đã rút**, cùng với "71 % dư địa
+  nằm trên bản không có tín hiệu": phép thử nhìn thấy có **âm tính giả 18,0 % [12,1; 25,0]** trên 60 bản sạch
+  (ngưỡng khai báo 10 %), 55–70 % trên bản F1 < 90; sau hiệu chỉnh tỉ lệ dư địa "thiếu tín hiệu" từ 86,0 %
+  xuống 26,0 % nhưng con số hiệu chỉnh không định danh được. Phát biểu đúng: *chưa chứng minh được mô hình là
+  hay không là nút thắt* (`analysis/XACNHAN.md`).
+- **Chưa có bộ dữ liệu thứ ba có nhãn fQRS thật** để xác nhận `peakprob` (xem ràng buộc (4) ở trên).
+- **Cổng tin cậy học hiệu chuẩn theo mô hình 5 ca**, quá thận trọng trên thai kỳ; chưa hiệu chuẩn lại cho 22 ca.
+- **Bảng kiến trúc một seed, ba epoch.** **Đèn luật trong demo là luật đặt tay.**
+- **Power-MF 4 kênh chưa chạy trên CinC 2013**; bản 1 kênh là cài lại của nhóm theo mô tả đã công bố.
+- **+11,00 điểm dải thông đo trên GBM 300 ms, rút với TCN** (+2,44 [−0,05; +6,30] trên kênh PSD; −0,07
+  [−0,49; +0,40] trung bình 4 kênh).
+- **Nhánh 22 ca trong miền ở trần F1** (14/22 chủ thể ở kênh oracle), nên so sánh ở đó phải đọc trên thang
+  logit (`analysis/KIENTRUC.md`).
+- **Chỉ số chất lượng topo không hoạt động** (AUROC 0,566 so với 0,929) — kết quả phủ định.
+- **Nơi công bố:** *Physiological Measurement* là **Q2/Q3 Scimago 2024, không phải Q1** như đề cương v3.4 ghi;
+  Q1 (JBHI, TBME, BSPC, CBM, AI in Medicine) cần bộ dữ liệu thứ ba (`docs/CHIEN_LUOC_CONG_BO.md`).
 
 ---
 
 ## Điều gì đã được kiểm chứng, điều gì chưa
 
-Bảng này để người đọc không phải đoán mức độ tin cậy của từng con số. *Kiểm chứng ngoài* nghĩa là đối
-chiếu được với một nguồn nằm ngoài repo này.
-
 | Tuyên bố | Trạng thái | Bằng chứng |
 |---|---|---|
-| F1 trong miền (ADFECGDB 99,40; B2 96,82; B1 97,15) | **Đo lại được trong repo** | `benchmark_dpss/eval_22.json`, giao thức tách theo nhóm |
-| Không rò rỉ giữa 5 bản PhysioNet và Silesia B2 | **Đã kiểm** | tương quan chéo NCC 0,988–0,994; chấm bằng fold checkpoint chưa thấy bản ghi |
-| CinC 2013 = 79,40 trên đủ 75 bản ghi | **Đo lại được trong repo** | `benchmark_dpss/eval_cinc75.json` |
-| Bản cổng chuyển Power-MF của nhóm là đúng | **Kiểm chứng NGOÀI** | ta đo 99,40 trên B1; tác giả công bố 99,46 (`baselines/powermf_published.json`) — lệch 0,06 |
-| Power-MF 4 kênh / 1 kênh / RelyFetal (bảng 3 cột) | **Đo lại được trong repo** | `baselines/powermf_fair_stats.json`, `powermf_1ch.json` |
-| Thêm dữ liệu giúp thật, không phải học phong cách nhãn | **Có bằng chứng độc lập** | m12 (chưa từng thấy B1) 74,34 so với m22 79,40 trên CinC — bộ nhãn do người khác chấm (`analysis/ABLATION_B1.md`) |
-| +11,00 điểm cho dải thông | **CHƯA kiểm chứng trên TCN** | đo trên GBM cửa sổ 300 ms; khảo sát trên TCN đang chạy (`pilot_evidence/band_tcn.py`) |
-| Độ chính xác thời điểm (jitter, STV) trên Silesia B1 | **KHÔNG dùng được** | nhãn B1 là gián tiếp; lệch hệ thống theo mô hình (m5 6,50 / m12 6,50 / m22 3,25 ms) |
-| Dùng làm máy đo STV độc lập | **KHÔNG** | độ chệch STV +0,33 ms trên ADFECGDB nhưng +20,50 ms trên CinC (`analysis/CLINICAL.md`) |
-| "8 kiến trúc không phân biệt được" | **ĐÃ RÚT** | TOST biên 1,0 điểm bác bỏ: cnn_m kém hơn, cnn_l hơn (`analysis/STATS.md`) |
-| Đóng góp của đặc trưng tô-pô (C3) | **ĐÃ RÚT — kết quả phủ định** | AUROC 0,566 so với 0,929 của chỉ số cổ điển (`fsqi/README.md`) |
-| Điểm so được với bảng xếp hạng CinC 2013 | **KHÔNG** | dùng bộ chấm ±50 ms của nhóm, không phải bộ chấm chính thức |
-| Ổn định theo seed | **Mới 2 seed** | độ lệch tuyệt đối trung bình 0,28 điểm trên 20 chủ thể |
-| Trung tâm thứ hai có nhãn fQRS thật | **CHƯA có** | NInFEA không phân phối nhãn |
-
-Mọi con số trong README này truy ngược được về một tệp JSON trên đĩa. Phần rút lại được ghi ngay tại chỗ
-con số cũ từng đứng, không xoá lặng lẽ.
+| F1 trong miền (ADFECGDB 99,40; B2 96,82; B1 97,15) | **Đo lại được trong repo** | `benchmark_dpss/eval_22.json` |
+| Không rò rỉ giữa 5 bản PhysioNet và Silesia B2 | **Đã kiểm** | NCC 0,988–0,994; chấm bằng fold chưa thấy |
+| CinC 2013 = 74,28 (PSD) trên 60 bản sạch | **Đo lại được trong repo** | `benchmark_dpss/eval_cinc60_sach.json` |
+| Set-a chứa bản ghi ADFECGDB | **Ban tổ chức đã ghi nhận, không phải nhóm** | Silva 2013 Bảng 1; Clifford 2014 Bảng 2 + cảnh báo Rodrigues; Su & Wu 2017; Matonia 2020 (`survey/RO_RI_VANLIEU.md`) |
+| *Đúng 15/75 bản nào* là bản sao và mức thổi phồng | **Nhóm đo, kiểm hai lần** | NCC = 1,0000 4/4 kênh, lệch RR 0,0 ms; hai cài đặt độc lập; thổi phồng 3,27–7,18 điểm |
+| `peakprob` +7,73 so PSD | **Giả thuyết — hậu kiểm, chưa lặp lại** | sống sót Holm (0,0039); `gate` chỉ định trượt (0,0505); trên logit `gate` dẫn 22 ca, `gate4` dẫn 60 bản (`analysis/XACNHAN.md`) |
+| "Mô hình không phải nút thắt" | **KHÔNG xác định được** | phép thử nhìn thấy âm tính giả 18,0 %; 26 % so 86 % không định danh |
+| Thích nghi miền không nhãn giúp trên CinC | **KHÔNG — bốn phương pháp đều âm** | `analysis/THICHNGHI.md`, `adapt/adapt_results.json` |
+| Họ kiến trúc quan trọng ở cùng tham số | **KHÔNG (trong miền, giao thức rút gọn)** | `analysis/KIENTRUC.md` |
+| Bản cổng chuyển Power-MF đúng | **Kiểm chứng NGOÀI** | 99,40 so với 99,46 tác giả công bố |
+| Thêm dữ liệu giúp thật | **Bằng chứng độc lập** | m12 (chưa thấy B1) 67,93 so m22 74,28 trên 60 bản sạch (`analysis/ABLATION_B1.md`) |
+| +11,00 điểm dải thông | **RÚT với TCN** | +2,44 [−0,05; +6,30] (`pilot_evidence/band_tcn.json`) |
+| Jitter/STV trên Silesia B1 | **KHÔNG dùng được** | nhãn gián tiếp, lệch phụ thuộc mô hình |
+| Máy đo STV độc lập | **KHÔNG** | chệch +20,50 ms trên CinC (`analysis/CLINICAL.md`) |
+| "8 kiến trúc không phân biệt được" | **ĐÃ RÚT** | TOST biên 1,0 (`analysis/STATS.md`) |
+| Đóng góp topo (C3) | **ĐÃ RÚT — phủ định** | AUROC 0,566 so 0,929 (`fsqi/README.md`) |
+| Điểm so được với bảng CinC 2013 | **KHÔNG** | bộ chấm riêng |
+| Ổn định seed | **Chỉ 2 seed, trong miền** | +0,03 [−0,18; +0,34]; checkpoint seed 1 không lưu |
+| Lặp lại `peakprob` trên bộ thứ ba | **KHÔNG THỂ với dữ liệu hiện có** | không bộ công khai nào có nhãn fQRS thật (`analysis/XACNHAN.md`) |
+| Trung tâm thứ hai có nhãn fQRS thật | **CHƯA có** | — |
 
 ---
 
-## Giấy phép
+## Rút lại — danh sách đầy đủ
 
-Mã nguồn **MIT**. Tài liệu, hình vẽ và trọng số **CC BY 4.0**. Dữ liệu sinh lý và công trình bên thứ ba
-**không** phân phối lại — xem [`LICENSE`](LICENSE).
+| Đã rút | Từng đứng ở | Vì sao | Thay bằng |
+|---|---|---|---|
+| 59,15 / 69,31 / 77,34 / 90,34 / 22,33 | CinC 2013, mẫu 10 bản | mẫu lệch, kênh hậu kiểm; 4/10 bản là dữ liệu huấn luyện | 60 bản sạch |
+| 71,21 / 79,40 / 86,87 / 74,09 / 69,33 / +8,18 / +7,47 / 80,70 | CinC 2013, đủ 75 bản | 15 bản là bản sao ADFECGDB; vi phạm độc lập mức bản ghi | 64,04 / **74,28** / 83,60 / 67,69 / +10,24 / +9,32 / 75,27 — `eval_cinc60_sach.json` |
+| 85,60 / +6,20 / +5,14 (`peakprob`, `gate` trên 75 bản) | `analysis/CHONKENH.md` | cùng ô nhiễm | 82,01 / +7,73 / +6,44 trên 60 bản sạch |
+| 62,82 (Power-MF 1 kênh trên CinC) | bảng Power-MF | cùng ô nhiễm | 55,97 |
+| 94,87 / +2,74 / 98,38 / 97,33 | Power-MF, sáng 12/09/2026 | cổng chuyển Octave hỏng | 98,83 / −1,27 [−3,08; +0,27] |
+| "+11,00 F1 từ dải lọc" như phát biểu về mô hình | README cũ | đo trên GBM 300 ms; trên TCN +2,44, khoảng chứa 0 | chỉ báo cáo cho bộ học 300 ms |
+| "tám kiến trúc không phân biệt được" | README cũ | tương đương suy từ p > 0,05 | TOST; `cnn_wide` kém trên logit |
+| "bài toán lưỡng cực" như cơ chế | README cũ | hai đỉnh là hệ quả chọn kênh (`analysis/LUONGCUC.md`) | mô tả, không kết luận |
+| "tiền đăng ký" cho nghiên cứu quy tắc chọn kênh | `analysis/CHONKENH.md` | kế hoạch không neo git, viết sau khi có F1 từng kênh | "kế hoạch viết trước khi chấm quy tắc" |
+| "mô hình không phải nút thắt"; "71 % dư địa không có tín hiệu"; "chỉ 1,85 điểm thuộc mô hình" | `analysis/CHANDOAN_MOHINH.md`, `THICHNGHI.md` | phép thử nhìn thấy âm tính giả 18,0 % (ngưỡng 10 %), 55–70 % trên bản khó | "chưa chứng minh được là hay không là"; phần dư địa không xác định (26–86 % là hai biên) — `analysis/XACNHAN.md` |
+| "8 bản giới hạn cứng" | `analysis/CHANDOAN_MOHINH.md` | định nghĩa vòng tròn; a54 là lỗi nhãn | chỉ mô tả |
+| **"nhóm phát hiện rò rỉ" — chồng lấn set-a ↔ ADFECGDB như phát hiện của nhóm** | README cũ, `analysis/DULIEU.md` §12, `docs/*` | ban tổ chức ghi nhận 2013/2014; cảnh báo nằm trong ghi chú đọc bài của nhóm (p20) | "như ban tổ chức đã ghi nhận [Silva 2013; Clifford 2014] … chúng tôi xác định bằng đo lường đúng 15 bản và mức thổi phồng" — `survey/RO_RI_VANLIEU.md` |
+| "lặp lại `peakprob` trên set-b / NInFEA / NIFEADB" như kế hoạch | README cũ, `docs/CHIEN_LUOC_CONG_BO.md` | không bộ nào có nhãn fQRS thật | không có bộ thứ ba; quy tắc vẫn là giả thuyết |
+| "hai seed cho thấy ổn định" ngoài phạm vi trong miền | README cũ | checkpoint seed 1 không được lưu | chỉ trong miền: +0,03 [−0,18; +0,34] |
+| p < 0,001 cho tầng dải lọc; mọi p trên ADFECGDB | README cũ | giả lập record × kênh × seed | chỉ khoảng tin cậy (`analysis/STATS.md`) |
+| đóng góp chỉ số topo | đề cương v1 | AUROC 0,566 so 0,929 | kết quả phủ định |
+| *Physiological Measurement* là tạp chí Q1 | đề cương v3.4, `docs/` | Scimago 2024: Q2 (Physiology) / Q3 (Biomedical Eng.) | Q1: JBHI, TBME, BSPC, CBM, AI in Medicine — `docs/CHIEN_LUOC_CONG_BO.md` |
+
+Nguồn số hiện hành duy nhất: [`survey/facts_phase4.json`](survey/facts_phase4.json); mỗi mục ghi tệp JSON
+nó được đọc từ.
+
+---
+
+## Trích dẫn và giấy phép
+
+Xem [`CITATION.cff`](CITATION.cff) (v3.5, 12/09/2026). Mã nguồn **MIT**; tài liệu, hình vẽ và trọng số
+**CC BY 4.0**; dữ liệu sinh lý và công trình bên thứ ba **không** phân phối lại — [`LICENSE`](LICENSE).
 
 > **Không phải thiết bị y tế.** Bản mẫu nghiên cứu, chưa thẩm định lâm sàng, không có chứng nhận quản lý.

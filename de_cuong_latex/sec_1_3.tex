@@ -42,12 +42,13 @@ còn làm giảm. Nhóm cũng chứng minh bằng số rằng $H_0$ của lọc 
 
 \item \textbf{Dữ liệu là đòn bẩy lớn nhất, nhưng chưa đủ, và độ tin cậy là rào cản thật.}
 Mô hình học trên 5 ca đạt macro F1 \tot{99,21} trên ADFECGDB khi tách theo bản ghi, nhưng khi chuyển sang
-một hệ ghi khác (PhysioNet/CinC 2013, \textbf{toàn bộ 75 bản ghi set-a}) chỉ còn \xau{71,21} với phân bố
-lưỡng cực: 22 trên 75 bản ghi sụp dưới 50. Huấn luyện lại trên \textbf{22 sản phụ} --- thêm 17 ca cùng
-bệnh viện, trong đó 10 ca thai kỳ --- nâng thai kỳ từ 93,30 lên \tot{97,15} và nâng CinC 2013 từ 71,21 lên
-\tot{79,40} (hiệu số $+8{,}18$; KTC 95\% $[+5{,}62;\ +11{,}09]$; thắng 53 thua 5 trên 75 bản ghi).
-Nhưng \textbf{vẫn còn 16 bản ghi dưới 50}: phân bố lưỡng cực chưa biến mất, và hệ thống vẫn cần biết khi
-nào nó sai.
+một hệ ghi khác (PhysioNet/CinC 2013, \textbf{60 bản ghi set-a không phải bản sao ADFECGDB}) chỉ còn
+\xau{64,04} với phân bố tách đôi: 22 trên 60 bản ghi sụp dưới 50. Huấn luyện lại trên \textbf{22 sản phụ} ---
+thêm 17 ca cùng bệnh viện, trong đó 10 ca thai kỳ --- nâng thai kỳ từ 93,30 lên \tot{97,15} và nâng CinC 2013
+từ 64,04 lên \tot{74,28} (hiệu số $+10{,}24$; KTC 95\% $[+7{,}13;\ +13{,}60]$; thắng 52 thua 3 trên 60 bản
+ghi sạch; \texttt{benchmark\_dpss/eval\_cinc60\_sach.json}). Nhưng \textbf{vẫn còn 16 bản ghi dưới 50}, và
+hệ thống vẫn cần biết khi nào nó sai. \textit{(Bản 3.4 ghi 71,21 $\to$ 79,40 trên 75 bản; đã rút vì 15 bản
+là bản sao dữ liệu huấn luyện --- \S\ref{sec:cinc75}.)}
 \end{enumerate}
 
 \begin{canhbao}[title={Bản 3.3 sửa gì so với bản 3.2 --- đọc trước khi đọc phần còn lại}]
@@ -55,8 +56,9 @@ nào nó sai.
 \begin{enumerate}[leftmargin=1.5em,itemsep=2pt]
 \item \textbf{CinC 2013:} mọi con số cũ (59,15 / 69,31 / 77,34 / 90,34) đo trên \textbf{mẫu 10 bản ghi}
 của một tập có 75 bản ghi. Mẫu đó lệch, và lệch theo \textit{hai hướng ngược nhau} tuỳ quy tắc chọn kênh.
-Số chính mới là \textbf{79,40} trên 75 bản ghi. Kết luận cũ ``không còn bản ghi nào dưới 50'' \textbf{sai}
-trên tập đầy đủ (\S\ref{sec:cinc75}).
+Bản 3.4 thay bằng 79,40 trên 75 bản; \textbf{bản 3.5 rút tiếp con số đó}: 15/75 bản là bản sao ADFECGDB (ban
+tổ chức đã ghi nhận từ 2013), số đúng là \textbf{74,28} trên 60 bản sạch. Kết luận cũ ``không còn bản ghi
+nào dưới 50'' \textbf{sai} (\S\ref{sec:cinc75}).
 \item \textbf{Power-MF:} bản 3.2 ghi ``không chạy lại được''. Sai --- đã chạy qua GNU Octave.
 \textbf{Và bản 3.3 cũng sai}: mọi con số Power-MF của nó (94,87 / 98,38) đứng trên một bản Octave hỏng vì
 lỗi cổng chuyển của nhóm, đã rút hết. Số đúng: Power-MF đa kênh 98,83, \hethong{} 97,56 --- không phân

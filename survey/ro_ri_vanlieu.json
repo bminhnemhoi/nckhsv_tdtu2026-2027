@@ -1,0 +1,314 @@
+{
+  "ngay_ra": "2026-09-12",
+  "cau_hoi": "Rò rỉ CinC 2013 set-a <-> ADFECGDB đã được y văn ghi nhận chưa (A: chưa / B: đã)?",
+  "ket_luan": "B ở mức bộ dữ liệu (ban tổ chức ghi rõ 25 bản ghi từ ADFECGDB từ 2013 và cảnh báo thiên lệch năm 2014); A ở mức bản ghi (không nguồn nào nêu bản ghi set-a nào, cửa sổ nào, hay mức thổi phồng). Nhóm đã bỏ sót một cảnh báo đã biết.",
+  "nguon": [
+    {
+      "ten": "PhysioNet challenge-2013 v1.0.0 (trang mô tả)",
+      "url": "https://physionet.org/content/challenge-2013/1.0.0/",
+      "da_truy_cap_duoc": true,
+      "trich_dan_nguyen_van": [
+        "The data were obtained from multiple sources using a variety of instrumentation with differing frequency response, resolution, and configuration",
+        "in all cases they are presented as 1000 samples per signal per second",
+        "a collection of one-minute fetal ECG recordings",
+        "initial set of 25 set A records",
+        "supplementary set of 50 more set A records",
+        "the training data set (set A) does not include examples of all of the sources included in the test sets",
+        "The challenge organizers wish to thank Joachim Behar, Gari Clifford, Marcelino Martinez, Dawid Roj, Reza Sameni, Anton Tokarev, and their colleagues for their generous contributions of data and expertise"
+      ],
+      "ket_luan": "Không nhắc ADFECGDB/Silesia/Jezewski; không ghi bản ghi nào từ nguồn nào. Không thể suy ra rò rỉ từ trang này."
+    },
+    {
+      "ten": "PhysioNet adfecgdb v1.0.0 (trang mô tả)",
+      "url": "https://physionet.org/content/adfecgdb/1.0.0/",
+      "da_truy_cap_duoc": true,
+      "trich_dan_nguyen_van": [
+        "five women in labor",
+        "Sampling rate: 1 kHz",
+        "five-minute multichannel fetal ECG recordings",
+        "Medical University of Silesia, Poland",
+        "Published: Aug. 9, 2012"
+      ],
+      "ket_luan": "Không nhắc Challenge 2013. Xác nhận 1 kHz, 5 phút, 5 sản phụ."
+    },
+    {
+      "ten": "Silva I, Behar J, Sameni R, Zhu T, Oster J, Clifford GD, Moody GB. Noninvasive Fetal ECG: the PhysioNet/Computing in Cardiology Challenge 2013. Comput Cardiol 2013;40:149-152",
+      "url": "http://www.cinc.org/archives/2013/pdf/0149.pdf",
+      "doi": "không có DOI (Crossref không có bản ghi; ISSN 2325-8861; IEEE Xplore 6712433)",
+      "da_truy_cap_duoc": true,
+      "trich_dan_nguyen_van": [
+        "Data for the challenge consist of a collection of one-minute, four-channel non-invasive FECGs sampled at 1 kHz. The data were obtained from multiple sources using a variety of instrumentation with differing frequency response, resolution, and configuration. The 447 records used in the challenge were drawn from five data collections (Table 1).",
+        "Table 1. FECG database reference. Database Name | N records: Abdominal and Direct FECG [1] | 25; Artificially Generated FECGs [2] | 20; Non-Invasive FECG [3] | 14; Ukraine Non-Invasive FECG | 340; Private Scalp FECG Database | 48",
+        "[1] Matonia A, Jezewski J, Kupka T, Horoba K, Wrobel J, Gacek A. The influence of coincidence of fetal and maternal QRS complexes on fetal heart rate reliability. Medical Biological Engineering Computing 2006;44(5):393-403.",
+        "The 447 records were partitioned into three subsets. Training set A contains 75 records; its reference annotations were provided to the participants. Open test set B contains 100 records; its signals, but not its reference annotations, were available for study by the participants. Hidden test set C contains the remaining 272 records"
+      ],
+      "ket_luan": "Ban tổ chức ghi rõ 25 bản ghi Challenge lấy từ Abdominal and Direct FECG (Matonia 2006) ngay năm 2013. Không nói bản ghi nào rơi vào set A."
+    },
+    {
+      "ten": "Clifford GD, Silva I, Behar J, Moody GB. Non-invasive fetal ECG analysis. Physiol Meas 2014;35(8):1521-1536",
+      "url": "https://doi.org/10.1088/0967-3334/35/8/1521 (toàn văn cục bộ: papers/p20_text.txt)",
+      "doi": "10.1088/0967-3334/35/8/1521 (xác minh Crossref)",
+      "da_truy_cap_duoc": true,
+      "trich_dan_nguyen_van": [
+        "The data sets used for the Challenge were obtained from five different sources, Tab.2, yielding a total of 447 records. Two out of the five databases have been previously made public ((Matonia et al., 2006) and (Goldberger et al., 2000)), and one database was artificially generated using an extended version (Behar et al., 2014b) of the dipole model described in (Sameni et al., 2007). The other two databases were donated to PhysioNet for this Challenge",
+        "Table 2. FECG database reference. ADFECGDB (Matonia et al., 2006) | 25; Simulated FECGs (Behar et al., 2014b) | 20; NIFECGDB (Goldberger et al., 2000) | 14; Non-Invasive FECG | 340; Scalp FECG Database | 48; Total | 447",
+        "All records were formatted to have a 1 kHz sampling frequency, one minute duration, and four channels of non-invasive abdominal maternal ECG leads. The databases in Tab.2 were re-arranged into three data sets for the Challenge",
+        "Rodrigues (2014) employed a Wiener filter which took as the input, the three abominal channels with a number of coeffiecients (91) in order to filter out the MQRS from the fourth channel. The authors also used the MIT Abdominal and Direct Fetal Electrocardiogram Database in order to train their algorithm, which may have led to a bias in the results as this database was included in set-a, set-b (and possibly a few records in set-c)."
+      ],
+      "ket_luan": "NGUỒN QUYẾT ĐỊNH: ban tổ chức không chỉ ghi nhận ADFECGDB nằm trong set-a/set-b mà còn nêu đích danh một bài dự thi (Rodrigues 2014) bị thiên lệch vì huấn luyện trên ADFECGDB. Kết luận (B)."
+    },
+    {
+      "ten": "Behar J. Extraction of clinical information from the non-invasive fetal electrocardiogram. DPhil thesis, Oxford 2014 (arXiv:1606.01093)",
+      "url": "https://arxiv.org/abs/1606.01093 (toàn văn cục bộ: papers/p13_thesis.txt)",
+      "da_truy_cap_duoc": true,
+      "trich_dan_nguyen_van": [
+        "Table 4.2: Physionet Challenge 2013 FECG database description. ADFECGDB [67] 25; NIFECGDB [65] 14; AFECGDB [6] 20; PNIFECGDB 340; PSFECGDB 48; Total 447",
+        "Joachim formatted and provided the PSFECGDB, NIFECGDB (manual annotation of each individual FQRS was necessary for this database), AFECGDB and the ADFECGDB. In order to objectively compare the approach presented in this thesis (see Chapter 7) for NI-FECG extraction to the other Challenge participants, only the official data provided to the Challenge participants was used for training."
+      ],
+      "ket_luan": "Xác nhận lại 25 bản ADFECGDB; Behar 2014 (FUSE) chỉ huấn luyện trên dữ liệu chính thức của Challenge nên không bị nhiễm theo cơ chế này."
+    },
+    {
+      "ten": "Matonia A, Jezewski J, Kupka T, Jezewski M, Horoba K, Wrobel J, Czabanski R, Kahankova R. Fetal electrocardiograms, direct and abdominal with reference heartbeat annotations. Sci Data 2020;7:200",
+      "url": "https://doi.org/10.1038/s41597-020-0538-z (toàn văn cục bộ: papers/p21_Matonia2020-SilesiaDataset.pdf)",
+      "doi": "10.1038/s41597-020-0538-z (xác minh Crossref)",
+      "da_truy_cap_duoc": true,
+      "trich_dan_nguyen_van": [
+        "As a result of the work, five selected records from the labour dataset were made available to the scientific community via the PhysioNet portal as The abdominal and direct fetal electrocardiogram database (ADFECGDB). Additionally, in order to unify the sampling frequency, the abdominal signals were resampled to 1kHz. In 2013, those signals were part of the research material in the \"Noninvasive Fetal ECG: the PhysioNet/Computing in Cardiology Challenge\" to develop effective methods for analyzing the abdominal fetal electrocardiogram."
+      ],
+      "ket_luan": "Chính tác giả bộ dữ liệu xác nhận ADFECGDB là vật liệu của Challenge 2013 và 5 bản ADFECGDB là tập con của bộ Silesia B2 (chuyển dạ). Hai chồng lấn (ADFECGDB<->B2 và ADFECGDB<->CinC) đều đã được công bố."
+    },
+    {
+      "ten": "Su L, Wu H-T. Extract Fetal ECG from Single-Lead Abdominal ECG by De-Shape Short Time Fourier Transform and Nonlocal Median. Front Appl Math Stat 2017;3:2",
+      "url": "https://www.frontiersin.org/journals/applied-mathematics-and-statistics/articles/10.3389/fams.2017.00002/full",
+      "doi": "10.3389/fams.2017.00002 (xác minh Crossref)",
+      "da_truy_cap_duoc": true,
+      "trich_dan_nguyen_van": [
+        "Among 447 records, 25 records are from the adfecgdb [52], so there might be overlapping between the CinC2013 and adfecgdb databases."
+      ],
+      "ket_luan": "Một bài độc lập đã nêu rủi ro chồng lấn từ 2017 nhưng không loại bản ghi nào."
+    },
+    {
+      "ten": "Rodrigues R. Fetal beat detection in abdominal ECG recordings: global and time adaptive approaches. Physiol Meas 2014;35(8):1699-1711",
+      "url": "https://iopscience.iop.org/article/10.1088/0967-3334/35/8/1699",
+      "doi": "10.1088/0967-3334/35/8/1699 (xác minh Crossref)",
+      "da_truy_cap_duoc": "chỉ tóm tắt (toàn văn đóng)",
+      "trich_dan_nguyen_van": [
+        "(tóm tắt) The initial approach was tested on 447 four-channel one-minute recordings from the 2013 PhysioNet/Computing in Cardiology Challenge"
+      ],
+      "ket_luan": "Bài bị nhiễm được ban tổ chức nêu đích danh (Clifford 2014). Bản CinC 2013 của cùng tác giả (cinc.org 0325.pdf, đã đọc) chỉ nói dùng set A và B; không thấy câu tự khai dùng ADFECGDB trong bản CinC."
+    },
+    {
+      "ten": "Rodrigues R. Fetal ECG Detection in Abdominal Recordings: a Method for QRS Location. Comput Cardiol 2013",
+      "url": "http://www.cinc.org/archives/2013/pdf/0325.pdf",
+      "da_truy_cap_duoc": true,
+      "trich_dan_nguyen_van": [
+        "The data used in these work are PhysioNet/Computing in Cardiology Challenge 2013 sets A and B [5]."
+      ],
+      "ket_luan": "Bản hội nghị không tự khai dùng ADFECGDB; cảnh báo đến từ bản Physiol Meas 2014 qua Clifford 2014."
+    },
+    {
+      "ten": "Castillo E, Morales DP, Garcia A, Parrilla L, Ruiz VU, Alvarez-Bermejo JA. A clustering-based method for single-channel fetal heart rate monitoring. PLOS ONE 2018;13(6):e0199308",
+      "url": "https://doi.org/10.1371/journal.pone.0199308 (toàn văn cục bộ: papers/p17_Castillo2018-Clustering.pdf)",
+      "doi": "10.1371/journal.pone.0199308 (xác minh Crossref)",
+      "da_truy_cap_duoc": true,
+      "trich_dan_nguyen_van": [
+        "The Abdominal and Direct Fetal Electrocardiogram Database, which was used to train the clustering-based stage, was also used to train the complete method",
+        "The Challenge 2013 Training Set A was used as testing data. As for the trainig database, a cardiology specialist selected a set of recordings from this testing database.",
+        "The results obtained from the 64 recordings selected by the specialist are summarized in Table 2."
+      ],
+      "bang_2_ban_ghi_set_a": ["a03","a04","a05","a08","a12","a13","a14","a20","a22","a23","a24","a25","a28","a35","a36","a44","a49","a55","a61","a62","a65","a66","a67","a69","a70","a72"],
+      "so_tin_hieu_kiem_thu": 64,
+      "so_tin_hieu_ro_ri": 28,
+      "so_ban_ghi_kiem_thu": 26,
+      "so_ban_ghi_ro_ri": 12,
+      "ket_luan": "BỊ NHIỄM: huấn luyện trên ADFECGDB, kiểm thử trên set A; 28/64 tín hiệu (43,8 %) và 12/26 bản ghi kiểm thử là bản sao dữ liệu huấn luyện. Không nhắc chồng lấn."
+    },
+    {
+      "ten": "Mohebbian MR, Vedaei SS, Wahid KA, Dinh A, Marateb HR, Tavakolian K. Fetal ECG Extraction From Maternal ECG Using Attention-Based CycleGAN. IEEE JBHI 2022;26(2):515-526",
+      "url": "https://arxiv.org/abs/2011.12138 (toàn văn cục bộ: papers/p03_Mohebbian2022-AttCycleGAN.pdf)",
+      "doi": "10.1109/JBHI.2021.3111873 (xác minh Crossref)",
+      "da_truy_cap_duoc": true,
+      "trich_dan_nguyen_van": [
+        "Set-A of the 2013 Physionet/Computing in Cardiology Challenge [32] is used for benchmarking [32]. ... records a33, a38, a52, a54, a71, and a74 were excluded, leaving 69 records for evaluation.",
+        "To generalize, a model is trained on all the A&D FECG dataset. This model is used for testing on NI-FECG, and NI-FECG challenge datasets.",
+        "(tóm tắt) the non-invasive FECG (NI-FECG) and NI-FECG challenge datasets are also used for fetal QRS estimation and achieved ... 99.3% F1-score [CI 95%: 95.3%, 99.9%]"
+      ],
+      "ket_luan": "BỊ NHIỄM: 15/69 bản kiểm thử (21,7 %) là dữ liệu huấn luyện. Không nhắc chồng lấn."
+    },
+    {
+      "ten": "Chen L, Wu S, Zhou Z. Fetal ECG Signal Extraction from Maternal Abdominal ECG Signals Using Attention R2W-Net. Sensors 2025;25(3):601",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11820586/ (toàn văn cục bộ: papers/p06_Chen2025-R2WNet.pdf)",
+      "doi": "10.3390/s25030601 (xác minh Crossref)",
+      "da_truy_cap_duoc": true,
+      "trich_dan_nguyen_van": [
+        "In this study, the model was fine-tuned using a subset of the Abdominal and Direct Fetal Electrocardiogram Database (ADFECGDB), while the remaining data were used for model testing.",
+        "To further validate the accuracy of the proposed algorithm, this study also utilized set A of the 2013 PhysioNet/Computing in Cardiology Challenge database (PCDB). ... This dataset comprises 75 non-invasive abdominal mixed ECG recordings",
+        "achieving F1 scores of 99.17%, 98.03%, and 97.08% on the ADFECGDB, PCDB, and NIFECGDB datasets, respectively"
+      ],
+      "ket_luan": "BỊ NHIỄM: tinh chỉnh trên ADFECGDB, kiểm thử trên PCDB set A; không nêu tập con nên không định lượng được. Không nhắc chồng lấn."
+    },
+    {
+      "ten": "Shokouhmand A, Tavassolian N. Fetal Electrocardiogram Extraction Using Dual-Path Source Separation of Single-Channel Non-Invasive Abdominal Recordings. IEEE TBME 2023;70(1):283-295",
+      "url": "papers/p05_Shokouhmand2023-DPSS.pdf",
+      "doi": "10.1109/TBME.2022.3189617 (xác minh Crossref)",
+      "da_truy_cap_duoc": true,
+      "trich_dan_nguyen_van": [
+        "the trained model for FECGSYNDB was tested on ADFECGDB(P), ADFECGDB(L), and NIFECGC datasets as well",
+        "ADFECGDB, which denotes the average result of labor and pregnancy dataset, suggests 97.7% and 88.61% F1-score and FHR precision"
+      ],
+      "ket_luan": "Không rò rỉ huấn luyện (chỉ huấn luyện trên tổng hợp). Nhưng hai tập kiểm thử 'thật' ADFECGDB(L) và NIFECGC chia sẻ 15 phút của cùng 5 sản phụ — đếm trùng."
+    },
+    {
+      "ten": "Asadi và cộng sự 2025, SCTD-Net (IEEE)",
+      "url": "papers/p07_Asadi2025-SCTDNet_fulltext.txt",
+      "doi": "chưa xác minh",
+      "da_truy_cap_duoc": true,
+      "trich_dan_nguyen_van": [
+        "The models are initially trained on synthetic data from the FECGSYNDB dataset and evaluated on real-world datasets (PCDB and ADFECGDB).",
+        "we evaluate our method using the same subset of 80 AECG recordings as those analyzed in these studies [AECG-DecompNet, RCED-Net, GAN, W-Net, SCTD-ICA]"
+      ],
+      "ket_luan": "Không rò rỉ huấn luyện; đếm trùng PCDB<->ADFECGDB. Cho biết một chuỗi bài (RCED-Net, GAN, W-Net, AECG-DecompNet, SCTD-ICA) dùng cùng 80 tín hiệu PCDB — cần rà từng bài xem có bài nào huấn luyện trên ADFECGDB."
+    },
+    {
+      "ten": "Jaeger KM và cộng sự. Power-MF. Physiol Meas 2024;45(5):055009",
+      "url": "https://doi.org/10.1088/1361-6579/ad4952",
+      "doi": "10.1088/1361-6579/ad4952 (xác minh Crossref)",
+      "da_truy_cap_duoc": "tóm tắt + repo (theo survey/scout_baselines.md)",
+      "trich_dan_nguyen_van": [],
+      "ket_luan": "Không học máy; đánh giá trên Silesia B1/B2 và NInFEA; repo có CinC 2013. B2 chứa 5 bản = ADFECGDB nên B2 và CinC set-a đếm trùng 5 sản phụ. Không phải rò rỉ huấn luyện."
+    },
+    {
+      "ten": "Zhong W, Liao L, Guo X, Wang G. A deep learning approach for fetal QRS complex detection. Physiol Meas 2018;39:045004",
+      "url": "papers/p01_Zhong2018-1DCNN.pdf",
+      "doi": "10.1088/1361-6579/aab297 (xác minh Crossref)",
+      "da_truy_cap_duoc": true,
+      "trich_dan_nguyen_van": ["Data used in this experiment are collected from set-a of PhysioNet/computing in the cardiology challenge database (PCDB)"],
+      "ket_luan": "Chỉ dùng set-a. Không nhiễm cơ chế này."
+    },
+    {
+      "ten": "Fotiadou E, van Sloun RJG, van Laar JOEH, Vullings R. A dilated inception CNN-LSTM network for fetal heart rate estimation. Physiol Meas 2021;42(4):045007",
+      "url": "https://iopscience.iop.org/article/10.1088/1361-6579/abf7db",
+      "doi": "10.1088/1361-6579/abf7db (xác minh Crossref)",
+      "da_truy_cap_duoc": "tóm tắt",
+      "trich_dan_nguyen_van": ["(tóm tắt) 16 recordings of our private dataset", "six (14.5 h) recordings of our private set, together with the set-A of the Physionet database (68 min)", "99.6% on set-A of the 2013 Physionet/Computing in Cardiology Challenge"],
+      "ket_luan": "Huấn luyện trên bộ riêng, kiểm thử set-A. Không nhiễm."
+    },
+    {
+      "ten": "Orvas I và cộng sự. A Complex UNet Approach ... (CUNet). arXiv 2506.22457, 2025",
+      "url": "papers/p11_Orvas2025-ComplexUNet.pdf",
+      "doi": "10.48550/arXiv.2506.22457",
+      "da_truy_cap_duoc": true,
+      "trich_dan_nguyen_van": ["Although our model was primarily trained on dry electrode recordings and had no exposure to this dataset", "we created an in-silico dataset to use as training data"],
+      "ket_luan": "Huấn luyện in-silico, kiểm thử set-a 75 bản. Không nhiễm; con số 77,8 tính trên 75 bản (kể cả 15 bản ADFECGDB, nhưng với họ đó không phải dữ liệu huấn luyện)."
+    },
+    {
+      "ten": "Xu và cộng sự 2026, CNN-2xEEMD, Sensors",
+      "url": "papers/p09_Xu2026-CNN2xEEMD.pdf",
+      "doi": "chưa xác minh",
+      "da_truy_cap_duoc": true,
+      "trich_dan_nguyen_van": ["Leave-one-subject-out (LOSO) cross-validation was performed on 15 simulated cases and 5 ADFECGDB records", "On the independent DaISy and NIFEA arrhythmia datasets"],
+      "ket_luan": "Không kiểm thử trên CinC. Không nhiễm."
+    },
+    {
+      "ten": "Huang ZZ, Zhang WT, Li Y, Cui J, Zhang YR. TCGAN. IEEE JBHI 2025",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40030784/ (PubMed chặn cookie; tóm tắt qua Europe PMC / Semantic Scholar)",
+      "doi": "10.1109/JBHI.2024.3524085 (Europe PMC + Semantic Scholar; chưa qua Crossref)",
+      "da_truy_cap_duoc": "tóm tắt",
+      "trich_dan_nguyen_van": ["TCGAN is rigorously evaluated using both synthetic dataset FECGSYDB and real-world dataset ADFECGDB."],
+      "ket_luan": "Không kiểm thử trên CinC theo tóm tắt. Không nhiễm (chỉ theo tóm tắt)."
+    },
+    {
+      "ten": "Basak P và cộng sự. 1D-CycleGAN. Expert Syst Appl 2024;235:121196",
+      "url": "papers/p04_Basak2024-1DCycleGAN.pdf",
+      "doi": "10.1016/j.eswa.2023.121196 (xác minh Crossref)",
+      "da_truy_cap_duoc": true,
+      "trich_dan_nguyen_van": ["combining two available datasets from Physionet, \"Abdominal and Direct Fetal ECG Database\" and \"Fetal electrocardiograms, direct and abdominal with reference heartbeat annotations\""],
+      "ket_luan": "Không dùng CinC. Nhưng gộp ADFECGDB với bộ Matonia 2020 vốn chứa chính 5 bản đó (B2_01/02/07/10/11) — chồng lấn khác, đã công bố (Matonia 2020), bài không nhắc."
+    },
+    {
+      "ten": "Andreotti F, Behar J, Zaunseder S, Oster J, Clifford GD. An open-source framework for stress-testing non-invasive foetal ECG extraction algorithms. Physiol Meas 2016;37(5):627-648",
+      "url": "papers/p15_Andreotti2016-FECGSYNDB.pdf",
+      "doi": "10.1088/0967-3334/37/5/627 (xác minh Crossref)",
+      "da_truy_cap_duoc": true,
+      "trich_dan_nguyen_van": ["A few records of Challenge's database consisted of simulated abdominal signals using the synthetic f[ecgsyn]"],
+      "ket_luan": "Dữ liệu tổng hợp. Không liên quan."
+    },
+    {
+      "ten": "Behar J, Oster J, Clifford GD. Combining and benchmarking methods of foetal ECG extraction without maternal or scalp electrode data. Physiol Meas 2014;35(8):1569-1589",
+      "url": "https://doi.org/10.1088/0967-3334/35/8/1569 (đóng; thay bằng luận án)",
+      "doi": "10.1088/0967-3334/35/8/1569 (xác minh Crossref)",
+      "da_truy_cap_duoc": "qua luận án Behar (papers/p13_thesis.txt)",
+      "trich_dan_nguyen_van": ["only the official data provided to the Challenge participants was used for training"],
+      "ket_luan": "Không nhiễm cơ chế này."
+    },
+    {
+      "ten": "Zahid MU, Kiranyaz S, Ince T và cộng sự. Robust R-peak detection in low-quality Holter ECGs using 1D CNN. IEEE TBME 2022;69(1):119-128",
+      "url": "(không truy cập trong vòng này)",
+      "doi": "10.1109/TBME.2021.3088218 (theo survey/scout_novelty.md; chưa xác minh vòng này)",
+      "da_truy_cap_duoc": false,
+      "trich_dan_nguyen_van": [],
+      "ket_luan": "ECG người lớn, không phải fECG. Không áp dụng."
+    },
+    {
+      "ten": "Ghonchi H, Abolghasemi V. A Dual Attention-Based Autoencoder Model for Fetal ECG Extraction From Abdominal Signals. IEEE Sensors J 2022;22:22908-22918",
+      "url": "https://repository.essex.ac.uk/33712/1/FINAL_VERSION.pdf",
+      "doi": "10.1109/JSEN.2022.3213586 (xác minh Crossref)",
+      "da_truy_cap_duoc": false,
+      "trich_dan_nguyen_van": [],
+      "ket_luan": "NGHI NGỜ chưa xác định: bảng tổng quan trong Alidash 2025 ghi bài dùng 'NI-FECGDB + [15] + (A&D FECG)'. Kết nối tới kho Essex bị từ chối (ECONNREFUSED). Cần đọc toàn văn."
+    },
+    {
+      "ten": "Zhong W, Liao L, Guo X, Wang G. Fetal electrocardiography extraction with residual convolutional encoder-decoder networks (RCED-Net). Australas Phys Eng Sci Med 2019",
+      "url": "https://link.springer.com/article/10.1007/s13246-019-00805-x",
+      "doi": "10.1007/s13246-019-00805-x (xác minh Semantic Scholar/Europe PMC)",
+      "da_truy_cap_duoc": false,
+      "trich_dan_nguyen_van": [],
+      "ket_luan": "CHƯA XÁC ĐỊNH: Springer chặn cookie; Europe PMC không trả tóm tắt. Asadi 2025 cho biết bài này đánh giá trên 80 tín hiệu PCDB và ADFECGDB; nguồn huấn luyện chưa rõ."
+    },
+    {
+      "ten": "Alidash KE, Hesar HD. Deep learning-based approach for accurate detection of fetal QRS complexes in abdominal ECG signals. Sci Rep 2025;15:39260",
+      "url": "papers/p10_Alidash2025-fQRSCNN.pdf",
+      "doi": "10.1038/s41598-025-22999-9 (xác minh Crossref)",
+      "da_truy_cap_duoc": true,
+      "trich_dan_nguyen_van": ["(tóm tắt) sourced from the PhysioNet Non-Invasive FECG Database (NI-FECGDB)", "requiring only 20 AECG signals for training"],
+      "ket_luan": "Chỉ set-a. Không nhiễm. Bảng tổng quan trong bài là nguồn gợi ý Ghonchi 2022 dùng cả A&D FECG."
+    },
+    {
+      "ten": "Baldazzi G, Pani D. Open Data: Valuable Resources and Opportunities for the Researchers in Fetal Cardiac Monitoring. In: Innovative Technologies and Signal Processing in Perinatal Medicine. Springer, tr. 221-240",
+      "url": "https://link.springer.com/chapter/10.1007/978-3-031-32625-7_12 ; https://ouci.dntb.gov.ua/en/works/7qjXya14/",
+      "doi": "10.1007/978-3-031-32625-7_12 (xác minh Crossref, năm 2023)",
+      "da_truy_cap_duoc": false,
+      "trich_dan_nguyen_van": [],
+      "ket_luan": "Toàn văn không truy cập được (Springer chuyển hướng cookie; OUCI trả 502). Cụm 'shares signals with ADFECGDB' chỉ có trong ghi chú nội bộ survey/scout_novelty.md — chưa xác minh nguyên văn."
+    },
+    {
+      "ten": "archive.physionet.org/challenge/2013/set-a/ (tìm tệp SOURCES/README)",
+      "url": "https://archive.physionet.org/challenge/2013/set-a/",
+      "da_truy_cap_duoc": false,
+      "trich_dan_nguyen_van": [],
+      "ket_luan": "HTTP 404. Không có tệp công khai nào ánh xạ bản ghi set-a về nguồn."
+    }
+  ],
+  "kiem_cheo_ky_thuat": {
+    "set_a_60s_1kHz": {"bang_chung": "benchmark_dpss/pcdb/a01.hea: 'a01 4 1000 60000'", "khop": true},
+    "adfecgdb_1kHz_5phut": {"bang_chung": "model/data/adfecgdb/r01.edf: 5 kênh, 1000 Hz, 300 s; PhysioNet 'Sampling rate: 1 kHz'; Matonia 2020 'resampled to 1kHz'", "khop": true},
+    "so_hoc_25_ban": "5 sản phụ x 5 phút = 25 cửa sổ 1 phút = đúng 25 trong Bảng 1 Silva 2013 / Bảng 2 Clifford 2014. Nhóm tìm 15 trong set-a (phút 1,3,5); 10 còn lại (phút 2,4) suy luận nằm trong set-b/c, khớp câu Clifford 'included in set-a, set-b (and possibly a few records in set-c)'.",
+    "dot_phat_hanh": "Cả 15 định danh nằm trong a01-a25 = đợt phát hành đầu 25 bản của set A (suy luận từ định danh, chưa có nguồn xác nhận).",
+    "cung_san_phu_khac_buoi": "Có thể. 60 bản còn lại đến từ NIFECGDB (MỘT sản phụ duy nhất, 14 bản vào Challenge), Ukraine NI-FECG 340 bản (số sản phụ không công bố), mô phỏng 20. NCC chỉ loại bản sao nguyên văn. Số sản phụ thật trong 60 bản sạch không biết và chắc chắn < 60.",
+    "so_san_phu_set_a_trong_y_van": "Không tìm được nguồn chính thức. Một tổng quan MDPI Sensors 2025 (chưa xác minh) ghi '25 subjects' — khả năng nhầm records với subjects."
+  },
+  "bang_bi_nhiem": {
+    "chac_chan": ["Rodrigues 2014 (10.1088/0967-3334/35/8/1699) — do Clifford 2014 nêu", "Castillo 2018 (10.1371/journal.pone.0199308) — 28/64 tín hiệu, 12/26 bản ghi", "Mohebbian 2022 (10.1109/JBHI.2021.3111873) — 15/69 bản", "Chen 2025 (10.3390/s25030601) — tập con không nêu"],
+    "nghi_ngo_chua_xac_dinh": ["Ghonchi 2022 (10.1109/JSEN.2022.3213586)", "Zhong 2019 RCED-Net (10.1007/s13246-019-00805-x)"],
+    "dem_trung_hai_tap_kiem_thu": ["Shokouhmand 2023 DPSS", "Asadi 2025 SCTD-Net", "Jaeger 2024 Power-MF (nếu ghép B2 với CinC)"],
+    "khong_nhiem": ["Zhong 2018", "Fotiadou 2021", "Orvas 2025", "Xu 2026", "TCGAN 2025 (theo tóm tắt)", "Andreotti 2016", "Behar 2014", "Alidash 2025", "Su & Wu 2017 (đã cảnh báo)"],
+    "khong_ap_dung": ["Zahid 2022 (ECG người lớn)", "Basak 2024 (không dùng CinC; có chồng lấn khác ADFECGDB<->Matonia 2020)"]
+  },
+  "han_che": [
+    "Không đọc được toàn văn: Rodrigues 2014, Baldazzi & Pani 2023, Ghonchi 2022, Zhong 2019 RCED-Net, Lee & Lee 2022 W-Net.",
+    "Bảng nhiễm chỉ rà 20 bài; không phải tổng quan hệ thống.",
+    "Mohebbian 2022 có hai phát biểu về huấn luyện; xếp 'bị nhiễm' dựa vào câu 'a model is trained on all the A&D FECG dataset ... used for testing on ... challenge datasets'.",
+    "Con số 28/64 của Castillo đếm bằng pdftotext -layout; cần kiểm lại bằng mắt.",
+    "Không có nguồn nào cho số sản phụ trong set-a."
+  ]
+}

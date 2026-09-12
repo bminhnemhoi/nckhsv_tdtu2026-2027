@@ -2,7 +2,7 @@
 """Chay lai Power-MF (Jaeger 2024, DA KENH - 4 dao trinh bung) bang GNU Octave,
 roi cham diem bang CHINH bo cham cua nhom (model.fqrs_model.match_events, +/-50 ms).
 
-Vi sao lam: den truoc phien nay, KHONG baseline SOTA nao trong bai duoc chay lai;
+Vi sao lam: den truoc phien nay, KHONG baseline manh nao trong bai duoc chay lai;
 moi con so Power-MF/Varanini deu la so DA CONG BO trich tu Results/*.mat cua repo goc.
 
 Chuoi thuc thi:

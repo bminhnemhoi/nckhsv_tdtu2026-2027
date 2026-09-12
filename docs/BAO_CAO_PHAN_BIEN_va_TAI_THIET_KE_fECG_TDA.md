@@ -1,3 +1,7 @@
+> **Tài liệu lịch sử (đề cương v1/v2 và phản biện của nó), giữ để truy vết.** Các từ "SOTA", "novel", "đầu tiên"
+> và giả thuyết TDA trong tệp này đã bị chính nhóm bác bỏ hoặc rút; trạng thái hiện hành ở `README.md`,
+> `docs/De_cuong_NCKH_RelyFetal.pdf` và `survey/facts_phase4.json`.
+
 # BÁO CÁO PHẢN BIỆN VÀ TÁI THIẾT KẾ ĐỀ TÀI NGHIÊN CỨU
 
 ## Dò QRS thai nhi từ ECG ổ bụng đơn kênh bằng Persistence Images và CNN 2D

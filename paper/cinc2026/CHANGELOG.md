@@ -1,4 +1,23 @@
+> **Báo cáo vòng cũ — giữ để truy vết, KHÔNG phải trạng thái hiện hành.** Nhiều con số trong tệp này đã rút
+> (mẫu 10 bản CinC; 75 bản CinC nhiễm 15 bản sao ADFECGDB; Power-MF cổng chuyển hỏng; +11,00 dải lọc; "8 kiến
+> trúc"; "mô hình không phải nút thắt"; "Physiological Measurement là Q1"). Số hiện hành: `README.md` mục
+> *Retractions* và `survey/facts_phase4.json`.
+
 # CHANGELOG — bản thảo CinC 2026 (`paper/cinc2026/main.tex`)
+
+## 2026-09-12 — Vòng 7 (R3): CinC 2013 chuyển sang 60 bản sạch; chồng lấn set-a ↔ ADFECGDB ghi đúng nguồn
+
+* Mục 3.3, Bảng 3, hàng CinC trong Bảng 1 và 2, tóm tắt, thảo luận, kết luận: mọi số 75 bản (71,21 / 79,40 /
+  86,87 / 74,09 / 69,33 / 80,70 / +8,18 / +7,47 / 62,82 / +16,58) **rút**; thay bằng 60 bản sạch: m5 64,04 →
+  m22 74,28 (+10,24 [7,13; 13,60], p = 3,5e-10), oracle 83,60, PSD kém oracle 9,32, Power-MF 1 kênh 55,97
+  (hiệu +18,32 [13,4; 23,6]), peakprob 82,01 (hậu kiểm, giả thuyết), 53 bản 75,27
+  (`benchmark_dpss/eval_cinc60_sach.json`, `analysis/dulieu_results.json`).
+* Mục 2.1 Data: chồng lấn set-a ↔ ADFECGDB ghi là **ban tổ chức đã ghi nhận** (thêm `silva2013` vào
+  `refs.bib`; trích cảnh báo của Clifford 2014); nhóm chỉ định danh 15 bản bằng đo lường.
+* Thêm: bốn phương pháp thích nghi miền thất bại; phép thử nhìn thấy âm tính giả 18 % nên không kết luận
+  được mô hình có phải nút thắt.
+* Cắt gọn để giữ **4 trang** (lề 2,0/1,75 cm; rút ngắn đoạn Power-MF port, hạn chế, kết luận).
+
 
 ## 2026-09-12 — Vòng B3: RÚT LẠI mốc Power-MF cũ, thay bằng bảng 3 cột
 

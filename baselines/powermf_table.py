@@ -73,7 +73,7 @@ w('')
 w('- **Power-MF la thuat toan DA KENH.** No dung ca 4 dao trinh bung cung luc va chay ICA hai lan'
   ' (`FecgICAm` tren tin hieu goc, `FecgICAf` tren phan du sau khi khu QRS me). Mo hinh cua nhom la'
   ' **DON KENH**. Day khong phai so sanh cong bang ve dau vao; day la so sanh **ta dang o dau so voi'
-  ' SOTA da kenh**.')
+  ' da kenh manh nhat da cong bo**.')
 w('- Ca hai cot dung **cung bo cham diem**: `model/fqrs_model.py::match_events`, dung sai +/-50 ms,'
   ' ghep tham lam 1-1. KHONG dung `Bxb_compare` cua repo goc (can WFDB Toolbox).')
 w('- Cot don kenh lay **F1_psd** (chon dao trinh mu bang PSD) va **F1_mean4** (trung binh 4 dao trinh),'

@@ -10,7 +10,7 @@
 [![Docs: CC BY 4.0](https://img.shields.io/badge/Docs-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB.svg)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-CPU%20only-EE4C2C.svg)](https://pytorch.org/)
-[![Tests](https://img.shields.io/badge/tests-53%20passing-brightgreen.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-pytest-brightgreen.svg)](tests/)
 
 Undergraduate research project · Faculty of Information Technology · Ton Duc Thang University · 2026–2027
 
@@ -33,7 +33,10 @@ light, and one carefully controlled negative result.
 
 **The main scientific result is counter-intuitive:**
 
-> Changing the band-pass filter is worth **+11.00 F1 points**.
+> On a 300 ms-window learner, changing the band-pass filter was worth **+11.00 F1 points**; re-measured on
+> the TCN itself over 22 women the same change is worth only **+2.44 [−0.05; +6.30]** (interval contains
+> zero, `pilot_evidence/band_tcn.json`), so the **+11.00 headline is withdrawn** as a claim about the model
+> shipped here.
 > Under a leakage-free protocol, six network architectures land within **1.53 points** of each other,
 > and with **n = 5 subjects this study cannot tell them apart in either direction**: an equivalence
 > test (TOST) at a pre-declared 1.0-point margin declares **0 of 7 architectures equivalent** to the
@@ -62,22 +65,39 @@ matching cross-checked against optimal Hungarian assignment, **label-blind** cha
 | Silesia B2 labour, 12 records | 12 | 60 | scalp electrode | 97.17 | [92.68; 99.75] | 95.26 |
 | Silesia B2, only the 7 unseen records, zero-shot | 7 | 35 | scalp electrode | 95.87 | [88.41; 99.84] | 93.73 |
 | **Silesia B1 pregnancy, 32–42 weeks, zero-shot** | 10 | 200 | indirect | **93.30** | [84.93; 99.37] | 91.31 |
-| CinC 2013 set-a, zero-shot, **all 75 records** | 75 | 75 | crowd-sourced | 71.21 | SD 33.96, median 94.34¹ | 64.78 |
+| CinC 2013 set-a, zero-shot, **60 clean records**¹ | 60 | 60 | crowd-sourced | 64.04 | [55.4; 72.5] | 56.00 |
 
 Intervals are 95 % cluster-bootstrap percentile intervals over subjects (10 000 resamples, seed 0;
 `analysis/boot_ci_table1.py` → `analysis/boot_ci_table1.json`). They replace the `± SD` of earlier
 versions, whose t-intervals ran above 100 % F1.
 
-¹ **Retraction.** Earlier versions of this table gave **59.15 [38.32; 81.01]** for CinC 2013, measured
-on a **10-record subsample** of set-a. That number is **withdrawn**: the subsample was biased, and on all
-75 records the same model and the same label-blind rule score **71.21**. No cluster-bootstrap interval was
-computed for the 75-record mean, so SD and median are quoted instead rather than inventing one
-(`benchmark_dpss/eval_cinc75.json`).
+¹ **Retraction (twice), and a correction of who found what.** Earlier versions of this table gave
+**59.15 [38.32; 81.01]** (a 10-record subsample) and then **71.21** (all 75 records) for CinC 2013. **Both
+are withdrawn.** Set-a is not independent of ADFECGDB, and **this was documented by the Challenge organisers
+from the start**: Silva et al. (CinC 2013;40:149–152, Table 1: "Abdominal and Direct FECG — 25 records")
+and Clifford et al. (Physiol Meas 2014;35:1521, Table 2), who also warned that an entry trained on
+ADFECGDB "may have led to a bias in the results as this database was included in set-a, set-b (and possibly
+a few records in set-c)". That sentence was already in our own reading notes
+(`de_cuong_latex/tables/bang_baihoc.tex`, entry p20) and we failed to act on it; an earlier version of this
+README and of `analysis/DULIEU.md` presented the overlap as our finding — **that wording is withdrawn**
+(`survey/RO_RI_VANLIEU.md`). What no accessible source states is *which* set-a records are ADFECGDB, and
+that part we measured (`analysis/dulieu_audit.py`, independently re-implemented in
+`analysis/dulieu_m4b_verify.py`): exactly **15 of the 75 records are verbatim copies of the five training
+recordings** (normalised cross-correlation = 1.0000 on all four channels in order, RR offset 0.0 ms; the
+known B2↔PhysioNet duplicates, used as positive controls, reach only 0.86–0.98; the 60 other records peak at
+0.44 filtered / 0.62 raw). Each ADFECGDB record appears three times, as its 0–60 s, 120–180 s and 240–300 s
+windows: r01→a04,a05,a22 · r04→a13,a20,a25 · r07→a19,a23,a24 · r08→a08,a15,a17 · r10→a03,a12,a14. Every
+production model was trained on those five women, so the 15 records are not out-of-domain. All headline
+CinC numbers are now computed on the **60 clean records** (`benchmark_dpss/eval_cinc60_sach.py` →
+`eval_cinc60_sach.json`; 10 000 bootstrap resamples of records, seed 0). The 15 leaked records score 99.87
+under the 22-subject model, which is how they inflated the old means by 3.27–7.18 points.
 
 The model was trained on 5 labour recordings only and had never seen pregnancy data. Moving from labour
 to pregnancy *within the same recording system* costs ~4 points; moving to a *different recording system*
-(CinC 2013) costs ~26 and produces a **bimodal** distribution — 15/75 records perfect, 22/75 below 50.
-The variable that breaks generalisation is hardware and electrode placement, not gestational age.
+(CinC 2013, 60 clean records) costs ~35 and produces a split distribution — 27/60 records at or above 90,
+22/60 below 50 (descriptive only: the two modes are a lead-selection artefact, not two populations,
+`analysis/LUONGCUC.md`). The variable that breaks generalisation is hardware and electrode placement, not
+gestational age.
 
 A leakage check by cross-correlation showed that **5 of the 12 Silesia B2 records are the 5 PhysioNet
 records** (NCC 0.988–0.994). Those five are scored with fold checkpoints that never saw them; the
@@ -96,52 +116,93 @@ fold, on-the-fly augmentation, threshold chosen on the validation subject). Pair
 | **Silesia B1 pregnancy** | 10 | 93.30 | **97.15** | **0.037** | 9/1 |
 | All 22 | 22 | 95.46 | **97.56** | **0.007** | 15/3 |
 
-#### Cross-system, zero-shot on CinC 2013 — now on all 75 records
+#### Cross-system, zero-shot on CinC 2013 — 60 clean records
 
 > **Retraction.** Every CinC 2013 number this README carried before 12 Sep 2026 — **59.15**, **69.31**,
-> **77.34**, **90.34** — was measured on a **10-record subsample** of set-a. All four are **withdrawn**.
-> The subsample was biased **in both directions**, so this is not a rounding correction: it changed which
-> lead-selection rule wins. The full set has now been run
-> (`benchmark_dpss/eval_cinc75.py` → `eval_cinc75.json`).
+> **77.34**, **90.34** (10-record subsample) and then **71.21 / 79.40 / 86.87 / +8.18 / +7.47** and every
+> other figure computed on **all 75 records** — is **withdrawn**. The first set was a biased subsample; the
+> second set is contaminated by the 15 records that are copies of the training data (footnote ¹ above),
+> and additionally violates record-level independence because those 15 records come from only 5 women.
+> The 75-record figures are kept in `benchmark_dpss/eval_cinc75.json` and in the analysis reports for
+> traceability only; nothing below uses them.
 
-The headline number is the **pre-declared, label-blind PSD rule** on all 75 records:
+The headline number is the **label-blind PSD rule** on the 60 clean records
+(`benchmark_dpss/eval_cinc60_sach.json`):
 
 | Lead-selection rule | 5-subject model | **22-subject model** | Blind? |
 |---|---:|---:|---|
-| **PSD rule (pre-declared, label-blind)** — **headline** | 71.21 | **79.40** | yes |
-| Mean of 4 leads | 64.78 | 74.09 | yes |
-| Fixed lead 0 (**chosen post hoc**) | 58.72 | 69.33 | **no** |
-| Oracle lead (uses test labels) | 78.21 | 86.87 | **no** |
+| **PSD rule (declared, label-blind)** — **headline** | 64.04 | **74.28** [66.6; 81.8] | yes |
+| Mean of 4 leads | 56.00 | 67.69 | yes |
+| Fixed lead 0 (**chosen post hoc, withdrawn**) | 48.43 | 61.78 | **no** |
+| Oracle lead (uses test labels) | 72.76 | 83.60 | **no** |
 
-Going from 5 to 22 training subjects is worth **+8.18 points** on the blind rule
-(paired Wilcoxon *p* = 3.2 × 10⁻¹⁰, 53 wins / 5 losses / 17 ties, Cliff's δ = 0.23, bootstrap CI
-[5.62; 11.09]). Records at F1 ≥ 90 go from 42 to 48; records below 50 go from 22 to 16.
+Going from 5 to 22 training subjects is worth **+10.24 points** on the blind rule
+(paired Wilcoxon *p* = 3.5e-10, 52 wins / 3 losses / 5 ties, bootstrap CI
+[+7.13; +13.60]) — larger than the +8.18 measured on the contaminated set, because the 15 leaked
+records sat at 100 for every model and compressed the difference. Records at F1 ≥ 90: 27 → 33 of 60; records
+below 50: 22 → 16. Median F1 of the 22-subject model is 95.07.
 
-**The post-hoc rule was not just illegitimate — it was also wrong.** On the 10-record subsample, fixed
-lead 0 appeared to beat the blind PSD rule by 21 points (90.34 vs 69.31), and that apparent gap was the
-reason the fixed lead was ever promoted. On all 75 records fixed lead 0 scores **69.33**, which is
-**10.07 points worse** than the blind PSD rule and the **weakest of the four rules**. Selecting a
-hyper-parameter after looking at the evaluation set produced a number that was optimistic by ~21 points
-and a conclusion that reversed on the full set.
+The lead-selection rule, not only the detector, loses accuracy across recorders: in domain the PSD rule is
+**0.02–1.90 points** below the oracle (ADFECGDB 0.02, Silesia B2 0.66, Silesia B1 1.90); on the 60 clean
+CinC records it is **9.32 points** below it (74.28 vs 83.60, CI [+5.10; +14.15]) and picks the
+oracle lead in only 17/60 records. The earlier gap of 7.47 (75 records) understated the problem.
 
-The lead-selection rule, not only the detector, loses accuracy across recorders — but by much less than
-previously claimed: in domain the PSD rule is **0.02–1.90 points** below the oracle (ADFECGDB 0.02,
-Silesia B2 0.66, Silesia B1 1.90), out of domain it is **7.47 points** below it (79.40 vs 86.87). The
-earlier figure of **22.33 points** is **withdrawn** — it too came from the 10-record subsample.
+**Declared exclusion variant.** Seven set-a records have reference annotations known to be unreliable
+(a33, a38, a47, a52, a54, a71, a74 — Behar/Oster/Clifford, CinC 2013;40:297–300); the list was declared
+before the first run. On the 53 clean records that remain the blind PSD rule gives
+**64.19 → 75.27** (5-subject → 22-subject). Both variants are reported; neither is selected after the fact.
 
-**Pre-declared exclusion variant.** Seven set-a records have reference annotations known to be unreliable
-(a33, a38, a47, a52, a54, a71, a74 — Behar/Oster/Clifford, CinC 2013;40:297–300). That exclusion was
-declared before the run. On the remaining 68 records the blind PSD rule gives **72.08 → 80.70**
-(5-subject → 22-subject). Both variants are reported; neither is selected after the fact.
+#### A better label-blind lead rule — reported as a hypothesis, not a confirmed result
+
+Seven label-blind lead rules were compared against the PSD rule on the same 60 clean records
+(`analysis/CHONKENH.md`, `analysis/dulieu_results.json → chon_kenh_60_sach`). The strongest is
+**`peakprob`**: run the detector on all four leads and keep the lead whose mean model probability at its
+own detected peaks is highest — no training, no hyper-parameter.
+
+| Rule (22-subject model, 60 clean records) | mean F1 | Δ vs PSD | 95 % CI | Wilcoxon p | Holm p (7 rules) | < 50 |
+|---|---:|---:|---|---:|---:|---:|
+| PSD (current) | 74.28 | — | — | — | — | 16 |
+| `gate` — **the rule the written analysis plan designated** | 80.72 | +6.44 | [+2.49; +11.10] | 0.010 | **0.0505 — fails** | 12 |
+| `gate4` | 81.01 | +6.72 | [+2.85; +11.18] | 0.0025 | 0.0150 | 12 |
+| `rrcv` | 80.00 | +5.72 | [+1.61; +10.41] | 0.101 | 0.406 | 12 |
+| **`peakprob`** — best of the seven, **chosen after seeing the data** | **82.01** | **+7.73** | [+3.82; +12.41] | 5.6e-04 | **0.0039** | **9** |
+| Oracle lead (labels) | 83.60 | +9.32 | — | — | — | 8 |
+
+`peakprob` recovers **82.9 %** of the oracle head-room, wins 19 / ties 35 / loses 6 records, and no record loses more than
+3.90 points. A label-shuffle check (`analysis/chonkenh_leakcheck.py`) changed 0 of 776 lead choices, so the
+*selection* step is label-blind.
+
+**Mandatory caveats.** (1) The written analysis plan (`analysis/chonkenh_khaibao_truoc.json`) designated
+`gate` as the confirmatory rule, and `gate` **does not survive Holm correction** (p_Holm 0.0505 on the
+60 clean records, 0.085 on 75). By the plan's own decision rule the confirmatory test **failed**. (2)
+`peakprob` was picked **after** the CinC results were seen; the only statistical basis for reporting it is
+that its effect survives Holm over the whole declared family of seven rules. (3) The plan file was written
+before any rule was scored but **after** the per-lead F1 of CinC was on disk, and it was not committed to
+git or time-stamped by a third party, so this study is **not pre-registered** and we do not use that word.
+(4) The result has **not been replicated on an independent third dataset, and at present it cannot be**:
+of the candidates on disk, NIFEADB distributes no fetal annotations, NInFEA has no beat labels (its
+reference is Doppler), the `.qrs` file of nifecgdb marks *maternal* QRS (median RR 0.695 s = 86 bpm), and
+CinC 2013 set-b labels are unpublished (`analysis/XACNHAN.md`, `xacnhan_results.json → viec2_bo_thu_ba`).
+(5) **On the logit scale the post-hoc problem does not disappear** (`analysis/XACNHAN.md`, pre-declared in
+`analysis/xacnhan_khaibao.md`, git `ed819e3`): over the 22 in-domain subjects the leading rule is `gate`
+under two of three clamping schemes and `rrcv` under the third, `peakprob` ranks 3rd/4th/6th and its
+interval contains zero; on the 60 clean CinC records the leading rule on the logit scale is `gate4`, not
+`peakprob`. The statement the data support is "selecting the lead from the model's own output beats the PSD
+rule out of domain"; which specific rule is best depends on the scale. We therefore state `peakprob` as
+*a strong hypothesis, not a confirmed result*.
 
 Median signed offset against scalp-electrode labels stays at 0.0 ms, so the indirect B1 labels did not
 pull the model. The sample-efficiency curve (1 → 2 → 3 training subjects: 91.2 → 93.4 → 97.5) is not
 saturated, which is why 22 subjects still help.
 
-**Two-seed stability (new).** Retraining the 22-subject model with seed 1 changes per-subject F1 by
+**Two-seed stability.** Retraining the 22-subject model with seed 1 changes per-subject F1 by
 **0.28 points on average** over the 20 subjects common to both runs, largest single change **2.81**
-(B2_03). The per-fold decision thresholds are less stable: 0.50–0.80 for seed 1 against 0.20–0.80 for
-seed 0 (seed 0 fold 10 used an extreme 0.20).
+(B2_03); at subject level the PSD-lead F1 is 97.56 (seed 0) vs 97.59 (seed 1), difference +0.03
+[−0.18; +0.34] (`analysis/xacnhan_results.json → viec5_seed`; the fold split differs between seeds, so this
+includes fold-assignment variance). The per-fold decision thresholds are less stable: 0.50–0.80 for seed 1
+against 0.20–0.80 for seed 0 (seed 0 fold 10 used an extreme 0.20). The seed-1 checkpoints were **not
+saved** (`train_22.py` only writes checkpoints for an empty `--tag`), so no out-of-domain seed-1 number
+exists.
 
 ### Three-tier contribution decomposition
 
@@ -210,7 +271,7 @@ the pre-patch numbers had to go.
 | Silesia B2 (labour) | 7 | 97.90 | 87.28 | 96.82 |
 | Silesia B1 (pregnancy) | 10 | **99.40** | 83.48 | 97.15 |
 | **All 22 subjects** | 22 | **98.83** | 86.71 | 97.56 |
-| CinC 2013 set-a | 75 | not run | 62.82 | **79.40** |
+| CinC 2013 set-a, 60 clean records | 60 | not run | 55.97 | **74.28** (PSD) / 82.01 (`peakprob`, post hoc) |
 
 Subject-level statistics (cluster bootstrap, 10 000 resamples of **subjects**, seed 0; paired Wilcoxon;
 Cliff's δ), all 22 subjects:
@@ -308,15 +369,22 @@ Gradio, one page: upload EDF/WFDB/CSV or pick a sample record, automatic label-b
 five-tier signal view (raw → filtered → residual → probability → result), fetal heart-rate trace, and a
 **confidence light**. Selecting an ADFECGDB record automatically uses the fold checkpoint that never saw it.
 
-| Light | Records | Mean F1 | Min F1 |
-|---|---:|---:|---:|
-| Green | 8 | 99.54 | 96.54 |
-| Yellow | 5 | 50.51 | 21.05 |
-| Red | 2 | 19.36 | 16.96 |
+The light has two modes: *learned* (gradient-boosted classifier on 12 classical SQIs per 4 s segment,
+`fsqi/gate.py`, default) and *rule* (hand-set thresholds). Re-run on 12 Sep 2026 (17:07) over the 82 labelled
+records that are neither training duplicates nor leaked CinC copies (5 ADFECGDB with their fold checkpoint,
+60 clean CinC 2013, 17 Silesia; `python demo/run_check.py --threads 2` → `demo/results/demo_check_2modes.json`,
+`summary_by_mode`):
 
-No record with F1 < 96.5 was ever marked green. The two worst CinC records are caught by a maternal-lock
-rule (≥ 60 % of "fetal" beats coincide with maternal R-peaks). Tested at three levels: unit tests on the
-core, HTTP smoke test, and `gradio_client` API call. Screenshots in [`demo/screenshots/`](demo/screenshots/).
+| Mode | Green (n · mean F1 · min) | Yellow (n · mean F1) | Red (n · mean F1) | Green but F1 < 90 | Red but F1 ≥ 95 |
+|---|---|---|---|---|---|
+| learned (default) | 46 · 95.70 · 17.02 | 17 · 96.94 | 19 · 54.26 | 3 (a52, a54, a57) | 0 |
+| rule | 58 · 97.79 · 78.79 | 19 · 63.82 | 5 · 39.34 | 5 (a06, a11, a16, B1_07, B2_03) | 0 |
+
+The earlier table in this section (8 green / 5 yellow / 2 red, "no record with F1 < 96.5 was ever green") was
+computed on 15 sample records, four of them leaked CinC copies, and is superseded. The learned gate is
+calibrated on the 5-subject model; the 22-subject gate of `analysis/GATE22.md` has not been exported to the
+demo. Tested at three levels: unit tests on the core, HTTP smoke test, and `gradio_client` API call.
+Screenshots in [`demo/screenshots/`](demo/screenshots/).
 
 > Research prototype. Not a medical device. Not for diagnostic use.
 
@@ -346,7 +414,7 @@ model/                    Core library, training, inference, weights
 ├─ download_data.py         PhysioNet sources with SHA-256 data card
 ├─ download_silesia.py      Resumable figshare download (URL expires in 10 s, needs Range + retry)
 ├─ silesia_loader.py        Silesia .ecg reader (int16 big-endian, 500 Hz) → 1 kHz
-└─ checkpoints/             6 trained models, 0.48 MB each
+└─ checkpoints/             20 trained models (5-, 12- and 22-subject folds + production), 0.48 MB each
 
 benchmark_dpss/           Benchmark harness
 ├─ _paths.py                Data-path resolution (repo is self-contained)
@@ -378,9 +446,21 @@ pilot_evidence/           Every pilot experiment with logs
 ├─ seq_search.py            Receptive-field sweep
 └─ seq_loro.py              3-seed LORO + paired Wilcoxon
 
+analysis/                 Round-6/7 analyses: data audit, lead rules, architecture, error taxonomy, gate, stats
+├─ DULIEU.md                The 15 ADFECGDB copies in set-a: evidence, controls, recomputed clean-60 numbers
+├─ CHONKENH.md              Seven label-blind lead rules; declared plan vs post-hoc choice
+├─ XACNHAN.md               Round 7: no third labelled dataset; logit-scale ranking; visibility-test FN rate; seeds
+├─ KIENTRUC.md              Seven architecture families at fixed parameters (logit scale)
+└─ dulieu_results.json      Source JSON for every clean-60 number
+adapt/                    Unsupervised domain adaptation — four methods, all negative (`adapt_results.json`)
+api/                      FastAPI wrapper (`main.py`), schema in api/README.md
 de_cuong_latex/           Research proposal — LaTeX source, data-driven figures and tables
-survey/                   30-paper survey + verified-facts ledgers
-docs/                     Compiled deliverables (PDF + DOCX)
+paper/cinc2026/           Four-page Computing in Cardiology draft (pdflatex + bibtex)
+survey/                   30-paper survey + verified-facts ledgers; facts_phase4.json is current
+├─ RO_RI_VANLIEU.md         Who documented the set-a ↔ ADFECGDB overlap (Silva 2013, Clifford 2014) and who is affected
+└─ facts_phase4.json        Every current number with the JSON file it was read from
+docs/                     Compiled deliverables (PDF + DOCX), publication strategy, Eureka notes, demo guide, talk script
+archive/                  Files removed from the working tree during the round-7 clean-up, kept for the PI's decision
 tests/                    Smoke tests pinning every quoted number
 ```
 
@@ -415,9 +495,16 @@ python benchmark_dpss/blind_lead.py                      # channel-selection rul
 python baselines/ts_baseline.py                          # classical baselines (~2 min)
 python pilot_evidence/arch_loro.py                       # corrected architecture table (~20 min)
 python model/download_silesia.py && python benchmark_dpss/silesia_eval.py   # Silesia (~4 min after download)
+python model/train_22.py && python benchmark_dpss/eval_22.py                # 22-subject model, grouped 11-fold
+python benchmark_dpss/eval_cinc75.py && python benchmark_dpss/eval_cinc60_sach.py   # CinC per record, then the clean-60 statistics
+python analysis/dulieu_audit.py && python analysis/dulieu_m4b_verify.py     # the leak audit, two implementations
+python analysis/chonkenh_cache.py && python analysis/chonkenh_rules.py      # seven lead rules
+python baselines/powermf_setup.py && python baselines/powermf_fair_run.py   # Power-MF under Octave
 python fsqi/eval_fsqi.py                                 # reject gate + negative result (~4 min)
 python demo/run_check.py && python demo/smoke_app.py     # demo checks
-pytest tests/ demo/test_core.py                          # 53 tests
+python analysis/xacnhan.py                               # round-7 confirmation checks (no new inference)
+python survey/make_facts_phase4.py                       # regenerate the single source of truth
+pytest tests/ demo/test_core.py                          # 60 tests
 ```
 
 ---
@@ -441,17 +528,23 @@ F1 on B1 measures agreement with that pipeline, not physiological ground truth.
 ## Known limitations
 
 - **All 22 subjects come from one hospital and one recording system.** On a different system
-  (CinC 2013, all 75 records) the 22-subject model reaches **79.4 under the blind lead rule**, against
-  97–99 in-domain; multi-centre data is the remaining gap. The
+  (CinC 2013, 60 clean records) the 22-subject model reaches **74.28 under the blind PSD rule**
+  (82.01 under the post-hoc `peakprob` rule), against 97–99 in-domain; multi-centre data is the
+  remaining gap. Four unsupervised domain-adaptation methods were tried and **all four failed** on the 60
+  clean records (adaptive notch +0.25, p = 0.70; self-training −0.68; AdaBN −1.58; TENT −2.43;
+  `analysis/THICHNGHI.md`): the measured distribution shifts do not explain the gap, which is consistent
+  with the fetal signal simply being absent on every lead of the hardest records. The
   22-subject run is four epochs and the augmentation contribution has not been isolated; a second seed
   changes per-subject F1 by 0.28 points on average.
-- **Sample size is the binding limitation.** ADFECGDB has five women and CinC 2013 ten records, so no
+- **Sample size is the binding limitation.** ADFECGDB has five women and the whole training set 22, so no
   comparison on ADFECGDB can be statistically significant at subject level and every interval quoted
   here is wide. The architecture benchmark is underpowered by construction, not inconclusive by
   accident.
-- **CinC 2013 set-a is now evaluated in full (75 records, and 68 under the pre-declared exclusion).**
-  Scoring still uses our own ±50 ms matcher rather than the original challenge scorer, so these are
-  *not* official challenge entries even though the record set now matches.
+- **CinC 2013 set-a is evaluated on 60 clean records (53 under the declared exclusion), not 75.**
+  Fifteen records are copies of the training data and are excluded; whether the remaining 60 records
+  come from 60 distinct women has *not* been checked (NCC ≤ 0.62 rules out verbatim copies only).
+  Scoring uses our own ±50 ms matcher rather than the original challenge scorer, so these are *not*
+  official challenge entries.
 - **The learned confidence gate is calibrated for the 5-subject model** and is over-conservative on
   pregnancy recordings (35 % green on Silesia vs 82 % for the rule). It has not been re-calibrated for
   the 22-subject model.
@@ -462,10 +555,24 @@ F1 on B1 measures agreement with that pipeline, not physiological ground truth.
 - **Power-MF is now re-run locally, but only on the 22 in-house subjects** — not on CinC 2013, where
   only the single-lead port has been measured. The single-lead port is our reimplementation from the
   published description, not the authors' code, so it carries our reading of the method.
-- **The +11.00-point band-pass result is measured on a 300 ms-window GBM, not on the TCN.** The
-  band sweep on the TCN itself is still running (`pilot_evidence/band_tcn.py`; 10–60 Hz = 98.07 ± 4.05
-  so far, 3 bands to go). Until it finishes, the tier-1 number describes a different model from the one
-  this repository ships.
+- **The +11.00-point band-pass result is measured on a 300 ms-window GBM, not on the TCN, and is
+  withdrawn as a claim about the TCN.** On the TCN over 22 women (`pilot_evidence/band_tcn.json`,
+  three folds, one seed) 10–60 Hz vs 1–45 Hz is worth +2.44 [−0.05; +6.30] on the PSD lead and
+  −0.07 [−0.49; +0.40] averaged over four leads: the band does not matter to the detector.
+- **The 22-subject in-domain branch is at the F1 ceiling** (14/22 subjects at the oracle lead, 1.08
+  points of head-room), so rule and architecture comparisons there must be read on the logit scale;
+  on that scale `cnn_wide` is significantly worse than the TCN (`analysis/KIENTRUC.md`).
+- **The claim "the model is not the bottleneck" (`analysis/CHANDOAN_MOHINH.md`) is withdrawn**, and so is
+  the figure "71 % of the head-room lies on records with no measurable fetal signal". The capacity ceiling
+  was measured in-sample on 4 records with one seed, the jitter only on correctly detected beats, and the
+  visibility test that defines the "no fetal signal" error class has a **false-negative rate of 18.0 %
+  [12.1; 25.0] on the 60 clean CinC records** (above the 10 % threshold declared in advance), rising to
+  55–70 % on the records with F1 < 90 — exactly where it is needed. After correcting for that rate the
+  "no signal" share of the head-room falls from 86.0 % to 26.0 % at the 0.5 threshold, but the correction
+  divides by a sensitivity close to its floor and is not identifiable; the honest statement is that the
+  split between "no signal" and "model miss" **cannot be determined with this test**
+  (`analysis/XACNHAN.md → viec4`). The correct wording is now "we have neither shown nor excluded that the
+  model is the bottleneck".
 - **The proposed topological signal-quality index does not work** (AUROC 0.566 vs 0.929). This is
   reported as a negative result, not hidden.
 
@@ -480,21 +587,59 @@ This table exists so a reader does not have to guess how much weight each number
 |---|---|---|
 | In-domain F1 (ADFECGDB 99.40; B2 96.82; B1 97.15) | **Reproducible in-repo** | `benchmark_dpss/eval_22.json`, grouped-fold protocol |
 | No leakage between the 5 PhysioNet and Silesia B2 records | **Checked** | cross-correlation NCC 0.988–0.994; scored with fold checkpoints that never saw them |
-| CinC 2013 = 79.40 on all 75 records | **Reproducible in-repo** | `benchmark_dpss/eval_cinc75.json` |
+| CinC 2013 = 74.28 (PSD) on 60 clean records | **Reproducible in-repo** | `benchmark_dpss/eval_cinc60_sach.json` (from `eval_cinc75.json` per-record F1) |
+| Set-a contains ADFECGDB recordings | **Documented by the organisers, not by us** | Silva et al. 2013 Table 1; Clifford et al. 2014 Table 2 and the Rodrigues caveat; echoed by Su & Wu 2017 and Matonia et al. 2020 (`survey/RO_RI_VANLIEU.md`) |
+| *Which* 15/75 set-a records are verbatim copies, and by how much they inflate our numbers | **Measured by us, checked twice** | NCC = 1.0000 on 4/4 channels, RR offset 0.0 ms; two independent implementations (`analysis/dulieu_audit.py`, `analysis/dulieu_m4b_verify.py`); inflation 3.27–7.18 points (`benchmark_dpss/eval_cinc60_sach.json`) |
+| `peakprob` lead rule +7.73 over PSD | **Hypothesis — post hoc, not replicated** | survives Holm over 7 declared rules (p 0.0039); the designated rule `gate` fails Holm (0.0505); plan file not git-anchored (`analysis/CHONKENH.md`); on the logit scale `gate` leads the 22 subjects and `gate4` leads the 60 clean records (`analysis/XACNHAN.md`) |
+| "The model is not the bottleneck" | **NOT determinable** | visibility test has 18.0 % false negatives on the 60 clean records; corrected share 26 % vs raw 86 % — not identifiable (`analysis/XACNHAN.md`) |
+| Unsupervised domain adaptation helps on CinC | **NO — four methods, all negative** | `analysis/THICHNGHI.md`, `adapt/adapt_results.json` |
+| Architecture family matters at fixed parameters | **NO (in domain, reduced protocol)** | 7 families within ±2.7 % parameters; `rf_wide`, `tcn_ms` equivalent to TCN by TOST; report on logit scale (`analysis/KIENTRUC.md`) |
 | Our Power-MF port is correct | **EXTERNALLY verified** | we measure 99.40 on B1; the authors publish 99.46 (`baselines/powermf_published.json`) — 0.06 apart |
 | Power-MF 4-lead / 1-lead / RelyFetal table | **Reproducible in-repo** | `baselines/powermf_fair_stats.json`, `powermf_1ch.json` |
-| More data helps for real, rather than learning an annotation style | **Independent evidence** | m12 (never saw B1) 74.34 vs m22 79.40 on CinC, whose labels were produced by different annotators (`analysis/ABLATION_B1.md`) |
-| +11.00 points for the band-pass choice | **NOT verified on the TCN** | measured on a 300 ms-window GBM; the TCN sweep is still running (`pilot_evidence/band_tcn.py`) |
+| More data helps for real, rather than learning an annotation style | **Independent evidence** | m12 (never saw B1) 67.93 vs m22 74.28 on the 60 clean CinC records, whose labels were produced by different annotators (`analysis/ABLATION_B1.md`, `analysis/dulieu_results.json`) |
+| +11.00 points for the band-pass choice | **WITHDRAWN for the TCN** | measured on a 300 ms-window GBM; on the TCN +2.44 [−0.05; +6.30], zero inside (`pilot_evidence/band_tcn.json`) |
 | Timing accuracy (jitter, STV) on Silesia B1 | **NOT usable** | B1 labels are indirect and carry a model-dependent offset (m5 6.50 / m12 6.50 / m22 3.25 ms) |
 | Use as a standalone STV meter | **NO** | STV bias +0.33 ms on ADFECGDB but +20.50 ms on CinC (`analysis/CLINICAL.md`) |
 | "Eight architectures are indistinguishable" | **WITHDRAWN** | TOST at a 1.0-point margin rejects it: cnn_m is worse, cnn_l is better (`analysis/STATS.md`) |
 | Topological feature contribution (C3) | **WITHDRAWN — negative result** | AUROC 0.566 vs 0.929 for classical SQIs (`fsqi/README.md`) |
 | Challenge-comparable CinC 2013 score | **NO** | scored with our own ±50 ms matcher, not the official scorer |
-| Seed stability | **Only 2 seeds** | mean absolute change 0.28 points over 20 subjects |
+| Seed stability | **Only 2 seeds, in domain** | subject-level PSD F1 97.56 vs 97.59, +0.03 [−0.18; +0.34]; per-subject mean absolute change 0.28; seed-1 checkpoints not saved, so nothing out of domain (`analysis/xacnhan_results.json`) |
+| Replication of `peakprob` on a third dataset | **NOT possible with the data at hand** | no public set with real fQRS labels: NIFEADB none, NInFEA none (Doppler reference), nifecgdb `.qrs` is maternal, set-b unpublished (`analysis/XACNHAN.md`) |
+| Low-SNR training subjects | **NOT available** | the hardest CinC records have no measurable fetal signal on any lead; the training set contains almost none of that regime |
 | A second centre with real fQRS labels | **NOT available** | NInFEA does not distribute labels |
 
 Every number in this README traces back to a JSON file on disk. Retractions are recorded in place, where
 the old number used to stand, rather than being quietly deleted.
+
+---
+
+## Retractions — complete list
+
+Recorded here so no earlier number can be quoted as current. Each line gives the withdrawn figure, where it
+stood, and the replacement.
+
+| Withdrawn | Was | Why | Replacement |
+|---|---|---|---|
+| 59.15 / 69.31 / 77.34 / 90.34 / 22.33 | CinC 2013, 10-record subsample | biased subsample, post-hoc fixed lead; 4 of those 10 records are training data | 60 clean records (below) |
+| 71.21 / 79.40 / 86.87 / 74.09 / 69.33 / +8.18 / +7.47 / 80.70 | CinC 2013, all 75 records | 15 records are verbatim copies of ADFECGDB training data; 15 records from 5 women violate record-level independence | m5 64.04 / m22 **74.28** / oracle 83.60 / mean-4 67.69 / +10.24 / +9.32 / 53-record 75.27 — `benchmark_dpss/eval_cinc60_sach.json` |
+| 85.60 / +6.20 / +5.14 (`peakprob`, `gate` on 75 records) | `analysis/CHONKENH.md` | same contamination | 82.01 / +7.73 / +6.44 on 60 clean records — `analysis/dulieu_results.json` |
+| 62.82 (Power-MF one lead on CinC) | Power-MF table | same contamination | 55.97 on 60 clean records |
+| 94.87 / +2.74 / 98.38 / 97.33 | Power-MF comparison, morning of 12 Sep 2026 | broken Octave port (`findpeaks` O(k²)) | 98.83 / −1.27 [−3.08; +0.27] on 22 subjects — `baselines/powermf_fair_stats.json` |
+| "+11.00 F1 from the band-pass filter" as a claim about the model | headline of earlier READMEs | measured on a 300 ms GBM; on the TCN +2.44, interval contains zero | reported only as a 300 ms-learner result |
+| "eight architectures are indistinguishable" | earlier READMEs | equivalence inferred from p > 0.05 | TOST at 1.0 point; on logit scale `cnn_wide` is worse (`analysis/KIENTRUC.md`) |
+| "the problem is bimodal" as a mechanism | earlier READMEs | the two modes are a lead-selection artefact, not two populations (`analysis/LUONGCUC.md`) | — |
+| "pre-registered" for the lead-rule study | `analysis/CHONKENH.md` | plan file not git-anchored, written after per-lead F1 existed | "analysis plan written before any rule was scored" |
+| "the model is not the bottleneck"; "71 % of the head-room lies on records without measurable fetal signal"; "only 1.85 points belong to the model" | `analysis/CHANDOAN_MOHINH.md`, `analysis/THICHNGHI.md` | in-sample n = 4 capacity test, jitter on easy beats; visibility test has 18.0 % false negatives on the 60 clean records (threshold 10 %) and 55–70 % on hard records | "neither shown nor excluded"; the no-signal share is not determinable (26–86 % are two bounds of an unmeasured quantity) — `analysis/XACNHAN.md` |
+| "we found / discovered that CinC set-a contains ADFECGDB" — the overlap presented as our finding | earlier READMEs, `analysis/DULIEU.md` §12, `docs/*` | the organisers documented it in 2013 and 2014 and the caveat was in our own reading notes (p20) | "as the organisers noted [Silva 2013; Clifford 2014] … we identified by measurement which 15 records and the inflation" — `survey/RO_RI_VANLIEU.md` |
+| "replicate `peakprob` on CinC set-b / NInFEA / NIFEADB" as a plan | earlier READMEs, `docs/CHIEN_LUOC_CONG_BO.md` | none of them has real fQRS labels | no third dataset available; the rule stays a hypothesis |
+| "the two-seed run shows stability" beyond the in-domain mean | earlier READMEs | seed-1 checkpoints were never saved | in-domain only: +0.03 [−0.18; +0.34] |
+| *Physiological Measurement* is a Q1 journal | proposal v3.4 title page, `docs/` | Scimago 2024 ranks it Q2 (Physiology) / Q3 (Biomedical Eng.) | Q1 (Scimago): JBHI, TBME, BSPC, CBM, AI in Medicine — `docs/CHIEN_LUOC_CONG_BO.md` |
+| "8 hard-limit records" as a finding | `analysis/CHANDOAN_MOHINH.md` | group defined by the label it predicts (circular); a54 is a label error (37 labels / 144 detections) | descriptive only |
+| p < 0.001 for the band-pass tier; all ADFECGDB p-values | earlier READMEs | pseudo-replication over record × lead × seed | intervals only (`analysis/STATS.md`) |
+| topological SQI contribution | proposal v1 | AUROC 0.566 vs 0.929 classical | negative result (`fsqi/README.md`) |
+
+The single source of truth for current numbers is [`survey/facts_phase4.json`](survey/facts_phase4.json);
+every entry there names the JSON file it was read from.
 
 ---
 
@@ -506,7 +651,7 @@ the old number used to stand, rather than being quietly deleted.
   title  = {RelyFetal: Reliability-aware single-channel fetal QRS detection},
   year   = {2026},
   school = {Ton Duc Thang University},
-  note   = {Undergraduate research project, v3.3},
+  note   = {Undergraduate research project, v3.5},
   url    = {https://github.com/bminhnemhoi/nckhsv_tdtu2026-2027}
 }
 ```

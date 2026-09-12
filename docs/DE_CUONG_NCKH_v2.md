@@ -1,3 +1,7 @@
+> **Tài liệu lịch sử (đề cương v1/v2 và phản biện của nó), giữ để truy vết.** Các từ "SOTA", "novel", "đầu tiên"
+> và giả thuyết TDA trong tệp này đã bị chính nhóm bác bỏ hoặc rút; trạng thái hiện hành ở `README.md`,
+> `docs/De_cuong_NCKH_RelyFetal.pdf` và `survey/facts_phase4.json`.
+
 # ĐỀ CƯƠNG NGHIÊN CỨU KHOA HỌC SINH VIÊN
 
 ## Dò phức bộ QRS thai nhi từ điện tim ổ bụng đơn kênh có nhận biết độ tin cậy: benchmark biểu diễn tín hiệu không rò rỉ và chỉ số chất lượng dựa trên đồng điều bền vững
