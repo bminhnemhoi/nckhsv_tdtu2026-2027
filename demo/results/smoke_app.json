@@ -3,26 +3,26 @@
  "plotly": "7.0.0",
  "python": "3.12.6",
  "port": 7861,
- "build_s": 3.92,
+ "build_s": 2.9,
  "ok": true,
  "http_status": 200,
- "launch_s": 0.97,
- "n_components": 23,
+ "launch_s": 1.38,
+ "n_components": 30,
  "n_dependencies": 3,
- "direct_wall_s": 2.0,
+ "direct_wall_s": 13.27,
  "direct": {
   "record": "r01",
   "lead": 4,
-  "checkpoint": "fetalqrs_tcn_fold_r01.pt",
-  "F1": 100.0,
+  "checkpoint": "fetalqrs_tcn_22_fold_05.pt",
+  "F1": 99.92242048099301,
   "Se": 100.0,
-  "PPV": 100.0,
-  "n_beats": 644,
-  "fhr_mean": 129.113157084266,
+  "PPV": 99.84496124031008,
+  "n_beats": 645,
+  "fhr_mean": 129.02548389415804,
   "level": "cao",
-  "latency_ms": 668.8854999374598,
-  "n_traces_fig1": 9,
-  "n_rows_cmp": 200
+  "latency_ms": 1707.1457999991253,
+  "n_traces_fig1": 10,
+  "n_rows_cmp": 201
  },
  "api_endpoints": [
   "/_toggle",
@@ -31,9 +31,9 @@
  ],
  "client": {
   "endpoint": "/run",
-  "wall_s": 2.11,
-  "n_outputs": 7,
-  "F1": 100.0,
+  "wall_s": 15.38,
+  "n_outputs": 9,
+  "F1": 99.92242048099301,
   "level": "cao"
  }
 }

@@ -1,0 +1,207 @@
+% ================================================================= CHỒNG LẤN VÀ 60 BẢN SẠCH
+\subsubsection{Chồng lấn với dữ liệu huấn luyện và 60 bản sạch}
+\label{sec:cinc60}
+
+Mục này gom toàn bộ bằng chứng về việc tập đánh giá xuyên hệ ghi của nhóm chứa sẵn dữ liệu huấn luyện,
+và trình bày bộ số hiện hành thay cho mọi con số 75 bản ghi đã rút. Mọi con số dưới đây lấy từ
+\texttt{benchmark\_dpss/eval\_cinc60\_sach.json} và \texttt{analysis/dulieu\_results.json}; bootstrap
+theo bản ghi, 10.000 lần lấy lại, seed 0.
+
+\paragraph{Điều y văn đã ghi nhận --- và điều nhóm bỏ sót.}
+Việc tập set-a của PhysioNet/CinC 2013 \textbf{không độc lập} với ADFECGDB \textbf{không phải phát hiện
+của nhóm}. Ban tổ chức đã ghi nhận nó ngay từ đầu:
+
+\begin{itemize}[leftmargin=1.6em,itemsep=3pt]
+\item Silva và cộng sự, \textit{Computing in Cardiology} 2013;40:149--152, \textbf{Bảng 1} liệt kê
+nguồn của 447 bản ghi Challenge, trong đó có dòng ``Abdominal and Direct Fetal ECG Database --- 25''.
+\item Clifford và cộng sự, \textit{Physiological Measurement} 2014;35:1521
+(DOI 10.1088/0967-3334/35/8/1521), \textbf{Bảng 2}, kèm một câu cảnh báo trực tiếp về một đội dự thi
+huấn luyện trên chính bộ đó: bài viết rằng điều này ``\textit{may have led to a bias in the results as
+this database was included in set-a, set-b (and possibly a few records in set-c)}''.
+\end{itemize}
+
+Câu cảnh báo ấy nằm \textbf{ngay trong bảng ghi chú đọc bài của chính nhóm} --- Bảng
+\ref{tab:baihoc}, mục \textbf{p13} (Behar 2014) và mục \textbf{p20} (Clifford 2014), cả hai đều đã tự
+viết ra dòng ``việc phải làm ngay là kiểm tra chồng lấn giữa ADFECGDB và CinC 2013''. Nhóm
+\textbf{bỏ sót} việc đó suốt các bản 3.2--3.4 và chỉ thực hiện ở vòng 7. Đây là lần đoán sai thứ ba
+được phân tích ở \S\ref{sec:doansai}.
+
+\paragraph{Phần thật sự là của nhóm: định danh đúng 15 bản ghi.}
+Không nguồn nào nhóm truy cập được cho biết \emph{bản ghi set-a nào} đến từ ADFECGDB. Nhóm xác định
+bằng đo lường: tương quan chéo chuẩn hoá (NCC) tính qua FFT trên tín hiệu \textbf{thô chưa lọc}, hạ mẫu
+1000 $\to$ 250\,Hz, quét \textbf{mọi} độ trễ, so 75 bản CinC $\times$ 4 kênh với 5 bản ADFECGDB
+$\times$ 5 kênh. Hai cài đặt độc lập (\texttt{analysis/dulieu\_audit.py} và
+\texttt{analysis/dulieu\_m4b\_verify.py}, viết lại từ đầu, không dùng chung hàm nào) cho cùng một kết
+quả: \textbf{đúng 15 bản}, cùng bản gốc, cùng cửa sổ.
+
+Cấu trúc rất đều: mỗi bản ADFECGDB dài 300\,s đóng góp \textbf{đúng ba cửa sổ} 0--60, 120--180 và
+240--300\,s; và không phải một kênh mà \textbf{cả bốn kênh} của mỗi bản CinC rò rỉ đều là bản sao
+NCC $= 1{,}0000$ của Abdomen\_1..4 \textbf{đúng thứ tự}. Kênh điện cực da đầu không có mặt trong CinC.
+
+\begin{table}[H]\centering\small
+\caption{Ánh xạ 15 bản ghi CinC 2013 set-a về 5 bản ghi ADFECGDB dùng huấn luyện. Mọi ô đều có
+NCC $= 1{,}0000$ trên cả bốn kênh đúng thứ tự và $|\Delta$RR$|$ trung vị $= 0{,}0$\,ms. Nguồn:
+\texttt{analysis/dulieu\_m4b\_verify.json}.}
+\label{tab:chonglan15}
+\begin{tabular}{@{}L{3.4cm} C{3.0cm} C{3.0cm} C{3.0cm}@{}}
+\toprule
+\textbf{Bản ADFECGDB (300\,s)} & \textbf{Cửa sổ 0--60\,s} & \textbf{Cửa sổ 120--180\,s} &
+\textbf{Cửa sổ 240--300\,s} \\
+\midrule
+r01 & \xau{a05} & \xau{a04} & \xau{a22} \\
+r04 & \xau{a25} & \xau{a20} & \xau{a13} \\
+r07 & \xau{a19} & \xau{a23} & \xau{a24} \\
+r08 & \xau{a17} & \xau{a15} & \xau{a08} \\
+r10 & \xau{a03} & \xau{a14} & \xau{a12} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Đối chứng dương và đối chứng âm.}
+Một thủ tục dò trùng lặp chỉ đáng tin nếu nó bắt được cái đã biết và không bắt nhầm cái không có.
+
+\begin{itemize}[leftmargin=1.6em,itemsep=3pt]
+\item \textbf{Đối chứng dương (cặp đã biết trước).} Cùng thủ tục, chạy trên 5 cặp Silesia B2 ---
+ADFECGDB mà nhóm đã xác định ở \S\ref{sec:silesia}, cho NCC 0,856--0,984: B2\_01 $\sim$ r01 (0,860),
+B2\_02 $\sim$ r10 (0,984), B2\_07 $\sim$ r04 (0,956), B2\_10 $\sim$ r07 (0,959), B2\_11 $\sim$ r08
+(0,856). Thủ tục bắt đúng cái nó phải bắt.
+\item \textbf{Đối chứng âm.} 60 bản ghi CinC còn lại có $|$NCC$|$ tối đa chỉ \textbf{0,62} --- cách rất
+xa ngưỡng bản sao. Không có vùng xám giữa 0,62 và 1,0000.
+\item \textbf{Đối chứng dương thứ hai, bằng hiệu năng.} Trên đúng 15 bản rò rỉ, mô hình 22 ca đạt
+\xau{99,87} (trung vị 100; 15/15 bản $\geq 90$; không bản nào dưới 50) --- tức gần bằng hiệu năng
+\emph{trong miền} trên chính r01--r10. Trên 60 bản sạch, cùng mô hình, cùng quy tắc, cùng bộ chấm:
+\tot{74,28}. Chênh lệch 25 điểm giữa hai tập con của cùng một ``bộ dữ liệu ngoài miền'' là chữ ký của
+rò rỉ, không phải của độ khó.
+\end{itemize}
+
+\textbf{Mức thổi phồng} khi tính trung bình trên 75 bản thay vì 60 bản sạch, đo riêng cho từng mô hình
+và từng quy tắc: mô hình 5 ca $+7{,}18$ điểm; mô hình 12 ca $+6{,}41$; mô hình 22 ca $+5{,}12$; quy tắc
+oracle $+3{,}27$. Dải \textbf{3,27--7,18 điểm F1}. Mức thổi phồng lớn nhất rơi vào mô hình yếu nhất ---
+đúng như dự đoán, vì 15 bản rò rỉ đều gần 100 với mọi mô hình nên chúng kéo mô hình yếu lên nhiều hơn.
+Hệ quả phụ nguy hiểm hơn: chúng \textbf{thu hẹp giả tạo} khoảng cách giữa các mô hình và giữa các quy
+tắc chọn kênh, tức làm mọi hiệu số nhóm quan tâm \emph{nhỏ đi} và mọi kết luận ``không khác biệt''
+\emph{dễ đạt hơn}.
+
+\paragraph{Bộ số hiện hành: thêm dữ liệu, đo trên 60 bản sạch.}
+
+\begin{table}[H]\centering\small
+\caption{PhysioNet/CinC 2013 set-a, \textbf{60 bản ghi sạch}, zero-shot. Hiệu số là mô hình 22 ca trừ
+mô hình 5 ca; KTC 95\% bootstrap theo bản ghi 10.000 lần, seed 0; T/Th/H là thắng/thua/hoà theo bản
+ghi. Hàng in đậm là \textbf{số chính} của đề tài.}
+\label{tab:cinc60}
+\begin{tabular}{@{}L{3.6cm} C{1.2cm} C{1.2cm} C{1.2cm} C{1.4cm} C{2.6cm} C{1.5cm}@{}}
+\toprule
+\textbf{Quy tắc chọn kênh} & \textbf{5 ca} & \textbf{12 ca} & \textbf{22 ca} & \textbf{Hiệu 22--5} &
+\textbf{KTC 95\%} & \textbf{T/Th/H} \\
+\midrule
+\textbf{PSD mù nhãn (chính)} & 64,04 & 67,93 & \tot{74,28} & $+10{,}24$ & $[+7{,}13;\ +13{,}60]$ & 52/3/5 \\
+Trung bình 4 kênh & 56,00 & --- & 67,69 & $+11{,}69$ & $[+9{,}03;\ +14{,}37]$ & 58/2/0 \\
+Kênh 0 cố định (hậu kiểm, đã rút) & 48,43 & --- & \xau{61,78} & $+13{,}35$ & $[+9{,}67;\ +17{,}10]$ & 50/8/2 \\
+Oracle (dùng nhãn, chỉ là trần) & 72,76 & --- & \textit{83,60} & $+10{,}84$ & $[+7{,}55;\ +14{,}37]$ & 49/3/8 \\
+\midrule
+\multicolumn{7}{@{}l}{\textit{Biến thể 53 bản (loại thêm 7 bản chú thích sai), quy tắc PSD:}} \\
+PSD mù nhãn, $n = 53$ & 64,19 & --- & \tot{75,27} & $+11{,}08$ & $[+7{,}54;\ +14{,}82]$ & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Trị số $p$ Wilcoxon ghép cặp cho hiệu số 22 ca trừ 5 ca: $3{,}5 \cdot 10^{-10}$ (PSD),
+$2{,}7 \cdot 10^{-11}$ (trung bình 4 kênh), $4{,}9 \cdot 10^{-9}$ (kênh 0), $1{,}1 \cdot 10^{-9}$
+(oracle). Với mô hình 22 ca và quy tắc PSD: \textbf{33/60} bản đạt $\geq 90$, \textbf{16/60} bản còn
+dưới 50, trung vị 95,07. Đường 5 $\to$ 12 $\to$ 22 ca (64,04 $\to$ 67,93 $\to$ 74,28) cho thấy lợi ích
+của dữ liệu \textbf{chưa bão hoà}: riêng bước 12 $\to$ 22 còn đáng $+6{,}35$ điểm
+$[+4{,}04;\ +8{,}95]$. Power-MF đơn kênh trên đúng 60 bản này đạt \textbf{55,97}; chênh lệch so với
+\hethong{} là $+18{,}32$ $[+13{,}35;\ +23{,}64]$, thắng 49 thua 5 hoà 6 (\S\ref{sec:powermf}).
+
+\paragraph{Quy tắc chọn kênh: bảy phương án, một quy tắc chỉ định trước, và một kết quả trượt.}
+Bảy phương án mù nhãn thay cho quy tắc PSD được ghi vào một bản khai báo
+(\texttt{analysis/chonkenh\_khaibao\_truoc.json}) \textbf{trước khi} bất kỳ phương án nào được chấm
+trên CinC, kèm quy tắc quyết định ``quy tắc chỉ định trước $=$ phương án có F1 trong miền cao nhất trên
+22 chủ thể'' --- quy tắc đó chỉ ra \texttt{gate}. Bản khai báo được viết \emph{sau} khi đã có F1 từng
+kênh và \textbf{không được neo bởi bên thứ ba}, nên nhóm gọi nó là \textbf{bản khai báo trước} và
+\textbf{không} gọi là ``tiền đăng ký''.
+
+\begin{table}[H]\centering\footnotesize
+\caption{Bảy quy tắc chọn kênh mù nhãn trên \textbf{60 bản sạch}, mô hình 22 ca. Hiệu số so với quy tắc
+PSD, KTC 95\% bootstrap theo bản ghi, Holm hiệu chỉnh trên họ 7 quy tắc. Cột ``\% dư địa'' là phần
+khoảng cách PSD $\to$ oracle (9,32 điểm) mà quy tắc lấy lại được.}
+\label{tab:quytac60}
+\begin{tabular}{@{}L{2.0cm} L{2.3cm} C{0.9cm} C{1.1cm} C{2.3cm} C{1.2cm} C{1.4cm} C{1.0cm}@{}}
+\toprule
+\textbf{Quy tắc} & \textbf{Vai trò} & \textbf{F1} & \textbf{Hiệu} & \textbf{KTC 95\%} &
+\textbf{$p_{\text{Holm}}$} & \textbf{T/Th/H} & \textbf{\% dư địa} \\
+\midrule
+\texttt{psd} & tham chiếu & 74,28 & --- & --- & --- & 0/0/60 & 0 \\
+\texttt{gate} & \textbf{chỉ định trước} & 80,72 & $+6{,}44$ & $[+2{,}49;\ +11{,}10]$ & \xau{0,051} & 16/7/37 & 69,1 \\
+\texttt{gate4} & khai báo trước & 81,01 & $+6{,}72$ & $[+2{,}85;\ +11{,}18]$ & \tot{0,015} & 17/5/38 & 72,2 \\
+\texttt{peakprob} & \textbf{hậu kiểm} & 82,01 & $+7{,}73$ & $[+3{,}82;\ +12{,}41]$ & \tot{0,0039} & 19/6/35 & 82,9 \\
+\texttt{rrcv} & khai báo trước & 80,00 & $+5{,}72$ & $[+1{,}61;\ +10{,}41]$ & 0,41 & 15/10/35 & 61,3 \\
+\texttt{rrplaus} & khai báo trước & 78,87 & $+4{,}59$ & $[+0{,}88;\ +8{,}93]$ & 0,41 & 17/9/34 & 49,3 \\
+\texttt{learned} & khai báo trước & 77,80 & $+3{,}52$ & $[-0{,}77;\ +8{,}48]$ & 1,00 & 15/13/32 & 37,8 \\
+\texttt{fuse} ($k = 2$) & khai báo trước & 76,46 & $+2{,}18$ & $[-0{,}40;\ +4{,}98]$ & 1,00 & 20/20/20 & 23,4 \\
+\midrule
+\textit{oracle} & trần (dùng nhãn) & \textit{83,60} & $+9{,}32$ & $[+5{,}10;\ +14{,}15]$ & --- & 25/0/35 & 100 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Ba điều phải đọc cùng nhau, và chúng không cùng chiều:
+
+\begin{enumerate}[leftmargin=1.8em,itemsep=4pt]
+\item \textbf{Quy tắc chỉ định trước trượt.} \texttt{gate} đạt $+6{,}44$ điểm, KTC 95\% loại trừ 0,
+Wilcoxon $p = 0{,}010$ --- nhưng sau hiệu chỉnh Holm trên họ 7 quy tắc,
+$p_{\text{Holm}} = \xau{0{,}051}$. Theo đúng quy tắc quyết định đã ghi \emph{trước khi} chạy, đây là
+\textbf{trượt}, và nhóm báo cáo nó là trượt. Nhóm \textbf{không} đổi họ kiểm định, \textbf{không} bỏ
+bớt quy tắc khỏi họ để hạ ngưỡng, và \textbf{không} viết ``gần đạt ý nghĩa''.
+\item \textbf{Quy tắc mạnh nhất lại là quy tắc hậu kiểm.} \texttt{peakprob} --- chọn kênh có xác suất
+đỉnh trung bình cao nhất theo chính đầu ra của bộ dò; không tham số, không huấn luyện --- đạt 82,01
+($+7{,}73$; $p_{\text{Holm}} = 0{,}0039$), lấy lại 82,9\,\% dư địa tới oracle và hạ số bản dưới 50 từ
+16 xuống 9. Nhưng nó \textbf{được chọn sau khi nhìn kết quả}. Theo đúng nguyên tắc nhóm tự đặt ở
+\S\ref{sec:doansai}, nó \textbf{chỉ là giả thuyết}, không phải kết quả khẳng định.
+\item \textbf{Trong miền, không quy tắc nào tách được khỏi PSD.} Trên 22 chủ thể, F1 bão hoà gần 100
+nên nhóm lặp lại so sánh trên \textbf{thang logit} (\texttt{analysis/xacnhan\_results.json}). Ở đó thứ
+tự \textbf{đổi}: quy tắc đứng đầu là \texttt{gate} ($+0{,}225$ logit; KTC $[+0{,}004;\ +0{,}589]$;
+$p_{\text{Holm}} = 0{,}475$), còn \texttt{peakprob} chỉ được $+0{,}134$ $[-0{,}038;\ +0{,}407]$,
+$p_{\text{Holm}} = 1{,}00$. Không quy tắc nào sống sót qua Holm. Nói cách khác: \textbf{bằng chứng
+trong miền nghiêng về quy tắc chỉ định trước, bằng chứng ngoài miền nghiêng về quy tắc hậu kiểm} ---
+và hai bằng chứng đó không thể cùng được dùng để chốt một quy tắc.
+\end{enumerate}
+
+\paragraph{Vì sao không thể đóng câu hỏi này ở vòng 7.}
+Cách duy nhất để biến \texttt{peakprob} từ giả thuyết thành kết quả là chấm nó trên một bộ dữ liệu thứ
+ba \textbf{có nhãn fQRS thật}. Nhóm đã kiểm bốn khả năng và \textbf{không bộ nào dùng được}:
+
+\begin{table}[H]\centering\small
+\caption{Bốn bộ dữ liệu được kiểm làm tập xác nhận thứ ba (vòng 7). Nguồn:
+\texttt{analysis/xacnhan\_results.json}, \texttt{analysis/XACNHAN.md}.}
+\label{tab:bothuba}
+\begin{tabular}{@{}L{2.7cm} L{3.3cm} C{1.8cm} L{6.2cm}@{}}
+\toprule
+\textbf{Bộ dữ liệu} & \textbf{Có trên đĩa} & \textbf{Nhãn fQRS} & \textbf{Bằng chứng} \\
+\midrule
+NIFEADB & 26 bản \texttt{.dat}/\texttt{.hea} & \xau{Không} & PhysioNet 1.0.0 không có
+\texttt{.qrs}/\texttt{.atr}/\texttt{ANNOTATORS}; cờ \texttt{HAS\_FETAL\_ANNOTATIONS} trong
+\texttt{nifeadb\_loader} đặt False \\
+NInFEA & 2 \texttt{.dat} $+$ 3 \texttt{.hea} (tải dò) & \xau{Không} & Không có tệp chú thích nhịp;
+tham chiếu gốc của bộ này là Doppler \\
+nifecgdb (ecgca102) & 1 bản EDF $+$ \texttt{.qrs} & \xau{Không} & 375 nhãn trên 270\,s, RR trung vị
+0,695\,s $=$ 86 nhịp/phút $\Rightarrow$ đó là QRS \textbf{mẹ}; ngoài ra 55 bản chỉ từ một sản phụ \\
+CinC 2013 set-b & Không & \xau{Không} & Nhãn chưa bao giờ được công bố \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{canhbao}[title={Phát biểu nhóm dùng cho mục này --- và phát biểu nhóm KHÔNG dùng}]
+\textbf{Nhóm viết:} ``Như ban tổ chức đã ghi nhận [Silva 2013, Bảng 1; Clifford 2014, Bảng 2], set-a
+chứa bản ghi của ADFECGDB; chúng tôi xác định bằng đo lường \emph{đúng 15 bản nào} và \emph{mức thổi
+phồng} 3,27--7,18 điểm F1, rồi chấm lại toàn bộ trên 60 bản còn lại.''
+
+\textbf{Nhóm KHÔNG viết:} ``nhóm phát hiện rò rỉ dữ liệu trong CinC 2013''. Đó là một phát biểu sai về
+quyền ưu tiên và đã bị rút (\S\ref{sec:doansai}).
+
+\textbf{Nhóm cũng KHÔNG viết:} ``\texttt{peakprob} nâng F1 xuyên hệ ghi lên 82,01'' như một kết quả.
+Con số 82,01 có thật và chạy lại được, nhưng quy tắc sinh ra nó là hậu kiểm, quy tắc chỉ định trước đã
+trượt Holm, thang logit trong miền lại xếp hạng khác, và \textbf{không có bộ dữ liệu công khai thứ ba
+có nhãn fQRS thật} để phân xử. Trạng thái đúng của \texttt{peakprob} là \textbf{giả thuyết mạnh, chưa
+được xác nhận}. Việc xác nhận nó cần \emph{dữ liệu mới}, không cần thêm phân tích trên dữ liệu cũ.
+\end{canhbao}

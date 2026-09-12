@@ -46,21 +46,32 @@ bằng `de_cuong_latex/verify_v34.py` — **82/82 khớp**.
 Đã chạy **toàn bộ 75 bản ghi** set-a (`benchmark_dpss/eval_cinc75.py` → `eval_cinc75.json`).
 Mẫu 10 bản ghi **bị lệch, và lệch theo hai hướng ngược nhau**:
 
-| Quy tắc chọn kênh | Mẫu 10 bản ghi (v3.2) | Toàn bộ 75 bản ghi | Lệch |
-|---|---:|---:|---:|
-| PSD mù nhãn (**số chính**) | 69,31 | **79,40** | −10,09 |
-| Kênh 0 cố định (hậu kiểm) | 90,34 | 69,33 | **+21,01** |
+| Quy tắc chọn kênh | Mẫu 10 bản ghi (v3.2, **đã rút**) | Toàn bộ 75 bản ghi (ô nhiễm, **đã rút**) | Lệch | **60 bản sạch — số hiện hành** |
+|---|---:|---:|---:|---:|
+| PSD mù nhãn (**số chính**) | 69,31 | 79,40 | −10,09 | **74,28** (KTC 95% [66,63; 81,78]) |
+| Kênh 0 cố định (hậu kiểm) | 90,34 | 69,33 | **+21,01** | — (quy tắc đã rút) |
+
+**Cập nhật vòng 7 (12/09/2026).** Cả cột 10 bản ghi lẫn cột 75 bản ghi đều **đã bị rút**: 15/75 bản ghi
+set-a (a03, a04, a05, a08, a12, a13, a14, a15, a17, a19, a20, a22, a23, a24, a25) là bản sao nguyên văn
+(NCC = 1,0000 trên cả 4 kênh, sai lệch RR bằng 0,0 ms) của r01, r04, r07, r08, r10 — chính 5 bản ADFECGDB
+dùng để huấn luyện; 60 bản còn lại chỉ đạt NCC tối đa 0,62, và việc giữ 15 bản trùng làm trung bình 75 bản
+thổi phồng 3,27–7,18 điểm F1. Số hiện hành đo trên **60 bản sạch**: PSD mù nhãn (quy tắc khai báo trước,
+**số chính**) **74,28**; quy tắc hậu kiểm `peakprob` 82,01 (chỉ là giả thuyết); trần dùng nhãn 83,60.
+Việc set-a chứa bản ghi ADFECGDB đã được chính ban tổ chức ghi nhận (Silva 2013, CinC 40:149–152, Bảng 1;
+Clifford 2014, Physiol Meas 35:1521) — nhóm chỉ định danh được đúng 15 bản nào và đo mức thổi phồng.
 
 Con số **90,34** của v3.2 là siêu tham số đã được **khớp vào chính 10 bản ghi đánh giá** (kênh 0 được chọn
 sau khi thấy quy tắc PSD thất bại trên đúng 10 bản ghi đó). Khi đem ra 65 bản ghi chưa thấy nó **rơi 21
 điểm**, xuống thấp hơn cả quy tắc mù nhãn mà nó từng thay thế. **90,34 đã bị rút khỏi mọi bảng chính.**
 
 Hệ quả nặng nhất: kết luận v3.2 **"không còn bản ghi nào dưới 50"** là **SAI** trên tập đầy đủ.
-Trên 75 bản ghi vẫn còn **16 bản ghi dưới 50** với mô hình 22 ca (22 với mô hình 5 ca). Sụp đổ xuyên hệ
-ghi **chưa được chữa** — đây là điểm yếu số một của đề tài.
+Trên 60 bản sạch vẫn còn **16 bản ghi dưới 50** với mô hình 22 ca (22 với mô hình 5 ca), trong khi 33/60
+bản đạt F1 từ 90 trở lên và trung vị là 95,07. Sụp đổ xuyên hệ ghi **chưa được chữa** — đây là điểm yếu
+số một của đề tài.
 
-Thêm dữ liệu vẫn giúp, và lần này đủ mẫu để nói chắc: **+8,18 điểm**, KTC 95% [+5,62; +11,09], thắng 53
-thua 5 trên 75 bản ghi. Nhưng Cliff δ = 0,232 chỉ là hiệu ứng **nhỏ**.
+Thêm dữ liệu vẫn giúp, và lần này đủ mẫu để nói chắc: đo lại trên **60 bản sạch**, mô hình 22 chủ thể đạt
+74,28 so với 64,04 của mô hình 5 ca, hiệu **+10,24 điểm**, KTC 95% [+7,13; +13,60], Wilcoxon p = 3,5e−10.
+(Con số **+8,18 điểm** [+5,62; +11,09] trên 75 bản ghi ô nhiễm **đã bị rút**.)
 
 ### 2. "Power-MF không chạy lại được" — sai, đã chạy; và bảng so sánh đầu tiên cũng sai
 
@@ -97,7 +108,7 @@ và lần này có thêm cột **Power-MF đơn kênh** để so sánh đúng c�
 | Silesia B2 | 7 | 97,90 | 87,28 | 96,82 |
 | Silesia B1 | 10 | **99,40** | 83,48 | 97,15 |
 | **Tất cả 22** | 22 | **98,83** | 86,71 | 97,56 |
-| CinC 75 | 75 | chưa chạy | 62,82 | **79,40** |
+| CinC 2013, 60 bản sạch | 60 | chưa chạy | 55,97 | **74,28** |
 
 Thống kê mức chủ thể (bootstrap cụm 10.000 lần lấy mẫu lại **chủ thể**, seed 0; Wilcoxon ghép cặp;
 Cliff δ), tất cả 22 chủ thể:
@@ -224,12 +235,15 @@ nhất là điểm mong manh của pipeline.
 
 ## Việc phải làm, theo thứ tự
 
-1. **Sửa bản thảo CinC 2026** (`paper/cinc2026/main.tex`): nó đang chứa các con số CinC trên mẫu 10 bản
-   ghi và các trị số p giả lập đã bị gỡ. Đây là việc gấp nhất.
+1. ~~**Sửa bản thảo CinC 2026**~~ — **đã xong (vòng 7)**: `paper/cinc2026/main.tex` nay báo cáo **74,28**
+   (KTC 95% [66,63; 81,78], PSD mù nhãn, quy tắc khai báo trước) trên **60 bản ghi CinC 2013 set-a sạch**
+   sau khi loại 15 bản trùng nguyên văn với ADFECGDB; các con số trên mẫu 10 bản ghi, trên 75 bản ghi ô
+   nhiễm và các trị số p giả lập đều đã bị gỡ.
 2. **Thay luật khoá nhịp mẹ** ngưỡng cứng 60% bằng mức vượt phân phối rỗng — rẻ, và bắt được a09 theo
    thiết kế chứ không nhờ may.
-3. **Chạy lại khảo sát dải thông có lưu F1 từng bản ghi × kênh** — tầng 1 (+11,00) hiện không kiểm chứng
-   lại được ở mức chủ thể.
+3. ~~**Chạy lại khảo sát dải thông**~~ — **đã chạy trên chính TCN (vòng 7)**: dải 10–60 Hz chỉ được
+   **+2,44 điểm** [−0,05; +6,30] ở kênh PSD và **−0,07 điểm** [−0,49; +0,40] khi trung bình 4 kênh; con số
+   **+11,00** là của bộ phân loại GBM cửa sổ 300 ms và **đã bị rút** khi nói về TCN.
 4. **Truy nguyên lỗi cổng chuyển Power-MF trên bản ghi dài** (B1_01/02 bắt cách nhịp, B1_03–06 rỗng).
 5. **P7 — tiền huấn luyện FECGSYNDB**: sau khi thấy 16/75 bản ghi CinC vẫn dưới 50, mục này **trở lại
    thành ưu tiên** chứ không còn "có thể không cần thiết" như v3.2 viết.

@@ -101,9 +101,16 @@ Kiểm rò rỉ nhãn: xáo nhãn rồi chạy lại → 0/776 lựa chọn đ�
     except Exception as e:                                       # noqa: BLE001
         parts.append(f'*Không đọc được analysis/dulieu_results.json: {e}*')
     try:
-        d, src = _load_json('analysis/chonkenh_results.json')
-        H = d['he_qua_hau_kiem']['bang']; s22 = d['bang']['s22']
-        r4 = H['psd']['vs_powermf4']; r1 = H['psd']['vs_powermf1']
+        d, _ = _load_json('analysis/chonkenh_results.json')
+        s22 = d['bang']['s22']
+        # KTC Power-MF lay tu tep chuan (cung nguon voi bai bao), khong tu he_qua_hau_kiem
+        pf, src = _load_json('baselines/powermf_fair_stats.json')
+        def _r(k):
+            x = pf['so_sanh']['tat_ca_22'][k]
+            return {'mean_a': x['mean_a'], 'mean_b': x['mean_b'], 'hieu': x['hieu'],
+                    'ci95': [x['ci_lo'], x['ci_hi']], 'p_wilcoxon': x['p_wilcoxon'],
+                    'thang': x['thang'], 'thua': x['thua']}
+        r4 = _r('rely_vs_pmf4'); r1 = _r('rely_vs_pmf1')
         parts.append(f'''
 ### 22 chủ thể trong miền (F1 mức chủ thể, checkpoint fold không chứa chủ thể) — nguồn `{src}`
 

@@ -199,7 +199,7 @@ within record; intervals resample subjects.
 \section{Results}
 \subsection{Detection across data configurations}
 Table~\ref{tab:data} gives both models on every configuration. In domain the label-blind PSD rule sits
-within 1.90 points of the oracle lead. Zero-shot from five labour women to ten pregnancy women of the
+within 0.02--1.90 points of the oracle lead per set (1.08 pooled over 22 women). Zero-shot from five labour women to ten pregnancy women of the
 same recorder costs about six points (99.21 to 93.30); training on 22 women closes most of it (97.15).
 A second seed of m22 moves the 22-woman mean from 97.56 to 97.59 ($+$0.03, CI $[-0.18;0.34]$; largest
 per-woman change 2.81, B2\_03).
@@ -271,10 +271,10 @@ not shifted. One-lead Power-MF on the same 60 records scores 55.97 (Table~\ref{t
 
 The lead rule loses accuracy across recorders before the detector does: the PSD rule is 9.32 points
 below the oracle lead (74.28 vs 83.60, CI $[5.10;14.15]$) and picks it in only 17 of 60 records.
-Table~\ref{tab:cinc} reports the seven pre-specified alternatives. The written decision rule selected
+Table~\ref{tab:cinc} shows four of the seven pre-specified rules; the three omitted (rrplaus, learned, fuse) are the weakest and are in the released JSON. The written decision rule selected
 \emph{gate} as confirmatory; it gains $+$6.44 over PSD (CI $[+2.49;+11.10]$, $p=0.010$) but
 \emph{does not survive} Holm correction over the seven rules ($p_{\mathrm{Holm}}=0.051$). We report
-this as a failed confirmatory test. The in-domain arbiter was also uninformative by construction: the
+this as a failed confirmatory test. Within the same family, \emph{gate4} (81.01, $p_{\mathrm{Holm}}=0.015$) does survive: the family-level test succeeds while the single designated rule does not. The in-domain arbiter was also uninformative by construction: the
 four best rules lie within 0.04 points of each other on 22 women, where the whole oracle headroom is
 1.08 points, a design error on our part. The strongest of the seven is \emph{peakprob}: 82.01 against
 74.28, $+$7.73 (CI $[+3.82;+12.41]$, $p=5.6\cdot10^{-4}$, $p_{\mathrm{Holm}}=0.0039$ over the family),

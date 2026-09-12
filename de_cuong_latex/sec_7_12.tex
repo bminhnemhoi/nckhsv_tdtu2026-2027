@@ -79,8 +79,10 @@ chứng minh là vô ích}.
 
 Chỗ sụp thật sự là ngoài miền: \textbf{64,04 trên 60 bản ghi sạch của CinC 2013} (mô hình 5 ca; 74,28
 với mô hình 22 ca --- \S\ref{sec:cinc75}), với 22 bản ghi dưới 50
-(\S\ref{sec:cinc75}). Đó mới là nơi đáng đầu tư. Và mục tiêu định lượng đã rõ: quy tắc chọn kênh một
-mình đang mất \textbf{7,47 điểm} so với oracle ngoài miền, trong khi trong miền chỉ mất 0,02--1,90 điểm.
+(\S\ref{sec:cinc60}). Đó mới là nơi đáng đầu tư. Và mục tiêu định lượng đã rõ: quy tắc chọn kênh một
+mình đang mất \textbf{9,32 điểm} so với oracle ngoài miền (74,28 so với 83,60 trên 60 bản sạch; KTC 95\%
+$[+5{,}10;\ +14{,}15]$), trong khi trong miền chỉ mất 0,02--1,90 điểm. \textit{(Con số ``7,47 điểm''
+của bản 3.4 tính trên 75 bản ô nhiễm và đã rút.)}
 
 \subsection{Rủi ro và khuyến nghị}
 
@@ -132,8 +134,8 @@ Chỉ 5 sản phụ, tất cả đang chuyển dạ &
 (\S\ref{sec:silesia}, \S\ref{sec:model22}). Còn lại: vẫn một bệnh viện, một hệ ghi \\
 Sụp đổ xuyên hệ ghi (CinC 2013) &
 \xau{CHƯA xử lý} & Bản 3.2 tuyên bố ``đã xử lý phần lớn, không bản ghi nào dưới 50''. Tuyên bố đó dựa
-trên mẫu 10 bản ghi và \textbf{sai} trên toàn bộ 75: vẫn còn \textbf{16/75 bản ghi dưới 50} với mô hình
-22 ca (\S\ref{sec:cinc75}). Đây là điểm yếu số một của đề tài \\
+trên mẫu 10 bản ghi và \textbf{sai} trên tập đầy đủ: vẫn còn \textbf{16/60 bản ghi sạch dưới 50} với mô
+hình 22 ca (\S\ref{sec:cinc60}). Đây là điểm yếu số một của đề tài \\\
 Mọi trị số $p$ tính trên cặp (bản ghi $\times$ kênh), tức giả lập &
 \tot{Đã xử lý} & Tính lại toàn bộ ở mức chủ thể, bootstrap cụm, TOST cho kết luận tương đương
 (\S\ref{sec:thongke}). Hệ quả: gỡ mọi $p$ trên ADFECGDB và rút hai kết luận \\
@@ -218,16 +220,16 @@ bản ghi thua nặng là ba bản ghi mà \textit{mọi} phương pháp đơn k
 
 \end{description}
 
-\subsection{Nhóm đã đoán sai nguyên nhân hai lần trong một ngày}
+\subsection{Nhóm đã đoán sai nguyên nhân ba lần trong một ngày}
 \label{sec:doansai}
 
 Mục này nhóm đưa vào không phải để tự trách. Nó ở đây vì nó là bằng chứng kiểm tra được rằng những con
 số còn lại trong đề cương đã đi qua một quy trình biết tự bắt lỗi. Một đề cương không có mục này thì
 người đọc chỉ có thể \textit{tin}; có mục này thì người đọc \textit{kiểm tra} được.
 
-Ngày 12/09/2026, trong khoảng mười hai tiếng, nhóm phát biểu hai nguyên nhân trước khi đo được chúng.
-Cả hai lần đều sai, và cả hai lần cái sai đều đi theo hướng \textbf{có lợi cho câu chuyện nhóm muốn kể}.
-Đó là điều đáng lo nhất.
+Ngày 12/09/2026, trong khoảng mười hai tiếng, nhóm phát biểu \textbf{ba} nguyên nhân trước khi đo hoặc
+kiểm chứng được chúng. Cả ba lần đều sai, và cả ba lần cái sai đều đi theo hướng \textbf{có lợi cho câu
+chuyện nhóm muốn kể}. Đó là điều đáng lo nhất.
 
 \subsubsection{Lần một --- ``Power-MF hỏng vì tham số 340\,ms quá sát''}
 
@@ -262,25 +264,27 @@ baseline đã bị nhóm sửa tham số nên không còn đối chiếu đượ
 \textbf{Nhóm đoán:} quy tắc PSD không hợp với hệ ghi CinC, và kênh 0 của tập này tình cờ là kênh tốt.
 Bản 3.2 đưa 90,34 lên làm con số chính --- con số đó nay \textbf{đã bị rút}.
 
-\textbf{Đo thật:} chạy \textbf{toàn bộ 75 bản ghi} set-a (\texttt{benchmark\_dpss/eval\_cinc75.json}).
-Quy tắc kênh 0 rơi xuống \xau{69,33}, trong khi quy tắc PSD mù nhãn đạt \tot{79,40} \textit{(cả hai số này
-tính trên 75 bản, đã rút ở bản 3.5; trên 60 bản sạch: kênh 0 = 61,78, PSD = 74,28 --- kết luận định tính
-giữ nguyên)}. Kênh 0 hoá ra là
-quy tắc \textbf{tệ nhất trong bốn quy tắc}, kém quy tắc PSD hơn 10 điểm. \textbf{Giả thuyết sai.}
+\textbf{Đo thật:} chạy \textbf{toàn bộ} set-a, rồi (vòng 7) chấm lại trên \textbf{60 bản sạch}
+(\texttt{benchmark\_dpss/eval\_cinc60\_sach.json}). Quy tắc kênh 0 rơi xuống \xau{61,78}, trong khi quy
+tắc PSD mù nhãn đạt \tot{74,28}. Kênh 0 hoá ra là quy tắc \textbf{tệ nhất trong bốn quy tắc}, kém quy
+tắc PSD hơn 12 điểm. \textbf{Giả thuyết sai.} \textit{(Cặp số 69,33 so với 79,40 mà bản 3.4 dùng tính
+trên 75 bản ô nhiễm và đã rút; kết luận định tính giữ nguyên.)}
 
 \begin{table}[H]\centering\small
-\caption{Bốn quy tắc chọn kênh, mô hình 22 ca, trên mẫu 10 bản ghi so với toàn bộ 75 bản ghi.
-\xau{Cột ``mẫu 10 bản ghi'' (69,31 và 90,34) là các con số ĐÃ BỊ RÚT}, giữ lại chỉ để đối chiếu.
-Nguồn: \texttt{benchmark\_dpss/eval\_cinc75.json}.}
+\caption{Bốn quy tắc chọn kênh, mô hình 22 ca: mẫu 10 bản ghi, toàn bộ 75 bản ghi, và
+\textbf{60 bản ghi sạch} (số hiện hành). \xau{Cột ``mẫu 10 bản ghi'' (69,31 và 90,34) và cả cột
+``75 bản ghi'' đều là các con số ĐÃ BỊ RÚT}, giữ lại chỉ để đối chiếu. Nguồn:
+\texttt{benchmark\_dpss/eval\_cinc60\_sach.json}.}
 \label{tab:doansai_kenh}
-\begin{tabular}{@{}L{5.0cm} C{3.0cm} C{3.0cm} C{2.6cm}@{}}
+\begin{tabular}{@{}L{4.6cm} C{2.6cm} C{2.6cm} C{2.6cm} C{2.0cm}@{}}
 \toprule
-\textbf{Quy tắc chọn kênh} & \textbf{Mẫu 10 bản ghi \xau{(đã rút)}} & \textbf{Toàn bộ 75 bản ghi} & \textbf{Lệch} \\
+\textbf{Quy tắc chọn kênh} & \textbf{Mẫu 10 bản \xau{(đã rút)}} & \textbf{75 bản \xau{(đã rút)}} &
+\textbf{60 bản sạch \tot{(hiện hành)}} & \textbf{Lệch 10 so 60} \\
 \midrule
-PSD mù nhãn (\textbf{số chính}) & \xau{69,31} & \tot{79,40} & $-10{,}09$ \\
-Kênh 0 cố định (hậu kiểm) & \xau{90,34} & \xau{69,33} & $+21{,}01$ \\
-Trung bình 4 kênh & --- & 74,09 & --- \\
-Oracle (kênh tốt nhất, không dùng được) & --- & 86,87 & --- \\
+PSD mù nhãn (\textbf{số chính}) & \xau{69,31} & \xau{79,40} & \tot{74,28} & $-4{,}97$ \\
+Kênh 0 cố định (hậu kiểm) & \xau{90,34} & \xau{69,33} & \xau{61,78} & $+28{,}56$ \\
+Trung bình 4 kênh & --- & \xau{74,09} & 67,69 & --- \\
+Oracle (kênh tốt nhất, không dùng được) & --- & \xau{86,87} & 83,60 & --- \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -290,26 +294,57 @@ trên đúng 10 bản ghi đó. Đó là một siêu tham số đã khớp vào 
 thấy, nó rơi 21 điểm.
 
 \textbf{Nếu nhóm không đo:} 90,34 sẽ đứng trong bài báo, kèm kết luận ``không còn bản ghi nào dưới 50''.
-Trên 75 bản ghi, vẫn còn \textbf{16 bản dưới 50}. Đó sẽ là một tuyên bố sai về chính điểm yếu lớn nhất
-của đề tài.
+Trên 60 bản ghi sạch, vẫn còn \textbf{16 bản dưới 50}. Đó sẽ là một tuyên bố sai về chính điểm yếu lớn
+nhất của đề tài.
 
-\begin{ghichu}[title={Điểm chung của hai lần đoán sai --- và nguyên tắc nhóm rút ra}]
-Cả hai lần, giả thuyết sai đều \textbf{nghe hợp lý}, \textbf{khớp với dữ liệu nhóm đang nhìn}, và
+\subsubsection{Lần ba --- ``nhóm vừa phát hiện một vụ rò rỉ dữ liệu''}
+
+\textbf{Quan sát.} Chiều 12/09/2026, tương quan chéo cho thấy 15 trong 75 bản ghi CinC 2013 set-a là bản
+sao nguyên văn của 5 bản ADFECGDB mà mọi mô hình của nhóm đã huấn luyện trên đó.
+
+\textbf{Nhóm đoán (và suýt viết ra):} đây là một \textit{phát hiện} của nhóm về một lỗi rò rỉ chưa ai
+biết trong một bộ đối chuẩn được dùng suốt mười ba năm. Bản nháp đầu của hộp cảnh báo ở
+\S\ref{sec:cinc60} thật sự mở đầu bằng chữ ``nhóm phát hiện''.
+
+\textbf{Kiểm chứng thật:} rà lại y văn gốc (\texttt{survey/ro\_ri\_vanlieu.json}). Ban tổ chức
+\textbf{đã ghi nhận việc này từ 2013}: Silva và cộng sự (CinC 2013;40:149--152) liệt kê thẳng trong
+Bảng 1 rằng 25 bản ghi của Challenge đến từ ``Abdominal and Direct FECG''; Clifford và cộng sự
+(Physiol Meas 2014;35:1521) nhắc lại ở Bảng 2 và còn cảnh báo rằng một đội dự thi huấn luyện trên chính
+bộ đó ``may have led to a bias in the results''. \textbf{Giả thuyết sai} --- và tệ hơn hai lần trước ở
+một điểm: câu cảnh báo của Clifford nằm \textbf{ngay trong ghi chú đọc bài của chính nhóm} (Bảng bài
+học, mục p13 và p20, cả hai đều viết ``việc phải làm ngay là kiểm tra chồng lấn''). Nhóm đã tự viết ra
+việc cần làm rồi không làm, rồi mười tuần sau tưởng mình phát hiện ra nó.
+
+\textbf{Phần thật sự là của nhóm} (và nhóm chỉ nhận đúng phần này): không tài liệu nào nói \emph{bản ghi
+set-a nào} là ADFECGDB. Nhóm xác định bằng đo lường \textbf{đúng 15 bản nào}, ánh xạ từng bản về cửa sổ
+thời gian nào của bản gốc nào, và đo \textbf{mức thổi phồng 3,27--7,18 điểm F1}.
+
+\textbf{Nếu nhóm không kiểm chứng:} đề cương sẽ có một câu tuyên bố ưu tiên sai với hai trích dẫn đã
+công bố phản bác nó --- loại lỗi mà một phản biện đọc kỹ tìm ra trong mười phút, và nó làm hỏng độ tin
+cậy của cả những phần đúng.
+
+\begin{ghichu}[title={Điểm chung của ba lần đoán sai --- và nguyên tắc nhóm rút ra}]
+Cả ba lần, giả thuyết sai đều \textbf{nghe hợp lý}, \textbf{khớp với dữ liệu nhóm đang nhìn}, và
 \textbf{có lợi cho nhóm}. Lần một cho nhóm một chiến thắng $+2{,}74$ điểm; lần hai cho nhóm một con số
-90,34 đẹp hơn 79,40. Không lần nào nhóm cố ý gian lận --- và đó chính là lý do nó nguy hiểm.
+90,34 đẹp hơn 79,40 (cả hai nay đều đã rút); lần ba cho nhóm một \textit{phát hiện} không thuộc về
+nhóm. Không lần nào nhóm cố ý gian lận --- và đó chính là lý do nó nguy hiểm.
 
-Điểm chung thứ hai: cả hai lần, dữ liệu để bác bỏ đều \textbf{đã nằm sẵn trên đĩa}. RR thật nằm trong
-nhãn tham chiếu; 65 bản ghi CinC còn lại nằm trong cùng thư mục. Nhóm không cần thêm dữ liệu, chỉ cần
-chịu đo.
+Điểm chung thứ hai: cả ba lần, bằng chứng để bác bỏ đều \textbf{đã nằm sẵn trên đĩa}. RR thật nằm trong
+nhãn tham chiếu; 65 bản ghi CinC còn lại nằm trong cùng thư mục; câu của Clifford nằm trong chính bảng
+ghi chú đọc bài của nhóm. Nhóm không cần thêm dữ liệu, chỉ cần chịu đo và chịu đọc lại.
 
-\textbf{Ba nguyên tắc nhóm áp dụng từ đây:}
+\textbf{Bốn nguyên tắc nhóm áp dụng từ đây:}
 \begin{enumerate}[leftmargin=1.6em,itemsep=3pt]
 \item \textbf{Không phát biểu nguyên nhân trước khi đo được nguyên nhân.} Một bản ghi hỏng thì đọc
 \textit{log} của chính nó, không suy diễn từ tham số.
 \item \textbf{Nghi ngờ mạnh nhất với giả thuyết có lợi cho mình.} Nếu một cách giải thích làm con số của
 nhóm đẹp lên, đó là giả thuyết phải đo trước, không phải giả thuyết được tin trước.
-\item \textbf{Không bao giờ chốt số trên tập con của một tập có sẵn đầy đủ.} Nếu có 75 bản ghi thì chạy
-75. Mẫu 10 bản ghi đã lệch, và lệch theo \textit{hai hướng ngược nhau} tuỳ quy tắc.
+\item \textbf{Không bao giờ chốt số trên tập con của một tập có sẵn đầy đủ} --- và \textbf{không bao giờ
+chốt số trên một tập chưa kiểm chồng lấn với dữ liệu huấn luyện}. Mẫu 10 bản ghi đã lệch theo
+\textit{hai hướng ngược nhau} tuỳ quy tắc; tập 75 bản thì chứa sẵn 15 bản huấn luyện.
+\item \textbf{Trước khi gọi một thứ là ``phát hiện'', tìm nó trong y văn gốc và trong ghi chú của chính
+mình.} Phần đóng góp thật thường nhỏ hơn và cụ thể hơn ta tưởng --- ở đây là ``định danh 15 bản nào'',
+không phải ``phát hiện rò rỉ''.
 \end{enumerate}
 \end{ghichu}
 
@@ -400,7 +435,7 @@ tự cài lại bằng Python --- cả ba chấm bằng cùng bộ chấm (\S\re
 mẹ ngưỡng 60\,\% bằng mức vượt phân phối rỗng (\S\ref{sec:clinical}).
 \item \textbf{P8} phần lớn: đường cong F1--SNR với nhiễu MIT-BIH (\S\ref{sec:snr}), đường cong hiệu quả
 mẫu (\S\ref{sec:model22}), \textbf{kiểm định thống kê đầy đủ ở mức chủ thể} (\S\ref{sec:thongke}), và
-\textbf{đánh giá CinC 2013 trên toàn bộ 75 bản ghi} (\S\ref{sec:cinc75}) xong. Còn ba seed cho bảng
+\textbf{đánh giá CinC 2013 trên 60 bản ghi sạch} (\S\ref{sec:cinc60}) xong. Còn ba seed cho bảng
 kiến trúc.
 \item \textbf{P9} phần lớn: demo Gradio với đèn học được, API REST, 53 test, CI (\S\ref{sec:demo}). Docker
 đã viết chưa build.
@@ -414,7 +449,7 @@ riêng đóng góp của tăng cường; hiệu chuẩn lại cổng tin cậy c
 (\S\ref{sec:clinical}) --- không nằm trong 12 giai đoạn ban đầu, nhưng là mục mà hội đồng và phản biện
 Q1 sẽ hỏi trước tiên.
 \end{itemize}
-Chưa động tới: P7 (tiền huấn luyện FECGSYNDB, cần 40 GB --- sau khi thấy 16/75 bản ghi CinC vẫn dưới 50,
+Chưa động tới: P7 (tiền huấn luyện FECGSYNDB, cần 40 GB --- sau khi thấy 16/60 bản ghi CinC sạch vẫn dưới 50,
 mục này \textbf{trở lại thành ưu tiên} chứ không còn ``có thể không cần thiết'' như bản 3.2 viết),
 P11 (nộp bài).
 \end{ghichu}
@@ -472,12 +507,18 @@ Bộ kiểm thử & 53 test, CI hai phiên bản Python & \tot{Đã có} \\
 \subsection{Kế hoạch công bố}
 
 \begin{enumerate}[leftmargin=1.8em,itemsep=4pt]
-\item \textbf{Hội nghị Computing in Cardiology} (4 trang, hạn tháng 4): trình bày C2, phân rã đóng góp
-ba tầng. Đây là kết quả đã có, viết được ngay sau Phase P1.
-\item \textbf{Tạp chí} --- \textit{IEEE JBHI} hoặc \textit{Biomedical Signal Processing and Control}
-(Q1 Scimago) nếu có được bộ dữ liệu thứ ba có nhãn thật để xác nhận quy tắc chọn kênh; nếu không,
-\textit{Physiological Measurement} (sân nhà của fECG, nhưng là \textbf{Q2/Q3 Scimago 2024, không phải Q1}
-như bản 3.4 ghi): bài đầy đủ gồm C1, C2, C3.
+\item \textbf{Hội nghị Computing in Cardiology \textbf{2027}} (4 trang, hạn tháng 4): bản thảo hiện có
+(\texttt{paper/cinc2026/main.tex}) đã được viết lại hoàn toàn trên \textbf{22 chủ thể và 60 bản ghi
+CinC sạch}. Mốc CinC 2026 mà bản 3.4 ghi \textbf{không còn khả thi} --- hạn nộp đã qua trước khi nhóm
+chấm lại trên 60 bản sạch, nên nhóm chuyển mục tiêu sang CinC 2027 thay vì nộp một bản thảo chứa số
+đã rút.
+\item \textbf{Tạp chí} --- mặc định là \textit{Physiological Measurement}, \textbf{Q2 Physiology
+(25/73) / Q3 Biomedical Engineering (51/89) theo Scimago 2024}; phát biểu ``Physiological Measurement
+là Q1'' của bản 3.4 \textbf{đã bị rút}. Chỉ nhắm \textit{IEEE JBHI} hoặc \textit{Biomedical Signal
+Processing and Control} (Q1 Scimago) \textbf{nếu} có được \textbf{dữ liệu mới}: một bộ thứ ba có nhãn
+fQRS thật để xác nhận quy tắc chọn kênh. Vòng 7 đã kiểm bốn khả năng (NIFEADB, NInFEA, nifecgdb,
+CinC set-b) và \textbf{không bộ nào có nhãn fQRS công khai} (\S\ref{sec:cinc60}), nên đường Q1 hiện
+phụ thuộc vào việc xin được dữ liệu, không phụ thuộc vào việc phân tích thêm. Bài đầy đủ gồm C1, C2, C3.
 \item \textbf{Báo cáo Euréka}: bản tiếng Việt, nhấn mạnh sản phẩm chạy được và giá trị ứng dụng.
 \end{enumerate}
 
@@ -495,7 +536,8 @@ máy, cùng bộ chấm, ở \textbf{cả hai cấu hình đạo trình}. Điề
 hỏi bằng số trong fECG: \textit{một mạng đơn kênh lấy lại được bao nhiêu phần lợi ích của tách nguồn đa
 kênh?} Đáp số: tách nguồn đa kênh đáng 12,12 điểm F1 cho chính Power-MF, mạng đơn kênh lấy lại 10,85
 điểm, tức \textbf{89,5\,\%} (\S\ref{sec:luande}). \textit{Ranh giới:} so với Power-MF đa kênh đầy đủ thì
-đây là \textbf{hoà}, không phải thắng --- và tỉ số 89,5\,\% chưa có khoảng tin cậy.
+đây là \textbf{hoà}, không phải thắng --- và tỉ số 89,49\,\% có khoảng tin cậy rất rộng,
+$[81{,}4;\ 103{,}2]$, tức không loại trừ được mức lấy lại hoàn toàn lẫn mức thiếu hụt gần 19 điểm.
 \item \textbf{Một cổng từ chối đã đo được} cho C3: $+7{,}49$ điểm F1 ở độ phủ 80\% ngoài miền, kèm một
 kết quả phủ định có kiểm soát về TDA. \textit{Ranh giới:} cơ chế không mới (Andreotti 2017), và AUROC
 trong bản ghi chỉ 0,721.

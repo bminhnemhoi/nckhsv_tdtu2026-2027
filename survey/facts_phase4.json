@@ -6972,7 +6972,7 @@
   },
   "E_dai_loc_tren_TCN": {
     "nguon": "pilot_evidence/band_tcn.json, pilot_evidence/band_tcn_stats.json",
-    "ghi_chu": "+2,44 [-0,05; +6,30] tren kenh PSD; -0,07 [-0,49; +0,40] trung binh 4 kenh -> +11,00 (GBM 300 ms) DA RUT voi TCN",
+    "ghi_chu": "+2,44 [-0,04; +6,29] tren kenh PSD; -0,07 [-0,51; +0,39] trung binh 4 kenh -> +11,00 (GBM 300 ms) DA RUT voi TCN",
     "band_tcn_stats_keys": [
       "nguon",
       "sinh_boi",

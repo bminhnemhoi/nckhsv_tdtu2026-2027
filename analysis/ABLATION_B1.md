@@ -19,7 +19,7 @@
 | **m12** | 12 sản phụ (5 PhysioNet + 7 B2) | điện cực da đầu (trực tiếp) | **Không — đây là biến ablation** | `fetalqrs_tcn_12_production.pt` |
 | **m22** | 22 sản phụ (5 + 7 + **10 B1**) | 12 trực tiếp + 10 **gián tiếp** | Có (fold giữ lại chính chủ thể đang đo) | `fetalqrs_tcn_22_fold_XX.pt` |
 
-Nhãn B1 là nhãn **gián tiếp**: tác giả Silesia khử ECG mẹ trên tín hiệu bụng rồi dò QRS thai và duyệt lại — không có điện cực da đầu. B1 chiếm 72 % tổng thời lượng huấn luyện của m22, nên nếu m22 hơn m5 chỉ vì nó *bắt chước phong cách chấm nhãn của B1* thì con số 97,15 trên B1 là thiên lệch do sáp nhập dữ liệu (incorporation bias), không phải năng lực thật.
+Nhãn B1 là nhãn **gián tiếp**: tác giả Silesia khử ECG mẹ trên tín hiệu bụng rồi dò QRS thai và duyệt lại — không có điện cực da đầu. B1 chiếm 77 % tổng thời lượng huấn luyện (199,6/259,6 phút) của m22, nên nếu m22 hơn m5 chỉ vì nó *bắt chước phong cách chấm nhãn của B1* thì con số 97,15 trên B1 là thiên lệch do sáp nhập dữ liệu (incorporation bias), không phải năng lực thật.
 
 **Quy tắc quyết định khai báo trước:** nếu m12 (ít dữ liệu hơn, chưa từng thấy B1) vẫn ngang m22 trên B1 thì phong cách nhãn KHÔNG phải nguyên nhân. Nếu m12 ≈ m5 ≪ m22 trên B1 nhưng m12 ≈ m22 trên CinC thì phần lớn lợi ích trên B1 là do học phong cách nhãn.
 

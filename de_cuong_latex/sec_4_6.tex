@@ -560,37 +560,40 @@ Chính \textbf{quy tắc kênh 0} mới là thứ sụp, và nó sụp vì nó �
 \end{canhbao}
 
 \begin{table}[H]\centering\small
-\caption{So sánh bốn quy tắc chọn kênh, mô hình 5 ca. Cột CinC 2013 đo trên \textbf{75 bản ghi} set-a
-(\textbf{đã rút ở bản 3.5} --- trên 60 bản sạch: PSD 64,04, kênh 0 48,43, oracle 72,76, trung bình 4 kênh
-56,00; \S\ref{sec:cinc75}); cột trong ngoặc là con số cũ trên mẫu 10 bản ghi, giữ lại để thấy mức lệch.}
+\caption{So sánh bốn quy tắc chọn kênh, mô hình 5 ca. Cột \textbf{số chính} là CinC 2013 trên
+\textbf{60 bản ghi sạch} (đã loại 15 bản là bản sao dữ liệu huấn luyện --- \S\ref{sec:cinc60}). Hai cột
+cuối chỉ giữ để đối chiếu: cột 75 bản ghi \textbf{đã rút ở bản 3.5} vì ô nhiễm, cột mẫu 10 bản ghi đã
+rút từ bản 3.3.}
 \label{tab:chonkenh}
-\begin{tabular}{@{}L{5.4cm} C{2.8cm} C{3.0cm} C{2.8cm}@{}}
+\begin{tabular}{@{}L{4.8cm} C{2.2cm} C{2.6cm} C{2.5cm} C{2.3cm}@{}}
 \toprule
-\textbf{Quy tắc chọn kênh} & \textbf{ADFECGDB} & \textbf{CinC 2013, 75 bản ghi} &
-\textbf{(mẫu 10 cũ)} \\
+\textbf{Quy tắc chọn kênh} & \textbf{ADFECGDB} & \textbf{CinC 2013, 60 bản sạch} &
+\textbf{(75 bản, đã rút)} & \textbf{(mẫu 10, đã rút)} \\
 \midrule
-Mù nhãn theo mật độ phổ công suất & \tot{99,21} & \tot{71,21} & \textit{(59,15)} \\
-Kênh cố định (kênh đầu tiên) & 98,09 & \xau{58,72} & \textit{(77,34)} \\
-Bản đồ đạo trình do giao thức quy định & 99,18 & --- & --- \\
-Oracle, dùng nhãn thật & \textit{99,21} & \textit{78,21} & \textit{(77,59)} \\
-Trung bình trên cả 4 kênh & 97,45 & 64,78 & \textit{(61,96)} \\
+Mù nhãn theo mật độ phổ công suất & \tot{99,21} & \tot{64,04} & \xau{\textit{(71,21)}} & \xau{\textit{(59,15)}} \\
+Kênh cố định (kênh đầu tiên) & 98,09 & \xau{48,43} & \xau{\textit{(58,72)}} & \xau{\textit{(77,34)}} \\
+Bản đồ đạo trình do giao thức quy định & 99,18 & --- & --- & --- \\
+Oracle, dùng nhãn thật & \textit{99,21} & \textit{72,76} & \xau{\textit{(78,21)}} & \xau{\textit{(77,59)}} \\
+Trung bình trên cả 4 kênh & 97,45 & 56,00 & \xau{\textit{(64,78)}} & \xau{\textit{(61,96)}} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \begin{ghichu}[title={Phát hiện khoa học, phát biểu lại cho đúng}]
 Quy tắc chọn kênh mù nhãn đạt \textbf{đúng bằng oracle} khi ở trong miền (99,21 so với 99,21), và
-\textbf{vẫn là quy tắc mù nhãn tốt nhất} khi ra ngoài miền (71,21 so với 58,72 của kênh cố định). Nó
-\textbf{không} sụp đổ.
+\textbf{vẫn là quy tắc mù nhãn tốt nhất} khi ra ngoài miền (64,04 so với 48,43 của kênh cố định, mô
+hình 5 ca trên 60 bản sạch). Nó \textbf{không} sụp đổ.
 
 Điều thật sự sụp là \textbf{khoảng cách đến oracle}: trong miền quy tắc PSD kém oracle
-\textbf{0,02--1,90 điểm} (PhysioNet 0,02; Silesia B2 0,66; Silesia B1 1,90); ngoài miền nó kém oracle
-\textbf{7,00 điểm} (71,21 so với 78,21), và với mô hình 22 ca là \textbf{7,47 điểm}. Quy tắc chỉ chọn
-trúng kênh oracle ở 22/75 bản ghi.
+\textbf{0,02--1,90 điểm} (PhysioNet 0,02; Silesia B2 0,66; Silesia B1 1,90); ngoài miền, trên 60 bản
+sạch, nó kém oracle \textbf{8,72 điểm} với mô hình 5 ca (64,04 so với 72,76) và \textbf{9,32 điểm} với
+mô hình 22 ca (74,28 so với 83,60; KTC 95\% $[+5{,}10;\ +14{,}15]$). Quy tắc chỉ chọn trúng kênh oracle
+ở \textbf{17/60} bản ghi. \textit{(Bản 3.4 ghi ``7,00'' và ``7,47 điểm'' cùng tỉ lệ 22/75 trên tập 75
+bản ô nhiễm; các con số đó \textbf{đã rút} --- \S\ref{sec:cinc60}.)}
 
 Nói cách khác: một chỉ số chất lượng dựa trên phổ \textbf{mất phần lớn giá trị} đúng ở nơi ta cần nó
-nhất. \textbf{Đây vẫn là động cơ đã đo được cho đóng góp C3} --- nhưng ở mức ``mất 7 điểm'', không phải
-``sụp đổ hoàn toàn'' như bản 3.2 viết.
+nhất. \textbf{Đây vẫn là động cơ đã đo được cho đóng góp C3} --- nhưng ở mức ``mất khoảng 9 điểm'',
+không phải ``sụp đổ hoàn toàn'' như bản 3.2 viết.
 \end{ghichu}
 
 \subsection{Kết quả cuối trên ADFECGDB}
@@ -617,15 +620,16 @@ Gộp toàn cục (micro) & 99,17 & \multicolumn{3}{l}{TP 3.178 \quad FP 40 \qua
 \begin{figure}[H]\centering
 \includegraphics[width=0.94\textwidth]{figs/fig6_luong_cuc.pdf}
 \caption{Chuyển sang PhysioNet/CinC 2013 mà không tinh chỉnh, \textbf{mẫu 10 bản ghi đầu tiên}. Phân bố
-\textbf{lưỡng cực}: bốn bản ghi hoàn hảo, ba bản ghi sụp dưới 50. Hình dạng này giữ nguyên trên toàn bộ
-75 bản ghi (hình \ref{fig:cinc75}A) --- ở đó 22/75 bản ghi dưới 50 với mô hình 5 ca.}
+\textbf{tách thành hai cụm} --- đây là mô tả hình dạng, \emph{không} phải một phát biểu về cơ chế: bốn
+bản ghi hoàn hảo, ba bản ghi sụp dưới 50. Hình dạng này giữ nguyên trên 60 bản ghi sạch (hình
+\ref{fig:cinc75}A) --- ở đó \textbf{22/60} bản ghi dưới 50 với mô hình 5 ca và 16/60 với mô hình 22 ca.}
 \label{fig:bimodal}
 \end{figure}
 
 Một hệ thống theo dõi thai mà im lặng đưa ra nhịp tim với độ chính xác 23\% thì nguy hiểm hơn một hệ
 thống nói ``tôi không đọc được tín hiệu này''. Đó chính là lý do C3 tồn tại. Con số quy mô đầy đủ:
-trên 75 bản ghi, \textbf{22 bản ghi dưới 50 với mô hình 5 ca và 16 bản ghi với mô hình 22 ca}
-(\S\ref{sec:cinc75}).
+trên \textbf{60 bản ghi sạch}, \textbf{22 bản ghi dưới 50 với mô hình 5 ca và 16 bản ghi với mô hình
+22 ca} (\S\ref{sec:cinc60}).
 
 \input{sec_baselines.tex}
 

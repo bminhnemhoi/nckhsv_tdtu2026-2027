@@ -165,7 +165,11 @@ $[+0{,}18;\ +1{,}22]$ --- không loại trừ được khả năng vượt biên
 
 \textbf{Phát biểu thay thế, là câu nhóm sẽ dùng:} \textit{``Với $n = 5$ chủ thể, nghiên cứu này
 \textbf{không đủ lực} để phân biệt các kiến trúc trong biên 1,0 điểm F1; hiệu số quan sát được nằm trong
-khoảng $-2{,}95$ đến $+0{,}73$ điểm, nhỏ hơn nhiều so với $+11{,}00$ điểm của tầng front-end.''}
+khoảng $-2{,}95$ đến $+0{,}73$ điểm, nhỏ hơn nhiều so với $+11{,}00$ điểm của tầng front-end \emph{đo
+trên bộ học GBM cửa sổ 300\,ms}.''} \textit{(Lưu ý vòng 7: khi lặp lại chính bước đó trên TCN thật,
+mức tăng chỉ còn $+2{,}44$ $[-0{,}05;\ +6{,}30]$ ở kênh PSD và $-0{,}07$ $[-0{,}49;\ +0{,}40]$ khi
+trung bình 4 kênh, nên con số $+11{,}00$ \textbf{không được dùng} như một phát biểu về TCN ---
+\S\ref{sec:bandtcn}.)}
 Câu này giữ nguyên thông điệp chính (front-end quan trọng hơn kiến trúc) mà không tuyên bố điều chưa
 chứng minh.
 \end{canhbao}
@@ -226,8 +230,9 @@ Ngưỡng từng fold, seed 1 & 0,50 -- 0,80 & \xau{không tái lập giá trị
 \end{table}
 
 Hai kết luận. Thứ nhất, \textbf{biến thiên theo seed (0,28 điểm) nhỏ hơn nhiều so với mọi hiệu ứng được
-báo cáo} trong đề cương --- $+11{,}00$ của front-end, $+4{,}49$ của ngữ cảnh, $+8{,}18$ của dữ liệu trên
-CinC 75 bản ghi. Các kết luận định tính không bị seed lật. Thứ hai, \textbf{ngưỡng từng fold kém ổn định
+báo cáo} trong đề cương --- $+2{,}44$ của dải lọc đo trên chính TCN (con số $+11{,}00$ là của bộ học GBM
+cửa sổ 300\,ms và \textbf{đã rút} khi nói về TCN), $+4{,}49$ của ngữ cảnh, $+10{,}24$ của dữ liệu trên
+CinC 60 bản ghi sạch. Các kết luận định tính không bị seed lật. Thứ hai, \textbf{ngưỡng từng fold kém ổn định
 hơn hẳn}: giá trị 0,20 của fold 10 ở seed 0 không tái lập ở seed 1 (dải 0,50--0,80). Đó là cảnh báo rằng
 quy trình chọn ngưỡng trên một chủ thể validation duy nhất là điểm mong manh của pipeline.
 
