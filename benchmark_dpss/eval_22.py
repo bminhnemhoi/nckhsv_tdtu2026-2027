@@ -69,6 +69,10 @@ LEADS = (1, 2, 3, 4)
 Q = CFG['fs_in'] // CFG['fs']
 TOL_MS = 50; FHR_BAND = (1.8, 3.0); N_FOLDS = 11
 # production_5 tren CinC 2013 (facts_verified.json / blind_lead.json): kenh 0 / PSD / TB4 ; so >=90 / <50 do tu file
+# DA RUT (12/09/2026): day la cac gia tri tung CONG BO tren MAU 10/75 ban ghi, giu lai CHI de
+# kiem tra hoi quy rang script nay van tai lap dung con so cu tren dung 10 ban ghi do.
+# KHONG duoc trich dan nhu ket qua. So hien hanh (du 75 ban ghi, benchmark_dpss/eval_cinc75.json):
+#   PSD mu nhan  m5 71.21 / m22 79.40   |  kenh 0 co dinh  m5 58.72 / m22 69.33
 CINC_REF_STATED = dict(F1_lead0=77.34, F1_psd=59.15, F1_mean4=61.96, n_ge90=4, n_lt50=5)
 
 

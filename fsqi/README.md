@@ -172,8 +172,11 @@ chỉ khác thời gian — quy trình xác định hoàn toàn (hạt giống c
 - Chỉ một cấu hình tô-pô (dim 3, τ 5, 300 điểm, maxdim 1) — không quét tham số để tránh chọn theo nhãn kiểm thử.
 - Không chạy được nhiều tiến trình song song trên máy hiện tại (thiếu bộ nhớ), nên thời gian đo là của 1 tiến trình
   và dao động ±10–15 % giữa hai lần chạy cùng mã.
-- Trên CinC, F1 ở độ phủ 100 % là 61,9 (trung bình 40 kênh, không chọn kênh); số 77,34 đã công bố trước đó là theo
-  bản ghi với quy tắc chọn kênh, nên hai con số không so sánh trực tiếp.
+- Trên CinC, F1 ở độ phủ 100 % là 61,9 (trung bình 40 kênh, không chọn kênh); số **77,34** từng công bố là
+  theo bản ghi với quy tắc chọn kênh, nên hai con số không so sánh trực tiếp. *(Sửa 12/09/2026: **77,34 đã
+  bị rút** — nó là kênh 0 cố định chọn hậu kiểm, đo trên mẫu 10/75 bản ghi. Trên đủ 75 bản ghi, mô hình 5 ca
+  với quy tắc mù nhãn đạt 71,21 và mô hình 22 ca đạt 79,40. Thí nghiệm cổng từ chối trong tài liệu này
+  **chưa chạy lại** trên 75 bản ghi.)*
 
 ## 7. Tệp
 

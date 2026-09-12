@@ -1,0 +1,78 @@
+
+===== BAND ABLATION TREN CHINH TCN | 2026-09-12 00:26 =====
+  22 chu the, 5 fold theo nhom, 4 epoch, seeds [0], 6 luong, doan 4 s, +/-50 ms
+  dai: ['10-60', '8-45', '15-60', '3-90', '3-100', '1-45', '20-95', '0.5-100']
+    fold test=[np.str_('B1_06'), np.str_('B1_07'), np.str_('B2_06'), np.str_('B2_08'), np.str_('r07')] val=r01 n_train=16
+    fold test=[np.str_('B1_01'), np.str_('B1_02'), np.str_('B2_09'), np.str_('B2_12'), np.str_('r10')] val=r01 n_train=16
+    fold test=[np.str_('B1_03'), np.str_('B1_05'), np.str_('B2_04'), np.str_('r08')] val=r01 n_train=17
+    fold test=[np.str_('B1_09'), np.str_('B1_10'), np.str_('B2_05'), np.str_('r01')] val=r04 n_train=17
+    fold test=[np.str_('B1_04'), np.str_('B1_08'), np.str_('B2_03'), np.str_('r04')] val=r01 n_train=17
+
+  nap tin hieu tho 22 chu the...
+  xong 4s
+
+  HIEU CHUAN: chay 1 fold cua dai 10-60 Hz
+    28576 doan train; cat doan xong 8s
+    1 epoch = 383s -> 1 fold 4 epoch ~ 25.5 phut
+    DU KIEN TONG: 1021 phut cho 8 dai x 1 seed x 5 fold
+    (chua ke cham diem ~20 phut)
+
+===== BAND ABLATION TREN CHINH TCN | 2026-09-12 00:34 =====
+  22 chu the, 3 fold theo nhom, 4 epoch, seeds [0], 6 luong, doan 4 s, +/-50 ms
+  dai: ['10-60', '8-45', '3-90', '1-45', '0.5-100']
+    fold test=['B1_02', 'B1_03', 'B1_07', 'B1_09', 'B2_03', 'B2_12', 'r01', 'r07'] val=B2_09 n_train=13
+    fold test=['B1_01', 'B1_08', 'B1_10', 'B2_04', 'B2_06', 'r04', 'r10'] val=B2_08 n_train=14
+    fold test=['B1_04', 'B1_05', 'B1_06', 'B2_05', 'B2_08', 'B2_09', 'r08'] val=r10 n_train=14
+
+  nap tin hieu tho 22 chu the...
+  xong 4s
+
+-- dai 10-60 Hz, seed 0 --
+
+===== BAND ABLATION TREN CHINH TCN | 2026-09-12 07:16 =====
+  22 chu the, 3 fold theo nhom, 4 epoch, seeds [0], 9 luong, doan 4 s, +/-50 ms
+  dai: ['10-60', '1-45', '3-90', '0.5-100']
+    fold test=['B1_02', 'B1_03', 'B1_07', 'B1_09', 'B2_03', 'B2_12', 'r01', 'r07'] val=B2_09 n_train=13
+    fold test=['B1_01', 'B1_08', 'B1_10', 'B2_04', 'B2_06', 'r04', 'r10'] val=B2_08 n_train=14
+    fold test=['B1_04', 'B1_05', 'B1_06', 'B2_05', 'B2_08', 'B2_09', 'r08'] val=r10 n_train=14
+
+  nap tin hieu tho 22 chu the...
+  xong 4s
+
+-- dai 10-60 Hz, seed 0 --
+    fold 1/3 val=B2_09 thr=0.75 (97.80) test=['B1_02', 'B1_03', 'B1_07', 'B1_09', 'B2_03', 'B2_12', 'r01', 'r07'] F1_psd=[99.8, 99.8, 97.3, 98.8, 82.9, 100.0, 100.0, 100.0] loss=0.2302
+    fold 2/3 val=B2_08 thr=0.20 (99.96) test=['B1_01', 'B1_08', 'B1_10', 'B2_04', 'B2_06', 'r04', 'r10'] F1_psd=[100.0, 99.9, 94.3, 99.0, 99.7, 98.8, 97.5] loss=0.2517
+    fold 3/3 val=r10 thr=0.65 (96.73) test=['B1_04', 'B1_05', 'B1_06', 'B2_05', 'B2_08', 'B2_09', 'r08'] F1_psd=[100.0, 99.8, 90.8, 99.8, 100.0, 99.3, 100.0] loss=0.2621
+  >> 10-60    macro F1 (PSD)  98.07 +-  4.05 | (TB 4 kenh)  96.19 +-  6.61 | 2674s
+
+-- dai 1-45 Hz, seed 0 --
+    fold 1/3 val=B2_09 thr=0.80 (97.99) test=['B1_02', 'B1_03', 'B1_07', 'B1_09', 'B2_03', 'B2_12', 'r01', 'r07'] F1_psd=[99.7, 99.9, 89.1, 99.1, 45.1, 100.0, 100.0, 100.0] loss=0.2318
+    fold 2/3 val=B2_08 thr=0.80 (99.75) test=['B1_01', 'B1_08', 'B1_10', 'B2_04', 'B2_06', 'r04', 'r10'] F1_psd=[100.0, 99.7, 95.4, 98.8, 99.9, 98.5, 97.6] loss=0.249
+    fold 3/3 val=r10 thr=0.80 (96.72) test=['B1_04', 'B1_05', 'B1_06', 'B2_05', 'B2_08', 'B2_09', 'r08'] F1_psd=[100.0, 99.8, 82.0, 99.9, 100.0, 99.5, 100.0] loss=0.2582
+  >> 1-45     macro F1 (PSD)  95.63 +- 12.09 | (TB 4 kenh)  96.25 +-  6.29 | 1924s
+
+-- dai 3-90 Hz, seed 0 --
+    fold 1/3 val=B2_09 thr=0.70 (97.92) test=['B1_02', 'B1_03', 'B1_07', 'B1_09', 'B2_03', 'B2_12', 'r01', 'r07'] F1_psd=[99.6, 99.8, 83.9, 99.0, 83.7, 100.0, 100.0, 100.0] loss=0.2269
+    fold 2/3 val=B2_08 thr=0.80 (99.94) test=['B1_01', 'B1_08', 'B1_10', 'B2_04', 'B2_06', 'r04', 'r10'] F1_psd=[100.0, 99.8, 93.8, 98.5, 100.0, 99.0, 97.5] loss=0.2433
+    fold 3/3 val=r10 thr=0.80 (96.88) test=['B1_04', 'B1_05', 'B1_06', 'B2_05', 'B2_08', 'B2_09', 'r08'] F1_psd=[100.0, 99.7, 99.7, 99.9, 100.0, 99.3, 100.0] loss=0.2514
+  >> 3-90     macro F1 (PSD)  97.88 +-  4.76 | (TB 4 kenh)  95.86 +-  7.35 | 1827s
+
+-- dai 0.5-100 Hz, seed 0 --
+    fold 1/3 val=B2_09 thr=0.80 (98.00) test=['B1_02', 'B1_03', 'B1_07', 'B1_09', 'B2_03', 'B2_12', 'r01', 'r07'] F1_psd=[99.6, 100.0, 82.1, 99.0, 45.2, 100.0, 100.0, 100.0] loss=0.2275
+    fold 2/3 val=B2_08 thr=0.80 (99.86) test=['B1_01', 'B1_08', 'B1_10', 'B2_04', 'B2_06', 'r04', 'r10'] F1_psd=[100.0, 99.8, 93.6, 99.0, 100.0, 98.6, 97.5] loss=0.2422
+    fold 3/3 val=r10 thr=0.75 (96.90) test=['B1_04', 'B1_05', 'B1_06', 'B2_05', 'B2_08', 'B2_09', 'r08'] F1_psd=[100.0, 99.7, 87.8, 99.9, 100.0, 99.4, 100.0] loss=0.2512
+  >> 0.5-100  macro F1 (PSD)  95.51 +- 12.11 | (TB 4 kenh)  95.94 +-  7.13 | 1827s
+
+===== XEP HANG (macro F1 muc chu the, n = 22) =====
+      dai  macro PSD     SD  TB 4 kenh     SD  n seed
+    10-60      98.07   4.05      96.19   6.61       1
+     3-90      97.88   4.76      95.86   7.35       1
+     1-45      95.63  12.09      96.25   6.29       1
+  0.5-100      95.51  12.11      95.94   7.13       1
+
+-- TUONG PHAN CHINH: 10-60 Hz so voi 1-45 Hz, muc CHU THE, cluster bootstrap --
+   kenh PSD mu nhan       hieu so  +2.44 diem, KTC 95% [-0.05; +6.30] (n = 22 chu the)
+   trung binh 4 kenh      hieu so  -0.07 diem, KTC 95% [-0.49; +0.40] (n = 22 chu the)
+   (so cu do tren GBM cua so 300 ms / 2 dao trinh / 5 ban ghi: +11,00)
+
+DONE 137.6 phut -> D:\NCKHSV2026-2027\pilot_evidence\band_tcn.json

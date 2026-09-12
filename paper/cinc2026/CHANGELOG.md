@@ -1,0 +1,297 @@
+# CHANGELOG — bản thảo CinC 2026 (`paper/cinc2026/main.tex`)
+
+## 2026-09-12 — Vòng B3: RÚT LẠI mốc Power-MF cũ, thay bằng bảng 3 cột
+
+**RÚT LẠI CÔNG KHAI.** Bảng 2 và mục 3.2 của vòng B2 (ở dưới) dựa trên một bản chạy
+Power-MF **hỏng**. Mọi con số sau đây bị rút và không được trích dẫn lại:
+
+| Con số đã rút | Xuất hiện ở |
+|---|---|
+| 94,87 / 97,61 / +2,74 [−1,75; +8,64] (18 bản ghi) | Bảng 2 vòng B2 |
+| 98,38 / 97,33 / −1,06 [−3,04; +0,40] (16 bản ghi) | Bảng 2 + tóm tắt + Kết luận vòng B2 |
+| 99,05 (ADFECGDB) / 98,90 (B1) / +0,35 / −3,27 | Bảng 2 vòng B2 |
+| "6 bản ghi B1 là giới hạn của phương pháp"; "2 bản ghi nửa nhịp" | mục 3.2 vòng B2 |
+| Giả thuyết "`ms_minpeakdistance` = 340 ms quá sát nhịp thai" | mục 3.2 vòng B2 |
+
+**Nguyên nhân thật** (chẩn đoán của A2, `baselines/BASELINES.md` mục 1.2): `findpeaks`
+của gói `signal` trong Octave cài `MinPeakDistance` bằng ma trận khoảng cách đôi một,
+O(k²) bộ nhớ, nên tràn chỉ số trên 6 bản ghi B1 dài (2 395 600 mẫu sau nội suy ×4).
+MATLAB — nền tảng của tác giả — giải bằng thuật toán tham O(k log k). **Đây là lỗi cổng
+chuyển của nhóm ta, không phải tính chất của Power-MF.** Bản vá P7
+(`baselines/octave/findpeaks_mpd.m`) tái lập ngữ nghĩa MATLAB bằng danh sách liên kết đôi,
+O(k), đúng 48/48 trường hợp kiểm chứng. Giả thuyết 340 ms bị bác bỏ bằng đo RR thật:
+0,00 % khoảng RR của B1_01 ngắn hơn 340 ms (`baselines/powermf_rr_diag.json`).
+
+**Kiểm chứng ngoài:** sau vá, Power-MF đạt 99,40 ± 0,51 trên 10 bản ghi B1, so với
+**99,46 do chính tác giả công bố** — lệch 0,06 điểm.
+
+### Bảng 2 mới (nguồn: `baselines/powermf_fair_stats.json`, `baselines/powermf_1ch.json`)
+
+Đủ 22 chủ thể, không loại bản ghi nào. Ba cột phương pháp, vì đóng góp đo được là
+"một kênh lấy lại bao nhiêu phần lợi ích của tách nguồn đa kênh".
+
+| Tập chủ thể | n | PMF-4 | PMF-1 | Ta | Δ₄ [KTC95] | Δ₁ [KTC95] |
+|---|---:|---:|---:|---:|---|---|
+| ADFECGDB | 5 | 99,01 | 92,37 | 99,40 | +0,39 [+0,22; +0,60] | +7,02 [+3,84; +9,34] |
+| Silesia B2, chủ thể mới | 7 | 97,90 | 87,28 | 96,82 | −1,08 [−4,04; +0,54] | +9,54 [+3,09; +17,9] |
+| Silesia B1 | 10 | 99,40 | 83,48 | 97,15 | −2,25 [−5,55; +0,32] | +13,68 [+6,91; +21,3] |
+| **Tất cả 22** | **22** | **98,83** | **86,71** | **97,56** | **−1,27 [−3,08; +0,27]** | **+10,85 [+6,80; +15,4]** |
+| CinC 2013 set-a | 75 | — | 62,82 | 79,40 | — | +16,58 |
+
+Luận đề trong bài: tách nguồn đa kênh đáng 12,12 điểm F1 cho chính Power-MF
+(86,71 → 98,83); mạng đơn kênh lấy lại 10,85 điểm, tức **89,5 %** số đó, bằng **một** kênh.
+Kết quả: **không phân biệt được** với Power-MF 4 kênh (−1,27; p = 0,156) và **hơn hẳn**
+Power-MF khi bị giới hạn cùng một đạo trình (+10,85; 22/22). Trung vị hiệu số là **+0,23**
+và ta thắng **18/22**; trung bình bị kéo âm **chỉ** bởi B1_07 (−12,88), B1_06 (−10,51),
+B2_03 (−9,77). Không dùng chữ "SOTA" / "novel" / "first" / "state-of-the-art".
+
+### Các mục khác đã sửa
+
+* **Tóm tắt** và **Kết luận**: viết lại theo luận đề 12,12 / 10,85 / 89,5 %.
+* **Limitations**: thêm thẳng 6 mục — (a) trung bình thấp hơn PMF-4 1,27 điểm, KTC chứa 0
+  nên không kết luận được ai hơn nhưng **dấu là âm**, (b) ba bản ghi thua nặng nêu đích
+  danh B1_07 / B1_06 / B2_03, (c) tầng 1 (+11,00 cho 10–60 Hz) đo trên GBM cửa sổ 300 ms,
+  **chưa** trên TCN, thí nghiệm đang chạy, (d) dải 10–60 Hz là của Xu 2026 chứ không phải
+  phát hiện của nhóm, (e) dấu vấn nhãn ở mốc thời gian trên B1 (3,25 ms so với 6,50 ms),
+  (f) DPSS vẫn là số trích dẫn, chưa chạy lại.
+* Không thêm tài liệu tham khảo nào; `refs.bib` **không đổi**.
+
+### Đã cắt để giữ đúng 4 trang
+
+Bảng 2 mới rộng thêm 2 cột và phần 3.2 dài thêm, nên phải cắt:
+
+1. **Bỏ hẳn Bảng 3 cũ (`tab:tiers`, phân rã ba tầng)** — toàn bộ số liệu 80,06→91,06,
+   92,67→97,16, 92,49→92,90 và các KTC được giữ nguyên trong **văn xuôi** mục 3.4,
+   không mất con số nào.
+2. Gọn lại mục 3.5 (cổng từ chối / tô-pô). Các số bị bỏ: ba đối chứng tô-pô trong repo
+   (27,42 vs 97,14; H₀ sublevel = prominence; 8/16 đặc trưng đổi dấu), xếp hạng đặc trưng
+   (0,970 / 0,915 / 0,904), so sánh 6 đặc trưng tín hiệu (0,666), điểm tại 50 % phủ (84,51)
+   và "5/10 bản ghi không có đoạn xấu".
+3. Gọn lại mục đọc lâm sàng. Các số bị bỏ: chệch 1,84/1,86 ms (B1/B2), sai số âm lớn nhất
+   −0,17 ms, phân bố khoảng trống 88,2 % / 192 s.
+4. Gọn văn phần Thảo luận, Phương pháp (Bộ phát hiện, Thí nghiệm, Cổng từ chối),
+   phần đóng góp ở Mở đầu, và tóm tắt — chủ yếu cắt chữ.
+5. Bỏ Se 97,69 / PPV 97,18 và jitter 3,62 ms của ADFECGDB 4 đạo trình (F1 97,45 vẫn còn);
+   bỏ dải ngưỡng theo nếp (0,50–0,80 vs 0,20–0,80), câu chữ "ngưỡng dịch nhiều hơn" vẫn còn.
+
+Danh sách đầy đủ số bị bỏ khỏi `main.tex` (so với `main.tex.bak_b3`, sinh bằng regex
+`\d+\.\d+`): 0.09, 0.17, 0.25, 0.35, 0.40, 0.50, 0.64, 0.666, 0.79, 0.80, 0.88, 0.904,
+0.915, 0.970, 1.06, 1.14, 1.75, 1.84, 2.74, 3.04, 3.17, 3.27, 3.47, 3.62, 8.64, 9.11,
+27.42, 49.8, 50.6, 84.51, 88.2, 94.87, 95.63, 97.14, 97.18, 97.33, 97.61, 97.69, 98.13,
+98.38, 98.90, 99.05, 99.48, 99.7, 99.9, 99.92.
+
+Sao lưu bản B2: `main.tex.bak_b3`.
+
+---
+
+## 2026-09-12 — Vòng B2: tích hợp kết quả mới + cắt từ 5 trang xuống 4 trang
+
+Bản trước: 5 trang (vượt giới hạn CinC là 4). Bản này: **đúng 4 trang**, biên dịch
+`xelatex → bibtex → xelatex ×2`, **0 lỗi, 0 cảnh báo tham chiếu chưa xác định, 0 hộp
+tràn (overfull), 0 dấu `??` trong PDF**.
+
+Sao lưu bản cũ: `main.tex.bak_b2`, `refs.bib.bak_b2`.
+
+---
+
+## 1. THÊM MỚI — Power-MF chạy lại (mục 3.2 + Bảng 2)
+
+Đây là lỗ hổng lớn nhất của bản trước: mọi con số đối thủ đều là **trích dẫn**, không
+phải đo. Nay Power-MF (Jaeger 2024, đa kênh) đã được **chạy lại thật** dưới GNU Octave
+trên chính các bản ghi của ta và chấm bằng **bộ chấm của ta** (`M.match_events`, ±50 ms).
+
+> ## ⛔ RÚT LẠI TOÀN BỘ MỤC NÀY — 12/09/2026, chiều
+>
+> Bảng và phát biểu bên dưới (**bắt buộc giữ nguyên để làm hồ sơ**, nhưng **cấm trích dẫn như
+> kết quả**) đứng trên một **bản Power-MF còn hỏng**. Nguyên nhân: `findpeaks` của gói `signal`
+> trong Octave cài `MinPeakDistance` bằng ma trận khoảng cách đôi một **O(k²)** → tràn bộ nhớ trên
+> 6 bản ghi Silesia B1 dài (2.395.600 mẫu sau nội suy ×4). MATLAB — nền tảng của tác giả — dùng
+> thuật toán tham **O(k log k)** nên không bao giờ gặp. **Lỗi cổng chuyển của nhóm, không phải
+> tính chất của Power-MF.**
+>
+> Vì bản gốc hỏng, việc "loại 2 bản ghi nghi lỗi" là vá lỗi của nhóm chứ không phải quy tắc khoa
+> học, nên **cả hai dòng 16 và 18 bản ghi đều vô nghĩa**. Giả thuyết `ms_minpeakdistance = 340 ms`
+> quá sát **cũng đã bị bác bỏ**: 0,00 % khoảng RR của B1_01 dưới 340 ms
+> (`baselines/powermf_rr_diag.json`).
+>
+> **Số đúng nằm ở `baselines/BASELINES.md` và Bảng `tab:pmf` của `main.tex`** (22 chủ thể, ba cột:
+> Power-MF 4 kênh 98.83 / Power-MF 1 kênh 86.71 / ta 97.56; Δ₄ = −1.27 [−3.08; +0.27] p = 0.156;
+> Δ₁ = +10.85 [+6.80; +15.40]). Kiểm chứng ngoài cho bản vá: ta đo 99.40 trên B1, tác giả công bố
+> 99.46 — lệch 0.06.
+
+Thêm mục con `3.2 Against a re-run multi-channel pipeline` và **Bảng 2** — *bảng dưới đây ĐÃ RÚT*:
+
+| ~~Tập chủ thể~~ | ~~n~~ | ~~Power-MF~~ | ~~Ta~~ | ~~Δ (ta − PMF) [KTC95]~~ | ~~thắng~~ |
+|---|---:|---:|---:|---|---:|
+| ~~ADFECGDB~~ | ~~5~~ | ~~99.05~~ | ~~99.40~~ | ~~+0.35 [+0.09; +0.64]~~ | ~~5/0~~ |
+| ~~Silesia B2, chủ thể mới~~ | ~~7~~ | ~~97.61~~ | ~~96.82~~ | ~~−0.79 [−3.17; +0.51]~~ | ~~6/1~~ |
+| ~~Silesia B1, cổng chạy được~~ | ~~4~~ | ~~98.90~~ | ~~95.63~~ | ~~−3.27 [−9.11; +0.88]~~ | ~~2/2~~ |
+| ~~**Tập khai báo trước**~~ | ~~**16**~~ | ~~**98.38**~~ | ~~**97.33**~~ | ~~**−1.06 [−3.04; +0.40]**~~ | ~~13/3~~ |
+| ~~+2 bản ghi nửa nhịp~~ | ~~18~~ | ~~94.87~~ | ~~97.61~~ | ~~+2.74 [−1.75; +8.64]~~ | ~~15/3~~ |
+
+Phát biểu trong bài **đã thay** bằng bản dựa trên 22 chủ thể sau khi vá; phát biểu cũ dưới đây
+**đã rút** (con số −1.06 / +0.35 không còn đúng), tuy cách diễn đạt "không phân biệt được, **không**
+dùng chữ 'thắng'/'SOTA'" vẫn là chuẩn phải theo:
+
+> ~~*"the single-channel network is **indistinguishable** from the four-channel pipeline
+> (−1.06 F1, CI [−3.04; +0.40], p = 0.25), and on ADFECGDB it is ahead by 0.35 points
+> with an interval excluding zero … not separable from a published multi-channel one
+> on this material, using one electrode pair instead of four — **not that it beats it**."*~~
+
+**Ghi rõ việc loại 2 bản ghi** (yêu cầu 1): B1_01/B1_02 cho Se = 49.8/50.6 với PPV =
+99.9/99.7 — **đúng một nửa nhịp**; tham số `ms_minpeakdistance` = 340 ms nằm ngay dưới
+RR trung bình 384 ms của B1_01 (1197.8 s / 3120 nhịp). Số đã công bố của chính tác giả
+cho hai bản ghi này là 99.92 / 99.48. Bài **nói thẳng** rằng đây là lỗi cổng chuyển của
+ta, không phải của phương pháp, và **đang được điều tra**. Tương tự, 3 bản B1 trả về 0
+phát hiện và 1 bản chết — cũng khai báo là lỗi cổng chuyển của ta.
+
+Mục Limitations nói thêm: tập so sánh 16/22 chủ thể **không ngẫu nhiên theo độ dài bản
+ghi** (hỏng toàn ở bản ghi dài), nên phép so sánh **lệch về phía bản ghi ngắn**; và
+Power-MF chạy ở tần số lấy mẫu lại của ta với bộ chấm của ta, **không đồng nhất** với
+đánh giá gốc của tác giả.
+
+Nguồn: `baselines/powermf_results.json`, `baselines/powermf_published.json`,
+`baselines/powermf_log.txt`, `benchmark_dpss/eval_22.json`.
+
+---
+
+## 2. THAY — CinC 2013: 10 bản ghi → **75 bản ghi** (mục 3.3 + Bảng 3)
+
+Đổi mục `3.3 All 75 CinC 2013 records, and what ten records hid` và thêm **Bảng 3**
+(bắt buộc giữ):
+
+| Quy tắc chọn kênh | n | m5 | m22 | Δ [KTC95] | p | ≥90 | <50 |
+|---|---:|---:|---:|---|---|---:|---:|
+| PSD, **mù nhãn (số chính)** | 75 | 71.21 | **79.40** | +8.18 [5.6; 11.1] | 3·10⁻¹⁰ | 48 | 16 |
+| TB 4 kênh | 75 | 64.78 | 74.09 | +9.31 [7.0; 11.8] | 4·10⁻¹¹ | 30 | 17 |
+| Kênh 0 cố định (hậu kiểm) | 75 | 58.72 | 69.33 | +10.61 [7.5; 14.0] | 1·10⁻⁸ | 36 | 27 |
+| Oracle (dùng nhãn) | 75 | 78.21 | 86.87 | +8.66 [5.9; 11.7] | 1·10⁻⁹ | 53 | 8 |
+| PSD, **68 bản ghi** | 68 | 72.08 | **80.70** | +8.62 [5.7; 11.8] | 4·10⁻⁹ | 46 | 14 |
+
+- Bảng 1 (`tab:data`) — hàng CinC đổi từ `10 bản ghi, PSD 59.15 [38.3; 81.0]` thành
+  **`75 bản ghi, PSD 71.21 [63.6; 78.4]`**, TB 4 kênh 64.78, ≥90: 42, <50: 22.
+  (KTC bootstrap cụm 10 000 lần, seed 0 — tái lập được: `[63.57; 78.44]`.)
+- **Bỏ hàng phụ `oracle / fixed lead 0` khỏi Bảng 1** (chuyển vào Bảng 3).
+- Báo cáo **cả biến thể 68 bản ghi** (loại a33, a38, a47, a52, a54, a71, a74 — danh
+  sách khai báo TRƯỚC khi chạy, nguồn Behar/Oster/Clifford qua `\cite{behar2014}`).
+- **Rút lại cả hai con số mẫu 10 bản ghi**, kèm lý do định lượng (yêu cầu 2):
+  - dưới quy tắc mù, mẫu 10 bản ghi **bi quan ~12 điểm** (m5 59.15 vs 71.21; m22 69.31 vs 79.40);
+  - dưới kênh 0 hậu kiểm, **lạc quan 19–21 điểm** (m5 77.34 vs 58.72; m22 90.34 vs 69.33);
+  - trên toàn bộ 75 bản ghi, **kênh 0 hậu kiểm là quy tắc TỆ NHẤT trong bốn quy tắc**,
+    kém quy tắc PSD mù 10 điểm — tức chính lựa chọn hậu kiểm sinh ra để "cứu" quy tắc
+    PSD lại là lựa chọn tồi nhất khi đo đủ mẫu. Đây là bằng chứng trực tiếp cho luận
+    điểm liêm chính của bài.
+- **Sửa một tuyên bố cũ đã bị mẫu nhỏ thổi phồng:** khoảng cách "quy tắc mù → oracle"
+  ngoài miền **không phải 22.33 điểm mà là 7.47 điểm** trên 75 bản ghi (86.87 − 79.40).
+  Bài nay ghi cả hai và nói rõ nó co lại khi mẫu lớn hơn, nhưng vẫn gấp ~4 lần khoảng
+  cách trong miền (0.02 / 0.66 / 1.90).
+- Mục Discussion đổi theo: mất "khoảng 38 điểm" → **"khoảng 26 điểm"** (97.45 → 71.21).
+
+Nguồn: `benchmark_dpss/eval_cinc75.json` (+ `eval_cinc75_log.txt`).
+
+---
+
+## 3. THÊM — đoạn chỉ số lâm sàng (cuối mục 3.5)
+
+Đoạn `Clinical read-out` mới, đúng tinh thần "trung thực reviewer sẽ đánh giá cao":
+
+- Độ chệch STV: **+0.33 ms** trên ADFECGDB, +1.84 / +1.86 ms trên Silesia B1/B2,
+  **+20.50 ms** trên CinC 2013.
+- Phân tầng theo F1: |sai số| TB **0.13 ms** khi F1 ≥ 99.5, **25.78 ms** khi F1 < 90.
+- **Sai số một chiều**: 25/32 bản ghi đánh giá STV CAO hơn nhãn, sai số âm lớn nhất chỉ
+  −0.17 ms — cơ chế: mỗi nhịp sót/thừa làm nhiễu một khoảng RR và nhiễu chỉ cộng thêm.
+- Trên các bản ghi cổng chấm "cao": LoA **[−0.39; +0.61] ms**.
+- Nêu rõ **chưa có chủ thể trong miền nào có STV nhãn gần vùng ra quyết định**, nên đây
+  là *thất bại về độ phân giải*, **không phải** độ nhạy đã đo được (nhắc lại ở Limitations).
+- Kết luận in trong bài: dùng được để **theo dõi xu hướng** trên bản ghi đã qua cổng,
+  **KHÔNG dùng được làm máy đo STV độc lập**.
+- Thêm yêu cầu báo cáo **độ phủ theo THỜI LƯỢNG kèm phân bố khoảng trống**
+  (88.2 % thời lượng được trả lời; khoảng trống bị từ chối dài nhất **192 s**).
+
+**Cố ý KHÔNG đưa vào:** ngưỡng TRUFFLE 2.6/3.0 ms và các con số mất tín hiệu CTG
+(5–8 % / 9–20 % / 5.3 % / 20 %). `analysis/CLINICAL.md` mục 6.4 ghi rõ chúng do P3
+cung cấp và **chưa đối chiếu bản gốc**; đưa vào sẽ là trích dẫn không kiểm chứng được.
+Nhờ vậy **không cần thêm tài liệu tham khảo mới nào**.
+
+Nguồn: `analysis/CLINICAL.md`, `analysis/clinical_results.json`.
+
+---
+
+## 4. THÊM — độ ổn định 2 seed (mục 3.1)
+
+Một câu trong 3.1: seed thứ hai của mô hình 22 chủ thể làm F1 từng chủ thể dịch
+**trung bình 0.28 điểm** trên 20 chủ thể chung (lớn nhất 2.81), trong khi **ngưỡng từng
+fold kém ổn định hơn** (0.50–0.80 so với 0.20–0.80). Cũng nhắc lại trong abstract.
+
+Nguồn: `survey/facts_phase2.json` → `F_on_dinh_2_seed`.
+
+---
+
+## 5. CẮT XUỐNG 4 TRANG — cắt cái gì
+
+**GIỮ NGUYÊN 100 % (theo yêu cầu):** Bảng Power-MF (Bảng 2), Bảng CinC 75 (Bảng 3),
+phần phân rã ba tầng (mục 3.4 + Bảng 4), mục Limitations.
+
+Đã cắt / gộp:
+
+| Chỗ | Trước | Sau |
+|---|---|---|
+| **TDA / tô-pô** | một mục con riêng + đoạn "Why topology failed" trong Discussion + 3 đối chứng kể dài | **2 câu** trong 3.5 ("Topology contributed nothing: … 0.566 … làm AUROC giảm còn 0.905") + 1 câu gộp ba đối chứng, **trỏ về repo** ("Three controls in the repository agree"); trong Discussion còn 1 câu lý do cấu trúc |
+| **Bảng baselines cổ điển** (bảng riêng 4 hàng × 5 cột) | bảng | **gộp thành văn xuôi** 6 dòng trong 3.4 (TS 78.96 / TS-PCA 91.05 / Prominence 86.39 / ta 97.45; vẫn giữ cảnh báo KTC paired-t của TS chứa 0) |
+| **Mục "Architecture family"** (mục con riêng) | ~13 dòng | **gộp vào 3.4**, 6 dòng, giữ nguyên TOST 0/7 + cnn_m −2.95 + cnn_l +0.73 |
+| **Discussion** | 4 đoạn dài (gồm "Why topology failed" riêng) | 4 đoạn ngắn; đoạn tô-pô gộp vào đoạn tổng quát hoá; **thêm** đoạn mới "One channel is not obviously the limitation" |
+| Abstract | ~19 dòng | ~17 dòng, viết lại quanh Power-MF + CinC 75 + STV |
+| Introduction | liệt kê 4 phương pháp học sâu + câu SQI | liệt kê 3, bỏ câu SQI (andreotti2017 vẫn được trích ở Methods); bỏ trích `huang2025` |
+| Methods (Data / Detector / Protocol / Experiments) | — | siết câu, không bỏ thông tin giao thức nào |
+| Bibliography | `\footnotesize` | `\scriptsize` |
+| Danh mục đóng góp | 3 mục dài | 3 mục, mục 2 đổi thành "so sánh chạy lại", mục 3 thêm "all 75 CinC records" + STV |
+| Preamble | `titlespacing` 8/6 pt, `tabcolsep` 3.5 pt, `arraystretch` 1.08, caption skip 4 pt | 6/4 pt, 3.0 pt, 1.05, 3 pt |
+
+Số tài liệu tham khảo in ra: **18 → 15** (`huang2025`, `kiranyaz2023`, `perea2015`
+không còn được trích; **vẫn giữ trong `refs.bib`** kèm chú thích nêu lý do).
+
+---
+
+## 6. Kiểm tra liêm chính số liệu
+
+- Script kiểm tra tự động đối chiếu **56 con số mới** trong `main.tex` với JSON gốc:
+  **54/56 khớp chuỗi ký tự tuyệt đối**; 2 trường hợp còn lại là KTC bootstrap của hàng
+  CinC trong Bảng 1, chạy lại với `default_rng(0)` sạch cho đúng **[63.57; 78.44] →
+  [63.6; 78.4]** như in trong bài (lệch nhỏ trong lần chạy đầu chỉ do RNG đã bị tiêu thụ
+  trước đó trong cùng script).
+- KTC của Bảng 2 lấy đúng theo mốc đã kiểm chứng ngày 12/09. Chạy lại độc lập cho
+  [−3.05; +0.40] thay vì [−3.04; +0.40] và [−1.72; +8.68] thay vì [−1.75; +8.64] —
+  **chênh lệch ≤ 0.04 điểm, thuần nhiễu Monte-Carlo của bootstrap**, không đổi kết luận.
+- Đếm thắng/thua từng nhóm (5/0, 6/1, 2/2, 13/3, 15/3) tính lại từ JSON, **khớp tuyệt đối**.
+- Grep toàn văn: **không có** "SOTA", "novel", "first", "state-of-the-art".
+- Grep toàn văn: **không còn** con số 59.15 / 69.31 / 90.34 / 77.34 ở vai trò kết quả —
+  chúng chỉ còn xuất hiện trong câu **rút lại chúng**.
+
+Cảnh báo còn lại (không sửa, vì sẽ phải bịa dữ liệu): mục `baldazzi2023` in ra
+"Springer; 2023. ." — dấu chấm thừa do `vancouver.bst` gặp trường `pages` rỗng; nguồn
+khảo sát không ghi số trang nên **không điền**.
+
+---
+
+## 7. Tệp xuất
+
+| Tệp | Trạng thái |
+|---|---|
+| `paper/cinc2026/main.tex` | đã sửa (4 trang) |
+| `paper/cinc2026/refs.bib` | đã sửa (chỉ thêm chú thích về 3 mục nay chưa trích) |
+| `paper/cinc2026/main.pdf` | **4 trang**, 0 lỗi, 0 `??` |
+| `paper/cinc2026/CHANGELOG.md` | tệp này |
+| `paper/cinc2026/main.tex.bak_b2`, `refs.bib.bak_b2` | bản sao lưu trước vòng B2 |
+
+Lệnh biên dịch lại:
+
+```
+cd paper/cinc2026
+xelatex -interaction=nonstopmode main.tex
+bibtex main
+xelatex -interaction=nonstopmode main.tex
+xelatex -interaction=nonstopmode main.tex
+```
+
+(`build.bat` vẫn gọi `pdflatex`; phần bình luận đầu `main.tex` đã đổi sang xelatex —
+cả hai trình biên dịch đều cho 4 trang.)

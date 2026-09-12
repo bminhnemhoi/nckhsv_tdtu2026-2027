@@ -15,44 +15,104 @@ Trước khi viết đề cương này, nhóm đã chạy một loạt thí nghi
 toàn bộ phần còn lại của tài liệu.
 
 \begin{enumerate}[leftmargin=1.5em,itemsep=4pt]
-\item \textbf{Front-end tín hiệu quan trọng hơn kiến trúc mạng rất nhiều.}
+\item \textbf{Front-end tín hiệu là tầng lớn nhất \textit{trên bộ học cửa sổ 300\,ms} --- nhưng trên
+chính TCN thì chưa xác lập được.}
 Chỉ đổi dải thông từ 1--45\,Hz sang 10--60\,Hz nâng macro F1 thêm \tot{11,00 điểm} trong cùng một
-thí nghiệm có kiểm soát. Trong khi đó, khi giữ cố định ngữ cảnh thời gian, việc thay gradient boosting
-bằng mạng học sâu chỉ đáng \xau{+0,41 điểm} với $p = 0{,}7012$, tức không có ý nghĩa thống kê.
+thí nghiệm có kiểm soát --- \textbf{đo trên gradient boosting, cửa sổ 300\,ms}. Trong khi đó, khi giữ
+cố định ngữ cảnh thời gian, việc thay gradient boosting bằng mạng học sâu chỉ đáng \xau{+0,41 điểm}.
+Ở mức chủ thể, hiệu số giữa bảy kiến trúc phi tuyến nằm trong khoảng $-2{,}95$ đến $+0{,}73$ điểm
+(\S\ref{sec:thongke}).
+\textbf{Cập nhật 12/09/2026 --- kết quả sơ bộ, và nó đi ngược độ lớn cũ:} nhóm đã lặp lại đúng thay đổi
+dải đó trên \textbf{chính TCN}, 22 chủ thể, và chỉ thu được \xau{+2,44 điểm} (98,07 so với 95,63), với
+KTC 95\% cluster bootstrap mức chủ thể $[-0{,}04;\ +6{,}29]$ --- \textbf{chạm số không}. Nghĩa là ở
+$n=22$, hiệu ứng dải lọc trên TCN \textbf{chưa được xác lập}; con số +11,00 \textbf{không chuyển sang
+TCN ở cùng độ lớn}. Và nếu bỏ bước chọn kênh, lấy trung bình cả bốn kênh, thì hiệu số là
+\xau{$-0{,}07$} điểm với KTC $[-0{,}51;\ +0{,}39]$ --- \textbf{bằng không}. Chi tiết và các giới hạn
+ở \S\ref{sec:bandtcn}.
+Dải 10--60\,Hz \textbf{không phải phát hiện của nhóm}: nhóm lấy nó từ Xu và cộng
+sự 2026; đóng góp ở đây là \textit{đo} nó trong cùng một thí nghiệm có kiểm soát với hai tầng còn lại.
 
 \item \textbf{Biểu diễn topo không phù hợp cho bài toán này, ở cả hai vai trò nhóm đã thử.}
 Làm đặc trưng dò đỉnh: Persistence Image kết hợp CNN 2D đứng \xau{cuối cùng trong 16 kiến trúc} ở cùng
 ngân sách tham số (F1 27,42 so với 97,14). Làm chỉ số chất lượng tín hiệu: đặc trưng đồng điều bền vững
-dự báo lỗi mô hình với AUROC \xau{0,566} ngoài miền, so với \tot{0,929} của chỉ số cổ điển, và gộp vào
+dự báo lỗi mô hình với AUROC \xau{0,566} ngoài miền, so với \tot{0,929} của chỉ số cổ điển gộp trên
+10 bản ghi (0,721 nếu chỉ tính \textit{trong} từng bản ghi --- \S\ref{sec:thongke}), và gộp vào
 còn làm giảm. Nhóm cũng chứng minh bằng số rằng $H_0$ của lọc dưới mức \textbf{trùng khớp 100\%} với
 độ nhô đỉnh cổ điển.
 
-\item \textbf{Dữ liệu là đòn bẩy lớn nhất, và độ tin cậy là rào cản thật.}
+\item \textbf{Dữ liệu là đòn bẩy lớn nhất, nhưng chưa đủ, và độ tin cậy là rào cản thật.}
 Mô hình học trên 5 ca đạt macro F1 \tot{99,21} trên ADFECGDB khi tách theo bản ghi, nhưng khi chuyển sang
-một hệ ghi khác (PhysioNet/CinC 2013) chỉ còn \xau{77,34} với phân bố lưỡng cực: ba trên mười bản ghi sụp
-dưới 50\%. Huấn luyện lại trên \textbf{22 sản phụ} --- thêm 17 ca cùng bệnh viện, trong đó 10 ca thai kỳ ---
-nâng thai kỳ từ 93,30 lên \tot{97,15} ($p = 0{,}037$) và nâng CinC 2013 từ 77,34 lên \tot{90,34}
-($p = 0{,}016$), \textbf{không còn bản ghi nào dưới 50}. Nhưng ở 90 vẫn còn cách 99 trong miền, và hệ thống
-vẫn cần biết khi nào nó sai.
+một hệ ghi khác (PhysioNet/CinC 2013, \textbf{toàn bộ 75 bản ghi set-a}) chỉ còn \xau{71,21} với phân bố
+lưỡng cực: 22 trên 75 bản ghi sụp dưới 50. Huấn luyện lại trên \textbf{22 sản phụ} --- thêm 17 ca cùng
+bệnh viện, trong đó 10 ca thai kỳ --- nâng thai kỳ từ 93,30 lên \tot{97,15} và nâng CinC 2013 từ 71,21 lên
+\tot{79,40} (hiệu số $+8{,}18$; KTC 95\% $[+5{,}62;\ +11{,}09]$; thắng 53 thua 5 trên 75 bản ghi).
+Nhưng \textbf{vẫn còn 16 bản ghi dưới 50}: phân bố lưỡng cực chưa biến mất, và hệ thống vẫn cần biết khi
+nào nó sai.
 \end{enumerate}
+
+\begin{canhbao}[title={Bản 3.3 sửa gì so với bản 3.2 --- đọc trước khi đọc phần còn lại}]
+\footnotesize
+\begin{enumerate}[leftmargin=1.5em,itemsep=2pt]
+\item \textbf{CinC 2013:} mọi con số cũ (59,15 / 69,31 / 77,34 / 90,34) đo trên \textbf{mẫu 10 bản ghi}
+của một tập có 75 bản ghi. Mẫu đó lệch, và lệch theo \textit{hai hướng ngược nhau} tuỳ quy tắc chọn kênh.
+Số chính mới là \textbf{79,40} trên 75 bản ghi. Kết luận cũ ``không còn bản ghi nào dưới 50'' \textbf{sai}
+trên tập đầy đủ (\S\ref{sec:cinc75}).
+\item \textbf{Power-MF:} bản 3.2 ghi ``không chạy lại được''. Sai --- đã chạy qua GNU Octave.
+\textbf{Và bản 3.3 cũng sai}: mọi con số Power-MF của nó (94,87 / 98,38) đứng trên một bản Octave hỏng vì
+lỗi cổng chuyển của nhóm, đã rút hết. Số đúng: Power-MF đa kênh 98,83, \hethong{} 97,56 --- không phân
+biệt được; Power-MF \textbf{cùng một đạo trình} chỉ đạt 86,71 (\S\ref{sec:powermf}).
+\item \textbf{Thống kê:} đơn vị phân tích cũ là cặp (bản ghi $\times$ kênh), tức giả lập. Mọi $p$ trên
+5 sản phụ đã bị gỡ. Tuyên bố ``8 kiến trúc không phân biệt được'' đổi thành ``không đủ lực để phân biệt''
+--- TOST cho 0/7 tương đương (\S\ref{sec:thongke}).
+\item \textbf{Lâm sàng:} hệ thống là một bộ đếm nhịp tim thai tốt nhưng \textbf{không} dùng được làm máy
+đo biến thiên ngắn hạn (\S\ref{sec:clinical}).
+\end{enumerate}
+\end{canhbao}
 
 Từ ba quan sát đó, đề tài đề xuất \hethong{}: một bộ dò QRS thai đơn kênh \textbf{kèm cổng từ chối trả
 lời}, cho phép hệ thống nói ``không đọc được'' khi tín hiệu không đủ tin cậy, thay vì im lặng đưa ra một
 nhịp tim sai. Prototype của cổng này đã chạy: trên CinC 2013, từ chối 20\% đoạn kém tin cậy nhất nâng
-F1 phần còn lại từ 62,0 lên 69,4, và bản demo bắt đúng hai bản ghi tệ nhất mà không bỏ lọt bản ghi tốt
-nào.
+F1 phần còn lại thêm $+7{,}49$ điểm (KTC 95\% cụm $[+2{,}94;\ +11{,}54]$), và bản demo bắt đúng hai bản
+ghi tệ nhất mà không bỏ lọt bản ghi tốt nào.
 
-\begin{ghichu}[title={Ba đóng góp}]
+\begin{canhbao}[title={Ba tuyên bố ``đầu tiên'' mà nhóm RÚT LẠI trong bản 3.3}]
+Rà soát y văn vòng ba (\texttt{survey/scout\_novelty.md}) cho thấy ba điểm mà bản 3.2 ngầm nhận là mới
+thì thực ra \textbf{đã có chủ}:
+\begin{itemize}[leftmargin=1.5em,itemsep=2pt]
+\item \textbf{``Front-end quan trọng hơn kiến trúc''} --- Andreotti và cộng sự 2016
+(\textit{Physiol Meas} 37(5):627) đã chứng minh \textit{định tính} rằng lựa chọn tiền xử lý
+\textbf{đảo thứ hạng} các thuật toán trích fECG. Nhóm chỉ thêm \textbf{con số} trên dữ liệu thật.
+\item \textbf{Quét trường tiếp nhận / lịch giãn nở} --- Fotiadou và cộng sự 2021 (\textit{Physiol Meas}
+42(4):045007) đã quét dilation cho fHR và kết luận dilation quan trọng hơn kích thước hạt nhân.
+\item \textbf{Bản đồ nhiệt theo từng mẫu} --- Zahid và cộng sự 2022 (\textit{IEEE TBME} 69(1):119) đã
+phát biểu lại dò đỉnh R thành bài toán phân đoạn 1 chiều theo từng mẫu. Gaussian $\sigma = 12$\,ms là
+\textbf{làm mượt nhãn}, không phải phát biểu bài toán mới.
+\item \textbf{Cổng từ chối cho fECG} --- Andreotti và cộng sự 2017 (\textit{IEEE TBME},
+DOI 10.1109/TBME.2017.2675543) đã có chỉ số chất lượng fSQI cho chính bài toán này.
+\end{itemize}
+Nhóm \textbf{định vị lại đề tài là TIẾP NỐI} Andreotti 2016/2017 và Behar 2014, không phải phản bác họ.
+\end{canhbao}
+
+\begin{ghichu}[title={Ba đóng góp, phát biểu lại cho đúng phạm vi}]
+Một trục duy nhất: \textbf{phân rã có kiểm soát $+$ đối chuẩn công bằng $+$ kết quả phủ định được công bố
+nguyên trạng}.
 \begin{description}[leftmargin=2.2em,style=nextline,itemsep=3pt]
-\item[C1 --- Đối chuẩn không rò rỉ.] So sánh năm họ biểu diễn tín hiệu dưới cùng một giao thức,
-cùng bộ phân loại, cùng ngân sách huấn luyện, trên ba bộ dữ liệu, với quy tắc chọn kênh
-\textbf{mù nhãn} có thể đăng ký trước.
-\item[C2 --- Phân rã đóng góp ba tầng.] Trả lời định lượng câu hỏi: trong toàn bộ pipeline, phần nào
-thực sự tạo ra hiệu năng? Đây là xương sống khoa học của đề tài.
-\item[C3 --- Cổng từ chối trả lời cho bộ dò fQRS đơn kênh, kèm kết quả phủ định có kiểm soát về đồng
-điều bền vững.] Cổng xây trên độ tự tin của mô hình và tính hợp lý của nhịp. Phần topo là thử nghiệm có
-kiểm soát đầu tiên của phân tích dữ liệu topo trên tín hiệu tim thai mà nhóm tìm được, và kết quả là
-\textbf{không có lợi ích} --- được công bố nguyên trạng.
+\item[C1 --- Đối chuẩn công bằng, không rò rỉ, ở cấu hình đơn kênh.] So sánh năm họ biểu diễn tín hiệu
+dưới cùng một giao thức, cùng bộ phân loại, cùng ngân sách huấn luyện, với quy tắc chọn kênh
+\textbf{mù nhãn} đăng ký trước --- và, mới trong bản 3.3, \textbf{một baseline hiện đại chạy lại thật}
+(Power-MF, \S\ref{sec:powermf}) thay vì trích con số đã công bố --- chạy ở \textbf{cả hai cấu hình đạo
+trình}, để đo được tách nguồn đa kênh đáng bao nhiêu điểm F1. Không phải ``đối chuẩn đầu tiên'';
+kho \texttt{mad-lab-fau/fecg-benchmarking} đã tồn tại.
+\item[C2 --- Phân rã đóng góp ba tầng, định lượng, trên dữ liệu thật.] Front-end / ngữ cảnh / họ kiến
+trúc trong \textbf{một} thí nghiệm duy nhất, cùng giao thức, ở mức chủ thể. Andreotti 2016 nói định tính
+trên dữ liệu tổng hợp; Fotiadou 2021 chỉ quét một tầng. \textbf{Chưa ai ghép ba tầng vào một thí nghiệm
+trong fECG} --- đây là đóng góp vững nhất, và cũng là đóng góp duy nhất nhóm còn dám gọi là mới.
+\item[C3 --- Đánh giá cổng từ chối XUYÊN HỆ GHI, kèm kết quả phủ định có kiểm soát về đồng điều bền vững.]
+Cơ chế từ chối \textbf{không mới} (Andreotti 2017, Shi 2023, Baldazzi 2023); cái mới là đánh giá nó
+\textbf{zero-shot sang một hệ ghi khác} kèm đường cong rủi ro--độ phủ, và báo cáo thẳng rằng AUROC
+\textbf{trong} bản ghi chỉ là 0,721 chứ không phải 0,929 (\S\ref{sec:thongke}). Phần topo là thử nghiệm
+có kiểm soát đầu tiên của phân tích dữ liệu topo trên tín hiệu tim thai mà nhóm tìm được, kết quả là
+\textbf{không có lợi ích}, và được công bố nguyên trạng.
 \end{description}
 \end{ghichu}
 
@@ -170,15 +230,17 @@ tổng quát hoá không? & E7 \\
 \textbf{Mã} & \textbf{Giả thuyết} & \textbf{Tiêu chí chấp nhận} \\
 \midrule
 H1 & Bộ dò \hethong{} đạt F1 $\geq$ 95\% trên ADFECGDB khi tách theo bản ghi, với quy tắc chọn kênh
-mù nhãn & Wilcoxon ghép cặp so với nền trừ mẫu kết hợp PCA, $p < 0{,}05$ \\
+mù nhãn & \textbf{Hiệu số ghép cặp ở mức chủ thể} so với nền trừ mẫu kết hợp PCA, kèm KTC 95\% bootstrap
+cụm \textbf{loại trừ 0}. Không dùng ngưỡng $p$: với $n = 5$ chủ thể, $p < 0{,}05$ là bất khả thi
+(\S\ref{sec:thongke}) \\
 H2 & Front-end tín hiệu đóng góp nhiều hơn họ kiến trúc ít nhất 5 lần về điểm F1 & So sánh hai hiệu ứng
 chính, kèm khoảng tin cậy bootstrap \\
 H3 & fSQI topo có tương quan Spearman $|\rho| \geq 0{,}6$ với F1 thực theo bản ghi, và không kém
 SampEn & Bootstrap CI cho hiệu số $\rho$ \\
 H4 & Từ chối 20\% dữ liệu có fSQI thấp nhất nâng F1 trên phần còn lại thêm $\geq$ 8 điểm & Đường cong
 rủi ro--độ phủ, so với cổng từ chối ngẫu nhiên \\
-H5 & Tiền huấn luyện FECGSYNDB nâng F1 xuyên bộ dữ liệu thêm $\geq$ 5 điểm & Wilcoxon ghép cặp theo
-bản ghi \\
+H5 & Tiền huấn luyện FECGSYNDB nâng F1 xuyên bộ dữ liệu thêm $\geq$ 5 điểm & Hiệu số ghép cặp trên
+\textbf{75 bản ghi} CinC 2013 kèm KTC bootstrap; đây là tập duy nhất đủ lực để dùng $p$ \\
 H0 & \textbf{Giả thuyết phủ định vẫn có giá trị}: nếu H3--H5 không đạt, thì đối chuẩn cộng phân rã
 đóng góp cộng kết quả phủ định có kiểm định vẫn là một bài báo hoàn chỉnh & --- \\
 \bottomrule

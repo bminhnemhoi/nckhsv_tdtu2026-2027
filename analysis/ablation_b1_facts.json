@@ -1,0 +1,40 @@
+{
+  "ghi_chu": "Muc de GOP vao survey/facts_phase2.json (khoa: C2_ablation_bo_B1). Tach file rieng de tranh ghi de khi nhieu tien trinh cung sua facts_phase2.json.",
+  "C2_ablation_bo_B1": {
+    "nguon": "model/train_12.py -> model/train_12.json (6/6 fold + production_12); benchmark_dpss/eval_12.py -> eval_12.json (gop tu eval_12_b1.json + eval_12_cinc.json); analysis/ablation_b1.py -> analysis/ABLATION_B1.md + ablation_b1_results.json",
+    "cau_hoi": "Cai thien 5 -> 22 chu the la do THEM DU LIEU hay do mo hinh hoc PHONG CACH NHAN GIAN TIEP cua B1 (incorporation bias)?",
+    "thiet_ke": "m12 = huan luyen tren 12 chu the CHI co nhan dien cuc da dau (5 PhysioNet + 7 B2 khong trung), KHONG he thay B1. Moi thu khac giong het train_22.py (4 epoch, seed 0, cung tang cuong, cung tien xu ly 10-60 Hz).",
+    "B1_10_chu_the_kenh_PSD": {"m5": 93.30, "m12": 94.37, "m22": 97.15,
+      "m12_vs_m5": {"hieu": 1.07, "ktc95_boot": [-0.12, 2.90], "p_wilcoxon": 0.1602, "thang_thua": "7/3"},
+      "m12_vs_m22": {"hieu": -2.78, "ktc95_boot": [-6.66, -0.11], "p_wilcoxon": 0.0020, "thang_thua": "0/10"}},
+    "B1_TB_4_kenh": {"m5": 91.31, "m12": 93.44, "m22": 97.01, "m12_vs_m22_hieu": -3.57, "p_wilcoxon": 0.0059},
+    "cinc2013_75_ban_ghi_PSD": {"m5": 71.21, "m12": 74.34, "m22": 79.40,
+      "m12_vs_m5": {"hieu": 3.13, "ktc95_boot": [1.49, 4.98], "p": 0.0011},
+      "m12_vs_m22": {"hieu": -5.06, "ktc95_boot": [-7.23, -3.19], "p": 3.76e-08}},
+    "cinc2013_68_ban_ghi_PSD": {"m5": 72.08, "m12": 75.24, "m22": 80.70, "m12_vs_m22_hieu": -5.46, "p": 5.47e-08},
+    "12_chu_the_nhan_vang_giu_lai_nhom": {"m12": 97.84, "m22": 97.89, "hieu": -0.06, "ktc95_boot": [-0.20, 0.09],
+      "p_wilcoxon": 0.4258, "thang_thua": "3/6", "n": 12,
+      "ghi_chu": "m12 moi fold hoc tu 9 chu the, m22 moi fold hoc tu 19 -- van hoa nhau"},
+    "dau_van_nhan_tren_B1": {
+      "dinh_nghia": "do lech thoi diem tuyet doi TB va jitter TB tren 8 chu the B1 ma CA BA mo hinh deu dat F1>=95 (loai B1_06, B1_07 de khong lan voi do kho)",
+      "do_lech_abs_ms": {"m5": 6.50, "m12": 6.50, "m22": 3.25},
+      "jitter_ms": {"m5": 6.80, "m12": 6.62, "m22": 3.79},
+      "y_nghia": "Mo hinh tung thay B1 trung tam voi moc cua B1 chinh xac gap doi; hai mo hinh chua tung thay lech GIONG HET nhau. Day la chu ky cua QUY UOC CHAM MOC. Voi dung sai +/-50 ms no gan nhu khong doi F1, nhung cam dung so B1 de noi ve do chinh xac thoi diem (jitter, STV)."
+    },
+    "phan_ra_loi_ich": {
+      "B1_PSD": {"loi_ich_5_den_22": 3.85, "m12_lay_lai": 1.07, "phan_tram": 28, "giam_sai_so_tuong_doi_m12_den_m22_pct": 49.4},
+      "CinC75_PSD": {"loi_ich_5_den_22": 8.18, "m12_lay_lai": 3.13, "phan_tram": 38, "giam_sai_so_tuong_doi_m12_den_m22_pct": 19.7}
+    },
+    "quet_nguong_m12": {"B1_PSD": {"0.45": 94.68, "0.55": 94.66, "0.65": 94.65, "0.75": 94.52, "0.80": 94.37},
+                        "CinC75_PSD": {"0.45": 75.48, "0.55": 75.29, "0.65": 75.07, "0.75": 74.75, "0.80": 74.34},
+                        "ket_luan": "ket luan khong phu thuoc nguong; ngay ca o nguong tot nhat cua m12 van kem m22 2,47 diem tren B1 va 3,92 diem tren CinC"},
+    "KET_LUAN": "GIU ket luan 'them du lieu'. Bang chung quyet dinh: tren CinC 2013 (tap doc lap, nguoi chu thich khac, khong lien quan Silesia) m22 van hon m12 5,06 diem (p=3,8e-08) -- uu the ton tai o noi KHONG CO GI de bat chuoc. Ti le loi ich m12 lay lai gan bang nhau tren B1 (28%) va CinC (38%). Khoang cach tren B1 don vao 2 ca kho (B1_07 -19,35; B1_06 -7,36), 8/10 ca con lai chenh <=0,5 diem -- khong phai sai lech he thong kieu bat chuoc nhan.",
+    "SUA_CACH_PHAT_BIEU": [
+      "Co dau van nhan THAT nhung nam o MOC THOI GIAN chu khong o F1: m22 lech 3,25 ms / jitter 3,79 ms so voi m12 6,50 / 6,62 ms tren cung 8 chu the de. => Khong duoc dung so B1 de noi ve do chinh xac thoi diem.",
+      "Tren chinh 12 chu the nhan vang, du lieu B1 KHONG giup gi (97,84 vs 97,89) -- loi ich cua B1 chi xuat hien o mien B1 va o CinC.",
+      "Giam sai so tuong doi tren B1 (49%) gap 2,5 lan tren CinC (20%): co mot thanh phan TRONG MIEN. Thiet ke nay KHONG tach duoc 'cung thiet bi/dan so' khoi 'cung nguoi cham'. Muon tach phai co tap thai ky 20 phut cham bang dien cuc da dau -- hien chua co cong khai."
+    ],
+    "gioi_han": "m12 production hoc 12 chu the / m22 fold hoc 19 -> gop ca so luong lan nguon goc du lieu; chi 1 seed (bien thien seed da do: 0,28 diem TB); nguong production_12 = 0,80 (trung vi nguong fold co san luc do), trung vi cua ca 6 fold la 0,52 -- da quet nguong de chung minh khong doi ket luan.",
+    "thoi_gian": "6 fold + production_12 chay 3 luong song song, moi luong 1 nhan CPU; fold ~21-23 phut/fold, production 31 phut; eval B1 3,1 phut, eval CinC 75 ban ghi 1,4 phut."
+  }
+}

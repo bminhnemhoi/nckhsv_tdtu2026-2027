@@ -1,60 +1,384 @@
 {
-  "ghi_chu": "So lieu vong 2 (11/09/2026). Moi con so do that; cot nguon ghi file sinh ra. Da tu kiem chung: 11 fold roi nhau, 22 chu the moi nguoi 1 lan, khong trung PhysioNet; tom tat khop tinh lai tung chu so; sample_efficiency khong co test trung train.",
-
+  "ghi_chu": "So lieu vong 2 (11/09/2026), da qua ban sua liem chinh 12/09/2026. Moi con so do that; cot nguon ghi file sinh ra. Da tu kiem chung: 11 fold roi nhau, 22 chu the moi nguoi 1 lan, khong trung PhysioNet; tom tat khop tinh lai tung chu so; sample_efficiency khong co test trung train.",
+  "SUA_LIEM_CHINH_2026_09_12": {
+    "1_con_so_chinh_cinc": "DA SUA. Ban cu ghi 'con so CinC phai bao la 69,31' -- DA RUT: 69,31 do tren mau 10 ban ghi. Tren DU 75 ban ghi, quy tac PSD mu nhan cho 79,40 (mo hinh 22 chu the) va 71,21 (mo hinh 5 chu the). Luan diem ve LIEM CHINH van dung va con manh hon: kenh 0 co dinh la lua chon HAU KIEM, va tren du 75 ban ghi no chi dat 69,33 -- tuc KEM quy tac PSD mu nhan 10,07 diem, la quy tac TE NHAT trong bon. Con so 90,34 tren mau 10 khong nhung khong hop le ve liem chinh ma con SAI VE SU KIEN.",
+    "2_quy_tac_chon_kenh_khong_chuyen_mien": "DA SUA. Trong mien quy tac PSD kem oracle 0,02-1,90 diem (PhysioNet 0,02; B2 0,66; B1 1,90). Ngoai mien (CinC): con so cu '22,33 diem' DA BI RUT (do tren mau 10). Tren du 75 ban ghi khoang cach PSD den oracle la 7,47 diem (PSD 79,40 so voi oracle 86,87). Ket luan dinh tinh khong doi: quy tac chon kenh, chu khong chi bo do, la thu khong chuyen mien hoan toan -- nhung do lon that nho hon nhieu so voi bao cao cu.",
+    "3_thong_ke": "Voi n=5 chu the, p hai phia nho nhat cua Wilcoxon hang co dau chinh xac la 2/2^5 = 0,0625 -> KHONG so sanh nao tren ADFECGDB dat p<0,05 o muc chu the. Moi p tren ADFECGDB (1,9e-6; 5,7e-6; 0,0000) la san pham gia lap tren 20-60 hang (ban ghi x kenh x seed) va da bi bo. Xem analysis/STATS.md va analysis/stats_results.json.",
+    "4_kien_truc": "Tuyen bo '8 kien truc khong phan biet duoc' da rut lai. TOST bien 1,0 diem: 0/7 kien truc tuong duong, 6/7 khong ket luan duoc. cnn_m KEM HON 2,95 diem (KTC 90% [-4,55; -1,47]); cnn_l HON 0,73 diem (KTC 90% [0,18; 1,22]).",
+    "5_cinc_10_tren_75": "DA HOAN THANH 12/09/2026. Ca hai bien the da chay: 75 ban ghi (PSD m22 = 79,40) va 68 ban ghi (loai a33, a38, a47, a52, a54, a71, a74 -- PSD m22 = 80,70). Quy tac loai da khai bao TRUOC khi chay. Nguon: benchmark_dpss/eval_cinc75.json.",
+    "6_auroc_cong_tu_choi": "AUROC 0,929 phan lon la hieu ung GIUA ban ghi (5/10 ban ghi khong co doan xau). AUROC TRONG ban ghi = 0,721 [0,517; 0,898] moi la con so dung cho lam sang.",
+    "nguon_KTC": "analysis/boot_ci_table1.py -> analysis/boot_ci_table1.json (bootstrap cum, 10000 lan, seed 0; tai lap dung KTC cua analysis/stats_results.json cho cinc lead0)",
+    "0_CANH_BAO_CAP_NHAT_VONG_4": "DA RUT 12/09/2026 -- moi con so CinC 2013 trong muc nay do tren MAU 10/75 BAN GHI va bi lech CA HAI CHIEU. So chinh hien hanh la PSD mu nhan tren DU 75 ban ghi = 79,40 (benchmark_dpss/eval_cinc75.json; xem survey/facts_phase3.json muc B_cinc75). Cac gia tri tho duoi day duoc GIU LAI lam ho so lich su, KHONG duoc trich dan nhu ket qua."
+  },
+  "F_on_dinh_2_seed": {
+    "nguon": "model/train_22.json (seed 0) vs model/train_22_seed1.json (seed 1); tinh lai boi analysis/boot_ci_table1.py",
+    "n_chu_the_chung": 20,
+    "mean_abs_diff_F1_psd": 0.276,
+    "max_abs_diff": 2.81,
+    "chu_the_lech_nhat": "B2_03",
+    "nguong_fold_seed0": [
+      0.2,
+      0.35,
+      0.65,
+      0.75,
+      0.75,
+      0.75,
+      0.75,
+      0.8,
+      0.8,
+      0.8,
+      0.8
+    ],
+    "nguong_fold_seed1": [
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.75,
+      0.75,
+      0.75,
+      0.8,
+      0.8,
+      0.8
+    ],
+    "ket_luan": "Bien thien theo seed nho so voi moi hieu ung duoc bao cao (0,28 diem TB). Nguong tung fold kem on dinh hon: seed 1 trai 0,50-0,80, khong co gia tri cuc doan 0,20 nhu fold 10 cua seed 0."
+  },
   "F_mo_hinh_22_ca": {
     "nguon": "model/train_22.py, model/augment.py -> model/train_22.json, model/checkpoints/fetalqrs_tcn_22_fold_01..11.pt + fetalqrs_tcn_22_production.pt; benchmark_dpss/eval_22.py -> eval_22.json",
     "giao_thuc": "22 chu the doc lap (5 PhysioNet + 7 B2 khong trung + 10 B1); 11 fold theo nhom (2 test, 1 val rieng nhan da dau, 19 train); nguong tren val; tang cuong chi khi train (bien do 0,7-1,4; Gauss SNR 10-30 dB; troi nen sin 0,1-0,5 Hz; dich +/-100 ms; p=0,5 moi phep); 4 epoch; seed 0; 190,8 phut CPU 9 luong",
     "so_sanh_model5_vs_model22": {
-      "PhysioNet_5":  {"PSD_5": 99.21, "PSD_22": 99.40, "p_PSD": 1.000, "thang_thua": "2/2", "4k_5": 97.45, "4k_22": 98.69, "p_4k": 0.2445, "n_cap_4k": 20},
-      "B2_moi_7":     {"PSD_5": 95.87, "PSD_22": 96.82, "p_PSD": 0.125, "thang_thua": "4/0", "4k_5": 93.73, "4k_22": 94.50, "p_4k": 0.0156, "n_cap_4k": 28},
-      "B1_thai_ky_10":{"PSD_5": 93.30, "PSD_22": 97.15, "p_PSD": 0.0371, "thang_thua": "9/1", "4k_5": 91.31, "4k_22": 97.01, "p_4k": 0.0000, "n_cap_4k": 40, "sd_PSD_5": 13.46, "sd_PSD_22": 4.95},
-      "ALL_22":       {"PSD_5": 95.46, "PSD_22": 97.56, "p_PSD": 0.0074, "thang_thua": "15/3", "4k_5": 93.47, "4k_22": 96.59, "p_4k": 0.0000, "n_cap_4k": 88}
+      "PhysioNet_5": {
+        "PSD_5": 99.21,
+        "PSD_22": 99.4,
+        "p_PSD": 1.0,
+        "thang_thua": "2/2",
+        "4k_5": 97.45,
+        "4k_22": 98.69,
+        "p_4k": 0.2445,
+        "n_cap_4k": 20
+      },
+      "B2_moi_7": {
+        "PSD_5": 95.87,
+        "PSD_22": 96.82,
+        "p_PSD": 0.125,
+        "thang_thua": "4/0",
+        "4k_5": 93.73,
+        "4k_22": 94.5,
+        "p_4k": 0.0156,
+        "n_cap_4k": 28
+      },
+      "B1_thai_ky_10": {
+        "PSD_5": 93.3,
+        "PSD_22": 97.15,
+        "p_PSD": 0.0371,
+        "thang_thua": "9/1",
+        "4k_5": 91.31,
+        "4k_22": 97.01,
+        "p_4k": 0.0,
+        "n_cap_4k": 40,
+        "sd_PSD_5": 13.46,
+        "sd_PSD_22": 4.95
+      },
+      "ALL_22": {
+        "PSD_5": 95.46,
+        "PSD_22": 97.56,
+        "p_PSD": 0.0074,
+        "thang_thua": "15/3",
+        "4k_5": 93.47,
+        "4k_22": 96.59,
+        "p_4k": 0.0,
+        "n_cap_4k": 88
+      }
     },
-    "B1_tung_chu_the_PSD_5_to_22": {"B1_06": [80.9, 89.5], "B1_07": [58.7, 86.6], "B1_10": [98.1, 97.1]},
-    "lech_nhan_trung_vi_ms_model22": {"PhysioNet": 0.0, "B2": 0.0, "B1": -1.0},
-    "nguong_fold": [0.80, 0.80, 0.75, 0.75, 0.75, 0.75, 0.80, 0.65, 0.80, 0.20, 0.35],
+    "B1_tung_chu_the_PSD_5_to_22": {
+      "B1_06": [
+        80.9,
+        89.5
+      ],
+      "B1_07": [
+        58.7,
+        86.6
+      ],
+      "B1_10": [
+        98.1,
+        97.1
+      ]
+    },
+    "lech_nhan_trung_vi_ms_model22": {
+      "PhysioNet": 0.0,
+      "B2": 0.0,
+      "B1": -1.0
+    },
+    "nguong_fold": [
+      0.8,
+      0.8,
+      0.75,
+      0.75,
+      0.75,
+      0.75,
+      0.8,
+      0.65,
+      0.8,
+      0.2,
+      0.35
+    ],
     "nguong_production": 0.75,
     "canh_bao": "fold 10 nguong 0,20 cuc doan; 1 seed; 4 epoch loss van giam; chua do rieng dong gop tang cuong; van mot benh vien"
   },
-
   "F_cinc2013_production22": {
     "nguon": "benchmark_dpss/eval_22.json['cinc2013']",
-    "kenh_co_dinh": {"m5": 77.34, "sd5": 28.54, "m22": 90.34, "sd22": 12.03, "p": 0.0156, "thang_thua": "7/0", "ge90_5": 5, "ge90_22": 6, "lt50_5": 3, "lt50_22": 0},
-    "PSD":          {"m5": 59.15, "sd5": 37.17, "m22": 69.31, "sd22": 32.38, "p": 0.0312, "thang_thua": "6/1"},
-    "TB_4_kenh":    {"m5": 61.96, "sd5": 34.09, "m22": 72.64, "sd22": 25.76, "p": 0.0312, "thang_thua": "6/1"},
-    "oracle_22": 91.64,
-    "tung_ban_ghi_kenh0_5_to_22": {"a01": [94, 100], "a02": [23, 76], "a06": [43, 75], "a07": [85, 87], "a09": [80, 94], "a10": [49, 71]},
-    "ket_luan": "Phan bo luong cuc bien mat. Sua lai ket luan vong truoc: phan lon sup do xuyen he ghi la do thieu du lieu; khoang cach con lai 90 vs 97-99 moi la phan do thiet bi."
+    "CON_SO_CHINH": "DA RUT. Ban cu ghi 'PSD 69,31'. So chinh hien hanh: PSD mu nhan tren 75 ban ghi = 79,40 (mo hinh 22 chu the). Xem survey/facts_phase3.json muc B_cinc75.",
+    "PSD": {
+      "m5": 59.15,
+      "sd5": 37.17,
+      "ktc95_5": [
+        38.32,
+        81.01
+      ],
+      "m22": 69.31,
+      "sd22": 32.38,
+      "ktc95_22": [
+        49.89,
+        87.72
+      ],
+      "p": 0.0312,
+      "thang_thua": "6/1",
+      "mu_nhan": true,
+      "vai_tro": "DA RUT -- do tren mau 10/75, khong con la con so chinh (so dung: 79,40 tren 75 ban ghi)"
+    },
+    "TB_4_kenh": {
+      "m5": 61.96,
+      "sd5": 34.09,
+      "ktc95_5": [
+        42.67,
+        82.25
+      ],
+      "m22": 72.64,
+      "sd22": 25.76,
+      "ktc95_22": [
+        57.68,
+        87.86
+      ],
+      "p": 0.0312,
+      "thang_thua": "6/1",
+      "mu_nhan": true
+    },
+    "kenh_co_dinh": {
+      "m5": 77.34,
+      "sd5": 28.54,
+      "ktc95_5": [
+        59.66,
+        92.77
+      ],
+      "m22": 90.34,
+      "sd22": 12.03,
+      "ktc95_22": [
+        83.1,
+        97.01
+      ],
+      "p": 0.0156,
+      "thang_thua": "7/0",
+      "ge90_5": 5,
+      "ge90_22": 6,
+      "lt50_5": 3,
+      "lt50_22": 0,
+      "mu_nhan": false,
+      "canh_bao": "DA RUT. KENH 0 CHON HAU KIEM sau khi thay PSD that bai. Ngoai van de liem chinh, tren du 75 ban ghi quy tac nay chi dat 69,33 -- KEM quy tac PSD mu nhan (79,40) 10,07 diem. An tuong '90,34 tot hon' la gia tao cua mau 10 ban ghi."
+    },
+    "oracle": {
+      "m5": 77.59,
+      "ktc95_5": [
+        60.17,
+        92.81
+      ],
+      "m22": 91.64,
+      "ktc95_22": [
+        84.82,
+        97.54
+      ],
+      "mu_nhan": false,
+      "canh_bao": "DA RUT -- do tren mau 10/75. Tren 75 ban ghi: oracle m22 = 86,87; m5 = 78,21."
+    },
+    "psd_lead_tung_ban_ghi": {
+      "a01": 1,
+      "a02": 1,
+      "a03": 0,
+      "a04": 3,
+      "a05": 3,
+      "a06": 0,
+      "a07": 1,
+      "a08": 3,
+      "a09": 1,
+      "a10": 1
+    },
+    "khoang_cach_PSD_den_oracle": {
+      "TRANG_THAI": "DA RUT gia tri ngoai mien",
+      "trong_mien": "0,02-1,90 diem (PhysioNet 0,02; B2 0,66; B1 1,90) -- van dung",
+      "ngoai_mien_cinc_DA_RUT": 22.33,
+      "ngoai_mien_cinc_so_dung_75_ban_ghi": 7.47
+    },
+    "n_ban_ghi_danh_gia": "10/75 set-a -- DA THAY THE bang danh gia du 75 ban ghi (benchmark_dpss/eval_cinc75.json). Muc nay chi con gia tri lich su.",
+    "tung_ban_ghi_kenh0_5_to_22": {
+      "a01": [
+        94,
+        100
+      ],
+      "a02": [
+        23,
+        76
+      ],
+      "a06": [
+        43,
+        75
+      ],
+      "a07": [
+        85,
+        87
+      ],
+      "a09": [
+        80,
+        94
+      ],
+      "a10": [
+        49,
+        71
+      ]
+    },
+    "ket_luan": "DA RUT VA VIET LAI. Ket luan cu ('con so mu nhan la 69,31'; 'rieng quy tac chon kenh chiem 22,33 diem') dua tren mau 10 ban ghi va deu sai ve do lon. Tren du 75 ban ghi: PSD mu nhan 79,40; khoang cach den oracle 7,47 diem; kenh 0 co dinh chi 69,33. Phan lon sup do xuyen he ghi la do thieu du lieu va khoang cach thiet bi; quy tac chon kenh dong gop nho hon nhieu so voi uoc luong cu.",
+    "TRANG_THAI": "DA RUT 12/09/2026 -- moi con so CinC 2013 trong muc nay do tren MAU 10/75 BAN GHI va bi lech CA HAI CHIEU. So chinh hien hanh la PSD mu nhan tren DU 75 ban ghi = 79,40 (benchmark_dpss/eval_cinc75.json; xem survey/facts_phase3.json muc B_cinc75). Cac gia tri tho duoi day duoc GIU LAI lam ho so lich su, KHONG duoc trich dan nhu ket qua."
   },
-
   "G_hieu_qua_mau": {
     "nguon": "pilot_evidence/sample_efficiency.py -> sample_efficiency.json/.png",
-    "bang": {"k1": {"macro_F1": 91.18, "n_run": 5, "min": 83.3, "max": 96.1, "nguong": "co dinh 0,45"},
-             "k2": {"macro_F1": 93.39, "n_run": 5, "min": 81.7, "max": 97.6, "nguong": "tren 1 ca trong train (in-sample)"},
-             "k3": {"macro_F1": 97.45, "n_run": 5, "min": 93.2, "max": 100.0, "nguong": "LORO, val rieng (da co)"}},
+    "bang": {
+      "k1": {
+        "macro_F1": 91.18,
+        "n_run": 5,
+        "min": 83.3,
+        "max": 96.1,
+        "nguong": "co dinh 0,45"
+      },
+      "k2": {
+        "macro_F1": 93.39,
+        "n_run": 5,
+        "min": 81.7,
+        "max": 97.6,
+        "nguong": "tren 1 ca trong train (in-sample)"
+      },
+      "k3": {
+        "macro_F1": 97.45,
+        "n_run": 5,
+        "min": 93.2,
+        "max": 100.0,
+        "nguong": "LORO, val rieng (da co)"
+      }
+    },
     "ket_luan": "Chua bao hoa o 3 ca -> nhat quan voi loi ich cua 22 ca",
     "thoi_gian_s": 1721.9
   },
-
   "G_snr": {
     "nguon": "pilot_evidence/snr_curve.py -> snr_curve.json/.png",
     "dinh_nghia": "SNR_dB = 10log10(P_signal/P_noise), P_signal = phuong sai TOAN BO tin hieu bung tho (me ap dao); nhieu MIT-BIH NSTDB bw/em/ma/mix 360->1000 Hz; cung doan nhieu cho mo hinh va TS-PCA",
-    "mo_hinh_4k": {"sach": 97.45, "bw_-5": 93.33, "em_-5": 71.55, "ma_-5": 48.03, "mix_20": 96.71, "mix_10": 90.57, "mix_0": 73.62, "mix_-5": 59.31},
-    "tspca_4k":   {"sach": 91.05, "bw_-5": 85.76, "em_-5": 56.79, "ma_-5": 35.50, "mix_20": 89.58, "mix_10": 80.52, "mix_0": 60.22, "mix_-5": 47.00},
-    "chenh_mix": {"20": 7.13, "15": 8.28, "10": 10.04, "5": 11.04, "0": 13.40, "-5": 12.31},
-    "PSD_giu_kenh": {"20": "4/5", "15": "4/5", "10": "4/5", "5": "5/5", "0": "4/5", "-5": "3/5"},
+    "mo_hinh_4k": {
+      "sach": 97.45,
+      "bw_-5": 93.33,
+      "em_-5": 71.55,
+      "ma_-5": 48.03,
+      "mix_20": 96.71,
+      "mix_10": 90.57,
+      "mix_0": 73.62,
+      "mix_-5": 59.31
+    },
+    "tspca_4k": {
+      "sach": 91.05,
+      "bw_-5": 85.76,
+      "em_-5": 56.79,
+      "ma_-5": 35.5,
+      "mix_20": 89.58,
+      "mix_10": 80.52,
+      "mix_0": 60.22,
+      "mix_-5": 47.0
+    },
+    "chenh_mix": {
+      "20": 7.13,
+      "15": 8.28,
+      "10": 10.04,
+      "5": 11.04,
+      "0": 13.4,
+      "-5": 12.31
+    },
+    "PSD_giu_kenh": {
+      "20": "4/5",
+      "15": "4/5",
+      "10": "4/5",
+      "5": "5/5",
+      "0": "4/5",
+      "-5": "3/5"
+    },
     "ket_luan": "Troi nen vo hai (bo loc); nhieu co hai nhat; khoang cach mang - co dien tang theo nhieu"
   },
-
   "H_cong_hoc_duoc": {
     "nguon": "fsqi/train_gate.py, fsqi/gate.py, demo/run_check.py -> demo/results/demo_check_2modes.json",
-    "32_ban_ghi": {"hoc": {"xanh": [14, 99.92, 99.76], "vang": [9, 98.66, 96.54], "do": [9, 44.99, 16.96], "loi_nguy_hiem": 0, "loi_than_trong": 0, "phu_xanh_pct": 43.8, "spearman": 0.90},
-                   "luat": {"xanh": [22, 99.41, 96.54], "vang": [7, 58.18, 21.05], "do": [3, 32.48, 16.96], "loi_nguy_hiem": 0, "loi_than_trong": 0, "phu_xanh_pct": 68.8, "spearman": 0.71}},
-    "silesia_17_doc_lap": {"hoc_phu_xanh_pct": 35.3, "luat_phu_xanh_pct": 82.4, "luat_min_xanh": 97.70},
+    "32_ban_ghi": {
+      "hoc": {
+        "xanh": [
+          14,
+          99.92,
+          99.76
+        ],
+        "vang": [
+          9,
+          98.66,
+          96.54
+        ],
+        "do": [
+          9,
+          44.99,
+          16.96
+        ],
+        "loi_nguy_hiem": 0,
+        "loi_than_trong": 0,
+        "phu_xanh_pct": 43.8,
+        "spearman": 0.9
+      },
+      "luat": {
+        "xanh": [
+          22,
+          99.41,
+          96.54
+        ],
+        "vang": [
+          7,
+          58.18,
+          21.05
+        ],
+        "do": [
+          3,
+          32.48,
+          16.96
+        ],
+        "loi_nguy_hiem": 0,
+        "loi_than_trong": 0,
+        "phu_xanh_pct": 68.8,
+        "spearman": 0.71
+      }
+    },
+    "silesia_17_doc_lap": {
+      "hoc_phu_xanh_pct": 35.3,
+      "luat_phu_xanh_pct": 82.4,
+      "luat_min_xanh": 97.7
+    },
     "mac_dinh": "hoc"
   },
-
-  "I_api_test": {"tests": 53, "thoi_gian_s": 17.3, "api": "FastAPI /health /model /analyze; r01 10 s -> 22 nhip, 128,6 bpm, 68 ms", "docker": "Dockerfile+compose viet, chua build (khong co engine)"},
-
-  "J_bai_bao": {"nguon": "paper/cinc2026/main.tex -> main.pdf", "trang": 4, "tai_lieu": 12, "phan_bien_K": "khong phat hien so bia/sai; sua 8 loi trinh bay; J = DAT CO DIEU KIEN"}
+  "I_api_test": {
+    "tests": 53,
+    "thoi_gian_s": 17.3,
+    "api": "FastAPI /health /model /analyze; r01 10 s -> 22 nhip, 128,6 bpm, 68 ms",
+    "docker": "Dockerfile+compose viet, chua build (khong co engine)"
+  },
+  "J_bai_bao": {
+    "nguon": "paper/cinc2026/main.tex -> main.pdf",
+    "trang": 4,
+    "tai_lieu": 12,
+    "phan_bien_K": "khong phat hien so bia/sai; sua 8 loi trinh bay; J = DAT CO DIEU KIEN"
+  }
 }

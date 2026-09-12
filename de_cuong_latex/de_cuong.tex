@@ -3,7 +3,7 @@
 
 \title{Đề cương nghiên cứu khoa học sinh viên --- RelyFetal}
 \author{Ngô Bình Minh}
-\date{09/09/2026}
+\date{12/09/2026}
 
 \begin{document}
 
@@ -35,7 +35,7 @@ a leakage-free representation benchmark and a persistent-homology signal-quality
 \textbf{Chủ nhiệm đề tài}  & Ngô Bình Minh \\[3pt]
 \textbf{Nhóm thực hiện}    & 03 sinh viên \\[3pt]
 \textbf{Thời lượng}        & 24 tuần \\[3pt]
-\textbf{Phiên bản}         & 3.2 --- 11/09/2026 \\[3pt]
+\textbf{Phiên bản}         & 3.4 --- 12/09/2026 \\[3pt]
 \textbf{Mục tiêu công bố}  & \makecell[l]{01 tạp chí Q1 (\textit{Physiological Measurement} /\\ \textit{Biomed.\ Signal Process.\ Control} / \textit{IEEE JBHI})\\ 01 hội nghị \textit{Computing in Cardiology}\\ 01 báo cáo Euréka} \\
 \end{tabular}
 
@@ -45,10 +45,27 @@ a leakage-free representation benchmark and a persistent-homology signal-quality
 \footnotesize
 \justifying
 Đây không phải một bản kế hoạch thuần lý thuyết. Trước khi viết, nhóm đã chạy hơn 600.000 cửa sổ
-tín hiệu qua khoảng sáu giờ tính toán, huấn luyện và lưu sáu mô hình, đọc toàn văn 30 công trình,
+tín hiệu, huấn luyện và lưu hơn hai mươi mô hình, đọc toàn văn 30 công trình,
 và \textbf{tự bác bỏ giả thuyết trung tâm của chính bản đề cương phiên bản đầu tiên}.
 Mọi con số trong tài liệu này đều do nhóm tự đo, có mã nguồn và nhật ký kèm theo, và chạy lại được.
 Những chỗ nhóm còn chưa chắc chắn được ghi rõ trong \S\ref{sec:phanbien}.
+
+\smallskip
+\textbf{Năm phát biểu đã bị rút công khai.} Bốn của bản 3.2: (i) con số CinC 2013 đo trên \textbf{mẫu 10
+bản ghi} của một tập có 75 --- số đúng là 79,40 trên toàn bộ 75 (\S\ref{sec:cinc75}); (ii) ``Power-MF
+không chạy lại được'' --- sai, đã chạy (\S\ref{sec:powermf}); (iii) mọi trị số $p$ trên 5 sản phụ là giả
+lập và đã bị gỡ, ``8 kiến trúc không phân biệt được'' đổi thành ``không đủ lực để phân biệt''
+(\S\ref{sec:thongke}); (iv) hệ thống \textbf{chưa} dùng được làm máy đo biến thiên ngắn hạn
+(\S\ref{sec:clinical}).
+
+\smallskip
+\textbf{Và một của chính bản 3.3, rút chiều 12/09:} con số Power-MF 94,87 cùng kết luận ``loại hai bản
+ghi bắt cách nhịp thì còn 98,38 so với 97,33'' \textbf{đều sai}. Cả hai đứng trên một bản Octave hỏng vì
+\textit{lỗi cổng chuyển của chính nhóm} (\texttt{findpeaks} tốn $O(k^2)$ bộ nhớ), không phải vì tham số
+340\,ms như nhóm đã đoán --- giả thuyết đó bị bác bỏ bằng số đo: 0,00\,\% khoảng RR dưới 340\,ms. Sau khi
+vá, Power-MF đa kênh đạt \textbf{98,83} và tái lập số công bố của tác giả đến 0,06 điểm
+(\S\ref{sec:powermf}). Hai lần đoán sai nguyên nhân trong cùng một ngày được phân tích ở
+\S\ref{sec:doansai}.
 \end{ghichu}
 
 \vspace{0.5cm}
@@ -69,6 +86,10 @@ Những chỗ nhóm còn chưa chắc chắn được ghi rõ trong \S\ref{sec:p
 \input{sec_fsqi.tex}
 \clearpage
 \input{sec_demo.tex}
+\clearpage
+\input{sec_clinical.tex}
+\clearpage
+\input{sec_thongke.tex}
 \clearpage
 \input{sec_7_12.tex}
 

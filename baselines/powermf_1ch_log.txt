@@ -1,0 +1,105 @@
+[   0.0s] ==============================================================================
+[   0.0s] Power-MF-1ch (Python) ms=340 faithful=1 sets=s22
+[   0.6s] r01     PSD kenh 3  F1= 92.33  Se= 92.55  PPV= 92.12  | kenh0= 98.60 oracle= 98.60
+[   1.3s] r04     PSD kenh 1  F1= 92.41  Se= 92.41  PPV= 92.41  | kenh0= 75.53 oracle= 92.41
+[   1.9s] r07     PSD kenh 1  F1= 90.17  Se= 89.95  PPV= 90.38  | kenh0= 77.23 oracle= 98.41
+[   2.5s] r08     PSD kenh 3  F1= 90.05  Se= 90.32  PPV= 89.77  | kenh0= 98.77 oracle= 98.77
+[   3.1s] r10     PSD kenh 0  F1= 96.91  Se= 98.59  PPV= 95.30  | kenh0= 96.91 oracle= 96.91
+[   3.6s] B2_03   PSD kenh 1  F1= 47.97  Se= 46.09  PPV= 50.00  | kenh0= 66.13 oracle= 79.75
+[   4.3s] B2_04   PSD kenh 0  F1= 97.88  Se= 98.24  PPV= 97.52  | kenh0= 97.88 oracle= 97.88
+[   4.9s] B2_05   PSD kenh 3  F1= 90.77  Se= 90.91  PPV= 90.63  | kenh0= 98.56 oracle= 98.56
+[   5.6s] B2_06   PSD kenh 0  F1= 99.56  Se= 99.56  PPV= 99.56  | kenh0= 99.56 oracle= 99.56
+[   6.2s] B2_08   PSD kenh 3  F1= 86.13  Se= 86.20  PPV= 86.07  | kenh0= 99.30 oracle= 99.30
+[   6.8s] B2_09   PSD kenh 0  F1= 98.44  Se= 98.52  PPV= 98.37  | kenh0= 98.44 oracle= 98.44
+[   7.5s] B2_12   PSD kenh 3  F1= 90.23  Se= 89.95  PPV= 90.51  | kenh0= 93.77 oracle= 93.77
+[  10.2s] B1_01   PSD kenh 2  F1= 95.25  Se= 93.81  PPV= 96.73  | kenh0= 57.04 oracle= 95.25
+[  12.9s] B1_02   PSD kenh 2  F1= 98.73  Se= 98.61  PPV= 98.86  | kenh0= 86.26 oracle= 98.73
+[  15.0s] B1_03   PSD kenh 2  F1= 91.30  Se= 91.27  PPV= 91.34  | kenh0= 98.56 oracle= 98.56
+[  17.7s] B1_04   PSD kenh 2  F1= 99.98  Se=100.00  PPV= 99.96  | kenh0= 98.84 oracle= 99.98
+[  20.4s] B1_05   PSD kenh 2  F1= 93.83  Se= 93.83  PPV= 93.83  | kenh0= 86.97 oracle= 99.46
+[  23.0s] B1_06   PSD kenh 3  F1= 54.36  Se= 52.72  PPV= 56.12  | kenh0= 97.66 oracle= 98.77
+[  24.9s] B1_07   PSD kenh 3  F1= 63.36  Se= 58.19  PPV= 69.53  | kenh0= 72.70 oracle= 98.15
+[  27.5s] B1_08   PSD kenh 0  F1= 83.50  Se= 82.14  PPV= 84.91  | kenh0= 83.50 oracle= 96.16
+[  30.3s] B1_09   PSD kenh 2  F1= 88.27  Se= 86.78  PPV= 89.82  | kenh0= 38.58 oracle= 88.27
+[  33.0s] B1_10   PSD kenh 1  F1= 66.18  Se= 64.39  PPV= 68.07  | kenh0= 69.11 oracle= 98.89
+[  33.0s] TAP s22  n=22  F1 tb=86.71  sd=14.87
+[  33.0s] xong -> D:\NCKHSV2026-2027\baselines\powermf_1ch.json
+[   0.0s] ==============================================================================
+[   0.0s] Power-MF-1ch (Python) ms=340 faithful=1 sets=cinc
+[   1.1s] [ 1/75] a01   PSD kenh 1 F1= 37.28  kenh0= 81.82  TB4= 54.31  oracle= 81.82
+[   1.3s] [ 2/75] a02   PSD kenh 1 F1= 23.24  kenh0= 29.47  TB4= 24.50  oracle= 29.47
+[   1.4s] [ 3/75] a03   PSD kenh 0 F1= 98.44  kenh0= 98.44  TB4= 91.44  oracle= 98.83
+[   1.6s] [ 4/75] a04   PSD kenh 3 F1= 94.25  kenh0= 98.08  TB4= 91.26  oracle= 98.08
+[   1.8s] [ 5/75] a05   PSD kenh 3 F1= 88.37  kenh0= 96.12  TB4= 89.58  oracle= 98.45
+[   1.9s] [ 6/75] a06   PSD kenh 1 F1= 23.83  kenh0= 26.18  TB4= 27.56  oracle= 39.71
+[   2.1s] [ 7/75] a07   PSD kenh 1 F1= 26.77  kenh0= 66.67  TB4= 41.61  oracle= 66.67
+[   2.3s] [ 8/75] a08   PSD kenh 3 F1= 92.61  kenh0= 99.22  TB4= 88.76  oracle= 99.22
+[   2.5s] [ 9/75] a09   PSD kenh 1 F1= 17.83  kenh0= 30.30  TB4= 20.32  oracle= 30.30
+[   2.6s] [10/75] a10   PSD kenh 1 F1= 33.00  kenh0= 54.49  TB4= 39.56  oracle= 54.49
+[   2.8s] [11/75] a11   PSD kenh 1 F1= 21.86  kenh0= 39.84  TB4= 30.50  oracle= 39.84
+[   3.0s] [12/75] a12   PSD kenh 0 F1= 99.28  kenh0= 99.28  TB4= 94.90  oracle= 99.28
+[   3.1s] [13/75] a13   PSD kenh 2 F1= 55.34  kenh0= 76.08  TB4= 78.39  oracle= 94.49
+[   3.3s] [14/75] a14   PSD kenh 0 F1= 99.60  kenh0= 99.60  TB4= 90.81  oracle= 99.60
+[   3.5s] [15/75] a15   PSD kenh 3 F1= 97.40  kenh0= 97.40  TB4= 89.34  oracle= 97.40
+[   3.7s] [16/75] a16   PSD kenh 1 F1= 22.39  kenh0= 43.03  TB4= 25.74  oracle= 43.03
+[   3.8s] [17/75] a17   PSD kenh 3 F1= 87.02  kenh0= 96.60  TB4= 87.71  oracle= 96.60
+[   4.0s] [18/75] a18   PSD kenh 1 F1= 21.09  kenh0= 25.09  TB4= 19.90  oracle= 25.09
+[   4.2s] [19/75] a19   PSD kenh 1 F1= 96.06  kenh0= 77.95  TB4= 85.94  oracle= 98.43
+[   4.3s] [20/75] a20   PSD kenh 2 F1= 58.56  kenh0= 82.26  TB4= 81.28  oracle= 94.66
+[   4.5s] [21/75] a21   PSD kenh 1 F1= 34.81  kenh0= 75.71  TB4= 46.97  oracle= 75.71
+[   4.7s] [22/75] a22   PSD kenh 3 F1= 88.98  kenh0=100.00  TB4= 92.04  oracle=100.00
+[   4.9s] [23/75] a23   PSD kenh 3 F1= 99.60  kenh0= 61.96  TB4= 80.02  oracle= 99.60
+[   5.0s] [24/75] a24   PSD kenh 1 F1= 98.37  kenh0= 81.93  TB4= 86.33  oracle= 98.37
+[   5.2s] [25/75] a25   PSD kenh 1 F1=100.00  kenh0= 70.87  TB4= 88.93  oracle=100.00
+[   5.4s] [26/75] a26   PSD kenh 2 F1= 55.47  kenh0= 17.98  TB4= 55.37  oracle= 93.43
+[   5.5s] [27/75] a27   PSD kenh 3 F1= 22.48  kenh0= 20.93  TB4= 22.70  oracle= 24.03
+[   5.7s] [28/75] a28   PSD kenh 1 F1= 98.80  kenh0= 97.58  TB4= 97.03  oracle= 98.80
+[   5.9s] [29/75] a29   PSD kenh 1 F1= 82.03  kenh0= 24.41  TB4= 41.34  oracle= 82.03
+[   6.0s] [30/75] a30   PSD kenh 1 F1= 24.29  kenh0= 76.01  TB4= 52.17  oracle= 76.30
+[   6.2s] [31/75] a31   PSD kenh 1 F1= 99.27  kenh0= 34.33  TB4= 66.79  oracle= 99.27
+[   6.4s] [32/75] a32   PSD kenh 2 F1= 20.45  kenh0= 21.05  TB4= 20.75  oracle= 21.80
+[   6.5s] [33/75] a33   PSD kenh 1 F1= 94.04  kenh0= 88.97  TB4= 91.17  oracle= 94.04 *chu thich sai
+[   6.7s] [34/75] a34   PSD kenh 1 F1= 93.94  kenh0= 20.08  TB4= 65.57  oracle= 93.94
+[   6.8s] [35/75] a35   PSD kenh 1 F1= 97.25  kenh0= 97.25  TB4= 94.19  oracle= 97.56
+[   7.0s] [36/75] a36   PSD kenh 3 F1= 78.21  kenh0= 96.99  TB4= 93.35  oracle= 99.10
+[   7.2s] [37/75] a37   PSD kenh 0 F1= 35.57  kenh0= 35.57  TB4= 60.56  oracle= 98.59
+[   7.3s] [38/75] a38   PSD kenh 3 F1= 50.34  kenh0= 30.07  TB4= 36.94  oracle= 50.34 *chu thich sai
+[   7.5s] [39/75] a39   PSD kenh 3 F1= 75.47  kenh0= 71.21  TB4= 68.79  oracle= 99.26
+[   7.6s] [40/75] a40   PSD kenh 3 F1= 86.21  kenh0= 23.49  TB4= 55.85  oracle= 93.56
+[   7.8s] [41/75] a41   PSD kenh 2 F1= 97.06  kenh0= 57.25  TB4= 86.92  oracle=100.00
+[   7.9s] [42/75] a42   PSD kenh 3 F1= 72.79  kenh0= 29.79  TB4= 57.51  oracle= 98.68
+[   8.1s] [43/75] a43   PSD kenh 3 F1= 23.83  kenh0= 24.82  TB4= 24.19  oracle= 24.91
+[   8.3s] [44/75] a44   PSD kenh 1 F1=100.00  kenh0= 99.69  TB4= 97.88  oracle=100.00
+[   8.4s] [45/75] a45   PSD kenh 3 F1= 41.41  kenh0= 23.05  TB4= 43.36  oracle= 57.25
+[   8.6s] [46/75] a46   PSD kenh 2 F1= 43.18  kenh0= 94.70  TB4= 64.27  oracle= 94.70
+[   8.8s] [47/75] a47   PSD kenh 2 F1= 50.18  kenh0= 18.25  TB4= 51.97  oracle= 77.30 *chu thich sai
+[   8.9s] [48/75] a48   PSD kenh 2 F1= 53.14  kenh0= 22.73  TB4= 52.04  oracle= 81.34
+[   9.1s] [49/75] a49   PSD kenh 1 F1=100.00  kenh0= 95.92  TB4= 98.47  oracle=100.00
+[   9.3s] [50/75] a50   PSD kenh 3 F1= 25.17  kenh0= 25.18  TB4= 27.15  oracle= 29.58
+[   9.4s] [51/75] a51   PSD kenh 3 F1= 61.48  kenh0= 77.78  TB4= 73.91  oracle= 87.50
+[   9.6s] [52/75] a52   PSD kenh 2 F1= 81.34  kenh0= 74.07  TB4= 76.08  oracle= 83.02 *chu thich sai
+[   9.8s] [53/75] a53   PSD kenh 3 F1= 69.15  kenh0= 28.07  TB4= 51.58  oracle= 92.00
+[   9.9s] [54/75] a54   PSD kenh 3 F1=  9.27  kenh0=  7.32  TB4=  8.04  oracle=  9.27 *chu thich sai
+[  10.1s] [55/75] a55   PSD kenh 3 F1= 43.85  kenh0= 24.55  TB4= 49.40  oracle= 69.82
+[  10.2s] [56/75] a56   PSD kenh 1 F1= 89.55  kenh0= 28.35  TB4= 44.84  oracle= 89.55
+[  10.4s] [57/75] a57   PSD kenh 0 F1= 30.82  kenh0= 30.82  TB4= 28.09  oracle= 30.82
+[  10.6s] [58/75] a58   PSD kenh 2 F1=100.00  kenh0= 37.69  TB4= 81.14  oracle=100.00
+[  10.7s] [59/75] a59   PSD kenh 3 F1= 24.00  kenh0= 18.91  TB4= 19.85  oracle= 24.00
+[  10.9s] [60/75] a60   PSD kenh 3 F1= 23.00  kenh0= 26.43  TB4= 23.93  oracle= 28.00
+[  11.0s] [61/75] a61   PSD kenh 3 F1= 80.14  kenh0= 13.77  TB4= 53.18  oracle= 98.58
+[  11.2s] [62/75] a62   PSD kenh 2 F1= 97.56  kenh0= 17.65  TB4= 76.89  oracle= 97.56
+[  11.4s] [63/75] a63   PSD kenh 3 F1= 23.40  kenh0= 24.06  TB4= 23.44  oracle= 24.06
+[  11.5s] [64/75] a64   PSD kenh 3 F1= 23.32  kenh0= 27.37  TB4= 24.18  oracle= 27.37
+[  11.6s] [65/75] a65   PSD kenh 3 F1=100.00  kenh0= 21.82  TB4= 62.78  oracle=100.00
+[  11.8s] [66/75] a66   PSD kenh 2 F1= 83.85  kenh0= 22.73  TB4= 68.17  oracle= 90.42
+[  12.0s] [67/75] a67   PSD kenh 2 F1= 99.02  kenh0= 78.62  TB4= 90.16  oracle= 99.02
+[  12.1s] [68/75] a68   PSD kenh 3 F1= 21.74  kenh0= 21.51  TB4= 21.45  oracle= 21.74
+[  12.3s] [69/75] a69   PSD kenh 0 F1= 90.78  kenh0= 90.78  TB4= 92.31  oracle=100.00
+[  12.5s] [70/75] a70   PSD kenh 1 F1=100.00  kenh0=100.00  TB4= 99.11  oracle=100.00
+[  12.6s] [71/75] a71   PSD kenh 2 F1= 23.97  kenh0= 21.31  TB4= 22.93  oracle= 25.34 *chu thich sai
+[  12.8s] [72/75] a72   PSD kenh 1 F1= 98.80  kenh0= 98.49  TB4= 93.11  oracle= 98.80
+[  12.9s] [73/75] a73   PSD kenh 1 F1= 29.39  kenh0= 61.36  TB4= 50.38  oracle= 73.13
+[  13.1s] [74/75] a74   PSD kenh 2 F1= 42.75  kenh0= 89.21  TB4= 61.88  oracle= 89.21 *chu thich sai
+[  13.2s] [75/75] a75   PSD kenh 3 F1= 28.04  kenh0= 29.52  TB4= 28.75  oracle= 30.15
+[  13.3s] TAP cinc n=75  F1 tb(PSD)=62.82  sd=32.02  | 68 ban: 64.12  kenh0=55.04 oracle=75.12
+[  13.3s] xong -> D:\NCKHSV2026-2027\baselines\powermf_1ch.json

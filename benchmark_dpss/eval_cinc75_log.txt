@@ -1,0 +1,141 @@
+===== EVAL CinC 2013 set-a FULL | 2026-09-12 00:28:36 | Windows-11-10.0.22631-SP0 | torch 2.13.0+cpu | 3 luong =====
+thu muc D:\NCKHSV2026-2027\benchmark_dpss\pcdb: 75 ban ghi .dat, 75 co nhan .fqrs
+KHAI BAO TRUOC: bien the 68 ban ghi loai ['a33', 'a38', 'a47', 'a52', 'a54', 'a71', 'a74'] (chu thich sai, Behar/Oster/Clifford CinC 2013;40:297-300)
+SO CHINH = quy tac PSD mu nhan. Kenh 0 co dinh la quy tac chon HAU KIEM -> chi bao cao lam tham chieu.
+
+   m5   fetalqrs_tcn_production.pt         nguong 0.45  (train 5 san phu PhysioNet)
+   m22  fetalqrs_tcn_22_production.pt      nguong 0.75  (train 22 san phu doc lap)
+
+[ 1/75] a01   nhan  145 | m5  PSD A2  59.18 k0  94.29 TB4  59.74 orc  94.29 | m22 PSD A2  80.99 k0 100.00 TB4  79.44 orc 100.00 | 3.0s
+[ 2/75] a02   nhan  160 | m5  PSD A2  21.75 k0  23.08 TB4  22.76 orc  25.17 | m22 PSD A2  24.91 k0  75.88 TB4  36.29 orc  75.88 | 3.2s
+[ 3/75] a03   nhan  128 | m5  PSD A1 100.00 k0 100.00 TB4 100.00 orc 100.00 | m22 PSD A1 100.00 k0 100.00 TB4  99.61 orc 100.00 | 3.3s
+[ 4/75] a04   nhan  129 | m5  PSD A4 100.00 k0  99.61 TB4  99.90 orc 100.00 | m22 PSD A4  99.61 k0 100.00 TB4  99.90 orc 100.00 | 2.8s
+[ 5/75] a05   nhan  129 | m5  PSD A4 100.00 k0 100.00 TB4 100.00 orc 100.00 | m22 PSD A4 100.00 k0 100.00 TB4 100.00 orc 100.00 | 2.9s
+[ 6/75] a06   nhan  160 | m5  PSD A1  42.75 k0  42.75 TB4  29.85 orc  42.75 | m22 PSD A1  75.48 k0  75.48 TB4  57.19 orc  88.46 | 3.6s
+[ 7/75] a07   nhan  130 | m5  PSD A2  29.82 k0  84.82 TB4  41.76 orc  84.82 | m22 PSD A2  45.63 k0  86.92 TB4  54.68 orc  86.92 | 4.1s
+[ 8/75] a08   nhan  128 | m5  PSD A4 100.00 k0 100.00 TB4 100.00 orc 100.00 | m22 PSD A4 100.00 k0 100.00 TB4 100.00 orc 100.00 | 3.9s
+[ 9/75] a09   nhan  130 | m5  PSD A2  16.96 k0  79.84 TB4  32.70 orc  79.84 | m22 PSD A2  19.35 k0  94.25 TB4  46.54 orc  94.25 | 4.8s
+[10/75] a10   nhan  175 | m5  PSD A2  21.05 k0  48.98 TB4  32.92 orc  48.98 | m22 PSD A2  47.13 k0  70.89 TB4  52.76 orc  70.89 | 3.8s
+[11/75] a11   nhan  140 | m5  PSD A2  20.43 k0  67.69 TB4  32.60 orc  67.69 | m22 PSD A2  26.82 k0  86.52 TB4  44.37 orc  86.52 | 3.2s
+[12/75] a12   nhan  138 | m5  PSD A1  99.28 k0  99.28 TB4  99.46 orc 100.00 | m22 PSD A1 100.00 k0 100.00 TB4  99.82 orc 100.00 | 4.6s
+[13/75] a13   nhan  126 | m5  PSD A2 100.00 k0 100.00 TB4 100.00 orc 100.00 | m22 PSD A2 100.00 k0  97.23 TB4  99.31 orc 100.00 | 3.6s
+[14/75] a14   nhan  123 | m5  PSD A1  99.60 k0  99.60 TB4  99.70 orc 100.00 | m22 PSD A1  99.60 k0  99.60 TB4  98.79 orc  99.60 | 3.6s
+[15/75] a15   nhan  134 | m5  PSD A4 100.00 k0 100.00 TB4 100.00 orc 100.00 | m22 PSD A4 100.00 k0  99.63 TB4  99.54 orc 100.00 | 4.3s
+[16/75] a16   nhan  130 | m5  PSD A2  21.74 k0  79.52 TB4  36.46 orc  79.52 | m22 PSD A2  22.31 k0  78.79 TB4  37.51 orc  78.79 | 3.2s
+[17/75] a17   nhan  132 | m5  PSD A4 100.00 k0 100.00 TB4 100.00 orc 100.00 | m22 PSD A4 100.00 k0 100.00 TB4 100.00 orc 100.00 | 3.2s
+[18/75] a18   nhan  150 | m5  PSD A2  19.77 k0  23.57 TB4  18.84 orc  23.57 | m22 PSD A2  19.05 k0  54.98 TB4  26.13 orc  54.98 | 3.2s
+[19/75] a19   nhan  127 | m5  PSD A2 100.00 k0 100.00 TB4 100.00 orc 100.00 | m22 PSD A2 100.00 k0 100.00 TB4 100.00 orc 100.00 | 3.0s
+[20/75] a20   nhan  131 | m5  PSD A3 100.00 k0  99.62 TB4  99.81 orc 100.00 | m22 PSD A3  98.86 k0  99.62 TB4  99.43 orc  99.62 | 2.9s
+[21/75] a21   nhan  145 | m5  PSD A2  30.77 k0  90.00 TB4  49.80 orc  90.00 | m22 PSD A2  59.21 k0  94.81 TB4  68.67 orc  94.81 | 3.4s
+[22/75] a22   nhan  126 | m5  PSD A4 100.00 k0 100.00 TB4 100.00 orc 100.00 | m22 PSD A4 100.00 k0 100.00 TB4 100.00 orc 100.00 | 4.1s
+[23/75] a23   nhan  126 | m5  PSD A4 100.00 k0 100.00 TB4 100.00 orc 100.00 | m22 PSD A4 100.00 k0  96.83 TB4  99.21 orc 100.00 | 4.5s
+[24/75] a24   nhan  123 | m5  PSD A2 100.00 k0 100.00 TB4 100.00 orc 100.00 | m22 PSD A2 100.00 k0 100.00 TB4 100.00 orc 100.00 | 4.2s
+[25/75] a25   nhan  125 | m5  PSD A2 100.00 k0 100.00 TB4 100.00 orc 100.00 | m22 PSD A2 100.00 k0 100.00 TB4 100.00 orc 100.00 | 3.9s
+[26/75] a26   nhan  138 | m5  PSD A3  96.35 k0  31.33 TB4  81.38 orc 100.00 | m22 PSD A3  99.28 k0  37.82 TB4  84.09 orc 100.00 | 1.7s
+[27/75] a27   nhan  135 | m5  PSD A4  18.58 k0  17.62 TB4  17.64 orc  18.58 | m22 PSD A4  30.23 k0  23.26 TB4  26.92 orc  32.94 | 2.8s
+[28/75] a28   nhan  167 | m5  PSD A2  52.90 k0  48.38 TB4  57.31 orc  69.20 | m22 PSD A2  99.40 k0  99.40 TB4  99.40 orc  99.40 | 2.8s
+[29/75] a29   nhan  127 | m5  PSD A2  91.89 k0  31.05 TB4  60.84 orc  91.89 | m22 PSD A2  94.98 k0  32.58 TB4  64.82 orc  94.98 | 3.0s
+[30/75] a30   nhan  140 | m5  PSD A1  99.64 k0  99.64 TB4  83.67 orc  99.64 | m22 PSD A1  99.64 k0  99.64 TB4  94.59 orc  99.64 | 3.2s
+[31/75] a31   nhan  137 | m5  PSD A2  97.44 k0  23.02 TB4  58.92 orc  97.44 | m22 PSD A2  99.27 k0  32.74 TB4  79.96 orc  99.27 | 3.3s
+[32/75] a32   nhan  152 | m5  PSD A4  17.07 k0  17.21 TB4  17.13 orc  17.21 | m22 PSD A4  32.37 k0  52.11 TB4  40.05 orc  52.11 | 3.0s
+[33/75] a33 * nhan  140 | m5  PSD A2  94.37 k0  93.99 TB4  94.72 orc  95.77 | m22 PSD A2  94.74 k0  94.74 TB4  94.74 orc  94.74 | 3.2s
+[34/75] a34   nhan  131 | m5  PSD A2  94.34 k0  21.49 TB4  51.58 orc  94.34 | m22 PSD A2  98.11 k0  19.78 TB4  74.25 orc  98.11 | 4.0s
+[35/75] a35   nhan  163 | m5  PSD A2  74.15 k0  65.98 TB4  75.50 orc  84.31 | m22 PSD A2  98.17 k0  98.17 TB4  98.17 orc  98.17 | 3.7s
+[36/75] a36   nhan  168 | m5  PSD A2  60.21 k0  58.54 TB4  64.37 orc  74.83 | m22 PSD A2 100.00 k0 100.00 TB4 100.00 orc 100.00 | 4.0s
+[37/75] a37   nhan  142 | m5  PSD A4  98.23 k0  75.94 TB4  73.27 orc  98.23 | m22 PSD A4 100.00 k0 100.00 TB4  83.77 orc 100.00 | 3.8s
+[38/75] a38 * nhan  157 | m5  PSD A4  51.13 k0  30.64 TB4  39.12 orc  51.13 | m22 PSD A4  65.12 k0  41.78 TB4  52.84 orc  65.12 | 5.5s
+[39/75] a39   nhan  135 | m5  PSD A4  98.51 k0  76.15 TB4  71.38 orc  98.51 | m22 PSD A4 100.00 k0  99.63 TB4  81.31 orc 100.00 | 5.3s
+[40/75] a40   nhan  148 | m5  PSD A4  96.60 k0  28.68 TB4  61.28 orc  96.60 | m22 PSD A4  98.65 k0  27.80 TB4  61.96 orc  98.65 | 4.9s
+[41/75] a41   nhan  136 | m5  PSD A3  98.89 k0  97.06 TB4  98.62 orc 100.00 | m22 PSD A3 100.00 k0  94.46 TB4  98.62 orc 100.00 | 4.0s
+[42/75] a42   nhan  151 | m5  PSD A4  99.34 k0  23.19 TB4  60.98 orc  99.34 | m22 PSD A4 100.00 k0  21.92 TB4  62.82 orc 100.00 | 4.9s
+[43/75] a43   nhan  158 | m5  PSD A4  17.76 k0  16.99 TB4  17.57 orc  17.76 | m22 PSD A4  24.09 k0  44.44 TB4  33.02 orc  44.44 | 4.8s
+[44/75] a44   nhan  163 | m5  PSD A2  82.12 k0  69.39 TB4  80.52 orc  86.73 | m22 PSD A2 100.00 k0 100.00 TB4 100.00 orc 100.00 | 3.8s
+[45/75] a45   nhan  140 | m5  PSD A3  97.87 k0  21.34 TB4  76.96 orc  97.87 | m22 PSD A3  98.23 k0  23.24 TB4  79.66 orc  98.58 | 3.0s
+[46/75] a46   nhan  131 | m5  PSD A3  52.67 k0  94.30 TB4  69.45 orc  94.30 | m22 PSD A3  57.68 k0  97.73 TB4  76.07 orc  99.62 | 3.0s
+[47/75] a47 * nhan  144 | m5  PSD A3  93.62 k0  37.60 TB4  80.59 orc  98.60 | m22 PSD A3  98.60 k0  54.55 TB4  87.59 orc  98.60 | 3.2s
+[48/75] a48   nhan  133 | m5  PSD A3  95.91 k0  20.41 TB4  76.45 orc  97.40 | m22 PSD A3  95.17 k0  34.07 TB4  81.00 orc  98.14 | 3.5s
+[49/75] a49   nhan  148 | m5  PSD A2 100.00 k0 100.00 TB4  99.83 orc 100.00 | m22 PSD A2 100.00 k0 100.00 TB4 100.00 orc 100.00 | 4.3s
+[50/75] a50   nhan  142 | m5  PSD A4  25.33 k0  20.26 TB4  22.89 orc  25.33 | m22 PSD A4  51.06 k0  50.72 TB4  49.95 orc  52.71 | 4.0s
+[51/75] a51   nhan  137 | m5  PSD A4  98.55 k0  81.99 TB4  94.23 orc  98.91 | m22 PSD A4  99.28 k0  94.55 TB4  98.09 orc  99.28 | 4.8s
+[52/75] a52 * nhan  131 | m5  PSD A3  83.58 k0  84.53 TB4  83.23 orc  84.53 | m22 PSD A3  85.82 k0  85.50 TB4  85.85 orc  86.67 | 4.0s
+[53/75] a53   nhan  153 | m5  PSD A4  99.35 k0  28.24 TB4  57.77 orc  99.35 | m22 PSD A4 100.00 k0  33.78 TB4  65.07 orc 100.00 | 3.7s
+[54/75] a54 * nhan   37 | m5  PSD A4  39.02 k0   9.21 TB4  31.51 orc  39.02 | m22 PSD A4  38.79 k0  12.15 TB4  32.07 orc  38.79 | 3.2s
+[55/75] a55   nhan  143 | m5  PSD A3  96.14 k0  16.28 TB4  76.15 orc  98.95 | m22 PSD A3 100.00 k0  16.31 TB4  79.08 orc 100.00 | 3.1s
+[56/75] a56   nhan  133 | m5  PSD A2  91.39 k0  33.91 TB4  59.11 orc  91.39 | m22 PSD A2  93.68 k0  34.72 TB4  63.70 orc  93.68 | 3.0s
+[57/75] a57   nhan  148 | m5  PSD A2  17.87 k0  19.25 TB4  18.41 orc  19.25 | m22 PSD A2  20.92 k0  38.28 TB4  23.52 orc  38.28 | 2.9s
+[58/75] a58   nhan  137 | m5  PSD A3  97.81 k0  98.54 TB4  97.81 orc  98.54 | m22 PSD A3 100.00 k0  88.64 TB4  96.89 orc 100.00 | 3.2s
+[59/75] a59   nhan  153 | m5  PSD A4  20.63 k0  22.22 TB4  20.85 orc  22.22 | m22 PSD A4  23.97 k0  28.47 TB4  25.83 orc  28.47 | 3.0s
+[60/75] a60   nhan  148 | m5  PSD A4  18.26 k0  11.43 TB4  14.51 orc  18.26 | m22 PSD A4  47.06 k0  25.17 TB4  32.30 orc  47.06 | 2.6s
+[61/75] a61   nhan  140 | m5  PSD A4  99.64 k0  17.90 TB4  59.60 orc  99.64 | m22 PSD A4  99.64 k0  15.60 TB4  59.86 orc 100.00 | 3.0s
+[62/75] a62   nhan  144 | m5  PSD A3  99.31 k0  22.39 TB4  79.56 orc  99.31 | m22 PSD A3  99.31 k0  25.09 TB4  80.75 orc  99.31 | 3.7s
+[63/75] a63   nhan  138 | m5  PSD A4  19.30 k0  19.30 TB4  19.32 orc  19.38 | m22 PSD A4  60.22 k0  37.74 TB4  50.61 orc  61.19 | 1.9s
+[64/75] a64   nhan  136 | m5  PSD A4  21.72 k0  19.09 TB4  20.84 orc  21.72 | m22 PSD A4  57.04 k0  39.27 TB4  46.84 orc  57.04 | 1.7s
+[65/75] a65   nhan  144 | m5  PSD A4  98.60 k0  13.71 TB4  58.17 orc  98.60 | m22 PSD A4 100.00 k0  23.32 TB4  62.02 orc 100.00 | 3.0s
+[66/75] a66   nhan  130 | m5  PSD A3 100.00 k0  22.76 TB4  80.69 orc 100.00 | m22 PSD A3 100.00 k0  24.18 TB4  80.85 orc 100.00 | 2.9s
+[67/75] a67   nhan  154 | m5  PSD A3  90.97 k0  54.41 TB4  74.09 orc  90.97 | m22 PSD A3 100.00 k0  99.67 TB4  99.67 orc 100.00 | 2.9s
+[68/75] a68   nhan  139 | m5  PSD A4  23.26 k0  17.84 TB4  19.21 orc  23.26 | m22 PSD A4  39.26 k0  34.46 TB4  31.34 orc  39.26 | 2.9s
+[69/75] a69   nhan  149 | m5  PSD A1  80.28 k0  80.28 TB4  88.62 orc  95.95 | m22 PSD A1 100.00 k0 100.00 TB4 100.00 orc 100.00 | 2.9s
+[70/75] a70   nhan  141 | m5  PSD A2  99.29 k0  99.29 TB4  99.47 orc 100.00 | m22 PSD A2 100.00 k0 100.00 TB4 100.00 orc 100.00 | 2.1s
+[71/75] a71 * nhan  153 | m5  PSD A3  20.38 k0  22.22 TB4  20.69 orc  22.22 | m22 PSD A3  22.45 k0  21.69 TB4  22.45 orc  23.05 | 2.3s
+[72/75] a72   nhan  167 | m5  PSD A2  65.05 k0  58.22 TB4  67.92 orc  80.40 | m22 PSD A2 100.00 k0 100.00 TB4 100.00 orc 100.00 | 1.7s
+[73/75] a73   nhan  139 | m5  PSD A1  98.57 k0  98.57 TB4  82.97 orc  98.57 | m22 PSD A1  99.29 k0  99.29 TB4  94.97 orc  99.29 | 1.7s
+[74/75] a74 * nhan  140 | m5  PSD A3  57.81 k0  84.06 TB4  70.28 orc  87.50 | m22 PSD A3  61.92 k0  95.37 TB4  76.59 orc  95.37 | 1.8s
+[75/75] a75   nhan  134 | m5  PSD A4  16.22 k0  15.38 TB4  15.58 orc  16.22 | m22 PSD A4  52.51 k0  34.24 TB4  43.76 orc  52.51 | 1.8s
+
+
+===== BIEN THE 75 BAN GHI (n = 75) =====
+quy tac                         m5     sd     m22     sd    hieu      KTC95 bootstrap              KTC95 t    p Wil   p sign   Cliff
+PSD mu nhan (SO CHINH)       71.21  33.96   79.40  29.18   +8.18 [  +5.62; +11.09] [  +5.33; +11.04] 3.16e-10 3.50e-11  +0.232
+kenh 0 co dinh               58.72  34.84   69.33  32.77  +10.61 [  +7.46; +13.98] [  +7.30; +13.92] 1.09e-08 1.67e-07  +0.224
+TB 4 kenh                    64.78  29.89   74.09  25.87   +9.31 [  +7.03; +11.75] [  +6.86; +11.75] 4.21e-11 1.02e-10  +0.176
+oracle (chan tren)           78.21  30.73   86.87  22.01   +8.66 [  +5.91; +11.66] [  +5.66; +11.65] 1.00e-09 3.89e-10  +0.222
+
+phan bo ban ghi              >=90  50-90    <50   =100     =0
+PSD mu nhan (SO CHIN / m5      42     11     22     15      0
+PSD mu nhan (SO CHIN / m22     48     11     16     28      0
+kenh 0 co dinh / m5            24     16     35     12      0
+kenh 0 co dinh / m22           36     12     27     18      0
+TB 4 kenh / m5                 21     31     23     11      0
+TB 4 kenh / m22                30     28     17     13      0
+oracle (chan tren) / m5        45     13     17     20      0
+oracle (chan tren) / m22       53     14      8     32      0
+
+micro (gop TP/FP/FN toan bo ban ghi):
+   m5_psd       TP   7193 FP   2029 FN   3291  Se  68.61 PPV  78.00 F1  73.00
+   m22_psd      TP   8289 FP   1969 FN   2195  Se  79.06 PPV  80.81 F1  79.92
+   m5_lead0     TP   5813 FP   3018 FN   4671  Se  55.45 PPV  65.82 F1  60.19
+   m22_lead0    TP   7255 FP   3113 FN   3229  Se  69.20 PPV  69.97 F1  69.59
+
+quy tac PSD co trung kenh oracle khong:
+   m5   PSD == oracle  23/75 ( 30.7%)  |  oracle la kenh 0:  30/75 ( 40.0%)
+   m22  PSD == oracle  22/75 ( 29.3%)  |  oracle la kenh 0:  38/75 ( 50.7%)
+
+
+===== BIEN THE 68 BAN GHI (n = 68) =====
+quy tac                         m5     sd     m22     sd    hieu      KTC95 bootstrap              KTC95 t    p Wil   p sign   Cliff
+PSD mu nhan (SO CHINH)       72.08  34.53   80.70  29.12   +8.62 [  +5.71; +11.79] [  +5.50; +11.74] 3.73e-09 2.42e-10  +0.248
+kenh 0 co dinh               59.44  35.03   70.50  32.62  +11.06 [  +7.61; +14.67] [  +7.45; +14.67] 9.15e-08 1.25e-06  +0.233
+TB 4 kenh                    65.28  30.14   75.07  25.58   +9.79 [  +7.27; +12.48] [  +7.14; +12.45] 5.44e-10 5.21e-09  +0.178
+oracle (chan tren)           79.22  30.79   88.42  20.65   +9.20 [  +6.17; +12.45] [  +5.94; +12.46] 4.44e-09 1.31e-10  +0.237
+
+phan bo ban ghi              >=90  50-90    <50   =100     =0
+PSD mu nhan (SO CHIN / m5      40      8     20     15      0
+PSD mu nhan (SO CHIN / m22     46      8     14     28      0
+kenh 0 co dinh / m5            23     14     31     12      0
+kenh 0 co dinh / m22           34     10     24     18      0
+TB 4 kenh / m5                 20     28     20     11      0
+TB 4 kenh / m22                29     24     15     13      0
+oracle (chan tren) / m5        43     10     15     20      0
+oracle (chan tren) / m22       50     12      6     32      0
+
+micro (gop TP/FP/FN toan bo ban ghi):
+   m5_psd       TP   6614 FP   1725 FN   2968  Se  69.03 PPV  79.31 F1  73.81
+   m22_psd      TP   7648 FP   1632 FN   1934  Se  79.82 PPV  82.41 F1  81.09
+   m5_lead0     TP   5332 FP   2670 FN   4250  Se  55.65 PPV  66.63 F1  60.65
+   m22_lead0    TP   6689 FP   2692 FN   2893  Se  69.81 PPV  71.30 F1  70.55
+
+quy tac PSD co trung kenh oracle khong:
+   m5   PSD == oracle  22/68 ( 32.4%)  |  oracle la kenh 0:  28/68 ( 41.2%)
+   m22  PSD == oracle  21/68 ( 30.9%)  |  oracle la kenh 0:  36/68 ( 52.9%)
+
+DONE 4.2 phut -> D:\NCKHSV2026-2027\benchmark_dpss\eval_cinc75.json, D:\NCKHSV2026-2027\benchmark_dpss\eval_cinc75_log.txt, D:\NCKHSV2026-2027\benchmark_dpss\eval_cinc75_hist.png

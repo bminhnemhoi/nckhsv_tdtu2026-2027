@@ -1,4 +1,5 @@
 {
+ "TRANG_THAI_2026_09_12": "DA LOI THOI -- tep nay ghi nhan tinh trang ngay 10/09/2026 khi chua chay duoc Power-MF. Truong 'kha_thi_chay_tai_cho: false' va toan bo muc 'ly_do' nay DA SAI: Power-MF DA duoc chay lai that su bang GNU Octave 11.3.0 portable (tools/octave) cong xCinC Varanini 2014, va sau ban va P7 (baselines/octave/findpeaks_mpd.m) cho ket qua kiem chung duoc voi so cua chinh tac gia (ta 99,40 so voi 99,46 cong bo tren Silesia B1). Ket qua hien hanh: baselines/powermf_fair.json, powermf_fair_stats.json, powermf_1ch.json, BASELINES.md. Giu tep nay lam ho so lich su.",
  "ngay": "2026-09-10T14:42:25",
  "repo": "https://github.com/mad-lab-fau/fecg-benchmarking",
  "runtime": {
@@ -399,5 +400,6 @@
     }
    ]
   }
- }
+ },
+ "kha_thi_chay_tai_cho_DA_SUA": true
 }

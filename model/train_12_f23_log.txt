@@ -1,0 +1,51 @@
+
+===== TRAIN 12 (ABLATION BO B1) | 2026-09-12 07:22:54 | seed 0 | augment True | epochs 4 | threads 1 | torch 2.13.0+cpu | Windows-11-10.0.22631-SP0 =====
+chu the (12): ['r01', 'r04', 'r07', 'r08', 'r10', 'B2_03', 'B2_04', 'B2_05', 'B2_06', 'B2_08', 'B2_09', 'B2_12']
+CO Y LOAI (bien ablation): B1 ['B1_01', 'B1_02', 'B1_03', 'B1_04', 'B1_05', 'B1_06', 'B1_07', 'B1_08', 'B1_09', 'B1_10']  -- nhan gian tiep, khong co dien cuc da dau
+CUNG LOAI (trung PhysioNet): ['B2_01', 'B2_02', 'B2_07', 'B2_10', 'B2_11']
+   fold  1: test ['r04', 'B2_08']  val B2_06  train n=9 ['r01', 'r07', 'r08', 'r10', 'B2_03', 'B2_04', 'B2_05', 'B2_09', 'B2_12']
+   fold  2: test ['B2_06', 'B2_03']  val B2_08  train n=9 ['r01', 'r04', 'r07', 'r08', 'r10', 'B2_04', 'B2_05', 'B2_09', 'B2_12']
+   fold  3: test ['B2_09', 'r07']  val B2_06  train n=9 ['r01', 'r04', 'r08', 'r10', 'B2_03', 'B2_04', 'B2_05', 'B2_08', 'B2_12']
+   fold  4: test ['r08', 'B2_05']  val B2_03  train n=9 ['r01', 'r04', 'r07', 'r10', 'B2_04', 'B2_06', 'B2_08', 'B2_09', 'B2_12']
+   fold  5: test ['r10', 'r01']  val B2_09  train n=9 ['r04', 'r07', 'r08', 'B2_03', 'B2_04', 'B2_05', 'B2_06', 'B2_08', 'B2_12']
+   fold  6: test ['B2_12', 'B2_04']  val r07  train n=9 ['r01', 'r04', 'r08', 'r10', 'B2_03', 'B2_05', 'B2_06', 'B2_08', 'B2_09']
+nap 12 chu the ...
+   r01    PhysioNet   5.0 phut    644 nhan  (1s)
+   r04    PhysioNet   5.0 phut    632 nhan  (1s)
+   r07    PhysioNet   5.0 phut    627 nhan  (2s)
+   r08    PhysioNet   5.0 phut    651 nhan  (2s)
+   r10    PhysioNet   5.0 phut    637 nhan  (2s)
+   B2_03  B2          5.0 phut    716 nhan  (2s)
+   B2_04  B2          5.0 phut    681 nhan  (3s)
+   B2_05  B2          5.0 phut    660 nhan  (3s)
+   B2_06  B2          5.0 phut    684 nhan  (3s)
+   B2_08  B2          5.0 phut    645 nhan  (3s)
+   B2_09  B2          5.0 phut    674 nhan  (3s)
+   B2_12  B2          5.0 phut    657 nhan  (4s)
+model: 113,481 tham so, truong tiep nhan 379 mau = 1516 ms; tang cuong: {'p': 0.5, 'amp': (0.7, 1.4), 'snr_db': (10.0, 30.0), 'bw_hz': (0.1, 0.5), 'bw_amp': (0.1, 0.3), 'shift_ms': 100.0, 'fs': 250, 'ops': ['amplitude', 'white_noise_snr', 'baseline_wander_sin', 'time_shift_via_sampler'], 'note': 'moi phep p=0,5 doc lap; ap nhat quan tren ca hai hang (du + goc); dich thoi gian dich ca nhan'}
+so buoc/epoch: fold [333], production 444
+
+-- fold 02  test=['B2_06', 'B2_03']  val=B2_08  train=['r01', 'r04', 'r07', 'r08', 'r10', 'B2_04', 'B2_05', 'B2_09', 'B2_12'] --
+      epoch 1/4 loss 0.3495  (344s, 10656 doan, pos_w 14.6)
+      epoch 2/4 loss 0.2508  (694s, 10656 doan, pos_w 14.6)
+      epoch 3/4 loss 0.2359  (1043s, 10656 doan, pos_w 14.6)
+      epoch 4/4 loss 0.2262  (1389s, 10656 doan, pos_w 14.6)
+   val B2_08 F1 100.00 @thr 0.20 -> TEST B2_06 (B2): PSD A1 F1 99.78 | TB4 99.47 | kenh 99.78 100.00 98.25 99.85 | lech PSD +1.0 ms, TB4 +0.2 ms
+   val B2_08 F1 100.00 @thr 0.20 -> TEST B2_03 (B2): PSD A1 F1 79.11 | TB4 69.16 | kenh 79.11 69.72 47.33 80.50 | lech PSD +0.0 ms, TB4 -1.0 ms
+   fold 02 xong 23.4 phut; tong 23.5 phut
+
+-- fold 03  test=['B2_09', 'r07']  val=B2_06  train=['r01', 'r04', 'r08', 'r10', 'B2_03', 'B2_04', 'B2_05', 'B2_08', 'B2_12'] --
+      epoch 1/4 loss 0.3990  (324s, 10656 doan, pos_w 14.4)
+      epoch 2/4 loss 0.3037  (636s, 10656 doan, pos_w 14.4)
+      epoch 3/4 loss 0.2829  (952s, 10656 doan, pos_w 14.4)
+      epoch 4/4 loss 0.2653  (1272s, 10656 doan, pos_w 14.4)
+   val B2_06 F1 99.18 @thr 0.80 -> TEST B2_09 (B2): PSD A1 F1 99.63 | TB4 96.85 | kenh 99.63 99.70 89.40 98.66 | lech PSD +1.0 ms, TB4 +0.2 ms
+   val B2_06 F1 99.18 @thr 0.80 -> TEST r07 (PhysioNet): PSD A2 F1 100.00 | TB4 99.56 | kenh 98.24 100.00 100.00 100.00 | lech PSD +1.0 ms, TB4 +2.0 ms
+   fold 03 xong 21.4 phut; tong 44.9 phut
+
+===== TONG HOP 12 chu the (giu lai theo fold) =====
+   PhysioNet n= 1  F1 PSD 100.00 +/-  0.00  TB4  99.56 +/-  0.00  >=90: 1  <50: 0
+   B2        n= 3  F1 PSD  92.84 +/- 11.89  TB4  88.49 +/- 16.79  >=90: 2  <50: 0
+   ALL12     n= 4  F1 PSD  94.63 +/- 10.35  TB4  91.26 +/- 14.79  >=90: 3  <50: 0
+
+DONE 44.9 phut -> train_12_f23.json

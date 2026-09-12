@@ -28,29 +28,42 @@ chỉ thay mạng bằng phép lấy đỉnh đơn giản. Hiệu số giữa n�
 mạng nơ-ron}, tách khỏi phần đóng góp của tiền xử lý.
 
 \begin{table}[H]\centering\small
-\caption{Kết quả trên ADFECGDB, dung sai $\pm$50\,ms. Wilcoxon ghép cặp trên 20 (bản ghi $\times$ kênh).
-``Thua'' là số cặp trong đó baseline thấp hơn mô hình.}
+\caption{Kết quả trên ADFECGDB, dung sai $\pm$50\,ms. Hiệu số và khoảng tin cậy tính ở \textbf{mức chủ
+thể} ($n = 5$ sản phụ, trung bình 4 kênh trước). Các trị số $p$ của bản 3.2 tính trên 20 cặp (bản ghi
+$\times$ kênh) là \textbf{giả lập} và đã bị gỡ --- xem \S\ref{sec:thongke}.}
 \label{tab:baseline_kq}
-\begin{tabular}{@{}L{2.7cm} C{2.5cm} C{1.8cm} C{2.1cm} C{1.9cm} C{2.0cm}@{}}
+\begin{tabular}{@{}L{2.4cm} C{2.2cm} C{1.4cm} C{1.6cm} C{1.4cm} C{2.4cm} C{2.4cm}@{}}
 \toprule
-\textbf{Phương pháp} & \textbf{4 kênh (20)} & \textbf{16 giữ lại} & \textbf{Kênh PSD (5)} &
-\textbf{Hiệu số} & \textbf{$p$ / thua} \\
+\textbf{Phương pháp} & \textbf{4 kênh (20)} & \textbf{16 giữ lại} & \textbf{Kênh PSD} &
+\textbf{Hiệu số} & \textbf{KTC 95\% bootstrap} & \textbf{KTC 95\% $t$} \\
 \midrule
-TS + PT & $78{,}96 \pm 23{,}52$ & 75,55 & 87,68 & $-18{,}49$ & $5{,}7\times10^{-6}$ / 19/20 \\
-TS-PCA + PT & $91{,}05 \pm 10{,}17$ & 90,94 & 96,74 & $-6{,}40$ & $1{,}9\times10^{-6}$ / 20/20 \\
-Prominence & $86{,}39 \pm 11{,}14$ & 84,99 & 92,03 & $-11{,}06$ & $1{,}9\times10^{-6}$ / 20/20 \\
+TS + PT & $78{,}96 \pm 23{,}52$ & 75,55 & 87,68 & $-18{,}49$ & $[-30{,}60; -6{,}38]$ &
+\xau{$[-38{,}80; +1{,}81]$} \\
+TS-PCA + PT & $91{,}05 \pm 10{,}17$ & 90,94 & 96,74 & $-6{,}40$ & $[-8{,}09; -4{,}70]$ &
+\tot{$[-9{,}10; -3{,}69]$} \\
+Prominence & $86{,}39 \pm 11{,}14$ & 84,99 & 92,03 & $-11{,}06$ & $[-14{,}51; -7{,}80]$ &
+\tot{$[-16{,}38; -5{,}73]$} \\
 \midrule
-\textbf{\mh{}} & $\mathbf{97{,}45 \pm 4{,}44}$ & \textbf{96,81} & \textbf{99,21} & --- & --- \\
+\textbf{\mh{}} & $\mathbf{97{,}45 \pm 4{,}44}$ & \textbf{96,81} & \textbf{99,21} & --- & --- & --- \\
 \bottomrule
 \end{tabular}
 \end{table}
 
+\begin{canhbao}[title={Ba baseline này KHÔNG cùng độ chắc --- bản 3.2 trình bày chúng như nhau}]
+Với \textbf{TS-PCA} và \textbf{Prominence}, KTC 95\% của hiệu số loại trừ 0 ở \textbf{cả} bootstrap lẫn
+thang $t$ --- hướng kết quả vững, chỉ là không được tuyên bố ý nghĩa thống kê từ 5 phụ nữ.
+
+Với \textbf{TS} thì khác: KTC 95\% kiểu $t$ là $[-38{,}80;\ +1{,}81]$ --- \textbf{chứa 0}. Hiệu số
+18,49 điểm hoàn toàn do biến thiên giữa 5 bản ghi, không phải một lợi thế ổn định. Đây là baseline yếu
+nhất về mặt bằng chứng, dù trông là baseline nhóm thắng đậm nhất.
+\end{canhbao}
+
 Ba điều rút ra, xếp theo mức quan trọng:
 
 \begin{enumerate}[leftmargin=1.6em,itemsep=4pt]
-\item \textbf{Mạng nơ-ron đáng $+11{,}06$ điểm} so với lấy đỉnh trên cùng tín hiệu dư, thua ở 20/20 cặp,
-$p = 1{,}9\times10^{-6}$. Đây là con số trả lời câu hỏi ``mạng có thật sự cần không'' --- và câu trả lời
-là có, nhưng chỉ khi front-end đã đúng.
+\item \textbf{Mạng nơ-ron đáng $+11{,}06$ điểm} so với lấy đỉnh trên cùng tín hiệu dư, KTC 95\% kiểu $t$
+$[+5{,}73;\ +16{,}38]$ loại trừ 0. Đây là con số trả lời câu hỏi ``mạng có thật sự cần không'' --- và câu
+trả lời là có, nhưng chỉ khi front-end đã đúng.
 \item \textbf{TS-PCA là baseline cổ điển mạnh.} Trên kênh chọn mù nhãn nó đạt 96,74, chỉ kém mô hình
 2,47 điểm. Điều này nhất quán với Power-MF (98,0 bằng phương pháp cổ điển) và củng cố luận điểm chính:
 phần lớn hiệu năng nằm ở front-end, không ở mạng.
@@ -58,10 +71,18 @@ phần lớn hiệu năng nằm ở front-end, không ở mạng.
 cao hơn trung bình mà còn \textit{ổn định hơn} giữa các sản phụ và kênh.
 \end{enumerate}
 
-\begin{canhbao}[title={Power-MF không chạy lại được tại chỗ}]
-Mã Power-MF là MATLAB R2021a, gọi tám hàm tiền xử lý và ICA đa kênh từ Varanini 2014 không nằm trong
-kho mã công bố, và bản thân thuật toán cần \textbf{bốn kênh}. Máy của nhóm không có MATLAB. Nhóm đã tải
-kho \texttt{mad-lab-fau/fecg-benchmarking}, xác nhận các phụ thuộc còn thiếu và ghi lại trong
-\texttt{baselines/powermf\_status.json}. Con số 98,0 của Power-MF vì vậy vẫn là con số \textit{đã công bố},
-và nhóm ghi rõ điều đó.
-\end{canhbao}
+\begin{ghichu}[title={Power-MF: bản 3.2 nói không chạy lại được --- bản 3.4 đã chạy, ở hai cấu hình}]
+Bản 3.2 ghi rằng Power-MF cần MATLAB R2021a và các hàm ICA đa kênh của Varanini 2014 không có trong kho
+mã công bố, nên không chạy lại được. \textbf{Phát biểu đó đã bị rút.} Power-MF chạy được trên
+\textbf{GNU Octave 11.3.0} sau bảy bản vá, và được chấm bằng \textbf{chính bộ chấm của nhóm} trên
+\textbf{cả 22 chủ thể}. Con số công bố cho Silesia B1 là 99,46; nhóm chạy lại được \textbf{99,40} ---
+lệch 0,06 điểm.
+
+Nhóm cài thêm \textbf{Power-MF-1ch}: cùng thuật toán, cùng front-end và bộ khử mẹ của nhóm, nhưng chỉ
+\textbf{một đạo trình}. Đây là đối chứng công bằng nhất trong cả đề cương, vì mọi thứ trừ thuật toán lõi
+đều giống hệt nhau. Nó đạt 86,71 --- kém \hethong{} 10,85 điểm, thua 22/22 chủ thể.
+
+\xau{Cảnh báo:} mọi con số Power-MF của bản 3.3 (94,87 / 98,38 / 97,33 / hiệu số $+2{,}74$ và $-1{,}06$)
+đứng trên một bản Octave hỏng vì lỗi cổng chuyển của nhóm, và \textbf{đã bị rút toàn bộ}. Xem hộp đầu
+\S\ref{sec:powermf}.
+\end{ghichu}

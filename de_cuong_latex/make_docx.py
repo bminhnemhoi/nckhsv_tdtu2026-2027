@@ -21,11 +21,28 @@ def doc(path):
 
 # ---------------------------------------------------------------- 1. gop tep
 main = doc('de_cuong.tex')
-for f in ['sec_1_3.tex', 'sec_4_6.tex', 'sec_7_12.tex']:
-    main = main.replace('\\input{%s}' % f, doc(f))
-for f in ['bang_tongquan', 'bang_baihoc', 'bang_diemyeu', 'danhmuc']:
-    main = main.replace('\\input{tables/%s.tex}' % f, doc('tables/%s.tex' % f))
-main = main.replace('\\input{preamble.tex}', '')
+
+
+def gop(txt, sau=0):
+    """Thay moi \\input{...} bang noi dung tep, lap lai cho toi khi het (toi da 8 tang)."""
+    if sau > 8:
+        return txt
+    def _r(m):
+        f = m.group(1)
+        if not f.endswith('.tex'):
+            f += '.tex'
+        if os.path.basename(f) == 'preamble.tex':
+            return ''
+        if not os.path.exists(f):
+            print('  CANH BAO: khong thay', f)
+            return m.group(0)
+        return doc(f)
+    moi = re.sub(r'\\input\{([^}]+)\}', _r, txt)
+    return moi if moi == txt else gop(moi, sau + 1)
+
+
+main = gop(main)
+print('da gop het \\input; con lai:', len(re.findall(r'\\input\{', main)))
 
 # ---------------------------------------------------------------- 2. lenh tat
 SUB = [

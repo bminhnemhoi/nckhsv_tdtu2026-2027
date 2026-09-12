@@ -51,7 +51,8 @@ Silesia B2 chuyển dạ, 12 bản ghi & 12 & 60 & $97{,}17 \pm 7{,}45$ & $95{,}
 \quad chỉ 7 bản ghi hoàn toàn mới, zero-shot & 7 & 35 & $95{,}87 \pm 9{,}75$ & $93{,}73 \pm 12{,}48$ & 6 & 0 \\
 \textbf{Silesia B1 thai kỳ 32--42 tuần, zero-shot} & 10 & 199,6 & $\mathbf{93{,}30 \pm 13{,}46}$ &
 $\mathbf{91{,}31 \pm 9{,}99}$ & 8 & 0 \\
-CinC 2013 set-a, zero-shot & 10 & 10 & $59{,}15 \pm 37{,}17$ & $61{,}96 \pm 34{,}09$ & 4 & 5 \\
+CinC 2013 set-a, zero-shot, \textbf{toàn bộ} & 75 & 75 & $71{,}21 \pm 33{,}96$ & $64{,}78 \pm 29{,}89$ &
+42 & \xau{22} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -90,8 +91,10 @@ Gộp toàn cục trên B1: 26.085 nhịp đúng, 1.451 báo động giả, 2.32
 liệu thai kỳ, mà đạt 93,30 trên 10 sản phụ tuần 32--42. Tám trên mười bản ghi trên 90, \textbf{không bản
 ghi nào dưới 50}. Phân bố này \textit{không} lưỡng cực như CinC 2013.
 \item \textbf{Sụp đổ trên CinC 2013 không phải do giai đoạn thai.} Chuyển từ chuyển dạ sang thai kỳ trong
-cùng hệ ghi mất khoảng 4 điểm ($97 \to 93$). Chuyển sang hệ ghi khác mất 38 điểm ($97 \to 59$). Biến gây
-sụp đổ là \textbf{thiết bị và bố trí điện cực}, không phải tuổi thai.
+cùng hệ ghi mất khoảng 4 điểm ($97 \to 93$). Chuyển sang hệ ghi khác, trên toàn bộ 75 bản ghi, mất
+\textbf{26 điểm} ($97 \to 71$). Biến gây sụp đổ là \textbf{thiết bị và bố trí điện cực}, không phải tuổi
+thai. \textit{(Bản 3.2 ghi ``mất 38 điểm, $97 \to 59$''; con số 59 đo trên mẫu 10 bản ghi bị lệch ---
+xem \S\ref{sec:cinc75}.)}
 \item \textbf{Quy tắc chọn kênh PSD yếu đi khi tín hiệu thai yếu.} Hai bản ghi kém nhất (B1\_06, B1\_07) đều
 do quy tắc PSD chọn đúng kênh xấu nhất; với kênh tốt nhất chúng đạt 98,28 và 78,52. B1\_07 là bản ghi có
 tín hiệu thai yếu nhất bộ theo chính tác giả. Đây là bằng chứng thứ hai (sau CinC) rằng heuristic phổ

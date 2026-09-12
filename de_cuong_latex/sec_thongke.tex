@@ -1,0 +1,273 @@
+% ================================================================= THỐNG KÊ Ở MỨC CHỦ THỂ
+\section{Kiểm định lại toàn bộ thống kê ở mức chủ thể}
+\label{sec:thongke}
+
+Mục này sửa một lỗi phương pháp có mặt trong \textbf{mọi} bản đề cương trước và trong bản thảo hội nghị:
+đơn vị phân tích. Mã tại \texttt{analysis/stats.py}, kết quả tại \texttt{analysis/stats\_results.json} và
+\texttt{analysis/STATS.md}. Bootstrap cụm 10.000 lần, seed 0; biên tương đương khai báo trước
+$\delta = 1{,}0$ điểm F1.
+
+\subsection{Lỗi đã sửa}
+
+\begin{table}[H]\centering\small
+\caption{Sáu thay đổi phương pháp.}
+\label{tab:stat_sua}
+\begin{tabular}{@{}L{3.4cm} L{5.2cm} L{5.6cm}@{}}
+\toprule
+ & \textbf{Cách cũ} & \textbf{Cách mới} \\
+\midrule
+Đơn vị phân tích & Cặp (bản ghi $\times$ kênh), 20--88 cặp & \textbf{Chủ thể} (trung bình 4 kênh trước),
+$n = 5$--22 \\
+Giả định độc lập & 4 kênh bụng của cùng một phụ nữ coi là 4 quan sát độc lập & Kênh là đo lặp lại trong
+cụm; chủ thể là đơn vị \\
+Khoảng tin cậy & $t$ trên thang phần trăm & Thang logit $+$ bootstrap percentile \\
+Biến thiên & SD trên cặp & Bootstrap cụm, lấy mẫu lại \textbf{chủ thể} \\
+Đa so sánh & không hiệu chỉnh & Holm cho họ 7 kiến trúc \\
+Kết luận ``không khác'' & $p > 0{,}05$ & \textbf{TOST} biên 1,0 điểm \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{canhbao}[title={Giới hạn cứng của $n = 5$ --- con số phải ghi nhớ}]
+Với $n = 5$ chủ thể, kiểm định Wilcoxon hạng có dấu hai phía có $p$ \textbf{nhỏ nhất có thể đạt} là
+$2/2^5 = \mathbf{0{,}0625}$. Do đó \textbf{KHÔNG một so sánh nào} trên ADFECGDB (5 sản phụ) có thể đạt
+$p < 0{,}05$ ở mức chủ thể, bất kể hiệu số lớn đến đâu.
+
+Mọi $p < 0{,}05$ từng báo cáo trên tập này --- $1{,}9\times10^{-6}$, $5{,}7\times10^{-6}$, $0{,}0000$ ---
+đều là \textbf{sản phẩm của giả lập} (pseudo-replication) trên 20--60 hàng (bản ghi $\times$ kênh
+$\times$ seed). Chúng đã bị gỡ khỏi toàn bộ đề cương.
+\end{canhbao}
+
+\subsection{Bảng tổng hợp: mọi so sánh chính, tính lại ở mức chủ thể}
+
+\begin{table}[H]\centering\scriptsize
+\caption{Quy ước hiệu số: \textbf{A $-$ B} với A là đối tượng đứng đầu trong tên so sánh. Cột ``KTC 95\%
+$t$'' bảo thủ hơn; khi hai cột mâu thuẫn thì tin cột $t$.}
+\label{tab:stat_all}
+\begin{tabular}{@{}L{4.4cm} C{0.5cm} C{1.5cm} C{1.3cm} C{1.1cm} C{2.0cm} C{2.0cm} C{0.9cm}@{}}
+\toprule
+\textbf{So sánh} & $n$ & \textbf{$p$ cũ (giả lập)} & \textbf{$p$ mới} & \textbf{Hiệu số} &
+\textbf{KTC 95\% bootstrap} & \textbf{KTC 95\% $t$} & \textbf{Cliff} \\
+\midrule
+\multicolumn{8}{@{}l}{\textit{ADFECGDB, trung bình 4 kênh --- mô hình so với baseline cổ điển:}} \\
+vs TS & 5 & $5{,}7\times10^{-6}$ & \xau{0,0625} & $+18{,}49$ & $[+6{,}38; +30{,}60]$ &
+\xau{$[-1{,}81; +38{,}80]$} & 1,000 \\
+vs TS-PCA & 5 & $1{,}9\times10^{-6}$ & \xau{0,0625} & $+6{,}40$ & $[+4{,}70; +8{,}09]$ &
+\tot{$[+3{,}69; +9{,}10]$} & 0,920 \\
+vs Prominence & 5 & $1{,}9\times10^{-6}$ & \xau{0,0625} & $+11{,}06$ & $[+7{,}80; +14{,}51]$ &
+\tot{$[+5{,}73; +16{,}38]$} & 1,000 \\
+\midrule
+\multicolumn{8}{@{}l}{\textit{Mô hình 22 ca so với mô hình 5 ca, trung bình 4 kênh:}} \\
+PhysioNet & 5 & 0,2445 & 0,8125 & $+1{,}24$ & $[-0{,}35; +3{,}01]$ & $[-1{,}44; +3{,}91]$ & 0,200 \\
+Silesia B2 & 7 & \xau{0,0156} & \xau{0,4688} & $+0{,}77$ & $[-0{,}16; +2{,}38]$ & $[-1{,}15; +2{,}68]$ & 0,102 \\
+Silesia B1 & 10 & $4{,}3\times10^{-9}$ & 0,0039 & $+5{,}71$ & $[+2{,}12; +10{,}17]$ &
+$[+0{,}79; +10{,}62]$ & 0,500 \\
+Toàn bộ 22 & 22 & $1{,}5\times10^{-8}$ & 0,0029 & $+3{,}12$ & $[+1{,}27; +5{,}48]$ &
+$[+0{,}76; +5{,}48]$ & 0,264 \\
+\midrule
+\multicolumn{8}{@{}l}{\textit{Tầng 2 (ngữ cảnh) --- TCN trường 1.516\,ms so với CNN cửa sổ ngắn:}} \\
+Tăng do ngữ cảnh & 5 & --- & 0,0625 & $+4{,}49$ & $[+1{,}58; +7{,}43]$ & \xau{$[-0{,}29; +9{,}27]$} & 0,520 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{ghichu}[title={Ba điều phải đọc kèm bảng trên}]
+\begin{enumerate}[leftmargin=1.5em,itemsep=4pt]
+\item \textbf{Mất ý nghĩa không tự động có nghĩa là mất hiệu ứng --- nhưng với TS thì mất thật.}
+Với TS-PCA và Prominence, $p$ tăng từ $\sim10^{-6}$ lên 0,0625 chỉ vì $n = 5$ làm sàn kiểm định hạng,
+còn KTC 95\% của hiệu số vẫn \textbf{loại trừ 0} ở cả bootstrap lẫn thang $t$. Với hai baseline này,
+\textit{hướng} của kết quả giữ nguyên; chỉ là \textbf{không được tuyên bố ý nghĩa thống kê} từ 5 phụ nữ.
+Nhưng với \textbf{TS thì khác}: KTC 95\% kiểu $t$ là $[-1{,}81;\ +38{,}80]$ --- \textbf{chứa cả 0}. Hiệu
+số 18,49 điểm hoàn toàn do biến thiên giữa 5 bản ghi. Bảng baseline cũ trình bày cả ba như nhau; thực tế
+chúng không cùng độ chắc.
+\item \textbf{Bootstrap với $n = 5$ cụm hẹp hơn thực tế.} Với $n = 5$--7 phải báo cáo cả hai cột.
+\item \textbf{Sign test bảo thủ nhất và cho thấy độ mạnh thật.} Ví dụ ``toàn bộ 22 chủ thể'' có Wilcoxon
+$p = 0{,}0029$ nhưng sign test $p = 0{,}0525$ --- kết quả phụ thuộc vào \textbf{độ lớn} của vài chủ thể,
+không phải vào việc đa số chủ thể đều cải thiện.
+\end{enumerate}
+\end{ghichu}
+
+\subsection{Khoảng tin cậy cho các con số đặt trên tiêu đề}
+
+\begin{table}[H]\centering\small
+\caption{Cột ``KTC 95\% $t$ trên \%'' là cột \textbf{đang có lỗi} trong các bản trước: nó \textbf{vượt
+100\%}. Cột in đậm là cột phải dùng trong bảng kết quả chính.}
+\label{tab:stat_ktc}
+\begin{tabular}{@{}L{5.4cm} C{0.7cm} C{1.4cm} C{2.6cm} C{2.8cm} C{2.4cm}@{}}
+\toprule
+\textbf{Con số} & $n$ & \textbf{TB} & \textbf{KTC 95\% $t$ trên \% (SAI)} &
+\textbf{KTC 95\% bootstrap} & \textbf{KTC 95\% logit} \\
+\midrule
+ADFECGDB kênh PSD, mô hình 5 ca & 5 & 99,21 & \xau{$[97{,}35; 101{,}08]$} &
+\textbf{$[97{,}87; 99{,}95]$} & $[98{,}21; 99{,}96]$ \\
+ADFECGDB 4 kênh, mô hình 5 ca & 5 & 97,45 & \xau{$[93{,}77; 101{,}13]$} &
+\textbf{$[94{,}94; 99{,}63]$} & $[90{,}65; 99{,}90]$ \\
+Silesia B1, mô hình 5 ca & 10 & 93,30 & \xau{$[83{,}67; 102{,}93]$} &
+\textbf{$[84{,}93; 99{,}37]$} & $[94{,}79; 99{,}72]$ \\
+Silesia B1, mô hình 22 ca & 10 & 97,15 & \xau{$[93{,}61; 100{,}69]$} &
+\textbf{$[94{,}00; 99{,}67]$} & $[97{,}85; 99{,}93]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{canhbao}[title={Hai ước lượng điểm khác nhau, dùng nhầm là sai}]
+Cột \textbf{bootstrap} là khoảng cho \textbf{trung bình số học} của F1 trên các chủ thể --- đây là đại
+lượng mà đề cương đang báo cáo (99,21 / 93,30). Nó không bao giờ vượt 100\% vì chỉ lấy lại mẫu từ các
+giá trị quan sát. Dùng cột này trong bảng kết quả chính.
+
+Cột \textbf{logit} là ``F1 điển hình của một chủ thể mới'', kéo về phía các giá trị cao, nên nó
+\textbf{có thể cao hơn} trung bình số học (Silesia B1: TB số học 93,30 nhưng điểm logit 98,78). Dùng cột
+này khi nói về \textbf{một ca lâm sàng mới}, và phải nói rõ đó là đại lượng \textbf{khác} --- nếu báo cáo
+nhầm, con số sẽ bị thổi phồng.
+
+Độ rộng thật: ADFECGDB $n = 5$ cho KTC rộng vài điểm F1 (không phải $\pm1{,}5$ như SD gợi ý); Silesia B1
+và CinC 2013 rộng hơn 10--30 điểm.
+\end{canhbao}
+
+\subsection{Họ kiến trúc: kiểm định tương đương (TOST), biên 1,0 điểm F1}
+
+\begin{table}[H]\centering\small
+\caption{TOST với biên tương đương $\delta = 1{,}0$ điểm F1, $n = 5$ chủ thể, hiệu chỉnh Holm cho họ
+7 so sánh.}
+\label{tab:tost}
+\begin{tabular}{@{}L{2.0cm} C{1.7cm} C{1.6cm} C{1.5cm} C{1.5cm} C{2.6cm} C{1.2cm} L{2.2cm}@{}}
+\toprule
+\textbf{Kiến trúc} & \textbf{Macro F1} & \textbf{Hiệu số} & \textbf{$p$ Wilc.} & \textbf{$p$ Holm} &
+\textbf{KTC 90\% bootstrap} & \textbf{$p$ TOST} & \textbf{Kết luận} \\
+\midrule
+\texttt{cnn\_l} & 92,43 & $+0{,}73$ & 0,125 & 0,625 & $[+0{,}18; +1{,}22]$ & 0,238 & không kết luận được \\
+\texttt{mlp} & 91,64 & $-0{,}07$ & 1,000 & 1,000 & $[-3{,}47; +3{,}52]$ & 0,360 & không kết luận được \\
+\texttt{cnn\_gru} & 91,59 & $-0{,}12$ & 0,813 & 1,000 & $[-0{,}72; +0{,}54]$ & 0,058 & không kết luận được \\
+\texttt{tcn} & 91,07 & $-0{,}64$ & 0,188 & 0,750 & $[-1{,}13; -0{,}11]$ & 0,183 & không kết luận được \\
+\texttt{resnet1d} & 90,90 & $-0{,}81$ & 0,625 & 1,000 & $[-1{,}79; +0{,}09]$ & 0,389 & không kết luận được \\
+\texttt{cnn\_m} & 88,76 & $-2{,}95$ & 0,063 & 0,438 & \xau{$[-4{,}55; -1{,}47]$} & 0,930 &
+\xau{KÉM HƠN vượt biên} \\
+\texttt{linear} & 37,47 & $-54{,}24$ & 0,063 & 0,438 & $[-56{,}41; -50{,}49]$ & 1,000 & khác biệt vượt biên \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{canhbao}[title={Đây là đảo chiều lớn nhất của toàn bộ đợt rà soát}]
+Tuyên bố trong bản v3.2 và trong kho mã --- \textit{``tám kiến trúc không phân biệt được, không cái nào
+khác \texttt{cnn\_dil} 26k tham số''} --- \textbf{không sống sót qua kiểm định tương đương}:
+
+\begin{itemize}[leftmargin=1.5em,itemsep=3pt]
+\item \textbf{0/7} kiến trúc chứng minh được tương đương trong biên $\pm1{,}0$ điểm F1;
+\textbf{6/7} \textbf{không kết luận được}.
+\item Kết luận cũ rút ra từ $p > 0{,}05$. Với $n = 5$ chủ thể, $p > 0{,}05$ là kết quả \textbf{gần như
+đương nhiên} (ngưỡng khả thi nhỏ nhất là 0,0625) --- nó đo \textbf{công suất thấp}, không đo sự giống nhau.
+\item Ngược lại, \texttt{cnn\_m} \textbf{KÉM HƠN rõ}: hiệu số $-2{,}95$ điểm, KTC 90\% bootstrap
+$[-4{,}55;\ -1{,}47]$ nằm \textbf{hoàn toàn ngoài} biên $\pm1{,}0$. Tuyên bố ``sáu kiến trúc nằm trong
+1,5 điểm của nhau'' không đúng với \texttt{cnn\_m}.
+\item \texttt{cnn\_l} \textbf{tốt hơn} \texttt{cnn\_dil} 0,73 điểm, KTC 90\% bootstrap
+$[+0{,}18;\ +1{,}22]$ --- không loại trừ được khả năng vượt biên 1,0.
+\end{itemize}
+
+\textbf{Phát biểu thay thế, là câu nhóm sẽ dùng:} \textit{``Với $n = 5$ chủ thể, nghiên cứu này
+\textbf{không đủ lực} để phân biệt các kiến trúc trong biên 1,0 điểm F1; hiệu số quan sát được nằm trong
+khoảng $-2{,}95$ đến $+0{,}73$ điểm, nhỏ hơn nhiều so với $+11{,}00$ điểm của tầng front-end.''}
+Câu này giữ nguyên thông điệp chính (front-end quan trọng hơn kiến trúc) mà không tuyên bố điều chưa
+chứng minh.
+\end{canhbao}
+
+\subsection{Cổng từ chối: AUROC trong bản ghi mới là con số lâm sàng}
+
+\begin{table}[H]\centering\small
+\caption{Cluster bootstrap theo \textbf{bản ghi} ($n = 10$ cụm), không theo đoạn.}
+\label{tab:auroc}
+\begin{tabular}{@{}L{6.4cm} C{2.0cm} C{3.4cm} C{2.2cm}@{}}
+\toprule
+\textbf{Đại lượng} & \textbf{Giá trị} & \textbf{KTC 95\% cụm} & \textbf{Báo cáo cũ} \\
+\midrule
+AUROC (12 SQI cổ điển, CinC 2013) & 0,929 & $[0{,}830;\ 0{,}982]$ & 0,929 \\
+Lợi ích F1 ở độ phủ 80\% & 7,49 & $[2{,}94;\ 11{,}54]$ & 7,37 \\
+AUROC nhóm đặc trưng tô-pô & 0,566 & chưa tính được & 0,566 \\
+\midrule
+\textbf{AUROC TRONG bản ghi} (TB trên 5 bản ghi có cả đoạn tốt lẫn xấu) & \textbf{0,721} &
+$[0{,}517;\ 0{,}898]$ & \xau{chưa từng báo cáo} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+AUROC từng bản ghi: a01 $= 0{,}914$; a06 $= 0{,}390$; a07 $= 0{,}889$; a09 $= 0{,}886$; a10 $= 0{,}526$.
+Năm bản ghi còn lại không có đoạn xấu nào nên không đóng góp gì vào AUROC gộp.
+
+\begin{canhbao}[title={Phát hiện mới, quan trọng cho C3}]
+AUROC gộp 0,93 \textbf{phần lớn là hiệu ứng GIỮA bản ghi} (tách bản ghi tốt khỏi bản ghi xấu), không
+phải khả năng xếp hạng đoạn \textbf{BÊN TRONG} một bản ghi. Trong ứng dụng thật --- một thai phụ, một
+phiên đo --- chỉ AUROC \textbf{trong} bản ghi mới có ý nghĩa, và con số đó là \textbf{0,721}
+$[0{,}517;\ 0{,}898]$.
+
+Con số 0,929 trên thực tế trả lời câu hỏi \textit{``bản ghi này có phải bản ghi xấu không''}, trong khi
+cổng từ chối đang được bán như là thứ trả lời \textit{``đoạn 4 giây này trong bản ghi của bệnh nhân này
+có đáng tin không''}. Đây là giới hạn phải nêu rõ, và là lý do kết quả C3 \textbf{chưa} thể tuyên bố là
+dùng được tại giường bệnh.
+\end{canhbao}
+
+\subsection{Độ ổn định theo seed}
+
+Tất cả kết quả chính chạy \textbf{một seed}. Nhóm đã huấn luyện lại toàn bộ mô hình 22 chủ thể với
+seed 1 (\texttt{model/train\_22\_seed1.json}) để đo biến thiên huấn luyện.
+
+\begin{table}[H]\centering\small
+\caption{So sánh seed 0 với seed 1 trên 20 chủ thể chung, kênh PSD mù nhãn.}
+\label{tab:seed}
+\begin{tabular}{@{}L{7.4cm} C{3.2cm} L{4.0cm}@{}}
+\toprule
+\textbf{Đại lượng} & \textbf{Giá trị} & \textbf{Đọc thế nào} \\
+\midrule
+Số chủ thể chung & 20 & \\
+$|$hiệu số$|$ F1 trung bình & \tot{0,28 điểm} & nhỏ so với mọi hiệu ứng báo cáo \\
+$|$hiệu số$|$ lớn nhất & 2,81 điểm (B2\_03) & bản ghi kém ổn định nhất \\
+Ngưỡng từng fold, seed 0 & 0,20 -- 0,80 & có một giá trị cực đoan 0,20 \\
+Ngưỡng từng fold, seed 1 & 0,50 -- 0,80 & \xau{không tái lập giá trị 0,20} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Hai kết luận. Thứ nhất, \textbf{biến thiên theo seed (0,28 điểm) nhỏ hơn nhiều so với mọi hiệu ứng được
+báo cáo} trong đề cương --- $+11{,}00$ của front-end, $+4{,}49$ của ngữ cảnh, $+8{,}18$ của dữ liệu trên
+CinC 75 bản ghi. Các kết luận định tính không bị seed lật. Thứ hai, \textbf{ngưỡng từng fold kém ổn định
+hơn hẳn}: giá trị 0,20 của fold 10 ở seed 0 không tái lập ở seed 1 (dải 0,50--0,80). Đó là cảnh báo rằng
+quy trình chọn ngưỡng trên một chủ thể validation duy nhất là điểm mong manh của pipeline.
+
+\begin{ghichu}[title={Mọi KTC trong đề cương này bao phủ cái gì}]
+Bootstrap cụm trong mục này lấy mẫu lại \textbf{chủ thể}, nên KTC bao phủ \textbf{biến thiên giữa chủ
+thể}. Chúng \textbf{không} bao phủ biến thiên huấn luyện; phần đó được đo riêng ở bảng \ref{tab:seed} và
+bằng 0,28 điểm trung bình.
+\end{ghichu}
+
+\subsection{Những gì KHÔNG kiểm chứng lại được từ artefact hiện có}
+
+\begin{table}[H]\centering\small
+\caption{Ba mục nhóm không thể tự kiểm chứng lại, và hệ quả.}
+\label{tab:stat_khong}
+\begin{tabular}{@{}L{4.0cm} L{5.4cm} L{5.0cm}@{}}
+\toprule
+\textbf{Mục} & \textbf{Lý do} & \textbf{Hệ quả} \\
+\midrule
+Tầng 1 --- front-end dải thông ($+11{,}00$ điểm, từng ghi $p < 0{,}001$) &
+\texttt{pilot\_evidence/band\_ablation.json} chỉ lưu tổng hợp (macro F1 $\pm$ SD cho mỗi dải), KHÔNG lưu
+F1 từng bản ghi $\times$ kênh &
+\xau{$p < 0{,}001$ cho tầng 1 hiện KHÔNG kiểm chứng được.} Hiệu số $+11{,}00$ vẫn đứng; trị số $p$ đã bị
+gỡ. Phải chạy lại có lưu per-record \\
+AUROC nhóm đặc trưng tô-pô (0,566) & \texttt{fsqi/gate\_segments.csv} chỉ lưu $p_{bad}$ của bộ phân loại
+SQI cổ điển; muốn bootstrap theo cụm phải huấn luyện lại &
+0,566 vẫn dùng làm kết luận phủ định, nhưng chưa có KTC theo cụm \\
+Biến thiên theo seed cho các bảng cũ & Chỉ mô hình 22 ca có 2 seed; bảng kiến trúc và khảo sát dải chỉ
+1 seed & KTC hiện có chỉ bao phủ biến thiên giữa chủ thể \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Nguyên tắc chung cho mọi con số từ đây}
+
+\begin{enumerate}[leftmargin=1.6em,itemsep=3pt]
+\item Báo cáo \textbf{ước lượng hiệu số kèm KTC} làm kết quả chính; $p$-value là phụ và phải luôn đi kèm
+$n$ chủ thể.
+\item Với $n = 5$--10, \textbf{không tuyên bố ý nghĩa thống kê ở bất kỳ đâu}.
+\item Với kết luận ``không khác nhau'', \textbf{bắt buộc} dùng TOST kèm biên được định trước.
+\item Đơn vị phân tích luôn là \textbf{chủ thể}; kênh là đo lặp lại trong cụm.
+\item Với $n = 75$ (CinC 2013 toàn bộ) thì kiểm định \textbf{có} đủ lực và $p$ được báo cáo bình thường
+--- đó là tập duy nhất trong đề tài đủ lớn cho điều đó.
+\end{enumerate}

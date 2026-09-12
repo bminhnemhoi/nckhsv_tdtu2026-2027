@@ -1,0 +1,36 @@
+===== EVAL MO HINH 12 (ABLATION BO B1) | 2026-09-12 07:54:43 | Windows-11-10.0.22631-SP0 | 1 luong =====
+checkpoint fetalqrs_tcn_12_production.pt  nguong 0.80  train tren ['r01', 'r04', 'r07', 'r08', 'r10', 'B2_03', 'B2_04', 'B2_05', 'B2_06', 'B2_08', 'B2_09', 'B2_12']
+
+-- (a) 10 chu the B1 Silesia (thai ky, nhan gian tiep), mo hinh 12 CHUA TUNG THAY --
+   B1_01  PSD A3 F1  99.65 | TB4  93.19 | orc  99.65 | kenh  92.12  99.18  99.65  81.83 | lech PSD -12.0 ms | 19s
+   B1_02  PSD A3 F1  99.70 | TB4  98.31 | orc  99.70 | kenh  98.62  99.46  99.70  95.45 | lech PSD -8.0 ms | 18s
+   B1_03  PSD A3 F1  99.88 | TB4  99.25 | orc  99.88 | kenh  99.73  99.32  99.88  98.06 | lech PSD +0.0 ms | 18s
+   B1_04  PSD A3 F1  99.98 | TB4  99.13 | orc 100.00 | kenh  99.87 100.00  99.98  96.65 | lech PSD +4.0 ms | 18s
+   B1_05  PSD A3 F1  99.77 | TB4  99.70 | orc  99.77 | kenh  99.77  99.77  99.77  99.49 | lech PSD +4.0 ms | 18s
+   B1_06  PSD A4 F1  82.09 | TB4  93.18 | orc  97.31 | kenh  96.32  97.31  97.00  82.09 | lech PSD -8.0 ms | 19s
+   B1_07  PSD A4 F1  67.21 | TB4  76.39 | orc  86.44 | kenh  73.74  78.16  86.44  67.21 | lech PSD +4.0 ms | 18s
+   B1_08  PSD A1 F1  99.74 | TB4  98.98 | orc  99.74 | kenh  99.74  99.74  99.67  96.76 | lech PSD -4.0 ms | 18s
+   B1_09  PSD A3 F1  98.86 | TB4  89.42 | orc  98.86 | kenh  73.41  96.92  98.86  88.47 | lech PSD -2.0 ms | 19s
+   B1_10  PSD A3 F1  96.86 | TB4  86.86 | orc  96.86 | kenh  79.79  81.38  96.86  89.39 | lech PSD -18.0 ms | 19s
+
+   chu the       m5     m12     m22   (F1 kenh PSD)
+   B1_01      97.70   99.65   99.97
+   B1_02      99.59   99.70   99.79
+   B1_03      99.86   99.88   99.92
+   B1_04      99.80   99.98  100.00
+   B1_05      99.78   99.77   99.87
+   B1_06      80.90   82.09   89.45
+   B1_07      58.72   67.21   86.56
+   B1_08      99.52   99.74   99.83
+   B1_09      99.04   98.86   99.07
+   B1_10      98.12   96.86   97.05
+   TB         93.30   94.37   97.15
+   TB4 kenh   91.31   93.44   97.01
+   psd_m12_vs_m5        hieu  +1.07  KTC95 boot [ -0.12; +2.90]  KTC95 t [ -0.89; +3.03]  p Wil 0.1602  thang/thua 7/3  Cliff +0.140
+   psd_m12_vs_m22       hieu  -2.78  KTC95 boot [ -6.66; -0.11]  KTC95 t [ -7.25; +1.69]  p Wil 0.0020  thang/thua 0/10  Cliff -0.260
+   psd_m22_vs_m5        hieu  +3.85  KTC95 boot [ +0.05; +9.62]  KTC95 t [ -2.49;+10.19]  p Wil 0.0371  thang/thua 9/1  Cliff +0.360
+   mean4_m12_vs_m5      hieu  +2.13  KTC95 boot [ +0.72; +3.94]  KTC95 t [ +0.16; +4.10]  p Wil 0.0020  thang/thua 10/0  Cliff +0.200
+   mean4_m12_vs_m22     hieu  -3.57  KTC95 boot [ -6.31; -1.34]  KTC95 t [ -6.59; -0.55]  p Wil 0.0059  thang/thua 1/9  Cliff -0.420
+   quet nguong (m12 tren B1, TB 10 chu the): 0.45: PSD 94.68 / TB4 93.81  0.55: PSD 94.66 / TB4 93.81  0.65: PSD 94.65 / TB4 93.77  0.75: PSD 94.52 / TB4 93.61  0.80: PSD 94.37 / TB4 93.44
+
+DONE 3.1 phut -> D:\NCKHSV2026-2027\benchmark_dpss\eval_12_b1.json

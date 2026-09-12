@@ -1,0 +1,66 @@
+[    0.0s] ==============================================================================
+[    0.0s] Power-MF (DA KENH, 4 dao trinh bung) -- chay lai that, khong phai so da cong bo
+[    0.0s] ngay=2026-09-12T00:43:03  octave=D:\NCKHSV2026-2027\tools\octave\octave-11.3.0-w64\mingw64\bin\octave-cli.exe  ms=340  workers=2  sets=adfecgdb
+[    0.0s] --- tap adfecgdb: 5 ban ghi ---
+[    0.0s] r01     bat dau Octave
+[    0.0s] r04     bat dau Octave
+[   48.4s] r04     F1= 99.52  Se= 99.37  PPV= 99.68  TP=628 FP=2 FN=4  (48 s)
+[   48.4s] r07     bat dau Octave
+[   48.7s] r01     F1= 99.77  Se= 99.84  PPV= 99.69  TP=643 FP=2 FN=1  (49 s)
+[   48.7s] r08     bat dau Octave
+[   91.5s] r07     F1= 99.12  Se= 99.04  PPV= 99.20  TP=621 FP=5 FN=6  (43 s)
+[   91.5s] r10     bat dau Octave
+[   92.5s] r08     F1= 99.77  Se= 99.69  PPV= 99.85  TP=649 FP=1 FN=2  (44 s)
+[  133.1s] r10     F1= 97.07  Se= 98.74  PPV= 95.45  TP=629 FP=30 FN=8  (42 s)
+[  133.1s] TAP adfecgdb  n=5  F1 tb=99.05  sd=1.14  trung vi=99.52  min=97.07  max=99.77  that_bai=0
+[  133.1s] xong. ket qua -> D:\NCKHSV2026-2027\baselines\powermf_results.json
+[    0.0s] ==============================================================================
+[    0.0s] Power-MF (DA KENH, 4 dao trinh bung) -- chay lai that, khong phai so da cong bo
+[    0.0s] ngay=2026-09-12T00:45:35  octave=D:\NCKHSV2026-2027\tools\octave\octave-11.3.0-w64\mingw64\bin\octave-cli.exe  ms=340  workers=2  sets=b2,b1
+[    0.0s] --- tap b2: 12 ban ghi ---
+[    1.0s] B2_01   bat dau Octave
+[    1.0s] B2_02   bat dau Octave
+[   42.9s] B2_01   F1= 99.77  Se= 99.84  PPV= 99.69  TP=643 FP=2 FN=1  (42 s)
+[   42.9s] B2_03   bat dau Octave
+[   44.7s] B2_02   F1= 97.22  Se= 98.90  PPV= 95.60  TP=630 FP=29 FN=7  (44 s)
+[   44.7s] B2_04   bat dau Octave
+[   88.2s] B2_04   F1= 98.01  Se= 97.65  PPV= 98.37  TP=665 FP=11 FN=16  (44 s)
+[   88.2s] B2_05   bat dau Octave
+[   89.1s] B2_03   F1= 87.46  Se= 85.20  PPV= 89.84  TP=610 FP=69 FN=106  (46 s)
+[   89.1s] B2_06   bat dau Octave
+[  134.0s] B2_06   F1= 99.63  Se= 99.42  PPV= 99.85  TP=680 FP=1 FN=4  (45 s)
+[  134.0s] B2_07   bat dau Octave
+[  134.2s] B2_05   F1= 99.85  Se= 99.70  PPV=100.00  TP=658 FP=0 FN=2  (46 s)
+[  134.2s] B2_08   bat dau Octave
+[  178.1s] B2_08   F1= 99.77  Se= 99.69  PPV= 99.84  TP=643 FP=1 FN=2  (44 s)
+[  178.1s] B2_09   bat dau Octave
+[  178.7s] B2_07   F1= 98.41  Se= 98.10  PPV= 98.73  TP=620 FP=8 FN=12  (45 s)
+[  178.7s] B2_10   bat dau Octave
+[  219.3s] B2_10   F1= 99.36  Se= 99.36  PPV= 99.36  TP=623 FP=4 FN=4  (40 s)
+[  219.3s] B2_11   bat dau Octave
+[  220.9s] B2_09   F1= 98.81  Se= 98.52  PPV= 99.10  TP=664 FP=6 FN=10  (43 s)
+[  220.9s] B2_12   bat dau Octave
+[  261.5s] B2_11   F1= 99.54  Se= 99.85  PPV= 99.23  TP=645 FP=5 FN=1  (42 s)
+[  262.0s] B2_12   F1= 99.77  Se= 99.85  PPV= 99.70  TP=656 FP=2 FN=1  (41 s)
+[  262.0s] TAP b2        n=12  F1 tb=98.13  sd=3.47  trung vi=99.45  min=87.46  max=99.85  that_bai=0
+[  262.0s] --- tap b1: 10 ban ghi ---
+[  264.9s] B1_01   bat dau Octave
+[  264.9s] B1_02   bat dau Octave
+[  557.2s] B1_01   F1= 66.44  Se= 49.78  PPV= 99.87  TP=1553 FP=2 FN=1567  (292 s)
+[  557.3s] B1_03   bat dau Octave
+[  643.4s] B1_03   F1=  0.00  Se=  0.00  PPV=  0.00  TP=0 FP=0 FN=2565  (86 s)
+[  643.4s] B1_04   bat dau Octave
+[  651.2s] B1_04   F1=  0.00  Se=  0.00  PPV=  0.00  TP=0 FP=0 FN=2774  (7 s)
+[  651.2s] B1_05   bat dau Octave
+[  662.0s] B1_05   THAT BAI (octave khong tao duoc file ket qua)
+[  662.0s] B1_06   bat dau Octave
+[  681.4s] B1_02   F1= 67.12  Se= 50.61  PPV= 99.65  TP=1419 FP=5 FN=1385  (416 s)
+[  681.4s] B1_07   bat dau Octave
+[  855.7s] B1_06   F1=  0.00  Se=  0.00  PPV=  0.00  TP=0 FP=0 FN=2889  (193 s)
+[  855.7s] B1_08   bat dau Octave
+[  896.7s] B1_07   F1= 98.93  Se= 98.27  PPV= 99.61  TP=3060 FP=12 FN=54  (215 s)
+[  896.7s] B1_09   bat dau Octave
+[  988.2s] B1_08   F1= 99.16  Se= 98.87  PPV= 99.45  TP=2878 FP=16 FN=33  (132 s)
+[  988.2s] B1_10   bat dau Octave
+[ 1036.5s] B1_09   F1= 97.98  Se= 97.21  PPV= 98.76  TP=2786 FP=35 FN=80  (140 s)
+[ 1124.6s] B1_10   F1= 99.54  Se= 99.54  PPV= 99.54  TP=2580 FP=12 FN=12  (136 s)

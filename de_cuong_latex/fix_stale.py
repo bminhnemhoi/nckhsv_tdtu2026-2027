@@ -2,13 +2,26 @@
 """
 Cap nhat cac con so cu cua chinh nhom nam rai rac trong ban khao sat 30 paper.
 
-Ly do: khi cac agent doc paper, ho duoc cung cap con so 77,52 +/- 26,83 va 12,43 diem.
+*** CANH BAO 12/09/2026 -- SCRIPT NAY DA LOI THOI, DUNG CHAY LAI ***
+Cac quy tac ben duoi doi 77,52 -> 77,34. Nhung 77,34 GIO CUNG DA BI RUT: no la quy tac
+"kenh 0 co dinh" chon HAU KIEM, do tren MAU 10/75 ban ghi. Tren du 75 ban ghi quy tac do chi
+dat 58,72 (mo hinh 5 ca) / 69,33 (mo hinh 22 ca), con con so mu nhan dung la 71,21 / 79,40
+(benchmark_dpss/eval_cinc75.json). Chay lai script nay se TAI SINH mot con so da rut vao
+survey/survey_raw.json. Neu can dong bo lai khao sat, phai viet quy tac moi tro toi so 75 ban ghi.
+Giu tep lam ho so lich su.
+
+Ly do ban dau: khi cac agent doc paper, ho duoc cung cap con so 77,52 +/- 26,83 va 12,43 diem.
 Sau do nhom phat hien:
   - 77,52 la ket qua CHON KENH BANG NHAN THAT (oracle), khong bao cao duoc.
-    Con so trung thuc, mu nhan, dung kenh co dinh la 77,34 +/- 28,54.
-  - 12,43 tron hai thi nghiem khac giao thuc. Con so co kiem soat noi bo la 11,00.
+    Con so mu nhan dung kenh co dinh la 77,34 +/- 28,54 -- NAY CUNG DA RUT, xem tren.
+  - 12,43 tron hai thi nghiem khac giao thuc. Con so co kiem soat noi bo la 11,00
+    (van do tren GBM cua so 300 ms, chua phai tren TCN).
 Script nay sua lai cho nhat quan voi facts_verified.json.
 """
+raise SystemExit(
+    "fix_stale.py da loi thoi: no se tai sinh con so 77,34 da bi rut. "
+    "Xem chu thich dau tep. Xoa dong raise nay chi khi da viet lai RULES cho 75 ban ghi."
+)
 import os, sys, json, re
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

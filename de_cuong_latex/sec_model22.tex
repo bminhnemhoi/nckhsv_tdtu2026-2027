@@ -21,34 +21,53 @@ ngưỡng 0,20 --- cực đoan so với 0,65--0,80 của các fold khác; nhóm 
 \subsubsection{Kết quả trên 22 chủ thể}
 
 \begin{table}[H]\centering\small
-\caption{Mô hình 5 ca so với mô hình 22 ca trên cùng chủ thể và cùng kênh. Wilcoxon ghép cặp; ``thắng''
-là số chủ thể mô hình 22 ca cao hơn.}
+\caption{Mô hình 5 ca so với mô hình 22 ca trên cùng chủ thể và cùng kênh. Hiệu số và khoảng tin cậy
+tính ở \textbf{mức chủ thể} (trung bình 4 kênh trước). Cột $p$ là Wilcoxon ghép cặp \textbf{trên chủ
+thể}, khác hẳn các trị số $p$ trên cặp (bản ghi $\times$ kênh) của bản 3.2 --- xem \S\ref{sec:thongke}.}
 \label{tab:m22}
-\begin{tabular}{@{}L{3.6cm} C{0.8cm} C{1.6cm} C{1.6cm} C{1.5cm} C{1.4cm} C{1.6cm} C{1.6cm} C{1.6cm}@{}}
+\begin{tabular}{@{}L{3.2cm} C{0.6cm} C{1.2cm} C{1.2cm} C{1.3cm} C{1.2cm} C{1.2cm} C{1.2cm} C{2.4cm} C{1.0cm}@{}}
 \toprule
-\textbf{Nhóm} & $n$ & \multicolumn{4}{c}{\textbf{Kênh PSD mù nhãn}} & \multicolumn{3}{c}{\textbf{Trung bình 4 kênh}} \\
-\cmidrule(lr){3-6}\cmidrule(lr){7-9}
- & & \textbf{5 ca} & \textbf{22 ca} & $p$ & \textbf{thắng} & \textbf{5 ca} & \textbf{22 ca} & $p$ \\
+\textbf{Nhóm} & $n$ & \multicolumn{3}{c}{\textbf{Kênh PSD mù nhãn}} &
+\multicolumn{4}{c}{\textbf{Trung bình 4 kênh (đơn vị chủ thể)}} \\
+\cmidrule(lr){3-5}\cmidrule(lr){6-9}
+ & & \textbf{5 ca} & \textbf{22 ca} & \textbf{thắng} & \textbf{5 ca} & \textbf{22 ca} &
+\textbf{hiệu số} & \textbf{KTC 95\% bootstrap} & $p$ \\
 \midrule
-PhysioNet chuyển dạ & 5 & 99,21 & 99,40 & 1,00 & 2/2 & 97,45 & 98,69 & 0,24 \\
-Silesia B2 chuyển dạ, ca mới & 7 & 95,87 & 96,82 & 0,125 & 4/0 & 93,73 & 94,50 & 0,016 \\
-\textbf{Silesia B1 thai kỳ} & 10 & 93,30 & \tot{97,15} & \textbf{0,037} & \textbf{9/1} & 91,31 & \tot{97,01} & $<$\textbf{0,0001} \\
+PhysioNet chuyển dạ & 5 & 99,21 & 99,40 & 2/2 & 97,45 & 98,69 & $+1{,}24$ & $[-0{,}35; +3{,}01]$ & 0,81 \\
+Silesia B2, ca mới & 7 & 95,87 & 96,82 & 4/0 & 93,73 & 94,50 & $+0{,}77$ & $[-0{,}16; +2{,}38]$ &
+\xau{0,47} \\
+\textbf{Silesia B1 thai kỳ} & 10 & 93,30 & \tot{97,15} & \textbf{9/1} & 91,31 & \tot{97,01} & $+5{,}71$ &
+$[+2{,}12; +10{,}17]$ & 0,004 \\
 \midrule
-\textbf{Toàn bộ} & 22 & 95,46 & \tot{97,56} & \textbf{0,007} & 15/3 & 93,47 & \tot{96,59} & $<$\textbf{0,0001} \\
+\textbf{Toàn bộ} & 22 & 95,46 & \tot{97,56} & 15/3 & 93,47 & \tot{96,59} & $+3{,}12$ &
+$[+1{,}27; +5{,}48]$ & 0,003 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
+\begin{canhbao}[title={Hai kết luận của bản 3.2 bị đảo chiều khi đổi đơn vị phân tích}]
+\textbf{Silesia B2:} bản 3.2 ghi ``cải thiện có ý nghĩa, $p = 0{,}016$''. Trị số đó tính trên
+\textbf{28 cặp} (7 chủ thể $\times$ 4 kênh). Ở mức chủ thể, $p = 0{,}47$ và Cliff $\delta = 0{,}10$
+(không đáng kể). Phát biểu ``có ý nghĩa'' \textbf{bị rút}.
+
+\textbf{PhysioNet:} $p$ từ 0,24 thành 0,81 --- vẫn là ``không khác'', như kỳ vọng vì mô hình 5 ca đã ở
+99,21. Nhưng lưu ý: với $n = 5$, \textbf{không} kết luận nào ở đây được phép gọi là có ý nghĩa thống kê.
+Chỉ hai hàng cuối ($n = 10$ và $n = 22$) có $p$ dưới 0,05, và ngay cả với $n = 22$ thì sign test cho
+$p = 0{,}0525$: kết quả phụ thuộc vào \textbf{độ lớn} cải thiện ở vài chủ thể, không phải vào việc đa số
+chủ thể đều cải thiện.
+\end{canhbao}
+
 \begin{figure}[H]\centering
-\includegraphics[width=0.9\textwidth]{figs/fig16_m22.pdf}
-\caption{Cùng chủ thể, cùng giao thức, chỉ đổi mô hình. Lợi ích tập trung đúng ở hai chỗ yếu: thai kỳ
-và hệ ghi khác.}
+\includegraphics[width=0.9\textwidth]{figs/fig19_m22_v2.pdf}
+\caption{Cùng chủ thể, cùng giao thức, chỉ đổi mô hình. Cột CinC 2013 dùng \textbf{toàn bộ 75 bản ghi}
+với quy tắc PSD mù nhãn (bản 3.2 dùng 90,34 --- kênh 0 hậu kiểm trên 10 bản ghi, đã bị rút). Lợi ích tập
+trung đúng ở hai chỗ yếu: thai kỳ và hệ ghi khác; hai nhóm bên trái có $n$ quá nhỏ để kết luận.}
 \label{fig:m22}
 \end{figure}
 
 Độ lệch chuẩn trên B1 giảm từ 13,46 xuống \textbf{4,95}. Hai ca thai kỳ khó nhất: B1\_07 từ 58,7 lên
-\textbf{86,6}; B1\_06 từ 80,9 lên \textbf{89,5}. Trên PhysioNet, nơi mô hình 5 ca đã ở 99,21, không có khác
-biệt có ý nghĩa --- đúng như kỳ vọng.
+\textbf{86,6}; B1\_06 từ 80,9 lên \textbf{89,5}. Trên PhysioNet, nơi mô hình 5 ca đã ở 99,21, hiệu số chỉ
+là $+1{,}24$ điểm với KTC 95\% chứa 0 --- đúng như kỳ vọng, và với $n = 5$ thì không thể kết luận gì hơn.
 
 \begin{ghichu}[title={Kiểm tra nhãn B1 gián tiếp có kéo lệch mô hình không}]
 Nhãn B1 lệch 8--12\,ms sau đỉnh R bụng ở 5/10 bản ghi và chiếm khoảng 72\% đoạn huấn luyện. Nếu mô hình
@@ -57,37 +76,7 @@ $-$ nhãn) của mô hình 22 ca trên PhysioNet là \textbf{0,0\,ms}, trên B2 
 $-1{,}0$\,ms. Không lệch.
 \end{ghichu}
 
-\subsubsection{Sụp đổ trên CinC 2013 được chữa phần lớn}
-
-Đây là mục tiêu chưa đạt rõ nhất của bản trước. Mô hình production 22 ca chạy zero-shot trên CinC 2013 ---
-hệ ghi khác, chưa từng thấy:
-
-\begin{table}[H]\centering\small
-\caption{Zero-shot trên CinC 2013 set-a, 10 bản ghi. Cùng giao thức, chỉ đổi mô hình.}
-\label{tab:cinc22}
-\begin{tabular}{@{}L{4.2cm} C{2.6cm} C{2.6cm} C{2.2cm} C{2.2cm}@{}}
-\toprule
-\textbf{Chỉ số} & \textbf{Mô hình 5 ca} & \textbf{Mô hình 22 ca} & \textbf{$p$ Wilcoxon} & \textbf{thắng/thua} \\
-\midrule
-Macro F1, kênh cố định & $77{,}34 \pm 28{,}54$ & $\mathbf{90{,}34 \pm 12{,}03}$ & \textbf{0,016} & 7/0 \\
-Macro F1, kênh PSD & $59{,}15 \pm 37{,}17$ & $69{,}31 \pm 32{,}38$ & 0,031 & 6/1 \\
-Macro F1, trung bình 4 kênh & $61{,}96 \pm 34{,}09$ & $72{,}64 \pm 25{,}76$ & 0,031 & 6/1 \\
-Bản ghi F1 $\geq$ 90 (kênh cố định) & 5/10 & 6/10 & & \\
-Bản ghi F1 $<$ 50 (kênh cố định) & \xau{3/10} & \tot{0/10} & & \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Từng bản ghi, kênh cố định: a02 từ 23 lên 76; a06 từ 43 lên 75; a10 từ 49 lên 71; a09 từ 80 lên 94.
-\textbf{Phân bố lưỡng cực biến mất.}
-
-\begin{canhbao}[title={Điều này sửa lại một kết luận của bản trước}]
-Bản trước viết: ``biến gây sụp đổ là thiết bị và bố trí điện cực, không phải tuổi thai''. Phát biểu đó
-đúng với mô hình 5 ca nhưng \textbf{thiếu một vế}. Với 22 ca --- vẫn cùng một bệnh viện, cùng một hệ ghi ---
-mô hình chuyển sang hệ ghi khác ở mức 90 chứ không phải 77. Nghĩa là phần lớn sụp đổ đến từ \textbf{thiếu
-dữ liệu}, và sự đa dạng giữa các sản phụ trong cùng một hệ ghi đã đủ để bù được phần lớn khác biệt phần
-cứng. Khoảng cách còn lại (90 so với 97--99 trong miền) mới là phần thật sự do thiết bị.
-\end{canhbao}
+\input{sec_cinc75.tex}
 
 \subsubsection{Đường cong hiệu quả mẫu}
 
@@ -122,7 +111,19 @@ vào \textit{kiến trúc}.
 
 \subsubsection{Giới hạn}
 
-Một seed, bốn epoch (loss vẫn giảm ở epoch cuối). Chưa đo riêng đóng góp của tăng cường dữ liệu --- so sánh
+Bốn epoch (loss vẫn giảm ở epoch cuối). Chưa đo riêng đóng góp của tăng cường dữ liệu --- so sánh
 ``có'' và ``không'' tăng cường trên cùng fold là việc kế tiếp. Mô hình 22 ca chưa được chạy qua cổng tin
-cậy học được; cổng đó hiệu chuẩn theo mô hình 5 ca. Fold 10 chọn ngưỡng 0,20, một điểm cần xem lại. Silesia
-và PhysioNet cùng một bệnh viện, nên ``22 sản phụ'' vẫn là một trung tâm.
+cậy học được; cổng đó hiệu chuẩn theo mô hình 5 ca. Silesia và PhysioNet cùng một bệnh viện, nên
+``22 sản phụ'' vẫn là một trung tâm.
+
+\begin{ghichu}[title={Độ ổn định theo seed --- đã đo, không còn là giới hạn ngỏ}]
+Bản 3.2 ghi ``một seed'' như một giới hạn chưa xử lý. Nhóm đã huấn luyện lại toàn bộ mô hình 22 chủ thể
+với \textbf{seed 1} (\texttt{model/train\_22\_seed1.json}). Trên 20 chủ thể chung, $|$hiệu số$|$ F1
+trung bình là \tot{0,28 điểm}, lớn nhất 2,81 điểm (B2\_03) --- \textbf{nhỏ hơn nhiều so với mọi hiệu ứng
+được báo cáo} trong đề cương.
+
+Nhưng có một phát hiện phụ đáng lo: \textbf{ngưỡng từng fold kém ổn định hơn hẳn}. Seed 0 cho dải
+0,20--0,80 (fold 10 ở 0,20, cực đoan); seed 1 cho dải 0,50--0,80 và \textbf{không tái lập} giá trị 0,20.
+Quy trình chọn ngưỡng trên một chủ thể validation duy nhất là điểm mong manh của pipeline
+(\S\ref{sec:thongke}).
+\end{ghichu}

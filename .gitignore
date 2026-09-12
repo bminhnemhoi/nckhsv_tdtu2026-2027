@@ -83,3 +83,41 @@ model/train_22_stdout.txt
 model/train_22_stderr.txt
 benchmark_dpss/eval_22_stdout.txt
 benchmark_dpss/eval_22_watch.log
+
+# ---------------------------------------------------------------- runtime + ma nguon ben thu ba (Power-MF)
+# tools/ chua GNU Octave portable (~2 GB, GPL-3.0), repo fecg-benchmarking (MIT),
+# va ma nguon du thi PhysioNet/CinC 2013 cua Varanini (khong gan nhan giay phep chuan).
+# KHONG tai phan phoi. Tai lai bang:  python baselines/powermf_setup.py
+tools/
+# .mat trung gian (tin hieu 4 kenh xuat cho Octave) -- tai tao bang powermf_export.py
+baselines/powermf_work/
+
+# ---------------------------------------------------------------- vong 4 (QA) 2026-09-12
+# Ma nguon Power-MF cua tac gia (Jaeger 2024) va cac file .m di kem cua ho.
+# Cung ly do voi tools/: KHONG tai phan phoi ma nguon ben thu ba.
+# Cac ban sao nay do baselines/powermf_setup.py + baselines/octave/apply_patches.py tao ra.
+# CHI giu lai cac tep DO NHOM VIET: findpeaks_mpd.m, test_fpmpd.m, run_powermf.m, apply_patches.py
+baselines/octave/PowerMF.m
+baselines/octave/PowerMF.m.bak_a2
+baselines/octave/PowerMF_dbg.m
+baselines/octave/matched_filter.m
+# script chan doan mot lan, duong dan tuyet doi cua may ca nhan
+baselines/octave/_dbg_fp.m
+baselines/octave/_dbg_fp2.m
+baselines/octave/_mkdbg.py
+
+# bo nho dem dac trung cua cong tin cay 22 ca (2,4 MB, tai tao bang analysis/gate22.py)
+analysis/gate22_cache/
+
+# ban sao trung lap cua de cuong: docs/de_cuong.pdf giong het
+# docs/De_cuong_NCKH_RelyFetal.pdf (cung ma bam MD5) -- chi giu ban co ten day du
+docs/de_cuong.pdf
+
+# san pham phu khi dung bang LaTeX/DOCX
+de_cuong_latex/_check.txt
+
+# stdout trung lap voi *_log.txt tuong ung (log la ban co cau truc, giu log)
+*_stdout.txt
+
+# ban sao luu truoc khi sua liem chinh -- de xuat XOA sau khi chu nhiem doi chieu xong
+*.bak_integrity

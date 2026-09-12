@@ -1,0 +1,1875 @@
+{
+ "meta": {
+  "date": "2026-09-11T22:32:53",
+  "muc_dich": "Tinh lai ket qua chinh o DON VI CHU THE; sua gia lap (pseudo-replication)",
+  "n_boot": 10000,
+  "seed": 0,
+  "delta_tost_F1": 1.0,
+  "numpy": "2.4.6",
+  "scipy": "1.18.0",
+  "gioi_han_n5": "Voi n = 5 chu the, Wilcoxon signed-rank hai phia co p NHO NHAT co the dat = 2/2^5 = 0,0625. Do do KHONG mot so sanh nao tren ADFECGDB (5 phu nu) co the dat p < 0,05 o muc chu the, bat ke hieu so lon den dau. Moi p < 0,05 tung bao cao tren tap nay deu la san pham cua gia lap."
+ },
+ "comparisons": {
+  "adfecgdb_model_vs_TS_mean4": {
+   "label": "ADFECGDB: FetalQRS-TCN vs TS (TB 4 kenh)",
+   "A": "FetalQRS-TCN",
+   "B": "TS",
+   "n_subjects": 5,
+   "mean_A": 97.44686717431811,
+   "mean_B": 78.95551668695893,
+   "wilcoxon_subject": {
+    "n_pairs": 5,
+    "n_nonzero": 5,
+    "n_pos": 5,
+    "n_neg": 0,
+    "n_tie": 0,
+    "mean_diff": 18.491350487359174,
+    "median_diff": 7.411705172097754,
+    "stat": 0.0,
+    "p": 0.0625,
+    "method": "exact",
+    "p_min_possible_two_sided": 0.0625
+   },
+   "sign_test": {
+    "n_eff": 5,
+    "n_pos": 5,
+    "n_neg": 0,
+    "p": 0.0625
+   },
+   "cluster_bootstrap": {
+    "mean_diff": 18.491350487359174,
+    "ci95": [
+     6.382774220074163,
+     30.599926754644184
+    ],
+    "ci90": [
+     6.651803218108048,
+     30.354490276666276
+    ],
+    "ci95_t_paired": [
+     -1.8148418925646972,
+     38.79754286728304
+    ],
+    "frac_boot_le_0": 0.0,
+    "loai_tru_0_bootstrap": true,
+    "loai_tru_0_t": false,
+    "n_boot": 10000,
+    "canh_bao": "n < 8 cum: KTC percentile bootstrap co xu huong HEP hon thuc te; uu tien KTC t."
+   },
+   "cliffs_delta": {
+    "delta": 1.0,
+    "magnitude": "lon"
+   },
+   "rank_biserial_paired": 1.0,
+   "significant_005": false,
+   "note": "Don vi cu: 20 cap (ban ghi x kenh) tu 5 phu nu -> gia lap 4x",
+   "old_unit": "20 cap (ban ghi x kenh)",
+   "old_p": 5.7220458984375e-06,
+   "old_n": 20
+  },
+  "adfecgdb_model_vs_TS_psdlead": {
+   "label": "ADFECGDB: FetalQRS-TCN vs TS (kenh PSD mu nhan)",
+   "A": "FetalQRS-TCN",
+   "B": "TS",
+   "n_subjects": 5,
+   "mean_A": 99.21360583260453,
+   "mean_B": 87.68135752521621,
+   "wilcoxon_subject": {
+    "n_pairs": 5,
+    "n_nonzero": 5,
+    "n_pos": 4,
+    "n_neg": 1,
+    "n_tie": 0,
+    "mean_diff": 11.532248307388324,
+    "median_diff": 11.290499414679346,
+    "stat": 1.0,
+    "p": 0.125,
+    "method": "exact",
+    "p_min_possible_two_sided": 0.0625
+   },
+   "sign_test": {
+    "n_eff": 5,
+    "n_pos": 4,
+    "n_neg": 1,
+    "p": 0.375
+   },
+   "cluster_bootstrap": {
+    "mean_diff": 11.532248307388324,
+    "ci95": [
+     4.24742260550029,
+     19.576506768689743
+    ],
+    "ci90": [
+     5.475688586888881,
+     18.089398853948946
+    ],
+    "ci95_t_paired": [
+     -0.37550787650471307,
+     23.44000449128136
+    ],
+    "frac_boot_le_0": 0.0001,
+    "loai_tru_0_bootstrap": true,
+    "loai_tru_0_t": false,
+    "n_boot": 10000,
+    "canh_bao": "n < 8 cum: KTC percentile bootstrap co xu huong HEP hon thuc te; uu tien KTC t."
+   },
+   "cliffs_delta": {
+    "delta": 0.92,
+    "magnitude": "lon"
+   },
+   "rank_biserial_paired": 0.8666666666666667,
+   "significant_005": false,
+   "note": "1 kenh / chu the -> khong gia lap, nhung n = 5",
+   "old_unit": "5 cap (kenh PSD)",
+   "old_p": 0.125,
+   "old_n": 5
+  },
+  "adfecgdb_model_vs_TS-PCA_mean4": {
+   "label": "ADFECGDB: FetalQRS-TCN vs TS-PCA (TB 4 kenh)",
+   "A": "FetalQRS-TCN",
+   "B": "TS-PCA",
+   "n_subjects": 5,
+   "mean_A": 97.44686717431811,
+   "mean_B": 91.05147826991065,
+   "wilcoxon_subject": {
+    "n_pairs": 5,
+    "n_nonzero": 5,
+    "n_pos": 5,
+    "n_neg": 0,
+    "n_tie": 0,
+    "mean_diff": 6.395388904407471,
+    "median_diff": 7.120260522681619,
+    "stat": 0.0,
+    "p": 0.0625,
+    "method": "exact",
+    "p_min_possible_two_sided": 0.0625
+   },
+   "sign_test": {
+    "n_eff": 5,
+    "n_pos": 5,
+    "n_neg": 0,
+    "p": 0.0625
+   },
+   "cluster_bootstrap": {
+    "mean_diff": 6.395388904407471,
+    "ci95": [
+     4.697320293048196,
+     8.093457515766747
+    ],
+    "ci90": [
+     4.838486196282034,
+     7.823560486848512
+    ],
+    "ci95_t_paired": [
+     3.6918990201724333,
+     9.098878788642509
+    ],
+    "frac_boot_le_0": 0.0,
+    "loai_tru_0_bootstrap": true,
+    "loai_tru_0_t": true,
+    "n_boot": 10000,
+    "canh_bao": "n < 8 cum: KTC percentile bootstrap co xu huong HEP hon thuc te; uu tien KTC t."
+   },
+   "cliffs_delta": {
+    "delta": 0.92,
+    "magnitude": "lon"
+   },
+   "rank_biserial_paired": 1.0,
+   "significant_005": false,
+   "note": "Don vi cu: 20 cap (ban ghi x kenh) tu 5 phu nu -> gia lap 4x",
+   "old_unit": "20 cap (ban ghi x kenh)",
+   "old_p": 1.9073486328125e-06,
+   "old_n": 20
+  },
+  "adfecgdb_model_vs_TS-PCA_psdlead": {
+   "label": "ADFECGDB: FetalQRS-TCN vs TS-PCA (kenh PSD mu nhan)",
+   "A": "FetalQRS-TCN",
+   "B": "TS-PCA",
+   "n_subjects": 5,
+   "mean_A": 99.21360583260453,
+   "mean_B": 97.07608034178432,
+   "wilcoxon_subject": {
+    "n_pairs": 5,
+    "n_nonzero": 5,
+    "n_pos": 5,
+    "n_neg": 0,
+    "n_tie": 0,
+    "mean_diff": 2.137525490820201,
+    "median_diff": 2.497743381332967,
+    "stat": 0.0,
+    "p": 0.0625,
+    "method": "exact",
+    "p_min_possible_two_sided": 0.0625
+   },
+   "sign_test": {
+    "n_eff": 5,
+    "n_pos": 5,
+    "n_neg": 0,
+    "p": 0.0625
+   },
+   "cluster_bootstrap": {
+    "mean_diff": 2.137525490820201,
+    "ci95": [
+     1.5355004306647941,
+     2.6842814108924102
+    ],
+    "ci90": [
+     1.6371391743626105,
+     2.6373819997273076
+    ],
+    "ci95_t_paired": [
+     1.2251521234514735,
+     3.0498988581889286
+    ],
+    "frac_boot_le_0": 0.0,
+    "loai_tru_0_bootstrap": true,
+    "loai_tru_0_t": true,
+    "n_boot": 10000,
+    "canh_bao": "n < 8 cum: KTC percentile bootstrap co xu huong HEP hon thuc te; uu tien KTC t."
+   },
+   "cliffs_delta": {
+    "delta": 0.68,
+    "magnitude": "lon"
+   },
+   "rank_biserial_paired": 1.0,
+   "significant_005": false,
+   "note": "1 kenh / chu the -> khong gia lap, nhung n = 5",
+   "old_unit": "5 cap (kenh PSD)",
+   "old_p": 0.0625,
+   "old_n": 5
+  },
+  "adfecgdb_model_vs_Prominence_mean4": {
+   "label": "ADFECGDB: FetalQRS-TCN vs Prominence (TB 4 kenh)",
+   "A": "FetalQRS-TCN",
+   "B": "Prominence",
+   "n_subjects": 5,
+   "mean_A": 97.44686717431811,
+   "mean_B": 86.38898618851934,
+   "wilcoxon_subject": {
+    "n_pairs": 5,
+    "n_nonzero": 5,
+    "n_pos": 5,
+    "n_neg": 0,
+    "n_tie": 0,
+    "mean_diff": 11.057880985798775,
+    "median_diff": 9.244856952165549,
+    "stat": 0.0,
+    "p": 0.0625,
+    "method": "exact",
+    "p_min_possible_two_sided": 0.0625
+   },
+   "sign_test": {
+    "n_eff": 5,
+    "n_pos": 5,
+    "n_neg": 0,
+    "p": 0.0625
+   },
+   "cluster_bootstrap": {
+    "mean_diff": 11.057880985798775,
+    "ci95": [
+     7.800874120147415,
+     14.511881854869548
+    ],
+    "ci90": [
+     8.274283587548087,
+     14.066305902841739
+    ],
+    "ci95_t_paired": [
+     5.734523613803049,
+     16.3812383577945
+    ],
+    "frac_boot_le_0": 0.0,
+    "loai_tru_0_bootstrap": true,
+    "loai_tru_0_t": true,
+    "n_boot": 10000,
+    "canh_bao": "n < 8 cum: KTC percentile bootstrap co xu huong HEP hon thuc te; uu tien KTC t."
+   },
+   "cliffs_delta": {
+    "delta": 1.0,
+    "magnitude": "lon"
+   },
+   "rank_biserial_paired": 1.0,
+   "significant_005": false,
+   "note": "Don vi cu: 20 cap (ban ghi x kenh) tu 5 phu nu -> gia lap 4x",
+   "old_unit": "20 cap (ban ghi x kenh)",
+   "old_p": 1.9073486328125e-06,
+   "old_n": 20
+  },
+  "adfecgdb_model_vs_Prominence_psdlead": {
+   "label": "ADFECGDB: FetalQRS-TCN vs Prominence (kenh PSD mu nhan)",
+   "A": "FetalQRS-TCN",
+   "B": "Prominence",
+   "n_subjects": 5,
+   "mean_A": 99.21360583260453,
+   "mean_B": 92.03184266231605,
+   "wilcoxon_subject": {
+    "n_pairs": 5,
+    "n_nonzero": 5,
+    "n_pos": 5,
+    "n_neg": 0,
+    "n_tie": 0,
+    "mean_diff": 7.181763170288488,
+    "median_diff": 6.984126984126988,
+    "stat": 0.0,
+    "p": 0.0625,
+    "method": "exact",
+    "p_min_possible_two_sided": 0.0625
+   },
+   "sign_test": {
+    "n_eff": 5,
+    "n_pos": 5,
+    "n_neg": 0,
+    "p": 0.0625
+   },
+   "cluster_bootstrap": {
+    "mean_diff": 7.181763170288488,
+    "ci95": [
+     3.267619761271919,
+     11.465770891781798
+    ],
+    "ci90": [
+     4.15386525605827,
+     10.317878356428764
+    ],
+    "ci95_t_paired": [
+     0.8990242301203173,
+     13.46450211045666
+    ],
+    "frac_boot_le_0": 0.0,
+    "loai_tru_0_bootstrap": true,
+    "loai_tru_0_t": true,
+    "n_boot": 10000,
+    "canh_bao": "n < 8 cum: KTC percentile bootstrap co xu huong HEP hon thuc te; uu tien KTC t."
+   },
+   "cliffs_delta": {
+    "delta": 1.0,
+    "magnitude": "lon"
+   },
+   "rank_biserial_paired": 1.0,
+   "significant_005": false,
+   "note": "1 kenh / chu the -> khong gia lap, nhung n = 5",
+   "old_unit": "5 cap (kenh PSD)",
+   "old_p": 0.0625,
+   "old_n": 5
+  },
+  "m22_vs_m5_PhysioNet_mean4": {
+   "label": "PhysioNet: mo hinh 22 chu the vs mo hinh 5 chu the (TB 4 kenh)",
+   "A": "model_22",
+   "B": "model_5",
+   "n_subjects": 5,
+   "mean_A": 98.68514401097524,
+   "mean_B": 97.44686717431811,
+   "wilcoxon_subject": {
+    "n_pairs": 5,
+    "n_nonzero": 5,
+    "n_pos": 2,
+    "n_neg": 3,
+    "n_tie": 0,
+    "mean_diff": 1.2382768366571355,
+    "median_diff": -0.03875968992247181,
+    "stat": 6.0,
+    "p": 0.8125,
+    "method": "exact",
+    "p_min_possible_two_sided": 0.0625
+   },
+   "sign_test": {
+    "n_eff": 5,
+    "n_pos": 2,
+    "n_neg": 3,
+    "p": 1.0
+   },
+   "cluster_bootstrap": {
+    "mean_diff": 1.2382768366571355,
+    "ci95": [
+     -0.3531157132333306,
+     3.010223018523078
+    ],
+    "ci90": [
+     -0.28361294730918873,
+     2.7858317636819576
+    ],
+    "ci95_t_paired": [
+     -1.4361055578379625,
+     3.9126592311522335
+    ],
+    "frac_boot_le_0": 0.0818,
+    "loai_tru_0_bootstrap": false,
+    "loai_tru_0_t": false,
+    "n_boot": 10000,
+    "canh_bao": "n < 8 cum: KTC percentile bootstrap co xu huong HEP hon thuc te; uu tien KTC t."
+   },
+   "cliffs_delta": {
+    "delta": 0.2,
+    "magnitude": "nho"
+   },
+   "rank_biserial_paired": 0.2,
+   "significant_005": false,
+   "note": "Don vi cu: (chu the x kenh)",
+   "old_unit": "20 cap (chu the x kenh)",
+   "old_p": 0.2444903379295854,
+   "old_n": 20
+  },
+  "m22_vs_m5_PhysioNet_psd": {
+   "label": "PhysioNet: mo hinh 22 vs mo hinh 5 (kenh PSD mu nhan)",
+   "A": "model_22",
+   "B": "model_5",
+   "n_subjects": 5,
+   "mean_A": 99.39718973112305,
+   "mean_B": 99.21360583260453,
+   "wilcoxon_subject": {
+    "n_pairs": 5,
+    "n_nonzero": 4,
+    "n_pos": 2,
+    "n_neg": 2,
+    "n_tie": 1,
+    "mean_diff": 0.18358389851852905,
+    "median_diff": 0.0,
+    "stat": 5.0,
+    "p": 1.0,
+    "method": "exact",
+    "p_min_possible_two_sided": 0.125
+   },
+   "sign_test": {
+    "n_eff": 4,
+    "n_pos": 2,
+    "n_neg": 2,
+    "p": 1.0
+   },
+   "cluster_bootstrap": {
+    "mean_diff": 0.18358389851852905,
+    "ci95": [
+     -0.0628009357884082,
+     0.6289273931300556
+    ],
+    "ci90": [
+     -0.06253163859157951,
+     0.6131421921318292
+    ],
+    "ci95_t_paired": [
+     -0.43642923872544503,
+     0.8035970357625032
+    ],
+    "frac_boot_le_0": 0.3154,
+    "loai_tru_0_bootstrap": false,
+    "loai_tru_0_t": false,
+    "n_boot": 10000,
+    "canh_bao": "n < 8 cum: KTC percentile bootstrap co xu huong HEP hon thuc te; uu tien KTC t."
+   },
+   "cliffs_delta": {
+    "delta": -0.04,
+    "magnitude": "khong dang ke"
+   },
+   "rank_biserial_paired": 0.0,
+   "significant_005": false,
+   "note": "1 kenh / chu the",
+   "old_unit": "5 chu the (kenh PSD)",
+   "old_p": 1.0,
+   "old_n": 5
+  },
+  "m22_vs_m5_B2_mean4": {
+   "label": "B2: mo hinh 22 chu the vs mo hinh 5 chu the (TB 4 kenh)",
+   "A": "model_22",
+   "B": "model_5",
+   "n_subjects": 7,
+   "mean_A": 94.50089700578454,
+   "mean_B": 93.73383498377372,
+   "wilcoxon_subject": {
+    "n_pairs": 7,
+    "n_nonzero": 7,
+    "n_pos": 5,
+    "n_neg": 2,
+    "n_tie": 0,
+    "mean_diff": 0.7670620220108292,
+    "median_diff": 0.14689354755728345,
+    "stat": 9.0,
+    "p": 0.46875,
+    "method": "exact",
+    "p_min_possible_two_sided": 0.015625
+   },
+   "sign_test": {
+    "n_eff": 7,
+    "n_pos": 5,
+    "n_neg": 2,
+    "p": 0.453125
+   },
+   "cluster_bootstrap": {
+    "mean_diff": 0.7670620220108292,
+    "ci95": [
+     -0.16081530111528,
+     2.3790227235157135
+    ],
+    "ci90": [
+     -0.11117276775428679,
+     2.2886386371895475
+    ],
+    "ci95_t_paired": [
+     -1.145183580445015,
+     2.679307624466673
+    ],
+    "frac_boot_le_0": 0.1734,
+    "loai_tru_0_bootstrap": false,
+    "loai_tru_0_t": false,
+    "n_boot": 10000,
+    "canh_bao": "n < 8 cum: KTC percentile bootstrap co xu huong HEP hon thuc te; uu tien KTC t."
+   },
+   "cliffs_delta": {
+    "delta": 0.10204081632653061,
+    "magnitude": "khong dang ke"
+   },
+   "rank_biserial_paired": 0.35714285714285715,
+   "significant_005": false,
+   "note": "Don vi cu: (chu the x kenh)",
+   "old_unit": "28 cap (chu the x kenh)",
+   "old_p": 0.015576468116855436,
+   "old_n": 28
+  },
+  "m22_vs_m5_B2_psd": {
+   "label": "B2: mo hinh 22 vs mo hinh 5 (kenh PSD mu nhan)",
+   "A": "model_22",
+   "B": "model_5",
+   "n_subjects": 7,
+   "mean_A": 96.81924588057166,
+   "mean_B": 95.8695539135934,
+   "wilcoxon_subject": {
+    "n_pairs": 7,
+    "n_nonzero": 4,
+    "n_pos": 4,
+    "n_neg": 0,
+    "n_tie": 3,
+    "mean_diff": 0.949691966978252,
+    "median_diff": 0.07489993148857366,
+    "stat": 0.0,
+    "p": 0.125,
+    "method": "exact",
+    "p_min_possible_two_sided": 0.125
+   },
+   "sign_test": {
+    "n_eff": 4,
+    "n_pos": 4,
+    "n_neg": 0,
+    "p": 0.125
+   },
+   "cluster_bootstrap": {
+    "mean_diff": 0.949691966978252,
+    "ci95": [
+     0.03244384757294938,
+     2.6268458199804905
+    ],
+    "ci90": [
+     0.043487714720592,
+     2.5642246123952868
+    ],
+    "ci95_t_paired": [
+     -1.0792580402685152,
+     2.9786419742250194
+    ],
+    "frac_boot_le_0": 0.003,
+    "loai_tru_0_bootstrap": true,
+    "loai_tru_0_t": false,
+    "n_boot": 10000,
+    "canh_bao": "n < 8 cum: KTC percentile bootstrap co xu huong HEP hon thuc te; uu tien KTC t."
+   },
+   "cliffs_delta": {
+    "delta": 0.14285714285714285,
+    "magnitude": "khong dang ke"
+   },
+   "rank_biserial_paired": 1.0,
+   "significant_005": false,
+   "note": "1 kenh / chu the",
+   "old_unit": "7 chu the (kenh PSD)",
+   "old_p": 0.125,
+   "old_n": 7
+  },
+  "m22_vs_m5_B1_mean4": {
+   "label": "B1: mo hinh 22 chu the vs mo hinh 5 chu the (TB 4 kenh)",
+   "A": "model_22",
+   "B": "model_5",
+   "n_subjects": 10,
+   "mean_A": 97.01307601456122,
+   "mean_B": 91.30642984761845,
+   "wilcoxon_subject": {
+    "n_pairs": 10,
+    "n_nonzero": 10,
+    "n_pos": 9,
+    "n_neg": 1,
+    "n_tie": 0,
+    "mean_diff": 5.706646166942773,
+    "median_diff": 2.923385732934264,
+    "stat": 1.0,
+    "p": 0.00390625,
+    "method": "exact",
+    "p_min_possible_two_sided": 0.001953125
+   },
+   "sign_test": {
+    "n_eff": 10,
+    "n_pos": 9,
+    "n_neg": 1,
+    "p": 0.021484375
+   },
+   "cluster_bootstrap": {
+    "mean_diff": 5.706646166942773,
+    "ci95": [
+     2.1245054027511183,
+     10.172753013443492
+    ],
+    "ci90": [
+     2.5961979436761458,
+     9.37808575548686
+    ],
+    "ci95_t_paired": [
+     0.7885019199330792,
+     10.624790413952466
+    ],
+    "frac_boot_le_0": 0.0,
+    "loai_tru_0_bootstrap": true,
+    "loai_tru_0_t": true,
+    "n_boot": 10000,
+    "canh_bao": ""
+   },
+   "cliffs_delta": {
+    "delta": 0.5,
+    "magnitude": "lon"
+   },
+   "rank_biserial_paired": 0.9636363636363636,
+   "significant_005": true,
+   "note": "Don vi cu: (chu the x kenh)",
+   "old_unit": "40 cap (chu the x kenh)",
+   "old_p": 4.320099833421409e-09,
+   "old_n": 40
+  },
+  "m22_vs_m5_B1_psd": {
+   "label": "B1: mo hinh 22 vs mo hinh 5 (kenh PSD mu nhan)",
+   "A": "model_22",
+   "B": "model_5",
+   "n_subjects": 10,
+   "mean_A": 97.15195594306854,
+   "mean_B": 93.30259802986802,
+   "wilcoxon_subject": {
+    "n_pairs": 10,
+    "n_nonzero": 10,
+    "n_pos": 9,
+    "n_neg": 1,
+    "n_tie": 0,
+    "mean_diff": 3.849357913200516,
+    "median_diff": 0.1975530765278748,
+    "stat": 7.0,
+    "p": 0.037109375,
+    "method": "exact",
+    "p_min_possible_two_sided": 0.001953125
+   },
+   "sign_test": {
+    "n_eff": 10,
+    "n_pos": 9,
+    "n_neg": 1,
+    "p": 0.021484375
+   },
+   "cluster_bootstrap": {
+    "mean_diff": 3.849357913200516,
+    "ci95": [
+     0.047951378377910234,
+     9.615903192804996
+    ],
+    "ci90": [
+     0.2289236815278869,
+     8.855626200875093
+    ],
+    "ci95_t_paired": [
+     -2.4899799057110097,
+     10.188695732112041
+    ],
+    "frac_boot_le_0": 0.0161,
+    "loai_tru_0_bootstrap": true,
+    "loai_tru_0_t": false,
+    "n_boot": 10000,
+    "canh_bao": ""
+   },
+   "cliffs_delta": {
+    "delta": 0.36,
+    "magnitude": "trung binh"
+   },
+   "rank_biserial_paired": 0.7454545454545455,
+   "significant_005": true,
+   "note": "1 kenh / chu the",
+   "old_unit": "10 chu the (kenh PSD)",
+   "old_p": 0.037109375,
+   "old_n": 10
+  },
+  "m22_vs_m5_ALL_mean4": {
+   "label": "ALL: mo hinh 22 chu the vs mo hinh 5 chu the (TB 4 kenh)",
+   "A": "model_22",
+   "B": "model_5",
+   "n_subjects": 22,
+   "mean_A": 96.59376178368093,
+   "mean_B": 93.4743399651905,
+   "wilcoxon_subject": {
+    "n_pairs": 22,
+    "n_nonzero": 22,
+    "n_pos": 16,
+    "n_neg": 6,
+    "n_tie": 0,
+    "mean_diff": 3.1194218184904186,
+    "median_diff": 0.7154837039994248,
+    "stat": 37.5,
+    "p": 0.0028514862060546875,
+    "method": "exact",
+    "p_min_possible_two_sided": 4.76837158203125e-07
+   },
+   "sign_test": {
+    "n_eff": 22,
+    "n_pos": 16,
+    "n_neg": 6,
+    "p": 0.052478790283203125
+   },
+   "cluster_bootstrap": {
+    "mean_diff": 3.1194218184904186,
+    "ci95": [
+     1.2658487862671104,
+     5.479181750314366
+    ],
+    "ci90": [
+     1.4863324599204437,
+     5.06307148842419
+    ],
+    "ci95_t_paired": [
+     0.7633961130754847,
+     5.475447523905352
+    ],
+    "frac_boot_le_0": 0.0,
+    "loai_tru_0_bootstrap": true,
+    "loai_tru_0_t": true,
+    "n_boot": 10000,
+    "canh_bao": ""
+   },
+   "cliffs_delta": {
+    "delta": 0.2644628099173554,
+    "magnitude": "nho"
+   },
+   "rank_biserial_paired": 0.7035573122529645,
+   "significant_005": true,
+   "note": "Don vi cu: (chu the x kenh)",
+   "old_unit": "88 cap (chu the x kenh)",
+   "old_p": 1.486338893265709e-08,
+   "old_n": 88
+  },
+  "m22_vs_m5_ALL_psd": {
+   "label": "ALL: mo hinh 22 vs mo hinh 5 (kenh PSD mu nhan)",
+   "A": "model_22",
+   "B": "model_5",
+   "n_subjects": 22,
+   "mean_A": 97.55637405683193,
+   "mean_B": 95.46276758440257,
+   "wilcoxon_subject": {
+    "n_pairs": 22,
+    "n_nonzero": 18,
+    "n_pos": 15,
+    "n_neg": 3,
+    "n_tie": 4,
+    "mean_diff": 2.093606472429344,
+    "median_diff": 0.0825812024497452,
+    "stat": 24.0,
+    "p": 0.0055999755859375,
+    "method": "exact",
+    "p_min_possible_two_sided": 7.62939453125e-06
+   },
+   "sign_test": {
+    "n_eff": 18,
+    "n_pos": 15,
+    "n_neg": 3,
+    "p": 0.007537841796875
+   },
+   "cluster_bootstrap": {
+    "mean_diff": 2.093606472429344,
+    "ci95": [
+     0.2258895808015047,
+     4.9875081729430235
+    ],
+    "ci90": [
+     0.3711971148567861,
+     4.455218792241061
+    ],
+    "ci95_t_paired": [
+     -0.6341980552867508,
+     4.821411000145439
+    ],
+    "frac_boot_le_0": 0.0016,
+    "loai_tru_0_bootstrap": true,
+    "loai_tru_0_t": false,
+    "n_boot": 10000,
+    "canh_bao": ""
+   },
+   "cliffs_delta": {
+    "delta": 0.15289256198347106,
+    "magnitude": "nho"
+   },
+   "rank_biserial_paired": 0.7192982456140351,
+   "significant_005": true,
+   "note": "1 kenh / chu the",
+   "old_unit": "22 chu the (kenh PSD)",
+   "old_p": 0.007398655365388617,
+   "old_n": 22
+  },
+  "cinc_m22_vs_m5_lead0": {
+   "label": "CinC 2013 zero-shot: mo hinh 22 vs mo hinh 5 (kenh 0 co dinh)",
+   "A": "model_22",
+   "B": "model_5",
+   "n_subjects": 10,
+   "mean_A": 90.34301417763946,
+   "mean_B": 77.33765519586146,
+   "wilcoxon_subject": {
+    "n_pairs": 10,
+    "n_nonzero": 7,
+    "n_pos": 7,
+    "n_neg": 0,
+    "n_tie": 3,
+    "mean_diff": 13.005358981778022,
+    "median_diff": 3.906229956813611,
+    "stat": 0.0,
+    "p": 0.015625,
+    "method": "exact",
+    "p_min_possible_two_sided": 0.015625
+   },
+   "sign_test": {
+    "n_eff": 7,
+    "n_pos": 7,
+    "n_neg": 0,
+    "p": 0.015625
+   },
+   "cluster_bootstrap": {
+    "mean_diff": 13.005358981778022,
+    "ci95": [
+     3.581621036179509,
+     24.583713208707785
+    ],
+    "ci90": [
+     4.700029532781871,
+     22.452992603857794
+    ],
+    "ci95_t_paired": [
+     0.1792327861678391,
+     25.831485177388203
+    ],
+    "frac_boot_le_0": 0.0,
+    "loai_tru_0_bootstrap": true,
+    "loai_tru_0_t": true,
+    "n_boot": 10000,
+    "canh_bao": ""
+   },
+   "cliffs_delta": {
+    "delta": 0.23,
+    "magnitude": "nho"
+   },
+   "rank_biserial_paired": 1.0,
+   "significant_005": true,
+   "note": "10 ban ghi = 10 chu the",
+   "old_unit": "40 cap (ban ghi x kenh)",
+   "old_p": 3.9862558382584066e-05,
+   "old_n": 40
+  },
+  "cinc_m22_vs_m5_mean4": {
+   "label": "CinC 2013 zero-shot: mo hinh 22 vs mo hinh 5 (TB 4 kenh)",
+   "A": "model_22",
+   "B": "model_5",
+   "n_subjects": 10,
+   "mean_A": 72.64072664236572,
+   "mean_B": 61.9639491600668,
+   "wilcoxon_subject": {
+    "n_pairs": 10,
+    "n_nonzero": 7,
+    "n_pos": 6,
+    "n_neg": 1,
+    "n_tie": 3,
+    "mean_diff": 10.676777482298931,
+    "median_diff": 13.221485995779434,
+    "stat": 1.0,
+    "p": 0.03125,
+    "method": "exact",
+    "p_min_possible_two_sided": 0.015625
+   },
+   "sign_test": {
+    "n_eff": 7,
+    "n_pos": 6,
+    "n_neg": 1,
+    "p": 0.125
+   },
+   "cluster_bootstrap": {
+    "mean_diff": 10.676777482298931,
+    "ci95": [
+     4.659782491016827,
+     16.72930276021414
+    ],
+    "ci90": [
+     5.85925159976274,
+     15.776336655246709
+    ],
+    "ci95_t_paired": [
+     3.4027316612648386,
+     17.950823303333024
+    ],
+    "frac_boot_le_0": 0.0,
+    "loai_tru_0_bootstrap": true,
+    "loai_tru_0_t": true,
+    "n_boot": 10000,
+    "canh_bao": ""
+   },
+   "cliffs_delta": {
+    "delta": 0.19,
+    "magnitude": "nho"
+   },
+   "rank_biserial_paired": 0.9285714285714286,
+   "significant_005": true,
+   "note": "10 ban ghi = 10 chu the",
+   "old_unit": "40 cap (ban ghi x kenh)",
+   "old_p": 3.9862558382584066e-05,
+   "old_n": 40
+  },
+  "architectures_vs_cnn_dil": {
+   "linear": {
+    "label": "Kien truc linear vs cnn_dil (TB 4 kenh moi ban ghi)",
+    "A": "linear",
+    "B": "cnn_dil",
+    "n_subjects": 5,
+    "mean_A": 37.46685424848803,
+    "mean_B": 91.7041733954967,
+    "wilcoxon_subject": {
+     "n_pairs": 5,
+     "n_nonzero": 5,
+     "n_pos": 0,
+     "n_neg": 5,
+     "n_tie": 0,
+     "mean_diff": -54.237319147008655,
+     "median_diff": -55.81883109183211,
+     "stat": 0.0,
+     "p": 0.0625,
+     "method": "exact",
+     "p_min_possible_two_sided": 0.0625
+    },
+    "sign_test": {
+     "n_eff": 5,
+     "n_pos": 0,
+     "n_neg": 5,
+     "p": 0.0625
+    },
+    "cluster_bootstrap": {
+     "mean_diff": -54.237319147008655,
+     "ci95": [
+      -56.51289898061741,
+      -50.29636077125243
+     ],
+     "ci90": [
+      -56.4072768643848,
+      -50.49250936210333
+     ],
+     "ci95_t_paired": [
+      -59.704246525685164,
+      -48.770391768332146
+     ],
+     "frac_boot_le_0": 1.0,
+     "loai_tru_0_bootstrap": true,
+     "loai_tru_0_t": true,
+     "n_boot": 10000,
+     "canh_bao": "n < 8 cum: KTC percentile bootstrap co xu huong HEP hon thuc te; uu tien KTC t."
+    },
+    "cliffs_delta": {
+     "delta": -1.0,
+     "magnitude": "lon"
+    },
+    "rank_biserial_paired": -1.0,
+    "significant_005": false,
+    "note": "Don vi cu: 20 cap (ban ghi x kenh)",
+    "old_unit": "20 cap (ban ghi x kenh)",
+    "old_n": 20,
+    "tost": {
+     "mean_diff": -54.237319147008655,
+     "sd_diff": 4.4029039954328715,
+     "n": 5,
+     "delta": 1.0,
+     "p_tost": 0.9999944368205145,
+     "p_lower": 0.9999944368205145,
+     "p_upper": 4.803276798202659e-06,
+     "ci90_t": [
+      -58.435007601750286,
+      -50.039630692267025
+     ],
+     "ci90_bootstrap": [
+      -56.4072768643848,
+      -50.49250936210333
+     ],
+     "ket_luan": "KHAC BIET vuot bien 1,0 diem"
+    },
+    "p_holm": 0.4375,
+    "significant_after_holm": false
+   },
+   "mlp": {
+    "label": "Kien truc mlp vs cnn_dil (TB 4 kenh moi ban ghi)",
+    "A": "mlp",
+    "B": "cnn_dil",
+    "n_subjects": 5,
+    "mean_A": 91.63905592215252,
+    "mean_B": 91.7041733954967,
+    "wilcoxon_subject": {
+     "n_pairs": 5,
+     "n_nonzero": 5,
+     "n_pos": 2,
+     "n_neg": 3,
+     "n_tie": 0,
+     "mean_diff": -0.06511747334416214,
+     "median_diff": -0.13355768708790094,
+     "stat": 7.0,
+     "p": 1.0,
+     "method": "exact",
+     "p_min_possible_two_sided": 0.0625
+    },
+    "sign_test": {
+     "n_eff": 5,
+     "n_pos": 2,
+     "n_neg": 3,
+     "p": 1.0
+    },
+    "cluster_bootstrap": {
+     "mean_diff": -0.06511747334416214,
+     "ci95": [
+      -4.360691134476073,
+      4.230456187787749
+     ],
+     "ci90": [
+      -3.467834999475957,
+      3.517676715930537
+     ],
+     "ci95_t_paired": [
+      -6.792782455881391,
+      6.662547509193067
+     ],
+     "frac_boot_le_0": 0.5261,
+     "loai_tru_0_bootstrap": false,
+     "loai_tru_0_t": false,
+     "n_boot": 10000,
+     "canh_bao": "n < 8 cum: KTC percentile bootstrap co xu huong HEP hon thuc te; uu tien KTC t."
+    },
+    "cliffs_delta": {
+     "delta": -0.12,
+     "magnitude": "khong dang ke"
+    },
+    "rank_biserial_paired": -0.06666666666666667,
+    "significant_005": false,
+    "note": "Don vi cu: 20 cap (ban ghi x kenh)",
+    "old_unit": "20 cap (ban ghi x kenh)",
+    "old_n": 20,
+    "tost": {
+     "mean_diff": -0.06511747334416214,
+     "sd_diff": 5.418265321592405,
+     "n": 5,
+     "delta": 1.0,
+     "p_tost": 0.359636676004093,
+     "p_lower": 0.359636676004093,
+     "p_upper": 0.34147871988914374,
+     "ci90_t": [
+      -5.230842142509764,
+      5.10060719582144
+     ],
+     "ci90_bootstrap": [
+      -3.467834999475957,
+      3.517676715930537
+     ],
+     "ket_luan": "KHONG KET LUAN DUOC (KTC 90% rong hon bien tuong duong)"
+    },
+    "p_holm": 1.0,
+    "significant_after_holm": false
+   },
+   "cnn_m": {
+    "label": "Kien truc cnn_m vs cnn_dil (TB 4 kenh moi ban ghi)",
+    "A": "cnn_m",
+    "B": "cnn_dil",
+    "n_subjects": 5,
+    "mean_A": 88.75694802498825,
+    "mean_B": 91.7041733954967,
+    "wilcoxon_subject": {
+     "n_pairs": 5,
+     "n_nonzero": 5,
+     "n_pos": 0,
+     "n_neg": 5,
+     "n_tie": 0,
+     "mean_diff": -2.947225370508434,
+     "median_diff": -1.9148924098267486,
+     "stat": 0.0,
+     "p": 0.0625,
+     "method": "exact",
+     "p_min_possible_two_sided": 0.0625
+    },
+    "sign_test": {
+     "n_eff": 5,
+     "n_pos": 0,
+     "n_neg": 5,
+     "p": 0.0625
+    },
+    "cluster_bootstrap": {
+     "mean_diff": -2.947225370508434,
+     "ci95": [
+      -4.855976479640506,
+      -1.1842811600286751
+     ],
+     "ci90": [
+      -4.546927613032082,
+      -1.4710439825495398
+     ],
+     "ci95_t_paired": [
+      -5.889137902602495,
+      -0.005312838414373466
+     ],
+     "frac_boot_le_0": 1.0,
+     "loai_tru_0_bootstrap": true,
+     "loai_tru_0_t": true,
+     "n_boot": 10000,
+     "canh_bao": "n < 8 cum: KTC percentile bootstrap co xu huong HEP hon thuc te; uu tien KTC t."
+    },
+    "cliffs_delta": {
+     "delta": -0.36,
+     "magnitude": "trung binh"
+    },
+    "rank_biserial_paired": -1.0,
+    "significant_005": false,
+    "note": "Don vi cu: 20 cap (ban ghi x kenh)",
+    "old_unit": "20 cap (ban ghi x kenh)",
+    "old_n": 20,
+    "tost": {
+     "mean_diff": -2.947225370508434,
+     "sd_diff": 2.3693306211261156,
+     "n": 5,
+     "delta": 1.0,
+     "p_tost": 0.9300146515679059,
+     "p_lower": 0.9300146515679059,
+     "p_upper": 0.010190831782039049,
+     "ci90_t": [
+      -5.206123544096499,
+      -0.688327196920369
+     ],
+     "ci90_bootstrap": [
+      -4.546927613032082,
+      -1.4710439825495398
+     ],
+     "ket_luan": "KHONG KET LUAN DUOC (KTC 90% rong hon bien tuong duong)"
+    },
+    "p_holm": 0.4375,
+    "significant_after_holm": false
+   },
+   "cnn_gru": {
+    "label": "Kien truc cnn_gru vs cnn_dil (TB 4 kenh moi ban ghi)",
+    "A": "cnn_gru",
+    "B": "cnn_dil",
+    "n_subjects": 5,
+    "mean_A": 91.58539000126403,
+    "mean_B": 91.7041733954967,
+    "wilcoxon_subject": {
+     "n_pairs": 5,
+     "n_nonzero": 5,
+     "n_pos": 2,
+     "n_neg": 3,
+     "n_tie": 0,
+     "mean_diff": -0.11878339423264776,
+     "median_diff": -0.5094949648907772,
+     "stat": 6.0,
+     "p": 0.8125,
+     "method": "exact",
+     "p_min_possible_two_sided": 0.0625
+    },
+    "sign_test": {
+     "n_eff": 5,
+     "n_pos": 2,
+     "n_neg": 3,
+     "p": 1.0
+    },
+    "cluster_bootstrap": {
+     "mean_diff": -0.11878339423264776,
+     "ci95": [
+      -0.8156234363890889,
+      0.7404136457895163
+     ],
+     "ci90": [
+      -0.7228813133694502,
+      0.5420193377142709
+     ],
+     "ci95_t_paired": [
+      -1.34027214613557,
+      1.1027053576702746
+     ],
+     "frac_boot_le_0": 0.6429,
+     "loai_tru_0_bootstrap": false,
+     "loai_tru_0_t": false,
+     "n_boot": 10000,
+     "canh_bao": "n < 8 cum: KTC percentile bootstrap co xu huong HEP hon thuc te; uu tien KTC t."
+    },
+    "cliffs_delta": {
+     "delta": -0.04,
+     "magnitude": "khong dang ke"
+    },
+    "rank_biserial_paired": -0.2,
+    "significant_005": false,
+    "note": "Don vi cu: 20 cap (ban ghi x kenh)",
+    "old_unit": "20 cap (ban ghi x kenh)",
+    "old_n": 20,
+    "tost": {
+     "mean_diff": -0.11878339423264776,
+     "sd_diff": 0.9837514445695229,
+     "n": 5,
+     "delta": 1.0,
+     "p_tost": 0.05785935155959454,
+     "p_lower": 0.05785935155959454,
+     "p_upper": 0.031888844001638966,
+     "ci90_t": [
+      -1.0566830362617254,
+      0.8191162477964299
+     ],
+     "ci90_bootstrap": [
+      -0.7228813133694502,
+      0.5420193377142709
+     ],
+     "ket_luan": "KHONG KET LUAN DUOC (KTC 90% rong hon bien tuong duong)"
+    },
+    "p_holm": 1.0,
+    "significant_after_holm": false
+   },
+   "cnn_l": {
+    "label": "Kien truc cnn_l vs cnn_dil (TB 4 kenh moi ban ghi)",
+    "A": "cnn_l",
+    "B": "cnn_dil",
+    "n_subjects": 5,
+    "mean_A": 92.4294670428974,
+    "mean_B": 91.7041733954967,
+    "wilcoxon_subject": {
+     "n_pairs": 5,
+     "n_nonzero": 5,
+     "n_pos": 4,
+     "n_neg": 1,
+     "n_tie": 0,
+     "mean_diff": 0.72529364740071,
+     "median_diff": 0.7818740209602311,
+     "stat": 1.0,
+     "p": 0.125,
+     "method": "exact",
+     "p_min_possible_two_sided": 0.0625
+    },
+    "sign_test": {
+     "n_eff": 5,
+     "n_pos": 4,
+     "n_neg": 1,
+     "p": 0.375
+    },
+    "cluster_bootstrap": {
+     "mean_diff": 0.72529364740071,
+     "ci95": [
+      0.06624731157691599,
+      1.2684268065557602
+     ],
+     "ci90": [
+      0.18216048824565972,
+      1.2194842961191283
+     ],
+     "ci95_t_paired": [
+      -0.24550839409042868,
+      1.6960956888918486
+     ],
+     "frac_boot_le_0": 0.0171,
+     "loai_tru_0_bootstrap": true,
+     "loai_tru_0_t": false,
+     "n_boot": 10000,
+     "canh_bao": "n < 8 cum: KTC percentile bootstrap co xu huong HEP hon thuc te; uu tien KTC t."
+    },
+    "cliffs_delta": {
+     "delta": 0.2,
+     "magnitude": "nho"
+    },
+    "rank_biserial_paired": 0.8666666666666667,
+    "significant_005": false,
+    "note": "Don vi cu: 20 cap (ban ghi x kenh)",
+    "old_unit": "20 cap (ban ghi x kenh)",
+    "old_n": 20,
+    "tost": {
+     "mean_diff": 0.72529364740071,
+     "sd_diff": 0.7818556734314082,
+     "n": 5,
+     "delta": 1.0,
+     "p_tost": 0.2380005908244791,
+     "p_lower": 0.003924469816937282,
+     "p_upper": 0.2380005908244791,
+     "ci90_t": [
+      -0.02012041046693025,
+      1.4707077052683504
+     ],
+     "ci90_bootstrap": [
+      0.18216048824565972,
+      1.2194842961191283
+     ],
+     "ket_luan": "KHONG KET LUAN DUOC (KTC 90% rong hon bien tuong duong)"
+    },
+    "p_holm": 0.625,
+    "significant_after_holm": false
+   },
+   "resnet1d": {
+    "label": "Kien truc resnet1d vs cnn_dil (TB 4 kenh moi ban ghi)",
+    "A": "resnet1d",
+    "B": "cnn_dil",
+    "n_subjects": 5,
+    "mean_A": 90.89899093618139,
+    "mean_B": 91.7041733954967,
+    "wilcoxon_subject": {
+     "n_pairs": 5,
+     "n_nonzero": 5,
+     "n_pos": 2,
+     "n_neg": 3,
+     "n_tie": 0,
+     "mean_diff": -0.8051824593152958,
+     "median_diff": -0.0744907876306371,
+     "stat": 5.0,
+     "p": 0.625,
+     "method": "exact",
+     "p_min_possible_two_sided": 0.0625
+    },
+    "sign_test": {
+     "n_eff": 5,
+     "n_pos": 2,
+     "n_neg": 3,
+     "p": 1.0
+    },
+    "cluster_bootstrap": {
+     "mean_diff": -0.8051824593152958,
+     "ci95": [
+      -2.046497252162382,
+      0.18191077097675076
+     ],
+     "ci90": [
+      -1.7922756896073424,
+      0.0902699358670425
+     ],
+     "ci95_t_paired": [
+      -2.5936616904848755,
+      0.9832967718542839
+     ],
+     "frac_boot_le_0": 0.927,
+     "loai_tru_0_bootstrap": false,
+     "loai_tru_0_t": false,
+     "n_boot": 10000,
+     "canh_bao": "n < 8 cum: KTC percentile bootstrap co xu huong HEP hon thuc te; uu tien KTC t."
+    },
+    "cliffs_delta": {
+     "delta": -0.04,
+     "magnitude": "khong dang ke"
+    },
+    "rank_biserial_paired": -0.3333333333333333,
+    "significant_005": false,
+    "note": "Don vi cu: 20 cap (ban ghi x kenh)",
+    "old_unit": "20 cap (ban ghi x kenh)",
+    "old_n": 20,
+    "tost": {
+     "mean_diff": -0.8051824593152958,
+     "sd_diff": 1.4403890535256383,
+     "n": 5,
+     "delta": 1.0,
+     "p_tost": 0.3886970873038138,
+     "p_lower": 0.3886970873038138,
+     "p_upper": 0.024346767552608874,
+     "ci90_t": [
+      -2.1784362269633344,
+      0.568071308332743
+     ],
+     "ci90_bootstrap": [
+      -1.7922756896073424,
+      0.0902699358670425
+     ],
+     "ket_luan": "KHONG KET LUAN DUOC (KTC 90% rong hon bien tuong duong)"
+    },
+    "p_holm": 1.0,
+    "significant_after_holm": false
+   },
+   "tcn": {
+    "label": "Kien truc tcn vs cnn_dil (TB 4 kenh moi ban ghi)",
+    "A": "tcn",
+    "B": "cnn_dil",
+    "n_subjects": 5,
+    "mean_A": 91.06690677371178,
+    "mean_B": 91.7041733954967,
+    "wilcoxon_subject": {
+     "n_pairs": 5,
+     "n_nonzero": 5,
+     "n_pos": 1,
+     "n_neg": 4,
+     "n_tie": 0,
+     "mean_diff": -0.6372666217849059,
+     "median_diff": -0.7342657503674417,
+     "stat": 2.0,
+     "p": 0.1875,
+     "method": "exact",
+     "p_min_possible_two_sided": 0.0625
+    },
+    "sign_test": {
+     "n_eff": 5,
+     "n_pos": 1,
+     "n_neg": 4,
+     "p": 0.375
+    },
+    "cluster_bootstrap": {
+     "mean_diff": -0.6372666217849059,
+     "ci95": [
+      -1.230972338592298,
+      0.033820316084401725
+     ],
+     "ci90": [
+      -1.131063963680461,
+      -0.11390868722789663
+     ],
+     "ci95_t_paired": [
+      -1.624715602546764,
+      0.35018235897695216
+     ],
+     "frac_boot_le_0": 0.9663,
+     "loai_tru_0_bootstrap": false,
+     "loai_tru_0_t": false,
+     "n_boot": 10000,
+     "canh_bao": "n < 8 cum: KTC percentile bootstrap co xu huong HEP hon thuc te; uu tien KTC t."
+    },
+    "cliffs_delta": {
+     "delta": -0.12,
+     "magnitude": "khong dang ke"
+    },
+    "rank_biserial_paired": -0.7333333333333333,
+    "significant_005": false,
+    "note": "Don vi cu: 20 cap (ban ghi x kenh)",
+    "old_unit": "20 cap (ban ghi x kenh)",
+    "old_n": 20,
+    "tost": {
+     "mean_diff": -0.6372666217849059,
+     "sd_diff": 0.7952626332005578,
+     "n": 5,
+     "delta": 1.0,
+     "p_tost": 0.1827189365596471,
+     "p_lower": 0.1827189365596471,
+     "p_upper": 0.0050020133271340955,
+     "ci90_t": [
+      -1.395462752642219,
+      0.12092950907240718
+     ],
+     "ci90_bootstrap": [
+      -1.131063963680461,
+      -0.11390868722789663
+     ],
+     "ket_luan": "KHONG KET LUAN DUOC (KTC 90% rong hon bien tuong duong)"
+    },
+    "p_holm": 0.75,
+    "significant_after_holm": false
+   }
+  },
+  "context_tier_tcn_vs_shortcnn": {
+   "label": "Tang 2 (ngu canh): TCN truong thu nhan 2 s vs CNN cua so ngan",
+   "A": "tcn_rf2s",
+   "B": "short_cnn",
+   "n_subjects": 5,
+   "mean_A": 97.16148278224475,
+   "mean_B": 92.67389553710288,
+   "wilcoxon_subject": {
+    "n_pairs": 5,
+    "n_nonzero": 5,
+    "n_pos": 5,
+    "n_neg": 0,
+    "n_tie": 0,
+    "mean_diff": 4.487587245141873,
+    "median_diff": 2.453426517354359,
+    "stat": 0.0,
+    "p": 0.0625,
+    "method": "exact",
+    "p_min_possible_two_sided": 0.0625
+   },
+   "sign_test": {
+    "n_eff": 5,
+    "n_pos": 5,
+    "n_neg": 0,
+    "p": 0.0625
+   },
+   "cluster_bootstrap": {
+    "mean_diff": 4.487587245141873,
+    "ci95": [
+     1.5818429072783544,
+     7.429348679039544
+    ],
+    "ci90": [
+     1.8888754317902965,
+     7.292934846708209
+    ],
+    "ci95_t_paired": [
+     -0.29110779482739524,
+     9.26628228511114
+    ],
+    "frac_boot_le_0": 0.0,
+    "loai_tru_0_bootstrap": true,
+    "loai_tru_0_t": false,
+    "n_boot": 10000,
+    "canh_bao": "n < 8 cum: KTC percentile bootstrap co xu huong HEP hon thuc te; uu tien KTC t."
+   },
+   "cliffs_delta": {
+    "delta": 0.52,
+    "magnitude": "lon"
+   },
+   "rank_biserial_paired": 1.0,
+   "significant_005": false,
+   "note": "Don vi cu: 60 hang = 5 ban ghi x 4 kenh x 3 seed -> gia lap 12x",
+   "old_unit": "60 hang (ban ghi x kenh x seed)",
+   "old_n": 60,
+   "old_p_bao_cao": "0,0000 (README)",
+   "tost": {
+    "mean_diff": 4.487587245141873,
+    "sd_diff": 3.8486217260726736,
+    "n": 5,
+    "delta": 1.0,
+    "p_tost": 0.9436571847387406,
+    "p_lower": 0.016634861472542672,
+    "p_upper": 0.9436571847387406,
+    "ci90_t": [
+     0.8183464433980787,
+     8.156828046885666
+    ],
+    "ci90_bootstrap": [
+     1.8888754317902965,
+     7.292934846708209
+    ],
+    "ket_luan": "KHONG KET LUAN DUOC (KTC 90% rong hon bien tuong duong)"
+   }
+  },
+  "gate_auroc_cinc": {
+   "label": "Cong tu choi (12 SQI co dien) tren CinC 2013: AUROC du doan doan xau (F1 < 80)",
+   "don_vi_cu": "600 doan tu 10 ban ghi, coi nhu doc lap",
+   "auroc_diem_tinh_lai": 0.9288775589718471,
+   "auroc_bao_cao_cu": 0.9288775589718472,
+   "cluster_bootstrap_ci95_theo_ban_ghi": [
+    0.8296771704761066,
+    0.9817857158869645
+   ],
+   "n_clusters": 10,
+   "auroc_tung_ban_ghi": {
+    "a01": 0.9142857142857143,
+    "a02": null,
+    "a03": null,
+    "a04": null,
+    "a05": null,
+    "a06": 0.3898305084745763,
+    "a07": 0.8888888888888888,
+    "a08": null,
+    "a09": 0.886,
+    "a10": 0.5258620689655172
+   },
+   "auroc_TRONG_ban_ghi": {
+    "n_ban_ghi_co_ca_2_lop": 5,
+    "n_ban_ghi_khong_co_doan_xau": 5,
+    "trung_binh": 0.7209734361229393,
+    "ci95_bootstrap": [
+     0.516848496655627,
+     0.8984698412698412
+    ],
+    "chu_thich": "AUROC gop 0,93 phan lon la hieu ung GIUA ban ghi (tach ban ghi tot khoi ban ghi xau), khong phai kha nang xep hang doan BEN TRONG mot ban ghi. Trong ung dung thuc te (mot thai phu, mot phien do) chi co AUROC TRONG ban ghi moi co y nghia."
+   },
+   "loi_ich_F1_o_do_phu_80": {
+    "diem": 7.490463224914777,
+    "ci95_cluster_bootstrap": [
+     2.9444844575872953,
+     11.54400404254227
+    ],
+    "bao_cao_cu": 7.37,
+    "chu_thich": "Tai lap tu p_bad da luu (gate_segments.csv); loi ich = TB F1 cua 80% doan p_bad thap nhat - TB F1 toan bo"
+   },
+   "topo_auroc_bao_cao_cu": 0.566441428905389,
+   "chu_thich": "600 doan 4 s den tu 10 ban ghi: doan trong cung mot ban ghi tuong quan manh. KTC dung phai lay mau lai BAN GHI, khong phai doan."
+  }
+ },
+ "confidence_intervals": {
+  "adfecgdb_psd_5": {
+   "ten": "ADFECGDB kenh PSD, mo hinh 5 chu the",
+   "n_subjects": 5,
+   "mean": 99.21360583260453,
+   "sd": 1.5015038261106322,
+   "t_ci_pct_SAI": {
+    "mean": 99.21360583260453,
+    "sd": 1.5015038261106322,
+    "ci95": [
+     97.34924258855776,
+     101.0779690766513
+    ],
+    "vuot_100": true
+   },
+   "logit_ci": {
+    "mean_backtransformed": 99.739187369273,
+    "ci95": [
+     98.2127476690879,
+     99.96243837097988
+    ],
+    "n": 5,
+    "note": "Uoc luong diem la TRUNG BINH TREN THANG LOGIT doi nguoc -- day KHONG phai trung binh so hoc cua F1; no keo ve phia cac gia tri cao va luon nam trong (0;100). KTC nay danh cho 'F1 dien hinh cua mot chu the moi'. Muon KTC cho TRUNG BINH SO HOC thi dung bootstrap percentile."
+   },
+   "bootstrap_ci": {
+    "mean": 99.21360583260453,
+    "ci95_percentile": [
+     97.87397212180392,
+     99.95395241749807
+    ],
+    "n": 5
+   },
+   "gia_tri_bao_cao_cu": 99.21
+  },
+  "adfecgdb_mean4_5": {
+   "ten": "ADFECGDB TB 4 kenh, mo hinh 5 chu the",
+   "n_subjects": 5,
+   "mean": 97.44686717431811,
+   "sd": 2.963654318021201,
+   "t_ci_pct_SAI": {
+    "mean": 97.44686717431811,
+    "sd": 2.963654318021201,
+    "ci95": [
+     93.76700430451007,
+     101.12673004412616
+    ],
+    "vuot_100": true
+   },
+   "logit_ci": {
+    "mean_backtransformed": 99.00121529507285,
+    "ci95": [
+     90.6452392818739,
+     99.90147488944507
+    ],
+    "n": 5,
+    "note": "Uoc luong diem la TRUNG BINH TREN THANG LOGIT doi nguoc -- day KHONG phai trung binh so hoc cua F1; no keo ve phia cac gia tri cao va luon nam trong (0;100). KTC nay danh cho 'F1 dien hinh cua mot chu the moi'. Muon KTC cho TRUNG BINH SO HOC thi dung bootstrap percentile."
+   },
+   "bootstrap_ci": {
+    "mean": 97.44686717431811,
+    "ci95_percentile": [
+     94.94479998818358,
+     99.62617437501424
+    ],
+    "n": 5
+   },
+   "gia_tri_bao_cao_cu": 97.45
+  },
+  "silesia_B1_model5_psd": {
+   "ten": "Silesia B1 thai ky, mo hinh 5 chu the (kenh PSD)",
+   "n_subjects": 10,
+   "mean": 93.30259802986802,
+   "sd": 13.461509314142297,
+   "t_ci_pct_SAI": {
+    "mean": 93.30259802986802,
+    "sd": 13.461509314142297,
+    "ci95": [
+     83.6728143772079,
+     102.93238168252815
+    ],
+    "vuot_100": true
+   },
+   "logit_ci": {
+    "mean_backtransformed": 98.77542569420882,
+    "ci95": [
+     94.79079599961418,
+     99.72109627510993
+    ],
+    "n": 10,
+    "note": "Uoc luong diem la TRUNG BINH TREN THANG LOGIT doi nguoc -- day KHONG phai trung binh so hoc cua F1; no keo ve phia cac gia tri cao va luon nam trong (0;100). KTC nay danh cho 'F1 dien hinh cua mot chu the moi'. Muon KTC cho TRUNG BINH SO HOC thi dung bootstrap percentile."
+   },
+   "bootstrap_ci": {
+    "mean": 93.30259802986802,
+    "ci95_percentile": [
+     84.93415222121193,
+     99.37395280387797
+    ],
+    "n": 10
+   },
+   "gia_tri_bao_cao_cu": 93.3
+  },
+  "silesia_B1_model22_psd": {
+   "ten": "Silesia B1 thai ky, mo hinh 22 chu the (kenh PSD)",
+   "n_subjects": 10,
+   "mean": 97.15195594306854,
+   "sd": 4.948262557742554,
+   "t_ci_pct_SAI": {
+    "mean": 97.15195594306854,
+    "sd": 4.948262557742554,
+    "ci95": [
+     93.61218214983134,
+     100.69172973630575
+    ],
+    "vuot_100": true
+   },
+   "logit_ci": {
+    "mean_backtransformed": 99.5999201247617,
+    "ci95": [
+     97.85170198220732,
+     99.92656041282227
+    ],
+    "n": 10,
+    "note": "Uoc luong diem la TRUNG BINH TREN THANG LOGIT doi nguoc -- day KHONG phai trung binh so hoc cua F1; no keo ve phia cac gia tri cao va luon nam trong (0;100). KTC nay danh cho 'F1 dien hinh cua mot chu the moi'. Muon KTC cho TRUNG BINH SO HOC thi dung bootstrap percentile."
+   },
+   "bootstrap_ci": {
+    "mean": 97.15195594306854,
+    "ci95_percentile": [
+     94.00366837942164,
+     99.67443189570538
+    ],
+    "n": 10
+   },
+   "gia_tri_bao_cao_cu": 97.15
+  },
+  "cinc_model22_lead0": {
+   "ten": "CinC 2013 zero-shot, mo hinh 22 (kenh 0)",
+   "n_subjects": 10,
+   "mean": 90.34301417763946,
+   "sd": 12.026325076086625,
+   "t_ci_pct_SAI": {
+    "mean": 90.34301417763946,
+    "sd": 12.026325076086625,
+    "ci95": [
+     81.73989948101271,
+     98.94612887426621
+    ],
+    "vuot_100": false
+   },
+   "logit_ci": {
+    "mean_backtransformed": 97.26134595913749,
+    "ci95": [
+     88.25142764056432,
+     99.4079592519912
+    ],
+    "n": 10,
+    "note": "Uoc luong diem la TRUNG BINH TREN THANG LOGIT doi nguoc -- day KHONG phai trung binh so hoc cua F1; no keo ve phia cac gia tri cao va luon nam trong (0;100). KTC nay danh cho 'F1 dien hinh cua mot chu the moi'. Muon KTC cho TRUNG BINH SO HOC thi dung bootstrap percentile."
+   },
+   "bootstrap_ci": {
+    "mean": 90.34301417763946,
+    "ci95_percentile": [
+     83.10310860980273,
+     97.01371179362087
+    ],
+    "n": 10
+   },
+   "gia_tri_bao_cao_cu": 90.34
+  },
+  "cinc_model5_lead0": {
+   "ten": "CinC 2013 zero-shot, mo hinh 5 (kenh 0)",
+   "n_subjects": 10,
+   "mean": 77.33765519586146,
+   "sd": 28.540430522198015,
+   "t_ci_pct_SAI": {
+    "mean": 77.33765519586146,
+    "sd": 28.540430522198015,
+    "ci95": [
+     56.92106112243116,
+     97.75424926929176
+    ],
+    "vuot_100": false
+   },
+   "logit_ci": {
+    "mean_backtransformed": 93.4286023507187,
+    "ci95": [
+     66.94700214496761,
+     99.00792155340213
+    ],
+    "n": 10,
+    "note": "Uoc luong diem la TRUNG BINH TREN THANG LOGIT doi nguoc -- day KHONG phai trung binh so hoc cua F1; no keo ve phia cac gia tri cao va luon nam trong (0;100). KTC nay danh cho 'F1 dien hinh cua mot chu the moi'. Muon KTC cho TRUNG BINH SO HOC thi dung bootstrap percentile."
+   },
+   "bootstrap_ci": {
+    "mean": 77.33765519586146,
+    "ci95_percentile": [
+     59.662162118115916,
+     92.77127379560251
+    ],
+    "n": 10
+   },
+   "gia_tri_bao_cao_cu": 77.34
+  }
+ },
+ "equivalence": {
+  "arch_family": {
+   "kien_truc": {
+    "cnn_l": 92.4294670428974,
+    "cnn_dil": 91.70417339549668,
+    "mlp": 91.63905592215254,
+    "cnn_gru": 91.58539000126405,
+    "tcn": 91.06690677371178,
+    "resnet1d": 90.89899093618139,
+    "cnn_m": 88.75694802498826
+   },
+   "tot_nhat": "cnn_l",
+   "delta_tot_nhat_vs_cnn_dil": 0.7252936474007186,
+   "bien_do_7_kien_truc_phi_tuyen": 3.6725190179091385,
+   "tost_tot_nhat_vs_cnn_dil": {
+    "mean_diff": 0.72529364740071,
+    "sd_diff": 0.7818556734314082,
+    "n": 5,
+    "delta": 1.0,
+    "p_tost": 0.2380005908244791,
+    "p_lower": 0.003924469816937282,
+    "p_upper": 0.2380005908244791,
+    "ci90_t": [
+     -0.02012041046693025,
+     1.4707077052683504
+    ],
+    "ci90_bootstrap": [
+     0.18216048824565972,
+     1.2194842961191283
+    ],
+    "ket_luan": "KHONG KET LUAN DUOC (KTC 90% rong hon bien tuong duong)"
+   },
+   "so_kien_truc_TUONG_DUONG_trong_bien_1_0": 0,
+   "so_kien_truc_KHONG_KET_LUAN": 6,
+   "chu_thich": "Tuyen bo '8 kien truc khong phan biet duoc' dua tren p > 0,05 -- day la VANG MAT BANG CHUNG, khong phai bang chung tuong duong. TOST o bien 1,0 diem moi la kiem dinh dung."
+  }
+ },
+ "reversals": [
+  {
+   "so_sanh": "ADFECGDB: FetalQRS-TCN vs TS (TB 4 kenh)",
+   "p_cu": 5.7220458984375e-06,
+   "don_vi_cu": "20 cap (ban ghi x kenh)",
+   "p_moi_muc_chu_the": 0.0625,
+   "n_chu_the": 5,
+   "ket_luan": "DAO CHIEU: tu 'co y nghia' thanh 'KHONG co y nghia'"
+  },
+  {
+   "so_sanh": "ADFECGDB: FetalQRS-TCN vs TS-PCA (TB 4 kenh)",
+   "p_cu": 1.9073486328125e-06,
+   "don_vi_cu": "20 cap (ban ghi x kenh)",
+   "p_moi_muc_chu_the": 0.0625,
+   "n_chu_the": 5,
+   "ket_luan": "DAO CHIEU: tu 'co y nghia' thanh 'KHONG co y nghia'"
+  },
+  {
+   "so_sanh": "ADFECGDB: FetalQRS-TCN vs Prominence (TB 4 kenh)",
+   "p_cu": 1.9073486328125e-06,
+   "don_vi_cu": "20 cap (ban ghi x kenh)",
+   "p_moi_muc_chu_the": 0.0625,
+   "n_chu_the": 5,
+   "ket_luan": "DAO CHIEU: tu 'co y nghia' thanh 'KHONG co y nghia'"
+  },
+  {
+   "so_sanh": "B2: mo hinh 22 chu the vs mo hinh 5 chu the (TB 4 kenh)",
+   "p_cu": 0.015576468116855436,
+   "don_vi_cu": "28 cap (chu the x kenh)",
+   "p_moi_muc_chu_the": 0.46875,
+   "n_chu_the": 7,
+   "ket_luan": "DAO CHIEU: tu 'co y nghia' thanh 'KHONG co y nghia'"
+  },
+  {
+   "so_sanh": "TUYEN BO TIEU DE: '8 kien truc khong phan biet duoc / khong cai nao khac cnn_dil'",
+   "p_cu": "p > 0,05 (vang mat bang chung)",
+   "don_vi_cu": "20 cap (ban ghi x kenh), khong hieu chinh da so sanh",
+   "p_moi_muc_chu_the": 1.0,
+   "n_chu_the": 5,
+   "ket_luan": "DAO CHIEU: TOST bien 1,0 diem cho 0/7 kien truc tuong duong. 'Khong khac biet' thuc chat la 'khong du cong suat'. Ngoai ra cnn_m KEM HON vuot bien (KTC 90% bootstrap [-4,55; -1,47])."
+  }
+ ],
+ "not_recomputable": [
+  {
+   "muc": "Tang 1 -- front-end dai thong (+11,00 diem, README ghi p < 0,001)",
+   "ly_do": "pilot_evidence/band_ablation.json chi luu tong hop (macro_F1 +- sd cho moi dai), KHONG luu F1 tung ban ghi x kenh. Khong the ghep cap lai o muc chu the, va khong the kiem chung p da cong bo.",
+   "he_qua": "p < 0,001 cho tang 1 hien KHONG KIEM CHUNG DUOC. Phai chay lai co luu per-record."
+  },
+  {
+   "muc": "AUROC cua nhom dac trung to-po (0,566) va nhom ket hop",
+   "ly_do": "fsqi/gate_segments.csv chi luu p_bad cua bo phan loai SQI co dien; muon bootstrap theo cum phai huan luyen lai.",
+   "he_qua": "0,566 van dung lam ket luan phu dinh, nhung chua co KTC theo cum."
+  },
+  {
+   "muc": "Bien thien theo seed",
+   "ly_do": "Tat ca ket qua chinh chay 1 seed (tru seq_loro co 3 seed).",
+   "he_qua": "Moi KTC o day chi bao phu bien thien GIUA CHU THE, khong bao phu bien thien huan luyen."
+  }
+ ]
+}

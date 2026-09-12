@@ -72,9 +72,105 @@ Khác cả cấu hình đầu vào lẫn tập dữ liệu, nên không đặt c
 
 Nhưng nhóm đã \textbf{mượn và kiểm chứng} quy tắc chọn kênh theo mật độ phổ công suất của họ. Kết quả
 ở \S\ref{sec:chonkenh} là một trong những phát hiện quan trọng nhất của đề cương này.
+
+\textbf{Cập nhật bản 3.4:} Power-MF \textbf{đã được chạy lại thật} qua GNU Octave và đặt cạnh mô hình của
+nhóm trên \textbf{cả 22 chủ thể} với cùng bộ chấm --- xem \S\ref{sec:powermf}. Hơn nữa, nhóm tự cài lại
+Power-MF ở chế độ \textbf{đơn kênh}, để lần đầu có một so sánh trong đó \textit{chỉ} thuật toán lõi khác
+nhau. Đoạn ``không đối chiếu trực tiếp được'' ở trên chỉ còn đúng với \textbf{con số đã công bố}, không
+còn đúng với thuật toán.
 \end{canhbao}
 
+\subsection{Năm công trình bổ sung trong vòng rà soát thứ ba, và điều chúng buộc nhóm phải sửa}
+\label{sec:raso3}
+
+Vòng rà soát ngày 11--12/09/2026 (\texttt{survey/scout\_novelty.md}) tìm thêm năm công trình mà bản 3.2
+\textbf{không} trích dẫn. Bốn trong số đó \textbf{chiếm mất} một phần tuyên bố ``đầu tiên'' của nhóm.
+Nhóm bổ sung và định vị lại.
+
+\begin{table}[H]\centering\small
+\caption{Năm công trình bổ sung và hệ quả với từng tuyên bố của nhóm.}
+\label{tab:bosung3}
+\begin{tabular}{@{}L{4.4cm} L{4.6cm} L{5.2cm}@{}}
+\toprule
+\textbf{Công trình} & \textbf{Nội dung liên quan} & \textbf{Hệ quả với đề tài} \\
+\midrule
+Andreotti, Behar, Zaunseder, Oster, Clifford 2016, \textit{Physiol Meas} 37(5):627.
+DOI 10.1088/0967-3334/37/5/627 &
+Stress-test 145,8 giờ tín hiệu tổng hợp; chứng minh lựa chọn tiền xử lý \textbf{đảo thứ hạng} các thuật
+toán trích fECG &
+\xau{Luận điểm ``front-end quan trọng hơn'' đã có từ 2016}, ở dạng định tính. Nhóm \textbf{tiếp nối} và
+thêm con số trên dữ liệu thật \\
+\midrule
+Andreotti và cộng sự 2017, \textit{IEEE TBME}. DOI 10.1109/TBME.2017.2675543 &
+Chỉ số chất lượng tín hiệu fECG (fSQI) cho chính bài toán này &
+\xau{Cổng từ chối KHÔNG phải ý tưởng mới của nhóm}. Điểm mới còn lại: đánh giá \textbf{xuyên hệ ghi},
+zero-shot, kèm đường cong rủi ro--độ phủ \\
+\midrule
+Fotiadou, van Sloun, van Laar, Vullings 2021, \textit{Physiol Meas} 42(4):045007.
+DOI 10.1088/1361-6579/abf7db &
+CNN-LSTM giãn nở kiểu inception cho nhịp tim thai; \textbf{quét tốc độ giãn nở} (1, 4, 8), kết luận đổi
+giãn nở tốt hơn đổi kích thước hạt nhân &
+\xau{``Trường tiếp nhận là biến kiến trúc quan trọng nhất'' đã có}, trong chính lĩnh vực fECG và chính
+tạp chí nhóm nhắm tới \\
+\midrule
+Zahid, Kiranyaz, Ince và cộng sự 2022, \textit{IEEE TBME} 69(1):119--128.
+DOI 10.1109/TBME.2021.3088218 &
+Phát biểu lại dò đỉnh R thành \textbf{phân đoạn 1 chiều theo từng mẫu}: ánh xạ ECG sang chuỗi xung, mỗi
+xung tâm tại đỉnh R &
+\xau{Đầu ra theo từng mẫu đã có}. Gaussian $\sigma = 12$\,ms là \textbf{làm mượt nhãn}, không phải phát
+biểu bài toán mới \\
+\midrule
+Huang, Zhang, Li và cộng sự 2025 (TCGAN), \textit{IEEE JBHI}. DOI 10.1109/JBHI.2024.3524085 &
+Mạng đối sinh tích chập theo thời gian, \textbf{đơn kênh bụng}, dò fQRS; báo PPV 99,02\,\% trên dữ liệu
+thật &
+\xau{Đối thủ trực tiếp nhất, đăng đúng tạp chí mục tiêu, và bản 3.2 không trích dẫn}. Không dùng làm
+baseline được (đầu ra là dạng sóng, không phải vị trí fQRS) nhưng \textbf{bắt buộc phải trích} \\
+\midrule
+Baldazzi \& Pani 2023, chương \textit{Open Data: Valuable Resources and Opportunities\dots},
+Springer. DOI 10.1007/978-3-031-32625-7\_12 &
+Nêu rõ bộ dữ liệu của Matonia và cộng sự \textit{``shares signals with ADFECGDB''} &
+\xau{Sự kiện trùng lặp ADFECGDB $\leftrightarrow$ Silesia đã in trong sách}. Cái mới của nhóm chỉ là
+\textbf{định danh từng bản ghi} bằng tương quan chéo (\S\ref{sec:silesia}) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{ghichu}[title={Nhóm định vị lại đề tài: TIẾP NỐI, không phản bác}]
+Bản 3.2 viết như thể đề tài ``phản bác cách làm của cả một dòng công trình''. Sau vòng rà soát này,
+phát biểu đó \textbf{bị rút}. Andreotti 2016 và Behar 2014 đã nói đúng điều nhóm đo được, chỉ là nói
+định tính và trên dữ liệu tổng hợp. Đề tài này \textbf{tiếp nối} họ:
+
+\begin{itemize}[leftmargin=1.5em,itemsep=2pt]
+\item Từ Andreotti 2016 (tiền xử lý đảo thứ hạng, định tính, tổng hợp) $\to$ nhóm: \textbf{phân rã ba
+tầng định lượng, dữ liệu thật, cùng một giao thức, mức chủ thể}.
+\item Từ Andreotti 2017 (fSQI trong miền) $\to$ nhóm: \textbf{cổng từ chối đánh giá xuyên hệ ghi,
+zero-shot, kèm đường cong rủi ro--độ phủ và AUROC trong bản ghi}.
+\item Từ Behar 2014 (cổng bSQI, hợp nhất) $\to$ nhóm: cùng cơ chế, ở cấu hình \textbf{đơn kênh}.
+\end{itemize}
+
+Điều duy nhất nhóm còn gọi là \textbf{mới}: chưa công trình nào ghép \textbf{ba tầng} front-end / ngữ
+cảnh / kiến trúc vào \textbf{một} thí nghiệm duy nhất trong fECG. Đó là C2, và đó là trục của bài báo.
+\end{ghichu}
+
 \subsection{Nhóm học được gì từ từng công trình}
+
+\begin{canhbao}[title={Bảng dưới đây giữ nguyên \textit{nhận xét} của vòng đọc đầu, nhưng số đã rút thì đã sửa}]
+Bảng ``bài học từng công trình'' là bản ghi chép tại thời điểm đọc (tháng 9/2026, bản 3.1). Nhóm
+\textbf{giữ nguyên phần nhận xét} để thấy được nhóm đã nghĩ gì ở từng thời điểm, nhưng \textbf{đã thay
+mọi con số đã bị rút} bằng con số đúng (sửa ngày 12/09/2026, bản 3.4) --- một bảng lịch sử không được
+phép trở thành chỗ trú cho số liệu sai. Ba điểm phải đọc kèm:
+\begin{itemize}[leftmargin=1.5em,itemsep=2pt]
+\item Con số \textbf{77,34} cho CinC 2013 mà vòng đọc đầu dùng là con số trên \textbf{mẫu 10 bản ghi}
+với quy tắc kênh 0 hậu kiểm, và nó \textbf{đã bị rút}. Con số đúng là \textbf{71,21} (mô hình 5 ca) và
+\textbf{79,40} $\pm$ 29,18 (mô hình 22 ca) trên toàn bộ 75 bản ghi, quy tắc PSD mù nhãn ---
+\S\ref{sec:cinc75}. Các ô liên quan trong bảng dưới đã được thay bằng 79,40.
+\item So sánh với Orvas 2025 (CUNet, $77{,}8 \pm 18{,}6$) \textbf{vẫn không đối chiếu được}: hai bên
+không cùng số bản ghi và không cùng giao thức. Chênh lệch $1{,}60$ điểm ghi trong bảng chỉ là chênh
+lệch số học, không phải kết luận hơn kém. Phải chạy lại so sánh đó trên cùng tập trước khi dùng.
+\item Kiểm tra chồng lấn ADFECGDB $\leftrightarrow$ CinC 2013 mà nhiều dòng trong bảng yêu cầu:
+\textbf{đã làm} cho Silesia (\S\ref{sec:silesia}), \textbf{chưa làm} cho CinC 2013. Đây là việc còn nợ.
+\end{itemize}
+\end{canhbao}
 
 \input{tables/bang_baihoc.tex}
 
@@ -173,29 +269,32 @@ Wilcoxon ghép cặp so với \texttt{cnn\_dil}. Cửa sổ 300\,ms như bảng 
 
 \begin{figure}[H]\centering
 \includegraphics[width=0.96\textwidth]{figs/fig13_kien_truc_v2.pdf}
-\caption{Tám kiến trúc dưới giao thức trung thực. Sáu kiến trúc nằm trong 1,5 điểm nhau và \textbf{không
-kiến trúc nào khác \texttt{cnn\_dil} có ý nghĩa thống kê}. Đường đứt xanh là mô hình chính (ngữ cảnh 4 giây,
-đầu ra từng mẫu) --- cách xa cả nhóm.}
+\caption{Tám kiến trúc dưới giao thức trung thực. Hiệu số so với \texttt{cnn\_dil} nằm trong khoảng
+$-2{,}95$ đến $+0{,}73$ điểm; với $n = 5$ chủ thể nghiên cứu này \textbf{không đủ lực} để kết luận chúng
+tương đương (\S\ref{sec:thongke}). Đường đứt xanh là mô hình chính (ngữ cảnh 4 giây, đầu ra từng mẫu)
+--- cách xa cả nhóm.}
 \label{fig:arch_v2}
 \end{figure}
 
 \begin{table}[H]\centering\small
-\caption{Số liệu của hình \ref{fig:arch_v2}. Một seed, ba epoch (loss vẫn đang giảm ở epoch cuối, nên
-mọi con số đều còn dư địa nhưng \textit{cùng} dư địa).}
+\caption{Số liệu của hình \ref{fig:arch_v2}. Một seed, ba epoch. Cột KTC 90\% là bootstrap cụm ở
+\textbf{mức chủ thể} ($n = 5$); cột TOST kiểm định tương đương với biên $\delta = 1{,}0$ điểm F1
+(\S\ref{sec:thongke}). Các trị số $p$ Wilcoxon của bản 3.2 tính trên 20 cặp (bản ghi $\times$ kênh) là
+giả lập và đã bị gỡ.}
 \label{tab:arch_v2}
-\begin{tabular}{@{}C{0.9cm} L{2.2cm} R{1.8cm} C{2.6cm} C{1.9cm} C{2.2cm} C{1.5cm}@{}}
+\begin{tabular}{@{}C{0.8cm} L{2.0cm} R{1.6cm} C{2.4cm} C{1.5cm} C{2.6cm} C{2.6cm}@{}}
 \toprule
 \textbf{Hạng} & \textbf{Kiến trúc} & \textbf{Tham số} & \textbf{Macro F1} & \textbf{Hiệu số} &
-\textbf{$p$ Wilcoxon} & \textbf{Hạng cũ} \\
+\textbf{KTC 90\% bootstrap} & \textbf{Kết luận TOST} \\
 \midrule
-1 & \texttt{cnn\_l} & 83.137 & $92{,}43 \pm 8{,}73$ & $+0{,}73$ & 0,388 & 4 \\
-2 & \texttt{cnn\_dil} & 25.953 & $91{,}70 \pm 9{,}68$ & mốc & --- & 5 \\
-3 & \texttt{mlp} & 27.649 & $91{,}64 \pm 7{,}64$ & $-0{,}07$ & 0,927 & 13 \\
-4 & \texttt{cnn\_gru} & 28.257 & $91{,}59 \pm 9{,}10$ & $-0{,}12$ & 0,330 & 6 \\
-5 & \texttt{tcn} & 63.105 & $91{,}07 \pm 11{,}41$ & $-0{,}64$ & 0,260 & 2 \\
-6 & \texttt{resnet1d} & 92.545 & $90{,}90 \pm 10{,}98$ & $-0{,}81$ & 0,105 & 1 \\
-7 & \texttt{cnn\_m} & 25.953 & $88{,}76 \pm 10{,}61$ & $-2{,}95$ & \textbf{0,0001} & 11 \\
-8 & \texttt{linear} & 151 & $37{,}47 \pm 6{,}47$ & $-54{,}24$ & \textbf{$<$0,0001} & 15 \\
+1 & \texttt{cnn\_l} & 83.137 & $92{,}43 \pm 8{,}73$ & $+0{,}73$ & $[+0{,}18; +1{,}22]$ & không kết luận được \\
+2 & \texttt{cnn\_dil} & 25.953 & $91{,}70 \pm 9{,}68$ & mốc & --- & --- \\
+3 & \texttt{mlp} & 27.649 & $91{,}64 \pm 7{,}64$ & $-0{,}07$ & $[-3{,}47; +3{,}52]$ & không kết luận được \\
+4 & \texttt{cnn\_gru} & 28.257 & $91{,}59 \pm 9{,}10$ & $-0{,}12$ & $[-0{,}72; +0{,}54]$ & không kết luận được \\
+5 & \texttt{tcn} & 63.105 & $91{,}07 \pm 11{,}41$ & $-0{,}64$ & $[-1{,}13; -0{,}11]$ & không kết luận được \\
+6 & \texttt{resnet1d} & 92.545 & $90{,}90 \pm 10{,}98$ & $-0{,}81$ & $[-1{,}79; +0{,}09]$ & không kết luận được \\
+7 & \texttt{cnn\_m} & 25.953 & $88{,}76 \pm 10{,}61$ & $-2{,}95$ & \xau{$[-4{,}55; -1{,}47]$} & \xau{KÉM HƠN vượt biên} \\
+8 & \texttt{linear} & 151 & $37{,}47 \pm 6{,}47$ & $-54{,}24$ & $[-56{,}41; -50{,}49]$ & khác biệt vượt biên \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -203,12 +302,16 @@ mọi con số đều còn dư địa nhưng \textit{cùng} dư địa).}
 Ba điều bảng này nói, rõ hơn bảng cũ rất nhiều:
 
 \begin{enumerate}[leftmargin=1.6em,itemsep=3pt]
-\item \textbf{Họ kiến trúc không quan trọng.} Mạng dư 92 nghìn tham số, TCN 63 nghìn, GRU, và cả một MLP
-27 nghìn tham số đều không phân biệt được với CNN giãn nở 26 nghìn tham số. Quán quân cũ
-(\texttt{resnet1d}) rơi xuống hạng 6.
+\item \textbf{Họ kiến trúc đóng góp ít --- nhưng ``ít'' không phải ``bằng không'', và nghiên cứu này
+không đủ lực để nói chúng bằng nhau.} Mạng dư 92 nghìn tham số, TCN 63 nghìn, GRU, và cả một MLP
+27 nghìn tham số đều nằm trong 0,9 điểm của CNN giãn nở 26 nghìn tham số. Quán quân cũ
+(\texttt{resnet1d}) rơi xuống hạng 6. Với $n = 5$ chủ thể, TOST biên 1,0 điểm cho \textbf{0/7} kiến trúc
+tương đương và \textbf{6/7} không kết luận được (\S\ref{sec:thongke}): kết luận đúng là
+\textbf{thiếu lực phân biệt}, không phải ``không phân biệt được''.
 \item \textbf{Giãn nở có quan trọng.} \texttt{cnn\_m} và \texttt{cnn\_dil} có \textit{cùng} 25.953 tham số,
-chỉ khác lịch giãn nở, chênh 2,95 điểm với $p = 0{,}0001$. Đây là bằng chứng có kiểm soát chặt nhất trong
-đề tài rằng trường tiếp nhận là biến chi phối.
+chỉ khác lịch giãn nở, chênh \textbf{2,95 điểm} với KTC 90\% bootstrap $[-4{,}55;\ -1{,}47]$ nằm hoàn
+toàn ngoài biên tương đương. Đây là bằng chứng có kiểm soát chặt nhất trong đề tài rằng trường tiếp nhận
+là biến chi phối --- và là kiến trúc duy nhất trong bảng có kết luận chắc chắn.
 \item \textbf{Cả tám đều thua xa mô hình chính.} Tốt nhất trong bảng là 92,43; mô hình 4 giây đầu ra từng
 mẫu đạt 97,43 trên cùng giao thức. Chênh 5 điểm đến từ ngữ cảnh và độ phân giải đầu ra, không từ họ mạng.
 \end{enumerate}
@@ -223,9 +326,14 @@ mẫu đạt 97,43 trên cùng giao thức. Chênh 5 điểm đến từ ngữ c
 \end{figure}
 
 Kiểm chứng bằng ba seed với giao thức tách theo bản ghi đầy đủ: trường tiếp nhận 1.516\,ms đạt
-$97{,}16 \pm 4{,}34$, trường 172\,ms đạt $92{,}67 \pm 10{,}46$. Wilcoxon ghép cặp cho
-$p = 0{,}0000$. Chênh lệch 4,66 điểm, và độ lệch chuẩn giảm hơn một nửa --- ngữ cảnh dài làm mô hình
-ổn định hơn giữa các sản phụ.
+$97{,}16 \pm 4{,}34$, trường 172\,ms đạt $92{,}67 \pm 10{,}46$, và độ lệch chuẩn giảm hơn một nửa ---
+ngữ cảnh dài làm mô hình ổn định hơn giữa các sản phụ.
+
+\begin{canhbao}[title={Trị số $p = 0{,}0000$ của bản 3.2 cho bước này đã bị gỡ}]
+Nó tính trên \textbf{60 hàng} (bản ghi $\times$ kênh $\times$ seed) từ 5 sản phụ --- giả lập 12 lần.
+Ở mức chủ thể: hiệu số $+4{,}49$ điểm, KTC 95\% bootstrap $[+1{,}58;\ +7{,}43]$ nhưng KTC 95\% kiểu $t$
+là $[-0{,}29;\ +9{,}27]$, tức \textbf{chứa 0}. Nhóm báo cáo hiệu số và bỏ $p$ (\S\ref{sec:thongke}).
+\end{canhbao}
 
 \paragraph{Thí nghiệm 3 --- đầu ra theo từng mẫu.}
 Chuyển từ phân loại cửa sổ sang hồi quy bản đồ nhiệt theo từng mẫu cải thiện độ chính xác định vị đỉnh
@@ -263,9 +371,12 @@ tính toán trên CPU.
 
 \begin{figure}[H]\centering
 \includegraphics[width=0.92\textwidth]{figs/fig1_chuoi_cai_tien.pdf}
-\caption{Chuỗi cải tiến đo được. Bước có ý nghĩa thống kê tô xanh, bước không có ý nghĩa tô đỏ.
-Đường chấm đánh dấu chỗ \textbf{đổi giao thức} từ 2 sang 4 đạo trình --- hai bên đường này không
-trừ trực tiếp cho nhau được, nên mức tăng $+11{,}00$ chỉ tính trong phần bên trái.}
+\caption{Chuỗi cải tiến đo được. Đường chấm đánh dấu chỗ \textbf{đổi giao thức} từ 2 sang 4 đạo
+trình --- hai bên đường này không trừ trực tiếp cho nhau được, nên mức tăng $+11{,}00$ chỉ tính trong
+phần bên trái. Nhãn dưới mỗi cột ghi \textbf{phạm vi đo}, không ghi trị số $p$: mọi $p$ của bản 3.2
+tính trên hàng (bản ghi $\times$ kênh $\times$ seed) nên là giả lập và đã bị gỡ (\S\ref{sec:thongke}).
+Dòng chú dưới hình ghi kết quả \textbf{sơ bộ} khi lặp lại bước $+11{,}00$ trên chính TCN
+(\S\ref{sec:bandtcn}).}
 \label{fig:waterfall}
 \end{figure}
 
@@ -283,29 +394,42 @@ mang bản chất kiến trúc: trường tiếp nhận và tham số hoá đầ
 
 \begin{figure}[H]\centering
 \includegraphics[width=0.8\textwidth]{figs/fig7_dong_gop.pdf}
-\caption{Phân rã đóng góp ba tầng. Front-end tín hiệu vẫn là tầng lớn nhất, nhưng khoảng cách so với
-tầng ngữ cảnh là 2,4 lần chứ không phải 30 lần như bản đề cương trước phát biểu.}
+\caption{Phân rã đóng góp ba tầng. Trên bộ học cửa sổ 300\,ms, front-end tín hiệu vẫn là tầng lớn
+nhất, và khoảng cách so với tầng ngữ cảnh là 2,4 lần chứ không phải 30 lần như bản đề cương trước phát
+biểu. Thanh gạch chéo là bản \textbf{lặp lại tầng 1 trên chính TCN}: chỉ $+2{,}44$ điểm với KTC
+$[-0{,}04;\ +6{,}29]$ chạm số không --- \textbf{kết quả sơ bộ}, xem \S\ref{sec:bandtcn}.}
 \label{fig:dongop}
 \end{figure}
 
 \begin{table}[H]\centering\small
-\caption{Phân rã đóng góp ba tầng. Đây là phát biểu nhóm sẽ dùng trong bài báo.}
+\caption{Phân rã đóng góp ba tầng, tính lại ở \textbf{mức chủ thể}. Mọi trị số $p$ của bản 3.2 đã bị gỡ:
+chúng tính trên 20--60 hàng (bản ghi $\times$ kênh $\times$ seed), tức giả lập. Với $n = 5$ chủ thể,
+$p < 0{,}05$ là bất khả thi (\S\ref{sec:thongke}).}
 \label{tab:phanra}
-\begin{tabular}{@{}L{6.4cm} C{2.6cm} C{2.4cm} L{2.4cm}@{}}
+\begin{tabular}{@{}L{5.4cm} C{2.0cm} C{3.0cm} L{3.6cm}@{}}
 \toprule
-\textbf{Tầng} & \textbf{Mức tăng F1} & \textbf{Trị số \textit{p}} & \textbf{Kết luận} \\
+\textbf{Tầng} & \textbf{Mức tăng F1} & \textbf{KTC 95\% mức chủ thể} & \textbf{Kết luận} \\
 \midrule
-Front-end tín hiệu (đổi dải thông) & \tot{+11,00} & $< 0{,}001$ & có ý nghĩa \\
-Độ dài ngữ cảnh và độ phân giải đầu ra & \tot{+4,53} & $0{,}0000$ & có ý nghĩa \\
-Họ kiến trúc, ở ngữ cảnh cố định & \xau{+0,41} & $0{,}7012$ & \xau{không có ý nghĩa} \\
+Front-end tín hiệu (đổi dải thông), \textbf{đo trên GBM cửa sổ 300\,ms}
+& \tot{+11,00} & \xau{chưa tính lại được} &
+artefact cũ không lưu F1 từng bản ghi nên không dựng được KTC \\
+\quad\textit{cùng thay đổi dải, lặp trên chính TCN, 22 chủ thể} \textit{(sơ bộ)}
+& \xau{+2,44} & $[-0{,}04;\ +6{,}29]$ &
+\xau{KTC chạm 0: chưa xác lập ở $n=22$}; toàn bộ hiệu ứng ở 3 chủ thể (\S\ref{sec:bandtcn}) \\
+Độ dài ngữ cảnh và độ phân giải đầu ra & \tot{+4,49} & $[+1{,}58;\ +7{,}43]$ bootstrap;
+$[-0{,}29;\ +9{,}27]$ theo $t$ & hướng rõ, nhưng KTC kiểu $t$ chứa 0 với $n = 5$ \\
+Họ kiến trúc, ở ngữ cảnh cố định & \xau{$-2{,}95$ đến $+0{,}73$} & xem bảng \ref{tab:arch_v2} &
+\xau{không đủ lực để phân biệt; TOST 0/7 tương đương} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \begin{figure}[H]\centering
 \includegraphics[width=0.94\textwidth]{figs/fig2_dai_loc.pdf}
-\caption{Khảo sát tám dải thông, mỗi dải là một lần chạy tách theo bản ghi đầy đủ. Chênh lệch giữa dải
-tốt nhất và kém nhất là 18,89 điểm F1 --- lớn hơn toàn bộ khác biệt giữa 16 kiến trúc học sâu.}
+\caption{Khảo sát tám dải thông \textbf{trên gradient boosting, cửa sổ 300\,ms}, mỗi dải là một lần
+chạy tách theo bản ghi đầy đủ. Chênh lệch giữa dải tốt nhất và kém nhất là 18,89 điểm F1 --- lớn hơn
+toàn bộ khác biệt giữa 16 kiến trúc học sâu. \textbf{Cảnh báo phạm vi:} độ lớn này \textit{không}
+chuyển sang TCN --- xem \S\ref{sec:bandtcn}.}
 \label{fig:band}
 \end{figure}
 
@@ -313,8 +437,101 @@ Ba nguồn y văn độc lập đọc từ toàn văn ủng hộ hướng này: 
 20--95\,Hz; Clifford và cộng sự 2014 ghi nhận cắt thông cao ở 10\,Hz cải thiện kết quả do loại bỏ sóng P
 và T của mẹ; Xu và cộng sự 2026 dùng đúng 10--60\,Hz.
 
+\begin{canhbao}[title={Nói rõ: dải 10--60\,Hz KHÔNG phải phát hiện của nhóm}]
+Dải thắng cuộc là dải nhóm \textbf{lấy từ y văn}: \texttt{survey/facts\_verified.json} ghi
+\texttt{"nguon\_y\_van": "Xu 2026"} cho chính dòng 10--60\,Hz. Behar 2014 cũng đã tìm kiếm lưới dải thông
+như một phần phương pháp, và Andreotti và cộng sự 2016 đã chứng minh rằng lựa chọn tiền xử lý
+\textbf{đảo thứ hạng} các thuật toán trích fECG.
+
+Vì vậy thông điệp \textit{``cả một lĩnh vực đang tối ưu sai tầng''} \textbf{không đứng vững} và đã bị gỡ
+khỏi đề cương. Đóng góp còn lại của nhóm ở tầng này là \textbf{định lượng}: đo mức tăng trong cùng một
+thí nghiệm có kiểm soát, cạnh hai tầng còn lại, trên dữ liệu thật --- điều mà Andreotti 2016 làm định
+tính trên dữ liệu tổng hợp.
+\end{canhbao}
+
 Một chi tiết nhóm muốn nêu vì nó phản trực giác: dải có \textbf{tương phản cao nhất} (20--95\,Hz, tỉ số
 RMS 1,94) lại cho F1 gần \textbf{thấp nhất} (77,39). Tương phản không phải hàm mục tiêu.
+
+\subsubsection{Lặp lại khảo sát dải lọc trên chính TCN --- kết quả sơ bộ}
+\label{sec:bandtcn}
+
+Toàn bộ con số $+11{,}00$ ở trên đo trên \textbf{gradient boosting, cửa sổ 300\,ms}, tức không cùng mô
+hình với hai tầng còn lại. Bản đề cương trước ghi ``thí nghiệm trên TCN đang chạy''. Thí nghiệm đó
+\textbf{đã chạy xong} (09:33 ngày 12/09/2026, cả bốn dải, 137,6 phút), và nhóm báo cáo đúng như nó
+ra: \textbf{nó không ủng hộ độ lớn cũ}.
+
+\begin{table}[H]\centering\small
+\caption{Dải lọc đo trên \textbf{chính} FetalQRS-TCN: 22 chủ thể, 3 nếp gấp tách theo chủ thể, 4 epoch,
+seed 0, chọn kênh PSD mù nhãn, dung sai $\pm$50\,ms. Nguồn: \texttt{pilot\_evidence/band\_tcn.json}
+$\rightarrow$ \texttt{pilot\_evidence/band\_tcn\_stats.json}. Thí nghiệm \textbf{đã chạy xong cả bốn
+dải} lúc 09:33 ngày 12/09/2026 (137,6 phút); vì mới \textbf{một seed} và 4 epoch nên vẫn là
+\textbf{kết quả sơ bộ}.}
+\label{tab:bandtcn}
+\begin{tabular}{@{}L{3.0cm} C{2.6cm} C{2.6cm} C{4.4cm}@{}}
+\toprule
+\textbf{Dải} & \textbf{Macro F1 (\%)} & \textbf{Hiệu so với 1--45} & \textbf{KTC 95\% cluster bootstrap} \\
+\midrule
+10--60\,Hz  & \tot{98,07} $\pm$ 4,05  & \xau{$+2{,}44$} & \xau{$[-0{,}04;\ +6{,}29]$ --- chạm 0} \\
+3--90\,Hz   & 97,88 $\pm$ 4,76        & \xau{$+2{,}25$} & \xau{$[-0{,}53;\ +6{,}62]$ --- chạm 0} \\
+1--45\,Hz   & 95,63 $\pm$ 12,09       & mốc             & --- \\
+0,5--100\,Hz & 95,51 $\pm$ 12,11       & \xau{$-0{,}12$} & \xau{$[-1{,}01;\ +0{,}72]$ --- chạm 0} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]\centering
+\includegraphics[width=\textwidth]{figs/fig20_band_tcn.pdf}
+\caption{Dải lọc đo trên chính TCN, cả bốn dải. (A) macro F1 theo quy tắc chọn kênh PSD mù nhãn.
+(B) hiệu số từng chủ thể giữa 10--60\,Hz và 1--45\,Hz: 19 trong 22 chủ thể nằm sát số không, toàn bộ
+hiệu ứng do ba chủ thể tô đỏ tạo ra. Dòng chú dưới hình ghi thêm kết quả trên thang đo
+\textbf{trung bình 4 kênh}, nơi hiệu số bằng không với khoảng hẹp.}
+\label{fig:bandtcn}
+\end{figure}
+
+Ba điều phải nói thẳng, và nhóm không được phép nói khác:
+
+\begin{enumerate}[leftmargin=1.6em,itemsep=3pt]
+\item \textbf{Con số $+11{,}00$ đo trên GBM không chuyển sang TCN ở cùng độ lớn.} Trên chính TCN, cùng
+thay đổi dải ấy chỉ đáng \xau{$+2{,}44$ điểm} (98,07 so với 95,63), tức bằng khoảng một phần năm.
+\item \textbf{Khoảng tin cậy chạm số không, nên hiệu ứng \textit{chưa được xác lập} ở $n=22$.} KTC 95\%
+cluster bootstrap mức chủ thể là $[-0{,}04;\ +6{,}29]$. Không được viết như thể nó đã được xác lập;
+mọi phát biểu kiểu ``dải lọc là tầng quan trọng nhất'' từ nay chỉ đúng \textit{trong phạm vi bộ học cửa
+sổ 300\,ms}.
+\item \textbf{Đây vẫn là kết quả sơ bộ.} Cả bốn dải đã chạy xong lúc 09:33 ngày 12/09/2026, nhưng
+mới \textbf{một seed}, ba nếp gấp và bốn epoch --- chưa đủ để gọi là kết quả cuối. Khi có thêm seed,
+con số $+2{,}44$ và khoảng tin cậy của nó sẽ được cập nhật; nhóm cam kết báo cáo cả khi nó đi xuống.
+\end{enumerate}
+
+\begin{canhbao}[title={Thêm một phép kiểm: bỏ bước chọn kênh thì hiệu ứng dải lọc biến mất hẳn}]
+Cùng bộ kết quả đó còn cho một thang đo thứ hai: \textbf{trung bình cả bốn kênh}, tức bỏ hoàn toàn
+bước chọn kênh PSD. Trên thang đo này, hiệu số giữa 10--60\,Hz và 1--45\,Hz là \xau{$-0{,}07$ điểm},
+KTC 95\% cluster bootstrap $[-0{,}51;\ +0{,}39]$ --- \textbf{bằng không, với khoảng hẹp}
+(\texttt{band\_tcn\_stats.json}, khoá \texttt{mean4}).
+
+Nghĩa là: phần $+2{,}44$ đo được trên thang PSD \textbf{không đến từ dải lọc làm tín hiệu tốt hơn},
+mà đến từ chỗ dải lọc làm \textbf{quy tắc chọn kênh} chọn đúng hơn --- và chỉ ở vài chủ thể. Đây là
+\textit{suy luận} từ hai thang đo, chưa phải kết luận đã kiểm chứng riêng; nhưng nó là lý do nữa để
+\textbf{không} phát biểu ``dải 10--60\,Hz đáng $+11$ điểm'' như một sự thật chung.
+\end{canhbao}
+
+\begin{ghichu}[title={Hiệu ứng không phân bố đều --- nó dồn vào đúng ba chủ thể}]
+Hiệu số từng chủ thể (bảng \ref{tab:bandtcn}, hình \ref{fig:bandtcn}B) cho thấy trung vị bằng
+\textbf{0,00}: đa số chủ thể không đổi gì khi đổi dải. Toàn bộ $+2{,}44$ đến từ ba chủ thể:
+\textbf{B2\_03} $+37{,}8$, \textbf{B1\_06} $+8{,}8$, \textbf{B1\_07} $+8{,}2$. Mười chín chủ thể còn
+lại có hiệu trung bình $-0{,}065$ điểm, tức \textbf{bằng không}.
+
+Đây là \textit{quan sát}, không phải kết luận. Nhưng nó trùng với hai đường bằng chứng độc lập khác:
+cùng ba bản ghi đó là ba bản ghi RelyFetal thua Power-MF 4 kênh nặng nhất (\S\ref{sec:powermf}), và
+cũng chính là ba hạng thấp nhất của cổng từ chối hiệu chuẩn theo leave-one-subject-out
+(\S\ref{sec:fsqi}). Từ đó nhóm nêu một \textbf{giả thuyết cần kiểm chứng}, chưa phải kết luận: bài toán
+dò fQRS đơn kênh có thể là \textbf{lưỡng cực} --- đa số bản ghi dễ đến mức mọi lựa chọn thiết kế đều
+không quan trọng, còn toàn bộ hiệu ứng của mọi lựa chọn thiết kế tập trung ở một thiểu số nhỏ. Nếu giả
+thuyết đúng thì \textbf{F1 trung bình theo bản ghi là cách đo sai}, vì nó trộn hai chế độ --- và đó sẽ
+là một cách giải thích vì sao các ablation trong y văn mâu thuẫn nhau. Kiểm chứng giả thuyết này được
+đưa vào kế hoạch thực hiện của đề tài.
+\end{ghichu}
+
+
 
 \subsection{Quy tắc chọn kênh mù nhãn}
 \label{sec:chonkenh}
@@ -332,30 +549,45 @@ Nhóm đã thay bằng quy tắc chọn kênh \textbf{mù nhãn} theo Power-MF: 
 suất lớn nhất trong dải nhịp tim thai 1,8--3,0\,Hz (tương ứng 108--180 nhịp/phút), tính trên đường bao
 năng lượng của tín hiệu dư. Quy tắc này không dùng nhãn và có thể đăng ký trước.
 
+\begin{canhbao}[title={Bảng này đã đổi hoàn toàn trong bản 3.3 --- và nó lật một kết luận cũ}]
+Bản 3.2 báo cáo cột CinC 2013 trên \textbf{mẫu 10 bản ghi} và kết luận: \textit{``quy tắc mù nhãn sụp đổ
+ngoài miền (59,15 so với 77,34 của quy tắc cố định đơn giản hơn)''}. Trên \textbf{toàn bộ 75 bản ghi}
+kết luận đó \textbf{đảo ngược}: quy tắc mù nhãn đạt 71,21 còn quy tắc kênh 0 cố định chỉ đạt 58,72.
+Chính \textbf{quy tắc kênh 0} mới là thứ sụp, và nó sụp vì nó được chọn hậu kiểm trên đúng 10 bản ghi đó
+(\S\ref{sec:cinc75}).
+\end{canhbao}
+
 \begin{table}[H]\centering\small
-\caption{So sánh bốn quy tắc chọn kênh. Quy tắc mù nhãn đạt \textbf{đúng bằng} oracle trong miền,
-nhưng \textbf{sụp đổ} ngoài miền.}
+\caption{So sánh bốn quy tắc chọn kênh, mô hình 5 ca. Cột CinC 2013 nay đo trên \textbf{toàn bộ 75 bản
+ghi} set-a; cột trong ngoặc là con số cũ trên mẫu 10 bản ghi, giữ lại để thấy mức lệch.}
 \label{tab:chonkenh}
-\begin{tabular}{@{}L{6.0cm} C{3.4cm} C{3.4cm}@{}}
+\begin{tabular}{@{}L{5.4cm} C{2.8cm} C{3.0cm} C{2.8cm}@{}}
 \toprule
-\textbf{Quy tắc chọn kênh} & \textbf{ADFECGDB (trong miền)} & \textbf{CinC 2013 (ngoài miền)} \\
+\textbf{Quy tắc chọn kênh} & \textbf{ADFECGDB} & \textbf{CinC 2013, 75 bản ghi} &
+\textbf{(mẫu 10 cũ)} \\
 \midrule
-Mù nhãn theo mật độ phổ công suất & \tot{99,21} & \xau{59,15} \\
-Kênh cố định (kênh đầu tiên) & 98,09 & \tot{77,34} \\
-Bản đồ đạo trình do giao thức quy định & 99,18 & --- \\
-Oracle, dùng nhãn thật & \textit{99,21} & \textit{77,59} \\
-Trung bình trên cả 4 kênh & 97,45 & 61,96 \\
+Mù nhãn theo mật độ phổ công suất & \tot{99,21} & \tot{71,21} & \textit{(59,15)} \\
+Kênh cố định (kênh đầu tiên) & 98,09 & \xau{58,72} & \textit{(77,34)} \\
+Bản đồ đạo trình do giao thức quy định & 99,18 & --- & --- \\
+Oracle, dùng nhãn thật & \textit{99,21} & \textit{78,21} & \textit{(77,59)} \\
+Trung bình trên cả 4 kênh & 97,45 & 64,78 & \textit{(61,96)} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\begin{ghichu}[title={Phát hiện khoa học và ý nghĩa của nó}]
-Quy tắc chọn kênh mù nhãn đạt \textbf{đúng bằng oracle} khi ở trong miền (99,21 so với 99,21), nhưng
-\textbf{sụp đổ hoàn toàn} khi ra ngoài miền (59,15 so với 77,34 của một quy tắc cố định đơn giản hơn).
+\begin{ghichu}[title={Phát hiện khoa học, phát biểu lại cho đúng}]
+Quy tắc chọn kênh mù nhãn đạt \textbf{đúng bằng oracle} khi ở trong miền (99,21 so với 99,21), và
+\textbf{vẫn là quy tắc mù nhãn tốt nhất} khi ra ngoài miền (71,21 so với 58,72 của kênh cố định). Nó
+\textbf{không} sụp đổ.
 
-Nói cách khác: một chỉ số chất lượng dựa trên phổ hoạt động tốt đúng ở nơi ta không cần nó, và hỏng
-đúng ở nơi ta cần. \textbf{Đây là động cơ trực tiếp và đã đo được cho đóng góp C3} --- cần một chỉ số
-chất lượng học được hoặc dựa trên cấu trúc topo, chứ không phải một heuristic phổ.
+Điều thật sự sụp là \textbf{khoảng cách đến oracle}: trong miền quy tắc PSD kém oracle
+\textbf{0,02--1,90 điểm} (PhysioNet 0,02; Silesia B2 0,66; Silesia B1 1,90); ngoài miền nó kém oracle
+\textbf{7,00 điểm} (71,21 so với 78,21), và với mô hình 22 ca là \textbf{7,47 điểm}. Quy tắc chỉ chọn
+trúng kênh oracle ở 22/75 bản ghi.
+
+Nói cách khác: một chỉ số chất lượng dựa trên phổ \textbf{mất phần lớn giá trị} đúng ở nơi ta cần nó
+nhất. \textbf{Đây vẫn là động cơ đã đo được cho đóng góp C3} --- nhưng ở mức ``mất 7 điểm'', không phải
+``sụp đổ hoàn toàn'' như bản 3.2 viết.
 \end{ghichu}
 
 \subsection{Kết quả cuối trên ADFECGDB}
@@ -381,16 +613,20 @@ Gộp toàn cục (micro) & 99,17 & \multicolumn{3}{l}{TP 3.178 \quad FP 40 \qua
 
 \begin{figure}[H]\centering
 \includegraphics[width=0.94\textwidth]{figs/fig6_luong_cuc.pdf}
-\caption{Chuyển sang PhysioNet/CinC 2013 mà không tinh chỉnh. Phân bố \textbf{lưỡng cực}: bốn bản ghi
-hoàn hảo, ba bản ghi sụp dưới 50\%. Chính hình dạng này, chứ không phải con số trung bình, là vấn đề
-cần giải.}
+\caption{Chuyển sang PhysioNet/CinC 2013 mà không tinh chỉnh, \textbf{mẫu 10 bản ghi đầu tiên}. Phân bố
+\textbf{lưỡng cực}: bốn bản ghi hoàn hảo, ba bản ghi sụp dưới 50. Hình dạng này giữ nguyên trên toàn bộ
+75 bản ghi (hình \ref{fig:cinc75}A) --- ở đó 22/75 bản ghi dưới 50 với mô hình 5 ca.}
 \label{fig:bimodal}
 \end{figure}
 
 Một hệ thống theo dõi thai mà im lặng đưa ra nhịp tim với độ chính xác 23\% thì nguy hiểm hơn một hệ
-thống nói ``tôi không đọc được tín hiệu này''. Đó chính là lý do C3 tồn tại.
+thống nói ``tôi không đọc được tín hiệu này''. Đó chính là lý do C3 tồn tại. Con số quy mô đầy đủ:
+trên 75 bản ghi, \textbf{22 bản ghi dưới 50 với mô hình 5 ca và 16 bản ghi với mô hình 22 ca}
+(\S\ref{sec:cinc75}).
 
 \input{sec_baselines.tex}
+
+\input{sec_powermf.tex}
 
 \input{sec_silesia.tex}
 

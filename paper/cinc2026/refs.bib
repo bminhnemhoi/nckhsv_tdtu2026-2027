@@ -1,6 +1,19 @@
 % Bibliography for the CinC 2026 draft. Every DOI below was taken either from
-% survey/survey_raw.json (field trich_dan) or from the task brief; entries
-% without a DOI in those sources are listed without one.
+% survey/survey_raw.json (field trich_dan), from survey/scout_novelty.md, or
+% from the task brief; entries without a DOI in those sources are listed
+% without one.
+%
+% NOTE on author fields: for the seven entries added in the integrity pass
+% (huang2025, fotiadou2021, zahid2022, kiranyaz2023, baldazzi2023,
+% andreotti2017) the survey ledger recorded surnames only for some authors.
+% Those are given as surnames + "and others" rather than invented given
+% names. Volume/number/pages are given only where the ledger recorded them.
+%
+% 2026-09-12, cut to four pages: huang2025, kiranyaz2023 and perea2015 are no
+% longer cited in main.tex (the sentences that cited them were removed when the
+% paper was trimmed from five pages to the CinC limit of four). The entries are
+% kept here on purpose -- they are still correct and will be needed if the text
+% is restored -- but bibtex will not print them while they are uncited.
 
 @article{clifford2014,
   author  = {Clifford, Gari D. and Silva, Ikaro and Behar, Joachim and Moody, George B.},
@@ -119,6 +132,63 @@
   volume  = {18},
   number  = {8},
   pages   = {1--35}
+}
+
+@article{huang2025,
+  author  = {Huang and Zhang and Li and others},
+  title   = {{TCGAN}: a temporal convolutional generative adversarial network for single-channel fetal {ECG} extraction and {QRS} detection},
+  journal = {IEEE Journal of Biomedical and Health Informatics},
+  year    = {2025},
+  doi     = {10.1109/JBHI.2024.3524085}
+}
+
+@article{fotiadou2021,
+  author  = {Fotiadou, Eleni and van Sloun, Ruud J. G. and van Laar, Judith O. E. H. and Vullings, Rik},
+  title   = {A dilated inception {CNN-LSTM} network for fetal heart rate estimation},
+  journal = {Physiological Measurement},
+  year    = {2021},
+  volume  = {42},
+  number  = {4},
+  pages   = {045007},
+  doi     = {10.1088/1361-6579/abf7db}
+}
+
+@article{zahid2022,
+  author  = {Zahid and Kiranyaz and Ince and others},
+  title   = {Robust {R}-peak detection in low-quality {holter} {ECG}s using 1{D} convolutional neural network},
+  journal = {IEEE Transactions on Biomedical Engineering},
+  year    = {2022},
+  volume  = {69},
+  number  = {1},
+  pages   = {119--128},
+  doi     = {10.1109/TBME.2021.3088218}
+}
+
+@article{kiranyaz2023,
+  author  = {Gabbouj and Kiranyaz and Malik and others},
+  title   = {Robust peak detection for holter {ECG}s by self-organized operational neural networks},
+  journal = {IEEE Transactions on Neural Networks and Learning Systems},
+  year    = {2023},
+  volume  = {34},
+  number  = {11},
+  doi     = {10.1109/TNNLS.2022.3158867}
+}
+
+@incollection{baldazzi2023,
+  author    = {Baldazzi, Giulia and Pani, Danilo},
+  title     = {Open data: valuable resources and opportunities for the researchers in fetal cardiac monitoring},
+  booktitle = {Innovative Technologies and Signal Processing in Perinatal Medicine},
+  publisher = {Springer},
+  year      = {2023},
+  doi       = {10.1007/978-3-031-32625-7_12}
+}
+
+@article{andreotti2017,
+  author  = {Andreotti and Gr{\"a}sser and Malberg and Zaunseder},
+  title   = {Non-invasive fetal {ECG} signal quality assessment for multichannel heart rate estimation},
+  journal = {IEEE Transactions on Biomedical Engineering},
+  year    = {2017},
+  doi     = {10.1109/TBME.2017.2675543}
 }
 
 @article{perea2015,

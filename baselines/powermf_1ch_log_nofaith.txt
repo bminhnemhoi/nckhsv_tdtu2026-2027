@@ -1,0 +1,26 @@
+[   0.0s] ==============================================================================
+[   0.0s] Power-MF-1ch (Python) ms=340 faithful=0 sets=s22
+[   0.6s] r01     PSD kenh 3  F1= 92.33  Se= 92.55  PPV= 92.12  | kenh0= 98.60 oracle= 98.60
+[   1.2s] r04     PSD kenh 1  F1= 92.41  Se= 92.41  PPV= 92.41  | kenh0= 75.22 oracle= 92.41
+[   1.8s] r07     PSD kenh 1  F1= 90.17  Se= 89.95  PPV= 90.38  | kenh0= 77.07 oracle= 98.41
+[   2.4s] r08     PSD kenh 3  F1= 90.05  Se= 90.32  PPV= 89.77  | kenh0= 98.77 oracle= 98.77
+[   3.0s] r10     PSD kenh 0  F1= 96.91  Se= 98.59  PPV= 95.30  | kenh0= 96.91 oracle= 96.91
+[   3.7s] B2_03   PSD kenh 1  F1= 47.82  Se= 45.95  PPV= 49.85  | kenh0= 66.28 oracle= 80.11
+[   4.3s] B2_04   PSD kenh 0  F1= 97.88  Se= 98.24  PPV= 97.52  | kenh0= 97.88 oracle= 97.88
+[   4.9s] B2_05   PSD kenh 3  F1= 90.77  Se= 90.91  PPV= 90.63  | kenh0= 98.56 oracle= 98.56
+[   5.5s] B2_06   PSD kenh 0  F1= 99.56  Se= 99.56  PPV= 99.56  | kenh0= 99.56 oracle= 99.56
+[   6.1s] B2_08   PSD kenh 3  F1= 86.13  Se= 86.20  PPV= 86.07  | kenh0= 99.30 oracle= 99.30
+[   6.7s] B2_09   PSD kenh 0  F1= 98.44  Se= 98.52  PPV= 98.37  | kenh0= 98.44 oracle= 98.44
+[   7.3s] B2_12   PSD kenh 3  F1= 90.23  Se= 89.95  PPV= 90.51  | kenh0= 93.77 oracle= 93.77
+[   9.9s] B1_01   PSD kenh 2  F1= 95.25  Se= 93.81  PPV= 96.73  | kenh0= 57.04 oracle= 95.25
+[  12.7s] B1_02   PSD kenh 2  F1= 98.73  Se= 98.61  PPV= 98.86  | kenh0= 86.26 oracle= 98.73
+[  15.3s] B1_03   PSD kenh 2  F1= 91.30  Se= 91.27  PPV= 91.34  | kenh0= 98.56 oracle= 98.56
+[  17.9s] B1_04   PSD kenh 2  F1= 99.98  Se=100.00  PPV= 99.96  | kenh0= 98.84 oracle= 99.98
+[  20.7s] B1_05   PSD kenh 2  F1= 93.83  Se= 93.83  PPV= 93.83  | kenh0= 86.97 oracle= 99.46
+[  23.3s] B1_06   PSD kenh 3  F1= 54.36  Se= 52.72  PPV= 56.12  | kenh0= 97.66 oracle= 98.77
+[  25.9s] B1_07   PSD kenh 3  F1= 63.36  Se= 58.19  PPV= 69.53  | kenh0= 72.73 oracle= 98.15
+[  28.5s] B1_08   PSD kenh 0  F1= 83.50  Se= 82.14  PPV= 84.91  | kenh0= 83.50 oracle= 96.16
+[  30.6s] B1_09   PSD kenh 2  F1= 88.27  Se= 86.78  PPV= 89.82  | kenh0= 38.75 oracle= 88.27
+[  32.8s] B1_10   PSD kenh 1  F1= 66.14  Se= 64.35  PPV= 68.03  | kenh0= 69.11 oracle= 98.89
+[  32.8s] TAP s22  n=22  F1 tb=86.70  sd=14.89
+[  32.8s] xong -> D:\NCKHSV2026-2027\baselines\powermf_1ch_nofaith.json

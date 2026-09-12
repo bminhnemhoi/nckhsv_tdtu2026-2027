@@ -95,6 +95,23 @@ tương quan giữa ADFECGDB và CinC.
 phải tốc độ mà là thông tin.
 \end{enumerate}
 
+\begin{canhbao}[title={Con số 0,929 trả lời sai câu hỏi --- đính chính bắt buộc của bản 3.3}]
+600 đoạn 4 giây trong bảng trên đến từ \textbf{10 bản ghi}, và đoạn trong cùng một bản ghi tương quan
+mạnh. Tính lại với cluster bootstrap \textbf{theo bản ghi} ($n = 10$ cụm): AUROC $= 0{,}929$
+$[0{,}830;\ 0{,}982]$.
+
+Quan trọng hơn: \textbf{5/10 bản ghi CinC không có đoạn xấu nào}, nên chúng không đóng góp gì vào AUROC
+gộp. Con số 0,929 vì vậy phần lớn trả lời câu hỏi \textit{``bản ghi này có phải bản ghi xấu không''}.
+Câu hỏi mà cổng từ chối được bán như là thứ trả lời --- \textit{``đoạn 4 giây này trong bản ghi của bệnh
+nhân này có đáng tin không''} --- có đáp số là \textbf{AUROC TRONG bản ghi $= 0{,}721$}
+$[0{,}517;\ 0{,}898]$, trung bình trên 5 bản ghi có cả đoạn tốt lẫn đoạn xấu (a01 $= 0{,}914$;
+a06 $= 0{,}390$; a07 $= 0{,}889$; a09 $= 0{,}886$; a10 $= 0{,}526$).
+
+Kết luận phủ định về topo \textbf{không đổi} (0,566 so với 0,929 hay so với 0,721 đều là thua). Nhưng
+tuyên bố khẳng định về cổng từ chối phải hạ xuống: nó \textbf{chưa} dùng được ở mức đoạn tại giường bệnh.
+Chi tiết ở \S\ref{sec:thongke}.
+\end{canhbao}
+
 \begin{canhbao}[title={Điều này làm gì với đóng góp C3}]
 Nhóm \textbf{rút lại} phần ``dựa trên đồng điều bền vững'' trong phát biểu C3. Đây là lần thứ ba trong đề
 tài mà phân tích dữ liệu topo được kiểm chứng có kiểm soát và không mang lại lợi ích: (1) Persistence

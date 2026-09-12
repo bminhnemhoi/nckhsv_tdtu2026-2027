@@ -1,12 +1,12 @@
 {
- "generated": "2026-09-11 16:34:59",
+ "generated": "2026-09-12 08:52:16",
  "mode": "ca_hai",
  "modes": [
   "hoc",
   "luat"
  ],
- "torch_threads": 2,
- "runtime_s": 135.31027841567993,
+ "torch_threads": 4,
+ "runtime_s": 125.5720751285553,
  "records_done": 33,
  "records_total": 33,
  "complete": true,
@@ -92,9 +92,9 @@
    "duration_s": 300.0,
    "n_beats": 644,
    "fhr_mean": 129.113157084266,
-   "latency_ms": 1355.8295000111684,
-   "latency_frontend_ms": 42.63709997758269,
-   "latency_model_ms": 1313.1924000335857,
+   "latency_ms": 894.4724000175484,
+   "latency_frontend_ms": 38.30940002808347,
+   "latency_model_ms": 856.1629999894649,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -111,7 +111,7 @@
      "n_yellow": 0,
      "n_red": 0,
      "locked": false,
-     "gate_ms": 1707.8770999796689
+     "gate_ms": 1388.228399970103
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 75/75 đoạn 4 s xanh (100%), 0 vàng, 0 đỏ (0%)",
@@ -243,7 +243,7 @@
       "n_yellow": 0,
       "n_red": 0,
       "locked": false,
-      "gate_ms": 1707.8770999796689
+      "gate_ms": 1388.228399970103
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 75/75 đoạn 4 s xanh (100%), 0 vàng, 0 đỏ (0%)",
@@ -366,9 +366,9 @@
    "duration_s": 300.0,
    "n_beats": 631,
    "fhr_mean": 126.43482943498638,
-   "latency_ms": 1273.2457999372855,
-   "latency_frontend_ms": 41.802699968684465,
-   "latency_model_ms": 1231.443099968601,
+   "latency_ms": 818.76730005024,
+   "latency_frontend_ms": 34.63990002637729,
+   "latency_model_ms": 784.1274000238627,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -385,7 +385,7 @@
      "n_yellow": 3,
      "n_red": 2,
      "locked": false,
-     "gate_ms": 1274.0579000092112
+     "gate_ms": 1018.3970999787562
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 70/75 đoạn 4 s xanh (93%), 3 vàng, 2 đỏ (3%)",
@@ -517,7 +517,7 @@
       "n_yellow": 3,
       "n_red": 2,
       "locked": false,
-      "gate_ms": 1274.0579000092112
+      "gate_ms": 1018.3970999787562
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 70/75 đoạn 4 s xanh (93%), 3 vàng, 2 đỏ (3%)",
@@ -640,9 +640,9 @@
    "duration_s": 300.0,
    "n_beats": 627,
    "fhr_mean": 125.47037211525388,
-   "latency_ms": 1338.8143999618478,
-   "latency_frontend_ms": 38.15739997662604,
-   "latency_model_ms": 1300.6569999852218,
+   "latency_ms": 831.6838999744505,
+   "latency_frontend_ms": 38.11570000834763,
+   "latency_model_ms": 793.5681999661028,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -659,7 +659,7 @@
      "n_yellow": 0,
      "n_red": 0,
      "locked": false,
-     "gate_ms": 1329.4688999885693
+     "gate_ms": 1139.9702999624424
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 75/75 đoạn 4 s xanh (100%), 0 vàng, 0 đỏ (0%)",
@@ -791,7 +791,7 @@
       "n_yellow": 0,
       "n_red": 0,
       "locked": false,
-      "gate_ms": 1329.4688999885693
+      "gate_ms": 1139.9702999624424
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 75/75 đoạn 4 s xanh (100%), 0 vàng, 0 đỏ (0%)",
@@ -914,9 +914,9 @@
    "duration_s": 300.0,
    "n_beats": 652,
    "fhr_mean": 130.51447999768564,
-   "latency_ms": 1521.6108999447897,
-   "latency_frontend_ms": 36.05329996207729,
-   "latency_model_ms": 1485.5575999827124,
+   "latency_ms": 851.7535999417305,
+   "latency_frontend_ms": 39.470399962738156,
+   "latency_model_ms": 812.2831999789923,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -933,7 +933,7 @@
      "n_yellow": 2,
      "n_red": 1,
      "locked": false,
-     "gate_ms": 1322.564899979625
+     "gate_ms": 1319.1484000417404
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 72/75 đoạn 4 s xanh (96%), 2 vàng, 1 đỏ (1%)",
@@ -1065,7 +1065,7 @@
       "n_yellow": 2,
       "n_red": 1,
       "locked": false,
-      "gate_ms": 1322.564899979625
+      "gate_ms": 1319.1484000417404
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 72/75 đoạn 4 s xanh (96%), 2 vàng, 1 đỏ (1%)",
@@ -1188,9 +1188,9 @@
    "duration_s": 300.0,
    "n_beats": 662,
    "fhr_mean": 132.03805738334745,
-   "latency_ms": 858.8476000586525,
-   "latency_frontend_ms": 29.20390001963824,
-   "latency_model_ms": 829.6437000390142,
+   "latency_ms": 818.5893999761902,
+   "latency_frontend_ms": 40.90399999404326,
+   "latency_model_ms": 777.6853999821469,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -1207,7 +1207,7 @@
      "n_yellow": 22,
      "n_red": 12,
      "locked": false,
-     "gate_ms": 954.5467999996617
+     "gate_ms": 1026.8835999886505
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 41/75 đoạn 4 s xanh (55%), 22 vàng, 12 đỏ (16%)",
@@ -1339,7 +1339,7 @@
       "n_yellow": 22,
       "n_red": 12,
       "locked": false,
-      "gate_ms": 954.5467999996617
+      "gate_ms": 1026.8835999886505
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 41/75 đoạn 4 s xanh (55%), 22 vàng, 12 đỏ (16%)",
@@ -1462,9 +1462,9 @@
    "duration_s": 60.0,
    "n_beats": 122,
    "fhr_mean": 129.75353077785584,
-   "latency_ms": 206.34450000943616,
-   "latency_frontend_ms": 9.429600031580776,
-   "latency_model_ms": 196.91489997785538,
+   "latency_ms": 180.31149997841567,
+   "latency_frontend_ms": 10.471199988387525,
+   "latency_model_ms": 169.84029999002814,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -1481,7 +1481,7 @@
      "n_yellow": 0,
      "n_red": 12,
      "locked": false,
-     "gate_ms": 179.06179995043203
+     "gate_ms": 249.530200031586
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 3/15 đoạn 4 s xanh (20%), 0 vàng, 12 đỏ (80%)",
@@ -1553,7 +1553,7 @@
       "n_yellow": 0,
       "n_red": 12,
       "locked": false,
-      "gate_ms": 179.06179995043203
+      "gate_ms": 249.530200031586
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 3/15 đoạn 4 s xanh (20%), 0 vàng, 12 đỏ (80%)",
@@ -1616,9 +1616,9 @@
    "duration_s": 60.0,
    "n_beats": 125,
    "fhr_mean": 125.79836326288405,
-   "latency_ms": 172.56089998409152,
-   "latency_frontend_ms": 7.678800029680133,
-   "latency_model_ms": 164.8820999544114,
+   "latency_ms": 185.90649997349828,
+   "latency_frontend_ms": 10.27339999563992,
+   "latency_model_ms": 175.63309997785836,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -1635,7 +1635,7 @@
      "n_yellow": 9,
      "n_red": 6,
      "locked": true,
-     "gate_ms": 179.47370000183582
+     "gate_ms": 240.91569997835904
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 0/15 đoạn 4 s xanh (0%), 9 vàng, 6 đỏ (40%)",
@@ -1707,7 +1707,7 @@
       "n_yellow": 9,
       "n_red": 6,
       "locked": true,
-      "gate_ms": 179.47370000183582
+      "gate_ms": 240.91569997835904
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 0/15 đoạn 4 s xanh (0%), 9 vàng, 6 đỏ (40%)",
@@ -1770,9 +1770,9 @@
    "duration_s": 60.0,
    "n_beats": 128,
    "fhr_mean": 127.97013727284966,
-   "latency_ms": 201.567999960389,
-   "latency_frontend_ms": 10.244100005365908,
-   "latency_model_ms": 191.32389995502308,
+   "latency_ms": 175.00539997126907,
+   "latency_frontend_ms": 10.332399979233742,
+   "latency_model_ms": 164.67299999203533,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -1789,7 +1789,7 @@
      "n_yellow": 2,
      "n_red": 1,
      "locked": false,
-     "gate_ms": 202.92970002628863
+     "gate_ms": 284.08770001260564
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 12/15 đoạn 4 s xanh (80%), 2 vàng, 1 đỏ (7%)",
@@ -1861,7 +1861,7 @@
       "n_yellow": 2,
       "n_red": 1,
       "locked": false,
-      "gate_ms": 202.92970002628863
+      "gate_ms": 284.08770001260564
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 12/15 đoạn 4 s xanh (80%), 2 vàng, 1 đỏ (7%)",
@@ -1924,9 +1924,9 @@
    "duration_s": 60.0,
    "n_beats": 129,
    "fhr_mean": 130.9370854195595,
-   "latency_ms": 246.00400001509115,
-   "latency_frontend_ms": 5.093400017358363,
-   "latency_model_ms": 240.9105999977328,
+   "latency_ms": 157.96939993742853,
+   "latency_frontend_ms": 9.306899970397353,
+   "latency_model_ms": 148.66249996703118,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -1943,7 +1943,7 @@
      "n_yellow": 1,
      "n_red": 0,
      "locked": false,
-     "gate_ms": 279.02209997409955
+     "gate_ms": 230.07200000574812
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 14/15 đoạn 4 s xanh (93%), 1 vàng, 0 đỏ (0%)",
@@ -2015,7 +2015,7 @@
       "n_yellow": 1,
       "n_red": 0,
       "locked": false,
-      "gate_ms": 279.02209997409955
+      "gate_ms": 230.07200000574812
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 14/15 đoạn 4 s xanh (93%), 1 vàng, 0 đỏ (0%)",
@@ -2078,9 +2078,9 @@
    "duration_s": 60.0,
    "n_beats": 129,
    "fhr_mean": 128.9512562162108,
-   "latency_ms": 352.29020001133904,
-   "latency_frontend_ms": 9.970100014470518,
-   "latency_model_ms": 342.3200999968685,
+   "latency_ms": 202.55809999071062,
+   "latency_frontend_ms": 9.303500002715737,
+   "latency_model_ms": 193.25459998799488,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -2097,7 +2097,7 @@
      "n_yellow": 0,
      "n_red": 0,
      "locked": false,
-     "gate_ms": 302.86170000908896
+     "gate_ms": 203.0081999837421
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 15/15 đoạn 4 s xanh (100%), 0 vàng, 0 đỏ (0%)",
@@ -2169,7 +2169,7 @@
       "n_yellow": 0,
       "n_red": 0,
       "locked": false,
-      "gate_ms": 302.86170000908896
+      "gate_ms": 203.0081999837421
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 15/15 đoạn 4 s xanh (100%), 0 vàng, 0 đỏ (0%)",
@@ -2232,9 +2232,9 @@
    "duration_s": 60.0,
    "n_beats": 116,
    "fhr_mean": 121.57259940003426,
-   "latency_ms": 297.04270005458966,
-   "latency_frontend_ms": 9.048400039318949,
-   "latency_model_ms": 287.9943000152707,
+   "latency_ms": 174.48340001283213,
+   "latency_frontend_ms": 6.570800032932311,
+   "latency_model_ms": 167.91259997989982,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -2251,7 +2251,7 @@
      "n_yellow": 1,
      "n_red": 14,
      "locked": false,
-     "gate_ms": 162.952899991069
+     "gate_ms": 243.28960001002997
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 0/15 đoạn 4 s xanh (0%), 1 vàng, 14 đỏ (93%)",
@@ -2323,7 +2323,7 @@
       "n_yellow": 1,
       "n_red": 14,
       "locked": false,
-      "gate_ms": 162.952899991069
+      "gate_ms": 243.28960001002997
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 0/15 đoạn 4 s xanh (0%), 1 vàng, 14 đỏ (93%)",
@@ -2386,9 +2386,9 @@
    "duration_s": 60.0,
    "n_beats": 98,
    "fhr_mean": 115.43309673976705,
-   "latency_ms": 295.50589999416843,
-   "latency_frontend_ms": 9.458300017286092,
-   "latency_model_ms": 286.04759997688234,
+   "latency_ms": 182.73659999249503,
+   "latency_frontend_ms": 8.548700017854571,
+   "latency_model_ms": 174.18789997464046,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -2405,7 +2405,7 @@
      "n_yellow": 0,
      "n_red": 15,
      "locked": false,
-     "gate_ms": 244.67939999885857
+     "gate_ms": 176.077299984172
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 0/15 đoạn 4 s xanh (0%), 0 vàng, 15 đỏ (100%)",
@@ -2477,7 +2477,7 @@
       "n_yellow": 0,
       "n_red": 15,
       "locked": false,
-      "gate_ms": 244.67939999885857
+      "gate_ms": 176.077299984172
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 0/15 đoạn 4 s xanh (0%), 0 vàng, 15 đỏ (100%)",
@@ -2540,9 +2540,9 @@
    "duration_s": 60.0,
    "n_beats": 128,
    "fhr_mean": 127.57511998554725,
-   "latency_ms": 295.89780006790534,
-   "latency_frontend_ms": 10.064100031740963,
-   "latency_model_ms": 285.8337000361644,
+   "latency_ms": 165.70049995789304,
+   "latency_frontend_ms": 6.068899994716048,
+   "latency_model_ms": 159.631599963177,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -2559,7 +2559,7 @@
      "n_yellow": 1,
      "n_red": 0,
      "locked": false,
-     "gate_ms": 294.00160000659525
+     "gate_ms": 230.2858999464661
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 14/15 đoạn 4 s xanh (93%), 1 vàng, 0 đỏ (0%)",
@@ -2631,7 +2631,7 @@
       "n_yellow": 1,
       "n_red": 0,
       "locked": false,
-      "gate_ms": 294.00160000659525
+      "gate_ms": 230.2858999464661
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 14/15 đoạn 4 s xanh (93%), 1 vàng, 0 đỏ (0%)",
@@ -2694,9 +2694,9 @@
    "duration_s": 60.0,
    "n_beats": 94,
    "fhr_mean": 96.15375680551746,
-   "latency_ms": 229.7721999930218,
-   "latency_frontend_ms": 10.32689999556169,
-   "latency_model_ms": 219.4452999974601,
+   "latency_ms": 150.42060002451763,
+   "latency_frontend_ms": 6.571500038262457,
+   "latency_model_ms": 143.84909998625517,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -2713,7 +2713,7 @@
      "n_yellow": 4,
      "n_red": 7,
      "locked": true,
-     "gate_ms": 230.35430000163615
+     "gate_ms": 213.73939997283742
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 4/15 đoạn 4 s xanh (27%), 4 vàng, 7 đỏ (47%)",
@@ -2785,7 +2785,7 @@
       "n_yellow": 4,
       "n_red": 7,
       "locked": true,
-      "gate_ms": 230.35430000163615
+      "gate_ms": 213.73939997283742
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 4/15 đoạn 4 s xanh (27%), 4 vàng, 7 đỏ (47%)",
@@ -2848,9 +2848,9 @@
    "duration_s": 60.0,
    "n_beats": 110,
    "fhr_mean": 117.46060973089666,
-   "latency_ms": 271.8149999855086,
-   "latency_frontend_ms": 10.318699991330504,
-   "latency_model_ms": 261.4962999941781,
+   "latency_ms": 156.52249997947365,
+   "latency_frontend_ms": 7.447100011631846,
+   "latency_model_ms": 149.0753999678418,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -2867,7 +2867,7 @@
      "n_yellow": 0,
      "n_red": 15,
      "locked": false,
-     "gate_ms": 240.66309997579083
+     "gate_ms": 186.89730000915006
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 0/15 đoạn 4 s xanh (0%), 0 vàng, 15 đỏ (100%)",
@@ -2939,7 +2939,7 @@
       "n_yellow": 0,
       "n_red": 15,
       "locked": false,
-      "gate_ms": 240.66309997579083
+      "gate_ms": 186.89730000915006
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 0/15 đoạn 4 s xanh (0%), 0 vàng, 15 đỏ (100%)",
@@ -3002,9 +3002,9 @@
    "duration_s": 1197.8,
    "n_beats": 3056,
    "fhr_mean": 155.55003427660358,
-   "latency_ms": 3763.7196999858133,
-   "latency_frontend_ms": 119.81120001291856,
-   "latency_model_ms": 3643.908499972895,
+   "latency_ms": 3568.7747999909334,
+   "latency_frontend_ms": 153.48969999467954,
+   "latency_model_ms": 3415.285099996254,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -3021,7 +3021,7 @@
      "n_yellow": 123,
      "n_red": 48,
      "locked": false,
-     "gate_ms": 4484.908199985512
+     "gate_ms": 4482.438400038518
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 128/299 đoạn 4 s xanh (43%), 123 vàng, 48 đỏ (16%)",
@@ -3377,7 +3377,7 @@
       "n_yellow": 123,
       "n_red": 48,
       "locked": false,
-      "gate_ms": 4484.908199985512
+      "gate_ms": 4482.438400038518
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 128/299 đoạn 4 s xanh (43%), 123 vàng, 48 đỏ (16%)",
@@ -3731,9 +3731,9 @@
    "duration_s": 1197.8,
    "n_beats": 2799,
    "fhr_mean": 140.47298127581544,
-   "latency_ms": 3784.2193999676965,
-   "latency_frontend_ms": 159.33359996415675,
-   "latency_model_ms": 3624.8858000035398,
+   "latency_ms": 3395.3201000695117,
+   "latency_frontend_ms": 135.7914000400342,
+   "latency_model_ms": 3259.5287000294775,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -3750,7 +3750,7 @@
      "n_yellow": 134,
      "n_red": 19,
      "locked": false,
-     "gate_ms": 4012.1450999868102
+     "gate_ms": 3936.2650999682955
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 146/299 đoạn 4 s xanh (49%), 134 vàng, 19 đỏ (6%)",
@@ -4106,7 +4106,7 @@
       "n_yellow": 134,
       "n_red": 19,
       "locked": false,
-      "gate_ms": 4012.1450999868102
+      "gate_ms": 3936.2650999682955
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 146/299 đoạn 4 s xanh (49%), 134 vàng, 19 đỏ (6%)",
@@ -4460,9 +4460,9 @@
    "duration_s": 1197.8,
    "n_beats": 2566,
    "fhr_mean": 128.61891915086636,
-   "latency_ms": 4632.938600028865,
-   "latency_frontend_ms": 121.04500003624707,
-   "latency_model_ms": 4511.893599992618,
+   "latency_ms": 3358.941100013908,
+   "latency_frontend_ms": 154.7969999955967,
+   "latency_model_ms": 3204.1441000183113,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -4479,7 +4479,7 @@
      "n_yellow": 48,
      "n_red": 2,
      "locked": false,
-     "gate_ms": 4119.890399975702
+     "gate_ms": 4871.41939997673
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 249/299 đoạn 4 s xanh (83%), 48 vàng, 2 đỏ (1%)",
@@ -4835,7 +4835,7 @@
       "n_yellow": 48,
       "n_red": 2,
       "locked": false,
-      "gate_ms": 4119.890399975702
+      "gate_ms": 4871.41939997673
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 249/299 đoạn 4 s xanh (83%), 48 vàng, 2 đỏ (1%)",
@@ -5189,9 +5189,9 @@
    "duration_s": 1197.8,
    "n_beats": 2765,
    "fhr_mean": 139.08762848319094,
-   "latency_ms": 3909.2422000248916,
-   "latency_frontend_ms": 122.46470001991838,
-   "latency_model_ms": 3786.7775000049733,
+   "latency_ms": 3570.4090000363067,
+   "latency_frontend_ms": 135.57440001750365,
+   "latency_model_ms": 3434.834600018803,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -5208,7 +5208,7 @@
      "n_yellow": 21,
      "n_red": 4,
      "locked": false,
-     "gate_ms": 4200.924000004306
+     "gate_ms": 4993.608999997377
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 274/299 đoạn 4 s xanh (92%), 21 vàng, 4 đỏ (1%)",
@@ -5564,7 +5564,7 @@
       "n_yellow": 21,
       "n_red": 4,
       "locked": false,
-      "gate_ms": 4200.924000004306
+      "gate_ms": 4993.608999997377
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 274/299 đoạn 4 s xanh (92%), 21 vàng, 4 đỏ (1%)",
@@ -5918,9 +5918,9 @@
    "duration_s": 1197.8,
    "n_beats": 2768,
    "fhr_mean": 138.85640219619938,
-   "latency_ms": 5475.000900041778,
-   "latency_frontend_ms": 122.35670001246035,
-   "latency_model_ms": 5352.644200029317,
+   "latency_ms": 3517.0177999534644,
+   "latency_frontend_ms": 139.21419996768236,
+   "latency_model_ms": 3377.803599985782,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -5937,7 +5937,7 @@
      "n_yellow": 8,
      "n_red": 3,
      "locked": false,
-     "gate_ms": 4473.08329999214
+     "gate_ms": 5035.038800037
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 288/299 đoạn 4 s xanh (96%), 8 vàng, 3 đỏ (1%)",
@@ -6293,7 +6293,7 @@
       "n_yellow": 8,
       "n_red": 3,
       "locked": false,
-      "gate_ms": 4473.08329999214
+      "gate_ms": 5035.038800037
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 288/299 đoạn 4 s xanh (96%), 8 vàng, 3 đỏ (1%)",
@@ -6647,9 +6647,9 @@
    "duration_s": 1197.8,
    "n_beats": 2686,
    "fhr_mean": 140.4426774513155,
-   "latency_ms": 4134.483099973295,
-   "latency_frontend_ms": 112.90690000168979,
-   "latency_model_ms": 4021.576199971605,
+   "latency_ms": 3671.8106000334956,
+   "latency_frontend_ms": 148.68580002803355,
+   "latency_model_ms": 3523.124800005462,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -6666,7 +6666,7 @@
      "n_yellow": 97,
      "n_red": 159,
      "locked": false,
-     "gate_ms": 4777.843199961353
+     "gate_ms": 4625.685499981046
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 43/299 đoạn 4 s xanh (14%), 97 vàng, 159 đỏ (53%)",
@@ -7022,7 +7022,7 @@
       "n_yellow": 97,
       "n_red": 159,
       "locked": false,
-      "gate_ms": 4777.843199961353
+      "gate_ms": 4625.685499981046
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 43/299 đoạn 4 s xanh (14%), 97 vàng, 159 đỏ (53%)",
@@ -7376,9 +7376,9 @@
    "duration_s": 1197.8,
    "n_beats": 2530,
    "fhr_mean": 134.6886243716338,
-   "latency_ms": 4111.847599968314,
-   "latency_frontend_ms": 114.95979997562245,
-   "latency_model_ms": 3996.8877999926917,
+   "latency_ms": 3540.24770000251,
+   "latency_frontend_ms": 147.42990001104772,
+   "latency_model_ms": 3392.8177999914624,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -7395,7 +7395,7 @@
      "n_yellow": 17,
      "n_red": 281,
      "locked": false,
-     "gate_ms": 3797.8611000580713
+     "gate_ms": 4387.327500036918
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 1/299 đoạn 4 s xanh (0%), 17 vàng, 281 đỏ (94%)",
@@ -7751,7 +7751,7 @@
       "n_yellow": 17,
       "n_red": 281,
       "locked": false,
-      "gate_ms": 3797.8611000580713
+      "gate_ms": 4387.327500036918
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 1/299 đoạn 4 s xanh (0%), 17 vàng, 281 đỏ (94%)",
@@ -8105,9 +8105,9 @@
    "duration_s": 1197.8,
    "n_beats": 2897,
    "fhr_mean": 145.7909041705261,
-   "latency_ms": 3935.2076000068337,
-   "latency_frontend_ms": 115.69830001099035,
-   "latency_model_ms": 3819.5092999958433,
+   "latency_ms": 3468.1208999827504,
+   "latency_frontend_ms": 127.25070002488792,
+   "latency_model_ms": 3340.8701999578625,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -8124,7 +8124,7 @@
      "n_yellow": 198,
      "n_red": 59,
      "locked": false,
-     "gate_ms": 3435.420099995099
+     "gate_ms": 3912.463100044988
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 42/299 đoạn 4 s xanh (14%), 198 vàng, 59 đỏ (20%)",
@@ -8480,7 +8480,7 @@
       "n_yellow": 198,
       "n_red": 59,
       "locked": false,
-      "gate_ms": 3435.420099995099
+      "gate_ms": 3912.463100044988
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 42/299 đoạn 4 s xanh (14%), 198 vàng, 59 đỏ (20%)",
@@ -8834,9 +8834,9 @@
    "duration_s": 1197.8,
    "n_beats": 2859,
    "fhr_mean": 143.45489454171505,
-   "latency_ms": 4521.9977000379,
-   "latency_frontend_ms": 126.89090002095327,
-   "latency_model_ms": 4395.106800016947,
+   "latency_ms": 3452.4715000297874,
+   "latency_frontend_ms": 114.08700002357364,
+   "latency_model_ms": 3338.384500006214,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -8853,7 +8853,7 @@
      "n_yellow": 100,
      "n_red": 28,
      "locked": false,
-     "gate_ms": 4014.24530002987
+     "gate_ms": 4402.876499982085
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 171/299 đoạn 4 s xanh (57%), 100 vàng, 28 đỏ (9%)",
@@ -9209,7 +9209,7 @@
       "n_yellow": 100,
       "n_red": 28,
       "locked": false,
-      "gate_ms": 4014.24530002987
+      "gate_ms": 4402.876499982085
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 171/299 đoạn 4 s xanh (57%), 100 vàng, 28 đỏ (9%)",
@@ -9563,9 +9563,9 @@
    "duration_s": 1197.8,
    "n_beats": 2610,
    "fhr_mean": 131.0893715625662,
-   "latency_ms": 4763.865200045984,
-   "latency_frontend_ms": 113.0618000170216,
-   "latency_model_ms": 4650.803400028963,
+   "latency_ms": 3354.4254999724217,
+   "latency_frontend_ms": 121.6300000087358,
+   "latency_model_ms": 3232.795499963686,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -9582,7 +9582,7 @@
      "n_yellow": 229,
      "n_red": 32,
      "locked": false,
-     "gate_ms": 4513.778299966361
+     "gate_ms": 4491.251700033899
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 38/299 đoạn 4 s xanh (13%), 229 vàng, 32 đỏ (11%)",
@@ -9938,7 +9938,7 @@
       "n_yellow": 229,
       "n_red": 32,
       "locked": false,
-      "gate_ms": 4513.778299966361
+      "gate_ms": 4491.251700033899
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 38/299 đoạn 4 s xanh (13%), 229 vàng, 32 đỏ (11%)",
@@ -10292,9 +10292,9 @@
    "duration_s": 300.0,
    "n_beats": 655,
    "fhr_mean": 137.21744847619,
-   "latency_ms": 851.159000012558,
-   "latency_frontend_ms": 41.90710000693798,
-   "latency_model_ms": 809.25190000562,
+   "latency_ms": 901.2902000104077,
+   "latency_frontend_ms": 27.720300015062094,
+   "latency_model_ms": 873.5698999953456,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -10311,7 +10311,7 @@
      "n_yellow": 11,
      "n_red": 45,
      "locked": false,
-     "gate_ms": 889.0090000350028
+     "gate_ms": 1030.382400029339
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 19/75 đoạn 4 s xanh (25%), 11 vàng, 45 đỏ (60%)",
@@ -10443,7 +10443,7 @@
       "n_yellow": 11,
       "n_red": 45,
       "locked": false,
-      "gate_ms": 889.0090000350028
+      "gate_ms": 1030.382400029339
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 19/75 đoạn 4 s xanh (25%), 11 vàng, 45 đỏ (60%)",
@@ -10573,9 +10573,9 @@
    "duration_s": 300.0,
    "n_beats": 685,
    "fhr_mean": 137.31702342528018,
-   "latency_ms": 1177.1513000130653,
-   "latency_frontend_ms": 66.82830001227558,
-   "latency_model_ms": 1110.3230000007898,
+   "latency_ms": 908.0010000034235,
+   "latency_frontend_ms": 40.07490002550185,
+   "latency_model_ms": 867.9260999779217,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -10592,7 +10592,7 @@
      "n_yellow": 39,
      "n_red": 11,
      "locked": false,
-     "gate_ms": 938.1933999829926
+     "gate_ms": 985.3061999892816
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 25/75 đoạn 4 s xanh (33%), 39 vàng, 11 đỏ (15%)",
@@ -10724,7 +10724,7 @@
       "n_yellow": 39,
       "n_red": 11,
       "locked": false,
-      "gate_ms": 938.1933999829926
+      "gate_ms": 985.3061999892816
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 25/75 đoạn 4 s xanh (33%), 39 vàng, 11 đỏ (15%)",
@@ -10854,9 +10854,9 @@
    "duration_s": 300.0,
    "n_beats": 660,
    "fhr_mean": 132.45040359821343,
-   "latency_ms": 749.3325000395998,
-   "latency_frontend_ms": 27.841400005854666,
-   "latency_model_ms": 721.4911000337452,
+   "latency_ms": 791.6427000309341,
+   "latency_frontend_ms": 25.001700036227703,
+   "latency_model_ms": 766.6409999947064,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -10873,7 +10873,7 @@
      "n_yellow": 5,
      "n_red": 1,
      "locked": false,
-     "gate_ms": 1323.9083999651484
+     "gate_ms": 1228.7462000385858
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 69/75 đoạn 4 s xanh (92%), 5 vàng, 1 đỏ (1%)",
@@ -11005,7 +11005,7 @@
       "n_yellow": 5,
       "n_red": 1,
       "locked": false,
-      "gate_ms": 1323.9083999651484
+      "gate_ms": 1228.7462000385858
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 69/75 đoạn 4 s xanh (92%), 5 vàng, 1 đỏ (1%)",
@@ -11135,9 +11135,9 @@
    "duration_s": 300.0,
    "n_beats": 684,
    "fhr_mean": 136.722140066933,
-   "latency_ms": 1161.5428000222892,
-   "latency_frontend_ms": 28.230200055986643,
-   "latency_model_ms": 1133.3125999663025,
+   "latency_ms": 855.4326000157744,
+   "latency_frontend_ms": 26.518600003328174,
+   "latency_model_ms": 828.9140000124462,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -11154,7 +11154,7 @@
      "n_yellow": 47,
      "n_red": 4,
      "locked": false,
-     "gate_ms": 1019.5634000119753
+     "gate_ms": 975.4323000088334
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 24/75 đoạn 4 s xanh (32%), 47 vàng, 4 đỏ (5%)",
@@ -11286,7 +11286,7 @@
       "n_yellow": 47,
       "n_red": 4,
       "locked": false,
-      "gate_ms": 1019.5634000119753
+      "gate_ms": 975.4323000088334
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 24/75 đoạn 4 s xanh (32%), 47 vàng, 4 đỏ (5%)",
@@ -11416,9 +11416,9 @@
    "duration_s": 300.0,
    "n_beats": 645,
    "fhr_mean": 128.95127323782702,
-   "latency_ms": 1230.0278000184335,
-   "latency_frontend_ms": 41.52779997093603,
-   "latency_model_ms": 1188.5000000474975,
+   "latency_ms": 886.5005999687128,
+   "latency_frontend_ms": 38.405600003898144,
+   "latency_model_ms": 848.0949999648146,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -11435,7 +11435,7 @@
      "n_yellow": 1,
      "n_red": 0,
      "locked": false,
-     "gate_ms": 1149.6742999879643
+     "gate_ms": 1320.7702999934554
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 74/75 đoạn 4 s xanh (99%), 1 vàng, 0 đỏ (0%)",
@@ -11567,7 +11567,7 @@
       "n_yellow": 1,
       "n_red": 0,
       "locked": false,
-      "gate_ms": 1149.6742999879643
+      "gate_ms": 1320.7702999934554
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 74/75 đoạn 4 s xanh (99%), 1 vàng, 0 đỏ (0%)",
@@ -11697,9 +11697,9 @@
    "duration_s": 300.0,
    "n_beats": 673,
    "fhr_mean": 134.8294629863944,
-   "latency_ms": 1226.5025000669993,
-   "latency_frontend_ms": 30.03830002853647,
-   "latency_model_ms": 1196.4642000384629,
+   "latency_ms": 822.9634999879636,
+   "latency_frontend_ms": 34.50980002526194,
+   "latency_model_ms": 788.4536999627016,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -11716,7 +11716,7 @@
      "n_yellow": 40,
      "n_red": 8,
      "locked": false,
-     "gate_ms": 1057.5408000149764
+     "gate_ms": 1133.1247000489384
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 27/75 đoạn 4 s xanh (36%), 40 vàng, 8 đỏ (11%)",
@@ -11848,7 +11848,7 @@
       "n_yellow": 40,
       "n_red": 8,
       "locked": false,
-      "gate_ms": 1057.5408000149764
+      "gate_ms": 1133.1247000489384
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 27/75 đoạn 4 s xanh (36%), 40 vàng, 8 đỏ (11%)",
@@ -11978,9 +11978,9 @@
    "duration_s": 300.0,
    "n_beats": 657,
    "fhr_mean": 131.3727515784941,
-   "latency_ms": 871.9570999965072,
-   "latency_frontend_ms": 27.946599991992116,
-   "latency_model_ms": 844.010500004515,
+   "latency_ms": 813.5404000640847,
+   "latency_frontend_ms": 26.600100041832775,
+   "latency_model_ms": 786.9403000222519,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -11997,7 +11997,7 @@
      "n_yellow": 6,
      "n_red": 1,
      "locked": false,
-     "gate_ms": 1045.2326000086032
+     "gate_ms": 1137.7686000196263
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 68/75 đoạn 4 s xanh (91%), 6 vàng, 1 đỏ (1%)",
@@ -12129,7 +12129,7 @@
       "n_yellow": 6,
       "n_red": 1,
       "locked": false,
-      "gate_ms": 1045.2326000086032
+      "gate_ms": 1137.7686000196263
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 68/75 đoạn 4 s xanh (91%), 6 vàng, 1 đỏ (1%)",
@@ -12259,9 +12259,9 @@
    "duration_s": 300.0,
    "n_beats": 644,
    "fhr_mean": 129.113157084266,
-   "latency_ms": 929.4173000380397,
-   "latency_frontend_ms": 30.859899998176843,
-   "latency_model_ms": 898.5574000398628,
+   "latency_ms": 809.9227000493556,
+   "latency_frontend_ms": 27.960400038864464,
+   "latency_model_ms": 781.9623000104912,
    "confidence_mode": "hoc",
    "confidence": {
     "mode": "hoc",
@@ -12278,7 +12278,7 @@
      "n_yellow": 0,
      "n_red": 0,
      "locked": false,
-     "gate_ms": 1428.4536999766715
+     "gate_ms": 1279.610599973239
     },
     "reasons": [
      "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 75/75 đoạn 4 s xanh (100%), 0 vàng, 0 đỏ (0%)",
@@ -12410,7 +12410,7 @@
       "n_yellow": 0,
       "n_red": 0,
       "locked": false,
-      "gate_ms": 1428.4536999766715
+      "gate_ms": 1279.610599973239
      },
      "reasons": [
       "Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): 75/75 đoạn 4 s xanh (100%), 0 vàng, 0 đỏ (0%)",

@@ -1,0 +1,461 @@
+{
+  "ghi_chu": "So lieu vong 3+4 (12/09/2026, ban da SUA sau khi phat hien loi cong chuyen). Ba ket qua quan trong nhat: (1) Power-MF DA CHAY LAI THAT qua Octave, va SAU KHI VA LOI CONG CHUYEN P7 moi cho so dung -- moi so Power-MF cong bo sang 12/09 DEU DA BI RUT; (2) Power-MF DON KENH da co, cho phep so sanh cung cau hinh dao trinh lan dau; (3) CinC 2013 danh gia DU 75 ban ghi thay vi 10 -> so chinh doi tu 69,31 len 79,40. Moi con so do that; truy nguoc duoc ve JSON tren dia.",
+  "A_powermf_DA_RUT_ban_cu": {
+    "TRANG_THAI": "DA RUT TOAN BO -- KHONG DUOC TRICH DAN NHU SU KIEN O BAT KY DAU",
+    "ngay_rut": "2026-09-12",
+    "cac_so_bi_rut": {
+      "tat_ca_18": {
+        "powermf": 94.87,
+        "relyfetal": 97.61,
+        "hieu": 2.74,
+        "ktc95": [
+          -1.75,
+          8.64
+        ],
+        "p": 0.0814,
+        "thang_thua": "15/3",
+        "n": 18
+      },
+      "loai_2_ban_nghi_loi": {
+        "powermf": 98.38,
+        "relyfetal": 97.33,
+        "hieu": -1.06,
+        "ktc95": [
+          -3.04,
+          0.4
+        ],
+        "p": 0.2522,
+        "thang_thua": "13/3",
+        "n": 16
+      },
+      "chi_b1_sach": {
+        "powermf": 98.9,
+        "relyfetal": 95.63,
+        "hieu": -3.27,
+        "n": 4
+      }
+    },
+    "ly_do_rut": "Ban Power-MF dung de sinh cac so tren bi HONG tren 6 ban ghi Silesia B1 dai. Nguyen nhan: findpeaks cua goi signal trong Octave cai MinPeakDistance bang cach dung ma tran khoang cach doi mot O(k^2) -> tran bo nho tren B1 (2.395.600 mau sau noi suy x4). MATLAB -- nen tang cua tac gia -- dung thuat toan tham O(k log k) nen khong bao gio gap loi nay. Day la LOI CONG CHUYEN CUA NHOM, KHONG phai tinh chat cua Power-MF. Do do moi so sanh dua tren ban hong deu vo nghia.",
+    "gia_thuyet_cu_da_bi_bac_bo": "Gia thuyet 'ms_minpeakdistance = 340 ms qua sat' DA BI BAC BO bang do RR that tu nhan tham chieu: 0,00% khoang RR cua B1_01 duoi 340 ms (baselines/powermf_rr_diag.json). Khong co thay doi nao ve ms: moi lan chay van dung 340 ms mac dinh cua tac gia.",
+    "cach_khac_phuc": "baselines/octave/findpeaks_mpd.m -- tai lap dung ngu nghia MinPeakDistance cua MATLAB bang danh sach lien ket doi, O(k). Kiem chung 48/48 truong hop (baselines/octave/test_fpmpd.m).",
+    "anh_huong": "B1_01 tu 66,44 -> 99,92; B1_02 tu 67,12 -> 99,55; 4 ban ghi B1_03..B1_06 tu 'khong chay duoc' -> chay duoc."
+  },
+  "A2_powermf_sau_va_P7": {
+    "nguon": [
+      "baselines/powermf_fair_run.py -> baselines/powermf_fair.json, powermf_fair_log.txt",
+      "baselines/powermf_fair_table.py -> baselines/powermf_fair_stats.json, baselines/BASELINES.md",
+      "baselines/octave/findpeaks_mpd.m (ban va P7), baselines/octave/test_fpmpd.m (48/48)"
+    ],
+    "he_thong": "GNU Octave 11.3.0 portable (tools/octave) + xCinC Varanini 2014 (archive.physionet.org/challenge/2013/sources/pmea)",
+    "cham_diem": "M.match_events cua NHOM, +/-50 ms, ghep tham lam 1-1 -- KHONG dung Bxb_compare cua repo ho, de so sanh cong bang",
+    "kiem_chung_ngoai_QUYET_DINH": {
+      "mo_ta": "Sau va P7, Power-MF da kenh tren Silesia B1 cho 99,40 +- 0,51. So DA CONG BO cua chinh tac gia tren cung tap la 99,46 (baselines/powermf_published.json, trich tu Results/*.mat cua repo goc). Lech 0,06 diem -> cong chuyen cua nhom gio da dung.",
+      "ta_do": 99.4,
+      "tac_gia_cong_bo": 99.46,
+      "lech": 0.06
+    },
+    "F1_trung_binh_theo_tap": {
+      "don_vi": "F1 % trung binh muc chu the",
+      "ADFECGDB": {
+        "n": 5,
+        "pmf4": 99.01,
+        "pmf1": 92.37,
+        "relyfetal": 99.4
+      },
+      "silesia_B2": {
+        "n": 7,
+        "pmf4": 97.9,
+        "pmf1": 87.28,
+        "relyfetal": 96.82
+      },
+      "silesia_B1": {
+        "n": 10,
+        "pmf4": 99.4,
+        "pmf1": 83.48,
+        "relyfetal": 97.15
+      },
+      "tat_ca_22": {
+        "n": 22,
+        "pmf4": 98.83,
+        "pmf1": 86.71,
+        "relyfetal": 97.56
+      },
+      "cinc_2013": {
+        "n": 75,
+        "pmf4": null,
+        "pmf1": 62.82,
+        "relyfetal": 79.4,
+        "ghi_chu": "Power-MF da kenh CHUA chay tren CinC 2013"
+      }
+    },
+    "thong_ke_muc_chu_the": {
+      "phuong_phap": "cluster bootstrap 10.000 lan lay mau lai CHU THE, seed 0; Wilcoxon ghep cap; Cliff delta",
+      "tat_ca_22": {
+        "rely_tru_pmf4": {
+          "hieu": -1.27,
+          "ktc95": [
+            -3.08,
+            0.27
+          ],
+          "p": 0.156,
+          "cliff": 0.26,
+          "thang_hoa_thua": "18/0/4",
+          "ket_luan": "KHONG PHAN BIET DUOC -- KTC chua 0"
+        },
+        "rely_tru_pmf1": {
+          "hieu": 10.85,
+          "ktc95": [
+            6.8,
+            15.4
+          ],
+          "p": 4.77e-07,
+          "cliff": 0.698,
+          "thang_hoa_thua": "22/0/0",
+          "ket_luan": "TA HON RO RET tren cung cau hinh MOT dao trinh"
+        },
+        "pmf1_tru_pmf4": {
+          "hieu": -12.12,
+          "ktc95": [
+            -18.27,
+            -6.9
+          ],
+          "p": 1.43e-06,
+          "thang_hoa_thua": "1/0/21",
+          "ket_luan": "Gia cua viec BO tach nguon da kenh, do tren chinh Power-MF"
+        }
+      },
+      "theo_tap_rely_tru_pmf4": {
+        "ADFECGDB": {
+          "n": 5,
+          "hieu": 0.39,
+          "ktc95": [
+            0.22,
+            0.6
+          ],
+          "p": 0.0625,
+          "thang_hoa_thua": "5/0/0",
+          "ket_luan": "TA HON -- KTC KHONG chua 0 (n=5 nen p khong the < 0,05)"
+        },
+        "silesia_B2": {
+          "n": 7,
+          "hieu": -1.08,
+          "ktc95": [
+            -4.04,
+            0.54
+          ],
+          "p": 0.297,
+          "thang_hoa_thua": "6/0/1",
+          "ket_luan": "hoa"
+        },
+        "silesia_B1": {
+          "n": 10,
+          "hieu": -2.25,
+          "ktc95": [
+            -5.55,
+            0.32
+          ],
+          "p": 1.0,
+          "thang_hoa_thua": "7/0/3",
+          "ket_luan": "hoa"
+        }
+      }
+    },
+    "PHAN_BO_KHONG_DOI_XUNG_phai_neu_ro": {
+      "trung_vi_hieu_tren_22_chu_the": 0.23,
+      "thang_thua": "18/22 thang",
+      "giai_thich": "Trung binh -1,27 bi keo am CHI boi ba ban ghi thua nang. Trung vi la +0,23 va ta thang 18/22. Bat cu bao cao nao chi neu trung binh deu che giau su kien nay.",
+      "ba_ban_ghi_thua_nang": [
+        {
+          "rec": "B1_07",
+          "rely": 86.56,
+          "pmf4": 99.44,
+          "hieu": -12.88
+        },
+        {
+          "rec": "B1_06",
+          "rely": 89.45,
+          "pmf4": 99.97,
+          "hieu": -10.51
+        },
+        {
+          "rec": "B2_03",
+          "rely": 79.72,
+          "pmf4": 89.49,
+          "hieu": -9.77
+        }
+      ],
+      "ban_thu_tu_nhe": {
+        "rec": "B1_10",
+        "rely": 97.05,
+        "pmf4": 98.91,
+        "hieu": -1.86
+      }
+    },
+    "LUAN_DE_DUNG": {
+      "cau_hoi": "Mot mang DON KENH 113.481 tham so lay lai duoc bao nhieu phan cua loi ich ma TACH NGUON DA KENH mang lai?",
+      "do_duoc": "Tach nguon da kenh dang gia 12,12 diem F1 cho chinh Power-MF (86,71 -> 98,83).",
+      "ta_lay_lai": "Mo hinh don kenh lay lai 10,85 diem, tuc 89,5% so do, BANG MOT KENH.",
+      "ket_qua": "Khong phan biet duoc voi Power-MF DA KENH (-1,27; KTC95 [-3,08; +0,27]; p=0,156), va HON han Power-MF khi Power-MF bi gioi han ve cung mot dao trinh (+10,85; 22/22).",
+      "CAM": "TUYET DOI KHONG viet 'ta thang SOTA' / 'novel' / 'first' / 'state-of-the-art'."
+    },
+    "chi_phi": "Power-MF ~48 s/ban ghi 5 phut tren Octave; RelyFetal 4,35 ms/cua so 4 s -> nhanh hon khoang 3 bac"
+  },
+  "A3_powermf_1ch": {
+    "nguon": "baselines/powermf_1ch.py -> baselines/powermf_1ch.json, powermf_1ch_log.txt",
+    "dinh_nghia": "Power-MF-1ch: bo do cua Power-MF (Jaeger 2024) o che do DON KENH, cai dat Python/scipy theo dac ta 21 buoc doc truc tiep tu PowerMF.m (survey/scout_baselines.md muc 3). BO QUA FecgICAm + FecgICAf (can da kenh); chon kenh PSD thay bang quy tac mu nhan cua nhom.",
+    "vi_sao_can": "Day moi la so sanh CONG BANG that su: cung mot dao trinh, cung front-end, cung bo khu me. So sanh 1 kenh vs 4 kenh truoc do khong cung cau hinh.",
+    "ket_qua": {
+      "22_chu_the": {
+        "F1_mean": 86.71,
+        "F1_sd": 14.87,
+        "F1_median": 91.04,
+        "F1_min": 47.97,
+        "F1_max": 99.98
+      },
+      "cinc75": {
+        "F1_mean": 62.82,
+        "F1_sd": 32.02,
+        "F1_median": 69.15,
+        "n": 75
+      },
+      "cinc68": {
+        "F1_mean": 64.12,
+        "n": 68
+      }
+    },
+    "ms_minpeakdistance": 340.0,
+    "faithful_template": true
+  },
+  "B_cinc75": {
+    "nguon": "benchmark_dpss/eval_cinc75.py -> eval_cinc75.json, eval_cinc75_hist.png",
+    "y_nghia": "Truoc day chi danh gia 10/75 ban ghi set-a -> mau nho bi lech. Day la so DUNG.",
+    "quy_tac_loai": "7 ban ghi chu thich tham chieu sai: a33 a38 a47 a52 a54 a71 a74 (Behar/Oster/Clifford CinC 2013;40:297-300, qua Zhong 2018). KHAI BAO TRUOC khi chay.",
+    "bien_the_75": {
+      "psd_mu_nhan_SO_CHINH": {
+        "m5": 71.21,
+        "sd5": 33.96,
+        "m22": 79.4,
+        "sd22": 29.18,
+        "median_m22": 99.27,
+        "hieu": 8.18,
+        "p_wilcoxon": 3.16e-10,
+        "p_sign": 3.5e-11,
+        "thang_thua": "53/5",
+        "ties": 17,
+        "cliffs_delta": 0.232,
+        "ge90": [
+          42,
+          48
+        ],
+        "lt50": [
+          22,
+          16
+        ],
+        "eq100": [
+          15,
+          28
+        ]
+      },
+      "kenh_0_co_dinh": {
+        "m5": 58.72,
+        "m22": 69.33,
+        "hieu": 10.61,
+        "p": 1.09e-08,
+        "thang_thua": "52/11",
+        "ge90": [
+          24,
+          36
+        ],
+        "lt50": [
+          35,
+          27
+        ],
+        "mu_nhan": false
+      },
+      "tb_4_kenh": {
+        "m5": 64.78,
+        "m22": 74.09,
+        "hieu": 9.31,
+        "p": 4.21e-11,
+        "thang_thua": "59/8"
+      },
+      "oracle": {
+        "m5": 78.21,
+        "m22": 86.87,
+        "hieu": 8.66,
+        "p": 1e-09,
+        "mu_nhan": false
+      }
+    },
+    "bien_the_68": {
+      "psd_mu_nhan": {
+        "m5": 72.08,
+        "m22": 80.7,
+        "hieu": 8.62,
+        "p": 3.73e-09,
+        "thang_thua": "47/4",
+        "cliffs_delta": 0.248,
+        "ge90": [
+          40,
+          46
+        ],
+        "lt50": [
+          20,
+          14
+        ]
+      },
+      "kenh_0_co_dinh": {
+        "m5": 59.44,
+        "m22": 70.5,
+        "hieu": 11.06,
+        "p": 9.15e-08
+      },
+      "tb_4_kenh": {
+        "m5": 65.28,
+        "m22": 75.07,
+        "hieu": 9.79,
+        "p": 5.44e-10
+      },
+      "oracle": {
+        "m5": 79.22,
+        "m22": 88.42,
+        "hieu": 9.2,
+        "p": 4.44e-09
+      }
+    },
+    "sua_so_cu": "Con so 69,31 (PSD) va 90,34 (kenh 0) tren MAU 10 BAN GHI DEU DA BI RUT: mau nho bi lech CA HAI CHIEU. Tren du 75 ban ghi, quy tac PSD mu nhan cho 79,40 con quy tac 'kenh 0 co dinh' chi cho 69,33 -- tuc kenh 0 co dinh la quy tac TE NHAT trong bon (kem PSD 10,07 diem), nguoc han voi an tuong tren mau 10. Lap luan hau kiem cu khong nhung sai ve liem chinh ma con SAI VE SU KIEN. Cac so 59,15 / 69,31 / 77,34 / 90,34 deu DA BI RUT va chi duoc nhac den kem cau rut lai.",
+    "n_ban_ghi_muc_chu_the": "75 ban ghi CinC la 75 san phu khac nhau -> thong ke muc ban ghi o day LA muc chu the, khong phai gia lap",
+    "khoang_cach_PSD_den_oracle_DA_SUA": {
+      "so_cu_DA_RUT": 22.33,
+      "so_dung_tren_75_ban_ghi": 7.47,
+      "chi_tiet": "oracle m22 = 86,87; PSD m22 = 79,40 -> khoang cach 7,47 diem, khong phai 22,33 (do tren mau 10).",
+      "trong_mien": "0,02-1,90 diem (PhysioNet 0,02; B2 0,66; B1 1,90) -- khong doi"
+    },
+    "SO_CHINH": "PSD mu nhan, mo hinh 22 chu the, 75 ban ghi: 79,40"
+  },
+  "C_chi_so_lam_sang": {
+    "nguon": "analysis/clinical.py -> clinical_results.json, CLINICAL.md, clinical_stv_fhr.png, clinical_coverage_lock.png",
+    "stv_do_chech_ms": {
+      "adfecgdb": 0.33,
+      "silesia_b2": 1.86,
+      "silesia_b1": 1.84,
+      "cinc2013": 20.5,
+      "tat_ca": 7.44
+    },
+    "stv_loa95": {
+      "adfecgdb": [
+        -0.89,
+        1.55
+      ],
+      "silesia_b2": [
+        -6.9,
+        10.63
+      ],
+      "silesia_b1": [
+        -4.45,
+        8.14
+      ],
+      "cinc2013": [
+        -24.76,
+        65.76
+      ]
+    },
+    "sai_so_stv_theo_F1": {
+      "F1>=99,5": {
+        "n": 18,
+        "bias": 0.1,
+        "abs_mean": 0.13,
+        "loa_width": 0.92
+      },
+      "99-99,5": {
+        "n": 2,
+        "bias": 0.43,
+        "abs_mean": 0.43
+      },
+      "95-99": {
+        "n": 3,
+        "bias": 1.17,
+        "abs_mean": 1.17
+      },
+      "F1<90": {
+        "n": 9,
+        "bias": 25.78,
+        "abs_mean": 25.78,
+        "loa_width": 79.48
+      }
+    },
+    "huong_sai_so": "25/32 ban ghi cho STV CAO HON nhan; 7 ban thap hon nhung nhieu nhat chi -0,17 ms -> sai so mot chieu",
+    "nguong_tham_chieu": "TRUFFLE: STV < 2,6 ms (<29 tuan) hoac < 3,0 ms -- do phan bien P3 cung cap, CHUA doi chieu ban goc",
+    "ket_luan_thang": "KHONG dung duoc lam may do STV doc lap. Chi dung duoc khi F1 >= 99,5 (|sai so| 0,13 ms, LoA rong 0,92 ms). Day la ly do cong tu choi co gia tri lam sang that: no loc ra dung nhung doan ma STV con dung duoc."
+  },
+  "D_on_dinh_seed": {
+    "nguon": "model/train_22.json (seed 0) vs train_22_seed1.json (seed 1)",
+    "n_chu_the_chung": 20,
+    "mean_abs_diff": 0.276,
+    "max_abs_diff": 2.81,
+    "chu_the_lech_nhat": "B2_03",
+    "nguong_seed0": [
+      0.2,
+      0.35,
+      0.65,
+      0.75,
+      0.75,
+      0.75,
+      0.75,
+      0.8,
+      0.8,
+      0.8,
+      0.8
+    ],
+    "nguong_seed1": [
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.75,
+      0.75,
+      0.75,
+      0.8,
+      0.8,
+      0.8
+    ],
+    "ket_luan": "Bien thien theo seed (0,28 diem) nho hon moi hieu ung duoc bao cao. Gia tri 0,20 o fold 10 seed 0 la ngoai le mot lan, khong he thong."
+  },
+  "dang_chay": {
+    "band_tcn": "pilot_evidence/band_tcn.py -- khao sat 4 dai loc TREN CHINH TCN (10-60, 1-45, 3-90, 0.5-100), 22 chu the, 3 fold theo nhom, 4 epoch, seed 0. DA XONG dai 10-60 Hz = 98,07 +- 4,05; con 3 dai nua. KHONG duoc dung/sua tien trinh nay. Muc dich: con so +11,00 cho tang 1 hien VAN do tren GBM cua so 300 ms, KHONG phai tren TCN -- bai bao va de cuong phai tiep tuc ghi ro han che nay cho den khi chay xong."
+  },
+  "con_thieu_de_len_Q1": [
+    {
+      "muc": "Power-MF don kenh bang Python -- so sanh cong bang cho cau hinh don kenh",
+      "trang_thai": "XONG",
+      "nguon": "baselines/powermf_1ch.json"
+    },
+    {
+      "muc": "Sua loi cong chuyen Power-MF tren B1",
+      "trang_thai": "XONG",
+      "nguon": "baselines/octave/findpeaks_mpd.m, powermf_fair.json; kiem chung ngoai 99,40 vs 99,46 cong bo"
+    },
+    {
+      "muc": "Ablation bo B1 -- tra loi 'them du lieu hay hoc phong cach nhan'",
+      "trang_thai": "XONG",
+      "nguon": "analysis/ABLATION_B1.md, ablation_b1_results.json"
+    },
+    {
+      "muc": "Khao sat dai loc tren chinh TCN -- lam cho tieu de dung voi thi nghiem",
+      "trang_thai": "DANG CHAY",
+      "nguon": "pilot_evidence/band_tcn.py (1/4 dai xong)"
+    },
+    {
+      "muc": "Power-MF da kenh tren CinC 2013 (75 ban ghi)",
+      "trang_thai": "CHUA CHAY"
+    },
+    {
+      "muc": "3-5 seed cho moi ket qua chinh (hien 2 seed cho mo hinh 22 ca)",
+      "trang_thai": "CHUA XONG"
+    },
+    {
+      "muc": "Trung tam thu hai co nhan fQRS that (NInFEA khong phan phoi nhan; can chuyen envelope_extraction.m sang Python)",
+      "trang_thai": "CHUA XONG"
+    }
+  ]
+}
