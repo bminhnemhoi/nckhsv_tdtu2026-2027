@@ -41,7 +41,25 @@ def wait_plot(page, timeout=60_000):
 
 
 def cards_text(page):
-    return page.locator('.rf-cards').inner_text()
+    """chữ trong 4 thẻ số; trả '' trong lúc Gradio đang xử lý (thành phần HTML bị làm rỗng tạm thời với bản ghi dài)."""
+    loc = page.locator('.rf-cards')
+    if loc.count() == 0:
+        return ''
+    try:
+        return loc.first.inner_text(timeout=1_000)
+    except Exception:                                        # noqa: BLE001
+        return ''
+
+
+def status_text(page):
+    """dòng trạng thái 'Đã phân tích **<bản ghi>** (...) — kênh k (auto (peakprob)|auto (PSD)) ...' (gr.Markdown)."""
+    loc = page.get_by_text('Đã phân tích', exact=False)
+    if loc.count() == 0:
+        return ''
+    try:
+        return loc.first.inner_text(timeout=1_000)
+    except Exception:                                        # noqa: BLE001
+        return ''
 
 
 def shot(page, name, full=True, clip_sel=None):
@@ -59,26 +77,41 @@ def pick_option(page, combobox_index, typed, option_label):
     box.click(); box.fill(typed); page.wait_for_timeout(400)
     page.get_by_role('option', name=option_label).first.click()
     page.wait_for_timeout(300)
+    page.keyboard.press('Escape'); page.wait_for_timeout(200)   # đóng hẳn danh sách thả xuống (nếu còn mở, nó che nút Phân tích)
 
 
-def run_showcase(page, name, lead_choice=None):
-    """chọn bản minh hoạ trong dropdown (combobox 0) [+ kênh (combobox 1)] rồi bấm Phân tích; đợi thẻ số đổi."""
+def click_analyze(page):
+    btn = page.get_by_role('button', name='Phân tích')
+    try:
+        btn.click(timeout=10_000)
+    except Exception:                                        # noqa: BLE001  (bị lớp phủ che -> bấm qua DOM)
+        btn.evaluate('b => b.click()')
+
+
+def run_showcase(page, name, lead_choice=None, max_s=90):
+    """chọn bản minh hoạ trong dropdown (combobox 0) [+ kênh (combobox 1)] rồi bấm Phân tích; đợi dòng trạng thái đổi."""
     label = next(l for l, n in app.SHOWCASE_LABELS.items() if n == name)
-    before = cards_text(page)
+    before = status_text(page)
+    want_mode = 'auto (PSD)' if lead_choice == app.LEAD_CHOICES[1] else 'auto (peakprob)'
     pick_option(page, 0, name, label)
     if lead_choice is not None:
         pick_option(page, 1, lead_choice.split(' ')[0], lead_choice)
     t0 = time.perf_counter()
-    page.get_by_role('button', name='Phân tích').click()
-    for _ in range(360):                                # tối đa 180 s
+    click_analyze(page)
+    # LƯU Ý: inner_text() của thẻ số trả về chữ ĐÃ qua CSS text-transform:uppercase ("ĐÈN TIN CẬY"); bản cũ so 'Đèn tin cậy'
+    # không bao giờ khớp -> vòng chờ luôn chạy hết 180 s (a09 "mất 187,8 s" là do đây, không phải mô hình). Nay đợi dòng trạng thái.
+    txt = ''
+    for _ in range(int(max_s * 2)):
         page.wait_for_timeout(500)
-        txt = cards_text(page)
-        if txt != before and 'Đèn tin cậy' in txt:
-            break
+        st = status_text(page)
+        if st and st != before and name in st and want_mode in st:
+            txt = cards_text(page)
+            if txt:
+                break
     page.wait_for_timeout(1500)
     txt = cards_text(page)
     log['records'][f'{name}{"" if lead_choice is None else " " + lead_choice}'] = dict(
-        wall_s=round(time.perf_counter() - t0, 1), cards=txt.replace('\n', ' | ')[:300])
+        wall_s=round(time.perf_counter() - t0, 1), status=status_text(page)[:200], cards=txt.replace('\n', ' | ')[:300])
     return txt
 
 

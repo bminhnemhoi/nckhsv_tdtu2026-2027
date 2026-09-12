@@ -104,7 +104,7 @@ khóa `"<quần thể>|<quy tắc>"`.
 | quy tắc | số lỗi | lỗi/1000 nhịp | (a) | (b) | (c) | (e) | (d1) | (d2) | F1 macro |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | psd *(đang dùng)* | 2 041 | 56,2 | **3,8%** | 8,4% | 7,7% | 68,5% | 3,2% | 8,4% | 97,56 |
-| gate *(tiền đăng ký)* | 854 | 23,5 | **6,7%** | 6,0% | 11,9% | 57,3% | 6,4% | 11,7% | 98,61 |
+| gate *(khai báo trước)* | 854 | 23,5 | **6,7%** | 6,0% | 11,9% | 57,3% | 6,4% | 11,7% | 98,61 |
 | peakprob *(hậu kiểm)* | 1 400 | 38,6 | **5,4%** | 5,8% | 8,7% | 64,7% | 4,9% | 10,5% | 98,22 |
 | oracle | 845 | 23,3 | 6,6% | 6,2% | 12,0% | 56,9% | 6,5% | 11,8% | 98,63 |
 | *mức ngẫu nhiên* | — | — | *15,2%* | *0,3%* | *7,3%* | *61,3%* | *0,1%* | *15,7%* | — |
@@ -114,7 +114,7 @@ khóa `"<quần thể>|<quy tắc>"`.
 | quy tắc | số lỗi | lỗi/1000 nhịp | (a) | (b) | (c) | (e) | (d1) | (d2) | F1 macro |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | psd *(đang dùng)* | 4 164 | 397,2 | **1,0%** | 19,3% | 9,1% | 58,6% | 1,2% | 10,8% | 79,40 |
-| gate *(tiền đăng ký)* | 3 137 | 299,2 | **1,5%** | 18,8% | 9,0% | 58,2% | 1,1% | 11,4% | 84,54 |
+| gate *(khai báo trước)* | 3 137 | 299,2 | **1,5%** | 18,8% | 9,0% | 58,2% | 1,1% | 11,4% | 84,54 |
 | peakprob *(hậu kiểm)* | 2 917 | 278,2 | **2,0%** | 18,9% | 8,7% | 57,7% | 1,3% | 11,3% | 85,60 |
 | oracle | 2 678 | 255,4 | 2,1% | 17,6% | 8,8% | 58,3% | 1,5% | 11,7% | 86,87 |
 | *mức ngẫu nhiên* | — | — | *11,2%* | *4,7%* | *6,8%* | *62,2%* | *0,3%* | *14,9%* | — |
@@ -268,7 +268,7 @@ giới hạn**, `(F1_oracle − F1_quy_tắc)` là phần **chọn kênh**; chia
 | quy tắc | F1 | thiếu tới 100 | chọn kênh (67 bản) | chọn kênh (8 bản vô vọng) | **BỘ DÒ (67 bản)** | **GIỚI HẠN CỨNG (8 bản)** |
 |---|---:|---:|---:|---:|---:|---:|
 | psd *(đang dùng)* | 79,40 | 20,60 | 6,86 | 0,61 | **6,36** | **6,77** |
-| gate *(tiền đăng ký)* | 84,54 | 15,46 | 1,44 | 0,89 | **6,36** | **6,77** |
+| gate *(khai báo trước)* | 84,54 | 15,46 | 1,44 | 0,89 | **6,36** | **6,77** |
 | **peakprob** *(hậu kiểm)* | **85,60** | **14,40** | **0,84** | 0,43 | **6,36** | **6,77** |
 | rrcv | 83,98 | 16,02 | 1,85 | 1,04 | 6,36 | 6,77 |
 | gate4 | 84,77 | 15,23 | 1,38 | 0,72 | 6,36 | 6,77 |
@@ -331,14 +331,14 @@ Và thang độ nhìn thấy xếp thành một **bậc thang đơn điệu** th
 | quy tắc | F1 macro 3 bản khó | số lỗi | lỗi/1000 nhịp |
 |---|---:|---:|---:|
 | psd | 85,25 | 1 733 | 257,9 |
-| **gate** *(tiền đăng ký)* | **92,95** | 547 | 81,4 |
+| **gate** *(khai báo trước)* | **92,95** | 547 | 81,4 |
 | peakprob *(hậu kiểm)* | 90,05 | 1 088 | 161,9 |
 | oracle | 92,95 | 547 | 81,4 |
 
-**Đáng chú ý và phải báo cáo:** trên ba bản ghi khó, quy tắc **tiền đăng ký `gate` đạt đúng bằng
+**Đáng chú ý và phải báo cáo:** trên ba bản ghi khó, quy tắc **khai báo trước `gate` đạt đúng bằng
 oracle** (92,95; chọn trúng kênh tốt nhất cả 3/3 bản), còn `peakprob` chỉ đạt 90,05. Trên cả 22
 chủ thể cũng vậy: gate 98,61 so với peakprob 98,22, oracle 98,63. Đây là **bằng chứng ngược** với
-việc chọn `peakprob`, và nó nằm đúng trên miền mà quy tắc quyết định tiền đăng ký đã chỉ định.
+việc chọn `peakprob`, và nó nằm đúng trên miền mà quy tắc quyết định khai báo trước đã chỉ định.
 Củng cố cảnh báo liêm chính đã mang theo: **ưu thế của `peakprob` chỉ tồn tại trên CinC (tập
 hậu kiểm) và chưa được xác nhận ngoài miền.** Phải báo cáo cả hai.
 
@@ -427,7 +427,7 @@ Xếp theo điểm F1 đổi được trên mỗi đơn vị công sức, dựa 
    thấy trên một kênh đơn", vì Power‑MF chứng minh rằng **tách nguồn đa kênh** thấy được thứ mà
    chọn một kênh không thấy.
 2. **Chốt quy tắc chọn kênh, và loại bỏ PSD.** Còn 1,27 điểm trên CinC. Nhưng phải giải quyết mâu
-   thuẫn `gate` (tiền đăng ký, thắng trên 22 chủ thể và trên 3 bản khó) với `peakprob` (hậu kiểm,
+   thuẫn `gate` (khai báo trước, thắng trên 22 chủ thể và trên 3 bản khó) với `peakprob` (hậu kiểm,
    thắng trên CinC) **trên một tập thứ ba**, không phải bằng cách chọn cái có số đẹp hơn.
 3. **Cổng từ chối ở mức thu nhận tín hiệu** (GATE22 đã có, AUROC zero‑shot 0,854). Không tăng F1
    nhưng tăng **độ tin cậy lâm sàng**, và đây là phần có giá trị lâm sàng cao nhất của vòng này.

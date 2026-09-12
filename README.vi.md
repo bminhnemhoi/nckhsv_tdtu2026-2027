@@ -285,7 +285,7 @@ python demo/app.py        # → http://127.0.0.1:7860
 
 Gradio một trang: tải EDF/WFDB/CSV hoặc chọn bản mẫu, chọn kênh mù nhãn, năm tầng tín hiệu, đồ thị nhịp
 tim thai, **đèn tin cậy** hai chế độ — *học* (GBM trên 12 chỉ số cổ điển từng đoạn 4 s, `fsqi/gate.py`,
-mặc định) và *luật*. Chạy lại 12/09/2026 (17:07) trên 82 bản có nhãn không trùng huấn luyện và không rò rỉ
+mặc định) và *luật*. Chạy lại 12/09/2026 (17:07; chạy lại lúc 23:11 cho tóm tắt giống hệt) trên 82 bản có nhãn không trùng huấn luyện và không rò rỉ
 (5 ADFECGDB với fold checkpoint, 60 CinC sạch, 17 Silesia; `python demo/run_check.py --threads 2` →
 `demo/results/demo_check_2modes.json`, `summary_by_mode`):
 
@@ -318,7 +318,7 @@ model/                    Thư viện lõi, huấn luyện, suy luận, 20 check
 benchmark_dpss/           Bộ đối chuẩn: full_measure, blind_lead, silesia_eval, eval_22, eval_cinc75, eval_cinc60_sach
 baselines/                TS / TS-PCA / độ nhô; Power-MF 4 kênh (Octave) và 1 kênh; BASELINES.md
 fsqi/                     Chỉ số chất lượng tín hiệu (C3): kết quả phủ định về topo, cổng cổ điển
-demo/                     Gradio (core.py không phụ thuộc UI, có unit test), ảnh chụp thật
+demo/                     Gradio (core.py không phụ thuộc UI, 17 unit test; run_check.py chấm 82 bản; screenshot.py chụp 12 ảnh thật)
 api/                      FastAPI (main.py), lược đồ trong api/README.md
 pilot_evidence/           Thí nghiệm tiền khả thi kèm nhật ký (dải lọc, kiến trúc, trường tiếp nhận, band_tcn)
 adapt/                    Thích nghi miền không nhãn — bốn phương pháp, đều thất bại (adapt_results.json)
@@ -432,6 +432,8 @@ hệ ghi khác, **60 bản sạch**. Silesia B1 không có điện cực da đ�
 | "bài toán lưỡng cực" như cơ chế | README cũ | hai đỉnh là hệ quả chọn kênh (`analysis/LUONGCUC.md`) | mô tả, không kết luận |
 | "tiền đăng ký" cho nghiên cứu quy tắc chọn kênh | `analysis/CHONKENH.md` | kế hoạch không neo git, viết sau khi có F1 từng kênh | "kế hoạch viết trước khi chấm quy tắc" |
 | "mô hình không phải nút thắt"; "71 % dư địa không có tín hiệu"; "chỉ 1,85 điểm thuộc mô hình" | `analysis/CHANDOAN_MOHINH.md`, `THICHNGHI.md` | phép thử nhìn thấy âm tính giả 18,0 % (ngưỡng 10 %), 55–70 % trên bản khó | "chưa chứng minh được là hay không là"; phần dư địa không xác định (26–86 % là hai biên) — `analysis/XACNHAN.md` |
+| "AUROC 0,980 / độ phủ 66,7 % / loại 15/16 bản" như số chính của cổng | `analysis/GATE22.md`, `docs/*` | tính trên đủ 75 bản CinC, 15 bản là bản sao ADFECGDB; chưa tính lại trên 60 bản sạch | AUROC trong bản ghi 0,934 [0,872; 0,981] trên 22 ca LOSO, 3 bản khó xếp đúng 1-2-3 — `analysis/gate22_results.json`; số 75 bản chỉ được nhắc kèm cảnh báo |
+| CinC 2026 là nơi nộp | `paper/cinc2026/`, `docs/` cũ | CinC 2026 (Madrid, 20–23/9/2026) đã qua; giữ tên thư mục để truy vết | CinC 2027 (abstract dự kiến 4/2027) — `docs/CHIEN_LUOC_CONG_BO.md` |
 | "8 bản giới hạn cứng" | `analysis/CHANDOAN_MOHINH.md` | định nghĩa vòng tròn; a54 là lỗi nhãn | chỉ mô tả |
 | **"nhóm phát hiện rò rỉ" — chồng lấn set-a ↔ ADFECGDB như phát hiện của nhóm** | README cũ, `analysis/DULIEU.md` §12, `docs/*` | ban tổ chức ghi nhận 2013/2014; cảnh báo nằm trong ghi chú đọc bài của nhóm (p20) | "như ban tổ chức đã ghi nhận [Silva 2013; Clifford 2014] … chúng tôi xác định bằng đo lường đúng 15 bản và mức thổi phồng" — `survey/RO_RI_VANLIEU.md` |
 | "lặp lại `peakprob` trên set-b / NInFEA / NIFEADB" như kế hoạch | README cũ, `docs/CHIEN_LUOC_CONG_BO.md` | không bộ nào có nhãn fQRS thật | không có bộ thứ ba; quy tắc vẫn là giả thuyết |

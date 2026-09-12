@@ -316,7 +316,7 @@ tổng quát sang CinC (AUROC 0,980) mà không phải chọn lại đặc trưn
 
 1. **n = 22 chủ thể, 2 nguồn dữ liệu.** "3/3 trong top‑3" là một sự kiện trên một mẫu 22. Xác suất
    ngẫu nhiên 1/1540 chỉ đúng dưới giả thuyết xếp hạng hoàn toàn ngẫu nhiên; nó **không** là một
-   kiểm định tiền đăng ký, vì ba bản ghi "khó" được xác định *trước* khi chạy cổng nhưng *sau* khi đã
+   kiểm định khai báo trước (không phải "tiền đăng ký" — kế hoạch không neo git), vì ba bản ghi "khó" được xác định *trước* khi chạy cổng nhưng *sau* khi đã
    biết bảng F1. Không có tập kiểm chứng thứ hai ở mức bản ghi Silesia.
 2. **Điểm làm việc chọn hậu kiểm; không hiệu chỉnh đa phép so sánh.** 21 mức độ phủ ở mục 4 và 48 mức
    ở mục 5 đều được kiểm định, không hiệu chỉnh. Phát biểu "KTC95 không chứa 0 từ 81,8 % độ phủ" là

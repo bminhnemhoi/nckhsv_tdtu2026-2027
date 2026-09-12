@@ -1,6 +1,6 @@
 {
   "ghi_chu": "Vòng 7 (12/09/2026). Nguồn sự thật duy nhất cho mọi con số hiện hành. Mỗi mục có trường \"nguon\" là tệp JSON trên đĩa. Sinh bởi survey/make_facts_phase4.py. Số đã rút được liệt kê riêng ở mục Z_DA_RUT và KHÔNG được trích dẫn như sự kiện.",
-  "ngay_sinh": "2026-09-12 17:11",
+  "ngay_sinh": "2026-09-12 23:00",
   "A_cinc2013_60_ban_sach": {
     "co_so": "Set-a KHÔNG độc lập với ADFECGDB. Ban tổ chức đã ghi nhận: Silva 2013 (CinC 40:149-152, Bảng 1: \"Abdominal and Direct FECG — 25\"); Clifford 2014 (Physiol Meas 35:1521, Bảng 2, cảnh báo về Rodrigues). Nhóm CHỈ định danh 15 bản và mức thổi phồng; KHÔNG viết \"chúng tôi phát hiện rò rỉ\".",
     "nguon_y_van": "survey/ro_ri_vanlieu.json, survey/RO_RI_VANLIEU.md",

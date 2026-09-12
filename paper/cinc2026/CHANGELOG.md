@@ -1,9 +1,69 @@
+# CHANGELOG — bản thảo CinC (`paper/cinc2026/main.tex`)
+
+## 2026-09-12 — Viết lại cho CinC 2027 trên 60 bản CinC sạch (sau THAMDINH_VONG7.md)
+
+**Vì sao viết lại.** Phản biện V2 phán bản trước "phải bỏ": còn số 75 bản CinC (nhiễm 15 bản sao ADFECGDB),
+hạn CinC 2026 đã qua (Madrid 20–23/9/2026). Đích mới: **CinC 2027**. Thư mục giữ nguyên tên; tiêu đề đổi thành
+*"How Much of Multi-Lead Fetal QRS Detection Does One Lead Recover? A Controlled Audit on 22 Women and
+60 Cross-Recorder Records"*. Sao lưu bản cũ: `main.tex.bak_v75`, `refs.bib.bak_v75`.
+
+**Biên dịch:** `pdflatex → bibtex → pdflatex ×2` từ thư mục sạch: **4 trang**, 0 lỗi `^!`, 0 overfull, 0 `??`,
+0 số đã rút trong `pdftotext`, 0 từ cấm (novel / first / state-of-the-art / SOTA / pre-registered / discovered /
+all 75). PDF xuất ra `docs/CinC2027_RelyFetal.pdf`; `docs/CinC2026_RelyFetal.pdf` đã xoá.
+
+### Nguồn sự thật của từng con số (mọi số trong bài truy về JSON)
+
+| Mục trong bài | Con số | Tệp JSON |
+|---|---|---|
+| Bảng 1 (m5/m22, PSD, 4 kênh) | 99,21 / 97,45 / 99,40 / 98,69; 95,87 / 93,73 / 96,82 / 94,50; 93,30 / 91,31 / 97,15 / 97,01; 95,46 / 93,47 / 97,56 / 96,59; KTC [88,4; 99,8] [84,9; 99,4] [55,4; 72,5] | `benchmark_dpss/eval_22.json → comparison`, `benchmark_dpss/silesia_eval.json → summary`, `analysis/boot_ci_table1.json` |
+| Bảng 2 Power-MF 3 cột | 99,01 / 92,37 / 99,40; 97,90 / 87,28 / 96,82; 99,40 / 83,48 / 97,15; 98,83 / 86,71 / 97,56; Δ₄ −1,27 [−3,08; +0,27] p 0,156; Δ₁ +10,85 [+6,80; +15,40] p 4,8e-07; PMF1−PMF4 −12,12 [−18,27; −6,90], thua 21/22 | `baselines/powermf_fair_stats.json → so_sanh` |
+| Tỉ lệ lấy lại | 89,5 % KTC [81,4; 103,2], jackknife 88,6–93,4 | `analysis/recovery_ratio.json` |
+| Kiểm chứng cổng chuyển | B1 99,40 ± 0,51 (ta) vs 99,46 (tác giả) | `baselines/powermf_fair_stats.json → per_subject (pmf4, B1)`, `baselines/powermf_published.json → sets.b1_powermf` |
+| CinC 60 sạch, hàng Power-MF 1 kênh | 55,97; +18,32 [+13,4; +23,6] | `benchmark_dpss/eval_cinc60_sach.json → powermf_1ch.60_sach` |
+| 15 bản sao | a03–a05, a08, a12–a15, a17, a19, a20, a22–a25; NCC 1,0000; ΔRR 0,0 ms; 60 bản còn lại ≤ 0,62; thổi phồng 3,27–7,18; 99,87 | `benchmark_dpss/eval_cinc60_sach.json → meta.leak_records`, `analysis/dulieu_results.json → chong_lan`, `survey/facts_phase4.json → A`; 99,87 tính lại từ `benchmark_dpss/eval_cinc75.json` (15 bản, m22 PSD) |
+| Bảng 3 CinC-60 | PSD 64,04 → 74,28 (+10,24 [7,13; 13,60], p 3,5e-10, 52/3), ≥90 27→33, <50 22→16, trung vị 95,07; mean4 56,00 / 67,69; oracle 72,76 / 83,60; PSD−oracle 9,32 [5,10; 14,15], trúng 17/60; 53 bản 64,19 → 75,27 (+11,08, p 4,4e-09) | `benchmark_dpss/eval_cinc60_sach.json → variants.60_sach`, `variants.53_sach_loai_7_nhan_sai`; `survey/facts_phase4.json → A` |
+| Bảy quy tắc chọn kênh | gate 80,72 (+6,44 [2,49; 11,10], p 0,010, p_Holm 0,051, 16/37/7); gate4 81,01 (+6,72, p_Holm 0,015); rrcv 80,00 (+5,72, p_Holm 0,41); peakprob 82,01 (+7,73 [3,82; 12,41], p 5,6e-04, p_Holm 0,0039, 19/35/6, <50: 9, 82,9 % dư địa, không bản nào mất quá 3,90) | `analysis/dulieu_results.json → chon_kenh_60_sach.bang`, `survey/facts_phase4.json → B` |
+| Logit 22 chủ thể | gate dẫn 2/3 cách kép; peakprob hạng 3, +0,13 [−0,04; +0,41]; 4 quy tắc đầu cách 0,04, dư địa 1,08 | `analysis/xacnhan_results.json → viec3_logit_22`; `THAMDINH_VONG6.md` VIỆC 6 |
+| Không có bộ thứ ba | NIFEADB / NInFEA / nifecgdb / set-b không nhãn fQRS | `analysis/xacnhan_results.json → viec2_bo_thu_ba` |
+| Bảng 4 kiến trúc | tham số, RF, F1, ΔF1, Δlogit, T/H/B, TOST/Holm cho 7 mô hình | `analysis/kientruc_results.json → table, comparisons, holm_wilcoxon, holm_tost` |
+| Dải lọc trên TCN | +2,44 [−0,04; 6,29] kênh PSD; −0,07 [−0,51; 0,39] TB 4 kênh | `pilot_evidence/band_tcn_stats.json → so_sanh_voi_1_45` |
+| Thích nghi miền (60 sạch) | notch +0,25 [−0,25; +1,08] p 0,70; self-training −0,67 [−1,11; −0,29]; AdaBN −1,58 [−2,50; −0,73]; TENT −2,43 [−3,64; −1,35] | tính từ `adapt/adapt_results.json → per_record_cinc` lọc 60 bản sạch (bootstrap 10 000, seed 0). **Lưu ý:** README ghi self-training −0,68; giá trị từ JSON là −0,6746 → bài ghi −0,67 |
+| Mô phỏng dịch chuyển | 3 dịch chuyển (60 s, 10,13 bit, điện lưới 60 Hz ×1,64) mất 0,01 điểm | `adapt/adapt_results.json → mo_phong_dich_chuyen` |
+| Phép thử nhìn thấy | âm tính giả 18,0 % [12,1; 25,0] | `analysis/xacnhan_results.json → viec4_phep_thu_nhin_thay.ti_le_am_tinh_gia.cinc60|psd` |
+| Cổng từ chối LOSO | AUROC gộp 0,965 [0,857; 0,992]; trong bản ghi 0,934 [0,872; 0,981] (11 chủ thể); 3 890 đoạn, 5,40 % xấu; B2_03 / B1_07 / B1_06 hạng 1–3 | `analysis/gate22_results.json` |
+| Seed | 97,56 vs 97,59, +0,03 [−0,18; +0,34], lệch lớn nhất 2,81 (B2_03) | `analysis/xacnhan_results.json → viec5_seed` |
+| STV | chệch +0,33 ms, LoA [−0,89; +1,55] (ADFECGDB); +20,50 ms (mẫu 10 bản CinC cũ, nêu rõ là mẫu cũ) | `analysis/clinical_results.json → summary`, `analysis/CLINICAL.md` |
+| Trong miền PSD vs oracle | ≤ 1,90 điểm | `README.md` (ADFECGDB 0,02 / B2 0,66 / B1 1,90 từ `benchmark_dpss/eval_22.json`) |
+
+### Đã bỏ khỏi bài (so với bản `main.tex.bak_v75`)
+
+* Toàn bộ **phân rã ba tầng** (+11,00 dải lọc trên GBM 300 ms; +4,49; +0,41; 80,06 → 91,06; 92,67 → 97,16;
+  92,49 → 92,90; 18,89; 72,17) — +11,00 đã rút với TCN; các số khác đo trên 5 chủ thể, không còn chỗ.
+* **Bảng kiến trúc cũ "8 họ"** (92,43–90,90; −2,95; +0,73; "0/7 tương đương") — thay bằng Bảng 4 (22 chủ thể, logit).
+* Các baseline cổ điển TS / TS-PCA / Prominence (78,96 / 91,05 / 86,39; 11,06; 18,49; 96,74; 2,47) — bỏ vì hết chỗ,
+  Power-MF là so sánh cùng bộ chấm duy nhất còn lại.
+* Cổng cũ (AUROC 0,929 / 0,721; 61,96 / 69,40; tô-pô 0,566 / 0,905) — thay bằng cổng LOSO 22 chủ thể.
+* Câu rút lại các bản nháp nội bộ (59,15 / 69,31 / 77,34 / 90,34 / 71,21 / 79,40 / 86,87) — không thuộc bài nộp.
+* "Fixed lead 0 (post hoc, withdrawn)" 48,43 / 61,78 — bỏ hàng.
+* Mọi chữ "first / novel / SOTA / pre-registered / discovered the leak".
+
+### Đã thêm
+
+* `refs.bib`: `li2018` (AdaBN, DOI 10.1016/j.patcog.2018.03.005 — xác minh Crossref) và `wang2021` (TENT, ICLR 2021,
+  arXiv:2006.10726 — xác minh trang arXiv; không có DOI). `silva2013` và `clifford2014` đã có từ vòng 7.
+* Mục 2.4 "Lead rules": phát biểu chính thức theo `THAMDINH_VONG6.md` VIỆC 6 — kế hoạch viết trước khi chạy CinC
+  nhưng sau khi có F1 từng kênh, không neo bên thứ ba → "written plan and nothing stronger".
+* Mục 3.4: kiến trúc báo cáo trên **cả F1 lẫn logit**; cnn_wide hoà trên F1, kém trên logit.
+* Mục 3.5 + Thảo luận: 4 phương pháp thích nghi miền thất bại; **không** kết luận "thiếu tín hiệu" (âm tính giả 18 %).
+* Limitations (vii): cổng từ chối chưa chấm lại trên 60 bản sạch; số cổng trên 75 bản đã rút.
+
+---
+
 > **Báo cáo vòng cũ — giữ để truy vết, KHÔNG phải trạng thái hiện hành.** Nhiều con số trong tệp này đã rút
 > (mẫu 10 bản CinC; 75 bản CinC nhiễm 15 bản sao ADFECGDB; Power-MF cổng chuyển hỏng; +11,00 dải lọc; "8 kiến
 > trúc"; "mô hình không phải nút thắt"; "Physiological Measurement là Q1"). Số hiện hành: `README.md` mục
 > *Retractions* và `survey/facts_phase4.json`.
 
-# CHANGELOG — bản thảo CinC 2026 (`paper/cinc2026/main.tex`)
 
 ## 2026-09-12 — Vòng 7 (R3): CinC 2013 chuyển sang 60 bản sạch; chồng lấn set-a ↔ ADFECGDB ghi đúng nguồn
 

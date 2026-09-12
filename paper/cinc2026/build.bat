@@ -1,5 +1,5 @@
 @echo off
-rem Build the CinC 2026 draft: pdflatex -> bibtex -> pdflatex x2.
+rem Build the CinC 2027 draft: pdflatex -> bibtex -> pdflatex x2.
 rem Usage: build.bat           (normal build)
 rem        build.bat clean     (remove auxiliary files first)
 setlocal

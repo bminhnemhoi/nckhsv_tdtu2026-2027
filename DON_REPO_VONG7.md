@@ -101,3 +101,32 @@ liệt kê số và cụm từ cấm.
 5. Tệp `demo/*` do R4 sửa (chưa commit) được commit chung trong commit này; nội dung bảng mục 4 của
    `demo/README.md` chưa viết lại theo lần chạy 17:07 (chỉ header).
 6. Chưa kiểm 60 bản sạch có từ 60 sản phụ khác nhau không (NCC ≤ 0,62 chỉ loại bản sao nguyên văn).
+
+
+---
+
+## 8. Bổ sung P3 (12/09/2026, tối) — hoàn tất demo và phần dọn còn lại
+
+**Demo.** `demo/screenshot.py` chụp đủ **12/12 ảnh** (`demo/screenshots/`, `screenshots.json → ok: true`). Lý do bản trước dừng ở ảnh 05
+và ghi "a09 mất 187,8 s": vòng chờ so `'Đèn tin cậy'` với `inner_text()` trong khi CSS `text-transform: uppercase` trả về `ĐÈN TIN CẬY`
+→ chờ hết 180 s (360 × 0,5 + 1,5 = 187,8 s), rồi bấm *Phân tích* khi dropdown còn mở → `TimeoutError`. Thời gian thật trong trình duyệt:
+a09 3,0 s · a09 PSD 3,1 s · B2_03 6,0 s · a02 3,1 s · a27 3,5 s (mô hình chỉ ≈ 0,35–2 s; `demo_check_showcase.json`).
+5 bản minh hoạ (r01, a09, B2_03, a02, a27) không thuộc `core.CINC_LEAK`, `SILESIA_DUP` hay `CINC_BAD_ANN` (kiểm bằng mã).
+Bộ ảnh cũ 6 tấm (mô hình 5 ca, PSD) → `archive/demo_screenshots_v1/`. `demo/README.md` viết lại mục 1, 2, 3, 5 (bỏ a03/a08 — là bản
+rò rỉ), 6, 7, 8 (số 60 bản sạch; bảng 32 bản ở mục 4 giữ để truy vết).
+
+**Kiểm thử.** `pytest demo/test_core.py` **17 passed**; `pytest tests/` **43 passed** (tổng 60). `python demo/run_check.py --threads 2`
+chạy lại 23:11: 83/83, 2,9 phút, tóm tắt **giống hệt** lần 17:07 (học 46/17/19, 3 bản xanh F1 < 90: a52 a54 a57; luật 58/19/5).
+
+**Dọn.** `survey/facts_phase4.json` sinh lại bằng `make_facts_phase4.py` — chỉ đổi trường `ngay_sinh`, mọi số giữ nguyên.
+README.md / README.vi.md: thêm 2 hàng *Rút lại* ("AUROC 0,980 / 66,7 % / 15/16" như số chính của cổng — đo trên 75 bản nhiễm;
+"CinC 2026" là nơi nộp — đã qua, đích là CinC 2027) và cập nhật cấu trúc thư mục `demo/`. `docs/EUREKA.md`: đường dẫn
+`paper/cinc2027/*` (không tồn tại) → `paper/cinc2026/*`; "AUROC cổng 0,980" trong ba con số tóm tắt → AUROC trong bản ghi 0,934 (22 ca LOSO).
+`docs/CHIEN_LUOC_CONG_BO.md` mục 7 của dàn bài: 0,980/66,7 % chỉ dùng sau khi tính lại trên 60 bản sạch.
+`analysis/CHANDOAN_MOHINH.md`, `DULIEU.md`, `GATE22.md`: "(tiền đăng ký)" → "(khai báo trước)" ở 9 chỗ còn dùng khẳng định.
+
+**Còn sót, không sửa trong đợt này** (báo cáo để chủ nhiệm quyết): đề cương `de_cuong_latex/sec_1_3.tex:191`, `sec_4_6.tex:529,620`,
+`sec_cinc75.tex:108,157`, `sec_silesia.tex:92` vẫn dùng "lưỡng cực" như mô tả phân bố (có hộp rút lại ở đầu mục); `sec_7_12.tex:146,393`
+"chạy lại 8 kiến trúc" mô tả việc đã làm, không phải kết luận đã rút; `docs/README_KET_QUA.md`, `docs/DE_CUONG_NCKH_v2.md`,
+`docs/BAO_CAO_PHAN_BIEN_*.md` là tài liệu lịch sử có header. Các tệp `paper/cinc2026/*`, `docs/KICH_BAN_TRINH_BAY.md`,
+`docs/CinC2026_RelyFetal.pdf` đang được luồng khác sửa cùng lúc — P3 không đụng.

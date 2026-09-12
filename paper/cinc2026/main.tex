@@ -1,9 +1,11 @@
 % ------------------------------------------------------------------
-%  Computing in Cardiology 2026 -- draft manuscript
-%  Build: build.bat  (xelatex -> bibtex -> xelatex x2)
+%  Computing in Cardiology 2027 -- draft manuscript (target: CinC 2027)
+%  Build: build.bat  (pdflatex -> bibtex -> pdflatex x2)
 %  NOTE: the official CinC class (cinc.cls) is not installed on this
 %  machine; the layout below imitates it with the article class.
 %  Replace the preamble by the official template before submission.
+%  Every number in this file traces to a JSON file in the repository;
+%  see CHANGELOG.md (2026-09-12, CinC 2027 rewrite) for the mapping.
 % ------------------------------------------------------------------
 \documentclass[10pt,twocolumn,a4paper]{article}
 \usepackage[utf8]{inputenc}
@@ -37,7 +39,7 @@
 \renewcommand{\thebibliography}[1]{\oldthebibliography{#1}%
   \setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}\setlength{\parskip}{0pt}}
 
-\title{\vspace{-1.2em}\Large\bfseries Single-Channel Fetal QRS Detection:\\ Where the Performance Actually Comes From}
+\title{\vspace{-1.2em}\Large\bfseries How Much of Multi-Lead Fetal QRS Detection Does One Lead Recover?\\ A Controlled Audit on 22 Women and 60 Cross-Recorder Records}
 \author{Ngo Binh Minh$^{1}$, [Co-author]$^{1}$, [Supervisor]$^{1}$\\[3pt]
 \normalsize $^{1}$Faculty of Information Technology, Ton Duc Thang University, Ho Chi Minh City, Vietnam}
 \date{}
@@ -51,27 +53,24 @@
 \begin{minipage}{0.92\textwidth}
 \section*{\centering\normalsize Abstract}
 \small\itshape
-Deep detectors for fetal QRS in single-channel abdominal ECG are reported as a whole, so it is
-unclear which design choices produce the accuracy. We hold the protocol fixed (leave-one-record-out,
-$\pm$50\ms, threshold from an inner validation record, label-blind lead selection), vary one factor
-at a time, and estimate every effect per woman. A dilated temporal convolutional network with
-113\,481 parameters reaches a macro F1 of 99.21\% (95\% CI 97.9--100.0) on ADFECGDB and 93.30\%
-(84.9--99.4) zero-shot on ten pregnancy recordings of the Silesian database. A three-tier
-decomposition attributes the gain to the front-end (the 10--60\Hz\ band of Xu et al., $+$11.00 F1,
-on a 300\ms\ window learner), to context and per-sample output ($+$4.49, CI 1.6--7.4) and to the
-architecture family ($+$0.41, not resolvable at $n=5$). Repeated on the TCN itself over 22 women the same band
-change is worth only $+$2.44 (CI {$[-0.04;6.29]$}), three women carrying all of it, so tier 1 does
-not transfer; that run is preliminary. Re-run by us under GNU Octave on all 22
-women with the same matcher, the Power-MF pipeline gains 12.12 F1 points from its four channels over
-its own one-channel restriction (86.71 to 98.83); the network recovers 10.85 of those points
-(89.5\%) from one lead, so it is not separable from four-channel Power-MF ($-$1.27 F1, CI
-{$[-3.08;+0.27]$}, $p=0.16$, better in 18 of 22 women, median $+$0.23) and is ahead of one-channel
-Power-MF ($+$10.85, 22 of 22). CinC 2013 set-a is not independent of ADFECGDB, as its organisers
-documented; we identify by measurement the 15 set-a records that are verbatim copies of our training
-recordings and score the remaining 60: training on 22 women instead of five raises the label-blind score
-from 64.04 to 74.28 ($p=3\cdot10^{-10}$), and a lead rule driven by the detector's own output reaches
-82.01, a post-hoc result reported as a hypothesis. Short-term variability inherits detection error
-one-sidedly (bias $+$20.50\ms\ on CinC 2013) and is not a standalone variability monitor.
+Multi-channel source separation is the usual answer to fetal QRS (fQRS) detection from abdominal
+ECG; a one-lead device cannot use it. We ask how much of that benefit a small single-lead network
+recovers, and measure it like-for-like: the published Power-MF pipeline is re-run by us under GNU
+Octave on 22 women (ADFECGDB and the Silesian database, duplicates removed) and scored with the same
+$\pm$50\ms\ matcher as our 113\,481-parameter dilated temporal convolutional network. Restricting
+Power-MF to one lead costs it 12.12 F1 points (98.83 to 86.71); the network, on one label-blind lead,
+scores 97.56 and recovers 10.85 of those points, 89.5\% (95\% CI 81.4--103.2), so it is not separable from
+four-channel Power-MF ($-$1.27, CI {$[-3.08;+0.27]$}, $p=0.16$, better in 18 of 22 women, median
+$+$0.23) and ahead of one-channel Power-MF ($+$10.85, 22 of 22). Across recorders the picture changes.
+CinC 2013 set-a is not independent of ADFECGDB, as its organisers documented; we identify by
+measurement the 15 records that are verbatim copies of our training data and score the other 60:
+training on 22 women instead of five raises the label-blind score from 64.04 to 74.28
+($p=3.5\cdot10^{-10}$), the oracle lead reaches 83.60, and the lead rule fails before the detector
+does. A lead rule pre-specified as confirmatory gains $+$6.44 but misses Holm correction
+($p_{\mathrm{Holm}}=0.051$); a post-hoc rule driven by the detector's own peak probabilities gains
+$+$7.73 ($p_{\mathrm{Holm}}=0.0039$) and is reported as a hypothesis. At matched parameter count,
+two receptive-field variants are equivalent to the network and a non-dilated CNN is worse only on the
+logit scale; four unsupervised adaptation methods recover none of the cross-recorder gap.
 \end{minipage}
 \end{center}
 \vspace{1.2em}
@@ -79,172 +78,173 @@ one-sidedly (bias $+$20.50\ms\ on CinC 2013) and is not a standalone variability
 ]
 
 \section{Introduction}
-Fetal heart rate from abdominal electrodes needs a reliable fetal QRS (fQRS) detector; a
-single-channel one keeps the hardware small. The PhysioNet/CinC Challenge 2013 fixed the metric
-still in use, F1 with a $\pm$50\ms\ window \cite{clifford2014}; Behar et al.\ benchmarked template
-subtraction, Kalman and blind-source methods under it, grid-searching the band-pass filter
-\cite{behar2014}; Andreotti et al.\ showed on synthetic signals that pre-processing changes the
-ranking of extraction algorithms \cite{andreotti2016}. Deep single-channel methods since
-\cite{zhong2018} change many things at once: dual-path source separation \cite{shokouhmand2023}, a
-matched-filter pipeline with power-spectral-density (PSD) lead selection over four channels
-\cite{jaeger2024}, and guided empirical mode decomposition with a 10--60\Hz\ band \cite{xu2026}.
+Fetal heart rate from abdominal electrodes needs a reliable fQRS detector, and a single-lead one
+keeps the hardware small. The PhysioNet/CinC Challenge 2013 fixed the metric still in use, F1 with a
+$\pm$50\ms\ window \cite{silva2013,clifford2014}; Behar et al.\ benchmarked template subtraction,
+Kalman and blind-source methods under it \cite{behar2014}, and Andreotti et al.\ showed that
+pre-processing changes the ranking of extraction algorithms \cite{andreotti2016}. Deep single-lead
+detectors since \cite{zhong2018} include dual-path source separation \cite{shokouhmand2023} and
+guided empirical mode decomposition \cite{xu2026}; the strongest recent multi-channel pipeline,
+Power-MF \cite{jaeger2024}, combines two ICA stages with a matched filter and a power-spectral-density
+(PSD) lead rule. Its numbers, like most, are quoted across papers rather than measured under one
+matcher, and the lead is often chosen with the test labels.
 
-Several ingredients of our detector are established elsewhere and we claim none as new: per-sample
-R-peak output instead of window classification \cite{zahid2022}, dilation rather than kernel size as
-the useful knob in fECG \cite{fotiadou2021}, and the band itself \cite{xu2026}. Each of those papers
-changes band, sampling rate, context, architecture and sometimes the lead rule at once, and the lead
-is often chosen with the test labels; what is missing is how much each choice is worth once the
-protocol is held fixed. The contributions are:
+The ingredients of our detector are established elsewhere and we claim none as new: per-sample
+R-peak output \cite{zahid2022}, dilation as the useful architectural knob \cite{fotiadou2021}, the
+10--60\Hz\ band \cite{xu2026}. What we contribute is measurement:
 \begin{itemize}\setlength{\itemsep}{0pt}
-\item a leakage-free single-channel protocol with a three-tier decomposition of the gain into
-  front-end, temporal context and architecture family, analysed per woman;
-\item a like-for-like comparison against a multi-channel published pipeline re-run by us and scored
-  with the same matcher, rather than quoted from its paper;
-\item cross-dataset evidence on 22 independent women and on the 60 CinC 2013 set-a records that are
-  not copies of the training data, that generalisation breaks across recorders rather than gestation,
-  and the label-blind lead rule with it.
+\item the fraction of the multi-channel benefit one lead recovers, with the competitor executed by
+  us on the same recordings and scored with the same matcher, per woman;
+\item a cross-recorder evaluation on the 60 CinC 2013 set-a records that are not copies of the
+  training data, separating detector loss from lead-rule loss, with the confirmatory and the post-hoc
+  lead rule both reported;
+\item matched-parameter architecture comparisons on the logit scale, and a negative result for
+  four unsupervised domain-adaptation methods.
 \end{itemize}
 
 \section{Methods}
 \subsection{Data}
 \textbf{ADFECGDB} \cite{goldberger2000}: five labour recordings (r01, r04, r07, r08, r10), four
-abdominal leads at 1\,kHz, 5\,min each, with fQRS annotations from a scalp electrode (3\,191 beats).
+abdominal leads at 1\,kHz, 5\,min each, fQRS annotated from a scalp electrode.
 \textbf{Silesian database} \cite{matonia2020}: ten pregnancy recordings (B1, 32--42 weeks,
-199.6\,min total) and twelve labour recordings (B2, 5\,min), four abdominal leads at 500\,Hz, same
-hospital and recorder as ADFECGDB. B1 annotations are indirect (author pipeline plus expert
-correction) and in 5/10 records sit 8--12\ms\ after the abdominal R peak; B2 annotations come from a
-scalp electrode. The overlap with ADFECGDB was noted by Baldazzi and Pani \cite{baldazzi2023}; we
-cross-correlated all $4\times4$ lead pairs at 250\,Hz and found five B2 records that \emph{are}
-ADFECGDB records (B2\_01\,=\,r01,
+199.6\,min) and twelve labour recordings (B2, 5\,min), four abdominal leads at 500\,Hz, same hospital
+and recorder as ADFECGDB. B1 annotations are indirect (author pipeline plus expert correction) and
+in 5/10 records sit 8--12\ms\ after the abdominal R peak; B2 annotations come from a scalp electrode.
+The overlap with ADFECGDB was noted by Baldazzi and Pani \cite{baldazzi2023}; cross-correlating all
+$4\times4$ lead pairs we find that five B2 records \emph{are} ADFECGDB records (B2\_01\,=\,r01,
 B2\_02\,=\,r10, B2\_07\,=\,r04, B2\_10\,=\,r07, B2\_11\,=\,r08; correlation 0.988--0.994). The
-independent set is therefore 22 women
-(5 ADFECGDB, 10 B1, 7 new B2); duplicates are scored only with the fold model that never saw
-them. \textbf{CinC 2013 set-a} \cite{silva2013,clifford2014}: 75 records, four channels at 1\,kHz,
-1\,min each, a different recorder. Set-a is \emph{not} independent of ADFECGDB: as the organisers
-documented, 25 of the 447 Challenge records were derived from it \cite{silva2013,clifford2014}, and
-Clifford et al.\ cautioned that an entry trained on ADFECGDB ``may have led to a bias in the results as
-this database was included in set-a, set-b (and possibly a few records in set-c)'' \cite{clifford2014}.
-No accessible source states \emph{which} set-a records they are; by normalised cross-correlation of
-the raw signals over all lags (two independent implementations) exactly 15 --- a03--a05, a08,
-a12--a15, a17, a19, a20, a22--a25 --- are verbatim copies (NCC\,=\,1.0000 on all four channels,
-$|\Delta\mathrm{RR}|$\,=\,0.0\ms) of the 0--60, 120--180 and 240--300\,s windows of r01, r04, r07, r08
-and r10; the other 60 reach at most 0.62. Every CinC figure below uses those 60 records.
+independent set is therefore 22 women (5 ADFECGDB, 10 B1, 7 new B2).
+
+\textbf{CinC 2013 set-a} \cite{silva2013,clifford2014}: 75 records, four channels at 1\,kHz, 1\,min
+each, a different recorder. Set-a is \emph{not} independent of ADFECGDB, and this was documented by
+the Challenge organisers: 25 of the 447 Challenge records came from the ``Abdominal and Direct FECG''
+collection (Table 1 of \cite{silva2013}, Table 2 of \cite{clifford2014}), and Clifford et al.\ cautioned
+that an entry trained on it ``may have led to a bias in the results as this database was included in
+set-a, set-b (and possibly a few records in set-c)'' \cite{clifford2014}. No accessible source states
+\emph{which} set-a records they are. By normalised cross-correlation of the raw signals over all lags,
+in two independent implementations, exactly 15 --- a03--a05, a08, a12--a15, a17, a19, a20, a22--a25 ---
+are verbatim copies (NCC\,=\,1.0000 on all four channels, $|\Delta\mathrm{RR}|$\,=\,0.0\ms) of the
+0--60, 120--180 and 240--300\,s windows of r01, r04, r07, r08 and r10; the other 60 reach at most 0.62.
+Those 15 records score 99.87 under our 22-woman model and would have inflated 75-record means by
+3.27--7.18 points. Every CinC figure below uses the 60 remaining records; a 53-record variant also
+removes a33, a38, a47, a52, a54, a71 and a74, whose reference annotations are known to be unreliable
+\cite{behar2014} (list fixed before the run).
 
 \subsection{Detector}
 One abdominal lead is band-passed 10--60\Hz\ (4th-order Butterworth, zero-phase) with a 50\Hz\ notch
-and resampled to 250\,Hz; the band is taken from \cite{xu2026} and Sec.~3.4 measures what it is
-worth against seven other published bands. Maternal QRS are located on an 8--25\Hz\ envelope and
-removed by subtracting a median beat template with per-beat least-squares scaling. The residual
-and the filtered signal, each robust-scaled, form a two-channel 4\,s input. The network is a dilated
-residual TCN: a stem and five residual blocks (dilations 1, 2, 4, 8, 16; 40 channels; kernel 7;
-BatchNorm; GELU) with a $1\times1$ output convolution, 113\,481 parameters, receptive field
-1\,516\ms. It emits one logit per sample against a Gaussian heat-map target ($\sigma=3$ samples) at
-each annotated fQRS \cite{zahid2022}, trained with weighted binary cross-entropy and AdamW
-($3\times10^{-3}$, one-cycle), six epochs, batch 32, 1\,s stride. At inference, overlapping windows
-are averaged and peaks above a threshold with a 250\ms\ refractory period are the fQRS (0.48\,MB,
-4.35\ms\ per window on a desktop CPU).
+and resampled to 250\,Hz. Maternal QRS are located on an 8--25\Hz\ envelope and removed by
+subtracting a median beat template with per-beat least-squares scaling. The residual and the filtered
+signal, each robust-scaled, form a two-channel 4\,s input. The network is a dilated residual TCN: a
+stem and five residual blocks (dilations 1, 2, 4, 8, 16; 40 channels; kernel 7; BatchNorm; GELU) with
+a $1\times1$ output convolution, 113\,481 parameters, receptive field 1\,516\ms. It emits one logit
+per sample against a Gaussian heat-map target ($\sigma=12$\ms) at each annotated fQRS
+\cite{zahid2022}, trained with weighted binary cross-entropy and AdamW (one-cycle). At inference,
+overlapping windows are averaged and peaks above a threshold with a 250\ms\ refractory period are
+the fQRS (0.48\,MB, 4.35\ms\ per window on a desktop CPU).
 
 \subsection{Protocol and statistics}
-Leave-one-record-out (LORO) on ADFECGDB with five folds: one test, one inner validation and three
-training records; the threshold is chosen on the validation record from a grid 0.20--0.75 and
-applied unchanged. Detections are matched one-to-one to
-annotations by greedy nearest matching within $\pm$50\ms. Because a device sees one lead, we also
-report a \emph{label-blind} lead: following Power-MF \cite{jaeger2024}, the lead whose
-residual envelope has the largest Welch PSD peak in 1.8--3.0\Hz, a rule that never touches
-annotations. Silesian and CinC records are scored zero-shot. A second model, used only where stated,
-is trained on all 22 independent women with 11-fold grouped cross-validation.
+Two models are used. The \emph{five-woman model} (m5) is leave-one-record-out (LORO) on ADFECGDB:
+one test, one inner validation and three training records, six epochs; Silesian and CinC records
+are scored zero-shot. The \emph{22-woman model} (m22) is trained on all 22 independent women with
+11-fold grouped cross-validation (19 train, 1 validation, 2 test per fold, four epochs, on-the-fly
+augmentation); CinC is scored zero-shot by the production checkpoint. In both, the threshold is chosen
+on the validation subject from a grid and applied unchanged. Detections are matched one-to-one to
+annotations by greedy nearest matching within $\pm$50\ms. Because a device sees one lead, the
+headline lead is \emph{label-blind}: following Power-MF \cite{jaeger2024}, the lead whose residual
+envelope has the largest Welch PSD peak in 1.8--3.0\Hz; the oracle lead (best F1 per record, uses
+labels) is shown only as a ceiling.
 
-The unit of analysis is the woman, not the (record$\times$lead) pair: four leads of one recording
-are repeated measures in one cluster, and treating them as 20 observations inflates every test. We
-average leads within a woman and report mean differences with 95\% cluster-bootstrap percentile
-intervals over subjects (10\,000 resamples, seed 0); where these disagree with the paired-$t$
-interval at $n\le7$ we give both and trust the latter. ``No difference'' claims use two
-one-sided tests (TOST) at a pre-declared 1.0-point margin. With $n=5$ the smallest two-sided $p$ an
-exact signed-rank test can give is $0.0625$, so no ADFECGDB comparison can reach $p<0.05$ at subject
-level; we quote intervals there, not $p$-values.
+The unit of analysis is the woman (the record for CinC), never the (record$\times$lead) pair. We
+report mean differences with 95\% cluster-bootstrap percentile intervals (10\,000 resamples, seed 0)
+and exact paired Wilcoxon tests; multiple lead rules are Holm-corrected over the family. ``No
+difference'' claims use two one-sided tests (TOST) at a 1.0-point margin. Because F1 saturates near
+100, architecture comparisons are repeated on the logit scale with a continuity correction of
+$1/(4n_{\mathrm{ref}})$. With $n=5$ the smallest two-sided exact signed-rank $p$ is $0.0625$, so no
+ADFECGDB comparison can reach $p<0.05$; we quote intervals there.
 
 \subsection{Experiments}
-\textbf{Baselines}, re-implemented and scored with the same matcher: template subtraction (TS) and
-TS with a two-component principal-component template (TS-PCA) \cite{behar2014}, each with an
-adaptive Pan--Tompkins detector \cite{pan1985}, and \emph{Prominence}, our front-end followed by
-\texttt{scipy} peak picking; hyper-parameters were tuned on r01 only. \textbf{Power-MF}
-\cite{jaeger2024} was not quoted but executed: the authors' MATLAB pipeline was run under GNU Octave
-11.3 and scored with \emph{our} matcher at $\pm$50\ms, at four leads with both ICA stages and again
-restricted to the single PSD-selected lead, so all three columns share a scoring rule.
+\textbf{Power-MF} \cite{jaeger2024} was not quoted but executed: the authors' MATLAB pipeline was run
+under GNU Octave 11.3 and scored with \emph{our} matcher, at four leads with both ICA stages (PMF-4)
+and restricted to the single PSD-selected lead (PMF-1). Octave's \texttt{findpeaks} builds an
+$O(k^{2})$ distance matrix for \texttt{MinPeakDistance} and overflows on long B1 recordings; we
+re-implemented the MATLAB semantics in $O(k)$ (48/48 test cases). The port scores 99.40\,$\pm$\,0.51 on the
+ten B1 records against 99.46 published by the authors. The \emph{recovery ratio} is
+$(\mathrm{ours}-\mathrm{PMF1})/(\mathrm{PMF4}-\mathrm{PMF1})$, bootstrapped over women.
 
-\textbf{Three-tier decomposition.} Tier 1 (front-end): eight literature band-pass settings, LORO,
-gradient-boosted trees on 300\ms\ windows of two leads. Tier 2: a 300\ms\ window classifier versus
-the 4\,s per-sample TCN. Tier 3 (family at fixed context): gradient boosting versus a dilated CNN on
-the same windows. A receptive-field sweep (172--3\,052\ms) isolates context within one family, and
-an architecture benchmark compares eight families on 300\ms\ windows.
+\textbf{Lead rules.} Seven label-blind alternatives to the PSD rule were fixed in a written plan
+before any was evaluated on CinC, together with the decision rule ``confirmatory rule = the one with the
+highest in-domain F1 over 22 women''. The plan was written after per-lead F1 had been computed and is
+not anchored by a third party, so we call it a written plan and nothing stronger. Rules read only
+the detector's output and classical signal-quality indices (SQIs): \emph{gate} (a reject gate trained
+on PSD-lead segments; keep the lead with the highest $1-\bar{P}(\mathrm{bad})$), \emph{gate4} (same,
+trained on all four leads), \emph{rrcv} (lowest RR-interval coefficient of variation), \emph{peakprob}
+(highest mean detector probability at its own detected peaks; no training, no hyper-parameter),
+\emph{rrplaus}, a learned selector and a four-lead fusion.
+
+\textbf{Architecture.} Six alternatives to the TCN at matched parameter count ($\pm$2.7\%) on the
+22 women: a wide (3\,052\ms) and a narrow (748\ms) receptive field, a three-branch multi-scale TCN, a
+non-dilated CNN widened to the same 1\,508\ms\ field, a 1-D U-Net and a small-field CNN (60\ms).
+Three folds, three epochs, one seed, so the run is a scaled-down replicate of the production protocol.
+The band was also varied on the TCN (10--60 vs 1--45\Hz, four epochs).
+
+\textbf{Domain adaptation}, hyper-parameters chosen on a 12-woman-to-B1 transfer and never on CinC:
+an adaptive mains notch (50 and/or 60\Hz, whichever the record's spectrum shows), confidence-thresholded
+self-training, AdaBN \cite{li2018} and TENT \cite{wang2021}.
 
 \textbf{Reject gate.} A 4\,s segment is \emph{bad} if the detector's F1 on it is below 80. A
-classifier trained on 1\,500 ADFECGDB segments and tested on 600 CinC 2013 segments uses 16
-topological \cite{adams2017}, 12 classical \cite{andreotti2017}, or all features; intervals resample
-records, not segments.
+gradient-boosted classifier on 12 classical SQIs \cite{andreotti2017} is trained
+leave-one-\emph{subject}-out over the 22 women (3\,890 segments, 5.40\% bad) and scored both pooled and
+within record; intervals resample subjects.
 
 \section{Results}
 \subsection{Detection across data configurations}
-Table~\ref{tab:data} gives the same model under the same protocol on five configurations. On
-ADFECGDB the label-blind PSD rule reaches 99.21\%, identical to the oracle lead in every record, and
-99.18\% on the DPSS benchmark leads \cite{shokouhmand2023}; across four leads the
-LORO macro F1 is 97.45\%, 97.16\% over three seeds. Zero-shot on
-Silesian pregnancy records it keeps 93.30\%, eight of ten records above 90 (oracle lead 97.04\%); the
-two weakest are those where the PSD rule picks the worst lead. A second seed of the 22-subject model moves
-per-subject F1 by 0.28 points on average (largest 2.81), though per-fold thresholds move more.
+Table~\ref{tab:data} gives both models on every configuration. In domain the label-blind PSD rule sits
+within 1.90 points of the oracle lead. Zero-shot from five labour women to ten pregnancy women of the
+same recorder costs about six points (99.21 to 93.30); training on 22 women closes most of it (97.15).
+A second seed of m22 moves the 22-woman mean from 97.56 to 97.59 ($+$0.03, CI $[-0.18;0.34]$; largest
+per-woman change 2.81, B2\_03).
 
 \begin{table}[t]
 \centering\footnotesize
-\caption{Macro F1 (\%) of one model trained on five ADFECGDB women, $\pm$50\ms; CI is a 95\% cluster
-bootstrap over records, ``$\ge$90''/``$<$50'' count PSD-lead F1 in that range.}
+\caption{Macro F1 (\%), $\pm$50\ms, label-blind PSD lead and mean over four leads. m5: trained on
+five ADFECGDB women (LORO in domain, zero-shot elsewhere); m22: 11-fold grouped CV over 22 women,
+zero-shot on CinC. CI: 95\% bootstrap over subjects (records for CinC), m5 PSD lead.}
 \label{tab:data}
 \fitwidth{\begin{tabular}{@{}lcccccc@{}}
 \toprule
-Configuration & $n$ & PSD lead & 95\% CI & 4-lead mean & $\ge$90 & $<$50\\
+ & & \multicolumn{2}{c}{m5} & \multicolumn{2}{c}{m22} & \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}
+Configuration & $n$ & PSD & 4-lead & PSD & 4-lead & m5 CI\\
 \midrule
-ADFECGDB, LORO & 5 & 99.21 & [97.9; 100.0] & 97.45 & 5 & 0\\
-Silesia B2 labour, all & 12 & 97.17 & [92.7; 99.8] & 95.26 & 11 & 0\\
-\quad 7 new women, zero-shot & 7 & 95.87 & [88.4; 99.8] & 93.73 & 6 & 0\\
-Silesia B1 pregnancy, zero-shot & 10 & 93.30 & [84.9; 99.4] & 91.31 & 8 & 0\\
-CinC 2013 set-a, 60 non-ADFECGDB records & 60 & 64.04 & [55.4; 72.5] & 56.00 & 27 & 22\\
+ADFECGDB labour & 5 & 99.21 & 97.45 & 99.40 & 98.69 & ---\\
+Silesia B2 labour, 7 new women & 7 & 95.87 & 93.73 & 96.82 & 94.50 & [88.4; 99.8]\\
+Silesia B1 pregnancy & 10 & 93.30 & 91.31 & 97.15 & 97.01 & [84.9; 99.4]\\
+All 22 women & 22 & 95.46 & 93.47 & 97.56 & 96.59 & ---\\
+CinC 2013 set-a, 60 clean records & 60 & 64.04 & 56.00 & 74.28 & 67.69 & [55.4; 72.5]\\
 \bottomrule
 \end{tabular}}
 \end{table}
 
-\subsection{How much of multi-channel separation one channel recovers}
-Competing numbers in the previous draft were quoted, not measured, so we ran Power-MF
-\cite{jaeger2024} under Octave and scored it with our matcher. An earlier run covered only 16 of 22
-women because the port returned nothing, or half the beat rate, on six long B1 recordings;
-\emph{those figures are withdrawn}. The fault was ours: Octave's \texttt{findpeaks} enforces
-\texttt{MinPeakDistance} with an $O(k^{2})$ distance matrix that overflows on B1 (2\,395\,600 samples
-after $\times4$ interpolation), whereas MATLAB resolves it greedily. We re-implemented the MATLAB
-semantics in $O(k)$ (48/48 test cases); the rival explanation, a 340\ms\ minimum peak distance below
-the fetal RR interval, was rejected (0.00\% of B1\_01's RR intervals are shorter). The repaired port
-scores 99.40\,$\pm$\,0.51 on the ten B1 records against 99.46 published by the authors. All 22 women
-are scored, with no exclusion (Table~\ref{tab:pmf}).
+\subsection{How much of the multi-channel benefit one lead recovers}
+Table~\ref{tab:pmf} is the like-for-like comparison. Restricting Power-MF to one lead costs it 12.12
+F1 points (98.83 to 86.71, CI $[-18.27;-6.90]$, worse in 21 of 22 women): that is the measured price
+of the four-channel ICA stages on this material. Our single-lead network scores 97.56 and recovers
+10.85 of those points ($+$10.85 over PMF-1, CI $[+6.80;+15.40]$, $p=4.8\cdot10^{-7}$, 22 of 22 women),
+a recovery ratio of 89.5\% (cluster-bootstrap CI 81.4--103.2; leave-one-woman-out range 88.6--93.4).
+Against the full four-channel pipeline it is not separable ($-$1.27, CI $[-3.08;+0.27]$, $p=0.16$); on
+ADFECGDB the interval excludes zero in its favour ($+$0.39, CI $[+0.22;+0.60]$, 5/5).
 
-This makes the question explicit: how much of what \emph{multi-channel source separation} buys can
-a 113\,k single-channel network recover? Restricting Power-MF to one lead costs it 12.12 F1
-points (98.83 to 86.71, CI $[-18.27;-6.90]$, worse in 21 of 22 women), which is the price of the
-four-channel ICA stages on this material. Our single-channel network recovers 10.85 of those points
-($+$10.85, CI $[+6.80;+15.40]$, $p=5\cdot10^{-7}$, better in 22 of 22 women), that is 89.5\% of the
-benefit, from one electrode pair. Against the full four-channel pipeline it is not separable
-($-$1.27, CI $[-3.08;+0.27]$, $p=0.16$), and on ADFECGDB the interval excludes zero in its favour
-($+$0.39, CI $[+0.22;+0.60]$, 5/5 women).
-
-The mean difference against four channels is negative, but it is not a uniform deficit: the median
-difference over the 22 women is $+$0.23 and the network is better in 18 of them. The mean is pulled
-below zero by three recordings --- B1\_07 ($-$12.88), B1\_06 ($-$10.51) and B2\_03 ($-$9.77) --- and
-mildly by B1\_10 ($-$1.86). The defensible statement is that one channel recovers most of the
-multi-channel benefit, not that it beats four channels.
+The mean deficit is not uniform: the median difference over 22 women is $+$0.23 and the network is
+better in 18. Three recordings --- B1\_07 ($-$12.88), B1\_06 ($-$10.51), B2\_03 ($-$9.77) --- pull the
+mean below zero. The defensible statement is that one lead recovers most of the multi-channel
+benefit, not that it matches four leads on every woman.
 
 \begin{table}[t]
 \centering\footnotesize
-\caption{Power-MF \cite{jaeger2024} \emph{re-run} by us, at four channels and restricted to one
-lead, against our 22-subject single-channel model: same recordings, same $\pm$50\ms\ matcher.
-$\Delta_{4}$ and $\Delta_{1}$ are ours $-$ Power-MF per woman with 95\% cluster-bootstrap intervals
-(10\,000 resamples of subjects; of records for CinC). Power-MF was not run at four channels on
-CinC 2013.}
+\caption{Power-MF \cite{jaeger2024} \emph{re-run} by us at four channels (PMF-4) and restricted to one
+lead (PMF-1) against the 22-woman single-lead model: same recordings, same $\pm$50\ms\ matcher.
+$\Delta_{4}$, $\Delta_{1}$: ours $-$ Power-MF per woman, 95\% cluster-bootstrap CI (records for CinC).
+Power-MF was not run at four channels on CinC.}
 \label{tab:pmf}
 \fitwidth{\begin{tabular}{@{}lcccccc@{}}
 \toprule
@@ -263,152 +263,146 @@ CinC 2013, 60 clean records & 60 & --- & 55.97 & 74.28 & --- & $+18.32$ [$+13.4$
 \end{table}
 
 \subsection{CinC 2013: the 60 records that are not training data}
-Every CinC figure in earlier drafts is withdrawn: the first drafts scored a ten-record subsample
-(59.15 / 69.31 under the blind rule, 77.34 / 90.34 under a lead chosen after the fact), the next scored
-all 75 records (71.21 / 79.40 / 86.87), and both sets include the 15 records that are copies of the
-five women every model was trained on. Those 15 records score 99.87 under the 22-woman model and
-inflated the 75-record means by 3.27--7.18 points. Table~\ref{tab:cinc} reports the five-woman (m5) and
-22-woman (m22) models on the 60 remaining records, and on the 53 left after also removing a33, a38,
-a47, a52, a54, a71 and a74, whose reference annotations are known to be unreliable \cite{behar2014}
-(that list was declared before the run). Under the label-blind PSD rule, training on 22 women
-instead of five raises the mean from 64.04 to 74.28 ($+$10.24, CI $[7.13;13.60]$,
-$p=3.5\cdot10^{-10}$, better in 52 records and worse in 3); records at or above 90 go from 27 to 33
-and those below 50 from 22 to 16; the 53-record variant gives $+$11.08 ($p=4.4\cdot10^{-9}$). The
-median record of m22 is 95.07: the distribution is split, not shifted.
+Under the label-blind PSD rule, training on 22 women instead of five raises the mean from 64.04 to
+74.28 ($+$10.24, CI $[7.13;13.60]$, $p=3.5\cdot10^{-10}$, better in 52 records, worse in 3); records at
+or above 90 go from 27 to 33 and those below 50 from 22 to 16; the 53-record variant gives 64.19 to
+75.27 ($+$11.08, $p=4.4\cdot10^{-9}$). The median record of m22 is 95.07: the distribution is split,
+not shifted. One-lead Power-MF on the same 60 records scores 55.97 (Table~\ref{tab:pmf}).
 
-The lead rule loses accuracy across recorders before the detector does. In domain the PSD rule is
-0.02--1.90 points below the oracle lead; on the 60 CinC records it is 9.32 below (74.28 vs 83.60, CI
-$[5.10;14.15]$) and picks the oracle lead in 17 of 60. Seven label-blind alternatives were compared
-on the same records under a written analysis plan that designated a gate-score rule as confirmatory;
-that rule gains $+$6.44 but fails Holm correction ($p_{\mathrm{Holm}}=0.051$), so the confirmatory
-test failed. The best rule, \emph{peakprob} --- run the detector on all four leads and keep the lead
-whose mean probability at its own detected peaks is highest --- gains $+$7.73 (CI $[3.82;12.41]$,
-$p_{\mathrm{Holm}}=0.0039$ over the seven rules, 19 wins / 35 ties / 6 losses) and reaches 82.01,
-but it was chosen after the data were seen, on the logit scale a different rule (gate4) leads, and no
-public dataset with real fQRS labels exists on which to replicate it (NIFEADB, NInFEA and set-b ship
-none). We report it as a hypothesis, not a result. A label-shuffle check changed 0 of 776 lead
-choices, so the selection itself is label-blind.
+The lead rule loses accuracy across recorders before the detector does: the PSD rule is 9.32 points
+below the oracle lead (74.28 vs 83.60, CI $[5.10;14.15]$) and picks it in only 17 of 60 records.
+Table~\ref{tab:cinc} reports the seven pre-specified alternatives. The written decision rule selected
+\emph{gate} as confirmatory; it gains $+$6.44 over PSD (CI $[+2.49;+11.10]$, $p=0.010$) but
+\emph{does not survive} Holm correction over the seven rules ($p_{\mathrm{Holm}}=0.051$). We report
+this as a failed confirmatory test. The in-domain arbiter was also uninformative by construction: the
+four best rules lie within 0.04 points of each other on 22 women, where the whole oracle headroom is
+1.08 points, a design error on our part. The strongest of the seven is \emph{peakprob}: 82.01 against
+74.28, $+$7.73 (CI $[+3.82;+12.41]$, $p=5.6\cdot10^{-4}$, $p_{\mathrm{Holm}}=0.0039$ over the family),
+82.9\% of the oracle headroom, records below 50 from 16 to 9, 19 wins / 35 ties / 6 losses, no record
+losing more than 3.90 points. \emph{peakprob was chosen after the CinC results were seen}; the reason
+to still report it is that the effect survives Holm correction over the whole pre-specified family. On
+the logit scale over the 22 in-domain women the ranking changes --- \emph{gate} leads under two of
+three record pairings and \emph{peakprob} is third ($+$0.13 logit vs PSD, CI $[-0.04;+0.41]$) --- so
+the post-hoc problem does not disappear. No public dataset with real fQRS labels exists on which to
+replicate it (NIFEADB, NInFEA, nifecgdb and set-b ship none), so it remains a strong, unconfirmed
+hypothesis.
 
 \begin{table}[t]
 \centering\footnotesize
-\caption{CinC 2013 set-a without the 15 ADFECGDB copies, zero-shot: mean F1 (\%) after training on
-five women (m5) and on 22 (m22). $\Delta$ is per record, 95\% bootstrap over records; $p$ exact
-signed-rank; ``$\ge$90''/``$<$50'' count m22 records. Only the top three rows are label-blind; the
-\emph{peakprob} row is a post-hoc choice.}
+\caption{CinC 2013 set-a, 60 records that are not ADFECGDB copies, zero-shot. $\Delta$: per-record
+difference against the PSD rule under m22, 95\% bootstrap over records, exact signed-rank $p$
+Holm-corrected over the seven pre-specified rules; W/T/L wins, ties, losses; ``$\ge$90''/``$<$50''
+count m22 records. All rules are label-blind except the oracle.}
 \label{tab:cinc}
-\fitwidth{\begin{tabular}{@{}lccccccc@{}}
+\fitwidth{\begin{tabular}{@{}llcccccc@{}}
 \toprule
-Lead rule & $n$ & m5 & m22 & $\Delta$ [95\% CI] & $p$ & $\ge$90 & $<$50\\
+Lead rule & status & m5 & m22 & $\Delta$ vs PSD [95\% CI] & $p_{\mathrm{Holm}}$ & W/T/L & $\ge$90\,/\,$<$50\\
 \midrule
-PSD, label-blind (declared) & 60 & 64.04 & \textbf{74.28} & $+10.24$ [7.1; 13.6] & $3\cdot10^{-10}$ & 33 & 16\\
-4-lead mean & 60 & 56.00 & 67.69 & $+11.69$ [9.0; 14.4] & $3\cdot10^{-11}$ & 15 & 17\\
-\emph{peakprob} (post hoc) & 60 & --- & 82.01 & --- & --- & 38 & 9\\
-Fixed lead 0 (post hoc, withdrawn) & 60 & 48.43 & 61.78 & $+13.35$ [9.7; 17.1] & $5\cdot10^{-9}$ & 21 & 27\\
-Oracle lead (labels) & 60 & 72.76 & 83.60 & $+10.84$ [7.5; 14.4] & $1\cdot10^{-9}$ & 38 & 8\\
+PSD \cite{jaeger2024} & headline & 64.04 & \textbf{74.28} & --- & --- & --- & 33 / 16\\
+4-lead mean & reference & 56.00 & 67.69 & $-6.59$ & --- & --- & 15 / 17\\
+\emph{gate} & confirmatory, failed & --- & 80.72 & $+6.44$ [$+2.49$; $+11.10$] & 0.051 & 16/37/7 & 38 / 12\\
+\emph{gate4} & pre-specified & --- & 81.01 & $+6.72$ [$+2.85$; $+11.18$] & 0.015 & 17/38/5 & 38 / 12\\
+\emph{rrcv} & pre-specified & --- & 80.00 & $+5.72$ [$+1.61$; $+10.41$] & 0.41 & 15/35/10 & 38 / 12\\
+\emph{peakprob} & post-hoc choice & --- & \textbf{82.01} & $+7.73$ [$+3.82$; $+12.41$] & 0.0039 & 19/35/6 & 38 / 9\\
+Oracle lead & uses labels & 72.76 & 83.60 & $+9.32$ [$+5.10$; $+14.15$] & --- & 25/35/0 & 38 / 8\\
 \midrule
-PSD, 53 records & 53 & 64.19 & \textbf{75.27} & $+11.08$ [7.5; 14.8] & $4\cdot10^{-9}$ & 31 & 14\\
+PSD, 53 records & declared variant & 64.19 & 75.27 & --- & --- & --- & 31 / 14\\
 \bottomrule
 \end{tabular}}
 \end{table}
 
-\subsection{Where the performance comes from}
-Three tiers decompose the gain on ADFECGDB (LORO, $\pm$50\ms; tier 1 on two leads with a
-gradient-boosted learner on 300\ms\ windows, tiers 2--3 on four leads). \emph{Tier 1, front-end}:
-changing only the band from 1--45\Hz\ to 10--60\Hz\ moves F1 from 80.06 to 91.06, $+$11.00 points
-(not stored per record, so no interval); the spread over eight literature bands is 18.89 points
-(72.17 for 0.5--100\Hz\ to 91.06 for 10--60\Hz). Re-run on the TCN itself over the 22 women
-(three folds, one seed, four epochs) the same change gives 95.63 to 98.07, $+$2.44, cluster
-bootstrap $[-0.04;6.29]$ containing zero: at $n=22$ the band effect is \emph{not} established on the
-model we use. Three women (B2\_03 $+$37.8, B1\_06 $+$8.8, B1\_07 $+$8.2) carry all of it, the other 19
-average $-$0.07, and averaging the four leads instead of selecting one leaves $-$0.07 $[-0.51;0.39]$
---- the gain acts through the lead rule, not the band. \emph{Tier 2, context and output}: a 300\ms\ window
-classifier to the 4\,s per-sample TCN, 92.67 to 97.16, $+$4.49 per woman [1.58; 7.43] (the
-conservative paired-$t$ interval $[-0.29;9.27]$ still contains zero at $n=5$); this step bundles
-receptive field, output parameterisation and parameter count (33\,k to 113\,k). \emph{Tier 3,
-family}: gradient boosting to a dilated CNN at the same context, 92.49 to 92.90, $+$0.41, inside the
-1.0-point equivalence margin and not resolvable either way. Within the TCN family, LORO F1 rises
-from 92.67 at a 172\ms\ receptive field to 97.16 at 1\,516\ms, and the validation-record sweep
-saturates near 1.5\,s.
+\subsection{Architecture at matched parameters, on the logit scale}
+Table~\ref{tab:arch} compares six alternatives to the TCN on the 22 women. Two are \emph{equivalent}
+under TOST after Holm correction: the wide receptive field (3\,052\ms, $-$0.01 F1, $p_{\mathrm{Holm}}$
+$7\cdot10^{-10}$) and the multi-scale TCN ($-$0.02, $4.6\cdot10^{-6}$); beyond 1.5\,s more context
+buys nothing. Two are worse on both scales: the 1-D U-Net ($-$1.25, logit $-$0.80 $[-1.17;-0.43]$)
+and the 60\ms\ CNN ($-$3.10, worse in 20 of 22, logit $-$1.64). The instructive case is the non-dilated
+CNN widened to the same 1\,508\ms\ field: on the F1 scale it ties ($-$0.80, CI $[-2.40;+0.13]$,
+$p_{\mathrm{Holm}}=0.30$), on the logit scale it is worse ($-$0.45, CI $[-0.75;-0.16]$), and the
+narrow field (748\ms) sits between ($-$0.71; logit $-$0.29 $[-0.68;+0.12]$). F1 near 100 hides
+differences that the logit scale resolves, so every architecture claim here is stated on both.
+Changing the band on the TCN from 1--45 to 10--60\Hz\ gives $+$2.44 on the PSD lead (CI
+$[-0.04;6.29]$; three women carry all of it) and $-$0.07 $[-0.51;0.39]$ averaged over four leads: the
+band is not an established effect on this network.
 
-Against re-implemented baselines on ADFECGDB (four-lead F1: TS 78.96, TS-PCA 91.05, Prominence
-86.39, ours 97.45) the network gains 11.06 points over peak picking on the residual it
-receives (CI $[7.80;14.51]$, 5/5) and halves the spread (SD 4.44 vs 10.17). The 18.49-point margin
-over TS is unstable (paired-$t$ $[-1.81;38.80]$, one record drives it), and TS-PCA on the PSD lead
-(96.74) is 2.47 points below.
+\begin{table}[t]
+\centering\footnotesize
+\caption{Six architectures against the TCN at matched parameter count, 22 women, PSD lead, three
+folds, three epochs, one seed. $\Delta$F1 and $\Delta$logit are alternative $-$ TCN per woman with 95\%
+cluster-bootstrap CI; TOST at $\pm$1.0 F1, Holm over six.}
+\label{tab:arch}
+\fitwidth{\begin{tabular}{@{}lrrccccl@{}}
+\toprule
+Model & params & RF (ms) & F1 & $\Delta$F1 [95\% CI] & $\Delta$logit [95\% CI] & W/T/L & TOST\\
+\midrule
+TCN (ours) & 113\,481 & 1\,516 & 97.64 & --- & --- & --- & ---\\
+TCN, wide field & 116\,514 & 3\,052 & 97.63 & $-0.01$ [$-0.18$; $+0.16$] & $+0.09$ [$-0.18$; $+0.29$] & 11/5/6 & equivalent\\
+TCN, multi-scale & 116\,011 & 2\,716 & 97.62 & $-0.02$ [$-0.34$; $+0.24$] & $+0.04$ [$-0.25$; $+0.27$] & 9/8/5 & equivalent\\
+TCN, narrow field & 114\,886 & 748 & 96.93 & $-0.71$ [$-1.73$; $+0.07$] & $-0.29$ [$-0.68$; $+0.12$] & 4/4/14 & inconclusive\\
+CNN, no dilation, wide & 114\,943 & 1\,508 & 96.84 & $-0.80$ [$-2.40$; $+0.13$] & $-0.45$ [$-0.75$; $-0.16$] & 6/1/15 & inconclusive\\
+U-Net 1-D & 114\,247 & 636 & 96.38 & $-1.25$ [$-2.90$; $-0.19$] & $-0.80$ [$-1.17$; $-0.43$] & 3/1/18 & inconclusive\\
+CNN, small field & 114\,493 & 60 & 94.53 & $-3.10$ [$-6.19$; $-0.96$] & $-1.64$ [$-2.09$; $-1.16$] & 2/0/20 & inconclusive\\
+\bottomrule
+\end{tabular}}
+\end{table}
 
-In the architecture benchmark six families lie within 1.53 points (92.43 to 90.90); TOST at the
-1.0-point margin declares 0 of 7 equivalent and 6 of 7 inconclusive, so the absent difference
-measures the sample size. Two effects clear it: the plain CNN without dilation is worse by 2.95 (90\%
-CI $[-4.55;-1.47]$), the large CNN 0.73 above ($[0.18;1.22]$). All eight, at 300\ms, stay below the
-4\,s per-sample model.
+\subsection{Domain adaptation, reject gate, clinical read-out}
+On the 60 CinC records none of the four unsupervised methods improves the PSD-lead score of 74.28:
+adaptive notch $+$0.25 (CI $[-0.25;+1.08]$, $p=0.70$), self-training $-$0.67 $[-1.11;-0.29]$, AdaBN
+$-$1.58 $[-2.50;-0.73]$, TENT $-$2.43 $[-3.64;-1.35]$. The three measured shifts between the datasets
+(60\,s duration, 10.13-bit quantisation, 60\Hz\ mains at 1.64 times the noise floor), imposed on the
+in-domain recordings, cost 0.01 points. Whether the remaining gap is fetal signal
+absent from the lead or signal the model misses could not be decided: the visibility test built for
+that purpose has an 18.0\% false-negative rate (CI 12.1--25.0) on these records.
 
-\subsection{Reject gate, topology, clinical read-out}
-The 12 classical features predict bad segments with AUROC 0.929 (CI $[0.830;0.982]$) and lift
-retained-segment F1 from 61.96 at full coverage to 69.40 at 80\% (random 62.03). That pooled figure
-is largely \emph{between-record}: over the five records containing both classes the
-\emph{within-record} AUROC is only 0.721 ($[0.517;0.898]$), and that is what a monitoring session
-sees. Topology contributed nothing: 16 topological features reach 0.566 and adding them lowers
-AUROC to 0.905.
-
-\textbf{Clinical read-out.} Short-term variability (STV, 3.75\,s epochs) computed from the detected
-beats tracks detection quality: bias $+$0.33\ms\ on ADFECGDB and $+$20.50\ms\ on CinC 2013; mean
-absolute STV error is 0.13\ms\ at F1\,$\ge$\,99.5 and 25.78\ms\ at F1\,$<$\,90, and one-sided (25 of
-32 records overestimate), since every missed or spurious beat perturbs an RR interval. On gated
-records the limits of agreement are $[-0.39;+0.61]$\ms, but no in-domain subject has a reference STV
-near a management threshold, so the detector is usable for trending on gated records and \emph{not}
-as a standalone STV monitor.
+The LOSO reject gate reaches a pooled AUROC of 0.965 (CI $[0.857;0.992]$) and a within-record AUROC of
+0.934 (CI $[0.872;0.981]$, over the 11 women with both classes). Ranked by gate score, the three women
+that carry the deficit against four-channel Power-MF (B2\_03, B1\_07, B1\_06) are the three least
+reliable of 22. Short-term variability computed from detected beats is biased $+$0.33\ms\ on ADFECGDB
+(limits of agreement $[-0.89;+1.55]$); on an earlier ten-record CinC subsample the bias was
+$+$20.50\ms, so the detector is usable for trending on gated records and not as a standalone STV
+monitor.
 
 \section{Discussion}
-\textbf{The front-end dominates the 300\ms\ learner, not yet the network.} Of the 15.9 points
-gained over the three tiers, 11.0 come from the pass-band alone on that learner: the quantitative
-form, on real recordings, of what \cite{andreotti2016} showed on synthetic ones. On the network the
-same change is worth 2.44, interval containing zero, and nothing when the four leads are averaged
-instead of selected. The receptive field is the architectural variable we can resolve: dilation
-($+$2.95 at equal parameters) and a longer field ($+$4.5 from 172 to 1\,516\ms) clear the 1.0-point
-margin \cite{fotiadou2021}; other family differences do not.
+\textbf{One lead recovers most of what four leads buy.} Multi-channel separation is worth a
+directly measured 12.12 F1 points to Power-MF itself; a 113\,k single-lead network recovers 10.85
+of them. The residual gap is concentrated in three of 22 recordings, and the reject gate ranks
+exactly those three as least reliable, which is what a one-lead device must do: fail loudly, not
+often.
 
-\textbf{One channel recovers most of what four channels buy.} Multi-channel separation is worth a
-directly measured 12.12 F1 points to Power-MF itself, and a 113\,k single-channel network recovers
-10.85 of them, 89.5\%. The residual gap against four channels is concentrated, not diffuse: three of
-22 recordings account for it and the median woman is $+$0.23; the failures a single lead creates
-are few but severe, which is what a device must gate against.
+\textbf{Across recorders the lead rule fails before the detector.} Training on 22 women recovers 10.24 points on
+CinC without closing the recorder gap; the PSD rule is within 1.90 points of the oracle in domain and
+9.32 below it out of domain. A rule that lets the detector score the leads is the obvious repair, but
+the confirmatory version of that idea missed Holm correction and the version that passed was chosen
+after the data were seen; the next held-out set must be opened with the rule fixed beforehand.
+Four adaptation methods that repair the shifts we can measure recover nothing, and the shifts
+themselves cost 0.01 points in domain; we do not conclude from this that the signal is missing,
+because the test that would show it has an 18\% false-negative rate.
 
-\textbf{Generalisation breaks across recorders, and the lead rule with it.} The model loses
-about four points on pregnancy records from the same recorder (97 to 93) and about 35 on a different
-one (99 to 64 under the blind rule, five-woman model, 60 clean records). Part of that is the selection
-rule: the PSD rule is within 1.90 points of the oracle in domain and 9.32 below it out of domain.
-Training on 22 women recovers 10.2 points without closing the recorder gap, and four unsupervised
-adaptation methods (adaptive notch, self-training, AdaBN, TENT) recover none of it. Whether the
-residual gap is signal that is absent or signal the model misses could not be decided: the
-visibility test we built for that purpose has an 18.0\% false-negative rate on these records. A rule
-that lets the detector score the leads should replace the spectral heuristic, but it must be fixed
-before, not after, the next held-out set is opened.
+\textbf{Architecture is a small variable, and F1 is the wrong scale to see it.} At matched
+parameters two variants are equivalent to the TCN and one (dilation at equal field) differs only on
+the logit scale. Nothing here is claimed as new; the receptive field near 1.5\,s and dilation
+are the two design choices we can resolve with 22 women.
 
-\textbf{Limitations.} The binding limitation is $n$: five women on ADFECGDB and 22 in all,
-one hospital, one recorder, every training woman in labour at 38--41 weeks. No ADFECGDB comparison
-can reach $p<0.05$ at subject level, every interval is wide, and the architecture benchmark is
-underpowered by construction. \emph{Against four-channel Power-MF our mean
-is 1.27 points lower.} The interval $[-3.08;+0.27]$ contains zero, so neither system can be declared
-better, but the point estimate is against us (B1\_07, B1\_06, B2\_03 carry the deficit). Power-MF was
-run at our resampled rate with our matcher, not in the authors' own evaluation. The 10--60\Hz\ band is not our finding but Xu et al.'s \cite{xu2026}; our contribution
-is only the measurement of what it is worth. That measurement (tier 1, $+$11.00) was made with a
-gradient-boosted learner on 300\ms\ windows; on the TCN it falls to $+$2.44 with an
-interval containing zero, so tier 1 is not established on the network and $+$11.00 must be read as
-bounded to the 300\ms\ learner. That run is preliminary: one seed. B1 labels are indirect, so B1 F1 measures agreement with the authors'
-pipeline, and the model trained on B1 sits 3.25\ms\ from those labels against 6.50\ms\ for models
-that never saw them, so B1 must not be used to argue timing accuracy. DPSS \cite{shokouhmand2023} numbers remain quoted, not re-run. The main model uses one seed and
-the CinC figures one in-domain threshold per model. One topological configuration was tried, without
-tuning on test labels.
+\textbf{Limitations.} (i) $n$: five women on ADFECGDB and 22 in all, one hospital, one recorder;
+every interval is wide and no ADFECGDB comparison can reach $p<0.05$ at subject level. (ii) Against
+four-channel Power-MF the point estimate is $-$1.27; the interval contains zero, but the sign is
+against us. Power-MF ran under Octave at our resampled rate with our matcher, not in the authors'
+evaluation. (iii) The lead-rule plan was written after per-lead F1 existed and is not third-party
+anchored; \emph{peakprob} is post hoc; no third labelled dataset exists to confirm it. (iv) The
+architecture and band runs use three folds, three to four epochs and one seed; the main model one seed
+(a second seed moved the mean by 0.03). (v) B1 labels are indirect, so B1 F1 measures agreement with
+the authors' pipeline. (vi) Whether the 60 clean CinC records come from 60 distinct women was not
+checked; NCC $\le$ 0.62 excludes verbatim copies only. (vii) The reject gate has not been re-scored
+on the 60 clean CinC records; gate figures computed earlier on the contaminated 75-record set are withdrawn with the rest.
 
 \section{Conclusion}
-With protocol held fixed, single-channel fQRS detection on ADFECGDB reaches 99.21\% F1 on a
-label-blind lead and 93.30\% zero-shot on pregnancy recordings. Four-channel Power-MF gains 12.12 F1
-points over its own single-channel restriction; the network recovers 10.85 of them (89.5\%) from one
-lead, not separable from four channels ($-$1.27, CI $[-3.08;+0.27]$) and above one channel (22/22
-women). The 10--60\Hz\ front-end of \cite{xu2026} is worth 11.00 points to a 300\ms\ learner but only
-2.44 to the network; the family is a variable five women cannot resolve. Cross-recorder transfer is
-the open problem: on the 60 CinC 2013 set-a records that are not copies of the training data the blind
-score is 74.28\% after training on 22 women, and the lead rule degrades before the detector does.
+Measured under one matcher on 22 women, four-channel Power-MF gains 12.12 F1 points over its own
+single-lead restriction and a 113\,k single-lead network recovers 10.85 of them (89.5\%): not separable
+from four channels ($-$1.27, CI $[-3.08;+0.27]$), ahead of one channel in 22 of 22 women. On the 60
+CinC 2013 set-a records that are not copies of the training data the label-blind score is 74.28 after
+training on 22 women, 9.32 below the oracle lead: cross-recorder lead selection, not the detector, is
+the open problem, and the best candidate rule is a hypothesis awaiting a labelled third dataset.
 
 \bibliographystyle{vancouver}
 \scriptsize

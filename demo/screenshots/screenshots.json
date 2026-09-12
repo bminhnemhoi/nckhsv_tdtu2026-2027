@@ -1,23 +1,50 @@
 {
  "port": 7862,
  "shots": {
-  "01_r01_tong_quan.png": 672527,
-  "02_r01_the_so.png": 156826,
-  "03_r01_so_sanh.png": 411701,
-  "04_a09_chon_kenh.png": 506509,
-  "05_a09_the_so.png": 155400
+  "01_r01_tong_quan.png": 671751,
+  "02_r01_the_so.png": 156068,
+  "03_r01_so_sanh.png": 410855,
+  "04_a09_chon_kenh.png": 448974,
+  "05_a09_the_so.png": 156478,
+  "06_a09_psd_the_so.png": 148049,
+  "07_B2_03_fhr_den_doan.png": 431794,
+  "08_B2_03_the_so.png": 156658,
+  "09_a02_the_so.png": 162912,
+  "10_a02_fhr.png": 411483,
+  "11_a27_the_so.png": 154335,
+  "12_tong_hop.png": 599780
  },
  "records": {
   "r01 (autorun)": {
-   "wall_s": 15.2,
+   "wall_s": 12.9,
    "cards": "FHR TRUNG BÌNH | 129 bpm | median RR trong từng cửa sổ 4 s · 645 nhịp thai / 300 s | KÊNH ĐƯỢC CHỌN (AUTO (PEAKPROB)) | kênh 4 / 4 | k1: 0.998 · F1 100.0 | k2: 0.998 · F1 99.8 | k3: 0.998 · F1 100.0 | k4: 0.998 · F1 99.9 | quy tắc peakprob — trung vị xác suất tại đỉnh, chạy mô hình trên mọi kênh | Đ"
   },
   "a09": {
-   "wall_s": 187.8,
+   "wall_s": 3.0,
+   "status": "Đã phân tích a09 (WFDB, 60 s, 4 kênh; bản sạch, zero-shot) — kênh 1 (auto (peakprob)) · điểm peakprob từng kênh: k1=0.990, k2=0.905, k3=0.919, k4=0.932 — checkpoint 22 ca, production (zero-shot: bản g",
    "cards": "FHR TRUNG BÌNH | 130 bpm | median RR trong từng cửa sổ 4 s · 131 nhịp thai / 60 s | KÊNH ĐƯỢC CHỌN (AUTO (PEAKPROB)) | kênh 1 / 4 | k1: 0.990 · F1 94.3 | k2: 0.905 · F1 19.4 | k3: 0.919 · F1 37.1 | k4: 0.932 · F1 35.4 | quy tắc peakprob — trung vị xác suất tại đỉnh, chạy mô hình trên mọi kênh | ĐÈN "
+  },
+  "a09 Tự động — PSD (Power-MF)": {
+   "wall_s": 3.1,
+   "status": "Đã phân tích a09 (WFDB, 60 s, 4 kênh; bản sạch, zero-shot) — kênh 2 (auto (PSD)) · điểm psd từng kênh: k1=1.69e+01, k2=5.36e+01, k3=2.35e+01, k4=3.21e+01 — checkpoint 22 ca, production (zero-shot: bản",
+   "cards": "FHR TRUNG BÌNH | 124 bpm | median RR trong từng cửa sổ 4 s · 118 nhịp thai / 60 s | KÊNH ĐƯỢC CHỌN (AUTO (PSD)) | kênh 2 / 4 | k1: 1.7e+01 | k2: 5.4e+01 | k3: 2.3e+01 | k4: 3.2e+01 | quy tắc psd — đỉnh PSD dải thai của phần dư | ĐÈN TIN CẬY | ● THẤP (đỏ) | điểm 0.19 / 1 — chế độ học (GBM trên 12 chỉ"
+  },
+  "B2_03": {
+   "wall_s": 6.0,
+   "status": "Đã phân tích B2_03 (Silesia, 300 s, 4 kênh) — kênh 4 (auto (peakprob)) · điểm peakprob từng kênh: k1=0.967, k2=0.926, k3=0.901, k4=0.977 — checkpoint 22 ca, fold 11 (chủ thể B2_03 KHÔNG nằm trong tập ",
+   "cards": "FHR TRUNG BÌNH | 147 bpm | median RR trong từng cửa sổ 4 s · 738 nhịp thai / 300 s | KÊNH ĐƯỢC CHỌN (AUTO (PEAKPROB)) | kênh 4 / 4 | k1: 0.967 · F1 79.7 | k2: 0.926 · F1 72.0 | k3: 0.901 · F1 48.5 | k4: 0.977 · F1 83.9 | quy tắc peakprob — trung vị xác suất tại đỉnh, chạy mô hình trên mọi kênh | ĐÈN"
+  },
+  "a02": {
+   "wall_s": 3.1,
+   "status": "Đã phân tích a02 (WFDB, 60 s, 4 kênh; bản sạch, zero-shot) — kênh 2 (auto (peakprob)) · điểm peakprob từng kênh: k1=0.963, k2=0.970, k3=0.958, k4=0.960 — checkpoint 22 ca, production (zero-shot: bản g",
+   "cards": "FHR TRUNG BÌNH | 130 bpm | median RR trong từng cửa sổ 4 s · 129 nhịp thai / 60 s | KÊNH ĐƯỢC CHỌN (AUTO (PEAKPROB)) | kênh 2 / 4 | k1: 0.963 · F1 75.9 | k2: 0.970 · F1 24.9 | k3: 0.958 · F1 19.9 | k4: 0.960 · F1 24.5 | quy tắc peakprob — trung vị xác suất tại đỉnh, chạy mô hình trên mọi kênh | ĐÈN "
+  },
+  "a27": {
+   "wall_s": 3.5,
+   "status": "Đã phân tích a27 (WFDB, 60 s, 4 kênh; bản sạch, zero-shot) — kênh 3 (auto (peakprob)) · điểm peakprob từng kênh: k1=0.909, k2=0.917, k3=0.919, k4=0.915 — checkpoint 22 ca, production (zero-shot: bản g",
+   "cards": "FHR TRUNG BÌNH | 126 bpm | median RR trong từng cửa sổ 4 s · 120 nhịp thai / 60 s | KÊNH ĐƯỢC CHỌN (AUTO (PEAKPROB)) | kênh 3 / 4 | k1: 0.909 · F1 23.3 | k2: 0.917 · F1 21.3 | k3: 0.919 · F1 32.9 | k4: 0.915 · F1 30.2 | quy tắc peakprob — trung vị xác suất tại đỉnh, chạy mô hình trên mọi kênh | ĐÈN "
   }
  },
- "ok": false,
- "first_result_s": 15.2,
- "error": "TimeoutError: Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for get_by_role(\"button\", name=\"Phân tích\")\n    - locator resolved to <button class=\"lg primary  svelte-xzq5jh\">…</button>\n  - attempting click action\n    - waiting for element to be visible, enabled and stable\n    - element is visible, enabled and stable\n    - scrolling into view if needed\n    - done scrolling\n    - performing click action\n"
+ "ok": true,
+ "first_result_s": 12.9
 }

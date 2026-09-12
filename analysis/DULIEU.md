@@ -260,7 +260,7 @@ và `gate` vẫn không. Làm sạch dữ liệu **củng cố** bức tranh cũ
 | quy tắc | Holm p (75 bản) | Holm p (60 bản sạch) | kết luận |
 |---|---|---|---|
 | peakprob (hậu kiểm) | 0,0054 | **0,0039** | sống sót |
-| gate4 (tiền đăng ký) | 0,0260 | **0,0150** | sống sót |
+| gate4 (khai báo trước) | 0,0260 | **0,0150** | sống sót |
 | **gate (tiền đăng ký, quy tắc quyết định)** | 0,0848 | **0,0505** | **vẫn KHÔNG sống sót** |
 
 **PHÁT BIỂU ĐÚNG, không được nới thêm.** Quy tắc quyết định tiền đăng ký là `gate`, và trên tập

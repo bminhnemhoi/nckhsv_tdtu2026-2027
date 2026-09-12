@@ -221,6 +221,17 @@ Tạo lại bằng `python demo/screenshot.py` (cần `pip install playwright &&
 
 Tự chụp tay nếu cần: Windows `Win + Shift + S`, lưu vào cùng thư mục với tên như trên.
 
+**Thời gian thật đo trong trình duyệt** (`demo/screenshots/screenshots.json`, lần chụp 12/09/2026 23:1x, 2 luồng CPU, máy đang chạy
+`run_check.py` song song — cận trên; tính từ lúc bấm *Phân tích* đến khi dòng trạng thái đổi, bước dò 0,5 s): a09 **3,0 s**,
+a09 với PSD **3,1 s**, B2_03 **6,0 s**, a02 **3,1 s**, a27 **3,5 s**; r01 tự chạy khi mở trang **12,9 s** kể cả nạp trang lần đầu.
+Phần mô hình chỉ chiếm ≈ 0,35–2 s trong đó (mục 6); phần còn lại là đọc file, dựng 3 biểu đồ Plotly và truyền sang trình duyệt.
+
+*Ghi chú kỹ thuật (P3):* bản `screenshot.py` trước ghi "a09 mất 187,8 s" và dừng ở ảnh 05 với `TimeoutError`. Nguyên nhân **không phải mô hình**:
+vòng chờ so chuỗi `'Đèn tin cậy'` với `inner_text()` của thẻ số, nhưng thẻ có CSS `text-transform: uppercase` nên chữ trả về là
+`ĐÈN TIN CẬY` — không bao giờ khớp, vòng chờ chạy hết 180 s (360 × 0,5 s + 1,5 s = 187,8 s) rồi thao tác kế tiếp bấm nút trong lúc
+danh sách thả xuống còn mở. Đã sửa: đợi dòng trạng thái *"Đã phân tích **<bản ghi>** … (auto (peakprob)|auto (PSD))"*, đóng dropdown
+bằng `Escape`, và chịu được lúc Gradio tạm làm rỗng thẻ số với bản ghi 300 s.
+
 ---
 
 ## 6. Kết quả 5 bản minh hoạ (đã chạy thật, `demo/results/demo_check_showcase.json`)

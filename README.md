@@ -208,7 +208,7 @@ exists.
 
 | Stage | Δ Macro F1 (per subject) | 95 % CI | Verdict |
 |---|---:|---|---|
-| Signal front-end (band-pass choice) | **+11.00** | not recomputable¹ | largest effect by far |
+| Signal front-end (band-pass choice) | **+11.00** (300 ms GBM; **withdrawn for the TCN**: +2.44 [−0.05; +6.30]) | not recomputable¹ | largest effect on the 300 ms learner only |
 | Temporal context & per-sample output | +4.49 | [1.58; 7.43] bootstrap; [−0.29; 9.27] paired-t | positive, interval wide |
 | Architecture family, at fixed context | +0.41 | inside the 1.0-point margin | **not resolvable at n = 5** |
 
@@ -370,7 +370,7 @@ five-tier signal view (raw → filtered → residual → probability → result)
 **confidence light**. Selecting an ADFECGDB record automatically uses the fold checkpoint that never saw it.
 
 The light has two modes: *learned* (gradient-boosted classifier on 12 classical SQIs per 4 s segment,
-`fsqi/gate.py`, default) and *rule* (hand-set thresholds). Re-run on 12 Sep 2026 (17:07) over the 82 labelled
+`fsqi/gate.py`, default) and *rule* (hand-set thresholds). Re-run on 12 Sep 2026 (17:07; repeated at 23:11 with an identical summary) over the 82 labelled
 records that are neither training duplicates nor leaked CinC copies (5 ADFECGDB with their fold checkpoint,
 60 clean CinC 2013, 17 Silesia; `python demo/run_check.py --threads 2` → `demo/results/demo_check_2modes.json`,
 `summary_by_mode`):
@@ -436,12 +436,14 @@ fsqi/                     Signal-quality index experiment (contribution C3)
 └─ README.md                Full negative-result report
 
 demo/                     Gradio application
-├─ core.py                  Pipeline logic, no UI dependency, unit-tested
-├─ app.py                   One-page UI with confidence light
-└─ screenshots/             Real captures from the running app
+├─ core.py                  Pipeline logic, no UI dependency, unit-tested (17 tests)
+├─ app.py                   One-page UI: peakprob/PSD lead choice, confidence light, clean-60 summary tab read from JSON
+├─ run_check.py             Scores the 82 labelled non-leaked records in both gate modes → results/demo_check_2modes.json
+├─ screenshot.py            Playwright capture of the 12 showcase screenshots → screenshots/ + screenshots.json
+└─ screenshots/             Real captures from the running app (12, five showcase records)
 
 pilot_evidence/           Every pilot experiment with logs
-├─ arch_loro.py             Corrected 8-architecture comparison (LORO, 10–60 Hz)
+├─ arch_loro.py             8-candidate architecture sweep (LORO, 10–60 Hz) — the "indistinguishable" claim is withdrawn
 ├─ band_ablation.py         8 band-pass candidates
 ├─ seq_search.py            Receptive-field sweep
 └─ seq_loro.py              3-seed LORO + paired Wilcoxon
@@ -634,6 +636,8 @@ stood, and the replacement.
 | "replicate `peakprob` on CinC set-b / NInFEA / NIFEADB" as a plan | earlier READMEs, `docs/CHIEN_LUOC_CONG_BO.md` | none of them has real fQRS labels | no third dataset available; the rule stays a hypothesis |
 | "the two-seed run shows stability" beyond the in-domain mean | earlier READMEs | seed-1 checkpoints were never saved | in-domain only: +0.03 [−0.18; +0.34] |
 | *Physiological Measurement* is a Q1 journal | proposal v3.4 title page, `docs/` | Scimago 2024 ranks it Q2 (Physiology) / Q3 (Biomedical Eng.) | Q1 (Scimago): JBHI, TBME, BSPC, CBM, AI in Medicine — `docs/CHIEN_LUOC_CONG_BO.md` |
+| "AUROC 0.980 / 66.7 % coverage / 15 of 16 failures rejected" as the headline gate result | `analysis/GATE22.md`, `docs/*` | computed on all 75 CinC records, 15 of them ADFECGDB copies; not recomputed on the 60 clean records | in-record AUROC 0.934 [0.872; 0.981] on 22 subjects (LOSO), 3 hardest records ranked 1-2-3 — `analysis/gate22_results.json`; the 75-record figure may only be quoted with that caveat |
+| CinC 2026 as the submission target | `paper/cinc2026/`, earlier `docs/` | CinC 2026 (Madrid, 20–23 Sep 2026) is past; the directory name is kept for history | CinC 2027 (abstract expected Apr 2027) — `docs/CHIEN_LUOC_CONG_BO.md` |
 | "8 hard-limit records" as a finding | `analysis/CHANDOAN_MOHINH.md` | group defined by the label it predicts (circular); a54 is a label error (37 labels / 144 detections) | descriptive only |
 | p < 0.001 for the band-pass tier; all ADFECGDB p-values | earlier READMEs | pseudo-replication over record × lead × seed | intervals only (`analysis/STATS.md`) |
 | topological SQI contribution | proposal v1 | AUROC 0.566 vs 0.929 classical | negative result (`fsqi/README.md`) |
