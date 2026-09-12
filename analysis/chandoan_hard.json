@@ -1,0 +1,87 @@
+{
+ "meta": {
+  "date": "2026-09-12 10:45:03.791317",
+  "tol_ms": 50.0
+ },
+ "B1_06": {
+  "psd_lead": 4,
+  "oracle_lead": 3,
+  "leads": {
+   "A4_offset_iqr": [
+    -10.0,
+    -2.0
+   ],
+   "A4_frac_off_gt_tol": 0.10188415910676901,
+   "A4_frac_off_50_150": 0.08164689462665736,
+   "A3_offset_iqr": [
+    -6.0,
+    -2.0
+   ],
+   "A3_frac_off_gt_tol": 0.0034626038781163434,
+   "A3_frac_off_50_150": 0.002077562326869806,
+   "A1_blockF1_min": 92.5170068027211,
+   "A1_blockF1_frac_below80": 0.0,
+   "A2_blockF1_min": 91.03448275862067,
+   "A2_blockF1_frac_below80": 0.0,
+   "A3_blockF1_min": 95.23809523809523,
+   "A3_blockF1_frac_below80": 0.0,
+   "A4_blockF1_min": 56.52173913043479,
+   "A4_blockF1_frac_below80": 0.15
+  },
+  "worst_window_start_s": 900.0
+ },
+ "B1_07": {
+  "psd_lead": 4,
+  "oracle_lead": 3,
+  "leads": {
+   "A4_offset_iqr": [
+    -6.0,
+    6.0
+   ],
+   "A4_frac_off_gt_tol": 0.1313065976714101,
+   "A4_frac_off_50_150": 0.10672703751617077,
+   "A3_offset_iqr": [
+    -8.0,
+    -2.0
+   ],
+   "A3_frac_off_gt_tol": 0.04601029601029601,
+   "A3_frac_off_50_150": 0.038288288288288286,
+   "A1_blockF1_min": 57.14285714285715,
+   "A1_blockF1_frac_below80": 0.2,
+   "A2_blockF1_min": 39.473684210526315,
+   "A2_blockF1_frac_below80": 0.25,
+   "A3_blockF1_min": 63.1578947368421,
+   "A3_blockF1_frac_below80": 0.1,
+   "A4_blockF1_min": 52.903225806451616,
+   "A4_blockF1_frac_below80": 0.325
+  },
+  "worst_window_start_s": 840.0
+ },
+ "B2_03": {
+  "psd_lead": 1,
+  "oracle_lead": 4,
+  "leads": {
+   "A1_offset_iqr": [
+    -2.0,
+    6.0
+   ],
+   "A1_frac_off_gt_tol": 0.20718232044198895,
+   "A1_frac_off_50_150": 0.13812154696132597,
+   "A4_offset_iqr": [
+    -3.0,
+    5.0
+   ],
+   "A4_frac_off_gt_tol": 0.17344173441734417,
+   "A4_frac_off_50_150": 0.11246612466124661,
+   "A1_blockF1_min": 50.33112582781457,
+   "A1_blockF1_frac_below80": 0.7,
+   "A2_blockF1_min": 61.935483870967744,
+   "A2_blockF1_frac_below80": 0.8,
+   "A3_blockF1_min": 39.45578231292517,
+   "A3_blockF1_frac_below80": 1.0,
+   "A4_blockF1_min": 67.53246753246754,
+   "A4_blockF1_frac_below80": 0.4
+  },
+  "worst_window_start_s": 60.0
+ }
+}

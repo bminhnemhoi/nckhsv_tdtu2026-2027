@@ -1,0 +1,30 @@
+
+===== M4-mini | 2026-09-12 10:37:32 | threads 2 | epochs 2 | keep 1/3 | thr 0.75 | arms base,noaug,bal =====
+nap 22 chu the ...
+   448 ms/buoc, 348 buoc/epoch, eval B1 10s -> du kien TONG 66.3 phut
+
+===== M4-mini | 2026-09-12 10:38:42 | threads 2 | epochs 2 | keep 1/3 | thr 0.75 | arms base,noaug,bal =====
+nap 22 chu the ...
+-- fold 01  test ['B1_08', 'B2_12'] --
+   base_f01       ['B1_08', 'B2_12']  F1_psd {'B1_08': 99.76, 'B2_12': 100.0}  (7.3 phut)
+   noaug_f01      ['B1_08', 'B2_12']  F1_psd {'B1_08': 99.73, 'B2_12': 100.0}  (9.7 phut)
+
+===== M4-mini | 2026-09-12 11:05:02 | threads 2 | epochs 2 | keep 1/3 | thr 0.75 | arms base,noaug,bal =====
+nap 22 chu the ...
+-- fold 04  test ['B1_06', 'B2_04'] --
+   base_f04       ['B1_06', 'B2_04']  F1_psd {'B1_06': 88.68, 'B2_04': 98.98}  (11.3 phut)
+   noaug_f04      ['B1_06', 'B2_04']  F1_psd {'B1_06': 90.8, 'B2_04': 98.98}  (10.1 phut)
+   bal_f04        ['B1_06', 'B2_04']  F1_psd {'B1_06': 89.9, 'B2_04': 99.2}  (7.0 phut)
+-> D:\NCKHSV2026-2027\analysis\dulieu_exp.json
+
+===== M4-mini | 2026-09-12 12:28:46 | threads 3 | epochs 2 | keep 1/3 | thr 0.75 | arms base,noaug,bal =====
+nap 22 chu the ...
+-- fold 10  test ['B1_07', 'r08'] --
+   base_f10       ['B1_07', 'r08']  F1_psd {'B1_07': 86.21, 'r08': 99.85}  (4.1 phut)
+   noaug_f10      ['B1_07', 'r08']  F1_psd {'B1_07': 85.47, 'r08': 99.85}  (4.7 phut)
+   bal_f10        ['B1_07', 'r08']  F1_psd {'B1_07': 87.11, 'r08': 99.85}  (4.9 phut)
+-- fold 11  test ['B2_08', 'B2_03'] --
+   base_f11       ['B2_08', 'B2_03']  F1_psd {'B2_08': 100.0, 'B2_03': 78.17}  (5.0 phut)
+   noaug_f11      ['B2_08', 'B2_03']  F1_psd {'B2_08': 100.0, 'B2_03': 77.81}  (4.9 phut)
+   bal_f11        ['B2_08', 'B2_03']  F1_psd {'B2_08': 100.0, 'B2_03': 80.14}  (5.3 phut)
+-> D:\NCKHSV2026-2027\analysis\dulieu_exp.json

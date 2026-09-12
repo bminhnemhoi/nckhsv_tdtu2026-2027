@@ -1,0 +1,30 @@
+=== DO CHINH XAC DINH VI TREN CAC NHIP DA BAT DUNG (CinC 75, mo hinh 22 ca) ===
+    dung sai cham la +/-50 ms. Neu jitter TP << 50 ms thi khau dinh vi KHONG hong.
+
+quy tac        n  jitter TV  jitter TB   ph.vi 90        max
+------------------------------------------------------------
+psd           75       6.01       9.06      20.73      26.91
+gate          75       4.01       7.65      18.98      26.91
+peakprob      75       4.01       7.16      16.26      27.69
+oracle        75       4.84       6.97      15.56      27.79
+
+   Tach theo do kho (quy tac peakprob):
+      67 ban thuong          n=67  jitter trung vi   3.76 ms  trung binh   5.70  max  21.89
+      8 ban gioi han cung    n= 8  jitter trung vi  17.36 ms  trung binh  19.32  max  27.69
+
+   Tach theo F1 cua chinh ban ghi (quy tac peakprob):
+      F1 >= 90     n=53  jitter trung vi   2.72 ms  trung binh   4.24  max  13.52
+      F1 50-90     n=13  jitter trung vi  10.89 ms  trung binh  10.42  max  16.76
+      F1 < 50      n= 9  jitter trung vi  17.76 ms  trung binh  19.61  max  27.69
+
+   10 ban ghi jitter lon nhat (peakprob):
+      a71  jitter  27.69 ms  F1  21.69  TP   32  GIOI HAN CUNG
+      a57  jitter  24.80 ms  F1  17.02  TP   20  GIOI HAN CUNG
+      a59  jitter  24.11 ms  F1  25.87  TP   37  GIOI HAN CUNG
+      a02  jitter  21.89 ms  F1  24.91  TP   36  
+      a27  jitter  17.76 ms  F1  32.94  TP   42  GIOI HAN CUNG
+      a68  jitter  16.96 ms  F1  39.26  TP   53  GIOI HAN CUNG
+      a75  jitter  16.76 ms  F1  52.51  TP   68  
+      a43  jitter  16.35 ms  F1  37.36  TP   51  GIOI HAN CUNG
+      a60  jitter  16.13 ms  F1  47.06  TP   68  GIOI HAN CUNG
+      a32  jitter  16.03 ms  F1  52.11  TP   74  

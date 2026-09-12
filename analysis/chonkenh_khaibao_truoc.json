@@ -1,0 +1,142 @@
+{
+ "tieu_de": "KHAI BAO TRUOC -- so sanh cac quy tac chon kenh mu nhan (nhiem vu M5)",
+ "ngay_khai_bao": "2026-09-12",
+ "ghi_chu_thu_tu": "Tep nay duoc ghi TRUOC khi chay bat ky quy tac moi nao. Chi so chan doan cua VIEC 1 duoc tinh tu benchmark_dpss/eval_cinc75.json da co san tu vong truoc, KHONG phai ket qua moi.",
+ "cau_hoi": "Co quy tac chon kenh MU NHAN nao tot hon quy tac PSD hien tai (Jaeger 2024) khong?",
+ "hai_canh_danh_gia": {
+  "22_chu_the": {
+   "vai_tro": "TRONG MIEN -- dung de CHON sieu tham so va de CHON quy tac tot nhat",
+   "don_vi_thong_ke": "chu the (n = 22)",
+   "mo_hinh": "checkpoint fold KHONG chua chu the do (fetalqrs_tcn_22_fold_XX.pt, lay tu benchmark_dpss/eval_22.json)",
+   "nguong": "nguong luu trong chinh checkpoint fold"
+  },
+  "cinc75": {
+   "vai_tro": "NGOAI MIEN, XAC NHAN -- KHONG duoc tinh chinh bat ky thu gi tren day",
+   "don_vi_thong_ke": "ban ghi (n = 75, set-a)",
+   "mo_hinh": "fetalqrs_tcn_22_production.pt (zero-shot, chua tung thay CinC)",
+   "nguong": "nguong luu trong checkpoint production"
+  }
+ },
+ "quy_tac_se_thu": [
+  {
+   "ma": "psd",
+   "loai": "moc chuan",
+   "mu_nhan": true,
+   "mo_ta": "Chon kenh co dinh PSD lon nhat trong dai 1,8-3,0 Hz cua duong bao Hilbert cua tin hieu du (quy tac hien tai, theo Power-MF / Jaeger 2024).",
+   "sieu_tham_so": "khong"
+  },
+  {
+   "ma": "lead0",
+   "loai": "tham chieu (KHONG mu nhan ve lich su)",
+   "mu_nhan": false,
+   "mo_ta": "Kenh 0 co dinh. Bao cao vi day la quy tac nhom tung chon HAU KIEM va da rut lai; giu de doc gia thay hau qua.",
+   "sieu_tham_so": "khong"
+  },
+  {
+   "ma": "mean4",
+   "loai": "tham chieu",
+   "mu_nhan": true,
+   "mo_ta": "Khong chon gi: trung binh F1 cua 4 kenh (ky vong cua mot kenh lay ngau nhien).",
+   "sieu_tham_so": "khong"
+  },
+  {
+   "ma": "oracle",
+   "loai": "chan tren (KHONG dung duoc)",
+   "mu_nhan": false,
+   "mo_ta": "Chon kenh co F1 that cao nhat. Chi de do du dia.",
+   "sieu_tham_so": "khong"
+  },
+  {
+   "ma": "gate",
+   "loai": "quy tac moi (b)",
+   "mu_nhan": true,
+   "mo_ta": "Chay mo hinh tren ca 4 kenh; voi moi kenh tinh diem tin cay cua CONG TU CHOI da hieu chuan = 1 - trung binh xac suat 'doan xau' tren cac doan 4 s. Chon kenh co diem cao nhat. Cong = HistGradientBoostingClassifier tren 12 SQI co dien (fsqi.CLASSICAL_KEYS + peak_prob_mean + prob_max), nhan doan = F1 doan < 80, THAM SO GIU NGUYEN cua analysis/gate22_analyze.py (max_depth 3, max_iter 200, lr 0,05, class_weight balanced, seed 0).",
+   "sieu_tham_so": "khong co sieu tham so moi; tham so cong lay nguyen tu vong truoc",
+   "chong_ro_ri": "22 chu the: cong huan luyen leave-one-SUBJECT-out. CinC: cong huan luyen tren TOAN BO 22 chu the roi ap zero-shot."
+  },
+  {
+   "ma": "rrcv",
+   "loai": "quy tac moi (c)",
+   "mu_nhan": true,
+   "mo_ta": "Chon kenh co he so bien thien khoang RR (rr_cv) cua chuoi phat hien THAP nhat, tinh tren toan ban ghi. Kenh co < 3 phat hien bi loai.",
+   "sieu_tham_so": "khong"
+  },
+  {
+   "ma": "peakprob",
+   "loai": "quy tac moi (phu, tu dau ra mo hinh)",
+   "mu_nhan": true,
+   "mo_ta": "Chon kenh co trung binh xac suat mo hinh tai cac dinh da phat hien (peak_prob_mean) cao nhat.",
+   "sieu_tham_so": "khong"
+  },
+  {
+   "ma": "rrplaus",
+   "loai": "quy tac moi (phu, sinh ly)",
+   "mu_nhan": true,
+   "mo_ta": "Chon kenh co ti le khoang RR nam trong 0,3-0,7 s (110-200 nhip/phut) cao nhat; hoa thi pha bang rr_cv thap hon.",
+   "sieu_tham_so": "khong"
+  },
+  {
+   "ma": "fuse",
+   "loai": "quy tac moi (d) -- HOP NHAT thay vi CHON",
+   "mu_nhan": true,
+   "mo_ta": "Gop phat hien cua ca 4 kenh: gom cac phat hien cach nhau <= 50 ms thanh mot cum, giu cum nao co it nhat k trong 4 kenh dong gop, vi tri = trung vi cum; ap thoi gian tro 250 ms.",
+   "sieu_tham_so": "k thuoc {1,2,3,4}; CHON DUY NHAT tren 22 chu the roi ap nguyen xi sang CinC. Bao cao ca 4 gia tri k tren ca hai canh de minh bach."
+  },
+  {
+   "ma": "learned",
+   "loai": "quy tac moi (e) -- bo chon kenh hoc",
+   "mu_nhan": true,
+   "mo_ta": "HistGradientBoostingRegressor du doan F1 cua tung kenh tu dac trung KHONG NHAN muc ban ghi (trung vi 12 SQI tren cac doan + diem PSD + xep hang trong-ban-ghi cua tung dac trung giua 4 kenh); chon kenh co F1 du doan cao nhat.",
+   "sieu_tham_so": "max_depth 3, max_iter 200, lr 0,05, seed 0 -- CO DINH TRUOC, khong do luoi",
+   "chong_ro_ri": "22 chu the: leave-one-SUBJECT-out (88 hang = 22 chu the x 4 kenh). CinC: huan luyen tren toan bo 88 hang cua 22 chu the roi ap zero-shot. KHONG huan luyen tren CinC."
+  }
+ ],
+ "so_quy_tac_moi": 7,
+ "ma_quy_tac_moi": [
+  "gate",
+  "gate4",
+  "rrcv",
+  "peakprob",
+  "rrplaus",
+  "fuse",
+  "learned"
+ ],
+ "chi_so_bao_cao": [
+  "F1 trung binh muc ban ghi",
+  "trung vi",
+  "so ban >= 90",
+  "so ban < 50",
+  "hieu so vs moc PSD + KTC 95% cluster bootstrap 10000 lan (lay mau lai ban ghi)",
+  "Wilcoxon ghep cap",
+  "so ban thang/thua",
+  "Holm hieu chinh da so sanh tren 6 quy tac moi"
+ ],
+ "quy_tac_quyet_dinh_chinh": "Quy tac 'tot nhat' duoc chon THEO F1 TRUNG BINH TREN 22 CHU THE (trong mien). Ket qua CinC 75 cua chinh quy tac do la phep thu XAC NHAN duy nhat duoc coi la co gia tri suy dien. Moi con so CinC khac chi la mo ta.",
+ "cam_ket": [
+  "Bao cao TAT CA quy tac trong danh sach, ke ca quy tac that bai.",
+  "KHONG them quy tac moi sau khi da thay ket qua. Neu buoc phai them, phai ghi ro la HAU KIEM va khong duoc coi la bang chung xac nhan.",
+  "KHONG tinh chinh bat ky sieu tham so nao tren CinC 75.",
+  "Neu khong quy tac nao vuot moc PSD, bao cao that bai."
+ ],
+ "du_doan_truoc_khi_chay": "Gia thuyet: quy tac dua tren dau ra mo hinh (gate / peakprob) se hon PSD tren CinC vi luong cuc CinC bien mat tren kenh oracle; nhung co the KHONG hon tren 22 chu the vi o do PSD da gan chan tren.",
+ "tep_dau_ra": [
+  "analysis/CHONKENH.md",
+  "analysis/chonkenh_results.json",
+  "analysis/fig_chonkenh.png"
+ ],
+ "bo_sung_truoc_khi_chay_quy_tac": {
+  "thoi_diem": "2026-09-12, SAU khi viet chonkenh_cache.py va TRUOC khi chay bat ky quy tac nao (bo nho dem dac trung con dang tinh, chua co ket qua quy tac nao)",
+  "ly_do": "Cong tu choi cua vong truoc chi duoc huan luyen tren doan cua KENH PSD. Ap no cho 3 kenh con lai la lech phan phoi. Phai khai bao ro se chay bien the nao.",
+  "hai_bien_the_cua_quy_tac_b": [
+   {
+    "ma": "gate",
+    "mo_ta": "Cong y NGUYEN vong truoc: huan luyen chi tren doan cua KENH PSD (dung cong thuc gate22_analyze.py), roi cham diem ca 4 kenh."
+   },
+   {
+    "ma": "gate4",
+    "mo_ta": "Cung dac trung, cung tham so, nhung huan luyen tren doan cua CA 4 KENH -- hop voi nhiem vu chon kenh hon."
+   }
+  ],
+  "he_qua": "So quy tac moi tang tu 6 len 7; hieu chinh Holm tinh tren 7."
+ }
+}

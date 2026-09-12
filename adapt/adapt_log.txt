@@ -1,0 +1,448 @@
+================================================================
+M3 -- THICH NGHI MIEN KHONG NHAN -- NHAT KY CHAY
+Ket thuc: 2026-09-12 13:24:10
+================================================================
+
+--- 1. CHAN DOAN DICH CHUYEN (adapt/adapt_diag.py) ---
+CinC 2013 set-a: 75 ban ghi
+  [ 1/75] a01 0.5s
+  [ 2/75] a02 0.5s
+  [ 3/75] a03 0.6s
+  [ 4/75] a04 0.6s
+  [ 5/75] a05 0.7s
+  [ 6/75] a06 0.8s
+  [ 7/75] a07 0.8s
+  [ 8/75] a08 0.9s
+  [ 9/75] a09 0.9s
+  [10/75] a10 1.0s
+  [11/75] a11 1.1s
+  [12/75] a12 1.1s
+  [13/75] a13 1.2s
+  [14/75] a14 1.2s
+  [15/75] a15 1.3s
+  [16/75] a16 1.4s
+  [17/75] a17 1.4s
+  [18/75] a18 1.5s
+  [19/75] a19 1.5s
+  [20/75] a20 1.6s
+  [21/75] a21 1.7s
+  [22/75] a22 1.7s
+  [23/75] a23 1.8s
+  [24/75] a24 1.9s
+  [25/75] a25 1.9s
+  [26/75] a26 2.0s
+  [27/75] a27 2.0s
+  [28/75] a28 2.1s
+  [29/75] a29 2.2s
+  [30/75] a30 2.2s
+  [31/75] a31 2.3s
+  [32/75] a32 2.3s
+  [33/75] a33 2.4s
+  [34/75] a34 2.4s
+  [35/75] a35 2.5s
+  [36/75] a36 2.6s
+  [37/75] a37 2.6s
+  [38/75] a38 2.7s
+  [39/75] a39 2.8s
+  [40/75] a40 2.8s
+  [41/75] a41 2.9s
+  [42/75] a42 2.9s
+  [43/75] a43 3.0s
+  [44/75] a44 3.1s
+  [45/75] a45 3.1s
+  [46/75] a46 3.2s
+  [47/75] a47 3.2s
+  [48/75] a48 3.3s
+  [49/75] a49 3.4s
+  [50/75] a50 3.4s
+  [51/75] a51 3.5s
+  [52/75] a52 3.5s
+  [53/75] a53 3.6s
+  [54/75] a54 3.7s
+  [55/75] a55 3.7s
+  [56/75] a56 3.8s
+  [57/75] a57 3.8s
+  [58/75] a58 3.9s
+  [59/75] a59 4.0s
+  [60/75] a60 4.0s
+  [61/75] a61 4.1s
+  [62/75] a62 4.2s
+  [63/75] a63 4.2s
+  [64/75] a64 4.3s
+  [65/75] a65 4.3s
+  [66/75] a66 4.4s
+  [67/75] a67 4.5s
+  [68/75] a68 4.5s
+  [69/75] a69 4.6s
+  [70/75] a70 4.7s
+  [71/75] a71 4.7s
+  [72/75] a72 4.8s
+  [73/75] a73 4.8s
+  [74/75] a74 4.9s
+  [75/75] a75 5.0s
+trong mien: 22 chu the
+  [ 1/22] r01 5.7s
+  [ 2/22] r04 6.0s
+  [ 3/22] r07 6.3s
+  [ 4/22] r08 6.6s
+  [ 5/22] r10 6.9s
+  [ 6/22] B1_01 8.2s
+  [ 7/22] B1_02 9.5s
+  [ 8/22] B1_03 10.8s
+  [ 9/22] B1_04 12.1s
+  [10/22] B1_05 13.4s
+  [11/22] B1_06 14.7s
+  [12/22] B1_07 16.0s
+  [13/22] B1_08 17.2s
+  [14/22] B1_09 18.5s
+  [15/22] B1_10 19.7s
+  [16/22] B2_03 20.0s
+  [17/22] B2_04 20.3s
+  [18/22] B2_05 20.6s
+  [19/22] B2_06 20.9s
+  [20/22] B2_08 21.2s
+  [21/22] B2_09 21.5s
+  [22/22] B2_12 21.8s
+
+=== 15 dich chuyen lon nhat (|Cohen d|) ===
+eff_bits         CinC     10.079 | trong mien     18.882 | d   -2.81 | p 9.02e-11
+eff_bits_max     CinC     10.760 | trong mien     19.271 | d   -2.78 | p 8.52e-11
+dur_s            CinC     60.000 | trong mien    708.091 | d   -2.00 | p 2.67e-22
+mains60          CinC      1.684 | trong mien      1.267 | d   +1.92 | p 5.12e-10
+n_mqrs           CinC     91.653 | trong mien   1090.773 | d   -1.86 | p 1.20e-12
+mains60_max      CinC      1.930 | trong mien      1.394 | d   +1.82 | p 3.91e-09
+p_10_60          CinC      0.229 | trong mien      0.478 | d   -1.06 | p 7.54e-05
+p_10_60_max      CinC      0.307 | trong mien      0.585 | d   -1.05 | p 5.44e-05
+p_0_10           CinC      0.754 | trong mien      0.510 | d   +1.01 | p 8.11e-05
+p_0_10_max       CinC      0.824 | trong mien      0.594 | d   +0.99 | p 5.44e-05
+fhr_bpm_blind    CinC    144.824 | trong mien    134.999 | d   +0.63 | p 1.98e-02
+p_100p_max       CinC      0.025 | trong mien      0.007 | d   +0.46 | p 4.36e-01
+psd_fhr          CinC     18.137 | trong mien      7.796 | d   +0.45 | p 1.04e-01
+clip_frac        CinC      0.000 | trong mien      0.000 | d   +0.43 | p 1.04e-12
+xs_sd            CinC      2.650 | trong mien      2.179 | d   +0.41 | p 3.07e-01
+-> D:\NCKHSV2026-2027\adapt\diag_results.json (0.4 phut)
+
+--- 2. CHON SIEU THAM SO (adapt/adapt_run.py --stage hp; be mat m12 -> B1, KHONG dung CinC) ---
+=== be mat QUYET DINH: hp_m12_to_B1 (10 chu the) ===
+  base      94.37  
+  notch     94.37  
+  pl0       94.70  <== CHON
+  pl1       94.61  
+  pl2       91.08  
+  tent0     94.51  
+  tent1     94.62  
+  tent2     94.81  <== CHON
+
+DA CHOT: tent={"lr": 0.001, "steps": 30, "batch": 16}
+DA CHOT: pl  ={"lr": 0.0001, "steps": 40, "batch": 16, "conf": 0.9, "sigma_ms": 12.0}
+
+--- 3. MO PHONG DICH CHUYEN TREN 22 CHU THE TRONG MIEN ---
+  simshift r01 fold05 7s C0_60s=99.9 C1_quant=99.9 C2_mains=99.9 C3_ca_hai=99.9
+  simshift r07 fold08 5s C0_60s=100.0 C1_quant=100.0 C2_mains=100.0 C3_ca_hai=100.0
+  simshift r10 fold02 5s C0_60s=97.3 C1_quant=97.3 C2_mains=97.3 C3_ca_hai=97.3
+  simshift B1_02 fold03 7s C0_60s=100.0 C1_quant=100.0 C2_mains=100.0 C3_ca_hai=100.0
+  simshift B1_04 fold05 6s C0_60s=100.0 C1_quant=100.0 C2_mains=100.0 C3_ca_hai=100.0
+  simshift B1_06 fold04 6s C0_60s=79.2 C1_quant=79.5 C2_mains=79.7 C3_ca_hai=79.3
+  simshift B1_08 fold01 7s C0_60s=99.8 C1_quant=99.8 C2_mains=99.8 C3_ca_hai=99.8
+  simshift B1_10 fold09 6s C0_60s=99.6 C1_quant=99.6 C2_mains=99.6 C3_ca_hai=99.6
+  simshift B2_04 fold04 5s C0_60s=98.9 C1_quant=98.9 C2_mains=98.9 C3_ca_hai=98.9
+  simshift B2_06 fold09 5s C0_60s=100.0 C1_quant=100.0 C2_mains=100.0 C3_ca_hai=100.0
+  simshift B2_09 fold03 5s C0_60s=99.4 C1_quant=99.4 C2_mains=99.1 C3_ca_hai=99.1
+  simshift r04 fold06 7s C0_60s=99.7 C1_quant=99.7 C2_mains=99.7 C3_ca_hai=99.7
+  simshift r08 fold10 5s C0_60s=99.9 C1_quant=99.9 C2_mains=99.9 C3_ca_hai=99.9
+  simshift B1_01 fold08 6s C0_60s=100.0 C1_quant=100.0 C2_mains=100.0 C3_ca_hai=100.0
+  simshift B1_03 fold07 7s C0_60s=99.9 C1_quant=99.9 C2_mains=99.9 C3_ca_hai=99.9
+  simshift B1_05 fold06 6s C0_60s=100.0 C1_quant=100.0 C2_mains=100.0 C3_ca_hai=100.0
+  simshift B1_07 fold10 6s C0_60s=95.2 C1_quant=95.2 C2_mains=95.2 C3_ca_hai=95.2
+  simshift B1_09 fold02 5s C0_60s=100.0 C1_quant=100.0 C2_mains=100.0 C3_ca_hai=100.0
+  simshift B2_03 fold11 5s C0_60s=72.7 C1_quant=72.7 C2_mains=72.5 C3_ca_hai=72.5
+  simshift B2_05 fold07 5s C0_60s=100.0 C1_quant=100.0 C2_mains=100.0 C3_ca_hai=100.0
+  simshift B2_08 fold11 5s C0_60s=99.9 C1_quant=99.9 C2_mains=99.9 C3_ca_hai=99.9
+  simshift B2_12 fold01 5s C0_60s=100.0 C1_quant=100.0 C2_mains=100.0 C3_ca_hai=100.0
+
+--- 4. CHAY CINC 75 BAN GHI, 4 PHUONG PHAP (6 shard) ---
+=== cinc | shard 0/6 | 2026-09-12 10:54:06 ===
+sieu tham so: {"adabn": {}, "tent": {"lr": 0.001, "steps": 30, "batch": 16}, "pl": {"lr": 0.0001, "steps": 40, "batch": 16, "conf": 0.9, "sigma_ms": 12.0}}
+  cinc a01 127s base 80.99 adabn 81.88 tent 79.85 pl 79.41 notch 80.99
+  cinc a07 146s base 45.63 adabn 42.61 tent 36.87 pl 40.51 notch 45.63
+  cinc a13 143s base 100.00 adabn 100.00 tent 100.00 pl 100.00 notch 100.00
+  cinc a19 128s base 100.00 adabn 100.00 tent 100.00 pl 100.00 notch 100.00
+  cinc a25 127s base 100.00 adabn 100.00 tent 100.00 pl 100.00 notch 100.00
+  cinc a31 148s base 99.27 adabn 99.27 tent 99.27 pl 98.90 notch 99.27
+  cinc a37 152s base 100.00 adabn 100.00 tent 100.00 pl 99.65 notch 100.00
+  cinc a43 155s base 24.09 adabn 17.90 tent 19.75 pl 22.05 notch 24.09
+  cinc a49 157s base 100.00 adabn 100.00 tent 100.00 pl 100.00 notch 100.00
+  cinc a55 149s base 100.00 adabn 100.00 tent 100.00 pl 100.00 notch 100.00
+  cinc a61 158s base 99.64 adabn 99.64 tent 99.64 pl 100.00 notch 99.64
+  cinc a67 155s base 100.00 adabn 99.67 tent 99.67 pl 99.67 notch 100.00
+  cinc a73 98s base 99.29 adabn 99.29 tent 99.29 pl 99.64 notch 99.29
+DONE 30.7 phut -> D:\NCKHSV2026-2027\adapt\shard_cinc_0_6.json
+=== cinc | shard 1/6 | 2026-09-12 10:54:06 ===
+sieu tham so: {"adabn": {}, "tent": {"lr": 0.001, "steps": 30, "batch": 16}, "pl": {"lr": 0.0001, "steps": 40, "batch": 16, "conf": 0.9, "sigma_ms": 12.0}}
+  cinc a02 132s base 24.91 adabn 23.32 tent 20.28 pl 23.53 notch 24.22
+  cinc a08 152s base 100.00 adabn 100.00 tent 100.00 pl 100.00 notch 100.00
+  cinc a14 143s base 99.60 adabn 99.60 tent 99.60 pl 99.60 notch 99.60
+  cinc a20 129s base 98.86 adabn 99.62 tent 99.62 pl 99.24 notch 98.86
+  cinc a26 132s base 99.28 adabn 98.92 tent 98.19 pl 99.64 notch 99.28
+  cinc a32 150s base 32.37 adabn 23.62 tent 15.65 pl 29.89 notch 32.37
+  cinc a38 157s base 65.12 adabn 63.73 tent 63.01 pl 62.80 notch 66.45
+  cinc a44 160s base 100.00 adabn 99.39 tent 100.00 pl 100.00 notch 100.00
+  cinc a50 156s base 51.06 adabn 42.75 tent 43.48 pl 52.43 notch 51.06
+  cinc a56 154s base 93.68 adabn 90.23 tent 92.88 pl 93.28 notch 93.68
+  cinc a62 162s base 99.31 adabn 99.31 tent 99.31 pl 99.31 notch 99.31
+  cinc a68 143s base 39.26 adabn 30.43 tent 27.83 pl 35.63 notch 37.78
+  cinc a74 87s base 61.92 adabn 53.12 tent 57.60 pl 57.25 notch 59.79
+DONE 30.9 phut -> D:\NCKHSV2026-2027\adapt\shard_cinc_1_6.json
+=== cinc | shard 2/6 | 2026-09-12 10:54:06 ===
+sieu tham so: {"adabn": {}, "tent": {"lr": 0.001, "steps": 30, "batch": 16}, "pl": {"lr": 0.0001, "steps": 40, "batch": 16, "conf": 0.9, "sigma_ms": 12.0}}
+  cinc a03 132s base 100.00 adabn 100.00 tent 100.00 pl 100.00 notch 100.00
+  cinc a09 134s base 19.35 adabn 17.95 tent 16.59 pl 16.74 notch 20.63
+  cinc a15 142s base 100.00 adabn 99.63 tent 99.63 pl 100.00 notch 100.00
+  cinc a21 132s base 59.21 adabn 53.54 tent 50.00 pl 62.17 notch 59.21
+  cinc a27 128s base 30.23 adabn 30.30 tent 22.02 pl 27.87 notch 29.13
+  cinc a33 149s base 94.74 adabn 94.74 tent 95.44 pl 93.99 notch 94.74
+  cinc a39 152s base 100.00 adabn 100.00 tent 100.00 pl 100.00 notch 100.00
+  cinc a45 157s base 98.23 adabn 98.58 tent 98.23 pl 98.23 notch 98.23
+  cinc a51 157s base 99.28 adabn 99.28 tent 99.28 pl 99.28 notch 99.28
+  cinc a57 149s base 20.92 adabn 23.97 tent 20.17 pl 18.64 notch 41.86
+  cinc a63 158s base 60.22 adabn 54.98 tent 49.57 pl 57.59 notch 59.40
+  cinc a69 154s base 100.00 adabn 100.00 tent 100.00 pl 100.00 notch 100.00
+  cinc a75 97s base 52.51 adabn 52.10 tent 44.25 pl 51.22 notch 51.54
+DONE 30.7 phut -> D:\NCKHSV2026-2027\adapt\shard_cinc_2_6.json
+=== cinc | shard 3/6 | 2026-09-12 10:54:06 ===
+sieu tham so: {"adabn": {}, "tent": {"lr": 0.001, "steps": 30, "batch": 16}, "pl": {"lr": 0.0001, "steps": 40, "batch": 16, "conf": 0.9, "sigma_ms": 12.0}}
+  cinc a04 132s base 99.61 adabn 99.61 tent 99.61 pl 100.00 notch 99.61
+  cinc a10 143s base 47.13 adabn 41.99 tent 41.33 pl 45.79 notch 47.13
+  cinc a16 142s base 22.31 adabn 24.56 tent 21.55 pl 21.67 notch 23.66
+  cinc a22 128s base 100.00 adabn 100.00 tent 100.00 pl 100.00 notch 100.00
+  cinc a28 128s base 99.40 adabn 99.10 tent 99.10 pl 99.10 notch 99.10
+  cinc a34 143s base 98.11 adabn 99.24 tent 99.24 pl 98.48 notch 98.11
+  cinc a40 153s base 98.65 adabn 99.32 tent 100.00 pl 98.64 notch 98.65
+  cinc a46 155s base 57.68 adabn 53.33 tent 53.45 pl 59.20 notch 57.89
+  cinc a52 157s base 85.82 adabn 85.50 tent 85.71 pl 86.04 notch 85.82
+  cinc a58 149s base 100.00 adabn 99.63 tent 100.00 pl 99.63 notch 100.00
+  cinc a64 160s base 57.04 adabn 44.08 tent 39.83 pl 56.69 notch 53.53
+  cinc a70 155s base 100.00 adabn 100.00 tent 100.00 pl 100.00 notch 100.00
+DONE 29.1 phut -> D:\NCKHSV2026-2027\adapt\shard_cinc_3_6.json
+=== cinc | shard 4/6 | 2026-09-12 10:54:06 ===
+sieu tham so: {"adabn": {}, "tent": {"lr": 0.001, "steps": 30, "batch": 16}, "pl": {"lr": 0.0001, "steps": 40, "batch": 16, "conf": 0.9, "sigma_ms": 12.0}}
+  cinc a05 133s base 100.00 adabn 100.00 tent 100.00 pl 100.00 notch 100.00
+  cinc a11 147s base 26.82 adabn 25.31 tent 29.51 pl 20.66 notch 28.46
+  cinc a17 142s base 100.00 adabn 100.00 tent 100.00 pl 100.00 notch 100.00
+  cinc a23 126s base 100.00 adabn 100.00 tent 100.00 pl 100.00 notch 100.00
+  cinc a29 129s base 94.98 adabn 94.16 tent 96.12 pl 94.53 notch 94.98
+  cinc a35 151s base 98.17 adabn 98.17 tent 98.17 pl 98.17 notch 98.17
+  cinc a41 156s base 100.00 adabn 100.00 tent 100.00 pl 100.00 notch 100.00
+  cinc a47 161s base 98.60 adabn 96.48 tent 96.14 pl 98.60 notch 98.60
+  cinc a53 157s base 100.00 adabn 99.67 tent 100.00 pl 100.00 notch 100.00
+  cinc a59 153s base 23.97 adabn 25.95 tent 20.72 pl 23.05 notch 23.97
+  cinc a65 159s base 100.00 adabn 100.00 tent 99.31 pl 100.00 notch 100.00
+  cinc a71 152s base 22.45 adabn 15.91 tent 19.76 pl 23.40 notch 22.45
+DONE 29.4 phut -> D:\NCKHSV2026-2027\adapt\shard_cinc_4_6.json
+=== cinc | shard 5/6 | 2026-09-12 10:54:06 ===
+sieu tham so: {"adabn": {}, "tent": {"lr": 0.001, "steps": 30, "batch": 16}, "pl": {"lr": 0.0001, "steps": 40, "batch": 16, "conf": 0.9, "sigma_ms": 12.0}}
+  cinc a06 133s base 75.48 adabn 76.07 tent 77.44 pl 76.92 notch 73.62
+  cinc a12 146s base 100.00 adabn 99.28 tent 99.28 pl 100.00 notch 99.28
+  cinc a18 142s base 19.05 adabn 24.15 tent 20.77 pl 18.05 notch 19.57
+  cinc a24 128s base 100.00 adabn 100.00 tent 100.00 pl 100.00 notch 100.00
+  cinc a30 121s base 99.64 adabn 99.64 tent 99.64 pl 99.64 notch 99.64
+  cinc a36 149s base 100.00 adabn 100.00 tent 100.00 pl 100.00 notch 100.00
+  cinc a42 150s base 100.00 adabn 100.00 tent 100.00 pl 99.67 notch 100.00
+  cinc a48 158s base 95.17 adabn 95.17 tent 95.17 pl 95.88 notch 95.91
+  cinc a54 157s base 38.79 adabn 38.79 tent 38.79 pl 39.51 notch 38.79
+  cinc a60 151s base 47.06 adabn 35.20 tent 31.30 pl 43.70 notch 46.74
+  cinc a66 159s base 100.00 adabn 100.00 tent 100.00 pl 100.00 notch 100.00
+  cinc a72 157s base 100.00 adabn 100.00 tent 100.00 pl 100.00 notch 100.00
+DONE 29.2 phut -> D:\NCKHSV2026-2027\adapt\shard_cinc_5_6.json
+
+--- 5. CHAY TRONG MIEN 22 CHU THE LOSO (6 shard) ---
+=== indomain | shard 0/6 | 2026-09-12 11:25:18 ===
+sieu tham so: {"adabn": {}, "tent": {"lr": 0.001, "steps": 30, "batch": 16}, "pl": {"lr": 0.0001, "steps": 40, "batch": 16, "conf": 0.9, "sigma_ms": 12.0}}
+  indomain r01 fold05 51s base 99.92 adabn 99.92 tent 99.92 pl 99.92 notch 99.92
+  indomain B1_02 fold03 98s base 99.79 adabn 99.79 tent 99.91 pl 99.82 notch 99.79
+  indomain B1_08 fold01 86s base 99.83 adabn 99.81 tent 99.81 pl 99.86 notch 99.83
+  indomain B2_06 fold09 29s base 100.00 adabn 99.71 tent 99.85 pl 100.00 notch 100.00
+DONE 4.4 phut -> D:\NCKHSV2026-2027\adapt\shard_indomain_0_6.json
+=== indomain | shard 1/6 | 2026-09-12 11:25:18 ===
+sieu tham so: {"adabn": {}, "tent": {"lr": 0.001, "steps": 30, "batch": 16}, "pl": {"lr": 0.0001, "steps": 40, "batch": 16, "conf": 0.9, "sigma_ms": 12.0}}
+  indomain r04 fold06 50s base 99.68 adabn 99.45 tent 99.84 pl 99.84 notch 99.68
+  indomain B1_03 fold07 91s base 99.92 adabn 99.92 tent 99.84 pl 99.94 notch 99.92
+  indomain B1_09 fold02 90s base 99.07 adabn 99.27 tent 99.20 pl 99.14 notch 99.07
+  indomain B2_08 fold11 31s base 100.00 adabn 100.00 tent 100.00 pl 100.00 notch 100.00
+DONE 4.4 phut -> D:\NCKHSV2026-2027\adapt\shard_indomain_1_6.json
+=== indomain | shard 2/6 | 2026-09-12 11:25:18 ===
+sieu tham so: {"adabn": {}, "tent": {"lr": 0.001, "steps": 30, "batch": 16}, "pl": {"lr": 0.0001, "steps": 40, "batch": 16, "conf": 0.9, "sigma_ms": 12.0}}
+  indomain r07 fold08 50s base 100.00 adabn 100.00 tent 100.00 pl 100.00 notch 100.00
+  indomain B1_04 fold05 91s base 100.00 adabn 100.00 tent 100.00 pl 100.00 notch 100.00
+  indomain B1_10 fold09 92s base 97.05 adabn 97.44 tent 98.42 pl 98.11 notch 97.05
+  indomain B2_09 fold03 30s base 99.11 adabn 99.18 tent 99.26 pl 99.11 notch 99.11
+DONE 4.4 phut -> D:\NCKHSV2026-2027\adapt\shard_indomain_2_6.json
+=== indomain | shard 3/6 | 2026-09-12 11:25:18 ===
+sieu tham so: {"adabn": {}, "tent": {"lr": 0.001, "steps": 30, "batch": 16}, "pl": {"lr": 0.0001, "steps": 40, "batch": 16, "conf": 0.9, "sigma_ms": 12.0}}
+  indomain r08 fold10 50s base 99.77 adabn 99.77 tent 99.77 pl 99.92 notch 99.77
+  indomain B1_05 fold06 92s base 99.87 adabn 99.78 tent 99.84 pl 99.86 notch 99.87
+  indomain B2_03 fold11 44s base 79.72 adabn 81.25 tent 83.86 pl 80.59 notch 79.72
+  indomain B2_12 fold01 36s base 100.00 adabn 100.00 tent 99.92 pl 100.00 notch 100.00
+DONE 3.7 phut -> D:\NCKHSV2026-2027\adapt\shard_indomain_3_6.json
+=== indomain | shard 4/6 | 2026-09-12 11:25:18 ===
+sieu tham so: {"adabn": {}, "tent": {"lr": 0.001, "steps": 30, "batch": 16}, "pl": {"lr": 0.0001, "steps": 40, "batch": 16, "conf": 0.9, "sigma_ms": 12.0}}
+  indomain r10 fold02 50s base 97.61 adabn 97.61 tent 97.38 pl 97.61 notch 97.61
+  indomain B1_06 fold04 90s base 89.45 adabn 87.68 tent 87.71 pl 90.17 notch 89.45
+  indomain B2_04 fold04 44s base 98.90 adabn 99.12 tent 99.56 pl 99.05 notch 98.90
+DONE 3.1 phut -> D:\NCKHSV2026-2027\adapt\shard_indomain_4_6.json
+=== indomain | shard 5/6 | 2026-09-12 11:25:18 ===
+sieu tham so: {"adabn": {}, "tent": {"lr": 0.001, "steps": 30, "batch": 16}, "pl": {"lr": 0.0001, "steps": 40, "batch": 16, "conf": 0.9, "sigma_ms": 12.0}}
+  indomain B1_01 fold08 98s base 99.97 adabn 99.94 tent 99.97 pl 99.97 notch 99.97
+  indomain B1_07 fold10 103s base 86.56 adabn 85.54 tent 87.31 pl 87.73 notch 86.56
+  indomain B2_05 fold07 37s base 100.00 adabn 100.00 tent 100.00 pl 99.92 notch 100.00
+DONE 4.0 phut -> D:\NCKHSV2026-2027\adapt\shard_indomain_5_6.json
+
+--- 6. DO LAI DUOI QUY TAC CHON KENH peakprob CUA M5 (adapt/adapt_peakprob.py) ---
+(lan 1 bi dung o 63/75 ban ghi vi het RAM; chay lai va tiep tuc tu cache)
+=== peakprob | shard 0/3 | 25 ban ghi | 12:30:22 ===
+  a01   97s  base psd 81.0 pp 100.0 notch psd 81.0 pp 100.0 adabn psd 81.9 pp 99.3 tent psd 79.9 pp 99.3 pl psd 79.4 pp 96.2
+  a04   99s  base psd 99.6 pp 100.0 notch psd 99.6 pp 100.0 adabn psd 99.6 pp 99.6 tent psd 99.6 pp 99.6 pl psd 100.0 pp 100.0
+  a07   95s  base psd 45.6 pp 86.9 notch psd 45.6 pp 88.1 adabn psd 42.6 pp 85.4 tent psd 36.9 pp 83.9 pl psd 40.5 pp 86.7
+  a10   96s  base psd 47.1 pp 70.9 notch psd 47.1 pp 70.9 adabn psd 42.0 pp 28.7 tent psd 41.3 pp 27.7 pl psd 45.8 pp 66.9
+  a13  100s  base psd 100.0 pp 100.0 notch psd 100.0 pp 100.0 adabn psd 100.0 pp 100.0 tent psd 100.0 pp 100.0 pl psd 100.0 pp 100.0
+  a16   98s  base psd 22.3 pp 78.8 notch psd 23.7 pp 81.1 adabn psd 24.6 pp 85.3 tent psd 21.6 pp 85.2 pl psd 21.7 pp 80.8
+  a19  105s  base psd 100.0 pp 100.0 notch psd 100.0 pp 100.0 adabn psd 100.0 pp 100.0 tent psd 100.0 pp 100.0 pl psd 100.0 pp 100.0
+  a22  116s  base psd 100.0 pp 100.0 notch psd 100.0 pp 100.0 adabn psd 100.0 pp 100.0 tent psd 100.0 pp 100.0 pl psd 100.0 pp 100.0
+  a25  108s  base psd 100.0 pp 100.0 notch psd 100.0 pp 100.0 adabn psd 100.0 pp 100.0 tent psd 100.0 pp 100.0 pl psd 100.0 pp 100.0
+  a28  108s  base psd 99.4 pp 99.4 notch psd 99.1 pp 99.1 adabn psd 99.1 pp 99.1 tent psd 99.1 pp 99.1 pl psd 99.1 pp 99.1
+  a31  108s  base psd 99.3 pp 99.3 notch psd 99.3 pp 99.3 adabn psd 99.3 pp 99.3 tent psd 99.3 pp 99.3 pl psd 98.9 pp 98.9
+  a34  108s  base psd 98.1 pp 98.1 notch psd 98.1 pp 91.7 adabn psd 99.2 pp 99.2 tent psd 99.2 pp 99.2 pl psd 98.5 pp 98.5
+  a37  108s  base psd 100.0 pp 100.0 notch psd 100.0 pp 100.0 adabn psd 100.0 pp 100.0 tent psd 100.0 pp 100.0 pl psd 99.6 pp 100.0
+  a40  113s  base psd 98.6 pp 94.9 notch psd 98.6 pp 94.9 adabn psd 99.3 pp 93.9 tent psd 100.0 pp 94.5 pl psd 98.6 pp 95.2
+  a43  118s  base psd 24.1 pp 37.4 notch psd 24.1 pp 37.4 adabn psd 17.9 pp 37.4 tent psd 19.8 pp 32.4 pl psd 22.1 pp 36.1
+  a46   99s  base psd 57.7 pp 97.7 notch psd 57.9 pp 97.0 adabn psd 53.3 pp 98.1 tent psd 53.4 pp 98.9 pl psd 59.2 pp 98.5
+  a49   88s  base psd 100.0 pp 100.0 notch psd 100.0 pp 100.0 adabn psd 100.0 pp 100.0 tent psd 100.0 pp 100.0 pl psd 100.0 pp 100.0
+  a52  104s  base psd 85.8 pp 85.4 notch psd 85.8 pp 85.8 adabn psd 85.5 pp 85.5 tent psd 85.7 pp 85.7 pl psd 86.0 pp 86.5
+  a55  104s  base psd 100.0 pp 100.0 notch psd 100.0 pp 100.0 adabn psd 100.0 pp 100.0 tent psd 100.0 pp 100.0 pl psd 100.0 pp 100.0
+  a58  113s  base psd 100.0 pp 98.9 notch psd 100.0 pp 98.9 adabn psd 99.6 pp 100.0 tent psd 100.0 pp 100.0 pl psd 99.6 pp 100.0
+  a61  106s  base psd 99.6 pp 100.0 notch psd 99.6 pp 100.0 adabn psd 99.6 pp 99.6 tent psd 99.6 pp 99.6 pl psd 100.0 pp 100.0
+=== peakprob | shard 1/3 | 25 ban ghi | 12:30:22 ===
+  a02   97s  base psd 24.9 pp 24.9 notch psd 24.2 pp 24.2 adabn psd 23.3 pp 23.3 tent psd 20.3 pp 78.9 pl psd 23.5 pp 22.9
+  a05   98s  base psd 100.0 pp 100.0 notch psd 100.0 pp 100.0 adabn psd 100.0 pp 100.0 tent psd 100.0 pp 100.0 pl psd 100.0 pp 100.0
+  a08   95s  base psd 100.0 pp 100.0 notch psd 100.0 pp 100.0 adabn psd 100.0 pp 100.0 tent psd 100.0 pp 100.0 pl psd 100.0 pp 100.0
+  a11   95s  base psd 26.8 pp 86.5 notch psd 28.5 pp 86.5 adabn psd 25.3 pp 88.7 tent psd 29.5 pp 86.0 pl psd 20.7 pp 87.3
+  a14  100s  base psd 99.6 pp 99.6 notch psd 99.6 pp 99.6 adabn psd 99.6 pp 99.6 tent psd 99.6 pp 99.6 pl psd 99.6 pp 99.6
+  a17   98s  base psd 100.0 pp 100.0 notch psd 100.0 pp 100.0 adabn psd 100.0 pp 100.0 tent psd 100.0 pp 100.0 pl psd 100.0 pp 100.0
+  a20  106s  base psd 98.9 pp 99.6 notch psd 98.9 pp 99.6 adabn psd 99.6 pp 99.6 tent psd 99.6 pp 99.6 pl psd 99.2 pp 99.6
+  a23  116s  base psd 100.0 pp 100.0 notch psd 100.0 pp 100.0 adabn psd 100.0 pp 100.0 tent psd 100.0 pp 100.0 pl psd 100.0 pp 100.0
+  a26  108s  base psd 99.3 pp 100.0 notch psd 99.3 pp 100.0 adabn psd 98.9 pp 99.6 tent psd 98.2 pp 99.6 pl psd 99.6 pp 100.0
+  a29  109s  base psd 95.0 pp 95.0 notch psd 95.0 pp 95.0 adabn psd 94.2 pp 94.2 tent psd 96.1 pp 96.1 pl psd 94.5 pp 94.5
+  a32  108s  base psd 32.4 pp 52.1 notch psd 32.4 pp 52.1 adabn psd 23.6 pp 21.3 tent psd 15.7 pp 26.6 pl psd 29.9 pp 29.9
+  a35  109s  base psd 98.2 pp 98.2 notch psd 98.2 pp 98.2 adabn psd 98.2 pp 98.2 tent psd 98.2 pp 98.2 pl psd 98.2 pp 98.2
+  a38  109s  base psd 65.1 pp 65.1 notch psd 66.4 pp 66.4 adabn psd 63.7 pp 63.7 tent psd 63.0 pp 63.0 pl psd 62.8 pp 58.9
+  a41  114s  base psd 100.0 pp 100.0 notch psd 100.0 pp 100.0 adabn psd 100.0 pp 100.0 tent psd 100.0 pp 100.0 pl psd 100.0 pp 100.0
+  a44  118s  base psd 100.0 pp 100.0 notch psd 100.0 pp 100.0 adabn psd 99.4 pp 99.4 tent psd 100.0 pp 100.0 pl psd 100.0 pp 100.0
+  a47   98s  base psd 98.6 pp 98.6 notch psd 98.6 pp 98.6 adabn psd 96.5 pp 98.3 tent psd 96.1 pp 98.3 pl psd 98.6 pp 98.6
+  a50   89s  base psd 51.1 pp 52.7 notch psd 51.1 pp 52.7 adabn psd 42.7 pp 40.5 tent psd 43.5 pp 43.7 pl psd 52.4 pp 52.4
+  a53  103s  base psd 100.0 pp 100.0 notch psd 100.0 pp 100.0 adabn psd 99.7 pp 99.7 tent psd 100.0 pp 100.0 pl psd 100.0 pp 100.0
+  a56  103s  base psd 93.7 pp 93.7 notch psd 93.7 pp 93.7 adabn psd 90.2 pp 90.2 tent psd 92.9 pp 92.9 pl psd 93.3 pp 93.3
+  a59  113s  base psd 24.0 pp 25.9 notch psd 24.0 pp 25.9 adabn psd 26.0 pp 26.0 tent psd 20.7 pp 29.7 pl psd 23.0 pp 23.0
+  a62  105s  base psd 99.3 pp 99.3 notch psd 99.3 pp 99.3 adabn psd 99.3 pp 99.3 tent psd 99.3 pp 99.3 pl psd 99.3 pp 99.3
+=== peakprob | shard 2/3 | 25 ban ghi | 12:30:22 ===
+  a03   97s  base psd 100.0 pp 100.0 notch psd 100.0 pp 100.0 adabn psd 100.0 pp 100.0 tent psd 100.0 pp 100.0 pl psd 100.0 pp 100.0
+  a06   98s  base psd 75.5 pp 88.5 notch psd 73.6 pp 91.7 adabn psd 76.1 pp 76.1 tent psd 77.4 pp 81.2 pl psd 76.9 pp 88.7
+  a09   95s  base psd 19.4 pp 94.3 notch psd 20.6 pp 93.5 adabn psd 17.9 pp 95.8 tent psd 16.6 pp 93.0 pl psd 16.7 pp 93.8
+  a12   96s  base psd 100.0 pp 100.0 notch psd 99.3 pp 99.3 adabn psd 99.3 pp 99.3 tent psd 99.3 pp 99.3 pl psd 100.0 pp 100.0
+  a15  100s  base psd 100.0 pp 100.0 notch psd 100.0 pp 100.0 adabn psd 99.6 pp 99.6 tent psd 99.6 pp 99.6 pl psd 100.0 pp 100.0
+  a18   98s  base psd 19.0 pp 55.0 notch psd 19.6 pp 64.4 adabn psd 24.2 pp 24.2 tent psd 20.8 pp 20.8 pl psd 18.0 pp 12.0
+  a21  106s  base psd 59.2 pp 94.8 notch psd 59.2 pp 95.9 adabn psd 53.5 pp 94.8 tent psd 50.0 pp 97.6 pl psd 62.2 pp 95.1
+  a24  116s  base psd 100.0 pp 100.0 notch psd 100.0 pp 100.0 adabn psd 100.0 pp 100.0 tent psd 100.0 pp 100.0 pl psd 100.0 pp 100.0
+  a27  108s  base psd 30.2 pp 32.9 notch psd 29.1 pp 22.1 adabn psd 30.3 pp 30.3 tent psd 22.0 pp 16.7 pl psd 27.9 pp 20.3
+  a30  109s  base psd 99.6 pp 99.6 notch psd 99.6 pp 99.6 adabn psd 99.6 pp 99.6 tent psd 99.6 pp 99.6 pl psd 99.6 pp 99.6
+  a33  107s  base psd 94.7 pp 94.7 notch psd 94.7 pp 94.7 adabn psd 94.7 pp 94.7 tent psd 95.4 pp 95.4 pl psd 94.0 pp 94.0
+  a36  108s  base psd 100.0 pp 100.0 notch psd 100.0 pp 100.0 adabn psd 100.0 pp 100.0 tent psd 100.0 pp 100.0 pl psd 100.0 pp 99.7
+  a39  108s  base psd 100.0 pp 100.0 notch psd 100.0 pp 100.0 adabn psd 100.0 pp 100.0 tent psd 100.0 pp 100.0 pl psd 100.0 pp 100.0
+  a42  115s  base psd 100.0 pp 100.0 notch psd 100.0 pp 100.0 adabn psd 100.0 pp 100.0 tent psd 100.0 pp 100.0 pl psd 99.7 pp 100.0
+  a45  118s  base psd 98.2 pp 98.6 notch psd 98.2 pp 98.6 adabn psd 98.6 pp 98.6 tent psd 98.2 pp 98.6 pl psd 98.2 pp 98.6
+  a48   98s  base psd 95.2 pp 95.2 notch psd 95.9 pp 95.9 adabn psd 95.2 pp 98.1 tent psd 95.2 pp 98.1 pl psd 95.9 pp 95.9
+  a51   87s  base psd 99.3 pp 99.3 notch psd 99.3 pp 99.3 adabn psd 99.3 pp 99.3 tent psd 99.3 pp 99.3 pl psd 99.3 pp 99.3
+  a54  104s  base psd 38.8 pp 38.8 notch psd 38.8 pp 38.8 adabn psd 38.8 pp 38.8 tent psd 38.8 pp 38.8 pl psd 39.5 pp 39.0
+  a57  104s  base psd 20.9 pp 17.0 notch psd 41.9 pp 16.2 adabn psd 24.0 pp 22.2 tent psd 20.2 pp 18.6 pl psd 18.6 pp 17.9
+  a60  114s  base psd 47.1 pp 47.1 notch psd 46.7 pp 46.7 adabn psd 35.2 pp 18.9 tent psd 31.3 pp 31.3 pl psd 43.7 pp 25.1
+  a63  105s  base psd 60.2 pp 60.2 notch psd 59.4 pp 59.4 adabn psd 55.0 pp 55.0 tent psd 49.6 pp 49.6 pl psd 57.6 pp 57.6
+=== peakprob | shard 0/3 | 25 ban ghi | 13:12:23 ===
+  a64   78s  base psd 57.0 pp 57.0 notch psd 53.5 pp 51.3 adabn psd 44.1 pp 28.9 tent psd 39.8 pp 28.6 pl psd 56.7 pp 51.0
+  a67   77s  base psd 100.0 pp 99.7 notch psd 100.0 pp 99.7 adabn psd 99.7 pp 99.7 tent psd 99.7 pp 99.7 pl psd 99.7 pp 99.3
+  a70   72s  base psd 100.0 pp 100.0 notch psd 100.0 pp 100.0 adabn psd 100.0 pp 100.0 tent psd 100.0 pp 100.0 pl psd 100.0 pp 100.0
+  a73   68s  base psd 99.3 pp 99.3 notch psd 99.3 pp 99.3 adabn psd 99.3 pp 99.3 tent psd 99.3 pp 99.3 pl psd 99.6 pp 99.6
+DONE 4.9 phut -> D:\NCKHSV2026-2027\adapt\shard_pp_0_3.json
+=== peakprob | shard 1/3 | 25 ban ghi | 13:12:23 ===
+  a65   78s  base psd 100.0 pp 100.0 notch psd 100.0 pp 100.0 adabn psd 100.0 pp 100.0 tent psd 99.3 pp 99.3 pl psd 100.0 pp 100.0
+  a68   76s  base psd 39.3 pp 39.3 notch psd 37.8 pp 37.8 adabn psd 30.4 pp 30.4 tent psd 27.8 pp 19.4 pl psd 35.6 pp 17.0
+  a71   72s  base psd 22.4 pp 21.7 notch psd 22.4 pp 21.7 adabn psd 15.9 pp 16.6 tent psd 19.8 pp 19.0 pl psd 23.4 pp 21.1
+  a74   68s  base psd 61.9 pp 95.4 notch psd 59.8 pp 95.4 adabn psd 53.1 pp 93.1 tent psd 57.6 pp 93.8 pl psd 57.2 pp 94.5
+DONE 4.9 phut -> D:\NCKHSV2026-2027\adapt\shard_pp_1_3.json
+=== peakprob | shard 2/3 | 25 ban ghi | 13:17:38 ===
+  a66   44s  base psd 100.0 pp 100.0 notch psd 100.0 pp 100.0 adabn psd 100.0 pp 100.0 tent psd 100.0 pp 100.0 pl psd 100.0 pp 100.0
+  a69   35s  base psd 100.0 pp 100.0 notch psd 100.0 pp 100.0 adabn psd 100.0 pp 100.0 tent psd 100.0 pp 99.3 pl psd 100.0 pp 100.0
+  a72   38s  base psd 100.0 pp 100.0 notch psd 100.0 pp 100.0 adabn psd 100.0 pp 100.0 tent psd 100.0 pp 100.0 pl psd 100.0 pp 100.0
+  a75   40s  base psd 52.5 pp 52.5 notch psd 51.5 pp 28.9 adabn psd 52.1 pp 52.1 tent psd 44.2 pp 44.2 pl psd 51.2 pp 43.5
+DONE 2.6 phut -> D:\NCKHSV2026-2027\adapt\shard_pp_2_3.json
+
+--- 7. KIEM TRA RO RI NHAN ---
+DAT: khong phat hien duong ro ri nhan mien dich trong adapt/.
+
+--- 8. TONG HOP (adapt/adapt_analyze.py) ---
+
+===== CinC 2013 set-a, 75 ban ghi, quy tac PSD mu nhan =====
+phuong phap                             F1     hieu      KTC95 bootstrap    p Wilc   thang    thua   >=90    <50  tut max
+khong thich nghi (moc)               79.40    +0.00 [  +0.00;  +0.00]  1.00e+00       0       0     48     16     0.00
+(a) AdaBN thong ke BN                78.13    -1.27 [  -2.02;  -0.58]  1.53e-03      11      30     48     18    12.96
+(c) TENT entropy luc kiem tra        77.45    -1.95 [  -2.95;  -1.07]  1.39e-04       8      31     48     20    17.21
+(b) tu huan luyen nhan gia           78.87    -0.53 [  -0.88;  -0.22]  5.68e-03      14      30     48     16     6.16
+(d) chan dien luoi thich nghi        79.59    +0.19 [  -0.21;  +0.86]  6.01e-01       8      11     48     16     3.51
+
+===== trong mien, 22 chu the, LOSO, quy tac PSD =====
+khong thich nghi (moc)               97.56    +0.00 [  +0.00;  +0.00] thang 0 thua 0 tut max 0.00
+(a) AdaBN thong ke BN                97.51    -0.05 [  -0.29;  +0.19] thang 5 thua 7 tut max 1.77
+(c) TENT entropy luc kiem tra        97.79    +0.23 [  -0.13;  +0.71] thang 8 thua 7 tut max 1.74
+(b) tu huan luyen nhan gia           97.75    +0.20 [  +0.06;  +0.36] thang 11 thua 3 tut max 0.08
+(d) chan dien luoi thich nghi        97.56    +0.00 [  +0.00;  +0.00] thang 0 thua 0 tut max -0.00
+
+dien luoi do duoc tren CinC: 60 Hz 68/75 | 50 Hz 75/75 | khong 0/75
+
+===== mo phong dich chuyen tren 22 chu the TRONG MIEN (cua so 60 s) =====
+  C0_60s       F1 97.33
+  C1_quant     F1 97.34
+  C2_mains     F1 97.33
+  C3_ca_hai    F1 97.32
+  ap du ba dich chuyen chi mat 0.01 diem; con thieu 17.92 diem moi toi muc CinC
+-> D:\NCKHSV2026-2027\adapt\adapt_results.json
+-> D:\NCKHSV2026-2027\analysis\fig_thichnghi.png (0.0 phut)
+
+--- 9. TONG HOP PEAKPROB (adapt/adapt_pp_analyze.py) ---
+ban ghi co peakprob: 75
+KIEM CHUNG: 75/75 ban ghi, quy tac peakprob VA psd tai lap dung M5 (<1e-6)
+
+===== CinC 75 ban ghi | QUY TAC PSD (moc 79,40) =====
+phuong phap                         F1     hieu      KTC95 bootstrap    p Wilc  thang   thua   >=90    <50  tut max
+khong thich nghi (moc)           79.40    +0.00 [  +0.00;  +0.00]  1.00e+00      0      0     48     16    -0.00
+(d) chan dien luoi thich nghi    79.59    +0.19 [  -0.21;  +0.86]  6.01e-01      8     11     48     16     3.51
+(a) AdaBN                        78.13    -1.27 [  -2.02;  -0.58]  1.53e-03     11     30     48     18    12.96
+(c) TENT                         77.45    -1.95 [  -2.95;  -1.07]  1.39e-04      8     31     48     20    17.21
+(b) tu huan luyen nhan gia       78.87    -0.53 [  -0.88;  -0.22]  5.68e-03     14     30     48     16     6.16
+
+===== CinC 75 ban ghi | QUY TAC PEAKPROB (moc 85,60) =====
+phuong phap                         F1     hieu      KTC95 bootstrap    p Wilc  thang   thua   >=90    <50  tut max
+khong thich nghi (moc)           85.60    +0.00 [  +0.00;  +0.00]  1.00e+00      0      0     53      9    -0.00
+(d) chan dien luoi thich nghi    85.15    -0.45 [  -1.30;  +0.20]  4.76e-01      8     13     54     10    23.60
+(a) AdaBN                        82.90    -2.70 [  -4.75;  -0.98]  2.49e-03     10     30     53     14    42.22
+(c) TENT                         83.41    -2.18 [  -4.56;  +0.27]  1.55e-02     12     30     53     15    43.23
+(b) tu huan luyen nhan gia       83.51    -2.08 [  -3.81;  -0.75]  5.03e-03     13     26     53     12    43.00
+
+oracle theo phuong phap (chan tren cua MOI quy tac chon kenh):
+  khong thich nghi (moc)         oracle  86.87   TB 4 kenh  74.09   doi kenh peakprob 0/75
+  (d) chan dien luoi thich nghi  oracle  87.01   TB 4 kenh  74.08   doi kenh peakprob 9/75
+  (a) AdaBN                      oracle  85.90   TB 4 kenh  72.11   doi kenh peakprob 21/75
+  (c) TENT                       oracle  85.06   TB 4 kenh  71.61   doi kenh peakprob 23/75
+  (b) tu huan luyen nhan gia     oracle  86.43   TB 4 kenh  73.53   doi kenh peakprob 21/75
+
+-> D:\NCKHSV2026-2027\adapt\adapt_results.json (khoa "peakprob")
+
+--- 10. VE HINH (adapt/adapt_pp_fig.py) ---
+-> D:\NCKHSV2026-2027\analysis\fig_thichnghi.png (7 bang, co bang G peakprob: True)

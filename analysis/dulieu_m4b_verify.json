@@ -1,0 +1,998 @@
+{
+ "tieu_de": "KIEM DOC LAP chong lan ADFECGDB <-> CinC2013 set-a (agent M4b, viet lai tu dau)",
+ "phuong_phap": "NCC chuan hoa qua FFT, tin hieu THO (chua loc), ha mau 1000->250 Hz, quet MOI do tre; so sanh 75 ban CinC x 4 kenh voi 5 ban ADFECGDB x 5 kenh (4 bung + 1 dien cuc da dau).",
+ "doc_lap_voi": "analysis/dulieu_audit.py -- khong dung lai ham nao cua tep do",
+ "n_ro_ri": 15,
+ "danh_sach_ro_ri": [
+  "a03",
+  "a04",
+  "a05",
+  "a08",
+  "a12",
+  "a13",
+  "a14",
+  "a15",
+  "a17",
+  "a19",
+  "a20",
+  "a22",
+  "a23",
+  "a24",
+  "a25"
+ ],
+ "ncc_lon_nhat_60_ban_con_lai": 0.6155,
+ "khop_voi_vong_truoc": {
+  "cung_15_ban_ghi": true,
+  "cung_ban_ghi_goc": true,
+  "cung_cua_so_60s": true,
+  "khac_o_chi_so_kenh": "CO -- xem muc ban_do_kenh_dung"
+ },
+ "ban_do_kenh_dung": {
+  "a03": {
+   "goc": "r10",
+   "cua_so_s": [
+    0.0,
+    60.0
+   ],
+   "anh_xa": [
+    [
+     0,
+     "Abdomen_1",
+     1.0
+    ],
+    [
+     1,
+     "Abdomen_2",
+     1.0
+    ],
+    [
+     2,
+     "Abdomen_3",
+     1.0
+    ],
+    [
+     3,
+     "Abdomen_4",
+     1.0
+    ]
+   ]
+  },
+  "a04": {
+   "goc": "r01",
+   "cua_so_s": [
+    120.0,
+    180.0
+   ],
+   "anh_xa": [
+    [
+     0,
+     "Abdomen_1",
+     1.0
+    ],
+    [
+     1,
+     "Abdomen_2",
+     1.0
+    ],
+    [
+     2,
+     "Abdomen_3",
+     1.0
+    ],
+    [
+     3,
+     "Abdomen_4",
+     1.0
+    ]
+   ]
+  },
+  "a05": {
+   "goc": "r01",
+   "cua_so_s": [
+    0.0,
+    60.0
+   ],
+   "anh_xa": [
+    [
+     0,
+     "Abdomen_1",
+     1.0
+    ],
+    [
+     1,
+     "Abdomen_2",
+     1.0
+    ],
+    [
+     2,
+     "Abdomen_3",
+     1.0
+    ],
+    [
+     3,
+     "Abdomen_4",
+     1.0
+    ]
+   ]
+  },
+  "a08": {
+   "goc": "r08",
+   "cua_so_s": [
+    240.0,
+    300.0
+   ],
+   "anh_xa": [
+    [
+     0,
+     "Abdomen_1",
+     1.0
+    ],
+    [
+     1,
+     "Abdomen_2",
+     1.0
+    ],
+    [
+     2,
+     "Abdomen_3",
+     1.0
+    ],
+    [
+     3,
+     "Abdomen_4",
+     1.0
+    ]
+   ]
+  },
+  "a12": {
+   "goc": "r10",
+   "cua_so_s": [
+    240.0,
+    300.0
+   ],
+   "anh_xa": [
+    [
+     0,
+     "Abdomen_1",
+     1.0
+    ],
+    [
+     1,
+     "Abdomen_2",
+     1.0
+    ],
+    [
+     2,
+     "Abdomen_3",
+     1.0
+    ],
+    [
+     3,
+     "Abdomen_4",
+     1.0
+    ]
+   ]
+  },
+  "a13": {
+   "goc": "r04",
+   "cua_so_s": [
+    240.0,
+    300.0
+   ],
+   "anh_xa": [
+    [
+     0,
+     "Abdomen_1",
+     1.0
+    ],
+    [
+     1,
+     "Abdomen_2",
+     1.0
+    ],
+    [
+     2,
+     "Abdomen_3",
+     1.0
+    ],
+    [
+     3,
+     "Abdomen_4",
+     1.0
+    ]
+   ]
+  },
+  "a14": {
+   "goc": "r10",
+   "cua_so_s": [
+    120.0,
+    180.0
+   ],
+   "anh_xa": [
+    [
+     0,
+     "Abdomen_1",
+     1.0
+    ],
+    [
+     1,
+     "Abdomen_2",
+     1.0
+    ],
+    [
+     2,
+     "Abdomen_3",
+     1.0
+    ],
+    [
+     3,
+     "Abdomen_4",
+     1.0
+    ]
+   ]
+  },
+  "a15": {
+   "goc": "r08",
+   "cua_so_s": [
+    120.0,
+    180.0
+   ],
+   "anh_xa": [
+    [
+     0,
+     "Abdomen_1",
+     1.0
+    ],
+    [
+     1,
+     "Abdomen_2",
+     1.0
+    ],
+    [
+     2,
+     "Abdomen_3",
+     1.0
+    ],
+    [
+     3,
+     "Abdomen_4",
+     1.0
+    ]
+   ]
+  },
+  "a17": {
+   "goc": "r08",
+   "cua_so_s": [
+    0.0,
+    60.0
+   ],
+   "anh_xa": [
+    [
+     0,
+     "Abdomen_1",
+     1.0
+    ],
+    [
+     1,
+     "Abdomen_2",
+     1.0
+    ],
+    [
+     2,
+     "Abdomen_3",
+     1.0
+    ],
+    [
+     3,
+     "Abdomen_4",
+     1.0
+    ]
+   ]
+  },
+  "a19": {
+   "goc": "r07",
+   "cua_so_s": [
+    0.0,
+    60.0
+   ],
+   "anh_xa": [
+    [
+     0,
+     "Abdomen_1",
+     1.0
+    ],
+    [
+     1,
+     "Abdomen_2",
+     1.0
+    ],
+    [
+     2,
+     "Abdomen_3",
+     1.0
+    ],
+    [
+     3,
+     "Abdomen_4",
+     1.0
+    ]
+   ]
+  },
+  "a20": {
+   "goc": "r04",
+   "cua_so_s": [
+    120.0,
+    180.0
+   ],
+   "anh_xa": [
+    [
+     0,
+     "Abdomen_1",
+     1.0
+    ],
+    [
+     1,
+     "Abdomen_2",
+     1.0
+    ],
+    [
+     2,
+     "Abdomen_3",
+     1.0
+    ],
+    [
+     3,
+     "Abdomen_4",
+     1.0
+    ]
+   ]
+  },
+  "a22": {
+   "goc": "r01",
+   "cua_so_s": [
+    240.0,
+    300.0
+   ],
+   "anh_xa": [
+    [
+     0,
+     "Abdomen_1",
+     1.0
+    ],
+    [
+     1,
+     "Abdomen_2",
+     1.0
+    ],
+    [
+     2,
+     "Abdomen_3",
+     1.0
+    ],
+    [
+     3,
+     "Abdomen_4",
+     1.0
+    ]
+   ]
+  },
+  "a23": {
+   "goc": "r07",
+   "cua_so_s": [
+    120.0,
+    180.0
+   ],
+   "anh_xa": [
+    [
+     0,
+     "Abdomen_1",
+     1.0
+    ],
+    [
+     1,
+     "Abdomen_2",
+     1.0
+    ],
+    [
+     2,
+     "Abdomen_3",
+     1.0
+    ],
+    [
+     3,
+     "Abdomen_4",
+     1.0
+    ]
+   ]
+  },
+  "a24": {
+   "goc": "r07",
+   "cua_so_s": [
+    240.0,
+    300.0
+   ],
+   "anh_xa": [
+    [
+     0,
+     "Abdomen_1",
+     1.0
+    ],
+    [
+     1,
+     "Abdomen_2",
+     1.0
+    ],
+    [
+     2,
+     "Abdomen_3",
+     1.0
+    ],
+    [
+     3,
+     "Abdomen_4",
+     1.0
+    ]
+   ]
+  },
+  "a25": {
+   "goc": "r04",
+   "cua_so_s": [
+    0.0,
+    60.0
+   ],
+   "anh_xa": [
+    [
+     0,
+     "Abdomen_1",
+     1.0
+    ],
+    [
+     1,
+     "Abdomen_2",
+     1.0
+    ],
+    [
+     2,
+     "Abdomen_3",
+     1.0
+    ],
+    [
+     3,
+     "Abdomen_4",
+     1.0
+    ]
+   ]
+  }
+ },
+ "phat_hien_manh_hon": "Khong phai MOT kenh ma CA BON kenh cua moi ban CinC ro ri deu la ban sao NCC=1.0000 cua Abdomen_1..4 dung thu tu (cinc_ch k -> Abdomen_(k+1)) trong cung cua so 60 s.",
+ "kenh_dien_cuc_da_dau_co_trong_cinc": false,
+ "cau_truc_cua_so": "moi ban ADFECGDB 300 s dong gop dung 3 cua so: 0-60, 120-180, 240-300 s",
+ "doi_chung_am": "60 ban CinC con lai: |NCC| toi da 0.6155",
+ "ncc_tung_ban_ghi_75": {
+  "a01": {
+   "ncc": -0.0895,
+   "ban_ghi_goc": "r01",
+   "kenh_goc": "Abdomen_4",
+   "do_tre_s": 221.936,
+   "kenh_cinc": 2
+  },
+  "a02": {
+   "ncc": 0.0691,
+   "ban_ghi_goc": "r10",
+   "kenh_goc": "Abdomen_1",
+   "do_tre_s": 8.356,
+   "kenh_cinc": 2
+  },
+  "a03": {
+   "ncc": 1.0,
+   "ban_ghi_goc": "r10",
+   "kenh_goc": "Abdomen_3",
+   "do_tre_s": 0.0,
+   "kenh_cinc": 2
+  },
+  "a04": {
+   "ncc": 1.0,
+   "ban_ghi_goc": "r01",
+   "kenh_goc": "Abdomen_1",
+   "do_tre_s": 120.0,
+   "kenh_cinc": 0
+  },
+  "a05": {
+   "ncc": 1.0,
+   "ban_ghi_goc": "r01",
+   "kenh_goc": "Abdomen_1",
+   "do_tre_s": 0.0,
+   "kenh_cinc": 0
+  },
+  "a06": {
+   "ncc": 0.0971,
+   "ban_ghi_goc": "r10",
+   "kenh_goc": "Abdomen_1",
+   "do_tre_s": 25.312,
+   "kenh_cinc": 2
+  },
+  "a07": {
+   "ncc": -0.0771,
+   "ban_ghi_goc": "r07",
+   "kenh_goc": "Abdomen_4",
+   "do_tre_s": 164.504,
+   "kenh_cinc": 3
+  },
+  "a08": {
+   "ncc": 1.0,
+   "ban_ghi_goc": "r08",
+   "kenh_goc": "Abdomen_3",
+   "do_tre_s": 240.0,
+   "kenh_cinc": 2
+  },
+  "a09": {
+   "ncc": 0.0736,
+   "ban_ghi_goc": "r01",
+   "kenh_goc": "Abdomen_1",
+   "do_tre_s": 232.952,
+   "kenh_cinc": 3
+  },
+  "a10": {
+   "ncc": 0.0912,
+   "ban_ghi_goc": "r10",
+   "kenh_goc": "Abdomen_1",
+   "do_tre_s": 0.208,
+   "kenh_cinc": 3
+  },
+  "a11": {
+   "ncc": 0.0704,
+   "ban_ghi_goc": "r10",
+   "kenh_goc": "Abdomen_4",
+   "do_tre_s": 85.3,
+   "kenh_cinc": 0
+  },
+  "a12": {
+   "ncc": 1.0,
+   "ban_ghi_goc": "r10",
+   "kenh_goc": "Abdomen_1",
+   "do_tre_s": 240.0,
+   "kenh_cinc": 0
+  },
+  "a13": {
+   "ncc": 1.0,
+   "ban_ghi_goc": "r04",
+   "kenh_goc": "Abdomen_2",
+   "do_tre_s": 240.0,
+   "kenh_cinc": 1
+  },
+  "a14": {
+   "ncc": 1.0,
+   "ban_ghi_goc": "r10",
+   "kenh_goc": "Abdomen_3",
+   "do_tre_s": 120.0,
+   "kenh_cinc": 2
+  },
+  "a15": {
+   "ncc": 1.0,
+   "ban_ghi_goc": "r08",
+   "kenh_goc": "Abdomen_2",
+   "do_tre_s": 120.0,
+   "kenh_cinc": 1
+  },
+  "a16": {
+   "ncc": -0.0705,
+   "ban_ghi_goc": "r04",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 29.848,
+   "kenh_cinc": 0
+  },
+  "a17": {
+   "ncc": 1.0,
+   "ban_ghi_goc": "r08",
+   "kenh_goc": "Abdomen_3",
+   "do_tre_s": 0.0,
+   "kenh_cinc": 2
+  },
+  "a18": {
+   "ncc": -0.0569,
+   "ban_ghi_goc": "r08",
+   "kenh_goc": "Abdomen_3",
+   "do_tre_s": 114.592,
+   "kenh_cinc": 2
+  },
+  "a19": {
+   "ncc": 1.0,
+   "ban_ghi_goc": "r07",
+   "kenh_goc": "Abdomen_3",
+   "do_tre_s": 0.0,
+   "kenh_cinc": 2
+  },
+  "a20": {
+   "ncc": 1.0,
+   "ban_ghi_goc": "r04",
+   "kenh_goc": "Abdomen_4",
+   "do_tre_s": 120.0,
+   "kenh_cinc": 3
+  },
+  "a21": {
+   "ncc": 0.0739,
+   "ban_ghi_goc": "r10",
+   "kenh_goc": "Abdomen_1",
+   "do_tre_s": 97.176,
+   "kenh_cinc": 3
+  },
+  "a22": {
+   "ncc": 1.0,
+   "ban_ghi_goc": "r01",
+   "kenh_goc": "Abdomen_2",
+   "do_tre_s": 240.0,
+   "kenh_cinc": 1
+  },
+  "a23": {
+   "ncc": 1.0,
+   "ban_ghi_goc": "r07",
+   "kenh_goc": "Abdomen_3",
+   "do_tre_s": 120.0,
+   "kenh_cinc": 2
+  },
+  "a24": {
+   "ncc": 1.0,
+   "ban_ghi_goc": "r07",
+   "kenh_goc": "Abdomen_3",
+   "do_tre_s": 240.0,
+   "kenh_cinc": 2
+  },
+  "a25": {
+   "ncc": 1.0,
+   "ban_ghi_goc": "r04",
+   "kenh_goc": "Abdomen_1",
+   "do_tre_s": 0.0,
+   "kenh_cinc": 0
+  },
+  "a26": {
+   "ncc": 0.3054,
+   "ban_ghi_goc": "r04",
+   "kenh_goc": "Abdomen_3",
+   "do_tre_s": 204.828,
+   "kenh_cinc": 3
+  },
+  "a27": {
+   "ncc": -0.3051,
+   "ban_ghi_goc": "r04",
+   "kenh_goc": "Abdomen_1",
+   "do_tre_s": 158.12,
+   "kenh_cinc": 0
+  },
+  "a28": {
+   "ncc": -0.3165,
+   "ban_ghi_goc": "r10",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 118.06,
+   "kenh_cinc": 1
+  },
+  "a29": {
+   "ncc": -0.4478,
+   "ban_ghi_goc": "r07",
+   "kenh_goc": "Abdomen_1",
+   "do_tre_s": 109.436,
+   "kenh_cinc": 2
+  },
+  "a30": {
+   "ncc": 0.2759,
+   "ban_ghi_goc": "r01",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 197.332,
+   "kenh_cinc": 0
+  },
+  "a31": {
+   "ncc": -0.3614,
+   "ban_ghi_goc": "r04",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 151.22,
+   "kenh_cinc": 1
+  },
+  "a32": {
+   "ncc": 0.2124,
+   "ban_ghi_goc": "r07",
+   "kenh_goc": "Abdomen_1",
+   "do_tre_s": 4.168,
+   "kenh_cinc": 3
+  },
+  "a33": {
+   "ncc": -0.6155,
+   "ban_ghi_goc": "r07",
+   "kenh_goc": "Abdomen_3",
+   "do_tre_s": 11.688,
+   "kenh_cinc": 2
+  },
+  "a34": {
+   "ncc": 0.4654,
+   "ban_ghi_goc": "r10",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 202.38,
+   "kenh_cinc": 0
+  },
+  "a35": {
+   "ncc": -0.5958,
+   "ban_ghi_goc": "r08",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 131.2,
+   "kenh_cinc": 2
+  },
+  "a36": {
+   "ncc": -0.3652,
+   "ban_ghi_goc": "r10",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 202.064,
+   "kenh_cinc": 3
+  },
+  "a37": {
+   "ncc": 0.2664,
+   "ban_ghi_goc": "r08",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 16.38,
+   "kenh_cinc": 0
+  },
+  "a38": {
+   "ncc": -0.2549,
+   "ban_ghi_goc": "r01",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 80.404,
+   "kenh_cinc": 3
+  },
+  "a39": {
+   "ncc": 0.2557,
+   "ban_ghi_goc": "r01",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 3.028,
+   "kenh_cinc": 1
+  },
+  "a40": {
+   "ncc": 0.3311,
+   "ban_ghi_goc": "r04",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 134.948,
+   "kenh_cinc": 1
+  },
+  "a41": {
+   "ncc": 0.3544,
+   "ban_ghi_goc": "r08",
+   "kenh_goc": "Abdomen_1",
+   "do_tre_s": 27.172,
+   "kenh_cinc": 0
+  },
+  "a42": {
+   "ncc": 0.4598,
+   "ban_ghi_goc": "r07",
+   "kenh_goc": "Abdomen_3",
+   "do_tre_s": 111.264,
+   "kenh_cinc": 1
+  },
+  "a43": {
+   "ncc": -0.1518,
+   "ban_ghi_goc": "r04",
+   "kenh_goc": "Abdomen_1",
+   "do_tre_s": 181.248,
+   "kenh_cinc": 3
+  },
+  "a44": {
+   "ncc": 0.3992,
+   "ban_ghi_goc": "r01",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 75.472,
+   "kenh_cinc": 2
+  },
+  "a45": {
+   "ncc": -0.2568,
+   "ban_ghi_goc": "r10",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 169.44,
+   "kenh_cinc": 1
+  },
+  "a46": {
+   "ncc": 0.5252,
+   "ban_ghi_goc": "r08",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 180.72,
+   "kenh_cinc": 2
+  },
+  "a47": {
+   "ncc": -0.3657,
+   "ban_ghi_goc": "r01",
+   "kenh_goc": "Abdomen_2",
+   "do_tre_s": 47.308,
+   "kenh_cinc": 3
+  },
+  "a48": {
+   "ncc": 0.2676,
+   "ban_ghi_goc": "r04",
+   "kenh_goc": "Abdomen_2",
+   "do_tre_s": 190.024,
+   "kenh_cinc": 3
+  },
+  "a49": {
+   "ncc": -0.5681,
+   "ban_ghi_goc": "r07",
+   "kenh_goc": "Abdomen_3",
+   "do_tre_s": 142.7,
+   "kenh_cinc": 2
+  },
+  "a50": {
+   "ncc": -0.1489,
+   "ban_ghi_goc": "r07",
+   "kenh_goc": "Abdomen_3",
+   "do_tre_s": 145.892,
+   "kenh_cinc": 0
+  },
+  "a51": {
+   "ncc": 0.3152,
+   "ban_ghi_goc": "r08",
+   "kenh_goc": "Abdomen_1",
+   "do_tre_s": 9.548,
+   "kenh_cinc": 3
+  },
+  "a52": {
+   "ncc": -0.2934,
+   "ban_ghi_goc": "r10",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 138.552,
+   "kenh_cinc": 0
+  },
+  "a53": {
+   "ncc": -0.325,
+   "ban_ghi_goc": "r10",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 112.572,
+   "kenh_cinc": 1
+  },
+  "a54": {
+   "ncc": -0.4345,
+   "ban_ghi_goc": "r07",
+   "kenh_goc": "Abdomen_1",
+   "do_tre_s": 38.128,
+   "kenh_cinc": 1
+  },
+  "a55": {
+   "ncc": 0.3737,
+   "ban_ghi_goc": "r01",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 209.504,
+   "kenh_cinc": 1
+  },
+  "a56": {
+   "ncc": -0.4664,
+   "ban_ghi_goc": "r08",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 44.828,
+   "kenh_cinc": 0
+  },
+  "a57": {
+   "ncc": 0.2176,
+   "ban_ghi_goc": "r10",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 233.336,
+   "kenh_cinc": 1
+  },
+  "a58": {
+   "ncc": 0.2869,
+   "ban_ghi_goc": "r07",
+   "kenh_goc": "Abdomen_3",
+   "do_tre_s": 42.072,
+   "kenh_cinc": 1
+  },
+  "a59": {
+   "ncc": -0.1879,
+   "ban_ghi_goc": "r10",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 126.836,
+   "kenh_cinc": 3
+  },
+  "a60": {
+   "ncc": 0.5136,
+   "ban_ghi_goc": "r10",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 202.384,
+   "kenh_cinc": 2
+  },
+  "a61": {
+   "ncc": 0.5054,
+   "ban_ghi_goc": "r04",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 142.616,
+   "kenh_cinc": 1
+  },
+  "a62": {
+   "ncc": -0.3533,
+   "ban_ghi_goc": "r04",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 135.052,
+   "kenh_cinc": 3
+  },
+  "a63": {
+   "ncc": -0.2181,
+   "ban_ghi_goc": "r10",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 202.348,
+   "kenh_cinc": 2
+  },
+  "a64": {
+   "ncc": -0.2216,
+   "ban_ghi_goc": "r10",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 191.088,
+   "kenh_cinc": 0
+  },
+  "a65": {
+   "ncc": 0.3083,
+   "ban_ghi_goc": "r04",
+   "kenh_goc": "Abdomen_1",
+   "do_tre_s": 59.536,
+   "kenh_cinc": 3
+  },
+  "a66": {
+   "ncc": -0.3675,
+   "ban_ghi_goc": "r01",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 101.816,
+   "kenh_cinc": 3
+  },
+  "a67": {
+   "ncc": -0.3362,
+   "ban_ghi_goc": "r10",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 185.48,
+   "kenh_cinc": 1
+  },
+  "a68": {
+   "ncc": -0.199,
+   "ban_ghi_goc": "r04",
+   "kenh_goc": "Abdomen_4",
+   "do_tre_s": 95.72,
+   "kenh_cinc": 1
+  },
+  "a69": {
+   "ncc": -0.288,
+   "ban_ghi_goc": "r01",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 217.432,
+   "kenh_cinc": 2
+  },
+  "a70": {
+   "ncc": -0.262,
+   "ban_ghi_goc": "r04",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 89.436,
+   "kenh_cinc": 2
+  },
+  "a71": {
+   "ncc": 0.2448,
+   "ban_ghi_goc": "r10",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 187.46,
+   "kenh_cinc": 2
+  },
+  "a72": {
+   "ncc": 0.4494,
+   "ban_ghi_goc": "r01",
+   "kenh_goc": "Abdomen_2",
+   "do_tre_s": 69.788,
+   "kenh_cinc": 2
+  },
+  "a73": {
+   "ncc": 0.3106,
+   "ban_ghi_goc": "r01",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 116.864,
+   "kenh_cinc": 0
+  },
+  "a74": {
+   "ncc": -0.267,
+   "ban_ghi_goc": "r10",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 86.836,
+   "kenh_cinc": 3
+  },
+  "a75": {
+   "ncc": 0.2983,
+   "ban_ghi_goc": "r10",
+   "kenh_goc": "Direct_1",
+   "do_tre_s": 83.272,
+   "kenh_cinc": 0
+  }
+ }
+}

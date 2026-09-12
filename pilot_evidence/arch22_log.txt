@@ -1,0 +1,183 @@
+
+===== M2 ARCH22 | 2026-09-12 10:43:17 | seed 0 | 3 luong | torch 2.13.0+cpu | Windows-11-10.0.22631-SP0 =====
+  22 chu the, 3 fold theo nhom, 3 epoch, batch 16, AdamW 3e-3 OneCycle, stride {'PhysioNet': 1000, 'B2': 1000, 'B1': 2000}, doan 4s, +/-50 ms, KHONG tang cuong
+  kien truc: ['tcn', 'cnn_l', 'cnn_wide', 'unet1d', 'rf_narrow', 'rf_wide', 'tcn_ms']
+
+  -- kiem tra can bang tham so va truong tiep nhan --
+    tcn         113,481 tham so ( +0.0% so voi TCN 113.481)  RF  379 mau =   1516 ms  sigma 12 ms | TCN gian no 5 khoi c=40 (mo hinh san xuat)
+    cnn_l       114,493 tham so ( +0.9% so voi TCN 113.481)  RF   15 mau =     60 ms  sigma 12 ms | cnn_l cua bang cu: chong chap tron, be rong tang dan, chuoi-sang-chuoi (RF nho)
+    cnn_wide    114,943 tham so ( +1.3% so voi TCN 113.481)  RF  377 mau =   1508 ms  sigma 12 ms | cnn_l NHAN RONG: khong gian no nhung RF khop TCN -> tach bach "gian no" va "RF"
+    unet1d      114,247 tham so ( +0.7% so voi TCN 113.481)  RF  159 mau =    636 ms  sigma 12 ms | U-Net 1D 3 tang gop mau + noi tat
+    rf_narrow   114,886 tham so ( +1.2% so voi TCN 113.481)  RF  187 mau =    748 ms  sigma 12 ms | truong tiep nhan hep (~0,75 s)
+    rf_wide     116,514 tham so ( +2.7% so voi TCN 113.481)  RF  763 mau =   3052 ms  sigma 12 ms | truong tiep nhan rong (~3,0 s)
+    tcn_ms      116,011 tham so ( +2.2% so voi TCN 113.481)  RF  679 mau =   2716 ms  sigma 12 ms | da thang do: 3 nhanh gian no song song
+    fold 1: test=['B1_02', 'B1_03', 'B1_07', 'B1_09', 'B2_03', 'B2_12', 'r01', 'r07'] val=B2_09 n_train=13
+    fold 2: test=['B1_01', 'B1_08', 'B1_10', 'B2_04', 'B2_06', 'r04', 'r10'] val=B2_08 n_train=14
+    fold 3: test=['B1_04', 'B1_05', 'B1_06', 'B2_05', 'B2_08', 'B2_09', 'r08'] val=r10 n_train=14
+
+  nap 22 chu the ...
+   r01    PhysioNet   5.0 phut    644 nhan  [cache] (0s)
+   r04    PhysioNet   5.0 phut    632 nhan  [cache] (0s)
+   r07    PhysioNet   5.0 phut    627 nhan  [cache] (0s)
+   r08    PhysioNet   5.0 phut    651 nhan  [cache] (0s)
+   r10    PhysioNet   5.0 phut    637 nhan  [cache] (0s)
+   B2_03  B2          5.0 phut    716 nhan  [cache] (0s)
+   B2_04  B2          5.0 phut    681 nhan  [cache] (0s)
+   B2_05  B2          5.0 phut    660 nhan  [cache] (0s)
+   B2_06  B2          5.0 phut    684 nhan  [cache] (0s)
+   B2_08  B2          5.0 phut    645 nhan  [cache] (0s)
+   B2_09  B2          5.0 phut    674 nhan  [cache] (0s)
+   B2_12  B2          5.0 phut    657 nhan  [cache] (0s)
+   B1_01  B1         20.0 phut   3120 nhan  [cache] (1s)
+   B1_02  B1         20.0 phut   2804 nhan  [cache] (1s)
+   B1_03  B1         20.0 phut   2565 nhan  [cache] (1s)
+   B1_04  B1         20.0 phut   2774 nhan  [cache] (1s)
+   B1_05  B1         20.0 phut   2770 nhan  [cache] (1s)
+   B1_06  B1         20.0 phut   2889 nhan  [cache] (1s)
+   B1_07  B1         20.0 phut   3114 nhan  [cache] (1s)
+   B1_08  B1         20.0 phut   2911 nhan  [cache] (1s)
+   B1_09  B1         20.0 phut   2866 nhan  [cache] (1s)
+   B1_10  B1         20.0 phut   2592 nhan  [cache] (1s)
+  xong 0.0 phut
+    fold 1: 5672 doan train, pos_weight 13.6
+    fold 2: 6272 doan train, pos_weight 13.6
+    fold 3: 6272 doan train, pos_weight 13.5
+
+  -- hieu chuan toc do (30 buoc moi kien truc) --
+    tcn           242 ms/buoc
+    cnn_l         164 ms/buoc
+    cnn_wide      301 ms/buoc
+    unet1d         70 ms/buoc
+    rf_narrow     221 ms/buoc
+    rf_wide       263 ms/buoc
+    tcn_ms        288 ms/buoc
+    cham 1 chu the B1 (20 phut, 4 kenh) 6s
+    DU KIEN: 98.3 phut cho 7 kien truc x 3 fold (ngan sach 104 phut)
+      tcn        ~ 15.2 phut
+      cnn_l      ~ 10.8 phut
+      cnn_wide   ~ 18.6 phut
+      unet1d     ~  5.4 phut
+      rf_narrow  ~ 14.1 phut
+      rf_wide    ~ 16.4 phut
+      tcn_ms     ~ 17.9 phut
+
+-- KIEN TRUC tcn (113,481 tham so, RF 1516 ms) --
+      epoch 1/3 loss 0.3610 (77s, 5672 doan, pos_w 13.6)
+      epoch 2/3 loss 0.2636 (147s, 5672 doan, pos_w 13.6)
+      epoch 3/3 loss 0.2476 (265s, 5672 doan, pos_w 13.6)
+    fold 1 val=B2_09 thr=0.75 (valF1 97.66) -> B1_02:99.8 B1_03:99.9 B1_07:88.2 B1_09:98.8 B2_03:81.3 B2_12:100.0 r01:100.0 r07:100.0  (5.1 phut)
+      epoch 1/3 loss 0.4025 (138s, 6272 doan, pos_w 13.6)
+      epoch 2/3 loss 0.3029 (281s, 6272 doan, pos_w 13.6)
+      epoch 3/3 loss 0.2811 (498s, 6272 doan, pos_w 13.6)
+    fold 2 val=B2_08 thr=0.55 (valF1 99.88) -> B1_01:99.9 B1_08:99.8 B1_10:96.4 B2_04:98.5 B2_06:99.6 r04:98.3 r10:97.1  (8.9 phut)
+      epoch 1/3 loss 0.4161 (225s, 6272 doan, pos_w 13.5)
+      epoch 2/3 loss 0.3177 (416s, 6272 doan, pos_w 13.5)
+      epoch 3/3 loss 0.2959 (666s, 6272 doan, pos_w 13.5)
+    fold 3 val=r10 thr=0.75 (valF1 96.41) -> B1_04:100.0 B1_05:99.8 B1_06:91.7 B2_05:100.0 B2_08:100.0 B2_09:98.9 r08:99.8  (11.7 phut)
+  >> tcn        macro F1 (PSD)  97.64 +-  4.70 | TB4  96.41 | oracle  98.64 | jitter  3.80 ms | >=90: 20/22 | 25.7 phut | tong 26.7 phut
+
+-- KIEN TRUC cnn_l (114,493 tham so, RF 60 ms) --
+      epoch 1/3 loss 0.5134 (87s, 5672 doan, pos_w 13.6)
+      epoch 2/3 loss 0.3934 (175s, 5672 doan, pos_w 13.6)
+      epoch 3/3 loss 0.3711 (262s, 5672 doan, pos_w 13.6)
+    fold 1 val=B2_09 thr=0.50 (valF1 91.83) -> B1_02:98.9 B1_03:98.5 B1_07:79.3 B1_09:96.6 B2_03:69.5 B2_12:99.2 r01:99.8 r07:99.0  (4.9 phut)
+      epoch 1/3 loss 0.5756 (90s, 6272 doan, pos_w 13.6)
+      epoch 2/3 loss 0.4781 (187s, 6272 doan, pos_w 13.6)
+      epoch 3/3 loss 0.4540 (282s, 6272 doan, pos_w 13.6)
+    fold 2 val=B2_08 thr=0.75 (valF1 99.27) -> B1_01:99.0 B1_08:96.7 B1_10:98.4 B2_04:96.0 B2_06:99.1 r04:98.6 r10:95.9  (5.1 phut)
+      epoch 1/3 loss 0.5962 (95s, 6272 doan, pos_w 13.5)
+      epoch 2/3 loss 0.5038 (192s, 6272 doan, pos_w 13.5)
+      epoch 3/3 loss 0.4802 (265s, 6272 doan, pos_w 13.5)
+    fold 3 val=r10 thr=0.65 (valF1 92.13) -> B1_04:99.8 B1_05:98.6 B1_06:62.1 B2_05:99.5 B2_08:99.6 B2_09:96.3 r08:99.3  (4.8 phut)
+  >> cnn_l      macro F1 (PSD)  94.53 +- 10.28 | TB4  89.91 | oracle  96.55 | jitter  4.52 ms | >=90: 19/22 | 14.9 phut | tong 41.6 phut
+
+-- KIEN TRUC cnn_wide (114,943 tham so, RF 1508 ms) --
+      epoch 1/3 loss 0.5150 (134s, 5672 doan, pos_w 13.6)
+      epoch 2/3 loss 0.2921 (270s, 5672 doan, pos_w 13.6)
+      epoch 3/3 loss 0.2670 (361s, 5672 doan, pos_w 13.6)
+    fold 1 val=B2_09 thr=0.55 (valF1 96.89) -> B1_02:99.8 B1_03:99.6 B1_07:89.7 B1_09:98.9 B2_03:79.2 B2_12:99.8 r01:100.0 r07:99.8  (6.6 phut)
+      epoch 1/3 loss 0.5424 (96s, 6272 doan, pos_w 13.6)
+      epoch 2/3 loss 0.3373 (183s, 6272 doan, pos_w 13.6)
+      epoch 3/3 loss 0.3075 (262s, 6272 doan, pos_w 13.6)
+    fold 2 val=B2_08 thr=0.65 (valF1 99.48) -> B1_01:99.9 B1_08:99.8 B1_10:97.0 B2_04:98.2 B2_06:99.5 r04:99.0 r10:96.8  (4.7 phut)
+      epoch 1/3 loss 0.5577 (63s, 6272 doan, pos_w 13.5)
+      epoch 2/3 loss 0.3497 (120s, 6272 doan, pos_w 13.5)
+      epoch 3/3 loss 0.3218 (177s, 6272 doan, pos_w 13.5)
+    fold 3 val=r10 thr=0.80 (valF1 94.53) -> B1_04:100.0 B1_05:99.8 B1_06:75.5 B2_05:99.8 B2_08:99.8 B2_09:98.6 r08:99.9  (3.2 phut)
+  >> cnn_wide   macro F1 (PSD)  96.84 +-  6.71 | TB4  95.63 | oracle  98.32 | jitter  3.95 ms | >=90: 19/22 | 14.6 phut | tong 56.1 phut
+
+-- KIEN TRUC unet1d (114,247 tham so, RF 636 ms) --
+      epoch 1/3 loss 0.4935 (12s, 5672 doan, pos_w 13.6)
+      epoch 2/3 loss 0.2976 (24s, 5672 doan, pos_w 13.6)
+      epoch 3/3 loss 0.2728 (36s, 5672 doan, pos_w 13.6)
+    fold 1 val=B2_09 thr=0.80 (valF1 94.48) -> B1_02:99.2 B1_03:99.3 B1_07:83.9 B1_09:98.1 B2_03:77.9 B2_12:100.0 r01:99.8 r07:99.7  (0.7 phut)
+      epoch 1/3 loss 0.5315 (13s, 6272 doan, pos_w 13.6)
+      epoch 2/3 loss 0.3544 (26s, 6272 doan, pos_w 13.6)
+      epoch 3/3 loss 0.3246 (39s, 6272 doan, pos_w 13.6)
+    fold 2 val=B2_08 thr=0.65 (valF1 99.22) -> B1_01:99.7 B1_08:99.2 B1_10:98.3 B2_04:97.4 B2_06:99.4 r04:98.9 r10:97.0  (0.7 phut)
+      epoch 1/3 loss 0.5398 (13s, 6272 doan, pos_w 13.5)
+      epoch 2/3 loss 0.3699 (26s, 6272 doan, pos_w 13.5)
+      epoch 3/3 loss 0.3409 (39s, 6272 doan, pos_w 13.5)
+    fold 3 val=r10 thr=0.80 (valF1 93.82) -> B1_04:100.0 B1_05:99.7 B1_06:75.9 B2_05:99.7 B2_08:99.6 B2_09:98.1 r08:99.9  (0.7 phut)
+  >> unet1d     macro F1 (PSD)  96.38 +-  7.16 | TB4  94.08 | oracle  98.01 | jitter  3.91 ms | >=90: 19/22 | 2.2 phut | tong 58.3 phut
+
+-- KIEN TRUC rf_narrow (114,886 tham so, RF 748 ms) --
+      epoch 1/3 loss 0.4132 (35s, 5672 doan, pos_w 13.6)
+      epoch 2/3 loss 0.2827 (69s, 5672 doan, pos_w 13.6)
+      epoch 3/3 loss 0.2642 (103s, 5672 doan, pos_w 13.6)
+    fold 1 val=B2_09 thr=0.80 (valF1 95.09) -> B1_02:99.4 B1_03:99.6 B1_07:83.9 B1_09:98.4 B2_03:79.0 B2_12:100.0 r01:100.0 r07:100.0  (2.0 phut)
+      epoch 1/3 loss 0.4575 (39s, 6272 doan, pos_w 13.6)
+      epoch 2/3 loss 0.3335 (76s, 6272 doan, pos_w 13.6)
+      epoch 3/3 loss 0.3093 (114s, 6272 doan, pos_w 13.6)
+    fold 2 val=B2_08 thr=0.75 (valF1 99.67) -> B1_01:99.8 B1_08:99.5 B1_10:99.1 B2_04:98.1 B2_06:99.7 r04:99.8 r10:96.8  (2.1 phut)
+      epoch 1/3 loss 0.4724 (38s, 6272 doan, pos_w 13.5)
+      epoch 2/3 loss 0.3519 (75s, 6272 doan, pos_w 13.5)
+      epoch 3/3 loss 0.3276 (112s, 6272 doan, pos_w 13.5)
+    fold 3 val=r10 thr=0.80 (valF1 95.06) -> B1_04:100.0 B1_05:99.5 B1_06:82.8 B2_05:99.7 B2_08:99.9 B2_09:97.5 r08:100.0  (2.1 phut)
+  >> rf_narrow  macro F1 (PSD)  96.93 +-  6.23 | TB4  94.65 | oracle  98.34 | jitter  3.97 ms | >=90: 19/22 | 6.2 phut | tong 64.5 phut
+
+-- KIEN TRUC rf_wide (116,514 tham so, RF 3052 ms) --
+      epoch 1/3 loss 0.3845 (42s, 5672 doan, pos_w 13.6)
+      epoch 2/3 loss 0.2587 (83s, 5672 doan, pos_w 13.6)
+      epoch 3/3 loss 0.2418 (126s, 5672 doan, pos_w 13.6)
+    fold 1 val=B2_09 thr=0.80 (valF1 98.06) -> B1_02:99.9 B1_03:99.9 B1_07:87.7 B1_09:99.2 B2_03:80.5 B2_12:100.0 r01:100.0 r07:100.0  (2.4 phut)
+      epoch 1/3 loss 0.4158 (46s, 6272 doan, pos_w 13.6)
+      epoch 2/3 loss 0.2936 (92s, 6272 doan, pos_w 13.6)
+      epoch 3/3 loss 0.2692 (137s, 6272 doan, pos_w 13.6)
+    fold 2 val=B2_08 thr=0.30 (valF1 99.96) -> B1_01:100.0 B1_08:99.8 B1_10:95.6 B2_04:99.3 B2_06:99.8 r04:97.9 r10:97.1  (2.5 phut)
+      epoch 1/3 loss 0.4313 (46s, 6272 doan, pos_w 13.5)
+      epoch 2/3 loss 0.3080 (93s, 6272 doan, pos_w 13.5)
+      epoch 3/3 loss 0.2834 (138s, 6272 doan, pos_w 13.5)
+    fold 3 val=r10 thr=0.75 (valF1 96.37) -> B1_04:100.0 B1_05:99.9 B1_06:92.7 B2_05:99.7 B2_08:100.0 B2_09:99.0 r08:99.9  (2.5 phut)
+  >> rf_wide    macro F1 (PSD)  97.63 +-  4.85 | TB4  96.60 | oracle  98.56 | jitter  3.60 ms | >=90: 20/22 | 7.5 phut | tong 72.0 phut
+
+-- KIEN TRUC tcn_ms (116,011 tham so, RF 2716 ms) --
+      epoch 1/3 loss 0.4004 (50s, 5672 doan, pos_w 13.6)
+      epoch 2/3 loss 0.2645 (100s, 5672 doan, pos_w 13.6)
+      epoch 3/3 loss 0.2475 (151s, 5672 doan, pos_w 13.6)
+    fold 1 val=B2_09 thr=0.80 (valF1 97.71) -> B1_02:99.8 B1_03:99.7 B1_07:89.0 B1_09:99.1 B2_03:80.1 B2_12:100.0 r01:100.0 r07:100.0  (2.9 phut)
+      epoch 1/3 loss 0.4349 (55s, 6272 doan, pos_w 13.6)
+      epoch 2/3 loss 0.3027 (111s, 6272 doan, pos_w 13.6)
+      epoch 3/3 loss 0.2790 (167s, 6272 doan, pos_w 13.6)
+    fold 2 val=B2_08 thr=0.65 (valF1 99.92) -> B1_01:100.0 B1_08:99.8 B1_10:97.2 B2_04:99.5 B2_06:99.9 r04:98.3 r10:97.5  (3.1 phut)
+      epoch 1/3 loss 0.4493 (56s, 6272 doan, pos_w 13.5)
+      epoch 2/3 loss 0.3188 (111s, 6272 doan, pos_w 13.5)
+      epoch 3/3 loss 0.2959 (167s, 6272 doan, pos_w 13.5)
+    fold 3 val=r10 thr=0.60 (valF1 96.10) -> B1_04:100.0 B1_05:99.7 B1_06:89.2 B2_05:99.7 B2_08:100.0 B2_09:99.2 r08:99.9  (3.1 phut)
+  >> tcn_ms     macro F1 (PSD)  97.62 +-  5.01 | TB4  96.38 | oracle  98.53 | jitter  3.76 ms | >=90: 19/22 | 9.0 phut | tong 81.0 phut
+
+===== SO SANH VOI TCN (muc chu the, n=22, kenh PSD mu nhan) =====
+cnn_l        -3.10 KTC95 [ -6.19; -0.96] Wilcoxon p=0.0001 T/H/B 2/0/20  TOST p=0.924 chua ket luan KTC90 [-5.54;-0.67]
+             de19  -0.95 [-1.45;-0.43] | kho3 -16.75 [-29.63;-8.83] | TB4kenh  -6.50 [-9.27;-4.19]
+cnn_wide     -0.80 KTC95 [ -2.40; +0.13] Wilcoxon p=0.0987 T/H/B 6/1/15  TOST p=0.396 chua ket luan KTC90 [-2.08;+0.48]
+             de19  -0.04 [-0.15;+0.09] | kho3  -5.61 [-16.19;+1.55] | TB4kenh  -0.78 [-1.40;-0.19]
+unet1d       -1.25 KTC95 [ -2.90; -0.19] Wilcoxon p=0.0041 T/H/B 3/1/18  TOST p=0.631 chua ket luan KTC90 [-2.53;+0.03]
+             de19  -0.21 [-0.45;+0.09] | kho3  -7.88 [-15.86;-3.45] | TB4kenh  -2.33 [-3.04;-1.67]
+rf_narrow    -0.71 KTC95 [ -1.73; +0.07] Wilcoxon p=0.0279 T/H/B 4/4/14  TOST p=0.274 chua ket luan KTC90 [-1.53;+0.11]
+             de19  -0.00 [-0.32;+0.39] | kho3  -5.18 [-8.95;-2.33] | TB4kenh  -1.76 [-2.60;-1.05]
+rf_wide      -0.01 KTC95 [ -0.18; +0.16] Wilcoxon p=0.7226 T/H/B 11/5/6  TOST p=0.000 TUONG DUONG KTC90 [-0.16;+0.14]
+             de19  +0.01 [-0.14;+0.14] | kho3  -0.10 [-0.78;+0.96] | TB4kenh  +0.20 [+0.01;+0.38]
+tcn_ms       -0.02 KTC95 [ -0.34; +0.24] Wilcoxon p=0.4326 T/H/B 9/8/5  TOST p=0.000 TUONG DUONG KTC90 [-0.28;+0.24]
+             de19  +0.13 [+0.01;+0.27] | kho3  -0.96 [-2.51;+0.85] | TB4kenh  -0.03 [-0.41;+0.35]
+
+DONE 81.0 phut -> D:\NCKHSV2026-2027\pilot_evidence\arch22.json

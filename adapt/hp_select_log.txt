@@ -1,0 +1,12 @@
+=== be mat QUYET DINH: hp_m12_to_B1 (10 chu the) ===
+  base      94.37  
+  notch     94.37  
+  pl0       94.70  <== CHON
+  pl1       94.61  
+  pl2       91.08  
+  tent0     94.51  
+  tent1     94.62  
+  tent2     94.81  <== CHON
+
+DA CHOT: tent={"lr": 0.001, "steps": 30, "batch": 16}
+DA CHOT: pl  ={"lr": 0.0001, "steps": 40, "batch": 16, "conf": 0.9, "sigma_ms": 12.0}

@@ -1,0 +1,63 @@
+chandoan_capacity.py 2026-09-12 10:44:18 torch 2.13.0+cpu threads 2
+
+=== A. production_22 TREN CHINH 22 CHU THE DA HUAN LUYEN (trong mau) ===
+   nguong 0.75; n tham so 113481
+   chu the   trong mau PSD  LOSO PSD    hieu  trong mau TB4  LOSO TB4
+   r01               99.92     99.92   +0.00          99.96     99.94
+   r04              100.00     99.68   +0.32          99.53     98.24
+   r07              100.00    100.00   +0.00          99.96     99.40
+   r08              100.00     99.77   +0.23          99.92     99.69
+   r10               97.46     97.61   -0.15          97.11     96.14
+   B1_01             99.97     99.97   +0.00          99.90     99.72
+   B1_02             99.93     99.79   +0.14          99.58     99.12
+   B1_03            100.00     99.92   +0.08          99.55     99.12
+   B1_04            100.00    100.00   +0.00          99.78     99.68
+   B1_05             99.91     99.87   +0.04          99.85     99.81
+   B1_06             98.01     89.45   +8.56          99.44     96.85
+   B1_07             98.05     86.56  +11.49          99.31     89.62
+   B1_08             99.97     99.83   +0.14          99.85     99.70
+   B1_09             99.35     99.07   +0.28          96.64     93.32
+   B1_10             99.71     97.05   +2.66          98.73     93.20
+   B2_03             93.43     79.72  +13.71          85.65     71.04
+   B2_04             99.42     98.90   +0.51          97.93     96.21
+   B2_05            100.00    100.00   +0.00          99.94     99.83
+   B2_06            100.00    100.00   +0.00          99.74     99.58
+   B2_08            100.00    100.00   +0.00         100.00    100.00
+   B2_09             99.63     99.11   +0.52          98.48     96.80
+   B2_12            100.00    100.00   +0.00          99.22     98.04
+
+   TRONG MAU PSD 99.31  |  LOSO PSD 97.56  |  khoang cach +1.75 diem
+   TRONG MAU TB4 98.64  |  LOSO TB4 96.59  |  khoang cach +2.05 diem
+
+=== B. PHEP THU HOC THUOC tren ['r01', 'B2_12', 'B2_03', 'B1_07'] (8 epoch, KHONG tang cuong) ===
+   4164 doan train, 131 buoc/epoch
+   -- be rong 40 kenh, 113481 tham so --
+      epoch 1/8 loss 0.5652  (98s, 4164 doan, pos_w 12.7)
+      epoch 2/8 loss 0.3636  (193s, 4164 doan, pos_w 12.7)
+      epoch 3/8 loss 0.3314  (290s, 4164 doan, pos_w 12.7)
+      epoch 4/8 loss 0.3117  (386s, 4164 doan, pos_w 12.7)
+      epoch 5/8 loss 0.2965  (489s, 4164 doan, pos_w 12.7)
+      epoch 6/8 loss 0.2831  (594s, 4164 doan, pos_w 12.7)
+      epoch 7/8 loss 0.2704  (702s, 4164 doan, pos_w 12.7)
+      epoch 8/8 loss 0.2617  (806s, 4164 doan, pos_w 12.7)
+      nguong trong mau 0.70; F1 TRONG MAU trung binh tren 16 (chu the x kenh) 97.59
+      r01      PSD  99.92  TB4  99.92  oracle  99.92  A1:99.9 A2:99.9 A3:99.9 A4:99.9
+      B2_12    PSD 100.00  TB4  99.56  oracle 100.00  A1:98.9 A2:99.3 A3:100.0 A4:100.0
+      B2_03    PSD  96.55  TB4  90.94  oracle  96.76  A1:96.6 A2:93.3 A3:77.1 A4:96.8
+      B1_07    PSD  99.84  TB4  99.93  oracle  99.98  A1:100.0 A2:100.0 A3:100.0 A4:99.8
+   -- be rong 80 kenh, 450961 tham so --
+      epoch 1/8 loss 0.5209  (258s, 4164 doan, pos_w 12.7)
+      epoch 2/8 loss 0.3523  (524s, 4164 doan, pos_w 12.7)
+      epoch 3/8 loss 0.3258  (788s, 4164 doan, pos_w 12.7)
+      epoch 4/8 loss 0.3036  (1053s, 4164 doan, pos_w 12.7)
+      epoch 5/8 loss 0.2878  (1294s, 4164 doan, pos_w 12.7)
+      epoch 6/8 loss 0.2733  (1525s, 4164 doan, pos_w 12.7)
+      epoch 7/8 loss 0.2601  (1694s, 4164 doan, pos_w 12.7)
+      epoch 8/8 loss 0.2502  (1838s, 4164 doan, pos_w 12.7)
+      nguong trong mau 0.75; F1 TRONG MAU trung binh tren 16 (chu the x kenh) 98.44
+      r01      PSD  99.92  TB4  99.96  oracle 100.00  A1:100.0 A2:99.9 A3:100.0 A4:99.9
+      B2_12    PSD 100.00  TB4  99.85  oracle 100.00  A1:99.7 A2:99.7 A3:100.0 A4:100.0
+      B2_03    PSD  97.51  TB4  94.01  oracle  97.72  A1:97.5 A2:95.0 A3:85.8 A4:97.7
+      B1_07    PSD  99.90  TB4  99.94  oracle  99.97  A1:100.0 A2:100.0 A3:100.0 A4:99.9
+
+DONE 52.3 phut -> D:\NCKHSV2026-2027\analysis\chandoan_capacity.json

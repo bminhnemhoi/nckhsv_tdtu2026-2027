@@ -1,0 +1,32 @@
+{
+ "ung_vien": "a33",
+ "kenh_cinc": 3,
+ "khop_voi": "r07/Abdomen_3",
+ "ncc_cua_so_10s": -0.9602,
+ "duong_cong_ncc_theo_do_dai_cua_so": {
+  "a33_ung_vien": {
+   "5": -0.9667,
+   "10": -0.9587,
+   "15": -0.9301,
+   "20": -0.9048,
+   "30": -0.8918
+  },
+  "a19_doi_chung_duong_ban_sao_that": {
+   "5": 1.0,
+   "10": 1.0,
+   "15": 1.0,
+   "20": 1.0,
+   "30": 1.0
+  }
+ },
+ "so_sanh_phan_bo_clean_vs_null": {
+  "mann_whitney_p": 0.6255,
+  "ks_p": 0.8133,
+  "clean_trung_vi": 0.8448,
+  "null_trung_vi": 0.8276,
+  "clean_max": 0.9602,
+  "null_max": 0.945
+ },
+ "ket_luan": "a33 KHONG phai ban sao. |NCC| suy giam 0.9667 -> 0.8918 khi cua so keo tu 5 s len 30 s, trong khi ban sao THAT (a19) giu dung 1,0000 o MOI do dai. Dau AM va suy giam dan la chu ky cua hai chuoi QRS me khac nhau troi khoi nhau, khong phai cung mot tep mau.",
+ "dien_giai_tong": "Phan bo |NCC| cua so con cua 60 ban SACH KHONG phan biet duoc voi nhanh NULL (Mann-Whitney p = 0.625, KS p = 0.813). Khong co bang chung chong lan BO PHAN."
+}

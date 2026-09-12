@@ -1,0 +1,200 @@
+=== 0. KIEM TRA NHAT QUAN HAI BO NHO DEM ===
+   ban ghi lech: 0
+   s22   psd       F1 tu chandoan_raw  97.556 | tu chonkenh  97.556 | lech 0.0000
+   cinc  psd       F1 tu chandoan_raw  79.399 | tu chonkenh  79.399 | lech 0.0000
+   s22   gate      F1 tu chandoan_raw  98.608 | tu chonkenh  98.608 | lech 0.0000
+   cinc  gate      F1 tu chandoan_raw  84.537 | tu chonkenh  84.537 | lech 0.0000
+   s22   peakprob  F1 tu chandoan_raw  98.218 | tu chonkenh  98.218 | lech 0.0000
+   cinc  peakprob  F1 tu chandoan_raw  85.596 | tu chonkenh  85.596 | lech 0.0000
+   s22   rrcv      F1 tu chandoan_raw  98.598 | tu chonkenh  98.598 | lech 0.0000
+   cinc  rrcv      F1 tu chandoan_raw  83.976 | tu chonkenh  83.976 | lech 0.0000
+   s22   gate4     F1 tu chandoan_raw  98.585 | tu chonkenh  98.585 | lech 0.0000
+   cinc  gate4     F1 tu chandoan_raw  84.774 | tu chonkenh  84.774 | lech 0.0000
+
+=== 1. PHO LOI THEO QUY TAC CHON KENH ===
+quan the             quy tac     n_loi  loi/1k   (a)%   (b)%   (c)%   (e)%  (d1)%  (d2)%  microF1  macroF1
+----------------------------------------------------------------------------------------------------------
+22_chu_the           psd          2041    56.2    3.8    8.4    7.7   68.5    3.2    8.4    97.19    97.56
+22_chu_the           gate          854    23.5    6.7    6.0   11.9   57.3    6.4   11.7    98.83    98.61
+22_chu_the           peakprob     1400    38.6    5.4    5.8    8.7   64.7    4.9   10.5    98.07    98.22
+22_chu_the           rrcv          856    23.6    6.5    6.0   12.0   56.9    6.9   11.7    98.82    98.60
+22_chu_the           gate4         870    24.0    6.8    5.7   11.8   57.4    6.4   11.8    98.80    98.58
+22_chu_the           oracle        845    23.3    6.6    6.2   12.0   56.9    6.5   11.8    98.84    98.63
+
+22_de19              psd           308    10.4   12.3    5.8   25.0   25.3   13.0   18.5    99.48    99.50
+22_de19              gate          307    10.4   12.1    6.5   24.8   25.4   12.7   18.6    99.48    99.50
+22_de19              peakprob      312    10.5   12.2    7.4   25.0   23.1   13.1   19.2    99.47    99.51
+22_de19              rrcv          309    10.4   11.7    6.5   24.9   24.6   13.9   18.4    99.48    99.49
+22_de19              gate4         323    10.9   12.1    5.9   23.8   27.2   12.4   18.6    99.45    99.47
+22_de19              oracle        298    10.1   12.1    7.0   25.2   23.5   13.1   19.1    99.50    99.53
+
+22_kho3              psd          1733   257.9    2.3    8.8    4.6   76.2    1.4    6.6    87.07    85.25
+22_kho3              gate          547    81.4    3.7    5.7    4.8   75.1    2.9    7.9    95.93    92.95
+22_kho3              peakprob     1088   161.9    3.5    5.3    4.0   76.7    2.5    8.0    91.92    90.05
+22_kho3              rrcv          547    81.4    3.7    5.7    4.8   75.1    2.9    7.9    95.93    92.95
+22_kho3              gate4         547    81.4    3.7    5.7    4.8   75.1    2.9    7.9    95.93    92.95
+22_kho3              oracle        547    81.4    3.7    5.7    4.8   75.1    2.9    7.9    95.93    92.95
+
+CinC75               psd          4164   397.2    1.0   19.3    9.1   58.6    1.2   10.8    79.92    79.40
+CinC75               gate         3137   299.2    1.5   18.8    9.0   58.2    1.1   11.4    84.92    84.54
+CinC75               peakprob     2917   278.2    2.0   18.9    8.7   57.7    1.3   11.3    85.97    85.60
+CinC75               rrcv         3257   310.7    1.5   18.9    8.7   58.2    1.0   11.7    84.34    83.98
+CinC75               gate4        3087   294.4    1.5   19.0    8.9   58.0    1.1   11.4    85.16    84.77
+CinC75               oracle       2678   255.4    2.1   17.6    8.8   58.3    1.5   11.7    87.16    86.87
+
+CinC68               psd          3566   372.2    1.0   20.5    9.5   59.6    1.2    8.2    81.09    80.70
+CinC68               gate         2635   275.0    1.6   20.2    9.1   59.9    1.2    8.0    86.07    85.86
+CinC68               peakprob     2409   251.4    2.2   20.4    9.0   59.4    1.5    7.6    87.27    87.06
+CinC68               rrcv         2737   285.6    1.6   20.1    9.0   59.8    1.1    8.4    85.53    85.34
+CinC68               gate4        2585   269.8    1.6   20.5    9.1   59.7    1.2    7.9    86.33    86.12
+CinC68               oracle       2177   227.2    2.3   19.0    9.0   60.4    1.6    7.7    88.52    88.42
+
+CinC_gioihancung8    psd          1445  1349.2    0.6   20.6    8.2   54.5    0.7   15.5    30.56    30.85
+CinC_gioihancung8    gate         1501  1401.5    0.4   20.9    8.7   53.6    0.4   15.9    27.80    28.16
+CinC_gioihancung8    peakprob     1398  1305.3    0.7   21.7    7.9   53.7    0.6   15.3    32.40    32.50
+CinC_gioihancung8    rrcv         1533  1431.4    0.5   20.3    8.5   54.7    0.4   15.7    26.40    26.79
+CinC_gioihancung8    gate4        1464  1366.9    0.4   21.3    8.7   53.2    0.4   16.0    29.55    29.82
+CinC_gioihancung8    oracle       1335  1246.5    0.7   20.0    8.1   54.8    0.8   15.7    36.34    36.54
+
+CinC_conlai67        psd          2719   288.9    1.3   18.6    9.5   60.8    1.5    8.3    85.43    85.20
+CinC_conlai67        gate         1636   173.8    2.6   16.8    9.2   62.4    1.8    7.2    91.26    91.27
+CinC_conlai67        peakprob     1519   161.4    3.2   16.4    9.3   61.4    2.0    7.6    91.89    91.94
+CinC_conlai67        rrcv         1724   183.2    2.5   17.6    8.9   61.3    1.6    8.1    90.79    90.80
+CinC_conlai67        gate4        1623   172.4    2.5   16.9    9.2   62.4    1.8    7.2    91.33    91.34
+CinC_conlai67        oracle       1343   142.7    3.6   15.3    9.5   61.7    2.1    7.8    92.84    92.88
+
+=== 1b. CAU HOI THEN CHOT: (a) sau khi doi quy tac chon kenh ===
+   22_chu_the  psd       (a) tho  3.82%  hieu chinh  3.56%  | do nhay 0.951 | (a) ngau nhien 14.66%
+   22_chu_the  gate      (a) tho  6.67%  hieu chinh  6.46%  | do nhay 0.986 | (a) ngau nhien 15.31%
+   22_chu_the  peakprob  (a) tho  5.43%  hieu chinh  5.23%  | do nhay 0.981 | (a) ngau nhien 15.24%
+   22_chu_the  rrcv      (a) tho  6.54%  hieu chinh  6.39%  | do nhay 0.976 | (a) ngau nhien 15.09%
+   22_chu_the  gate4     (a) tho  6.78%  hieu chinh  6.62%  | do nhay 0.980 | (a) ngau nhien 15.23%
+   22_chu_the  oracle    (a) tho  6.63%  hieu chinh  6.41%  | do nhay 0.985 | (a) ngau nhien 15.42%
+   CinC75      psd       (a) tho  1.03%  hieu chinh  0.02%  | do nhay 0.862 | (a) ngau nhien 10.26%
+   CinC75      gate      (a) tho  1.53%  hieu chinh  0.62%  | do nhay 0.882 | (a) ngau nhien 11.07%
+   CinC75      peakprob  (a) tho  2.02%  hieu chinh  1.17%  | do nhay 0.882 | (a) ngau nhien 11.23%
+   CinC75      rrcv      (a) tho  1.54%  hieu chinh  0.61%  | do nhay 0.891 | (a) ngau nhien 11.14%
+   CinC75      gate4     (a) tho  1.49%  hieu chinh  0.55%  | do nhay 0.888 | (a) ngau nhien 11.23%
+   CinC75      oracle    (a) tho  2.13%  hieu chinh  1.41%  | do nhay 0.858 | (a) ngau nhien 11.12%
+
+=== 1c. CHON KENH CHUYEN LOI TU NHOM NAO SANG NHOM NAO (psd -> peakprob) ===
+   22_chu_the: tong loi 2041 -> 1400 (-641)
+      a_bo_nhip_co_tin_hieu        78 ->     76  (-2)
+      b_khong_co_tin_hieu         171 ->     81  (-90)
+      c_me                        157 ->    122  (-35)
+      e_lech                     1399 ->    906  (-493)
+      d1_doi                       65 ->     68  (+3)
+      d2_ngau_nhien               171 ->    147  (-24)
+   CinC75: tong loi 4164 -> 2917 (-1247)
+      a_bo_nhip_co_tin_hieu        43 ->     59  (+16)
+      b_khong_co_tin_hieu         803 ->    552  (-251)
+      c_me                        378 ->    253  (-125)
+      e_lech                     2439 ->   1684  (-755)
+      d1_doi                       51 ->     39  (-12)
+      d2_ngau_nhien               450 ->    330  (-120)
+
+=== 2. 8 BAN GHI CinC GIOI HAN CUNG: DAC DIEM CHUNG ===
+   8 ban gioi han cung (F1 oracle):
+     a71  n_ref  153  F1 psd  22.45  peakprob  21.69  oracle  23.05  | psd_max   41.35  n_det[ 139, 142]  gate_score 0.072  nhin thay 0.12  z 3.04  CHU THICH SAI
+     a59  n_ref  153  F1 psd  23.97  peakprob  25.87  oracle  28.47  | psd_max   12.38  n_det[ 133, 139]  gate_score 0.017  nhin thay 0.21  z 3.78  
+     a27  n_ref  135  F1 psd  30.23  peakprob  32.94  oracle  32.94  | psd_max   74.06  n_det[ 119, 123]  gate_score 0.020  nhin thay 0.21  z 4.01  
+     a57  n_ref  148  F1 psd  20.92  peakprob  17.02  oracle  38.28  | psd_max   33.41  n_det[  87, 108]  gate_score 0.788  nhin thay 0.09  z 5.89  
+     a54  n_ref   37  F1 psd  38.79  peakprob  38.79  oracle  38.79  | psd_max   17.18  n_det[ 128, 144]  gate_score 0.972  nhin thay 0.08  z 10.40  CHU THICH SAI
+     a68  n_ref  139  F1 psd  39.26  peakprob  39.26  oracle  39.26  | psd_max  210.63  n_det[ 128, 135]  gate_score 0.040  nhin thay 0.22  z 4.28  
+     a43  n_ref  158  F1 psd  24.09  peakprob  37.36  oracle  44.44  | psd_max   24.55  n_det[ 115, 121]  gate_score 0.010  nhin thay 0.24  z 4.17  
+     a60  n_ref  148  F1 psd  47.06  peakprob  47.06  oracle  47.06  | psd_max  142.03  n_det[ 138, 149]  gate_score 0.066  nhin thay 0.18  z 4.34  
+
+   So sanh 8 ban cung vs 67 ban con lai (trung vi [min, max]):
+     diem PSD lon nhat (MU NHAN)                cung8    37.38 [  12.38,  210.63] | conlai>=50    11.57 [   0.29,   95.35] | conlai<50      nan
+     so phat hien lon nhat (MU NHAN)            cung8   137.00 [ 108.00,  149.00] | conlai>=50   141.00 [ 123.00,  169.00] | conlai<50      nan
+     so nhan that                               cung8   148.00 [  37.00,  158.00] | conlai>=50   138.00 [ 123.00,  175.00] | conlai<50      nan
+     diem cong tu choi (MU NHAN)                cung8     0.05 [   0.01,    0.97] | conlai>=50     0.96 [   0.01,    1.00] | conlai<50      nan
+     ti le doan bi cong danh xau (MU NHAN)      cung8     1.00 [   0.00,    1.00] | conlai>=50     0.00 [   0.00,    1.00] | conlai<50      nan
+     %% nhan nhin thay, kenh tot nhat (DUNG NHAN) cung8     0.19 [   0.08,    0.24] | conlai>=50     1.00 [   0.24,    1.00] | conlai<50      nan
+     z trung vi, kenh tot nhat (DUNG NHAN)      cung8     4.23 [   3.04,   10.40] | conlai>=50    13.05 [   4.08,   38.98] | conlai<50      nan
+     tran hop nhat 4 kenh (DUNG NHAN)           cung8    56.18 [  43.08,   94.29] | conlai>=50   100.00 [  73.58,  100.00] | conlai<50      nan
+
+   Kha nang tach 8 ban cung bang dac trung MU NHAN (AUROC 1-vs-phan con lai):
+     diem PSD lon nhat (MU NHAN)                vs ca 67: 0.799 | vs 59 ban oracle>=50: 0.799
+     so phat hien lon nhat (MU NHAN)            vs ca 67: 0.359 | vs 59 ban oracle>=50: 0.359
+     so nhan that                               vs ca 67: 0.623 | vs 59 ban oracle>=50: 0.623
+     diem cong tu choi (MU NHAN)                vs ca 67: 0.146 | vs 59 ban oracle>=50: 0.146
+     ti le doan bi cong danh xau (MU NHAN)      vs ca 67: 0.818 | vs 59 ban oracle>=50: 0.818
+     %% nhan nhin thay, kenh tot nhat (DUNG NHAN) vs ca 67: 0.002 | vs 59 ban oracle>=50: 0.002
+     z trung vi, kenh tot nhat (DUNG NHAN)      vs ca 67: 0.075 | vs 59 ban oracle>=50: 0.075
+     tran hop nhat 4 kenh (DUNG NHAN)           vs ca 67: 0.017 | vs 59 ban oracle>=50: 0.017
+
+=== 3. TRAN NANG LUC - PHEP THU B (hoc thuoc 4 chu the) ===
+   be rong 40 (113481 tham so, loss 0.5652 -> 0.2617): F1 trong mau PSD 99.08 | TB moi kenh 97.59
+      r01    PSD  99.92  TB4  99.92  oracle  99.92   A1:99.9 A2:99.9 A3:99.9 A4:99.9
+      B2_12  PSD 100.00  TB4  99.56  oracle 100.00   A1:98.9 A2:99.3 A3:100.0 A4:100.0
+      B2_03  PSD  96.55  TB4  90.94  oracle  96.76   A1:96.6 A2:93.3 A3:77.1 A4:96.8
+      B1_07  PSD  99.84  TB4  99.93  oracle  99.98   A1:100.0 A2:100.0 A3:100.0 A4:99.8
+   be rong 80 (450961 tham so, loss 0.5209 -> 0.2502): F1 trong mau PSD 99.33 | TB moi kenh 98.44
+      r01    PSD  99.92  TB4  99.96  oracle 100.00   A1:100.0 A2:99.9 A3:100.0 A4:99.9
+      B2_12  PSD 100.00  TB4  99.85  oracle 100.00   A1:99.7 A2:99.7 A3:100.0 A4:100.0
+      B2_03  PSD  97.51  TB4  94.01  oracle  97.72   A1:97.5 A2:95.0 A3:85.8 A4:97.7
+      B1_07  PSD  99.90  TB4  99.94  oracle  99.97   A1:100.0 A2:100.0 A3:100.0 A4:99.9
+
+   Chenh 80 kenh vs 40 kenh (4x tham so):
+      r01    oracle  +0.08
+      B2_12  oracle  +0.00
+      B2_03  oracle  +0.97
+      B1_07  oracle  -0.02
+      TONG   F1 trong mau PSD  +0.26 (99.08 -> 99.33)
+
+=== 4. PHAN RA NGAN SACH SAI SO TREN CinC 75 THEO TUNG QUY TAC ===
+    (chia doi voi tung ban ghi: (100-F1_oracle) la phan BO DO/GIOI HAN,
+     (F1_oracle-F1_quy_tac) la phan CHON KENH; chia cho 75 de ra diem macro)
+   psd       F1  79.40 | thieu  20.60 = chon kenh(67)  6.86 + chon kenh(8 vo vong)  0.61 + BO DO(67)  6.36 + GIOI HAN CUNG(8)  6.77  [kiem  20.60]
+   gate      F1  84.54 | thieu  15.46 = chon kenh(67)  1.44 + chon kenh(8 vo vong)  0.89 + BO DO(67)  6.36 + GIOI HAN CUNG(8)  6.77  [kiem  15.46]
+   peakprob  F1  85.60 | thieu  14.40 = chon kenh(67)  0.84 + chon kenh(8 vo vong)  0.43 + BO DO(67)  6.36 + GIOI HAN CUNG(8)  6.77  [kiem  14.40]
+   rrcv      F1  83.98 | thieu  16.02 = chon kenh(67)  1.85 + chon kenh(8 vo vong)  1.04 + BO DO(67)  6.36 + GIOI HAN CUNG(8)  6.77  [kiem  16.02]
+   gate4     F1  84.77 | thieu  15.23 = chon kenh(67)  1.38 + chon kenh(8 vo vong)  0.72 + BO DO(67)  6.36 + GIOI HAN CUNG(8)  6.77  [kiem  15.23]
+   oracle    F1  86.87 | thieu  13.13 = chon kenh(67)  0.00 + chon kenh(8 vo vong)  0.00 + BO DO(67)  6.36 + GIOI HAN CUNG(8)  6.77  [kiem  13.13]
+
+=== 5. TIEU CHI TU CHOI MU NHAN CHO NHOM GIOI HAN CUNG ===
+   LUU Y VONG LAP: nhom "8 ban gioi han cung" duoc DINH NGHIA la F1_oracle < 50.
+   Kiem chung: so ban ngoai nhom 8 co F1_oracle < 50 = 0
+   => moi dac trung DUNG NHAN tat nhien tach duoc; chi dac trung MU NHAN moi co gia tri.
+   Trong 8 ban: 2 ban nam trong danh sach chu thich sai da khai bao truoc (a54, a71).
+      a54: n_ref 37 nhung mo hinh phat hien toi 144 nhip -> khong phai "khong co tin hieu"
+      a71: n_ref 153 nhung mo hinh phat hien toi 142 nhip -> khong phai "khong co tin hieu"
+
+   Cong tu choi CO SAN (GATE22, hieu chuan tren 22 chu the, ZERO-SHOT sang CinC):
+      AUROC nhan dien 8 ban gioi han cung = 0.854 (diem cong THAP = ban ghi xau)
+      AUROC cua ti le doan bi danh xau        = 0.818
+      AUROC cua diem PSD lon nhat             = 0.799 (nguoc chieu truc giac: PSD CAO = xau)
+      nguong diem cong < 0.05: bat 4/8 ban cung, bao dong nham 5/67
+      nguong diem cong < 0.10: bat 6/8 ban cung, bao dong nham 10/67
+      nguong diem cong < 0.20: bat 6/8 ban cung, bao dong nham 12/67
+      nguong diem cong < 0.30: bat 6/8 ban cung, bao dong nham 14/67
+      nguong diem cong < 0.50: bat 6/8 ban cung, bao dong nham 17/67
+
+=== 6. MUC "BO DO (67 ban)" = 6,36 DIEM THUC RA GOM NHUNG GI? ===
+   tong = 6.36 diem, phan bo RAT TAP TRUNG:
+      1. a32  F1_oracle  52.11  +0.638 diem (cong don 0.64 = 10%)  nhin thay 0.28  (a)  0.7% 
+      2. a75  F1_oracle  52.51  +0.633 diem (cong don 1.27 = 20%)  nhin thay 0.25  (a)  1.6% 
+      3. a50  F1_oracle  52.71  +0.631 diem (cong don 1.90 = 30%)  nhin thay 0.30  (a)  0.8% 
+      4. a18  F1_oracle  54.98  +0.600 diem (cong don 2.50 = 39%)  nhin thay 0.31  (a)  5.3% 
+      5. a64  F1_oracle  57.04  +0.573 diem (cong don 3.08 = 48%)  nhin thay 0.24  (a)  1.7% 
+      6. a63  F1_oracle  61.19  +0.517 diem (cong don 3.59 = 56%)  nhin thay 0.25  (a)  0.0% 
+      7. a38  F1_oracle  65.12  +0.465 diem (cong don 4.06 = 64%)  nhin thay 0.35  (a)  3.8% CHU THICH SAI
+      8. a10  F1_oracle  70.89  +0.388 diem (cong don 4.45 = 70%)  nhin thay 0.72  (a) 19.6% 
+      9. a02  F1_oracle  75.88  +0.322 diem (cong don 4.77 = 75%)  nhin thay 0.67  (a)  6.7% 
+     10. a16  F1_oracle  78.79  +0.283 diem (cong don 5.05 = 79%)  nhin thay 0.36  (a)  0.0% 
+     top  5 ban ghi chiem 48% cua 6,36 diem
+     top 10 ban ghi chiem 79% cua 6,36 diem
+     top 20 ban ghi chiem 97% cua 6,36 diem
+     so ban ghi da >= 95 tren kenh oracle: 48/67 (chi con 19 ban dang ke)
+
+   Chia 6,36 diem theo do NHIN THAY tin hieu thai tren kenh TOT NHAT (nguong 0.50):
+     tin hieu KHONG nhin thay (<0.50):  9 ban, 4.52 diem (71%)  -- gioi han THU TIN HIEU
+     tin hieu CO nhin thay (>=0.50): 58 ban, 1.85 diem (29%)  -- phan co the do mo hinh
+
+   Thang do nhin thay (trung vi, kenh tot nhat) theo muc F1 oracle:
+     67 ban: F1_oracle >= 95    n=48  nhin thay 1.00
+     67 ban: F1_oracle <  95    n=19  nhin thay 0.51
+     8 ban gioi han cung        n= 8  nhin thay 0.19
+
+   hinh -> d:\NCKHSV2026-2027\analysis\fig_chandoan_m1.png
