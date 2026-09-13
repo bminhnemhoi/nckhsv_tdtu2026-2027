@@ -506,7 +506,277 @@ def run(source, upload_files, sample_label, lead_choice, fs_in, conf_choice=CONF
     return fig1, fig3, leads_md(out), fig2, cards_html(out, wall), compare_md(out), compare_df(out), s, status
 
 
+
+# =========================================================================== A1: tab "Dữ liệu của nhóm"
+DS_LABELS = {core.DATASET_LABEL[k]: k for k in core.DATASET_KEYS}
+DS_COLS = ['Bản ghi', 'Đường dẫn trên đĩa', 'Định dạng', 'fs gốc (Hz)', 'Dài (s)',
+           'Số kênh bụng', 'Số nhịp trong nhãn', 'Nguồn nhãn', 'Ghi chú']
+
+DS_FORMAT_MD = {
+    'adfecgdb': '''
+**ADFECGDB (Abdominal and Direct Fetal ECG Database, PhysioNet)** — 5 bản ghi `r01 r04 r07 r08 r10`.
+
+* Mỗi bản ghi là **một tệp `.edf`** (European Data Format — nhị phân, header văn bản 256 byte/kênh nằm ngay đầu tệp)
+  cộng **một tệp `.edf.qrs`** (chú giải WFDB nhị phân: vị trí từng nhịp QRS **thai**).
+* Bên trong `.edf` có 5 kênh: `Direct_1` (FECG lấy **trực tiếp từ điện cực gắn trên da đầu thai** — đây là nguồn
+  sinh ra nhãn) và `Abdomen_1..4` (4 đạo trình **bụng** mẹ — đây là thứ mô hình được phép nhìn).
+  Demo **bỏ kênh `Direct_1`** khi phân tích: nếu đưa kênh trực tiếp vào thì bài toán không còn ý nghĩa.
+* `.edf` là **nhị phân** nên không in nguyên văn được; siêu dữ liệu ở bảng trên đọc bằng `mne.io.read_raw_edf`.
+''',
+    'silesia_b1': '''
+**Silesia B1 — thai kỳ** (Silesian University of Technology, 10 bản ghi ~20 phút).
+
+* `B1_abSignals_XX.ecg` — **nhị phân**, `int16` **big-endian**, 8 cột xen kẽ; giá trị thật = số nguyên / 10.
+  Demo chỉ dùng **4 cột đầu** = 4 đạo trình bụng A1..A4, lấy mẫu **500 Hz**.
+* `B1_abSignals_XX.txt` — cùng nội dung nhưng dạng văn bản (dùng để đối chiếu định dạng, `silesia_loader.format_check`).
+* `B1_Fetal_R_XX.txt` — **nhãn nhịp thai**: mỗi dòng `chỉ_số_mẫu  cờ`, cờ = 1 nghĩa là nhịp đã được soát tay.
+* `B1_Maternal_R_XX.txt` — nhãn nhịp **mẹ** (dùng kiểm tra khâu khử mẹ, không dùng để chấm điểm).
+* **Nguồn nhãn GIÁN TIẾP:** nhóm tác giả khử QRS mẹ ngay trên tín hiệu bụng rồi dò nhịp thai và soát lại —
+  **không có điện cực da đầu**. Đây là điểm yếu phải nói rõ khi báo cáo B1.
+''',
+    'silesia_b2': '''
+**Silesia B2 — chuyển dạ** (12 bản ghi 5 phút). Cấu trúc tệp giống hệt B1, thêm một tệp:
+
+* `B2_abSignals_XX.ecg` — 4 đạo trình bụng A1..A4, `int16` big-endian, 8 cột, **500 Hz**, giá trị = int/10.
+* `B2_dFECG_XX.ecg` — **FECG trực tiếp từ điện cực da đầu thai**, 1000 Hz, 2 cột (thô + đã lọc bởi tác giả).
+  Đây là nguồn sinh nhãn; **không đưa vào mô hình**.
+* `B2_Fetal_R_XX.txt` — nhãn nhịp thai (chỉ số mẫu **ở 1000 Hz**, vì đếm trên dFECG).
+* **5 bản B2_01, B2_02, B2_07, B2_10, B2_11 trùng với r01, r10, r04, r07, r08 của ADFECGDB** —
+  đã loại khỏi 22 chủ thể để không đếm một sản phụ hai lần (xem cột Ghi chú).
+''',
+    'cinc_sach': '''
+**CinC 2013 set-a — 60 bản SẠCH** (PhysioNet/CinC Challenge 2013, mỗi bản 60 s).
+
+* `aXX.hea` — **header WFDB, văn bản thuần, mở bằng Notepad đọc được** (xem ví dụ in nguyên văn bên dưới).
+  Dòng 1: `<tên> <số kênh> <fs> <số mẫu>`. Mỗi dòng sau: tệp dữ liệu, độ phân giải bit, hệ số/đơn vị, ... , tên kênh.
+* `aXX.dat` — **nhị phân**, `int16`, 4 kênh xen kẽ, 1000 Hz; giá trị vật lý = (số nguyên − offset) / hệ_số.
+* `aXX.fqrs` — **chú giải WFDB nhị phân**: vị trí từng nhịp **thai**, do **người chấm độc lập** của ban tổ chức đánh dấu
+  (không phải điện cực da đầu). Đây là lý do 7 bản `a33 a38 a47 a52 a54 a71 a74` có nhãn sai đã khai báo trước.
+* Đây là bộ **ngoài miền** (khác thiết bị, khác dân số) — số chính của đề tài trên bộ này: psd 74,28 → peakprob 82,01.
+''',
+    'cinc_nhiem': '''
+**CinC 2013 set-a — 15 bản NHIỄM.** Cấu trúc tệp giống 60 bản sạch (`.hea` + `.dat` + `.fqrs`), nhưng **nội dung tín hiệu
+là bản sao nguyên văn của ADFECGDB** — tức là trùng với dữ liệu huấn luyện của nhóm.
+
+* Mỗi bản ADFECGDB xuất hiện **đúng 3 lần** theo cửa sổ 0–60 s / 120–180 s / 240–300 s:
+  `r01 → a04, a05, a22` · `r04 → a13, a20, a25` · `r07 → a19, a23, a24` · `r08 → a08, a15, a17` · `r10 → a03, a12, a14`.
+* Kiểm chứng: **NCC = 1,0000** trên cả 4 kênh đúng thứ tự, **lệch RR = 0,0 ms**.
+  Đối chứng dương (trùng đã biết B2 ↔ PhysioNet, cùng sản phụ nhưng khác xử lý) chỉ 0,856–0,984;
+  60 bản còn lại tối đa 0,62.
+* **Như ban tổ chức đã ghi nhận** (Silva *et al.*, CinC 2013;40:149-152, Bảng 1 *"Abdominal and Direct FECG — 25"*;
+  Clifford *et al.*, Physiol Meas 2014;35:1521, cảnh báo nguyên văn), set-a **có chứa** bản ghi ADFECGDB.
+  Đóng góp của nhóm chỉ là **định danh đúng 15 bản nào** và **đo mức thổi phồng**
+  (m5 +7,18 · m12 +6,41 · m22 +5,12 · oracle +3,27 điểm F1).
+* **Mọi con số CinC tính trên 75 bản đều đã bị RÚT.** Bộ này để trong demo *chỉ nhằm minh hoạ sự trùng lặp*,
+  không được dùng làm kết quả.
+''',
+}
+
+DS_HOWTO_MD = '''
+#### Cách đọc hình này
+
+Mỗi đường là **một đạo trình điện cực dán trên bụng mẹ** trong 10 giây đầu bản ghi; các đường được xếp chồng
+lên nhau (đã dời lên/xuống cho khỏi đè) nên **chỉ so hình dạng, đừng so độ cao giữa các đường**.
+Những gai **to, đều, cao** là nhịp tim của **mẹ**; nhịp của **thai** nhỏ hơn nhiều, thường lẫn trong nhiễu —
+đó chính là lý do phải có mô hình. **Vạch đỏ đứng** là vị trí nhịp thai theo **nhãn tham chiếu**:
+đếm vạch đỏ sẽ thấy thai đập nhanh hơn mẹ (khoảng 110–160 lần/phút so với 60–90 của mẹ).
+Nếu nhìn vào một vạch đỏ mà **không** thấy gai nào rõ ràng thì đó là đoạn khó — đây là dữ liệu thô, chưa lọc, chưa khử mẹ.
+'''
+
+
+def _rel(p):
+    """Đường dẫn tương đối so với gốc dự án cho gọn bảng; giữ nguyên nếu nằm ngoài gốc."""
+    try:
+        r = os.path.relpath(p, ROOT)
+        return p if r.startswith('..') else r
+    except ValueError:
+        return p
+
+
+def dataset_table(key):
+    rows, err = core.dataset_rows(key)
+    if not rows:
+        d, cmd = core.DATASET_DIR_HINT[key]
+        msg = (f'### Chưa có bộ này trên đĩa\n\n{err}\n\nThư mục mong đợi: `{d}`\n\n'
+               f'Lệnh tải lại:\n```\n{cmd}\n```')
+        return pd.DataFrame(columns=DS_COLS), msg, gr.update(choices=[], value=None)
+    df = pd.DataFrame([[r['ten'], _rel(r['duong_dan']), r['dinh_dang'], f'{r["fs_Hz"]:.0f}',
+                        f'{r["do_dai_s"]:.1f}', r['so_kenh_bung'],
+                        ('—' if r['so_nhip_nhan'] is None else r['so_nhip_nhan']),
+                        r['nguon_nhan'], r['ghi_chu']] for r in rows], columns=DS_COLS)
+    tong_s = sum(r['do_dai_s'] for r in rows)
+    tong_nhip = sum(r['so_nhip_nhan'] or 0 for r in rows)
+    head = (f"### {core.DATASET_LABEL[key]}\n\n"
+            f"**{len(rows)} bản ghi** · tổng **{tong_s / 60:.1f} phút** · tổng **{tong_nhip:,} nhịp thai trong nhãn** "
+            f"· thư mục `{core.DATASET_DIR_HINT[key][0]}`.\n\n"
+            f"Cột *Đường dẫn* ghi **tương đối so với gốc dự án** `{ROOT}`.\n\n"
+            f"*Mọi ô trong bảng đọc trực tiếp từ tệp trên đĩa (header WFDB / header EDF / kích thước tệp .ecg / tệp nhãn) "
+            f"— không có con số nào ghi cứng trong mã.*\n"
+            + DS_FORMAT_MD[key])
+    p, txt = core.header_example(key)
+    if txt:
+        nm = 'header `.hea`' if key.startswith('cinc') else 'tệp nhãn `.txt`'
+        head += (f"\n**Ví dụ nội dung {nm} — in nguyên văn 8 dòng đầu của `{os.path.relpath(p, ROOT)}`:**\n"
+                 f"```\n{txt}\n```\n")
+    elif key == 'adfecgdb':
+        head += "\n*(`.edf` là tệp nhị phân — không in nguyên văn được; xem cột Định dạng và tên kênh ở bảng trên.)*\n"
+    names = [r['ten'] for r in rows]
+    return df, head, gr.update(choices=names, value=names[0])
+
+
+def dataset_raw_figure(key, name):
+    """10 s đầu của TẤT CẢ kênh bụng, xếp chồng, vạch đỏ = nhãn nhịp thai."""
+    t0 = time.perf_counter()
+    try:
+        rec = core.load_dataset_record(key, name)
+    except Exception as e:                                      # noqa: BLE001
+        raise gr.Error(f'Không đọc được bản ghi {name}: {e}')
+    w = core.preview_window(rec, 0.0, VIEW_S)
+    sig = w['signals']; K = w['n_leads']
+    # dời từng kênh theo bội số của độ lệch chuẩn gộp -> các đường không đè nhau
+    sd = float(np.median([np.std(sig[k]) for k in range(K)])) or 1.0
+    step = 6.0 * sd
+    fig = go.Figure()
+    pal = ['#2563eb', '#0f766e', '#b45309', '#7c3aed', '#be123c', '#0369a1', '#4d7c0f', '#9333ea']
+    for k in range(K):
+        fig.add_trace(go.Scattergl(x=w['t'], y=sig[k] - np.mean(sig[k]) + (K - 1 - k) * step,
+                                   name=f'kênh {k + 1} ({w["names"][k]})',
+                                   line=dict(color=pal[k % len(pal)], width=1),
+                                   hovertemplate='%{x:.3f} s<extra>' + f'kênh {k + 1}' + '</extra>'))
+    if w['labels_s'] is not None and len(w['labels_s']):
+        lo = -step; hi = K * step
+        vx, vy = _vlines(w['labels_s'], lo, hi)
+        fig.add_trace(go.Scattergl(x=vx, y=vy, mode='lines', name=f'nhãn nhịp thai: {len(w["labels_s"])} trong 10 s',
+                                   line=dict(color='#dc2626', width=1.1), opacity=0.75, hoverinfo='skip'))
+    fig.update_layout(height=160 + 110 * K, margin=dict(l=60, r=20, t=36, b=48),
+                      title=dict(text=f'{name} — tín hiệu THÔ, {VIEW_S:.0f} s đầu, {K} kênh bụng (chưa lọc, chưa khử mẹ)',
+                                 x=0.0, xanchor='left', font=dict(size=14)),
+                      legend=dict(orientation='h', yanchor='bottom', y=1.015, xanchor='right', x=1, font=dict(size=11)),
+                      plot_bgcolor='white', paper_bgcolor='white', hovermode='closest', dragmode='zoom')
+    fig.update_xaxes(title_text='thời gian (giây) — kéo để phóng to, nhấp đúp để xem lại toàn bộ',
+                     showgrid=True, gridcolor='rgba(0,0,0,0.06)', range=[0, VIEW_S])
+    fig.update_yaxes(showticklabels=False, showgrid=False, zeroline=False,
+                     title_text='các kênh xếp chồng (biên độ đã dời, không so được giữa kênh)')
+    wall = (time.perf_counter() - t0) * 1000
+    nb = 0 if w['labels_s'] is None else len(w['labels_s'])
+    fs0 = float(rec.get('fs_orig', rec['fs']))
+    fs_txt = (f"**{fs0:.0f} Hz**" if abs(fs0 - w['fs']) < 1e-9
+              else f"**{fs0:.0f} Hz** (hình vẽ sau khi tái lấy mẫu về {w['fs']:.0f} Hz)")
+    cap = (f"**{name}** · tần số gốc {fs_txt} · "
+           f"**{K} kênh bụng** · bản ghi dài **{w['duration_s']:.1f} s** · "
+           f"**{nb} nhịp thai theo nhãn trong 10 s** đang hiển thị"
+           + (f" (≈ {nb * 6} nhịp/phút)" if nb else " — bản ghi này không có nhãn trong cửa sổ đang xem") + ".\n\n"
+           f"Định dạng: `{rec.get('dinh_dang', '?')}` · nguồn nhãn: *{rec.get('nguon_nhan', '?')}* · "
+           f"tệp: `{os.path.relpath(rec.get('duong_dan', ''), ROOT) if rec.get('duong_dan') else '—'}`"
+           + (f"\n\n> ⚠ {rec['note']}" if rec.get('note') else '')
+           + f"\n\n*Đọc tệp + vẽ: {wall:,.0f} ms.*")
+    return fig, cap
+
+
+# =========================================================================== A2: tab "Tải dữ liệu mới"
+UPLOAD_DIR_NEW = os.path.join(HERE, '_uploads_moi')
+ASSET_DIR = os.path.join(HERE, 'assets')
+VIDU_SIG = os.path.join(ASSET_DIR, 'vidu_tai_len.csv')
+VIDU_LAB = os.path.join(ASSET_DIR, 'vidu_tai_len_nhan.csv')
+
+UP_INTRO_MD = f'''
+### Thử mô hình trên dữ liệu **chưa có trong đề tài**
+
+**Định dạng nhận được** (chọn nhiều tệp cùng lúc ở ô bên dưới):
+
+| Định dạng | Cần tải lên những gì | Có tự khai tần số không |
+|---|---|---|
+| `.edf` (European Data Format) | một tệp `.edf` (kèm `.edf.qrs` nếu có nhãn) | **Có** — ô fs bị bỏ qua |
+| WFDB | **cả hai** tệp `.dat` **và** `.hea` | **Có** — ô fs bị bỏ qua |
+| `.csv` | một tệp, mỗi cột một kênh (cho phép một dòng tiêu đề) | **Không** — phải nhập fs |
+| `.npy` | mảng numpy 2 chiều (kênh × mẫu hoặc mẫu × kênh) | **Không** — phải nhập fs |
+| `.txt` | như `.csv` nhưng ngăn cách bằng khoảng trắng | **Không** — phải nhập fs |
+
+Bản ghi phải dài ít nhất **{core.MIN_DURATION_S:g} giây**. Tần số lấy mẫu chấp nhận
+**{core.FS_MIN:g}–{core.FS_MAX:g} Hz** (mọi thứ được đưa về 1000 Hz rồi lọc xuống 250 Hz trước khi vào mô hình).
+
+''' + ('''
+**Tệp ví dụ có sẵn để thử ngay** (nằm trong `demo/assets/`):
+`vidu_tai_len.csv` (30 s, 4 kênh, 1000 Hz) và `vidu_tai_len_nhan.csv` (một cột chỉ số mẫu).
+> ⚠ Hai tệp này **trích từ bản ghi `a09` của CinC 2013 set-a** nên **KHÔNG phải "dữ liệu mới" thật** —
+> chúng chỉ để thử luồng tải lên và xem giao diện phản ứng thế nào.
+''' if os.path.isfile(VIDU_SIG) else '''
+> ⚠ Chưa có tệp ví dụ trên máy này. Sinh lại bằng: `python demo/make_vidu_tai_len.py`
+> (cắt 30 s từ bản `a09` của CinC 2013 set-a; hai tệp này cố ý không được commit vào kho).
+''')
+
+UP_WARN_NOLABEL = '''<div class="rf-warn"><b>Không có nhãn tham chiếu</b> → chỉ xem được <b>vị trí nhịp</b> và
+<b>điểm tin cậy</b>. <b>KHÔNG tính được F1 / Se / PPV.</b> Muốn đánh giá định lượng thì phải có nhãn
+(tệp <code>.qrs</code>/<code>.fqrs</code> đi kèm, hoặc tệp <code>.csv</code>/<code>.txt</code> một cột chỉ số mẫu).</div>'''
+
+UP_WARN_DOMAIN = '''<div class="rf-warn rf-warn-red"><b>Cảnh báo về miền dữ liệu.</b> Mô hình được huấn luyện trên
+<b>22 sản phụ</b> (ADFECGDB + Silesia). Trên <b>thiết bị khác hoặc dân số khác, kết quả có thể kém hơn nhiều</b>:
+trên bộ ngoài miền CinC 2013 set-a (60 bản sạch), F1 mức bản ghi là <b>74,28</b> với quy tắc chọn kênh PSD và
+<b>82,01</b> với peakprob — thấp hơn hẳn mức 97,56 đo trong miền. Bốn phương pháp thích nghi miền đã thử đều
+<b>thất bại</b> (chặn điện lưới +0,25 · tự huấn luyện nhãn giả −0,68 · AdaBN −1,58 · TENT −2,43), và nguyên nhân của
+khoảng cách này <b>chưa xác định được</b>. <b>Đèn tin cậy (cổng từ chối) là thứ cần nhìn đầu tiên</b>, không phải số nhịp.</div>'''
+
+
+def _api(name):
+    """api_name= cho gradio_client, bỏ qua nếu bản gradio không nhận (giữ tương thích 4.x và 6.x)."""
+    try:
+        return {'api_name': name} if 'api_name' in inspect.signature(gr.Button.click).parameters else {}
+    except (TypeError, ValueError):                             # noqa: BLE001
+        return {}
+
+
+def run_dataset(ds_label):
+    """Đổi bộ dữ liệu -> (bảng bản ghi, mô tả định dạng, danh sách bản ghi để xem tín hiệu thô)."""
+    return dataset_table(DS_LABELS[ds_label])
+
+
+def run_dataset_raw(ds_label, rec_name):
+    """Nút 'Xem tín hiệu thô' -> (hình 10 s mọi kênh, chú thích số thật đọc từ tệp)."""
+    if not rec_name:
+        raise gr.Error('Chưa chọn bản ghi nào — hãy chọn một bản ghi trong danh sách bên trái.')
+    return dataset_raw_figure(DS_LABELS[ds_label], rec_name)
+
+
+def run_upload(files, fs_in, lead_choice, conf_choice, label_files):
+    t0 = time.perf_counter()
+    try:
+        paths = [f if isinstance(f, str) else getattr(f, 'name', str(f)) for f in (files or [])]
+        lpaths = [f if isinstance(f, str) else getattr(f, 'name', str(f)) for f in (label_files or [])]
+        rec = core.doc_tai_len(paths, UPLOAD_DIR_NEW, fs=fs_in, label_paths=lpaths or None)
+    except core.LoiDuLieu as e:
+        raise gr.Error(str(e))
+    except Exception as e:                                      # noqa: BLE001
+        raise gr.Error(f'Không xử lý được tệp tải lên: {type(e).__name__}: {e}')
+    try:
+        out = core.analyze_record(rec, lead=_lead_arg(lead_choice),
+                                  confidence_mode=CONF_MODE.get(conf_choice, 'hoc'))
+    except Exception as e:                                      # noqa: BLE001
+        raise gr.Error(f'Đọc tệp thành công nhưng phân tích thất bại: {type(e).__name__}: {e}')
+    wall = (time.perf_counter() - t0) * 1000
+    nhan = (f'**có nhãn** ({len(rec["labels"]):,} nhịp, từ `{rec["nhan_tu"]}`) → tính được F1/Se/PPV'
+            if rec['co_nhan'] else '**không có nhãn** → KHÔNG tính được F1/Se/PPV')
+    fs_txt = (f'{rec["fs_orig"]:.0f} Hz (tệp tự khai)' if rec['fs_tu_khai']
+              else f'{rec["fs_orig"]:.0f} Hz (bạn nhập — tệp không tự khai)')
+    canh = ''.join(f'\n\n> ⚠ {c}' for c in rec.get('canh_bao', []))
+    status = (f'Đã phân tích tệp **{os.path.basename(rec["upload_main"])}** '
+              f'({rec["source"]}, {rec["duration_s"]:.1f} s, {rec["signals"].shape[0]} kênh, {fs_txt}) — {nhan}.\n\n'
+              f'Kênh được chọn: **{out["lead"]}** ({out["lead_mode"]}) · checkpoint *{out["checkpoint_note"]}* · '
+              f'đèn tin cậy *{core.CONF_MODE_LABEL[out["confidence_mode"]]}* · '
+              f'toàn bộ (đọc tệp + mô hình + vẽ): **{wall:,.0f} ms**.\n\n'
+              f'Tệp đã nhận: `{", ".join(rec["upload_files"])}`.{canh}')
+    return (cards_html(out, wall), signal_figure(out), leads_figure(out), leads_md(out),
+            fhr_figure(out), compare_md(out), core.summary(out), status)
+
 CSS = '''
+/* --- thanh tab: XUONG HANG thay vi thu vao menu tran khi man hinh hep --- */
+/* Phong hoc thuong 1366x768; khong sua thi hai tab cuoi bien mat. */
+.tab-nav, div.tab-nav, .tabs > .tab-nav {
+  flex-wrap: wrap !important;
+  overflow: visible !important;
+  row-gap: 2px;
+}
+.tab-nav > button { white-space: nowrap; flex: 0 0 auto !important; }
+.tab-nav .overflow-menu, .tab-nav button[aria-label*="more"], .tab-nav .tab-overflow { display: none !important; }
 .rf-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:6px 0 2px}
 @media (max-width:900px){.rf-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .rf-card{border:1.5px solid #e5e7eb;border-radius:12px;padding:12px 14px;background:#fff;min-height:110px}
@@ -523,6 +793,9 @@ CSS = '''
 .rf-foot{border-top:1px solid #e5e7eb;margin-top:14px;padding:10px 4px;font-weight:700;color:#991b1b;text-align:center}
 .rf-title h1{margin:0 0 2px;font-size:26px}
 .rf-title p{margin:0;color:#6b7280}
+.rf-warn{border:1.5px solid #fcd34d;background:#fffbeb;color:#78350f;border-radius:10px;padding:10px 12px;margin:8px 0;font-size:13.5px;line-height:1.55}
+.rf-warn-red{border-color:#fca5a5;background:#fef2f2;color:#7f1d1d}
+.rf-warn code{background:#fff;padding:1px 4px;border-radius:4px}
 '''
 
 
@@ -567,6 +840,48 @@ def build_app():
                 cmp_df = gr.DataFrame(label='Danh sách sự kiện (FP, FN trước; TP tối đa 200 dòng)', wrap=True)
             with gr.Tab('Kết quả tổng hợp (60 bản sạch)'):
                 gr.Markdown(SUMMARY_MD)
+            with gr.Tab('Dữ liệu của nhóm'):
+                gr.Markdown('## Dữ liệu của nhóm đang nằm ở đâu, định dạng thế nào\n\n'
+                            'Chọn một bộ để xem **từng bản ghi có thật trên đĩa**: đường dẫn, định dạng, tần số lấy mẫu, '
+                            'độ dài, số kênh bụng, số nhịp trong nhãn và **nhãn đó từ đâu ra**. '
+                            'Sau đó chọn một bản ghi và bấm *Xem tín hiệu thô* để nhìn tận mắt dữ liệu chưa qua xử lý.')
+                ds_pick = gr.Dropdown(choices=list(DS_LABELS), value=list(DS_LABELS)[0], label='Bộ dữ liệu')
+                ds_info = gr.Markdown()
+                ds_table = gr.DataFrame(label='Từng bản ghi trong bộ (đọc thật từ tệp trên đĩa)', wrap=True)
+                with gr.Row(equal_height=True):
+                    ds_rec = gr.Dropdown(choices=[], label='Bản ghi muốn xem tín hiệu thô', scale=4)
+                    ds_btn = gr.Button('Xem tín hiệu thô', variant='secondary', scale=1)
+                ds_fig = gr.Plot(label='10 giây đầu, tất cả kênh bụng xếp chồng; vạch đỏ = nhãn nhịp thai')
+                ds_cap = gr.Markdown()
+                gr.Markdown(DS_HOWTO_MD)
+            with gr.Tab('Tải dữ liệu mới'):
+                gr.Markdown(UP_INTRO_MD)
+                up_files = gr.File(label='Tệp bản ghi — chọn NHIỀU tệp cùng lúc nếu là cặp .dat + .hea',
+                                   file_count='multiple')
+                with gr.Row(equal_height=True):
+                    up_fs = gr.Number(value=1000, precision=0, scale=1,
+                                      label='Tần số lấy mẫu (Hz) — CHỈ dùng cho .csv / .npy / .txt')
+                    up_lead = gr.Dropdown(choices=LEAD_CHOICES, value=LEAD_CHOICES[0], scale=2, label='Kênh bụng')
+                    up_conf = gr.Dropdown(choices=CONF_CHOICES, value=CONF_CHOICES[0], scale=2, label='Đèn tin cậy')
+                up_lab = gr.File(label='Nhãn tham chiếu (tuỳ chọn): .qrs · .fqrs · .csv/.txt một cột chỉ số mẫu',
+                                 file_count='multiple')
+                up_btn = gr.Button('Phân tích', variant='primary')
+                gr.HTML(UP_WARN_NOLABEL)
+                gr.HTML(UP_WARN_DOMAIN)
+                up_status = gr.Markdown('Chọn tệp rồi bấm **Phân tích**. Chưa chạy gì cả.')
+                up_cards = gr.HTML()
+                with gr.Tabs():
+                    with gr.Tab('Tín hiệu (5 tầng)'):
+                        up_fig_sig = gr.Plot(label='Từ tín hiệu thô đến kết quả')
+                    with gr.Tab('Chọn kênh — mọi kênh'):
+                        up_leads_md = gr.Markdown()
+                        up_fig_leads = gr.Plot(label='Phần dư và đỉnh mô hình trên từng kênh')
+                    with gr.Tab('Nhịp tim thai + đèn đoạn'):
+                        up_fig_fhr = gr.Plot(label='fHR và điểm tin cậy theo đoạn 4 s')
+                    with gr.Tab('So sánh với nhãn'):
+                        up_cmp = gr.Markdown()
+                    with gr.Tab('Nhật ký (JSON)'):
+                        up_js = gr.JSON(label='Tóm tắt phân tích tệp tải lên')
             with gr.Tab('Nhật ký (JSON)'):
                 js = gr.JSON(label='Tóm tắt phân tích — sao chép vào báo cáo')
         gr.HTML(f'<div class="rf-foot">{DISCLAIMER}</div>')
@@ -578,6 +893,12 @@ def build_app():
         outs = [fig_sig, fig_leads, leads_txt, fig_fhr, cards, cmp_md, cmp_df, js, status]
         ins = [source, upload, sample, lead, fs_in, conf, showcase]
         btn.click(run, ins, outs)
+        ds_pick.change(run_dataset, ds_pick, [ds_table, ds_info, ds_rec], **_api('du_lieu_nhom'))
+        ds_btn.click(run_dataset_raw, [ds_pick, ds_rec], [ds_fig, ds_cap], **_api('xem_tin_hieu_tho'))
+        up_btn.click(run_upload, [up_files, up_fs, up_lead, up_conf, up_lab],
+                     [up_cards, up_fig_sig, up_fig_leads, up_leads_md, up_fig_fhr, up_cmp, up_js, up_status],
+                     **_api('tai_du_lieu_moi'))
+        demo.load(run_dataset, ds_pick, [ds_table, ds_info, ds_rec])   # mở trang là bảng dữ liệu đã sẵn
         if SHOWCASE_LABELS and os.environ.get('RELYFETAL_AUTORUN', '1') == '1':
             demo.load(run, ins, outs)     # mở trang là thấy ngay kết quả r01
     return demo

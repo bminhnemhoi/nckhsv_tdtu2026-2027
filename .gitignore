@@ -121,3 +121,11 @@ de_cuong_latex/_check.txt
 
 # ban sao luu truoc khi sua liem chinh -- de xuat XOA sau khi chu nhiem doi chieu xong
 *.bak_integrity
+
+# ---------------------------------------------------------------- demo: tep tam va tep vi du sinh lai duoc
+# Trich doan a09 (CinC 2013 set-a) -- KHONG phat tan lai ban ghi sinh ly goc.
+# Sinh lai bang:  python demo/make_vidu_tai_len.py
+demo/assets/
+demo/_uploads/
+demo/_uploads_moi/
+demo/_uploads_test/

@@ -787,3 +787,361 @@ def gather_upload(paths, workdir):
         if q.lower().endswith('.dat') and os.path.isfile(os.path.splitext(q)[0] + '.hea'):
             return q
     raise ValueError('Không tìm thấy file bản ghi hợp lệ (.edf, .hea+.dat, .csv, .npy, .txt)')
+
+
+# =========================================================================== A1: mô tả bộ dữ liệu của nhóm
+# Mọi số liệu ở phần này đọc THẬT từ tệp trên đĩa (header WFDB, header EDF, kích thước tệp .ecg,
+# tệp nhãn văn bản). Không ghi cứng con số nào ngoài các hằng số định dạng do chính tác giả bộ dữ liệu công bố.
+
+DATASET_KEYS = ('adfecgdb', 'silesia_b2', 'silesia_b1', 'cinc_sach', 'cinc_nhiem')
+DATASET_LABEL = {
+    'adfecgdb': 'ADFECGDB — 5 bản (PhysioNet, nhãn da đầu)',
+    'silesia_b2': 'Silesia B2 — chuyển dạ (12 bản trên đĩa, nhãn da đầu)',
+    'silesia_b1': 'Silesia B1 — thai kỳ (10 bản, nhãn gián tiếp)',
+    'cinc_sach': 'CinC 2013 set-a — 60 bản SẠCH (ngoài miền)',
+    'cinc_nhiem': 'CinC 2013 set-a — 15 bản NHIỄM (bản sao ADFECGDB)',
+}
+DATASET_DIR_HINT = {
+    'adfecgdb': ('model/data/adfecgdb',
+                 'python model/download_data.py --root model/data --only adfecgdb'),
+    'silesia_b2': ('model/data/silesia/extracted/Data Records/B2_Labour_dataset',
+                   'python model/download_silesia.py  (rồi giải nén Data_Records.zip vào model/data/silesia/extracted/)'),
+    'silesia_b1': ('model/data/silesia/extracted/Data Records/B1_Pregnancy_dataset',
+                   'python model/download_silesia.py  (rồi giải nén Data_Records.zip vào model/data/silesia/extracted/)'),
+    'cinc_sach': ('benchmark_dpss/pcdb',
+                  'python model/download_data.py --root model/data --only cinc2013'),
+    'cinc_nhiem': ('benchmark_dpss/pcdb',
+                   'python model/download_data.py --root model/data --only cinc2013'),
+}
+DATASET_CACHE = {}
+
+
+def _rows_adfecgdb():
+    d = adfecgdb_dir()
+    if not d:
+        return None, 'Chưa có bộ ADFECGDB trên đĩa.'
+    import wfdb
+    import mne
+    rows = []
+    for r in ADFECGDB_RECS:
+        p = os.path.join(d, r + '.edf')
+        if not os.path.isfile(p):
+            continue
+        raw = mne.io.read_raw_edf(p, preload=False, verbose='ERROR')
+        fs0 = float(raw.info['sfreq']); n = int(raw.n_times); names = list(raw.ch_names)
+        abd = [nm for nm in names if 'direct' not in nm.lower()]
+        n_lab = None
+        if os.path.isfile(p + '.qrs'):
+            try:
+                n_lab = int(len(wfdb.rdann(os.path.join(d, r), 'edf.qrs').sample))
+            except Exception:                                   # noqa: BLE001
+                n_lab = None
+        dup = [k for k, v in SILESIA_DUP.items() if v == r]
+        cinc = sorted(k for k, v in CINC_LEAK.items() if v == r)
+        note = (f'trùng Silesia {dup[0]}' if dup else '')
+        if cinc:
+            note += ('; ' if note else '') + 'xuất hiện lại trong CinC set-a: ' + ', '.join(cinc)
+        rows.append(dict(ten=r, duong_dan=p, dinh_dang='EDF (+ .edf.qrs)', fs_Hz=fs0,
+                         do_dai_s=n / fs0, so_kenh_bung=len(abd), so_nhip_nhan=n_lab,
+                         nguon_nhan='TRỰC TIẾP — điện cực da đầu thai',
+                         ghi_chu=note, kenh=', '.join(names)))
+    if not rows:
+        return None, 'Thư mục ADFECGDB có nhưng không tìm thấy tệp .edf nào.'
+    return rows, None
+
+
+def _rows_cinc(nhiem):
+    c = cinc2013_dir()
+    if not c or not os.path.isdir(c):
+        return None, 'Chưa có bộ CinC 2013 set-a trên đĩa.'
+    import wfdb
+    names = sorted(CINC_LEAK) if nhiem else list(CINC_CLEAN)
+    rows = []
+    for r in names:
+        base = os.path.join(c, r)
+        if not os.path.isfile(base + '.hea'):
+            continue
+        h = wfdb.rdheader(base)
+        n_lab = None
+        if os.path.isfile(base + '.fqrs'):
+            try:
+                n_lab = int(len(wfdb.rdann(base, 'fqrs').sample))
+            except Exception:                                   # noqa: BLE001
+                n_lab = None
+        if nhiem:
+            note = f'NHIỄM — bản sao {CINC_LEAK[r]} (ADFECGDB); NCC = 1,0000; lệch RR = 0,0 ms'
+        elif r in CINC_BAD_ANN:
+            note = 'bản sạch nhưng NHÃN THAM CHIẾU SAI (1 trong 7 bản đã khai báo trước)'
+        else:
+            note = 'bản sạch, zero-shot'
+        rows.append(dict(ten=r, duong_dan=base + '.dat', dinh_dang='WFDB (.dat + .hea + .fqrs)',
+                         fs_Hz=float(h.fs), do_dai_s=float(h.sig_len) / float(h.fs),
+                         so_kenh_bung=int(h.n_sig), so_nhip_nhan=n_lab,
+                         nguon_nhan='người chấm độc lập (ban tổ chức CinC 2013)',
+                         ghi_chu=note, kenh=', '.join(h.sig_name or [])))
+    if not rows:
+        return None, 'Thư mục CinC có nhưng không tìm thấy tệp .hea nào.'
+    return rows, None
+
+
+def _rows_silesia(group):
+    SL = silesia_loader()
+    if SL is None:
+        return None, 'Chưa có bộ Silesia đã giải nén trên đĩa.'
+    rows = []
+    n_max = SL.N_B1 if group == 'B1' else SL.N_B2
+    for i in range(1, n_max + 1):
+        d = SL.record_dir(group, i)
+        sig_p = os.path.join(d, f'{group}_abSignals_{i:02d}.ecg')
+        if not os.path.isfile(sig_p):
+            continue
+        tag = f'{group}_{i:02d}'
+        n_native = os.path.getsize(sig_p) // (2 * SL.N_COLS_AB)     # int16 big-endian, 8 cột
+        n_lab = None
+        fq_p = os.path.join(d, f'{group}_Fetal_R_{i:02d}.txt')
+        if os.path.isfile(fq_p):
+            try:
+                n_lab = int(len(SL.read_marks(fq_p)[0]))
+            except Exception:                                   # noqa: BLE001
+                n_lab = None
+        if tag in SILESIA_DUP:
+            note = f'TRÙNG PhysioNet {SILESIA_DUP[tag]} — đã LOẠI khỏi 22 chủ thể'
+        else:
+            note = 'trong 22 chủ thể huấn luyện/đánh giá (grouped 11-fold)'
+        rows.append(dict(ten=tag, duong_dan=sig_p,
+                         dinh_dang='nhị phân .ecg (int16 big-endian, 8 cột) + .txt nhãn',
+                         fs_Hz=float(SL.FS_AB), do_dai_s=n_native / float(SL.FS_AB),
+                         so_kenh_bung=4, so_nhip_nhan=n_lab,
+                         nguon_nhan=('TRỰC TIẾP — điện cực da đầu thai' if group == 'B2'
+                                     else 'GIÁN TIẾP — tác giả khử QRS mẹ trên chính tín hiệu bụng rồi soát tay'),
+                         ghi_chu=note, kenh='A1, A2, A3, A4 (4 cột đầu trong 8 cột)'))
+    if not rows:
+        return None, f'Không tìm thấy bản ghi Silesia {group} nào.'
+    return rows, None
+
+
+def dataset_rows(key):
+    """Metadata THẬT của từng bản ghi trong một bộ. Trả về (rows | None, thông_báo_lỗi | None). Có nhớ đệm."""
+    if key not in DATASET_KEYS:
+        raise ValueError(f'Bộ dữ liệu không hợp lệ: {key!r} (phải thuộc {DATASET_KEYS})')
+    if key in DATASET_CACHE:
+        return DATASET_CACHE[key]
+    try:
+        if key == 'adfecgdb':
+            res = _rows_adfecgdb()
+        elif key == 'cinc_sach':
+            res = _rows_cinc(False)
+        elif key == 'cinc_nhiem':
+            res = _rows_cinc(True)
+        elif key == 'silesia_b1':
+            res = _rows_silesia('B1')
+        else:
+            res = _rows_silesia('B2')
+    except Exception as e:                                      # noqa: BLE001
+        res = (None, f'Không đọc được bộ {key}: {type(e).__name__}: {e}')
+    DATASET_CACHE[key] = res
+    return res
+
+
+def header_example(key, n_lines=8):
+    """Trả về (đường_dẫn, nội_dung) vài dòng ĐẦU của một tệp văn bản THẬT trên đĩa. (None, None) nếu không có."""
+    rows, _err = dataset_rows(key)
+    if not rows:
+        return None, None
+    r = rows[0]
+    if key.startswith('cinc'):
+        p = os.path.splitext(r['duong_dan'])[0] + '.hea'
+    elif key.startswith('silesia'):
+        g = 'B1' if key.endswith('b1') else 'B2'
+        i = int(r['ten'].split('_')[1])
+        p = os.path.join(os.path.dirname(r['duong_dan']), f'{g}_Fetal_R_{i:02d}.txt')
+    else:
+        return None, None                                       # EDF là nhị phân — không in nguyên văn được
+    if not os.path.isfile(p):
+        return p, None
+    try:
+        with open(p, encoding='utf-8', errors='replace') as f:
+            lines = []
+            for _ in range(n_lines):
+                ln = f.readline()
+                if not ln:
+                    break
+                lines.append(ln)
+        return p, ''.join(lines).rstrip('\n')
+    except OSError as e:
+        return p, f'(không đọc được: {type(e).__name__}: {e})'
+
+
+def preview_window(rec, t0_s=0.0, dur_s=10.0):
+    """Cửa sổ tín hiệu THÔ (đã đưa về 1000 Hz) để vẽ: dict(t, signals[K,n], labels_s, names, ...)."""
+    fs = rec['fs']; sig = np.atleast_2d(rec['signals'])
+    i0 = max(0, int(round(t0_s * fs))); i1 = min(sig.shape[1], i0 + int(round(dur_s * fs)))
+    seg = sig[:, i0:i1]
+    t = np.arange(i0, i1) / float(fs)
+    lab = rec.get('labels')
+    lab_s = None
+    if lab is not None and len(lab):
+        lab = np.asarray(lab, int)
+        lab_s = lab[(lab >= i0) & (lab < i1)] / float(fs)
+    return dict(t=t, signals=seg, labels_s=lab_s, names=list(rec['lead_names']),
+                fs=float(fs), name=rec['name'], n_leads=int(seg.shape[0]),
+                duration_s=float(rec['duration_s']),
+                n_beats_window=int(0 if lab_s is None else len(lab_s)))
+
+
+# =========================================================================== A2: tải dữ liệu mới
+class LoiDuLieu(ValueError):
+    """Lỗi dữ liệu của người dùng — thông báo đã ở dạng tiếng Việt, hiện thẳng lên giao diện."""
+
+
+MIN_DURATION_S = 8.0            # ngắn hơn thì không đủ cho cửa sổ 4 s + trường tiếp nhận 1,516 s
+FS_MIN, FS_MAX = 50.0, 20000.0
+UPLOAD_SIG_EXT = ('.edf', '.hea', '.dat', '.csv', '.npy', '.txt')
+UPLOAD_LAB_EXT = ('.qrs', '.fqrs', '.csv', '.txt')
+
+
+def _copy_uploads(paths, workdir):
+    os.makedirs(workdir, exist_ok=True)
+    for f in glob.glob(os.path.join(workdir, '*')):
+        if os.path.isfile(f):
+            try:
+                os.remove(f)
+            except OSError:
+                pass
+    local = []
+    for p in paths or []:
+        p = p if isinstance(p, str) else getattr(p, 'name', str(p))
+        q = os.path.join(workdir, os.path.basename(str(p)))
+        shutil.copyfile(str(p), q); local.append(q)
+    return local
+
+
+def _pick_main(local):
+    """Chọn tệp tín hiệu chính trong nhóm tệp đã tải lên. Ném LoiDuLieu với thông báo tiếng Việt."""
+    if not local:
+        raise LoiDuLieu('Chưa chọn tệp nào. Hãy tải lên .edf, hoặc CẶP .dat + .hea, hoặc .csv / .npy / .txt.')
+    low = [q.lower() for q in local]
+    for ext in ('.edf', '.hea', '.npy', '.csv', '.txt'):
+        for q, l in zip(local, low):
+            if l.endswith(ext) and not l.endswith('.edf.qrs'):
+                return q
+    for q, l in zip(local, low):
+        if l.endswith('.dat'):
+            raise LoiDuLieu(f'Tệp {os.path.basename(q)} là WFDB nhị phân nhưng THIẾU tệp header .hea đi kèm. '
+                            'Hãy chọn CẢ HAI tệp (.dat và .hea) cùng lúc rồi tải lên lại.')
+    ds = ', '.join(sorted({os.path.splitext(q)[1].lower() or '(không đuôi)' for q in local}))
+    raise LoiDuLieu(f'Không nhận ra định dạng nào dùng được (đã nhận: {ds}). '
+                    'Chấp nhận: .edf · .dat kèm .hea · .csv · .npy · .txt.')
+
+
+def doc_nhan_tai_len(path, fs_signal, n_samples_1000):
+    """Tệp nhãn tuỳ chọn -> mảng chỉ số mẫu ở 1000 Hz. Ném LoiDuLieu nếu không đọc được / lệch thang."""
+    ext = os.path.splitext(path)[1].lower()
+    base = os.path.splitext(path)[0]
+    if ext in ('.qrs', '.fqrs'):
+        try:
+            import wfdb
+            lab = np.asarray(wfdb.rdann(base, ext[1:]).sample, float)
+        except Exception as e:                                  # noqa: BLE001
+            raise LoiDuLieu(f'Không đọc được chú giải WFDB {os.path.basename(path)} '
+                            f'({type(e).__name__}: {e}). Chú giải .qrs/.fqrs cần tệp header .hea CÙNG TÊN đi kèm; '
+                            'nếu không có, hãy dùng tệp .csv/.txt một cột chỉ số mẫu.') from None
+    else:
+        try:
+            arr = np.genfromtxt(path, delimiter=',' if ext == '.csv' else None, dtype=float)
+            arr = np.atleast_2d(np.asarray(arr, float))
+            if arr.shape[0] == 1 and arr.shape[1] > 1:
+                arr = arr.T
+            col = arr[:, 0]
+            lab = col[np.isfinite(col)]
+        except Exception as e:                                  # noqa: BLE001
+            raise LoiDuLieu(f'Không đọc được tệp nhãn {os.path.basename(path)} ({type(e).__name__}: {e}). '
+                            'Định dạng mong đợi: MỘT cột, mỗi dòng một chỉ số mẫu.') from None
+    if lab is None or len(lab) == 0:
+        raise LoiDuLieu(f'Tệp nhãn {os.path.basename(path)} rỗng hoặc không có số nào đọc được.')
+    lab = np.round(np.asarray(lab, float) * (FS_IN / float(fs_signal))).astype(int)
+    lab = lab[(lab >= 0) & (lab < n_samples_1000)]
+    if len(lab) == 0:
+        raise LoiDuLieu('Mọi chỉ số trong tệp nhãn đều nằm NGOÀI bản ghi '
+                        f'(bản ghi dài {n_samples_1000} mẫu ở 1000 Hz). Nhiều khả năng tệp nhãn ghi theo '
+                        f'đơn vị khác (giây?) hoặc theo tần số khác {float(fs_signal):g} Hz.')
+    return lab
+
+
+def doc_tai_len(paths, workdir, fs=1000, label_paths=None, lead=None):
+    """
+    Đường đi của tab "Tải dữ liệu mới": gom tệp -> chọn tệp chính -> kiểm tra -> load_record().
+    Trả về dict của load_record() + upload_main, upload_files, nhan_tu, co_nhan, canh_bao[], fs_tu_khai.
+    Mọi lỗi đều là LoiDuLieu với thông báo tiếng Việt (KHÔNG trả stack trace ra giao diện).
+    """
+    local = _copy_uploads(paths, workdir)
+    main = _pick_main(local)
+    ext = os.path.splitext(main)[1].lower()
+    tu_khai = ext in ('.edf', '.hea')
+    canh_bao = []
+    if not tu_khai:
+        try:
+            fs = float(fs)
+        except (TypeError, ValueError):
+            raise LoiDuLieu(f'Tần số lấy mẫu không phải một số: {fs!r}.') from None
+        if not np.isfinite(fs) or not (FS_MIN <= fs <= FS_MAX):
+            raise LoiDuLieu(f'Tần số lấy mẫu {fs:g} Hz không hợp lý (chấp nhận {FS_MIN:g}–{FS_MAX:g} Hz). '
+                            'Tệp .csv/.npy/.txt KHÔNG tự khai tần số nên bạn phải nhập đúng.')
+    if ext == '.hea' and not os.path.isfile(os.path.splitext(main)[0] + '.dat'):
+        raise LoiDuLieu(f'Có header {os.path.basename(main)} nhưng THIẾU tệp dữ liệu .dat cùng tên. '
+                        'Hãy tải lên cả hai tệp cùng lúc.')
+    try:
+        rec = load_record(main, fs=fs, lead=lead)
+    except LoiDuLieu:
+        raise
+    except Exception as e:                                      # noqa: BLE001
+        raise LoiDuLieu(f'Không đọc được tệp {os.path.basename(main)}: {type(e).__name__}: {e}') from None
+    if rec['signals'].size == 0 or rec['signals'].shape[0] == 0:
+        raise LoiDuLieu(f'Tệp {os.path.basename(main)} không chứa kênh tín hiệu nào.')
+    if not np.isfinite(rec['signals']).any():
+        raise LoiDuLieu(f'Tệp {os.path.basename(main)} không có giá trị số hợp lệ nào (toàn NaN/rỗng).')
+    if rec['duration_s'] < MIN_DURATION_S:
+        raise LoiDuLieu(f'Bản ghi chỉ dài {rec["duration_s"]:.2f} s — quá ngắn. '
+                        f'Cần ít nhất {MIN_DURATION_S:g} s (mô hình dùng cửa sổ 4 s, trường tiếp nhận 1,516 s). '
+                        'Nếu tệp thực ra dài hơn, hãy kiểm tra lại ô tần số lấy mẫu.')
+    if rec['signals'].shape[0] > 12:
+        canh_bao.append(f'Bản ghi có {rec["signals"].shape[0]} kênh — nhiều hơn 4 kênh bụng thường gặp. '
+                        'Hãy kiểm tra xem có kênh nào KHÔNG phải ECG bụng (mô hình vẫn chạy trên mọi kênh).')
+    nhan_tu = 'chú giải đi kèm tệp bản ghi' if rec.get('labels') is not None else None
+    lab_local = _copy_uploads(label_paths, os.path.join(workdir, '_nhan')) if label_paths else []
+    if lab_local:
+        lp = None
+        for e_ in UPLOAD_LAB_EXT:
+            lp = next((q for q in lab_local if q.lower().endswith(e_)), None)
+            if lp:
+                break
+        if lp is None:
+            raise LoiDuLieu('Tệp nhãn phải có đuôi .qrs, .fqrs, .csv hoặc .txt (một cột chỉ số mẫu).')
+        rec['labels'] = doc_nhan_tai_len(lp, rec.get('fs_orig', fs) or fs, rec['signals'].shape[1])
+        nhan_tu = os.path.basename(lp)
+    rec['upload_main'] = main
+    rec['upload_files'] = [os.path.basename(q) for q in local]
+    rec['nhan_tu'] = nhan_tu
+    rec['co_nhan'] = rec.get('labels') is not None
+    rec['canh_bao'] = canh_bao
+    rec['fs_tu_khai'] = bool(tu_khai)
+    return rec
+
+
+def load_dataset_record(key, name):
+    """Đọc một bản ghi theo (bộ, tên) — kể cả bản TRÙNG/NHIỄM không có trong sample_records()."""
+    rows, err = dataset_rows(key)
+    if not rows:
+        raise LoiDuLieu(err or f'Chưa có bộ {key} trên đĩa.')
+    r = next((x for x in rows if x['ten'] == name), None)
+    if r is None:
+        raise LoiDuLieu(f'Không có bản ghi {name!r} trong bộ {DATASET_LABEL.get(key, key)}.')
+    if key.startswith('silesia'):
+        rec = load_silesia(name)
+    else:
+        rec = load_record(r['duong_dan'])
+    rec['note'] = r['ghi_chu']
+    rec['nguon_nhan'] = r['nguon_nhan']
+    rec['dinh_dang'] = r['dinh_dang']
+    rec['duong_dan'] = r['duong_dan']
+    return rec

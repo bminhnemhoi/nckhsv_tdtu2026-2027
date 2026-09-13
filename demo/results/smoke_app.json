@@ -3,13 +3,13 @@
  "plotly": "7.0.0",
  "python": "3.12.6",
  "port": 7861,
- "build_s": 2.9,
+ "build_s": 2.83,
  "ok": true,
  "http_status": 200,
- "launch_s": 1.38,
- "n_components": 30,
- "n_dependencies": 3,
- "direct_wall_s": 13.27,
+ "launch_s": 0.89,
+ "n_components": 69,
+ "n_dependencies": 7,
+ "direct_wall_s": 4.12,
  "direct": {
   "record": "r01",
   "lead": 4,
@@ -20,20 +20,44 @@
   "n_beats": 645,
   "fhr_mean": 129.02548389415804,
   "level": "cao",
-  "latency_ms": 1707.1457999991253,
+  "latency_ms": 508.47510003950447,
   "n_traces_fig1": 10,
   "n_rows_cmp": 201
  },
  "api_endpoints": [
   "/_toggle",
   "/run",
+  "/du_lieu_nhom",
+  "/xem_tin_hieu_tho",
+  "/tai_du_lieu_moi",
+  "/run_dataset",
   "/run_1"
  ],
  "client": {
   "endpoint": "/run",
-  "wall_s": 15.38,
+  "wall_s": 5.05,
   "n_outputs": 9,
   "F1": 99.92242048099301,
   "level": "cao"
+ },
+ "tab_du_lieu": {
+  "bo": "ADFECGDB — 5 bản (PhysioNet, nhãn da đầu)",
+  "n_ban_ghi": 5,
+  "ban_ghi": "r01",
+  "n_traces": 5,
+  "wall_s": 0.15
+ },
+ "tab_tai_len": {
+  "tep": "vidu_tai_len.csv",
+  "F1_khi_co_nhan": 98.46153846153847,
+  "lead": 1,
+  "level": "cao",
+  "wall_co_nhan_s": 0.54,
+  "wall_khong_nhan_s": 0.48,
+  "loi_than_thien": "'Chưa chọn tệp nào. Hãy tải lên .edf, hoặc CẶP .dat + .hea, hoặc .csv / .npy / .txt.'"
+ },
+ "client_tab_moi": {
+  "/du_lieu_nhom": 0.45,
+  "/xem_tin_hieu_tho": 0.46
  }
 }

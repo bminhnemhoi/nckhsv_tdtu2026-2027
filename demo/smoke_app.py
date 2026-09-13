@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-Khởi động thử demo Gradio (không mở trình duyệt) -- kiểm tra 3 tầng:
+Khởi động thử demo Gradio (không mở trình duyệt) -- kiểm tra 4 tầng:
   1. server lên, HTTP GET / trả 200
   2. gọi TRỰC TIẾP hàm xử lý app.run() theo đúng đường đi của nút "Phân tích" với r01 (tự động chọn kênh peakprob)
      -> phải có F1 trong JSON tóm tắt
   3. gọi qua gradio_client (API /run) -- nếu phiên bản gradio hỗ trợ; lỗi ở tầng này chỉ cảnh báo
+  4. hai tab mới: 'Dữ liệu của nhóm' (bảng metadata + hình tín hiệu thô) và 'Tải dữ liệu mới'
+     (tệp ví dụ demo/assets/vidu_tai_len.csv, CÓ nhãn -> có F1; KHÔNG nhãn -> không có F1; lỗi thân thiện)
 Ghi demo/results/smoke_app.json.  Chạy:  python demo/smoke_app.py
 """
 import os, sys, time, json, traceback
@@ -82,6 +84,58 @@ try:
                              F1=js['metrics']['F1'], level=js['confidence']['level'])
         assert abs(js['metrics']['F1'] - res['direct']['F1']) < 1e-6, 'F1 qua API khác F1 gọi trực tiếp'
         print(f'[3] gradio_client {ep} -> {len(out)} đầu ra, F1 = {js["metrics"]["F1"]:.2f}, {res["client"]["wall_s"]} s')
+    # ---------------------------------------------------------------- 4. hai tab mới (A1 + A2)
+    # gọi thẳng hàm xử lý (như tầng 2) rồi lặp lại qua gradio_client nếu có endpoint tương ứng.
+    t0 = time.perf_counter()
+    ds_lab = list(app.DS_LABELS)[0]
+    df, md, upd = app.run_dataset(ds_lab)
+    assert len(df) > 0 and 'Bản ghi' in list(df.columns) and md.strip()
+    ten = (upd.get('choices') or [None])[0]
+    ten = ten[0] if isinstance(ten, (tuple, list)) else ten
+    fig_ds, cap_ds = app.run_dataset_raw(ds_lab, ten)
+    res['tab_du_lieu'] = dict(bo=ds_lab, n_ban_ghi=int(len(df)), ban_ghi=str(ten),
+                              n_traces=len(fig_ds.data), wall_s=round(time.perf_counter() - t0, 2))
+    print(f'[4a] Dữ liệu của nhóm: {ds_lab} -> {len(df)} bản ghi; xem thô {ten} -> '
+          f'{len(fig_ds.data)} trace, {res["tab_du_lieu"]["wall_s"]} s')
+
+    import os as _os
+    vidu = _os.path.join(app.ASSET_DIR, 'vidu_tai_len.csv')
+    vidu_lab = _os.path.join(app.ASSET_DIR, 'vidu_tai_len_nhan.csv')
+    if _os.path.isfile(vidu):
+        t0 = time.perf_counter()
+        o = app.run_upload([vidu], 1000, app.LEAD_CHOICES[0], app.CONF_CHOICES[0], [vidu_lab])
+        su = o[6]
+        assert 'rf-cards' in o[0] and su['metrics']['F1'] is not None
+        t_co = round(time.perf_counter() - t0, 2)
+        t0 = time.perf_counter()
+        o2 = app.run_upload([vidu], 1000, app.LEAD_CHOICES[0], app.CONF_CHOICES[0], None)
+        assert 'metrics' not in o2[6] and 'không có nhãn' in o2[5]
+        res['tab_tai_len'] = dict(tep='vidu_tai_len.csv', F1_khi_co_nhan=su['metrics']['F1'],
+                                  lead=su['lead'], level=su['confidence']['level'],
+                                  wall_co_nhan_s=t_co, wall_khong_nhan_s=round(time.perf_counter() - t0, 2))
+        print(f'[4b] Tải dữ liệu mới: vidu_tai_len.csv -> kênh {su["lead"]}, F1 = {su["metrics"]["F1"]:.2f}, '
+              f'{t_co} s; không nhãn -> KHÔNG có F1 (đúng)')
+        loi = None
+        try:
+            app.run_upload([], 1000, app.LEAD_CHOICES[0], app.CONF_CHOICES[0], None)
+        except gr.Error as e:
+            loi = str(e)
+        assert loi and 'Traceback' not in loi
+        res['tab_tai_len']['loi_than_thien'] = loi[:120]
+        print(f'[4c] lỗi thân thiện khi không có tệp: {loi[:70]}')
+    else:
+        res['tab_tai_len'] = dict(bo_qua='chưa có demo/assets/vidu_tai_len.csv')
+        print('[4b] bỏ qua: chưa có demo/assets/vidu_tai_len.csv')
+
+    if Client is not None:
+        names2 = res.get('api_endpoints') or []
+        for ep, args in (('/du_lieu_nhom', (ds_lab,)), ('/xem_tin_hieu_tho', (ds_lab, ten))):
+            if ep in names2:
+                t0 = time.perf_counter()
+                cl.predict(*args, api_name=ep)
+                print(f'[4d] gradio_client {ep} -> OK, {time.perf_counter() - t0:.2f} s')
+                res.setdefault('client_tab_moi', {})[ep] = round(time.perf_counter() - t0, 2)
+
     res['ok'] = True
 except Exception as e:                                      # noqa: BLE001
     res['error'] = f'{type(e).__name__}: {e}'

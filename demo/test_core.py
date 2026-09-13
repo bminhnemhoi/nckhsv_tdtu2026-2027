@@ -254,3 +254,190 @@ def test_summary_is_json_serialisable():
     s = core.summary(out)
     json.dumps(s, ensure_ascii=False, allow_nan=False)
     assert s['gate_note'] == core.GATE_NOTE
+
+
+# ================================================================== A1: metadata bộ dữ liệu của nhóm
+def _ds(key):
+    rows, err = core.dataset_rows(key)
+    if not rows:
+        pytest.skip(f'chưa có bộ {key} trên đĩa: {err}')
+    return rows
+
+
+def test_dataset_rows_khoa_khong_hop_le():
+    with pytest.raises(ValueError):
+        core.dataset_rows('khong_ton_tai')
+
+
+@pytest.mark.parametrize('key', core.DATASET_KEYS)
+def test_dataset_rows_du_truong_va_doc_that_tu_dia(key):
+    rows = _ds(key)
+    can = ('ten', 'duong_dan', 'dinh_dang', 'fs_Hz', 'do_dai_s', 'so_kenh_bung',
+           'so_nhip_nhan', 'nguon_nhan', 'ghi_chu', 'kenh')
+    for r in rows:
+        assert set(can) <= set(r), f'{key}/{r.get("ten")} thiếu trường'
+        assert os.path.isfile(r['duong_dan']), f'{key}/{r["ten"]}: đường dẫn không có thật'
+        assert 50 <= r['fs_Hz'] <= 20000
+        assert r['do_dai_s'] > 1.0
+        assert r['so_kenh_bung'] >= 1
+        assert r['so_nhip_nhan'] is None or r['so_nhip_nhan'] > 0
+
+
+def test_dataset_cinc_dung_60_sach_va_15_nhiem():
+    sach = _ds('cinc_sach'); nhiem = _ds('cinc_nhiem')
+    assert len(sach) == 60 and len(nhiem) == 15
+    ten_sach = {r['ten'] for r in sach}; ten_nhiem = {r['ten'] for r in nhiem}
+    assert ten_nhiem == set(core.CINC_LEAK)
+    assert not (ten_sach & ten_nhiem)
+    for r in nhiem:
+        assert 'NHIỄM' in r['ghi_chu'] and core.CINC_LEAK[r['ten']] in r['ghi_chu']
+    for r in sach:
+        if r['ten'] in core.CINC_BAD_ANN:
+            assert 'SAI' in r['ghi_chu']
+    # metadata phải KHỚP header thật, không ghi cứng
+    import wfdb
+    h = wfdb.rdheader(os.path.splitext(sach[0]['duong_dan'])[0])
+    assert sach[0]['fs_Hz'] == float(h.fs)
+    assert sach[0]['so_kenh_bung'] == int(h.n_sig)
+    assert sach[0]['do_dai_s'] == pytest.approx(h.sig_len / h.fs)
+
+
+def test_dataset_adfecgdb_bo_kenh_truc_tiep():
+    rows = _ds('adfecgdb')
+    assert len(rows) == 5
+    for r in rows:
+        assert r['so_kenh_bung'] == 4                  # 5 kênh trong EDF, bỏ Direct_1
+        assert 'Direct' in r['kenh']                   # kênh trực tiếp CÓ trong tệp nhưng không được đếm
+        assert 'TRỰC TIẾP' in r['nguon_nhan']
+
+
+def test_dataset_silesia_gan_co_5_ban_trung():
+    rows = _ds('silesia_b2')
+    trung = {r['ten'] for r in rows if 'TRÙNG' in r['ghi_chu']}
+    assert trung == set(core.SILESIA_DUP)
+    b1 = _ds('silesia_b1')
+    assert all('GIÁN TIẾP' in r['nguon_nhan'] for r in b1)
+
+
+def test_header_example_doc_nguyen_van_tu_dia():
+    _ds('cinc_sach')
+    p, txt = core.header_example('cinc_sach', n_lines=8)
+    assert p and os.path.isfile(p) and txt
+    with open(p, encoding='utf-8', errors='replace') as f:
+        that = f.read()
+    assert that.startswith(txt.split('\n')[0])         # đúng nguyên văn dòng đầu
+    assert len(txt.split('\n')) <= 8
+    assert core.header_example('adfecgdb')[1] is None  # EDF nhị phân -> không in
+
+
+def test_preview_window_va_load_dataset_record():
+    rows = _ds('cinc_sach')
+    rec = core.load_dataset_record('cinc_sach', rows[0]['ten'])
+    assert rec['signals'].shape[0] == rows[0]['so_kenh_bung']
+    w = core.preview_window(rec, 0.0, 10.0)
+    assert w['signals'].shape == (rec['signals'].shape[0], 10000)
+    assert w['t'][0] == 0.0 and w['t'][-1] == pytest.approx(9.999)
+    assert w['labels_s'] is not None and 5 <= w['n_beats_window'] <= 40      # 30-240 nhịp/phút
+    with pytest.raises(core.LoiDuLieu):
+        core.load_dataset_record('cinc_sach', 'khong_co_ban_nay')
+
+
+# ================================================================== A2: tải dữ liệu mới
+def _vidu(name):
+    p = os.path.join(HERE, 'assets', name)
+    if not os.path.isfile(p):
+        pytest.skip(f'chưa có tệp ví dụ {p}')
+    return p
+
+
+def test_doc_tai_len_csv_kem_nhan(tmp_path):
+    rec = core.doc_tai_len([_vidu('vidu_tai_len.csv')], str(tmp_path), fs=1000,
+                           label_paths=[_vidu('vidu_tai_len_nhan.csv')])
+    assert rec['signals'].shape == (4, 30000) and rec['fs'] == 1000
+    assert rec['co_nhan'] and rec['nhan_tu'] == 'vidu_tai_len_nhan.csv'
+    assert 40 <= len(rec['labels']) <= 120                                   # 30 s thai nhi
+    assert rec['fs_tu_khai'] is False
+    out = core.analyze_record(rec, lead='auto')
+    assert 'metrics' in out and out['metrics']['F1'] > 0
+
+
+def test_doc_tai_len_khong_co_nhan_thi_khong_co_F1(tmp_path):
+    rec = core.doc_tai_len([_vidu('vidu_tai_len.csv')], str(tmp_path), fs=1000)
+    assert rec['co_nhan'] is False and rec['nhan_tu'] is None
+    out = core.analyze_record(rec, lead='auto')
+    assert 'metrics' not in out                       # KHÔNG được bịa F1 khi không có nhãn
+
+
+def test_doc_tai_len_npy(tmp_path):
+    rng = np.random.default_rng(7)
+    p = tmp_path / 'x.npy'; np.save(p, rng.standard_normal((4, 12000)))
+    rec = core.doc_tai_len([str(p)], str(tmp_path / 'wd'), fs=1000)
+    assert rec['signals'].shape == (4, 12000) and rec['source'] == 'NPY'
+    assert rec['co_nhan'] is False
+
+
+def test_doc_tai_len_wfdb_dat_kem_hea(tmp_path):
+    rows = _ds('cinc_sach')
+    base = os.path.splitext(rows[0]['duong_dan'])[0]
+    rec = core.doc_tai_len([base + '.dat', base + '.hea'], str(tmp_path), fs=1)   # fs bị bỏ qua: tệp tự khai
+    assert rec['fs_tu_khai'] is True and rec['signals'].shape[0] == 4
+    assert rec['duration_s'] == pytest.approx(rows[0]['do_dai_s'])
+
+
+@pytest.mark.parametrize('mo_ta, dung', [
+    ('khong_tep', lambda tp: ([], {})),
+    ('dat_thieu_hea', lambda tp: ([_mk(tp, 'a.dat', b'\x00' * 4000)], {})),
+    ('dinh_dang_la', lambda tp: ([_mk(tp, 'a.mat', b'\x00' * 4000)], {})),
+    ('npy_hong', lambda tp: ([_mk(tp, 'a.npy', b'day khong phai numpy' * 50)], dict(fs=1000))),
+])
+def test_doc_tai_len_loi_than_thien(mo_ta, dung, tmp_path):
+    paths, kw = dung(tmp_path)
+    with pytest.raises(core.LoiDuLieu) as ei:
+        core.doc_tai_len(paths, str(tmp_path / 'wd'), **kw)
+    msg = str(ei.value)
+    assert msg and msg[0].isupper() and 'Traceback' not in msg
+
+
+def _mk(tmp_path, name, data):
+    p = tmp_path / name
+    p.write_bytes(data)
+    return str(p)
+
+
+def test_doc_tai_len_fs_vo_ly_va_qua_ngan(tmp_path):
+    sig = _vidu('vidu_tai_len.csv')
+    for fs in (3, 0, -100, 1e9, 'abc'):
+        with pytest.raises(core.LoiDuLieu):
+            core.doc_tai_len([sig], str(tmp_path / 'wd'), fs=fs)
+    p = tmp_path / 'ngan.csv'
+    np.savetxt(p, np.random.default_rng(3).standard_normal((2000, 4)), delimiter=',')
+    with pytest.raises(core.LoiDuLieu) as ei:
+        core.doc_tai_len([str(p)], str(tmp_path / 'wd'), fs=1000)
+    assert 'quá ngắn' in str(ei.value)
+
+
+def test_doc_nhan_tai_len_lech_thang(tmp_path):
+    p = tmp_path / 'nhan.csv'
+    np.savetxt(p, np.arange(900000, 900100), fmt='%d')
+    with pytest.raises(core.LoiDuLieu) as ei:
+        core.doc_tai_len([_vidu('vidu_tai_len.csv')], str(tmp_path / 'wd'), fs=1000, label_paths=[str(p)])
+    assert 'NGOÀI' in str(ei.value)
+    p2 = tmp_path / 'rong.txt'; p2.write_text('', encoding='utf-8')
+    with pytest.raises(core.LoiDuLieu):
+        core.doc_tai_len([_vidu('vidu_tai_len.csv')], str(tmp_path / 'wd2'), fs=1000, label_paths=[str(p2)])
+
+
+def test_tep_vi_du_dung_la_trich_tu_a09():
+    """Tệp ví dụ PHẢI khớp bit-đối-bit với 30 s đầu của a09 — nếu không thì nó là số bịa."""
+    rows = _ds('cinc_sach')
+    if 'a09' not in {r['ten'] for r in rows}:
+        pytest.skip('không có a09')
+    import wfdb
+    r = wfdb.rdrecord(os.path.join(core.cinc2013_dir(), 'a09'))
+    goc = np.nan_to_num(r.p_signal)[:30000]
+    doc = np.genfromtxt(_vidu('vidu_tai_len.csv'), delimiter=',', skip_header=1)
+    assert doc.shape == goc.shape
+    assert np.abs(doc - goc).max() < 1e-4                     # ghi 5 chữ số thập phân
+    ann = np.asarray(wfdb.rdann(os.path.join(core.cinc2013_dir(), 'a09'), 'fqrs').sample, int)
+    nhan = np.loadtxt(_vidu('vidu_tai_len_nhan.csv'), dtype=int, ndmin=1)
+    assert list(nhan) == list(ann[(ann >= 0) & (ann < 30000)])
