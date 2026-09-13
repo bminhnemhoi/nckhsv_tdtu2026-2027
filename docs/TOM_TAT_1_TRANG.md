@@ -6,7 +6,7 @@ Ngô Bình Minh · NCKH sinh viên TDTU 2026–2027 · bản 12/09/2026 · mọi
 
 **Hai câu hỏi.** Chỉ một dây (để thành miếng dán mẹ tự đeo) thì mất bao nhiêu so với bốn dây? Và hệ thống có tự biết lúc nào không nhìn thấy tín hiệu để từ chối trả lời không?
 
-**Hệ thống.** Lọc 10–60 Hz → khử điện tim mẹ → chọn kênh mù nhãn → mạng tích chập thời gian 113.481 tham số (0,48 MB, 4,35 ms mỗi 4 s) → cổng từ chối từ 12 chỉ số chất lượng tín hiệu, không dùng nhãn. Demo web, ≈27.700 dòng Python, 60 kiểm thử.
+**Hệ thống.** Lọc 10–60 Hz → khử điện tim mẹ → chọn kênh mù nhãn → mạng tích chập thời gian 113.481 tham số (0,48 MB, 4,35 ms mỗi 4 s) → cổng từ chối từ 12 chỉ số chất lượng tín hiệu, không dùng nhãn. Demo web, ≈27.700 dòng Python, 82 kiểm thử.
 
 **Kết quả chính** (F1 mức chủ thể, ±50 ms; 22 sản phụ ADFECGDB + Silesia).
 
