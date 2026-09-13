@@ -28,10 +28,10 @@
 - Báo cáo tiến độ · 14/09/2026
 
 **HÌNH/BẢNG:** Bốn ô số lớn xếp ngang dưới tiêu đề, không viền, nền nhạt:
-`113.481 tham số` · `22 sản phụ` · `60 bản ghi kiểm ngoài` · `60 kiểm thử tự động`.
+`113.481 tham số` · `22 sản phụ` · `60 bản ghi kiểm ngoài` · `82 kiểm thử tự động`.
 Nguồn: 113.481 từ `analysis/kientruc_results.json → table.tcn.params`; 22 chủ thể từ
 `baselines/powermf_fair_stats.json → so_sanh.tat_ca_22.rely_vs_pmf4.n`; 60 bản ghi từ
-`analysis/dulieu_results.json → chon_kenh_60_sach.bang.psd.n`; 60 kiểm thử từ
+`analysis/dulieu_results.json → chon_kenh_60_sach.bang.psd.n`; 82 kiểm thử từ
 `pytest tests/ demo/test_core.py` (ghi trong `docs/TOM_TAT_1_TRANG.md`).
 
 **GHI CHÚ NGƯỜI NÓI:** "Em chào cô. Em xin khoảng 20 phút, có demo ở giữa, cô ngắt bất cứ lúc nào
@@ -474,7 +474,7 @@ Nếu cô hỏi "vậy con số nào được dùng": gate4 là kết quả, pea
 **HÌNH/BẢNG:** **BIỂU ĐỒ THANH NGANG XẾP HẠNG, 22 chủ thể.**
 Trục Y: 22 chủ thể xếp theo điểm tin cậy của cổng (kém tin cậy nhất ở dưới cùng).
 Trục X: điểm tin cậy (`score`, 0–1). Tô màu thanh theo F1 thật của chủ thể đó (thang liên tục).
-Khoanh đỏ ba thanh dưới cùng và ghi `B2_03 (F1 79,72)`, `B1_07 (F1 86,56)`, `B1_06 (F1 89,45)`.
+Khoanh đỏ ba thanh dưới cùng và ghi `B2_03 (F1 79,72 (kênh PSD))`, `B1_07 (F1 86,56)`, `B1_06 (F1 89,45)`.
 Nguồn: `analysis/gate22_results.json → muc_ban_ghi.bang` (khoá `score`, `rely`, `record`);
 thứ hạng từ `muc_ban_ghi.hang_cua_ba_ban_ghi_kho` = {B2_03: 1, B1_07: 2, B1_06: 3};
 AUROC từ `cong.auroc_within_mean` = 0,9336 và `cong.auroc_within_ci` = [0,8717; 0,9810];
@@ -681,10 +681,10 @@ Rào cản*.
 
 | Nơi nộp | Loại | Xếp hạng | Cửa | Rào cản |
 |---|---|---|---:|---|
-| Physiological Measurement | tạp chí | Scimago 2024: Q2 / Q3 | ~55 % | — (đích mặc định) |
-| BSPC | tạp chí | Scimago: Q1 | ~35 % | đòi bảng so sánh rộng |
+| Physiological Measurement | tạp chí | Scimago 2024: Q2 / Q3 | ~58 % | — (đích mặc định) |
+| BSPC | tạp chí | Scimago: Q1 | ~32 % | đòi bảng so sánh rộng |
 | Computers in Biology and Medicine | tạp chí | Scimago: Q1 | ~30 % | cạnh tranh đông |
-| IEEE JBHI | tạp chí | Scimago: Q1 | 15–20 % / 6 tháng · ~35 % / 12 tháng | **cần bộ có nhãn mới** |
+| IEEE JBHI | tạp chí | Scimago: Q1 | 12 % / 6 tháng · ~32 % / 12 tháng | **cần bộ có nhãn mới** |
 | Computing in Cardiology 2027 | hội nghị | không có trong CORE | ~80 % | hạn ~4/2027 |
 
 Chân bảng, chữ nhỏ: *Cột "Cửa" là ước lượng chủ quan, **không phải số đo** — nguồn
@@ -697,7 +697,7 @@ Physiology và Q3 Biomedical Engineering, **không phải Q1**. Em nói trước
 Giải thích vì sao vẫn chọn nó: đó là nơi chính CinC Challenge 2013 công bố, ban biên tập quen với
 bài kiểm toán và kết quả âm tính — đúng loại bài này. Cửa lên Q1 là JBHI, nhưng rào cản không
 phải kỹ thuật mà là **dữ liệu**: cần một bộ có nhãn thật để chạy quy tắc chọn kênh đúng một lần.
-Em ước cửa Q1 trong 6 tháng khoảng 15–20 %. Và em nói rõ: cột "Cửa" là em ước, không phải số đo.
+Em ước cửa Q1 trong 6 tháng khoảng 12 %. Và em nói rõ: cột "Cửa" là em ước, không phải số đo.
 Về A*: không có hội nghị A* nào đúng lĩnh vực, muốn A* là phải ra khỏi lĩnh vực và ở đó bài này
 không cạnh tranh được — em xin không đặt mục tiêu đó.
 
@@ -712,8 +712,8 @@ không cạnh tranh được — em xin không đặt mục tiêu đó.
 **NỘI DUNG CHÍNH:**
 - Nền tảng đã xong: dữ liệu, mô hình, đánh giá, demo
 - Còn thiếu: hạt giống thứ 2–3, cổng trên 60 sạch, bản thảo
-- 60/60 kiểm thử tự động đang chạy qua
-- 12 ảnh chụp demo dự phòng nếu máy hỏng
+- 82/82 kiểm thử tự động đang chạy qua
+- 16 ảnh chụp demo dự phòng nếu máy hỏng
 - Không khối nào bị chặn bởi kỹ thuật — chỉ bởi dữ liệu và thời gian
 
 **HÌNH/BẢNG:** **BIỂU ĐỒ THANH TIẾN ĐỘ NGANG (progress bars), 8 thanh, trục X 0–100 %.**
@@ -724,7 +724,7 @@ không cạnh tranh được — em xin không đặt mục tiêu đó.
 | Mô hình + huấn luyện (1 hạt giống) | 100 | `analysis/kientruc_results.json`, checkpoint 11 fold |
 | Đánh giá trong miền + baseline | 100 | `baselines/powermf_fair_stats.json`, `analysis/recovery_ratio.json` |
 | Đánh giá ngoài miền, 60 bản sạch | 100 | `benchmark_dpss/eval_cinc60_sach.json` |
-| Demo + kiểm thử | 100 | 60/60 kiểm thử qua; 12 ảnh trong `demo/screenshots/` |
+| Demo + kiểm thử | 100 | 82/82 kiểm thử qua; 16 ảnh trong `demo/screenshots/` |
 | Cổng từ chối | 70 | xong trên 22 chủ thể; **chưa** tính lại trên 60 sạch |
 | Lâm sàng (STV) | 60 | đo xong; **chưa** đo trên nhịp đã qua cổng |
 | Ba hạt giống cho kết quả chính | 33 | mới có hạt giống 0; hạt giống 1 chỉ có F1, không có checkpoint |
@@ -812,7 +812,7 @@ quả, không xin cô sửa mã, không xin thêm thời gian."
 **HÌNH/BẢNG:** Một ảnh chụp demo lớn (`demo/screenshots/01.png` — tab *Tín hiệu (5 tầng)* của
 r01) làm nền mờ, chồng lên là 5 dòng nội dung. Ở góc: đường dẫn chạy `python demo/app.py` và
 `http://127.0.0.1:7860`. Số F1 của 5 bản minh hoạ lấy từ `demo/results/demo_check_showcase.json`.
-**Dự phòng:** nếu demo trực tiếp hỏng, chuyển sang 12 ảnh `demo/screenshots/01…12` theo thứ tự
+**Dự phòng:** nếu demo trực tiếp hỏng, chuyển sang 16 ảnh `demo/screenshots/01…12` theo thứ tự
 01–03 (r01) → 04–06 (a09, hai quy tắc) → 07–08 (B2_03) → 09–10 (a02) → 11 (a27) → 12 (bảng tổng
 hợp 60 bản sạch).
 

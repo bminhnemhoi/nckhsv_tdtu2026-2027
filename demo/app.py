@@ -768,15 +768,20 @@ def run_upload(files, fs_in, lead_choice, conf_choice, label_files):
             fhr_figure(out), compare_md(out), core.summary(out), status)
 
 CSS = '''
-/* --- thanh tab: XUONG HANG thay vi thu vao menu tran khi man hinh hep --- */
-/* Phong hoc thuong 1366x768; khong sua thi hai tab cuoi bien mat. */
-.tab-nav, div.tab-nav, .tabs > .tab-nav {
+/* --- thanh tab: XUONG HANG thay vi thu vao menu tran khi man hinh hep ---
+   Gradio 6.x dung .tab-container; cac ban truoc dung .tab-nav. Nham ca hai.
+   Phong hoc thuong 1366x768; khong sua thi hai tab cuoi bi nuot vao menu tran. */
+.tab-container, .tab-nav, div.tab-nav, .tabs > .tab-nav, [class*="tab-container"] {
   flex-wrap: wrap !important;
   overflow: visible !important;
-  row-gap: 2px;
+  row-gap: 2px !important;
+  scrollbar-width: none;
 }
-.tab-nav > button { white-space: nowrap; flex: 0 0 auto !important; }
-.tab-nav .overflow-menu, .tab-nav button[aria-label*="more"], .tab-nav .tab-overflow { display: none !important; }
+.tab-container > button, .tab-nav > button, [class*="tab-container"] > button {
+  white-space: nowrap; flex: 0 0 auto !important; font-size: 13.5px !important; padding: 6px 10px !important;
+}
+/* nut '...' cua Gradio: an di vi moi tab da xuong hang het */
+.tab-container button[aria-haspopup], .tab-nav button[aria-haspopup] { display: none !important; }
 .rf-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:6px 0 2px}
 @media (max-width:900px){.rf-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .rf-card{border:1.5px solid #e5e7eb;border-radius:12px;padding:12px 14px;background:#fff;min-height:110px}

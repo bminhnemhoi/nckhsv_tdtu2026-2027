@@ -50,7 +50,7 @@ Một bảng, đọc từ trái sang phải: **làm được gì** → **để l
 * **Không chẩn đoán.** Không kết luận thai suy, không cảnh báo lâm sàng, không phân loại bệnh.
 * **Không phải thiết bị y tế.** Chưa qua bất kỳ kiểm định nào.
 * **Không đo được STV tin cậy.** Chệch STV: +0,33 ms trên ADFECGDB, +1,86 ms B2, +1,84 ms B1, nhưng **+20,50 ms trên CinC**
-  (mẫu 10 bản cũ, `analysis/clinical_results.json`). Sai số bám sát F1: F1 ≥ 99,5 → 0,13 ms; F1 < 90 → 25,78 ms.
+  (mẫu 10 bản cũ, `analysis/clinical_results.json`). Sai số bám sát F1: F1 ≥ 99,5 → 0,13 ms; F1 < 90 → 25,74 ms.
   → **Không dùng làm máy đo STV độc lập.**
 * **Không chạy thời gian thực từ máy đo.** Demo đọc file đã ghi sẵn. Tốc độ đủ nhanh về lý thuyết
   (4,35 ms cho một cửa sổ 4 s trên CPU) nhưng chưa có đường nối tới thiết bị.
@@ -472,7 +472,7 @@ Có từ 2 kênh trở lên thì quy tắc chọn kênh mới có việc để l
 | **200 Hz** | nội suy **×5** | đúng tuyệt đối |
 | **256 Hz / 512 Hz / 128 Hz** | ×125/32, ×125/64, ×125/16 | đúng tuyệt đối |
 | **2000 Hz / 4000 Hz** | hạ mẫu ÷2, ÷4 | đúng tuyệt đối |
-| **Tần số lẻ, ví dụ 333,3 Hz** | xấp xỉ bằng phân số mẫu số ≤ 1000 (×3) | ra 999,9 Hz thay vì 1000 Hz — sai số tần số 0,01 %, trên bản 60 s tương đương trôi ≈ 6 ms. Chấp nhận được với dung sai ±50 ms nhưng **phải nói ra** |
+| **Tần số lẻ, ví dụ 360 Hz** | xấp xỉ bằng phân số mẫu số ≤ 1000 (×3) | ra 999,9 Hz thay vì 1000 Hz — sai số tần số 0,01 %, trên bản 60 s tương đương trôi ≈ 6 ms. Chấp nhận được với dung sai ±50 ms nhưng **phải nói ra** |
 
 **Mô hình làm việc ở 250 Hz**, nhưng **front-end tự hạ mẫu**: mọi bản ghi được đưa về 1000 Hz trước
 (`core._to_1000hz`), lọc 10–60 Hz + notch 50 Hz ở 1000 Hz, rồi hạ mẫu ÷4 xuống 250 Hz (`fqrs_model.preprocess`).
@@ -481,6 +481,8 @@ Cô **không phải** tự chuyển đổi gì.
 **Giới hạn thật về tần số:** dải làm việc là 10–60 Hz, nên tần số gốc phải trên **120 Hz** mới có đủ nội dung trong dải đó
 (định lý lấy mẫu). Nội suy **không** tạo lại được nội dung đã mất. → **Khuyến nghị: fs ≥ 250 Hz**; dưới 200 Hz phải coi là
 thí nghiệm thăm dò, không phải kết quả.
+
+**Dải demo thực sự chấp nhận:** `50–20 000 Hz` — ngoài dải này demo **từ chối** kèm thông báo tiếng Việt (`demo/core.py`: `FS_MIN, FS_MAX = 50.0, 20000.0`). Tức là 100 Hz vẫn *chạy* nhưng thuộc vùng thăm dò nói trên.
 
 **Độ dài tối thiểu:**
 

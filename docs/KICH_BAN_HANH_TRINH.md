@@ -22,7 +22,7 @@ Tệp này **không thay thế** `docs/KICH_BAN_TRINH_BAY.md`. Tệp kia là b�
 
 | Slide | Nội dung | Lấy từ |
 |---|---|---|
-| S1 | Bìa: tên đề tài + 4 ô số (113.481 tham số · 22 chủ thể · 60 bản kiểm ngoài · 60 kiểm thử) | sổ tay mục 01 |
+| S1 | Bìa: tên đề tài + 4 ô số (113.481 tham số · 22 chủ thể · 60 bản kiểm ngoài · 82 kiểm thử) | sổ tay mục 01 |
 | S2 | Vì sao phải biết **từng nhịp** — thai chậm phát triển, biến thiên ngắn hạn | mới, vẽ tay |
 | S3 | Hai cách đo hiện có: Doppler và điện cực da đầu | sổ tay mục 02 |
 | S4 | Thành phần tín hiệu điện tim bụng mẹ | sổ tay mục 03 |
@@ -36,7 +36,7 @@ Tệp này **không thay thế** `docs/KICH_BAN_TRINH_BAY.md`. Tệp kia là b�
 | S12 | Bảng 4 bộ dữ liệu + thẳng thắn về điểm yếu B1 | sổ tay mục 05 |
 | S13 | Bảng 22 chủ thể: Power-MF 4 kênh / 1 kênh / RelyFetal | sổ tay mục 08 |
 | S14 | Tỉ lệ lấy lại 89,49 % và khoảng tin cậy của nó | mới |
-| S15 | **DEMO** — 6 tab | `demo/app.py` |
+| S15 | **DEMO** — 8 tab | `demo/app.py` |
 | S16 | Bảng 7 quy tắc chọn kênh trên 60 bản sạch, có cột p Holm | sổ tay mục 09 |
 | S17 | Nhật ký sự cố 1: mẫu 10 bản ghi | sổ tay mục 11 |
 | S18 | Nhật ký sự cố 2: Power-MF chạy qua Octave | sổ tay mục 11 |
@@ -527,7 +527,7 @@ S21 — cột trái là tám vòng theo thời gian, mỗi vòng một dòng m�
 >
 > **Cổng từ chối,** đánh giá bỏ-một-chủ-thể trên 22 sản phụ. Diện tích dưới đường cong trong bản ghi 0,934, khoảng tin cậy 0,872 đến 0,981. Nó xếp đúng ba bản khó nhất vào ba hạng chót; ngẫu nhiên là một phần một nghìn năm trăm bốn mươi. Nhưng em nói rõ: năm trong hai mươi bốn quy tắc một đặc trưng đơn giản cũng làm được vậy. Nên em không nói phải học mới làm được.
 >
-> **Hệ thống chạy được.** Mã khoảng hai mươi bảy nghìn bảy trăm dòng, sáu mươi kiểm thử tự động qua hết. Demo web sáu tab. Mô hình 0,48 mê-ga-bai, 4,35 mili-giây mỗi cửa sổ bốn giây trên chíp thường.
+> **Hệ thống chạy được.** Mã khoảng hai mươi bảy nghìn bảy trăm dòng, sáu mươi kiểm thử tự động qua hết. Demo web tám tab. Mô hình 0,48 mê-ga-bai, 4,35 mili-giây mỗi cửa sổ bốn giây trên chíp thường.
 >
 > **Còn thiếu gì.** Một, chỉ có hai hạt giống; hạt giống thứ hai cho 97,59. Hai, số cổng từ chối ngoài miền chưa tính lại trên 60 bản sạch. Ba, chưa chạy lại đối thủ thứ hai. Bốn, chỉ 22 chủ thể trong khi cần khoảng 50. Năm, quy tắc chọn kênh vẫn là chọn hậu kiểm và chưa có bộ thứ ba để xác nhận.
 >
@@ -682,7 +682,7 @@ Kết thúc: tờ tóm tắt in giấy, hai bản.
 ## Kiểm 15 phút trước buổi trình bày
 
 1. Mở sổ tay HTML, rà lại: **không mục nào còn số tính trên 75 bản**, và không mục nào còn số cổng từ chối ngoài miền chưa tính lại.
-2. `python -m pytest demo/test_core.py -q` (17 pass) và `python -m pytest tests/ -q`.
+2. `python -m pytest demo/test_core.py -q` (39 pass) và `python -m pytest tests/ -q`.
 3. `python demo/run_check.py --only r01,a09,a02 --out demo_check_3ban --threads 2` — xác nhận ba con số 99,92 · 94,25 · 24,91 khớp kịch bản.
 4. Mở sẵn `survey/facts_phase4.json` trong trình soạn thảo, để tra khi bị hỏi số không nhớ.
 5. In hai bản `docs/TOM_TAT_1_TRANG.md`.

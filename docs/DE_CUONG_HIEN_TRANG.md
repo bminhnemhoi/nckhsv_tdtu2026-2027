@@ -27,7 +27,7 @@
 | **Thời lượng dự kiến** | 24 tuần; đã thực thi trước một phần (xem mục 11) |
 | **Giảng viên hướng dẫn** | ……………………………………… *(để trống, chờ phân công)* |
 | **Ngày báo cáo hiện trạng** | 13/09/2026 |
-| **Mã commit của bản này** | `85cd61a` (đã đẩy lên kho từ xa) |
+| **Mã commit của bản này** | `c20417b` (đã đẩy lên kho từ xa) |
 | **Mục tiêu công bố** | 01 tạp chí (*Physiological Measurement*, Q2 Scimago 2024 — đích mặc định); 01 hội nghị (*Computing in Cardiology* 2027); 01 hồ sơ Euréka |
 
 ---
@@ -310,7 +310,7 @@ mà tác giả công bố — lệch 0,06 điểm.
 
 ### (b) Bảng 2 — 60 bản CinC 2013 sạch, bảy quy tắc chọn kênh mù nhãn
 
-| Quy tắc | Loại khai báo | F1 (60 sạch) | Hiệu so với psd | KTC 95 % | p Wilcoxon | **p Holm** (7 quy tắc) | Bản F1 < 50 | Thắng/Hoà/Thua |
+| Quy tắc | Loại khai báo | F1 (60 sạch) | Hiệu so với psd | KTC 95 % | p Wilcoxon | **p Holm** (7 quy tắc) | Bản F1 < 50 | Thắng / Thua / Hoà |
 |---|---|---|---|---|---|---|---|---|
 | `psd` | mốc tham chiếu | 74,28 | 0,00 | — | 1,00 | — | 16 | — |
 | `learned` | khai báo trước | 77,80 | +3,52 | [−0,77; +8,48] | 0,69 | 1,00 | 16 | 15 / 13 / 32 |
@@ -339,7 +339,7 @@ mà tác giả công bố — lệch 0,06 điểm.
 
 **Nhánh đối chiếu (loại tiếp 7 bản nhãn sai, còn 53 bản):** psd m5 64,19 → m22 75,27, hiệu +11,08
 KTC [7,54; 14,82], p = 4,4 × 10⁻⁹. **Power-MF một kênh trên 60 bản sạch:** F1 **55,97** [48,08; 64,03];
-RelyFetal hơn **+18,32** [13,35; 23,64], thắng 49 / hoà 5 / thua 6.
+RelyFetal hơn **+18,32** [13,35; 23,64], thắng 49 / thua 6 / hoà 5.
 
 ---
 
@@ -525,18 +525,18 @@ viên tự kiểm.
 | **P4–P6** | fSQI + cổng từ chối | Nguyên mẫu xong | ~80 % | `analysis/gate22_results.json`, `fsqi/`. Kết quả **phủ định** cho đặc trưng topo, **khẳng định** cho cổng cổ điển. **Còn:** tính lại trên 60 sạch |
 | **P7** | Tiền huấn luyện FECGSYNDB | **Chưa động tới** | 0 % | Cần ~40 GB. Sau khi thấy **16/60** bản CinC sạch vẫn dưới 50, mục này **trở lại thành ưu tiên** |
 | **P8** | Thống kê đầy đủ + đường cong | Phần lớn | ~85 % | `analysis/stats_results.json`, `pilot_evidence/snr_curve.json`, `analysis/xacnhan_results.json`, `benchmark_dpss/eval_cinc60_sach.json` |
-| **P9** | Đóng gói: demo, API, Docker | Phần lớn | ~85 % | `demo/app.py` (603 dòng), `demo/core.py` (789 dòng), 6 tab, **12 ảnh** `demo/screenshots/`, `api/`, `Dockerfile` (viết, **chưa build**) |
+| **P9** | Đóng gói: demo, API, Docker | Phần lớn | ~85 % | `demo/app.py` (924 dòng), `demo/core.py` (1 147 dòng), 8 tab, **16 ảnh** `demo/screenshots/`, `api/`, `Dockerfile` (viết, **chưa build**) |
 | **P10** | Bản thảo | Bản nháp | ~60 % | `paper/cinc2026/main.tex` → `docs/CinC2027_RelyFetal.pdf` (4 trang, 0 số đã rút, 25/25 số khớp nguồn theo `THAMDINH_VONG8.md`). **Còn:** dựng bằng `cinc.cls` chính thức |
 | **P11** | Nộp | Chưa | 0 % | — |
 | *Ngoài kế hoạch* | Bộ chỉ số lâm sàng | **Xong** | — | `analysis/clinical_results.json` — 32 bản ghi / 269,6 phút |
 | *Ngoài kế hoạch* | Thích nghi miền | **Xong (kết quả phủ định)** | — | `adapt/adapt_results.json` — cả 4 phương pháp thất bại |
 | *Ngoài kế hoạch* | Tám vòng thẩm định đối kháng nội bộ | **Xong** | — | `THAMDINH_VONG6/7/8.md`, `QA_VONG4.md`, `DON_REPO_VONG7.md` |
 
-**Kiểm thử:** `pytest tests/ demo/test_core.py` → **60/60 qua** (43 ở `tests/` + 17 ở `demo/test_core.py`).
-**Kho mã:** 10 commit, commit hiện tại `85cd61a` đã đẩy.
+**Kiểm thử:** `pytest tests/ demo/test_core.py` → **82/82 qua** (43 ở `tests/` + 17 ở `demo/test_core.py`).
+**Kho mã:** 11 commit, commit hiện tại `c20417b` đã đẩy.
 
 **Năm bản ghi minh hoạ cho demo** (không bản nào nằm trong 15 bản chồng lấn):
-r01 (F1 99,92) | a09 (peakprob 94,25 / PSD 19,35 — cho thấy chọn kênh quan trọng) | B2_03 (83,91 — bản
+r01 (F1 99,92) | a09 (peakprob 94,25 / PSD 19,35 — cho thấy chọn kênh quan trọng) | B2_03 (83,91 (kênh peakprob) — bản
 khó nhất) | a02 (24,91, bám nhịp mẹ 78 %) | a27 (32,94, gần như không có tín hiệu thai).
 
 ### Ba việc cần làm ngay, trước buổi gặp
@@ -682,7 +682,7 @@ D:/NCKHSV2026-2027/
 ├── pilot_evidence/  Khảo sát dải lọc, đường cong SNR
 ├── fsqi/            12 chỉ số chất lượng + cổng từ chối
 ├── survey/          facts_phase4.json (NGUỒN SỰ THẬT), rà văn liệu chồng lấn
-├── demo/            Gradio 6 tab + 12 ảnh chụp + test
+├── demo/            Gradio 8 tab + 16 ảnh chụp + test
 ├── api/             FastAPI
 ├── paper/cinc2026/  Bản thảo hội nghị 4 trang
 ├── de_cuong_latex/  Đề cương đầy đủ 148 trang
@@ -732,6 +732,6 @@ D:/NCKHSV2026-2027/
 
 ---
 
-*Tài liệu này do chủ nhiệm đề tài Ngô Bình Minh soạn ngày 13/09/2026 trên commit `85cd61a`.
+*Tài liệu này do chủ nhiệm đề tài Ngô Bình Minh soạn ngày 13/09/2026 trên commit `c20417b`.
 Mọi con số truy nguyên về một tệp JSON trên đĩa. Những chỗ chưa truy được nguồn đã ghi rõ
 "chưa có trong nguồn".*

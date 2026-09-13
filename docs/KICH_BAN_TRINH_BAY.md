@@ -28,9 +28,9 @@ Thứ **không** phải mục tiêu buổi này: xin cô duyệt kết quả, xi
 **Nói gì:**
 > "Em chào cô. Em xin 20 phút, chia mấy phần, có demo ở giữa ạ. Cô ngắt bất cứ lúc nào cũng được ạ.
 >
-> Em làm hệ thống đọc điện tim thai từ **một** điện cực dán trên bụng mẹ, tìm từng nhịp tim của bé. Phần em coi là chính thì nằm ở chỗ khác: hệ thống tự biết khi nào nó không đáng tin. Lúc đó nó nói 'tôi không chắc', thay vì đưa ra một con số sai. Tên hệ thống là RelyFetal. Em huấn luyện trên 22 sản phụ, kiểm ngoài trên 60 bản ghi của một bộ khác. Mã khoảng 27.700 dòng Python với 60 kiểm thử tự động."
+> Em làm hệ thống đọc điện tim thai từ **một** điện cực dán trên bụng mẹ, tìm từng nhịp tim của bé. Phần em coi là chính thì nằm ở chỗ khác: hệ thống tự biết khi nào nó không đáng tin. Lúc đó nó nói 'tôi không chắc', thay vì đưa ra một con số sai. Tên hệ thống là RelyFetal. Em huấn luyện trên 22 sản phụ, kiểm ngoài trên 60 bản ghi của một bộ khác. Mã khoảng 27.700 dòng Python với 82 kiểm thử tự động."
 
-**Chiếu gì:** trang đầu sổ tay (ô số: 113.481 tham số · 22 sản phụ · 60 bản ghi kiểm ngoài · 60 kiểm thử).
+**Chiếu gì:** trang đầu sổ tay (ô số: 113.481 tham số · 22 sản phụ · 60 bản ghi kiểm ngoài · 82 kiểm thử).
 
 **Không nói gì:** không tự khen ("tốt nhất hiện nay", "chưa ai làm", "đầu tiên"). Không nói "Q1" ở phút này.
 
@@ -67,7 +67,7 @@ Thứ **không** phải mục tiêu buổi này: xin cô duyệt kết quả, xi
 | 2:15–3:15 | Chọn **a02** → *Phân tích*. Chỉ thẻ *Đèn tin cậy* và tab *Nhịp tim thai + đèn đoạn*. | "Đây là phần em coi là quan trọng nhất. Bản này mô hình bám nhầm vào tàn dư tim mẹ, báo một chuỗi nhịp rất đều khoảng 130 nhịp/phút — trông như thai, F1 chỉ 24,91. Nhưng đèn đỏ: cổng thấy 78 % nhịp 'thai' trùng đỉnh mẹ trong khi ngẫu nhiên chỉ 13–22 %, nên hệ thống từ chối trả lời. Chọn kênh mới cũng **không** cứu được bản này — em cho cô xem cả chỗ nó thất bại." |
 | 3:15–4:00 | Mở tab *Kết quả tổng hợp (60 bản sạch)* rồi tab *Nhật ký (JSON)*. Quay về sổ tay. | "Bảng này đọc trực tiếp từ tệp kết quả, không ghi cứng số nào trong mã, và có dòng cảnh báo hậu kiểm ngay trong bảng. Mọi thứ xuất ra JSON, gọi được qua API. Demo là bản mẫu nghiên cứu, không phải thiết bị y tế — em ghi câu đó ngay đầu trang." |
 
-**Dự phòng nếu demo hỏng:** đủ 12 ảnh mới trong `demo/screenshots/` (01…12, `screenshots.json` ok: true, chụp 12/09 23:12). Mở ảnh theo đúng thứ tự demo: 01–03 (r01) → 04–06 (a09, hai quy tắc) → 07–08 (B2_03) → 09–10 (a02) → 11 (a27) → 12 (bảng tổng hợp 60 bản sạch). Nếu cần số: `demo/results/demo_check_showcase.json` (5 bản, đừng ghi đè).
+**Dự phòng nếu demo hỏng:** đủ 16 ảnh mới trong `demo/screenshots/` (01…12, `screenshots.json` ok: true, chụp 12/09 23:12). Mở ảnh theo đúng thứ tự demo: 01–03 (r01) → 04–06 (a09, hai quy tắc) → 07–08 (B2_03) → 09–10 (a02) → 11 (a27) → 12 (bảng tổng hợp 60 bản sạch). Nếu cần số: `demo/results/demo_check_showcase.json` (5 bản, đừng ghi đè).
 
 **Chiếu gì:** demo; bảng 22 chủ thể (sổ tay mục 08); bảng 7 quy tắc chọn kênh trên 60 bản sạch (mục 09).
 
@@ -194,7 +194,7 @@ Quy tắc chung: câu nào bắt đầu bằng "em nghĩ" thì phải kết thú
 |---|---|---|
 | Sổ tay HTML | Mở sẵn trên trình duyệt: https://claude.ai/code/artifact/7f120fe6-e199-47b9-8aac-1a194c2d8b00 | Đã rà mục 10 và 14 trước buổi gặp; mục nào còn số 75 bản thì không chiếu |
 | Demo | `python demo/app.py` chạy trước 10 phút với `PYTHONIOENCODING=utf-8`; r01 đã tự phân tích xong; tab thứ hai mở sẵn `demo/screenshots/` | Kiểm `pip install gradio plotly`; checkpoint `model/checkpoints/fetalqrs_tcn_22_production.pt` và `fetalqrs_tcn_22_fold_01..11.pt` có mặt; chạy `run_check.py --only r01,a09,a02` trước để chắc số khớp mục 6 hướng dẫn demo. Không cần mạng. |
-| Ảnh dự phòng | đủ 12 ảnh `01…12` trong `demo/screenshots/` (`screenshots.json` ok: true) | Không cần chụp tay. Mở theo thứ tự 01 → 04 → 07 → 09 → 11 → 12 nếu demo hỏng |
+| Ảnh dự phòng | đủ 16 ảnh `01…16` trong `demo/screenshots/` (`screenshots.json` ok: true) | Không cần chụp tay. Mở theo thứ tự 01 → 04 → 07 → 09 → 11 → 12 nếu demo hỏng |
 | 1 trang tóm tắt in giấy | 2 bản (1 cho cô, 1 cho mình) | `docs/TOM_TAT_1_TRANG.md` |
 | Kho mã | Link GitHub sẵn trong tin nhắn nháp | https://github.com/bminhnemhoi/nckhsv_tdtu2026-2027 — commit mới nhất: xem `git log -1` |
 | Tệp tra số | `survey/facts_phase4.json` mở sẵn trong trình soạn thảo | Khi cô hỏi số em không nhớ |
