@@ -20,6 +20,12 @@ Undergraduate research project · Faculty of Information Technology · Ton Duc T
 
 ---
 
+> **Picking this project up? Start with [`HANDOFF.md`](HANDOFF.md)** (Vietnamese) — setup, data download,
+> repository map, the single source of truth for every number, integrity rules, known technical traps, and
+> the prioritised to-do list. What changed and what was withdrawn, round by round: [`CHANGELOG.md`](CHANGELOG.md).
+
+---
+
 ## What this is
 
 Detecting the fetal heartbeat from **a single abdominal ECG electrode** is the cheapest and most wearable
@@ -365,9 +371,14 @@ The dilated CNN was kept for **parameter efficiency**, not because its family is
 python demo/app.py        # → http://127.0.0.1:7860
 ```
 
-Gradio, one page: upload EDF/WFDB/CSV or pick a sample record, automatic label-blind channel selection,
-five-tier signal view (raw → filtered → residual → probability → result), fetal heart-rate trace, and a
-**confidence light**. Selecting an ADFECGDB record automatically uses the fold checkpoint that never saw it.
+Gradio, **eight tabs**: five-tier signal view (raw → filtered → residual → probability → result),
+label-blind lead selection across all four leads (`peakprob` or PSD), fetal heart-rate trace with a per-segment
+**confidence light**, comparison against annotations, the clean-60 summary, **Our data** (a live table of every
+record in the five collections read from the `.hea`/`.edf` headers, plus a raw-signal viewer with annotations
+overlaid), **Upload new data** (`.edf`, `.dat`+`.hea`, `.csv`, `.npy`, `.txt`, with an optional annotation file
+and Vietnamese error messages for six malformed-input cases), and a JSON log. Selecting an ADFECGDB record
+automatically uses the fold checkpoint that never saw it. Requires **Gradio 6.x**. Operating guide:
+[`docs/HUONG_DAN_DEMO.md`](docs/HUONG_DAN_DEMO.md).
 
 The light has two modes: *learned* (gradient-boosted classifier on 12 classical SQIs per 4 s segment,
 `fsqi/gate.py`, default) and *rule* (hand-set thresholds). Re-run on 12 Sep 2026 (17:07; repeated at 23:11 with an identical summary) over the 82 labelled
@@ -407,6 +418,11 @@ label file is supplied). Input errors come back as `4xx` JSON, never a traceback
 ## Repository layout
 
 ```
+HANDOFF.md                Start here: setup, data, repo map, integrity rules, traps, next steps (Vietnamese)
+CHANGELOG.md              Round-by-round changes and every retraction
+requirements.txt          Core: pipeline, demo, API, tests (tested versions noted inline)
+requirements-research.txt Analyses, document rebuild, demo screenshots
+
 model/                    Core library, training, inference, weights
 ├─ fqrs_model.py            Reference implementation — every constant traced to an experiment
 ├─ train_final.py           LORO training → 5 fold checkpoints + 1 production model
@@ -436,11 +452,12 @@ fsqi/                     Signal-quality index experiment (contribution C3)
 └─ README.md                Full negative-result report
 
 demo/                     Gradio application
-├─ core.py                  Pipeline logic, no UI dependency, unit-tested (17 tests)
-├─ app.py                   One-page UI: peakprob/PSD lead choice, confidence light, clean-60 summary tab read from JSON
+├─ core.py                  Pipeline logic, no UI dependency, unit-tested (39 tests)
+├─ app.py                   Eight-tab UI: signal, leads, FHR + light, annotations, clean-60 summary, our data, upload, log
 ├─ run_check.py             Scores the 82 labelled non-leaked records in both gate modes → results/demo_check_2modes.json
-├─ screenshot.py            Playwright capture of the 12 showcase screenshots → screenshots/ + screenshots.json
-└─ screenshots/             Real captures from the running app (12, five showcase records)
+├─ screenshot.py            Playwright capture of the showcase screenshots → screenshots/ + screenshots.json
+├─ make_vidu_tai_len.py     Regenerates the 30 s upload example from CinC a09 (demo/assets/ is gitignored)
+└─ screenshots/             Real captures from the running app (16: five showcase records + the two new tabs)
 
 pilot_evidence/           Every pilot experiment with logs
 ├─ arch_loro.py             8-candidate architecture sweep (LORO, 10–60 Hz) — the "indistinguishable" claim is withdrawn
@@ -461,7 +478,9 @@ paper/cinc2026/           Four-page Computing in Cardiology draft (pdflatex + bi
 survey/                   30-paper survey + verified-facts ledgers; facts_phase4.json is current
 ├─ RO_RI_VANLIEU.md         Who documented the set-a ↔ ADFECGDB overlap (Silva 2013, Clifford 2014) and who is affected
 └─ facts_phase4.json        Every current number with the JSON file it was read from
-docs/                     Compiled deliverables (PDF + DOCX), publication strategy, Eureka notes, demo guide, talk script
+docs/                     Compiled deliverables (PDF + DOCX), publication strategy, Eureka notes, demo guide, talk scripts
+├─ trinh_bay/               Slide deck (26 slides, N = speaker notes, O = overview) and project handbook, as local HTML
+└─ nhat_ky/                 Minutes of the seven adversarial review rounds
 archive/                  Files removed from the working tree during the round-7 clean-up, kept for the PI's decision
 tests/                    Smoke tests pinning every quoted number
 ```
@@ -474,9 +493,11 @@ tests/                    Smoke tests pinning every quoted number
 git clone https://github.com/bminhnemhoi/nckhsv_tdtu2026-2027.git
 cd nckhsv_tdtu2026-2027
 python -m venv .venv && source .venv/bin/activate     # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
+pip install -r requirements.txt                       # add requirements-research.txt for analyses and documents
 
 python model/download_data.py --root model/data --only adfecgdb    # ~15 MB from PhysioNet
+python model/download_more.py --only cinc75                        # ~35 MB, CinC 2013 set-a -> benchmark_dpss/pcdb/
+python model/download_silesia.py                                   # ~195 MB zip -- then UNZIP by hand, see HANDOFF.md §4
 python model/predict.py --input model/data/adfecgdb/r01.edf --lead 1 --annot qrs \
                         --checkpoint model/checkpoints/fetalqrs_tcn_fold_r01.pt
 ```
@@ -506,7 +527,7 @@ python fsqi/eval_fsqi.py                                 # reject gate + negativ
 python demo/run_check.py && python demo/smoke_app.py     # demo checks
 python analysis/xacnhan.py                               # round-7 confirmation checks (no new inference)
 python survey/make_facts_phase4.py                       # regenerate the single source of truth
-pytest tests/ demo/test_core.py                          # 60 tests
+pytest tests/ demo/test_core.py                          # 82 tests (records not downloaded are skipped, not failed)
 ```
 
 ---

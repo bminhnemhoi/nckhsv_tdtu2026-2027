@@ -17,7 +17,7 @@ nhưng đang được dùng làm một trong ba con số chính của Euréka, t
 19 chủ thể dễ, p = 0,0012" xuất phát từ phân tích "lưỡng cực" đã rút (`analysis/LUONGCUC.md`) và được gán nguồn sai; (iii) bản
 nháp CinC 4 trang (`paper/cinc2026/main.tex`, in ra `docs/CinC2026_RelyFetal.pdf` để mang đi gặp GVHD) còn nguyên 79,40 /
 71,21 / 59,15 / 69,31 / "all 75 records", và **CinC 2026 đã diễn ra 20–23/9/2026 với hạn abstract 15/4/2026** nên "nộp CinC 2026"
-là bất khả thi. R3 (dọn repo) **chưa có sản phẩm** (`DON_REPO_VONG7.md` không tồn tại). Xác suất sau vòng này: Q1 ≈ 15–20 %
+là bất khả thi. R3 (dọn repo) **chưa có sản phẩm** (`docs/nhat_ky/DON_REPO_VONG7.md` không tồn tại). Xác suất sau vòng này: Q1 ≈ 15–20 %
 trong 6 tháng (≈ 35 % trong 12 tháng nếu tự tạo được bộ có nhãn), A\* < 2 %, Euréka 2026 ≈ 0–5 %, Euréka 2027 vào bán kết ≈ 50 %,
 có giải ≈ 20 %.
 
@@ -190,7 +190,7 @@ chưa phản ánh bốn đính chính vòng 7).
 
 ## VIỆC 6 — grep toàn repo, git, tệp nhạy cảm
 
-- **R3 chưa xong [F]:** `DON_REPO_VONG7.md` không tồn tại ở gốc hay `docs/`. Không có commit nào sau ed819e3 (16:25). `git diff
+- **R3 chưa xong [F]:** `docs/nhat_ky/DON_REPO_VONG7.md` không tồn tại ở gốc hay `docs/`. Không có commit nào sau ed819e3 (16:25). `git diff
   --stat`: 10 tệp sửa chưa commit (+21 745 / −10 139 dòng, chủ yếu JSON demo); > 20 tệp mới chưa theo dõi (toàn bộ sản phẩm
   R1/R2/R4/R5/R6). **Mọi sản phẩm vòng 7 hiện chưa được neo git.**
 - **Số đã rút còn sót ngoài bảng "đã rút" [F]** (loại trừ các dòng tự ghi "đã rút"): `paper/cinc2026/main.tex` (7 chỗ, nêu trên);
@@ -221,7 +221,7 @@ chưa phản ánh bốn đính chính vòng 7).
 | `docs/KICH_BAN_TRINH_BAY.md` (R5) | **CẦN LÀM LẠI** | "PM là Q1", "nộp CinC 2026", "em phát hiện", set-b/NInFEA có nhãn, logit chưa tính, AUROC 0,980, sổ tay không tồn tại, PDF CinC mang số đã rút. |
 | `docs/TOM_TAT_1_TRANG.md` (R5) | **CẦN LÀM LẠI** | AUROC 0,980; +1,20/"hai cực"; CinC 2026; kế hoạch set-b/NInFEA; KTC 89,5 % chưa truy nguồn. |
 | `paper/cinc2026/main.tex` / `docs/CinC2026_RelyFetal.pdf` | **PHẢI BỎ** (ở trạng thái hiện tại) | Toàn số 75 bản; hội nghị đã qua. Viết lại cho CinC 2027 trên 60 bản sạch. |
-| R3 (dọn repo) | **CHƯA CÓ SẢN PHẨM** | `DON_REPO_VONG7.md` không tồn tại; chưa commit. |
+| R3 (dọn repo) | **CHƯA CÓ SẢN PHẨM** | `docs/nhat_ky/DON_REPO_VONG7.md` không tồn tại; chưa commit. |
 
 **Xác suất — căn cứ [S]:**
 - **Q1 (Scimago) ≈ 15–20 % trong 6 tháng; ≈ 35 % trong 12 tháng.** Điều kiện Q1 mà R6 đặt (bộ thứ ba có nhãn) không tồn tại

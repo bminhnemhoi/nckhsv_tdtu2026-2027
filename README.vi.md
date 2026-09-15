@@ -14,6 +14,12 @@ Nghiên cứu khoa học sinh viên · Khoa Công nghệ Thông tin · Trường
 
 ---
 
+> **Bạn tiếp nhận dự án? Đọc [`HANDOFF.md`](HANDOFF.md) trước** — cài đặt, tải dữ liệu, bản đồ kho mã, nguồn
+> sự thật cho mọi con số, quy tắc liêm chính, các bẫy kỹ thuật đã biết, và danh sách việc tiếp theo.
+> Thay đổi và tuyên bố đã rút theo từng vòng: [`CHANGELOG.md`](CHANGELOG.md).
+
+---
+
 ## Đề tài này là gì
 
 Đo nhịp tim thai bằng **một miếng dán điện cực trên bụng mẹ** — cấu hình rẻ nhất, dễ đeo nhất cho theo dõi
@@ -283,8 +289,12 @@ CNN giãn nở được giữ vì **hiệu quả tham số**, không phải vì 
 python demo/app.py        # → http://127.0.0.1:7860
 ```
 
-Gradio một trang: tải EDF/WFDB/CSV hoặc chọn bản mẫu, chọn kênh mù nhãn, năm tầng tín hiệu, đồ thị nhịp
-tim thai, **đèn tin cậy** hai chế độ — *học* (GBM trên 12 chỉ số cổ điển từng đoạn 4 s, `fsqi/gate.py`,
+Gradio **tám tab**: năm tầng tín hiệu, chọn kênh mù nhãn trên cả 4 kênh (`peakprob` hoặc PSD), đồ thị nhịp
+tim thai kèm đèn từng đoạn, so sánh với nhãn, tổng hợp 60 bản sạch, **Dữ liệu của nhóm** (bảng mọi bản ghi của
+5 bộ đọc thật từ header `.hea`/`.edf`, kèm nút xem tín hiệu thô có vạch nhãn), **Tải dữ liệu mới** (`.edf`,
+`.dat`+`.hea`, `.csv`, `.npy`, `.txt`, nhãn tuỳ chọn, sáu lỗi đầu vào trả thông báo tiếng Việt), và nhật ký
+JSON. Bắt buộc **Gradio 6.x**. Hướng dẫn vận hành: [`docs/HUONG_DAN_DEMO.md`](docs/HUONG_DAN_DEMO.md).
+**Đèn tin cậy** hai chế độ — *học* (GBM trên 12 chỉ số cổ điển từng đoạn 4 s, `fsqi/gate.py`,
 mặc định) và *luật*. Chạy lại 12/09/2026 (17:07; chạy lại lúc 23:11 cho tóm tắt giống hệt) trên 82 bản có nhãn không trùng huấn luyện và không rò rỉ
 (5 ADFECGDB với fold checkpoint, 60 CinC sạch, 17 Silesia; `python demo/run_check.py --threads 2` →
 `demo/results/demo_check_2modes.json`, `summary_by_mode`):
@@ -311,26 +321,33 @@ Lược đồ trong [`api/README.md`](api/README.md); kiểm thử `tests/test_a
 
 ---
 
-## Cấu trúc kho mã (sau đợt dọn vòng 7)
+## Cấu trúc kho mã (sau đợt bàn giao 15/09/2026)
 
 ```
+HANDOFF.md                Đọc trước: cài đặt, dữ liệu, bản đồ kho mã, quy tắc liêm chính, bẫy, việc tiếp theo
+CHANGELOG.md              Thay đổi theo từng vòng và mọi tuyên bố đã rút
+requirements.txt          Gói lõi: pipeline, demo, API, kiểm thử (ghi phiên bản đã kiểm)
+requirements-research.txt Gói cho thí nghiệm phân tích, dựng tài liệu, chụp ảnh demo
+
 model/                    Thư viện lõi, huấn luyện, suy luận, 20 checkpoint (5 / 12 / 22 ca + production)
 benchmark_dpss/           Bộ đối chuẩn: full_measure, blind_lead, silesia_eval, eval_22, eval_cinc75, eval_cinc60_sach
 baselines/                TS / TS-PCA / độ nhô; Power-MF 4 kênh (Octave) và 1 kênh; BASELINES.md
 fsqi/                     Chỉ số chất lượng tín hiệu (C3): kết quả phủ định về topo, cổng cổ điển
-demo/                     Gradio (core.py không phụ thuộc UI, 17 unit test; run_check.py chấm 82 bản; screenshot.py chụp 12 ảnh thật)
+demo/                     Gradio 8 tab (core.py không phụ thuộc UI, 39 unit test; run_check.py chấm 82 bản; 16 ảnh chụp thật)
 api/                      FastAPI (main.py), lược đồ trong api/README.md
 pilot_evidence/           Thí nghiệm tiền khả thi kèm nhật ký (dải lọc, kiến trúc, trường tiếp nhận, band_tcn)
 adapt/                    Thích nghi miền không nhãn — bốn phương pháp, đều thất bại (adapt_results.json)
 analysis/                 DULIEU.md (15 bản trùng), CHONKENH.md (7 quy tắc), XACNHAN.md (vòng 7), KIENTRUC.md,
                           STATS.md, CLINICAL.md, THICHNGHI.md, CHANDOAN_MOHINH.md (đã rút kết luận), dulieu_results.json
 survey/                   Khảo sát 30 công trình; RO_RI_VANLIEU.md (ai đã ghi nhận chồng lấn); facts_phase4.json (nguồn số duy nhất)
-de_cuong_latex/           Đề cương v3.5 — LaTeX (xelatex), 141 trang
+de_cuong_latex/           Đề cương v3.5 — LaTeX (xelatex), 148 trang
 paper/cinc2026/           Bản thảo Computing in Cardiology 4 trang (pdflatex + bibtex), CHANGELOG.md
-docs/                     PDF/DOCX đã biên dịch; CHIEN_LUOC_CONG_BO.md, EUREKA.md, HUONG_DAN_DEMO.md, KICH_BAN_TRINH_BAY.md, TOM_TAT_1_TRANG.md
+docs/                     PDF/DOCX đã biên dịch; DE_CUONG_HIEN_TRANG.md, KICH_BAN_HANH_TRINH.md, HUONG_DAN_DEMO.md,
+                          CHIEN_LUOC_CONG_BO.md, EUREKA.md, KICH_BAN_TRINH_BAY.md, TOM_TAT_1_TRANG.md
+docs/trinh_bay/           Slide 26 trang (phím N ghi chú, O tổng quan) và sổ tay đề tài — HTML mở bằng trình duyệt
+docs/nhat_ky/             Biên bản 7 vòng thẩm định phản biện
 archive/                  Script vá một lần đã rút khỏi cây làm việc (kèm README)
-tests/                    Kiểm thử ghim số tham số, trường tiếp nhận, API
-DON_REPO_VONG7.md         Biên bản dọn repo vòng 7: bảng tệp dư thừa, chỗ đã sửa, kết quả kiểm thử
+tests/                    Kiểm thử ghim số tham số, trường tiếp nhận, API (43; cộng 39 trong demo/test_core.py = 82)
 ```
 
 ---
@@ -341,8 +358,10 @@ DON_REPO_VONG7.md         Biên bản dọn repo vòng 7: bảng tệp dư thừ
 git clone https://github.com/bminhnemhoi/nckhsv_tdtu2026-2027.git
 cd nckhsv_tdtu2026-2027
 python -m venv .venv && .venv\Scripts\activate     # Linux/macOS: source .venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements.txt                       # thêm requirements-research.txt nếu chạy phân tích, dựng tài liệu
 python model/download_data.py --root model/data --only adfecgdb    # ~15 MB từ PhysioNet
+python model/download_more.py --only cinc75                        # ~35 MB, CinC 2013 set-a -> benchmark_dpss/pcdb/
+python model/download_silesia.py                                   # ~195 MB .zip -- PHẢI giải nén tay, xem HANDOFF.md mục 4
 python model/predict.py --input model/data/adfecgdb/r01.edf --lead 1 --annot qrs \
                         --checkpoint model/checkpoints/fetalqrs_tcn_fold_r01.pt
 ```
@@ -350,7 +369,7 @@ python model/predict.py --input model/data/adfecgdb/r01.edf --lead 1 --annot qrs
 Chạy lại toàn bộ (thứ tự trong `README.md`, mục *Reproducing every number*); riêng số CinC:
 `python benchmark_dpss/eval_cinc75.py && python benchmark_dpss/eval_cinc60_sach.py`, kiểm toán trùng:
 `python analysis/dulieu_audit.py && python analysis/dulieu_m4b_verify.py`, kiểm thử:
-`pytest tests/ demo/test_core.py`.
+`pytest tests/ demo/test_core.py` (82 kiểm thử; bản ghi chưa tải sẽ *skipped* chứ không *failed*).
 
 ---
 

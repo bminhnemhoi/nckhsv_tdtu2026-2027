@@ -1,0 +1,759 @@
+<title>RelyFetal — Báo cáo đề tài</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --ink:#15181D;
+  --ink-2:#434A55;
+  --ink-3:#7C8493;
+  --paper:#FBFAF7;
+  --dark:#12161C;
+  --dark-2:#1C222B;
+  --rule:#E2DDD4;
+  --rule-2:#F1EDE6;
+  --accent:#BC4A28;
+  --accent-2:#E8825C;
+  --teal:#1B5B54;
+  --teal-soft:#E4F0EE;
+  --amber:#8A6110;
+  --amber-soft:#FAF2DE;
+  --rose:#8C2E3E;
+  --rose-soft:#FBEAEC;
+  --W:1280px; --H:720px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--dark);
+  font-family:"Be Vietnam Pro",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--ink);
+  overflow:hidden;
+}
+
+/* ---------- stage ---------- */
+#stage{
+  position:fixed;inset:0;display:grid;place-items:center;
+}
+#deck{
+  width:var(--W);height:var(--H);position:relative;
+  transform-origin:center center;
+  box-shadow:0 18px 60px rgba(0,0,0,.5);
+}
+.slide{
+  position:absolute;inset:0;
+  background:var(--paper);
+  padding:60px 76px;
+  display:none;
+  flex-direction:column;
+  overflow:hidden;
+}
+.slide.on{display:flex}
+.slide.dark{background:var(--dark);color:#F1EDE6}
+.slide.dark .kicker{color:var(--accent-2)}
+.slide.dark h2{color:#F7F4EE}
+.slide.dark .lede{color:#C3BDB2}
+
+/* ---------- type ---------- */
+.kicker{
+  font-size:14px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:16px;flex:none;
+}
+h1{
+  font-family:Lora,Georgia,serif;font-weight:600;font-size:60px;line-height:1.1;
+  letter-spacing:-.02em;text-wrap:balance;max-width:22ch;
+}
+h2{
+  font-family:Lora,Georgia,serif;font-weight:600;font-size:40px;line-height:1.16;
+  letter-spacing:-.015em;margin-bottom:22px;text-wrap:balance;max-width:26ch;flex:none;
+}
+h3{font-size:19px;font-weight:600;margin-bottom:8px}
+.lede{font-size:23px;line-height:1.5;color:var(--ink-2);font-weight:300;max-width:46ch}
+.body{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:18px}
+ul{list-style:none;display:flex;flex-direction:column;gap:14px}
+li{font-size:22px;line-height:1.4;padding-left:28px;position:relative;color:var(--ink-2)}
+li::before{
+  content:"";position:absolute;left:2px;top:.58em;width:9px;height:9px;border-radius:2px;
+  background:var(--accent);
+}
+li b,li strong{color:var(--ink);font-weight:600}
+.slide.dark li{color:#C3BDB2}
+.slide.dark li b,.slide.dark li strong{color:#F7F4EE}
+em{font-style:italic}
+.mono,.n{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.9em;background:var(--rule-2);padding:2px 7px;border-radius:5px}
+
+/* ---------- foot ---------- */
+.foot{
+  flex:none;display:flex;justify-content:space-between;align-items:baseline;
+  font-size:12.5px;color:var(--ink-3);border-top:1px solid var(--rule);padding-top:12px;margin-top:18px;
+}
+.slide.dark .foot{border-top-color:#2B323C;color:#7C8493}
+.src{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11.5px}
+
+/* ---------- table ---------- */
+table{border-collapse:collapse;width:100%;font-size:19px}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--rule);white-space:nowrap}
+th{
+  font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;font-weight:600;
+  color:var(--ink-3);border-bottom:1.5px solid var(--rule);
+}
+td.n,th.n{text-align:right;font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+tr.hi td{background:var(--teal-soft);font-weight:600;color:var(--ink)}
+tr.dim td{color:var(--ink-3)}
+tr:last-child td{border-bottom:none}
+.slide.dark th{color:#8B93A1;border-bottom-color:#2B323C}
+.slide.dark td{border-bottom-color:#232A33;color:#C3BDB2}
+
+/* ---------- big number ---------- */
+.big{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.big .num{
+  font-family:Lora,Georgia,serif;font-weight:600;font-size:150px;line-height:.92;
+  letter-spacing:-.04em;color:var(--accent);font-variant-numeric:tabular-nums;
+}
+.big .ci{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:21px;color:var(--ink-3)}
+.big .cap{font-size:27px;line-height:1.35;color:var(--ink);max-width:30ch;font-weight:500;margin-top:12px}
+
+/* ---------- boxes ---------- */
+.box{border-left:3px solid var(--rule);padding:12px 18px;border-radius:0 8px 8px 0}
+.box .bh{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:5px;display:block}
+.box p{font-size:18px;line-height:1.45;color:var(--ink-2)}
+.b-ok{border-left-color:var(--teal);background:var(--teal-soft)} .b-ok .bh{color:var(--teal)}
+.b-warn{border-left-color:var(--amber);background:var(--amber-soft)} .b-warn .bh{color:var(--amber)}
+.b-bad{border-left-color:var(--rose);background:var(--rose-soft)} .b-bad .bh{color:var(--rose)}
+.b-acc{border-left-color:var(--accent);background:#FBEDE8} .b-acc .bh{color:var(--accent)}
+
+/* ---------- pipeline ---------- */
+.pipe{display:flex;gap:10px;align-items:stretch}
+.pstep{
+  flex:1;background:#fff;border:1px solid var(--rule);border-radius:10px;padding:14px 15px;
+  display:flex;flex-direction:column;gap:6px;min-width:0;
+}
+.pstep .pn{
+  width:25px;height:25px;border-radius:50%;background:var(--accent);color:#fff;
+  display:grid;place-items:center;font-size:13px;font-weight:700;flex:none;
+}
+.pstep .pt{font-size:16px;font-weight:600;line-height:1.25}
+.pstep .pd{font-size:13.5px;color:var(--ink-3);line-height:1.4}
+
+/* ---------- two col ---------- */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:16px 18px}
+.card .ct{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-bottom:8px}
+.card .cv{font-family:Lora,Georgia,serif;font-size:36px;font-weight:600;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums}
+.card .cd{font-size:14.5px;color:var(--ink-2);margin-top:8px;line-height:1.4}
+
+/* ---------- chapter slide ---------- */
+.chap{justify-content:center;align-items:flex-start}
+.chap h1{font-size:56px;max-width:24ch}
+.chap .lede{font-size:24px;margin-top:20px;color:#B8B2A7}
+
+/* ---------- bars ---------- */
+.bars{display:flex;flex-direction:column;gap:9px}
+.bar{display:grid;grid-template-columns:190px 1fr 96px;gap:12px;align-items:center;font-size:17.5px}
+.bar .bl{color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .bt{height:22px;border-radius:4px;background:var(--rule-2);position:relative;overflow:hidden}
+.bar .bf{position:absolute;inset:0 auto 0 0;border-radius:4px;background:var(--accent);opacity:.85}
+.bar .bv{text-align:right;font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;color:var(--ink)}
+.bar.best .bl{color:var(--ink);font-weight:600}
+.bar.best .bf{background:var(--teal)}
+.bar.ref .bf{background:var(--ink-3);opacity:.45}
+
+/* ---------- chrome ---------- */
+#chrome{
+  position:fixed;bottom:14px;left:0;right:0;display:flex;justify-content:center;gap:14px;
+  align-items:center;font-size:12.5px;color:#8B93A1;z-index:20;pointer-events:none;
+}
+#chrome b{color:#D8D2C7;font-family:"JetBrains Mono",monospace;font-variant-numeric:tabular-nums}
+#chrome .hint{opacity:.75}
+#prog{position:fixed;top:0;left:0;height:3px;width:0;background:var(--accent);z-index:30;transition:width .18s ease}
+.slide .notes{display:none!important}
+
+/* ---------- notes ---------- */
+#notes{
+  position:fixed;right:0;top:0;bottom:0;width:390px;background:var(--dark-2);
+  color:#D4CEC3;padding:26px 24px;overflow-y:auto;z-index:25;display:none;
+  border-left:1px solid #2B323C;
+}
+#notes.on{display:block}
+#notes h4{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-2);margin-bottom:14px;font-weight:700}
+#notes .nb{font-size:15.5px;line-height:1.62}
+#notes .nb p{margin-bottom:11px}
+#notes .nb strong{color:#F2EEE7}
+#notes .nq{border-left:2px solid var(--accent);padding-left:12px;margin-top:14px;font-size:14.5px;color:#ADA79C}
+
+/* ---------- overview ---------- */
+#ov{
+  position:fixed;inset:0;background:rgba(10,13,17,.97);z-index:40;display:none;
+  overflow-y:auto;padding:34px;
+}
+#ov.on{display:block}
+#ov .g{display:grid;grid-template-columns:repeat(auto-fill,minmax(192px,1fr));gap:14px;max-width:1400px;margin:0 auto}
+#ov .t{
+  background:var(--paper);border-radius:7px;padding:13px;cursor:pointer;aspect-ratio:16/9;
+  display:flex;flex-direction:column;justify-content:space-between;border:2px solid transparent;
+  overflow:hidden;
+}
+#ov .t:hover{border-color:var(--accent)}
+#ov .t.cur{border-color:var(--teal)}
+#ov .t .tn{font-size:10.5px;color:var(--ink-3);font-family:"JetBrains Mono",monospace;font-weight:600}
+#ov .t .tt{font-size:14px;font-weight:600;line-height:1.25;color:var(--ink);font-family:Lora,serif}
+#ov .t.d{background:var(--dark-2)} #ov .t.d .tt{color:#F1EDE6} #ov .t.d .tn{color:#7C8493}
+#ov h4{color:#8B93A1;font-size:12px;letter-spacing:.14em;text-transform:uppercase;text-align:center;margin-bottom:22px;font-weight:700}
+
+@media print{
+  body{overflow:visible;background:#fff}
+  #stage{position:static;display:block}
+  #deck{width:100%;height:auto;transform:none!important;box-shadow:none}
+  .slide{position:relative;display:flex!important;width:100%;height:190mm;page-break-after:always;box-shadow:none}
+  #chrome,#notes,#ov,#prog{display:none!important}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div id="prog"></div>
+<div id="stage"><div id="deck">
+
+<!-- 1 -->
+<section class="slide dark chap on" data-t="RelyFetal">
+  <div class="kicker">NCKH sinh viên TDTU · 2026–2027</div>
+  <h1>Nghe tim thai bằng một dây, và biết khi nào mình nghe nhầm</h1>
+  <p class="lede">RelyFetal — phát hiện phức bộ QRS thai nhi từ một đạo trình điện tim bụng mẹ, kèm cơ chế tự từ chối khi tín hiệu không đủ tin cậy.</p>
+  <div class="foot"><span>Ngô Bình Minh · Đại học Tôn Đức Thắng</span><span>14/09/2026</span></div>
+  <div class="notes"><p><strong>Mở đầu, 30 giây.</strong> Chào cô. Em xin 20 phút, chia mấy phần, có demo ở giữa ạ. Cô ngắt bất cứ lúc nào cũng được.</p><p>Em làm hệ thống đọc điện tim thai từ một điện cực dán trên bụng mẹ. Phần em coi là chính không phải điểm số, mà là hệ thống tự biết khi nào nó không đáng tin.</p></div>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-t="Đề tài trong một câu">
+  <div class="kicker">Mục 01</div>
+  <div class="body">
+    <h2>Đề tài trong một câu</h2>
+    <p class="lede" style="font-size:30px;line-height:1.42;max-width:38ch;color:var(--ink)">Đọc điện tim thai từ <b>một dây</b> trên bụng mẹ, tìm <b>từng nhịp tim</b> của bé, và <b>tự nói “tôi không chắc”</b> thay vì đưa ra một con số sai.</p>
+    <div class="three" style="margin-top:14px">
+      <div class="card"><div class="ct">Đầu vào</div><div class="cd">Tín hiệu điện từ một điện cực bụng mẹ. Tim mẹ lớn hơn tim con nhiều lần.</div></div>
+      <div class="card"><div class="ct">Đầu ra</div><div class="cd">Vị trí từng nhịp thai theo thời gian, kèm điểm tin cậy từng đoạn.</div></div>
+      <div class="card"><div class="ct">Mục tiêu</div><div class="cd">Đủ tốt và đủ trung thực để công bố; lâu dài là miếng dán theo dõi tại nhà.</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>RelyFetal</span><span class="src">2 / 26</span></div>
+  <div class="notes"><p>Chữ “Rely” là <strong>đáng tin</strong>. Đó là chỗ em muốn khác với các nghiên cứu khác, vốn chỉ chạy đua điểm số.</p><p>Nếu cô chỉ nhớ một slide thì em mong là slide này.</p></div>
+</section>
+
+<!-- 3 -->
+<section class="slide" data-t="Vì sao đáng làm">
+  <div class="kicker">Mục 02 · Vấn đề lâm sàng</div>
+  <div class="body">
+    <h2>Vì sao việc này đáng làm</h2>
+    <ul>
+      <li>Thai chậm phát triển trong tử cung là nguyên nhân hàng đầu gây <b>thai lưu</b>.</li>
+      <li>Dấu hiệu cảnh báo sớm nhất là <b>nhịp tim thai mất biến thiên</b> — tim bé đập đều như máy.</li>
+      <li>Muốn đo biến thiên, phải biết <b>từng nhịp rơi vào mili-giây nào</b>.</li>
+    </ul>
+    <div class="two" style="margin-top:6px">
+      <div class="box b-warn"><span class="bh">Siêu âm Doppler (CTG)</span><p>Phổ biến, dễ dùng. Nhưng đo <em>chuyển động</em> van tim — sai số thời điểm quá lớn để tính biến thiên.</p></div>
+      <div class="box b-warn"><span class="bh">Điện cực da đầu thai</span><p>Rất chính xác. Nhưng <em>xâm lấn</em>, chỉ dùng được khi đã chuyển dạ và vỡ ối.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Vấn đề lâm sàng</span><span class="src">3 / 26</span></div>
+  <div class="notes"><p>Hai cách đo hiện có đều có giới hạn cứng. Điện tim bụng mẹ là cách duy nhất vừa không xâm lấn vừa cho tín hiệu điện đủ chính xác về thời điểm.</p><p>Và nếu làm được với <strong>một dây</strong>, nó có thể thành miếng dán mẹ tự đeo ở nhà — điều mà hệ 4 đến 32 điện cực trong phòng khám không làm được.</p></div>
+</section>
+
+<!-- 4 -->
+<section class="slide" data-t="Vì sao bài toán khó">
+  <div class="kicker">Mục 03</div>
+  <div class="body">
+    <h2>Vì sao bài toán khó</h2>
+    <p class="lede" style="margin-bottom:4px">Tín hiệu thu được là chồng chập nhiều nguồn. Tim thai là nguồn <b style="color:var(--ink)">yếu nhất</b>.</p>
+    <div class="three">
+      <div class="card"><div class="ct">Bẫy 1</div><div class="cd"><b>Nhịp mẹ và nhịp con đôi khi trùng nhau.</b> Khi hai phức bộ chồng lên đúng thời điểm, khử mẹ sẽ xoá luôn nhịp con.</div></div>
+      <div class="card"><div class="ct">Bẫy 2</div><div class="cd"><b>Tín hiệu đổi theo tư thế thai.</b> Cùng một sản phụ, bé xoay người là biên độ đổi hẳn.</div></div>
+      <div class="card" style="border-color:var(--accent)"><div class="ct" style="color:var(--accent)">Bẫy 3 — hoá ra là nút thắt</div><div class="cd"><b>Không có “kênh tốt nhất” cố định.</b> Kênh tốt ở sản phụ này là kênh tệ ở sản phụ khác.</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>Ba cái bẫy</span><span class="src">4 / 26</span></div>
+  <div class="notes"><p>Bẫy thứ ba em sẽ quay lại ở phần kết quả — nó hoá ra là nút thắt lớn nhất của cả đề tài, và em mất khá lâu mới nhận ra.</p></div>
+</section>
+
+<!-- 5 -->
+<section class="slide" data-t="Hai câu hỏi nghiên cứu">
+  <div class="kicker">Mục 04 · Mục tiêu</div>
+  <div class="body">
+    <h2>Hai câu hỏi nghiên cứu</h2>
+    <div class="two">
+      <div class="box b-acc" style="padding:20px 22px"><span class="bh">Câu hỏi 1 — định lượng</span><p style="font-size:21px;color:var(--ink)">Nếu chỉ có <b>một dây</b> thay vì bốn, ta <b>mất bao nhiêu</b>?</p></div>
+      <div class="box b-acc" style="padding:20px 22px"><span class="bh">Câu hỏi 2 — an toàn</span><p style="font-size:21px;color:var(--ink)">Hệ thống có <b>tự biết</b> lúc nào nó không nhìn thấy tín hiệu để <b>từ chối trả lời</b> không?</p></div>
+    </div>
+    <div class="box b-ok" style="margin-top:10px"><span class="bh">Vì sao hỏi câu 2</span><p>Bác sĩ thà nhận “tôi không chắc” còn hơn nhận một con số sai mà không biết là sai. Đây là chỗ đề tài tách khỏi các bài chạy đua điểm số.</p></div>
+  </div>
+  <div class="foot"><span>Mục tiêu</span><span class="src">5 / 26</span></div>
+  <div class="notes"><p>Hai câu hỏi này quyết định mọi thiết kế thí nghiệm sau đó. Câu 1 buộc em phải chạy lại baseline đa kênh chứ không trích số. Câu 2 buộc em phải có cổng từ chối và phải đánh giá nó không rò rỉ nhãn.</p></div>
+</section>
+
+<!-- 6 -->
+<section class="slide" data-t="Đọc 30 bài">
+  <div class="kicker">Mục 05 · Tổng quan</div>
+  <div class="body">
+    <h2>Đọc 30 bài — và một bài học đắt</h2>
+    <div class="two">
+      <div>
+        <ul style="gap:11px">
+          <li><b>Khử mẹ:</b> mẫu trung vị, TS-PCA, ICA đa kênh</li>
+          <li><b>Học sâu:</b> CNN 1D, U-Net, TCN, GAN sinh tín hiệu</li>
+          <li><b>Chọn kênh:</b> PSD dải nhịp thai (Jaeger 2024)</li>
+          <li><b>Đánh giá:</b> dung sai ±50 ms, quy ước CinC 2013</li>
+        </ul>
+      </div>
+      <div class="box b-bad" style="height:100%"><span class="bh">Bài học đắt nhất</span><p>Ghi chú đọc bài của chính nhóm <b>đã nhắc</b> cảnh báo của Clifford 2014 về chồng lấn dữ liệu, và <b>tự đề nghị kiểm tra</b>.<br><br>Em đọc, ghi lại, rồi <b>không làm</b> — mãi đến vòng 7 mới tự phát hiện khi đo.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>30 bài · <span class="src">de_cuong_latex/tables/bang_baihoc.tex</span></span><span class="src">6 / 26</span></div>
+  <div class="notes"><p>Em đọc 30 bài và ghi chú từng bài theo một khuôn: họ làm gì, dữ liệu gì, so với nhóm thế nào, và <strong>áp dụng được gì ngay</strong>.</p><p>Bài học đắt: ghi chú tốt mà không hành động thì vô dụng. Nguyên tắc mới của em là món nợ kiểm tra nào cũng phải trả trước khi chốt số.</p></div>
+</section>
+
+<!-- 7 -->
+<section class="slide" data-t="Đường ống 5 bước">
+  <div class="kicker">Mục 06 · Phương pháp</div>
+  <div class="body">
+    <h2>Đường ống năm bước</h2>
+    <div class="pipe">
+      <div class="pstep"><div class="pn">1</div><div class="pt">Lọc 10–60 Hz</div><div class="pd">Butterworth <b>pha-không</b> + chặn 50 Hz → 250 Hz</div></div>
+      <div class="pstep"><div class="pn">2</div><div class="pt">Khử tim mẹ</div><div class="pd">Mẫu trung vị, co giãn <b>từng nhịp</b></div></div>
+      <div class="pstep"><div class="pn">3</div><div class="pt">Chọn kênh</div><div class="pd"><b>Mù nhãn</b> — không được nhìn đáp án</div></div>
+      <div class="pstep"><div class="pn">4</div><div class="pt">Mạng TCN</div><div class="pd">Đoạn 4 s, xác suất <b>từng mẫu</b></div></div>
+      <div class="pstep"><div class="pn">5</div><div class="pt">Cổng từ chối</div><div class="pd">12 chỉ số chất lượng, <b>không dùng nhãn</b></div></div>
+    </div>
+    <div class="three" style="margin-top:8px">
+      <div class="box b-ok"><span class="bh">Vì sao pha-không</span><p>Bộ lọc thường làm <em>trễ</em> tín hiệu. Đề tài đo <em>thời điểm</em> nên trễ là hỏng.</p></div>
+      <div class="box b-ok"><span class="bh">Vì sao khử từng nhịp</span><p>Phức bộ mẹ không giống nhau giữa các nhịp — mẹ thở, mẹ cử động.</p></div>
+      <div class="box b-ok"><span class="bh">Vì sao từng mẫu</span><p>Cửa sổ 300 ms giới hạn độ chính xác thời điểm. Từng mẫu cho jitter <b>3,76 ms</b>.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Phương pháp</span><span class="src">7 / 26</span></div>
+  <div class="notes"><p>Mỗi bước em đều có một câu “vì sao”. Nếu cô hỏi bất kỳ bước nào em trả lời được bằng số liệu.</p><p>Bước 3 — chọn kênh — là bước em cải tiến được nhiều nhất, em sẽ nói kỹ ở slide 14.</p></div>
+</section>
+
+<!-- 8 -->
+<section class="slide" data-t="Mô hình">
+  <div class="kicker">Mục 07 · Mô hình</div>
+  <div class="body">
+    <h2>FetalQRS-TCN — nhỏ, nhanh, chạy được trên thiết bị đeo</h2>
+    <div class="two">
+      <table>
+        <tr><td>Số tham số</td><td class="n">113.481</td></tr>
+        <tr><td>Trường tiếp nhận</td><td class="n">1.516 ms</td></tr>
+        <tr><td>Kích thước tệp</td><td class="n">0,48 MB</td></tr>
+        <tr><td>Thời gian suy luận</td><td class="n">4,35 ms</td></tr>
+        <tr><td>Nhãn huấn luyện</td><td class="n">Gauss σ = 12 ms</td></tr>
+      </table>
+      <div>
+        <div class="box b-ok" style="margin-bottom:12px"><span class="bh">Vì sao TCN</span><p>Tín hiệu tim có cấu trúc <b>cục bộ theo thời gian</b> — nhịp này liên quan nhịp kề. Tích chập giãn nở hợp bản chất đó.</p></div>
+        <div class="box b-ok"><span class="bh">Vì sao nhỏ</span><p>Nhét vừa vi điều khiển. Đúng viễn cảnh miếng dán tại nhà, không phải máy chủ.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span><span class="src">model/fqrs_model.py</span></span><span class="src">8 / 26</span></div>
+  <div class="notes"><p>Trường tiếp nhận 1,5 giây nghĩa là để quyết định một mẫu, mạng nhìn 1,5 giây xung quanh — đủ thấy ba đến bốn nhịp.</p><p>Nhãn không phải “điểm này là nhịp” mà là một gò Gauss quanh nhịp, nên mạng học được cả độ chắc chắn.</p></div>
+</section>
+
+<!-- 9 -->
+<section class="slide" data-t="Chọn model thế nào">
+  <div class="kicker">Mục 08 · Chọn mô hình</div>
+  <div class="body">
+    <h2>Đã thử bảy họ kiến trúc cùng số tham số</h2>
+    <div class="bars">
+      <div class="bar best"><span class="bl">tcn — đang dùng</span><span class="bt"><span class="bf" style="width:100%"></span></span><span class="bv">97,64</span></div>
+      <div class="bar"><span class="bl">rf_wide (3,0 s)</span><span class="bt"><span class="bf" style="width:99.7%"></span></span><span class="bv">97,63</span></div>
+      <div class="bar"><span class="bl">tcn_ms đa thang đo</span><span class="bt"><span class="bf" style="width:99.4%"></span></span><span class="bv">97,62</span></div>
+      <div class="bar"><span class="bl">rf_narrow (0,75 s)</span><span class="bt"><span class="bf" style="width:77%"></span></span><span class="bv">96,93</span></div>
+      <div class="bar"><span class="bl">cnn_wide</span><span class="bt"><span class="bf" style="width:74%"></span></span><span class="bv">96,84</span></div>
+      <div class="bar"><span class="bl">unet1d</span><span class="bt"><span class="bf" style="width:59%"></span></span><span class="bv">96,38</span></div>
+      <div class="bar ref"><span class="bl">cnn_l — RF chỉ 60 ms</span><span class="bt"><span class="bf" style="width:2%"></span></span><span class="bv">94,53</span></div>
+    </div>
+    <div class="box b-acc"><span class="bh">Kết luận — và đây là một kết quả có giá trị</span><p>Ba họ đầu <b>tương đương thống kê</b>. <code>cnn_l</code> kém 3,10 điểm vì trường tiếp nhận chỉ 60 ms — nới rộng cho khớp thì lên 96,84. Khoảng cách do <b>bề rộng ngữ cảnh</b>, không do họ kiến trúc. Nhân 4 lần tham số chỉ được <b>+0,26</b>. <b>Kiến trúc là đòn bẩy yếu nhất em đo được.</b></p></div>
+  </div>
+  <div class="foot"><span>Cùng tham số ±2,7 % · cùng seed/fold/epoch · <span class="src">analysis/kientruc_results.json</span></span><span class="src">9 / 26</span></div>
+  <div class="notes"><p>Em không chọn TCN theo cảm tính. Em thử 8 họ ở giao thức cũ, rồi 7 họ ở giao thức hiện hành với cùng số tham số, cùng cách chia dữ liệu, cùng hạt giống.</p><p>Nếu cô hỏi “có nên đầu tư thêm vào mô hình không” — bằng chứng nói là <strong>không</strong>. Nên đầu tư vào dữ liệu.</p></div>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-t="Dữ liệu">
+  <div class="kicker">Mục 09 · Dữ liệu</div>
+  <div class="body">
+    <h2>Bốn bộ dữ liệu — và điểm yếu em nói thẳng</h2>
+    <table>
+      <thead><tr><th>Bộ</th><th class="n">Số bản</th><th>Nhãn</th><th>Dùng để</th></tr></thead>
+      <tbody>
+        <tr><td>ADFECGDB</td><td class="n">5 sản phụ</td><td>Trực tiếp từ điện cực da đầu</td><td>Huấn luyện + kiểm tra</td></tr>
+        <tr><td>Silesia B2 (chuyển dạ)</td><td class="n">12</td><td>Trực tiếp từ điện cực da đầu</td><td>Huấn luyện + kiểm tra</td></tr>
+        <tr class="dim"><td>Silesia B1 (thai kỳ)</td><td class="n">10</td><td><b>Gián tiếp</b></td><td>Huấn luyện</td></tr>
+        <tr class="hi"><td>CinC 2013 set-a</td><td class="n">60 sạch</td><td>Người chú thích <b>độc lập</b></td><td><b>Chỉ kiểm tra</b></td></tr>
+      </tbody>
+    </table>
+    <div class="two">
+      <div class="box b-bad"><span class="bh">Điểm yếu 1</span><p>B1 chiếm <b>77 % thời lượng</b> huấn luyện nhưng là nguồn nhãn <b>kém tin cậy nhất</b>. Đã đo được dấu vân nhãn ở mốc thời gian → cấm dùng số B1 để nói về jitter.</p></div>
+      <div class="box b-bad"><span class="bh">Điểm yếu 2</span><p>Chỉ <b>22 chủ thể</b>. Công suất thống kê em tự tính: cần khoảng <b>50</b>. Và chưa có trung tâm ghi thứ hai.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span><span class="src">survey/facts_phase4.json</span></span><span class="src">10 / 26</span></div>
+  <div class="notes"><p>Em nói điểm yếu trước để cô thấy em kiểm soát được đề tài. Nếu cô phát hiện trước thì câu chuyện khác hẳn.</p><p>60 bản CinC sạch là phép thử thật: 60 sản phụ khác, thiết bị khác, người chấm hoàn toàn độc lập, mô hình chưa từng thấy một giây nào.</p></div>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-t="Benchmark">
+  <div class="kicker">Mục 10 · Đối chuẩn</div>
+  <div class="body">
+    <h2>Chạy lại baseline, không trích số</h2>
+    <ul>
+      <li>Power-MF (Jaeger 2024) dùng <b>4 kênh</b> và tách nguồn ICA hai lần.</li>
+      <li>Em cài GNU Octave, vá 7 chỗ, <b>chạy lại được</b> trên máy mình.</li>
+      <li>Và tự cắt nó xuống <b>1 kênh</b> — đối chứng công bằng nhất: cùng dữ liệu, cùng tiền xử lý, cùng khử mẹ, cùng bộ chấm, chỉ khác thuật toán lõi.</li>
+    </ul>
+    <div class="box b-ok"><span class="bh">Kiểm chứng ngoài — bằng chứng cổng chuyển đã đúng</span><p style="font-size:21px">Bản chạy lại cho <b style="color:var(--teal)">99,40</b> trong khi số <b>tác giả gốc công bố là 99,46</b>. Lệch 0,06 điểm.</p></div>
+  </div>
+  <div class="foot"><span><span class="src">baselines/powermf_fair_stats.json</span></span><span class="src">11 / 26</span></div>
+  <div class="notes"><p>Đa số bài trong lĩnh vực chỉ <em>trích số</em> của baseline. Em mất hai ngày để chạy lại được, và trong quá trình đó phát hiện chính cổng chuyển của mình hỏng — em sẽ kể ở phần sai lầm.</p><p>Kiểm chứng ngoài 99,40 so với 99,46 là thứ khó bắt bẻ nhất trong cả đề tài.</p></div>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-t="Kết quả · 22 chủ thể">
+  <div class="kicker">Mục 11 · Kết quả 1</div>
+  <div class="body">
+    <h2>Trong miền — 22 sản phụ</h2>
+    <table style="font-size:21px">
+      <thead><tr><th>Phương pháp</th><th class="n">F1</th><th>Hiệu so với ta</th></tr></thead>
+      <tbody>
+        <tr><td>Power-MF <b>4 kênh</b></td><td class="n">98,83</td><td class="n">−1,27 &nbsp;[−3,08; +0,27] &nbsp;p = 0,156</td></tr>
+        <tr class="dim"><td>Power-MF <b>1 kênh</b></td><td class="n">86,71</td><td class="n">+10,85 &nbsp;[+6,80; +15,40] &nbsp;22/22</td></tr>
+        <tr class="hi"><td><b>RelyFetal 1 kênh</b></td><td class="n">97,56</td><td>—</td></tr>
+      </tbody>
+    </table>
+    <div class="box b-warn"><span class="bh">Nói cho đúng</span><p>Trung bình em <b>vẫn thua 1,27 điểm</b>. Nhưng thắng <b>18/22</b> bản ghi và trung vị hiệu số là <b>+0,23</b> — trung bình bị kéo âm bởi bốn bản, trong đó ba bản lệch lớn.</p></div>
+  </div>
+  <div class="foot"><span>F1 mức chủ thể · ghép ±50 ms · <span class="src">baselines/powermf_fair_stats.json</span></span><span class="src">12 / 26</span></div>
+  <div class="notes"><p>Em để cả dấu âm của mình lên slide. Nếu chỉ nói trung vị thì đó là chọn số liệu có lợi.</p><p>Cả hai sự thật đều phải nói: thua về trung bình, thắng về số bản ghi.</p></div>
+</section>
+
+<!-- 13 -->
+<section class="slide" data-t="89,49 %">
+  <div class="kicker">Mục 11 · Kết quả 1b — con số trung tâm</div>
+  <div class="body" style="justify-content:center">
+    <div class="big">
+      <div class="num">89,49 %</div>
+      <div class="ci">KTC 95 % [81,4 ; 103,2] · jackknife bỏ từng chủ thể 88,6–93,4</div>
+      <p class="cap">Một kênh lấy lại được <b>gần chín phần mười</b> lợi ích mà bốn kênh mang lại.</p>
+    </div>
+    <div class="two" style="margin-top:18px">
+      <div class="box b-ok"><span class="bh">Cách đo</span><p>Tách nguồn đa kênh đáng giá <b>12,12 điểm</b> cho chính Power-MF (86,71 → 98,83). Mạng một kênh lấy lại <b>10,85</b> trong số đó.</p></div>
+      <div class="box b-warn"><span class="bh">Ranh giới</span><p>Đây là một <b>phép đo</b>, không phải một phát minh. Và <b>không</b> được nói “một kênh thắng bốn kênh”.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span><span class="src">analysis/recovery_ratio.json</span></span><span class="src">13 / 26</span></div>
+  <div class="notes"><p><strong>Đây là slide quan trọng nhất.</strong> Nếu cô chỉ nhớ một con số, em mong là con số này.</p><p>Chưa ai đo được điều này vì phải có đủ ba thứ trên cùng bộ chấm: baseline đa kênh chạy lại, bản đơn kênh của chính nó, và mô hình của mình. Chưa nhóm nào bỏ công chạy lại baseline rồi tự cắt nó xuống một kênh.</p></div>
+</section>
+
+<!-- 14 -->
+<section class="slide" data-t="Kết quả · chọn kênh">
+  <div class="kicker">Mục 12 · Kết quả 2 — ngoài miền</div>
+  <div class="body">
+    <h2>Nút thắt là chọn kênh, không phải bộ dò</h2>
+    <div class="two" style="grid-template-columns:1.15fr 1fr">
+      <table style="font-size:18px">
+        <thead><tr><th>Quy tắc chọn kênh</th><th class="n">F1</th><th class="n">p Holm</th></tr></thead>
+        <tbody>
+          <tr class="dim"><td>psd — đang dùng</td><td class="n">74,28</td><td class="n">—</td></tr>
+          <tr><td>rrcv</td><td class="n">80,00</td><td class="n">0,41</td></tr>
+          <tr><td>gate <em>— chỉ định trước</em></td><td class="n">80,72</td><td class="n" style="color:var(--rose)">0,051 ✗</td></tr>
+          <tr style="background:var(--amber-soft)"><td><b>gate4</b> <em>— chỉ định trước</em></td><td class="n"><b>81,01</b></td><td class="n" style="color:var(--teal)"><b>0,015 ✓</b></td></tr>
+          <tr class="hi"><td><b>peakprob</b> <em>— hậu kiểm</em></td><td class="n"><b>82,01</b></td><td class="n"><b>0,0039</b></td></tr>
+          <tr class="dim"><td>oracle (chặn trên)</td><td class="n">83,60</td><td class="n">—</td></tr>
+        </tbody>
+      </table>
+      <div>
+        <div class="box b-ok" style="margin-bottom:10px"><span class="bh">Được gì</span><p><b>+7,73</b> [+3,82; +12,41]. Lấy lại <b>82,9 %</b> dư địa. Bản F1 &lt; 50 từ <b>16 xuống 9</b>. <b>Không bản nào mất quá 3,90 điểm.</b></p></div>
+        <div class="box b-bad"><span class="bh">Phải nói thẳng</span><p><code>peakprob</code> được chọn <b>sau khi nhìn kết quả</b>. Quy tắc em chỉ định trước là <code>gate</code> — và nó <b>trượt</b> hiệu chỉnh Holm.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>60 bản CinC sạch · <span class="src">analysis/dulieu_results.json</span></span><span class="src">14 / 26</span></div>
+  <div class="notes"><p>Quy tắc <code>peakprob</code> đơn giản đến bất ngờ: chạy mô hình trên cả 4 kênh, chọn kênh mà chính mô hình tự tin nhất. Không huấn luyện, không siêu tham số.</p><p><strong>Nhưng đây là chỗ em phải trung thực nhất.</strong> Cứu cánh là <code>gate4</code> — cũng nằm trong họ em ghi trước — và nó <em>sống sót</em> Holm với p = 0,015. Nên phép thử ở mức họ thành công, còn quy tắc đơn lẻ em chỉ định thì trượt.</p><p>Em không có bộ dữ liệu thứ ba để xác nhận vì không bộ công khai nào có nhãn nhịp thai thật.</p></div>
+</section>
+
+<!-- 15 -->
+<section class="slide" data-t="Kết quả · cổng từ chối">
+  <div class="kicker">Mục 13 · Kết quả 3</div>
+  <div class="body">
+    <h2>Hệ thống biết lúc nào nó sai</h2>
+    <div class="three">
+      <div class="card"><div class="ct">AUROC trong bản ghi</div><div class="cv">0,934</div><div class="cd">[0,872; 0,981] — bỏ-một-chủ-thể, 12 chỉ số cổ điển, <b>không dùng nhãn</b></div></div>
+      <div class="card"><div class="ct">Xếp hạng tin cậy</div><div class="cv">3/3</div><div class="cd">Ba bản khó nhất xếp đúng ba hạng chót trong 22 chủ thể — ngẫu nhiên là <b>1/1540</b></div></div>
+      <div class="card"><div class="ct">Sai số STV khi tin cậy cao</div><div class="cv">0,13 ms</div><div class="cd">Khi F1 ≥ 99,5. Khi F1 &lt; 90 thì <b>25,78 ms</b></div></div>
+    </div>
+    <div class="box b-warn"><span class="bh">Đối chứng trung thực</span><p><b>5 trong 24</b> quy tắc một đặc trưng đơn giản cũng xếp đúng cả ba bản khó. Nên <b>không</b> được nói “phải có cổng học mới làm được”. Ưu thế thật của cổng học là một ngưỡng dùng chung cho mọi tập.</p></div>
+  </div>
+  <div class="foot"><span><span class="src">analysis/gate22_results.json</span></span><span class="src">15 / 26</span></div>
+  <div class="notes"><p>Đây là câu trả lời cho câu hỏi nghiên cứu thứ hai.</p><p>Và nó có giá trị lâm sàng thật: cổng không chỉ loại đoạn xấu, nó lọc ra đúng những đoạn mà chỉ số biến thiên còn dùng được.</p></div>
+</section>
+
+<!-- 16 -->
+<section class="slide" data-t="Kết quả âm tính">
+  <div class="kicker">Mục 14</div>
+  <div class="body">
+    <h2>Ba thứ em thử và <em>không</em> hiệu quả — công bố nguyên trạng</h2>
+    <table style="font-size:19px">
+      <thead><tr><th>Thử gì</th><th>Kết quả</th><th>Ý nghĩa</th></tr></thead>
+      <tbody>
+        <tr><td>Thích nghi miền không nhãn — <b>4 cách</b></td><td class="n" style="color:var(--rose)">+0,25 / −0,68 / −1,58 / −2,43</td><td>Cả bốn đều <b>làm tệ đi</b></td></tr>
+        <tr><td>Đổi dải lọc (10–60 vs 1–45 Hz)</td><td class="n">−0,07 [−0,51; +0,39]</td><td>Trên trung bình 4 kênh: <b>bằng không</b></td></tr>
+        <tr><td>Đặc trưng tô-pô (persistent homology)</td><td class="n" style="color:var(--rose)">27,4 vs 97,1</td><td>Thua xa mạng 1D cùng tham số</td></tr>
+      </tbody>
+    </table>
+    <div class="box b-ok"><span class="bh">Vì sao vẫn đưa lên slide</span><p>Ba kết quả âm tính này nói cho người sau biết <b>đừng đi đâu</b>. Và cả ba cùng chỉ về một chỗ: <b>dữ liệu</b>, không phải mô hình.</p></div>
+  </div>
+  <div class="foot"><span><span class="src">adapt/adapt_results.json · pilot_evidence/band_tcn_stats.json</span></span><span class="src">16 / 26</span></div>
+  <div class="notes"><p>Áp cả ba dịch chuyển miền đo được lên dữ liệu trong miền chỉ mất 0,01 điểm, trong khi khoảng cách thật còn gần 18 điểm. Nên khoảng cách ngoài miền không phải thứ mà thích nghi miền sửa được.</p><p>Nguyên nhân còn lại thì em <strong>chưa xác định được</strong> — em sẽ nói ở slide sai lầm.</p></div>
+</section>
+
+<!-- 17 — chuyển tiếp -->
+<section class="slide dark chap" data-t="Phần em nghĩ quan trọng nhất">
+  <div class="kicker">Mục 15</div>
+  <h1>Và đây là phần em nghĩ quan trọng nhất</h1>
+  <p class="lede">Năm tuyên bố em đã tự rút lại — trước khi có ai khác tìm ra.</p>
+  <div class="foot"><span>Sai lầm và bài học</span><span class="src">17 / 26</span></div>
+  <div class="notes"><p>Dừng một nhịp ở đây. Nói chậm.</p><p>“Phần tiếp theo không phải kết quả, mà là những chỗ em làm sai. Em nghĩ nó quan trọng hơn phần kết quả, vì nó cho cô biết em kiểm tra công việc của mình thế nào.”</p></div>
+</section>
+
+<!-- 18 -->
+<section class="slide" data-t="Sai lầm 1 và 2">
+  <div class="kicker">Mục 15 · Sai lầm 1 và 2</div>
+  <div class="body">
+    <h2>Mẫu quá nhỏ, và đoán trước khi đo</h2>
+    <div class="two">
+      <div class="box b-bad" style="height:100%"><span class="bh">Sai lầm 1 — mẫu 10 bản ghi</span><p>Em đánh giá trên 10/75 bản CinC. Trên mẫu đó, quy tắc “kênh 0 cố định” cho <b>90,34</b> còn quy tắc mù nhãn chỉ <b>69,31</b>.<br><br>Chạy đủ 75 bản: <b>ngược lại hoàn toàn</b> — mù nhãn 79,40, kênh 0 chỉ 69,33.<br><br><b>Bài học:</b> không bao giờ báo cáo siêu tham số chọn <em>sau khi</em> nhìn tập đánh giá.</p></div>
+      <div class="box b-bad" style="height:100%"><span class="bh">Sai lầm 2 — đoán nguyên nhân</span><p>Power-MF chạy hỏng. Em đoán do tham số khoảng cách nhịp 340 ms quá sát.<br><br>Đo RR thật từ nhãn: <b>0,00 %</b> khoảng RR dưới 340 ms. <b>Giả thuyết của em sai hoàn toàn.</b><br><br>Nguyên nhân thật: hàm tìm đỉnh của Octave tốn bộ nhớ bậc hai, tràn trên bản ghi dài.<br><br><b>Bài học:</b> không phát biểu nguyên nhân trước khi có số.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span><span class="src">THAMDINH_VONG6.md · survey/RO_RI_VANLIEU.md</span></span><span class="src">18 / 26</span></div>
+  <div class="notes"><p>Sai lầm 2 còn có mặt tốt: khi sửa xong, bản chạy lại khớp số tác giả công bố tới 0,06 điểm. Nếu em không đo mà chỉ đoán thì không bao giờ có được kiểm chứng đó.</p></div>
+</section>
+
+<!-- 19 -->
+<section class="slide" data-t="Sai lầm 3, 4, 5">
+  <div class="kicker">Mục 15 · Sai lầm 3, 4, 5</div>
+  <div class="body">
+    <h2>Ba lần nữa</h2>
+    <div class="three">
+      <div class="box b-bad" style="height:100%"><span class="bh">3 — tưởng mình phát hiện</span><p>Em tìm ra <b>15/75</b> bản CinC là bản sao dữ liệu huấn luyện.<br><br>Nhưng ban tổ chức <b>đã ghi từ 2013</b>, và ghi chú của chính em đã nhắc.<br><br><b>Bài học:</b> tìm trong y văn gốc trước khi gọi là phát hiện.</p></div>
+        <div class="box b-bad" style="height:100%"><span class="bh">4 — trần F1 đánh lừa</span><p>Em thấy mọi cải tiến dồn vào ba bản khó, định viết thành phát hiện.<br><br>Làm lại trên thang logit: hiệu ứng <b>không</b> tập trung. Phần lớn là <b>tạo tác toán học</b> của trần 100.</p></div>
+      <div class="box b-bad" style="height:100%"><span class="bh">5 — “mô hình không phải nút thắt”</span><p>Em tuyên bố khá tự tin. Rồi đo <em>độ đặc hiệu</em> của phép thử: nó báo sai <b>18 %</b>.<br><br>Kết luận rút lại. <b>Câu hỏi vẫn mở.</b></p></div>
+    </div>
+    <div class="box b-ok"><span class="bh">Vì sao em kể những chuyện này</span><p>Nếu bốn tháng nữa phản biện mới tìm ra thì mất cả bài. Em nghĩ việc rút lại công khai <b>làm đề tài đáng tin hơn</b>, không phải yếu đi.</p></div>
+  </div>
+  <div class="foot"><span><span class="src">survey/facts_phase4.json → Z_DA_RUT</span></span><span class="src">19 / 26</span></div>
+  <div class="notes"><p>Sai lầm 4 lại lộ ra một kết quả tốt hơn: trên 19 chủ thể dễ, một kênh thực sự thắng bốn kênh trên thang logit, mà thang F1 báo là “hoà”. Nhưng nhóm 19 đó em chia <em>sau khi</em> thấy F1, nên chỉ là quan sát hậu kiểm — em không dùng làm kết quả chính.</p></div>
+</section>
+
+<!-- 20 -->
+<section class="slide" data-t="Quy trình sửa">
+  <div class="kicker">Mục 16</div>
+  <div class="body">
+    <h2>Cách em tìm ra lỗi của chính mình</h2>
+    <div class="three">
+      <div class="card"><div class="ct">Vòng làm việc</div><div class="cv">8</div><div class="cd">Mỗi vòng có một bước <b>phản biện độc lập</b> với nhiệm vụ duy nhất là <em>tìm chỗ sai</em></div></div>
+      <div class="card"><div class="ct">Tuyên bố tự rút</div><div class="cv">5</div><div class="cd">Trước khi có ai khác tìm ra. Có hồ sơ công khai trong kho mã</div></div>
+      <div class="card"><div class="ct">Kiểm thử tự động</div><div class="cv">82/82</div><div class="cd">≈27.700 dòng Python; mọi con số truy ngược về một tệp JSON</div></div>
+    </div>
+    <ul style="gap:10px;margin-top:6px">
+      <li><b>Khai báo trước rồi neo git</b> — kế hoạch không neo git thì không gọi là khai báo trước</li>
+      <li><b>Đối chứng ngẫu nhiên</b> cho phép gán lỗi — không có nó thì tỉ lệ 3,8 % vô nghĩa</li>
+      <li><b>Thống kê mức chủ thể</b>, cluster bootstrap — sửa lỗi này đảo <b>5 kết luận</b></li>
+      <li><b>Kiểm rò rỉ nhãn</b> bằng xáo nhãn — <b>0/776</b> lựa chọn thay đổi</li>
+    </ul>
+  </div>
+  <div class="foot"><span><span class="src">THAMDINH_VONG6/7/8.md</span></span><span class="src">20 / 26</span></div>
+  <div class="notes"><p>Bốn kỹ thuật ở dưới là thứ em muốn giữ cho mọi đề tài sau này, không riêng đề tài này.</p><p>Cái đắt nhất là <strong>thống kê mức chủ thể</strong>: một sản phụ có 4 đạo trình, nếu coi là 4 mẫu độc lập thì trị số p đẹp lên một cách giả tạo. Sửa xong thì 5 kết luận bị đảo.</p></div>
+</section>
+
+<!-- 21 -->
+<section class="slide" data-t="Định vị thật">
+  <div class="kicker">Mục 17 · Định vị</div>
+  <div class="body">
+    <h2>Đề tài đang ở đâu — nói thẳng</h2>
+    <table style="font-size:19px">
+      <thead><tr><th>Nơi nộp</th><th>Xếp hạng</th><th class="n">Xác suất</th><th>Rào cản</th></tr></thead>
+      <tbody>
+        <tr class="hi"><td>Physiological Measurement</td><td>Q2 Scimago 2024</td><td class="n">~58 %</td><td>Sân nhà của cộng đồng fECG</td></tr>
+        <tr><td>CinC 2027</td><td>Hội nghị chuyên ngành</td><td class="n">cao</td><td>Bản 4 trang đã sẵn sàng</td></tr>
+        <tr><td>Q1 — JBHI / TBME / BSPC</td><td>Q1 Scimago</td><td class="n">12 % / 6 tháng</td><td><b>Cần dữ liệu có nhãn mới</b></td></tr>
+        <tr class="dim"><td>Hội nghị rank A*</td><td>CORE A*</td><td class="n">&lt; 5 %</td><td>Không venue A* đúng lĩnh vực; không có tính mới học máy</td></tr>
+      </tbody>
+    </table>
+    <div class="box b-warn"><span class="bh">Hai điều em phải đính chính so với kế hoạch ban đầu</span><p><b>Physiological Measurement là Q2</b>, không phải Q1 — em ghi nhầm lúc đầu. Và <b>A* không khả thi</b>; em đề nghị bỏ khỏi bảng mục tiêu và nói thật với cô ngay từ đầu.</p></div>
+  </div>
+  <div class="foot"><span><span class="src">docs/CHIEN_LUOC_CONG_BO.md</span></span><span class="src">21 / 26</span></div>
+  <div class="notes"><p>Em muốn nói thẳng chỗ này vì nếu để cô kỳ vọng A* rồi sáu tháng nữa mới nói thì tệ hơn nhiều.</p><p>Rào cản lên Q1 không phải chất lượng viết mà là <strong>dữ liệu có nhãn mới</strong>. Đó là lý do lớn nhất em xin cô hỗ trợ.</p></div>
+</section>
+
+<!-- 22 -->
+<section class="slide" data-t="Tiến độ">
+  <div class="kicker">Mục 18 · Tiến độ</div>
+  <div class="body">
+    <h2>Tiến độ theo khối công việc</h2>
+    <div class="bars">
+      <div class="bar best"><span class="bl">Thống kê</span><span class="bt"><span class="bf" style="width:95%"></span></span><span class="bv">95 %</span></div>
+      <div class="bar best"><span class="bl">Hạ tầng, mã, kiểm thử</span><span class="bt"><span class="bf" style="width:95%"></span></span><span class="bv">95 %</span></div>
+      <div class="bar best"><span class="bl">Mô hình</span><span class="bt"><span class="bf" style="width:95%"></span></span><span class="bv">95 %</span></div>
+      <div class="bar"><span class="bl">Văn bản</span><span class="bt"><span class="bf" style="width:90%"></span></span><span class="bv">90 %</span></div>
+      <div class="bar"><span class="bl">Đánh giá, đối chuẩn</span><span class="bt"><span class="bf" style="width:80%"></span></span><span class="bv">80 %</span></div>
+      <div class="bar"><span class="bl">Chỉ số lâm sàng</span><span class="bt"><span class="bf" style="width:75%"></span></span><span class="bv">75 %</span></div>
+      <div class="bar"><span class="bl">Dữ liệu</span><span class="bt"><span class="bf" style="width:60%"></span></span><span class="bv">60 %</span></div>
+      <div class="bar ref"><span class="bl">Tính mới khoa học</span><span class="bt"><span class="bf" style="width:50%"></span></span><span class="bv">50 %</span></div>
+    </div>
+    <div class="box b-acc"><span class="bh">Chỗ tắc</span><p>Hai khối cuối là chỗ tắc, và <b>cả hai đều gỡ bằng cùng một thứ: dữ liệu có nhãn mới.</b></p></div>
+  </div>
+  <div class="foot"><span>Ước lượng có căn cứ, không phải cảm tính</span><span class="src">22 / 26</span></div>
+  <div class="notes"><p>Trung bình có trọng số khoảng 75 phần trăm. Nhưng con số đó gây hiểu nhầm, vì 25 phần trăm còn lại không phải phần dễ.</p></div>
+</section>
+
+<!-- 23 -->
+<section class="slide" data-t="Kế hoạch">
+  <div class="kicker">Mục 19 · Kế hoạch</div>
+  <div class="body">
+    <h2>Năm mốc trong ba tháng tới</h2>
+    <ul style="gap:15px">
+      <li><b>Tuần 1–2 · Dữ liệu.</b> Liên hệ khoa sản qua giới thiệu của cô; tìm hiểu thủ tục đạo đức nghiên cứu. <em>Đây là việc dài nhất nên khởi động ngay.</em></li>
+      <li><b>Tuần 2–4 · Ba hạt giống</b> cho mọi kết quả chính, và tính lại số cổng từ chối trên 60 bản sạch.</li>
+      <li><b>Tuần 4–8 · Bản dài</b> cho Physiological Measurement, viết quanh một trục duy nhất.</li>
+      <li><b>Tuần 8–10 · Chạy lại DPSS</b> — đối thủ thứ hai hiện vẫn là số trích dẫn, đúng lỗ hổng em vừa lấp cho Power-MF.</li>
+      <li><b>Tuần 10–12 · Nộp</b> Physiological Measurement; chuẩn bị bản 4 trang cho CinC 2027.</li>
+    </ul>
+  </div>
+  <div class="foot"><span><span class="src">docs/DE_CUONG_HIEN_TRANG.md</span></span><span class="src">23 / 26</span></div>
+  <div class="notes"><p>Em xếp theo giá trị chia cho chi phí. Việc cần người ngoài — tức là cần cô — em để tuần 1 vì thời gian chờ dài nhất.</p><p>Em <strong>không</strong> định đổi kiến trúc và <strong>không</strong> định theo đuổi thích nghi miền nữa. Bằng chứng nói cả hai đều là đòn bẩy yếu.</p></div>
+</section>
+
+<!-- 24 -->
+<section class="slide" data-t="Xin cô">
+  <div class="kicker">Mục 20</div>
+  <div class="body">
+    <h2>Ba việc em xin cô</h2>
+    <div class="three">
+      <div class="card" style="border-color:var(--accent)"><div class="ct" style="color:var(--accent)">1 · Dữ liệu</div><div class="cd">Một đầu mối <b>khoa sản</b> đang ghi CTG hoặc điện tim bụng.<br><br>Em cần hỏi nhu cầu thật của bác sĩ, và xin dữ liệu có nhãn.<br><br><b>Đây là việc quyết định mọi thứ còn lại.</b></div></div>
+      <div class="card"><div class="ct">2 · Định hướng công bố</div><div class="cd">Cô xem hướng <b>Physiological Measurement + CinC 2027</b> có hợp không.<br><br>Và <b>hội đồng trường chấm theo Scimago hay WoS-JCR</b> — câu trả lời đổi cả chiến lược.</div></div>
+      <div class="card"><div class="ct">3 · Euréka</div><div class="cd">Hạn nội bộ TDTU kỳ 2026 em <b>chưa tìm được thông báo</b>.<br><br>Em sẽ hỏi Đoàn trường trong tuần này. Thực tế có lẽ là <b>kỳ 2027</b>.</div></div>
+    </div>
+    <div class="box b-ok"><span class="bh">Và một câu hỏi về hướng đi</span><p>Bằng chứng của em nói <b>đừng đầu tư thêm vào mô hình</b> — kiến trúc và thích nghi miền đều là đòn bẩy yếu. Cô có đồng ý dồn toàn bộ thời gian còn lại vào <b>dữ liệu</b> không ạ?</p></div>
+  </div>
+  <div class="foot"><span>Xin hỗ trợ</span><span class="src">24 / 26</span></div>
+  <div class="notes"><p>Hỏi câu cuối cùng thật rõ. Đây là câu quan trọng nhất em cần cô trả lời, vì nó quyết định em tiêu ba tháng tới vào đâu.</p></div>
+</section>
+
+<!-- 25 -->
+<section class="slide dark chap" data-t="Demo">
+  <div class="kicker">Mục 21</div>
+  <h1>Demo</h1>
+  <p class="lede">Năm bản ghi, sáu phút. r01 dễ → a09 chọn kênh quyết định → a02 cổng từ chối bắt lỗi → dữ liệu của nhóm → tải dữ liệu mới.</p>
+  <div class="foot"><span>Chuyển sang trình duyệt · <span class="src">python demo/app.py</span></span><span class="src">25 / 26</span></div>
+  <div class="notes"><p>Chuyển cửa sổ sang demo. Nếu demo hỏng, mở <code>demo/screenshots/</code> theo thứ tự 01 → 04 → 07 → 09 → 11 → 12.</p><p>Nếu chỉ kịp chiếu một ảnh thì chiếu ảnh 12 — bảng tổng hợp 60 bản sạch.</p></div>
+</section>
+
+<!-- 26 -->
+<section class="slide dark chap" data-t="Kết">
+  <div class="kicker">Kết</div>
+  <h1>Em xây được hệ đọc tim thai từ một dây, và biết chính xác nó làm được gì</h1>
+  <p class="lede">Lấy lại gần chín phần mười lợi ích của bốn dây. Và em biết giới hạn của nó — vì em đã tự tìm ra, tự rút lại năm kết luận sai của chính mình, trước khi ai khác kịp tìm.</p>
+  <div class="foot"><span>Ngô Bình Minh · github.com/bminhnemhoi/nckhsv_tdtu2026-2027</span><span class="src">26 / 26</span></div>
+  <div class="notes"><p>Câu kết. Nói chậm, nhìn cô.</p><p>Rồi chuyển sang phần hỏi đáp: “Em xin nghe góp ý của cô ạ.”</p></div>
+</section>
+
+</div></div>
+
+<div id="chrome">
+  <span><b id="cur">1</b> / <b id="tot">26</b></span>
+  <span class="hint">← → di chuyển · <b>N</b> ghi chú · <b>O</b> tổng quan · <b>F</b> toàn màn hình</span>
+</div>
+
+<div id="notes"><h4>Ghi chú người nói</h4><div class="nb" id="nbody"></div></div>
+
+<div id="ov"><h4>Tổng quan — bấm để nhảy tới slide</h4><div class="g" id="ovg"></div></div>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var i = 0, notesOn = false, ovOn = false;
+  var deck = document.getElementById('deck');
+  var W = 1280, H = 720;
+
+  function fit(){
+    var pad = 40;
+    var availW = window.innerWidth - pad - (notesOn ? 390 : 0);
+    var availH = window.innerHeight - pad - 34;
+    var s = Math.min(availW / W, availH / H);
+    deck.style.transform = 'scale(' + s + ')';
+    var stage = document.getElementById('stage');
+    stage.style.paddingRight = notesOn ? '390px' : '0';
+  }
+
+  function show(n){
+    if (n < 0) n = 0;
+    if (n > slides.length - 1) n = slides.length - 1;
+    slides[i].classList.remove('on');
+    i = n;
+    slides[i].classList.add('on');
+    document.getElementById('cur').textContent = i + 1;
+    document.getElementById('prog').style.width = ((i + 1) / slides.length * 100) + '%';
+    var src = slides[i].querySelector('.notes');
+    document.getElementById('nbody').innerHTML = src ? src.innerHTML : '<p style="color:#7C8493">Không có ghi chú cho slide này.</p>';
+    Array.prototype.forEach.call(document.querySelectorAll('#ovg .t'), function(t, k){
+      t.classList.toggle('cur', k === i);
+    });
+  }
+
+  document.getElementById('tot').textContent = slides.length;
+
+  // overview thumbnails
+  var g = document.getElementById('ovg');
+  slides.forEach(function(s, k){
+    var t = document.createElement('div');
+    t.className = 't' + (s.classList.contains('dark') ? ' d' : '');
+    t.innerHTML = '<div class="tn">' + String(k + 1).padStart(2, '0') + '</div><div class="tt">' + (s.dataset.t || '') + '</div>';
+    t.addEventListener('click', function(){ show(k); toggleOv(false); });
+    g.appendChild(t);
+  });
+
+  function toggleNotes(v){
+    notesOn = (v === undefined) ? !notesOn : v;
+    document.getElementById('notes').classList.toggle('on', notesOn);
+    fit();
+  }
+  function toggleOv(v){
+    ovOn = (v === undefined) ? !ovOn : v;
+    document.getElementById('ov').classList.toggle('on', ovOn);
+  }
+
+  document.addEventListener('keydown', function(e){
+    var k = e.key;
+    if (k === 'ArrowRight' || k === ' ' || k === 'PageDown'){ e.preventDefault(); show(i + 1); }
+    else if (k === 'ArrowLeft' || k === 'PageUp'){ e.preventDefault(); show(i - 1); }
+    else if (k === 'Home'){ show(0); }
+    else if (k === 'End'){ show(slides.length - 1); }
+    else if (k === 'n' || k === 'N'){ toggleNotes(); }
+    else if (k === 'o' || k === 'O'){ toggleOv(); }
+    else if (k === 'Escape'){ toggleOv(false); }
+    else if (k === 'f' || k === 'F'){
+      if (!document.fullscreenElement && document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+      else if (document.exitFullscreen) document.exitFullscreen();
+    }
+  });
+
+  document.getElementById('stage').addEventListener('click', function(e){
+    if (ovOn) return;
+    var half = window.innerWidth / 2;
+    show(e.clientX > half ? i + 1 : i - 1);
+  });
+
+  window.addEventListener('resize', fit);
+  fit();
+  show(0);
+})();
+</script>

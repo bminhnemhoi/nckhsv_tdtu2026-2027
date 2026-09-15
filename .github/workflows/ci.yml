@@ -28,11 +28,12 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install numpy scipy scikit-learn mne wfdb pytest
+          pip install numpy scipy scikit-learn mne wfdb ripser pytest
           pip install fastapi uvicorn httpx python-multipart
           pip install torch --index-url https://download.pytorch.org/whl/cpu
 
-      # Data-dependent cases (ADFECGDB, Silesia) and fsqi (needs ripser) skip on the runner;
+      # Data-dependent cases (ADFECGDB, Silesia) skip on the runner. ripser is installed above because
+      # the default learned confidence gate imports fsqi/fsqi.py, which imports ripser at module level;
       # the API tests run against the checked-in checkpoints via fastapi.testclient.
       - name: Run tests
         run: pytest tests/ demo/test_core.py -v

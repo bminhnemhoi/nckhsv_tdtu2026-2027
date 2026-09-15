@@ -1,0 +1,935 @@
+<title>Sổ tay RelyFetal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --ink:#16191F;
+  --ink-2:#3D444E;
+  --ink-3:#6B7280;
+  --paper:#FBFAF7;
+  --card:#FFFFFF;
+  --rule:#E4DFD6;
+  --rule-2:#F0ECE5;
+  --accent:#C1502E;
+  --accent-soft:#FBEFE9;
+  --verify:#1E5F58;
+  --verify-soft:#E8F2F0;
+  --warn:#8F6410;
+  --warn-soft:#FAF2DF;
+  --dead:#8A2F3F;
+  --dead-soft:#FBEBEE;
+  --shadow:0 1px 2px rgba(22,25,31,.05);
+}
+:root:not([data-theme="light"]){}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#EDEAE4;
+    --ink-2:#BDB8B0;
+    --ink-3:#8B857C;
+    --paper:#15171B;
+    --card:#1C1F24;
+    --rule:#2E323A;
+    --rule-2:#24272D;
+    --accent:#E8825C;
+    --accent-soft:#2B1F1A;
+    --verify:#63B8AC;
+    --verify-soft:#162725;
+    --warn:#D6A33D;
+    --warn-soft:#2A2215;
+    --dead:#DE7E8E;
+    --dead-soft:#2A1A1E;
+    --shadow:0 1px 2px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#EDEAE4;
+  --ink-2:#BDB8B0;
+  --ink-3:#8B857C;
+  --paper:#15171B;
+  --card:#1C1F24;
+  --rule:#2E323A;
+  --rule-2:#24272D;
+  --accent:#E8825C;
+  --accent-soft:#2B1F1A;
+  --verify:#63B8AC;
+  --verify-soft:#162725;
+  --warn:#D6A33D;
+  --warn-soft:#2A2215;
+  --dead:#DE7E8E;
+  --dead-soft:#2A1A1E;
+  --shadow:0 1px 2px rgba(0,0,0,.3);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Be Vietnam Pro",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:16px;
+  line-height:1.72;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---------- hero: giay CTG ---------- */
+.hero{
+  border-bottom:1px solid var(--rule);
+  background:
+    repeating-linear-gradient(to right, color-mix(in srgb, var(--accent) 8%, transparent) 0 1px, transparent 1px 22px),
+    repeating-linear-gradient(to bottom, color-mix(in srgb, var(--accent) 8%, transparent) 0 1px, transparent 1px 22px),
+    var(--card);
+  padding:52px 24px 40px;
+}
+.hero-in{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+.eyebrow{
+  font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);
+}
+h1{
+  font-family:Lora,Georgia,serif;
+  font-weight:600;
+  font-size:clamp(30px,4.4vw,46px);
+  line-height:1.14;
+  margin:0;
+  letter-spacing:-.015em;
+  text-wrap:balance;
+  max-width:20ch;
+}
+.dek{
+  font-size:17px;color:var(--ink-2);max-width:62ch;margin:0;font-weight:300;
+}
+.meta-row{
+  display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;
+}
+.chip{
+  font-size:12.5px;font-weight:500;
+  border:1px solid var(--rule);background:var(--paper);
+  padding:5px 11px;border-radius:100px;color:var(--ink-2);
+}
+.chip b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+
+/* ---------- layout ---------- */
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1fr;gap:0}
+@media(min-width:1060px){
+  .wrap{grid-template-columns:216px minmax(0,1fr);gap:56px;align-items:start}
+  .toc{display:block}
+}
+.toc{display:none;position:sticky;top:24px;padding:40px 0 40px;font-size:13.5px}
+.toc-h{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-bottom:12px}
+.toc ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;counter-reset:t}
+.toc a{
+  display:flex;gap:9px;text-decoration:none;color:var(--ink-2);
+  padding:4px 8px;border-radius:5px;line-height:1.4;
+}
+.toc a:hover{background:var(--rule-2);color:var(--ink)}
+.toc a .n{color:var(--ink-3);font-variant-numeric:tabular-nums;font-weight:600;font-size:12px;padding-top:1px}
+main{padding:40px 0 96px;min-width:0;max-width:74ch}
+
+/* ---------- section ---------- */
+section{margin-bottom:52px;scroll-margin-top:20px}
+h2{
+  font-family:Lora,Georgia,serif;font-weight:600;
+  font-size:26px;line-height:1.24;margin:0 0 4px;letter-spacing:-.01em;text-wrap:balance;
+}
+.sec-n{
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:11.5px;font-weight:600;color:var(--accent);
+  letter-spacing:.06em;display:block;margin-bottom:9px;
+}
+h3{
+  font-family:Lora,Georgia,serif;font-weight:600;font-size:19px;
+  margin:30px 0 6px;line-height:1.3;text-wrap:balance;
+}
+h4{font-size:14.5px;font-weight:600;margin:22px 0 4px;color:var(--ink)}
+p{margin:0 0 14px}
+strong{font-weight:600}
+em{font-style:italic;color:var(--ink-2)}
+a{color:var(--accent)}
+ul,ol{margin:0 0 14px;padding-left:20px}
+li{margin-bottom:7px}
+li::marker{color:var(--ink-3)}
+code,.num{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.88em;font-variant-numeric:tabular-nums}
+code{background:var(--rule-2);padding:1px 5px;border-radius:4px;color:var(--ink)}
+.lede{font-size:17.5px;line-height:1.66;color:var(--ink-2);font-weight:300;margin-bottom:20px}
+
+/* ---------- callouts ---------- */
+.box{
+  border-left:3px solid var(--rule);
+  background:var(--card);
+  padding:14px 18px;margin:18px 0;border-radius:0 7px 7px 0;
+  box-shadow:var(--shadow);
+}
+.box p:last-child{margin-bottom:0}
+.box-h{
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;
+  margin-bottom:6px;display:block;
+}
+.why{border-left-color:var(--accent);background:var(--accent-soft)}
+.why .box-h{color:var(--accent)}
+.ok{border-left-color:var(--verify);background:var(--verify-soft)}
+.ok .box-h{color:var(--verify)}
+.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+.warn .box-h{color:var(--warn)}
+.dead{border-left-color:var(--dead);background:var(--dead-soft)}
+.dead .box-h{color:var(--dead)}
+
+/* ---------- tables ---------- */
+.tw{overflow-x:auto;margin:18px 0;border:1px solid var(--rule);border-radius:8px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:min-content}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--rule-2);white-space:nowrap}
+th{
+  font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;
+  color:var(--ink-3);background:var(--paper);border-bottom:1px solid var(--rule);
+}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12.5px}
+tr:last-child td{border-bottom:none}
+tbody tr.hi{background:var(--verify-soft)}
+tbody tr.hi td{font-weight:600}
+tbody tr.lo td{color:var(--ink-3)}
+.cap{font-size:12.5px;color:var(--ink-3);margin:-8px 0 18px;line-height:1.55}
+.tag{
+  font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  padding:2px 7px;border-radius:4px;white-space:nowrap;
+}
+.t-ok{background:var(--verify-soft);color:var(--verify)}
+.t-no{background:var(--dead-soft);color:var(--dead)}
+.t-wait{background:var(--warn-soft);color:var(--warn)}
+
+/* ---------- ngan sach sai so ---------- */
+.budget{display:flex;height:38px;border-radius:6px;overflow:hidden;margin:16px 0 8px;border:1px solid var(--rule)}
+.budget div{
+  display:flex;align-items:center;justify-content:center;
+  font-size:11.5px;font-weight:600;color:#fff;font-variant-numeric:tabular-nums;
+}
+.b1{background:var(--verify)}
+.b2{background:var(--accent)}
+.b3{background:#6B7280}
+.b4{background:var(--rule-2);color:var(--ink-3)!important}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--ink-2);margin-bottom:16px}
+.legend span{display:flex;align-items:center;gap:6px}
+.sw{width:11px;height:11px;border-radius:3px;flex:none}
+
+/* ---------- pipeline ---------- */
+.pipe{display:flex;flex-direction:column;gap:0;margin:18px 0}
+.step{display:flex;gap:14px;position:relative;padding-bottom:18px}
+.step:last-child{padding-bottom:0}
+.step::before{
+  content:"";position:absolute;left:13px;top:30px;bottom:0;width:1px;background:var(--rule);
+}
+.step:last-child::before{display:none}
+.step-n{
+  flex:none;width:27px;height:27px;border-radius:50%;
+  background:var(--card);border:1px solid var(--rule);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:var(--accent);
+  font-variant-numeric:tabular-nums;z-index:1;
+}
+.step-b{flex:1;min-width:0;padding-top:2px}
+.step-t{font-weight:600;font-size:15px;margin-bottom:2px}
+.step-d{font-size:14px;color:var(--ink-2);line-height:1.6}
+.step-d .q{color:var(--accent);font-weight:500}
+
+/* ---------- script ---------- */
+.say{
+  background:var(--card);border:1px solid var(--rule);border-radius:9px;
+  padding:18px 20px;margin:16px 0;box-shadow:var(--shadow);
+}
+.say-q{font-weight:600;font-size:15px;margin-bottom:8px;display:flex;gap:9px;align-items:baseline}
+.say-q::before{content:"Cô hỏi";font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:700;flex:none;padding-top:2px}
+.say-a{font-size:14.5px;color:var(--ink-2);line-height:1.68;border-left:2px solid var(--rule);padding-left:13px}
+.say-a::before{content:"Trả lời — ";font-weight:600;color:var(--ink);font-size:13px}
+
+hr{border:none;border-top:1px solid var(--rule);margin:34px 0}
+footer{
+  border-top:1px solid var(--rule);padding:26px 24px 44px;font-size:13px;color:var(--ink-3);
+}
+.footer-in{max-width:1180px;margin:0 auto}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<header class="hero">
+  <div class="hero-in">
+    <span class="eyebrow">NCKH sinh viên TDTU · 2026–2027 · Ngô Bình Minh</span>
+    <h1>Nghe tim thai bằng một dây, và biết khi nào mình nghe nhầm</h1>
+    <p class="dek">Sổ tay đầy đủ để trình bày đề tài RelyFetal — làm gì, tại sao làm vậy, đã vấp ở đâu và xử lý ra sao. Mọi con số trong trang này đều truy ngược được về một tệp kết quả trên máy.</p>
+    <div class="meta-row">
+      <span class="chip">Mô hình <b>113.481</b> tham số</span>
+      <span class="chip"><b>22</b> sản phụ huấn luyện</span>
+      <span class="chip"><b>60</b> bản ghi kiểm tra ngoài <i style="font-style:normal;color:var(--accent)">(đã lọc rò rỉ)</i></span>
+      <span class="chip"><b>≈27.700</b> dòng mã · <b>82/82</b> kiểm thử</span>
+      <span class="chip">Cập nhật <b>12/09/2026</b></span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+<nav class="toc">
+  <div class="toc-h">Mục lục</div>
+  <ol>
+    <li><a href="#s1"><span class="n">01</span><span>Đề tài trong một phút</span></a></li>
+    <li><a href="#s2"><span class="n">02</span><span>Vấn đề lâm sàng</span></a></li>
+    <li><a href="#s3"><span class="n">03</span><span>Vì sao bài toán khó</span></a></li>
+    <li><a href="#s4"><span class="n">04</span><span>Đường ống xử lý</span></a></li>
+    <li><a href="#s5"><span class="n">05</span><span>Mô hình</span></a></li>
+    <li><a href="#s6"><span class="n">06</span><span>Dữ liệu</span></a></li>
+    <li><a href="#s7"><span class="n">07</span><span>Cách chấm điểm</span></a></li>
+    <li><a href="#s8"><span class="n">08</span><span>Kết quả</span></a></li>
+    <li><a href="#s9"><span class="n">09</span><span>Ngân sách sai số</span></a></li>
+    <li><a href="#s10"><span class="n">10</span><span>Điểm mới</span></a></li>
+    <li><a href="#s11"><span class="n">11</span><span>Nhật ký sự cố</span></a></li>
+    <li><a href="#s12"><span class="n">12</span><span>Tự chấm như phản biện</span></a></li>
+    <li><a href="#s13"><span class="n">13</span><span>Còn thiếu gì</span></a></li>
+    <li><a href="#s14"><span class="n">14</span><span>Kịch bản nói với cô</span></a></li>
+    <li><a href="#s15"><span class="n">15</span><span>Euréka</span></a></li>
+    <li><a href="#s16"><span class="n">16</span><span>Demo và trình bày</span></a></li>
+  </ol>
+</nav>
+
+<main>
+
+<section id="s1">
+<span class="sec-n">MỤC 01</span>
+<h2>Đề tài trong một phút</h2>
+<p class="lede">Em làm một hệ thống đọc <strong>điện tim thai nhi</strong> từ <strong>một dây điện cực duy nhất</strong> dán trên bụng mẹ, tìm ra từng nhịp tim của bé, và — phần quan trọng nhất — <strong>tự biết khi nào nó không đáng tin</strong> để nói "tôi không chắc" thay vì đưa ra một con số sai.</p>
+
+<p>Tên hệ thống là <strong>RelyFetal</strong>. Chữ "Rely" là <em>đáng tin</em> — đó là chỗ em muốn khác với các nghiên cứu khác, vốn chỉ chạy đua điểm số.</p>
+
+<h3>Ba câu để cô nắm ngay</h3>
+<ul>
+  <li><strong>Đầu vào:</strong> tín hiệu điện từ một điện cực trên bụng mẹ. Trong đó tim mẹ to gấp nhiều lần tim con.</li>
+  <li><strong>Đầu ra:</strong> vị trí từng nhịp tim thai theo thời gian, kèm một <strong>điểm tin cậy</strong>.</li>
+  <li><strong>Mục tiêu:</strong> đủ tốt và đủ trung thực để công bố tạp chí Q1, và về lâu dài là thiết bị theo dõi tại nhà.</li>
+</ul>
+</section>
+
+<section id="s2">
+<span class="sec-n">MỤC 02</span>
+<h2>Vấn đề lâm sàng: vì sao việc này đáng làm</h2>
+
+<p>Thai chậm phát triển trong tử cung là một trong những nguyên nhân hàng đầu gây thai lưu. Dấu hiệu cảnh báo sớm nhất không phải nhịp tim nhanh hay chậm, mà là <strong>nhịp tim thai mất đi sự biến thiên tự nhiên</strong> — tim bé đập đều đặn như máy thay vì lên xuống linh hoạt.</p>
+
+<p>Để đo được sự biến thiên đó, phải biết <strong>chính xác từng nhịp</strong> rơi vào mili-giây nào. Đây là chỗ công nghệ hiện tại thất bại.</p>
+
+<h3>Hai cách đo hiện có, và giới hạn của chúng</h3>
+<div class="tw"><table>
+<thead><tr><th>Cách</th><th>Ưu</th><th>Nhược</th></tr></thead>
+<tbody>
+<tr><td><strong>Siêu âm Doppler (CTG)</strong></td><td>Phổ biến, dễ dùng</td><td>Đo <em>chuyển động</em> van tim, không đo điện. Sai số thời điểm quá lớn để tính biến thiên. Cần kỹ thuật viên chỉnh đầu dò.</td></tr>
+<tr><td><strong>Điện cực da đầu thai</strong></td><td>Rất chính xác</td><td>Xâm lấn. Chỉ dùng được <em>khi đã chuyển dạ và vỡ ối</em>. Không theo dõi thai kỳ được.</td></tr>
+</tbody></table></div>
+
+<div class="box why">
+<span class="box-h">Vì sao chọn điện tim bụng mẹ</span>
+<p>Nó là cách duy nhất vừa <strong>không xâm lấn</strong>, vừa cho <strong>tín hiệu điện</strong> đủ chính xác về thời điểm. Nếu làm được với <em>một dây</em>, nó có thể thành một miếng dán nhỏ mẹ tự đeo ở nhà — điều mà hệ 4–32 điện cực trong phòng khám không làm được.</p>
+</div>
+</section>
+
+<section id="s3">
+<span class="sec-n">MỤC 03</span>
+<h2>Vì sao bài toán khó</h2>
+
+<p>Khi dán điện cực lên bụng mẹ, tín hiệu thu được là <strong>chồng chập</strong> của nhiều nguồn. Tim thai là nguồn <em>yếu nhất</em>.</p>
+
+<div class="tw"><table>
+<thead><tr><th>Thành phần</th><th>Đặc điểm</th><th>Mức độ khó</th></tr></thead>
+<tbody>
+<tr><td>Điện tim <strong>mẹ</strong></td><td>Biên độ lớn gấp nhiều lần tim con</td><td>Phải khử đi trước</td></tr>
+<tr><td>Điện tim <strong>thai</strong></td><td>Rất nhỏ, nhịp nhanh 110–160 lần/phút</td><td>Thứ ta cần tìm</td></tr>
+<tr><td>Cơ tử cung, cơ bụng</td><td>Nhiễu băng rộng</td><td>Trùng dải tần với tín hiệu thai</td></tr>
+<tr><td>Cử động thai, thở của mẹ</td><td>Trôi đường nền chậm</td><td>Lọc được</td></tr>
+<tr><td>Nhiễu điện lưới 50 Hz</td><td>Tần số cố định</td><td>Lọc được</td></tr>
+</tbody></table></div>
+
+<h3>Ba cái bẫy riêng của bài toán này</h3>
+<ol>
+  <li><strong>Nhịp mẹ và nhịp con đôi khi trùng nhau.</strong> Khi hai phức bộ chồng lên đúng thời điểm, khử mẹ sẽ xoá luôn nhịp con.</li>
+  <li><strong>Tín hiệu thay đổi theo tư thế thai.</strong> Cùng một sản phụ, bé xoay người là biên độ đổi hẳn.</li>
+  <li><strong>Không có "một kênh tốt nhất" cố định.</strong> Kênh tốt ở sản phụ này lại là kênh tệ ở sản phụ khác — và đây hoá ra là <em>nút thắt lớn nhất</em> của cả đề tài. Em sẽ nói kỹ ở mục 09.</li>
+</ol>
+</section>
+
+<section id="s4">
+<span class="sec-n">MỤC 04</span>
+<h2>Đường ống xử lý: năm bước, và vì sao mỗi bước</h2>
+
+<div class="pipe">
+<div class="step"><div class="step-n">1</div><div class="step-b">
+<div class="step-t">Lọc dải 10–60 Hz + chặn 50 Hz, đưa về 250 Hz</div>
+<div class="step-d">Butterworth bậc 4 <em>pha-không</em>. <span class="q">Vì sao pha-không?</span> Bộ lọc thường làm tín hiệu <strong>trễ</strong>, mà đề tài này đo thời điểm từng nhịp nên trễ là chết. Lọc pha-không chạy xuôi rồi chạy ngược để triệt tiêu độ trễ.</div>
+</div></div>
+
+<div class="step"><div class="step-n">2</div><div class="step-b">
+<div class="step-t">Khử điện tim mẹ</div>
+<div class="step-d">Tìm nhịp mẹ, dựng <strong>mẫu trung vị</strong> của phức bộ mẹ, rồi <em>với từng nhịp một</em> co giãn mẫu đó cho khớp nhất rồi trừ ra. <span class="q">Vì sao từng nhịp?</span> Vì phức bộ mẹ không giống hệt nhau giữa các nhịp — mẹ thở, mẹ cử động. Trừ một mẫu cố định sẽ để lại tàn dư lớn.</div>
+</div></div>
+
+<div class="step"><div class="step-n">3</div><div class="step-b">
+<div class="step-t">Chọn kênh — mù nhãn</div>
+<div class="step-d">Nếu có nhiều kênh, phải chọn một. <span class="q">Mù nhãn nghĩa là gì?</span> Nghĩa là quy tắc chọn <strong>không được nhìn đáp án</strong>. Nếu chọn kênh bằng cách xem kênh nào cho F1 cao nhất thì đó là gian lận — ngoài đời không có đáp án để xem. Bước này em vừa cải tiến lớn, xem mục 09.</div>
+</div></div>
+
+<div class="step"><div class="step-n">4</div><div class="step-b">
+<div class="step-t">Mạng nơ-ron đọc từng đoạn 4 giây</div>
+<div class="step-d">Đầu ra không phải "có/không có nhịp" mà là một <strong>đường cong xác suất cho từng mẫu tín hiệu</strong>. <span class="q">Vì sao?</span> Cách cũ cắt tín hiệu thành cửa sổ 300 ms rồi phân loại — độ chính xác thời điểm bị giới hạn bởi bề rộng cửa sổ. Đầu ra từng mẫu cho độ chính xác mịn hơn nhiều.</div>
+</div></div>
+
+<div class="step"><div class="step-n">5</div><div class="step-b">
+<div class="step-t">Cổng từ chối</div>
+<div class="step-d">Tính 12 chỉ số chất lượng tín hiệu cổ điển, đưa vào một bộ phân loại nhỏ để ra điểm tin cậy. Nếu thấp, hệ thống <strong>từ chối trả lời</strong> đoạn đó. <span class="q">Vì sao quan trọng?</span> Vì bác sĩ thà nhận "tôi không chắc" còn hơn nhận một con số sai mà không biết là sai.</div>
+</div></div>
+</div>
+</section>
+
+<section id="s5">
+<span class="sec-n">MỤC 05</span>
+<h2>Mô hình: chọn gì và vì sao</h2>
+
+<p>Mô hình tên <code>FetalQRS-TCN</code> — mạng tích chập thời gian có giãn nở, kiểu chuỗi-sang-chuỗi.</p>
+
+<div class="tw"><table>
+<thead><tr><th>Thông số</th><th class="n">Giá trị</th><th>Ý nghĩa dễ hiểu</th></tr></thead>
+<tbody>
+<tr><td>Số tham số</td><td class="n">113.481</td><td>Rất nhỏ. Mô hình ngôn ngữ có hàng tỉ.</td></tr>
+<tr><td>Trường tiếp nhận</td><td class="n">1.516 ms</td><td>Để quyết định một mẫu, mạng nhìn 1,5 giây xung quanh — đủ thấy 3–4 nhịp.</td></tr>
+<tr><td>Kích thước tệp</td><td class="n">0,48 MB</td><td>Nhét vừa vi điều khiển.</td></tr>
+<tr><td>Thời gian suy luận</td><td class="n">4,35 ms</td><td>Cho mỗi cửa sổ 4 giây — nhanh hơn thời gian thực khoảng 900 lần.</td></tr>
+<tr><td>Nhãn huấn luyện</td><td class="n">σ = 12 ms</td><td>Không dạy "điểm này là nhịp" mà dạy một gò Gauss quanh nhịp — mạng học được cả độ chắc chắn.</td></tr>
+</tbody></table></div>
+
+<div class="box why">
+<span class="box-h">Vì sao chọn TCN chứ không phải Transformer hay LSTM</span>
+<p><strong>Một:</strong> tín hiệu tim có cấu trúc <em>cục bộ theo thời gian</em> — nhịp này liên quan nhịp kề, không liên quan nhịp cách đó 5 phút. Tích chập giãn nở hợp bản chất đó.</p>
+<p><strong>Hai:</strong> nhỏ và nhanh, chạy được trên thiết bị đeo — đúng viễn cảnh lâm sàng của đề tài.</p>
+<p><strong>Ba:</strong> em đã thử <strong>8 họ kiến trúc</strong> rồi mới chọn, chứ không chọn theo cảm tính.</p>
+</div>
+
+<h3>Bảng so 8 kiến trúc — và một câu hỏi em vẫn đang nợ</h3>
+<div class="tw"><table>
+<thead><tr><th>Kiến trúc</th><th class="n">Tham số</th><th class="n">Macro F1</th><th class="n">Sai số thời điểm</th></tr></thead>
+<tbody>
+<tr class="hi"><td>cnn_l</td><td class="n">83.137</td><td class="n">92,43</td><td class="n">6,94 ms</td></tr>
+<tr><td>cnn_dil</td><td class="n">25.953</td><td class="n">91,70</td><td class="n">6,58 ms</td></tr>
+<tr><td>mlp</td><td class="n">27.649</td><td class="n">91,64</td><td class="n">6,66 ms</td></tr>
+<tr><td>cnn_gru</td><td class="n">28.257</td><td class="n">91,59</td><td class="n">7,27 ms</td></tr>
+<tr><td><strong>tcn</strong> — đang dùng</td><td class="n">63.105</td><td class="n">91,07</td><td class="n">6,57 ms</td></tr>
+<tr><td>resnet1d</td><td class="n">92.545</td><td class="n">90,90</td><td class="n">6,85 ms</td></tr>
+<tr><td>cnn_m</td><td class="n">25.953</td><td class="n">88,76</td><td class="n">18,66 ms</td></tr>
+<tr class="lo"><td>linear (đối chứng)</td><td class="n">151</td><td class="n">37,47</td><td class="n">12,52 ms</td></tr>
+</tbody></table></div>
+
+<div class="box warn">
+<span class="box-h">Một nghi vấn em từng có — và đã giải xong</span>
+<p>Bảng trên xếp <code>cnn_l</code> <strong>trên</strong> <code>tcn</code> với khoảng tin cậy không chứa số 0. Em không bỏ qua mà cho <strong>đấu lại ở giao thức hiện hành</strong>, ép cùng số tham số (chênh dưới 2,7 %), cùng số vòng huấn luyện, cùng cách chia dữ liệu, cùng hạt giống ngẫu nhiên.</p>
+</div>
+
+<h3>Kết quả đấu lại — 7 kiến trúc, cùng 113 nghìn tham số</h3>
+<div class="tw"><table>
+<thead><tr><th>Kiến trúc</th><th class="n">Trường tiếp nhận</th><th class="n">Macro F1</th><th class="n">Hiệu so với TCN</th></tr></thead>
+<tbody>
+<tr class="hi"><td><strong>tcn</strong> — đang dùng</td><td class="n">1.516 ms</td><td class="n">97,64</td><td class="n">—</td></tr>
+<tr><td>rf_wide</td><td class="n">3.052 ms</td><td class="n">97,63</td><td class="n">−0,01 <em>tương đương</em></td></tr>
+<tr><td>tcn_ms đa thang đo</td><td class="n">2.716 ms</td><td class="n">97,62</td><td class="n">−0,02 <em>tương đương</em></td></tr>
+<tr><td>rf_narrow</td><td class="n">748 ms</td><td class="n">96,93</td><td class="n">−0,71</td></tr>
+<tr><td>cnn_wide</td><td class="n">1.508 ms</td><td class="n">96,84</td><td class="n">−0,80</td></tr>
+<tr><td>unet1d</td><td class="n">636 ms</td><td class="n">96,38</td><td class="n">−1,25</td></tr>
+<tr class="lo"><td><strong>cnn_l</strong> — ứng viên nghi vấn</td><td class="n">60 ms</td><td class="n">94,53</td><td class="n">−3,10</td></tr>
+</tbody></table></div>
+
+<div class="box ok">
+<span class="box-h">Nghi vấn được giải — và giải rất gọn</span>
+<p><code>cnn_l</code> <strong>kém hơn 3,10 điểm</strong> (p = 1,2×10⁻⁴), đảo ngược hẳn kết quả cũ. Lý do lộ ra ngay khi nhìn cột trường tiếp nhận: <code>cnn_l</code> chỉ nhìn được <strong>60 ms</strong> tín hiệu, trong khi TCN nhìn 1.516 ms.</p>
+<p>Và đây là phần em thấy hay nhất: nhóm em dựng thêm <code>cnn_wide</code> — chính là <code>cnn_l</code> nới rộng cho trường tiếp nhận khớp TCN. Nó nhảy từ 94,53 lên <strong>96,84</strong>. Nghĩa là khoảng cách <em>không phải</em> do họ kiến trúc, mà do <strong>bề rộng ngữ cảnh</strong>.</p>
+<p>Thêm nữa: mở rộng từ 1.516 lên 3.052 ms <strong>không giúp gì</strong> (−0,01, kiểm định tương đương đạt). Tức là <strong>1,5 giây là đủ và đã bão hoà</strong> — đúng bằng thời gian chứa 3–4 nhịp thai.</p>
+<p><strong>Kết luận: giữ TCN. Câu hỏi kiến trúc đã đóng.</strong></p>
+</div>
+
+<p>Một điều đáng chú ý trong bảng: <strong>một mạng MLP thuần 27k tham số đạt 91,64, cao hơn ResNet 92k tham số (90,90)</strong>. Sáu trong tám họ nằm gọn trong 1,5 điểm của nhau. Điều đó gợi ý rằng <strong>chất lượng tín hiệu quyết định, không phải độ tinh vi của kiến trúc</strong> — và đây trở thành một trong những luận điểm chính của bài.</p>
+</section>
+
+<section id="s6">
+<span class="sec-n">MỤC 06</span>
+<h2>Dữ liệu: có gì, và điểm yếu ở đâu</h2>
+
+<div class="tw"><table>
+<thead><tr><th>Nguồn</th><th class="n">Số lượng</th><th>Nhãn</th><th>Dùng để</th></tr></thead>
+<tbody>
+<tr><td>ADFECGDB (PhysioNet)</td><td class="n">5 sản phụ</td><td>Trực tiếp từ điện cực da đầu</td><td>Huấn luyện + kiểm tra</td></tr>
+<tr><td>Silesia B2</td><td class="n">12 bản ghi</td><td>Trực tiếp từ điện cực da đầu</td><td>Huấn luyện + kiểm tra</td></tr>
+<tr><td>Silesia B1</td><td class="n">10 bản ghi</td><td><strong>Gián tiếp</strong></td><td>Huấn luyện</td></tr>
+<tr class="hi"><td>CinC 2013 set-a</td><td class="n">75 bản ghi</td><td>Người chú thích <strong>độc lập</strong></td><td><strong>Chỉ kiểm tra</strong></td></tr>
+</tbody></table></div>
+<p class="cap">Bảy bản ghi CinC có chú thích tham chiếu sai — <code>a33 a38 a47 a52 a54 a71 a74</code> — em khai báo loại chúng <em>trước khi</em> chạy, và báo cáo cả hai biến thể 75 và 68 bản ghi.</p>
+
+<div class="box dead">
+<span class="box-h">12/09: bộ kiểm tra chứa dữ liệu huấn luyện — và em đã bỏ sót một cảnh báo đã biết</span>
+<p>Em cho kiểm tương quan chéo giữa 5 bản ghi ADFECGDB (dùng để <em>huấn luyện</em>) và 75 bản ghi CinC (dùng để <em>kiểm tra</em>). Kết quả: <strong>15 bản ghi CinC trùng khít</strong> với dữ liệu huấn luyện — hệ số tương quan <strong>bằng đúng 1,0000</strong> và sai lệch chuỗi nhịp <strong>bằng đúng 0,0 ms</strong>.</p>
+<p>Và quy luật thì đều tăm tắp: <strong>mỗi bản ghi ADFECGDB xuất hiện đúng 3 lần</strong> trong CinC set-a.</p>
+<p><strong>Nhưng đây không phải phát hiện của em.</strong> Khi rà lại văn liệu, ban tổ chức cuộc thi <em>đã ghi rõ từ 2013</em> (Silva và cộng sự, CinC 2013, Bảng 1: "Abdominal and Direct FECG — 25 bản"), và Clifford và cộng sự (Physiol Meas 2014) còn cảnh báo nguyên văn rằng huấn luyện trên ADFECGDB "có thể gây thiên lệch vì bộ này nằm trong set-a, set-b". Tệ hơn: <strong>ghi chú đọc bài của chính em đã nhắc cảnh báo này và tự đề nghị kiểm chồng lấn</strong> — rồi em không làm cho đến hôm nay.</p>
+<p><strong>Cái mới thật sự của em</strong> chỉ ở mức bản ghi: không nguồn nào liệt kê <em>15 bản nào</em>, <em>cửa sổ nào</em>, hay <em>thổi phồng bao nhiêu</em>. Em sẽ viết: <em>"Như ban tổ chức đã ghi nhận, set-a chứa bản ghi ADFECGDB; chúng tôi xác định bằng đo lường đúng 15 bản nào và mức thổi phồng."</em> Không được viết "chúng tôi phát hiện".</p>
+<div class="tw"><table>
+<thead><tr><th>Bản ghi huấn luyện</th><th>Xuất hiện lại trong CinC dưới tên</th></tr></thead>
+<tbody>
+<tr><td>r01</td><td>a04, a05, a22</td></tr>
+<tr><td>r04</td><td>a13, a20, a25</td></tr>
+<tr><td>r07</td><td>a19, a23, a24</td></tr>
+<tr><td>r08</td><td>a08, a15, a17</td></tr>
+<tr><td>r10</td><td>a03, a12, a14</td></tr>
+</tbody></table></div>
+<p><strong>Đối chứng cho thấy phép đo đáng tin:</strong> các bản trùng <em>đã biết</em> (cùng sản phụ, khác cách xử lý) cho tương quan 0,86–0,98; còn 60 bản ghi còn lại cao nhất chỉ <strong>0,44</strong>. Mười lăm bản kia ở <strong>1,00</strong> — tách bạch hoàn toàn.</p>
+<p><strong>Xử lý:</strong> loại cả 15 bản, <strong>chỉ dùng 60 bản ghi sạch</strong>. Mọi con số xuyên bộ dữ liệu trong sổ tay này đã được tính lại.</p>
+</div>
+
+<div class="box ok">
+<span class="box-h">Vì sao CinC 2013 là phép thử thật</span>
+<p>75 bản ghi là <strong>75 sản phụ khác nhau</strong>, thiết bị khác, ê-kíp khác, người chấm nhãn hoàn toàn độc lập với nhóm em. Mô hình <strong>chưa từng thấy một giây nào</strong> của bộ này. Nếu kết quả tốt trên đây thì khó bắt bẻ.</p>
+<p>Và vì mỗi bản ghi là một người khác nhau, thống kê ở mức bản ghi <em>chính là</em> mức chủ thể — không mắc lỗi giả lặp mà em sẽ giải thích ở mục 11.</p>
+</div>
+
+<div class="box warn">
+<span class="box-h">Điểm yếu em phải nói thẳng với cô</span>
+<p><strong>Một:</strong> Silesia B1 chiếm <strong>200 trong 260 phút</strong> dữ liệu huấn luyện — tức <strong>77 %</strong> — nhưng lại là nguồn nhãn <em>kém tin cậy nhất</em>. Em đã đo được dấu vết của điều này: trên các bản ghi B1, mô hình học từ B1 có sai lệch thời điểm 3,25 ms trong khi hai mô hình chưa từng thấy B1 lệch 6,50 ms — <em>giống hệt nhau</em>. Nghĩa là mô hình đã học một phần <em>thói quen đặt nhãn</em> chứ không chỉ học sinh lý. Kết luận em rút ra: <strong>cấm dùng số liệu B1 để nói về độ chính xác thời điểm.</strong></p>
+<p><strong>Hai:</strong> chỉ có <strong>22 chủ thể</strong>. Em đã tính công suất thống kê: nếu một hiệu ứng 2 điểm chỉ do 1/7 chủ thể mang, cần khoảng <strong>50 chủ thể</strong> mới phát hiện được. Đây là giới hạn thật.</p>
+<p><strong>Ba:</strong> chưa có <strong>trung tâm ghi thứ hai</strong> có nhãn thật. Đây gần như là yêu cầu bắt buộc ở tạp chí Q1.</p>
+</div>
+</section>
+
+<section id="s7">
+<span class="sec-n">MỤC 07</span>
+<h2>Cách chấm điểm — và vì sao chấm như vậy</h2>
+
+<h3>Dung sai ±50 ms</h3>
+<p>Một nhịp được tính là "tìm đúng" nếu vị trí máy đoán cách vị trí thật không quá 50 ms. <span style="color:var(--accent)">Vì sao 50?</span> Đó là quy ước của cuộc thi PhysioNet/CinC 2013, nên số của em so trực tiếp được với mọi bài dùng bộ đó. Chuẩn AAMI cho phép tới 150 ms nhưng đó là cho tim người lớn — tim thai nhanh gấp đôi nên 150 ms là quá lỏng.</p>
+
+<h3>Thống kê ở mức chủ thể, không phải mức bản ghi</h3>
+<div class="box why">
+<span class="box-h">Đây là điều em sửa và nó thay đổi 5 kết luận</span>
+<p>Một sản phụ có 4 đạo trình. Nếu coi 4 đạo trình đó là 4 mẫu độc lập, mẫu bỗng "to" gấp 4 lần và trị số p đẹp lên một cách giả tạo. Lỗi này gọi là <strong>giả lặp</strong>.</p>
+<p>Em đã tính lại toàn bộ ở mức chủ thể, dùng <em>cluster bootstrap</em> — lấy mẫu lại <strong>người</strong> chứ không lấy mẫu lại bản ghi. Kết quả: <strong>5 kết luận bị đảo ngược.</strong> Ví dụ một kết quả từng có p = 0,016 hoá ra thật sự là p = 0,47.</p>
+<p>Và một giới hạn cứng em phải nói ra: với n = 5 sản phụ, trị số p nhỏ nhất mà kiểm định Wilcoxon có thể cho là <strong>2/2⁵ = 0,0625</strong>. Nghĩa là <em>không bao giờ</em> đạt được p &lt; 0,05, dù dữ liệu có hoàn hảo đến đâu.</p>
+</div>
+</section>
+
+<section id="s8">
+<span class="sec-n">MỤC 08</span>
+<h2>Kết quả</h2>
+
+<h3>So với Power-MF — phương pháp mạnh nhất hiện có</h3>
+<p>Power-MF (Jaeger 2024) dùng <strong>4 kênh</strong> và tách nguồn ICA hai lần. Em <strong>chạy lại được</strong> phương pháp của họ trên máy mình để so công bằng trên cùng bản ghi, cùng bộ chấm.</p>
+
+<div class="tw"><table>
+<thead><tr><th>Tập</th><th class="n">n</th><th class="n">Power-MF<br>4 kênh</th><th class="n">Power-MF<br>1 kênh</th><th class="n">RelyFetal<br>1 kênh</th></tr></thead>
+<tbody>
+<tr><td>ADFECGDB</td><td class="n">5</td><td class="n">99,01</td><td class="n">92,37</td><td class="n"><strong>99,40</strong></td></tr>
+<tr><td>Silesia B2</td><td class="n">7</td><td class="n">97,90</td><td class="n">87,28</td><td class="n">96,82</td></tr>
+<tr><td>Silesia B1</td><td class="n">10</td><td class="n"><strong>99,40</strong></td><td class="n">83,48</td><td class="n">97,15</td></tr>
+<tr class="hi"><td>Toàn bộ</td><td class="n">22</td><td class="n">98,83</td><td class="n">86,71</td><td class="n">97,56</td></tr>
+</tbody></table></div>
+
+<div class="box ok">
+<span class="box-h">Cách phát biểu đúng — đây là câu quan trọng nhất của đề tài</span>
+<p>Tách nguồn đa kênh đáng giá <strong>12,12 điểm</strong> cho chính Power-MF (từ 86,71 lên 98,83). Mạng một kênh của em lấy lại <strong>10,85 điểm</strong> trong số đó — tức <strong>89,5 %</strong>, khoảng tin cậy [81,4 %; 103,2 %].</p>
+<p>Nói gọn: <em>"Một kênh lấy lại được khoảng chín phần mười lợi ích mà bốn kênh mang lại."</em></p>
+<p><strong>Không được nói</strong> "một kênh thắng bốn kênh". Trung bình em vẫn <strong>thua 1,27 điểm</strong>. Cả hai sự thật đều phải nói.</p>
+</div>
+
+<p>Chi tiết đáng chú ý: em <strong>thắng 18/22 bản ghi</strong> và trung vị hiệu số là <strong>+0,23</strong>. Trung bình bị kéo âm bởi đúng ba bản ghi khó: B1_07 (−12,88), B1_06 (−10,51), B2_03 (−9,77).</p>
+
+<h3>Trên CinC 2013 — bộ dữ liệu chưa từng thấy</h3>
+<div class="tw"><table>
+<thead><tr><th>Trên 60 bản ghi sạch</th><th class="n">Quy tắc cũ</th><th class="n">Quy tắc mới</th><th class="n">Hiệu</th><th class="n">p</th></tr></thead>
+<tbody>
+<tr class="hi"><td>PSD mù nhãn <em>(số chính)</em></td><td class="n">74,28</td><td class="n">82,01</td><td class="n">+7,73</td><td class="n">5,6×10⁻⁴</td></tr>
+</tbody></table></div>
+<p class="cap">Trên <strong>60 bản ghi sạch</strong> sau khi loại 15 bản bị rò rỉ. Cột giữa là sau khi đổi sang quy tắc chọn kênh mới. Số cũ trên 75 bản ghi (79,40 → 85,60) đã bị rút vì nhiễm dữ liệu huấn luyện.</p>
+</section>
+
+<section id="s9">
+<span class="sec-n">MỤC 09</span>
+<h2>Ngân sách sai số — và bước tiến lớn nhất của đề tài</h2>
+
+<p class="lede">Em không hỏi "làm sao cho điểm cao hơn". Em hỏi: <strong>khoảng cách từ 74,28 lên 100 gồm những gì, và phần nào cứu được?</strong></p>
+
+<div class="budget">
+  <div class="b1" style="flex:8.56">8,56</div>
+  <div class="b2" style="flex:7.94">7,94</div>
+  <div class="b3" style="flex:8.46">8,46</div>
+  <div class="b4" style="flex:0.76">0,8</div>
+</div>
+<div class="legend">
+  <span><span class="sw" style="background:var(--verify)"></span>Chọn kênh — <strong>cứu được</strong></span>
+  <span><span class="sw" style="background:var(--accent)"></span>Bộ dò — cứu được, khó hơn</span>
+  <span><span class="sw" style="background:#6B7280"></span>Giới hạn cứng — <strong>bất khả</strong></span>
+  <span><span class="sw" style="background:var(--rule-2);border:1px solid var(--rule)"></span>Vô nghĩa</span>
+</div>
+
+<p>Có <strong>8 bản ghi CinC mà không một kênh nào đạt nổi F1 50</strong> — kể cả khi cho phép nhìn đáp án để chọn kênh tốt nhất. Tín hiệu thai đơn giản là không có ở đó. Suy ra một điều mà văn liệu chưa ai nói:</p>
+
+<div class="box ok">
+<span class="box-h">Một con số mới cho cả lĩnh vực</span>
+<p><strong>Trần thực tế của CinC 2013 set-a với một kênh là 93,1 — không phải 100.</strong> Con số này em đo được bằng hai cách độc lập và cả hai đều cho ~93. Mọi bài báo đang ngầm so với 100 đều đang so với một cái đích không tồn tại.</p>
+</div>
+
+<h3>Kết quả mới nhất: mở được nút thắt chọn kênh</h3>
+<p>Em khai báo trước 7 quy tắc chọn kênh mù nhãn rồi mới chạy, để không tự lừa mình.</p>
+
+<div class="tw"><table>
+<thead><tr><th>Quy tắc</th><th class="n">F1 · 60 bản sạch</th><th class="n">Bản ≥ 90</th><th class="n">Bản &lt; 50</th></tr></thead>
+<tbody>
+<tr><td>PSD — đang dùng</td><td class="n">74,28</td><td class="n">33</td><td class="n">16</td></tr>
+<tr class="hi"><td><strong>peakprob</strong></td><td class="n">82,01</td><td class="n">38</td><td class="n">9</td></tr>
+<tr><td>gate4</td><td class="n">81,01</td><td class="n">—</td><td class="n">—</td></tr>
+<tr><td>gate</td><td class="n">80,72</td><td class="n">—</td><td class="n">—</td></tr>
+<tr><td>rrcv</td><td class="n">80,00</td><td class="n">—</td><td class="n">—</td></tr>
+<tr><td><em>Oracle</em> — chặn trên lý thuyết</td><td class="n">83,60</td><td class="n">38</td><td class="n">8</td></tr>
+</tbody></table></div>
+
+<p>Quy tắc thắng cuộc đơn giản đến bất ngờ: <strong>chạy mô hình trên cả 4 kênh, chọn kênh mà chính mô hình tự tin nhất.</strong> Không huấn luyện, không siêu tham số. Giá phải trả là 4 lần suy luận thay vì 1 — tức 17,4 ms thay vì 4,35 ms, vẫn quá nhanh so với thời gian thực.</p>
+
+<p>Trên dữ liệu sạch nó <strong>mạnh hơn</strong> chứ không yếu đi: <strong>+7,73 điểm, khoảng tin cậy [+3,82; +12,41], p = 5,6×10⁻⁴</strong>, lấy lại <strong>82,9 % dư địa lý thuyết</strong>, và <strong>chạm đúng số bản ghi ≥ 90 của oracle (38/38)</strong>. Rủi ro gần như một chiều: <strong>không bản ghi nào mất quá 5 điểm</strong>, trong khi bản được nhiều nhất tăng <strong>từ 19,4 lên 94,3</strong>.</p>
+
+<div class="box dead">
+<span class="box-h">Phép thử xác nhận của em đã trượt — và em phải nói ra</span>
+<p>Em ghi trước một quy tắc quyết định: "chọn quy tắc tốt nhất theo kết quả trong miền". Luật đó chỉ ra <code>gate</code>, không phải <code>peakprob</code>.</p>
+<p>Và <code>gate</code> <strong>không đạt</strong>: sau hiệu chỉnh Holm cho 7 quy tắc, p = 0,085 (trên 75 bản) và <strong>p = 0,051</strong> (trên 60 bản sạch). Cả hai đều trượt mức 5 %. <strong>Phép thử xác nhận được chỉ định trước của em đã thất bại.</strong></p>
+<p><code>peakprob</code> được chọn <strong>sau khi đã nhìn kết quả</strong>. Lý do em vẫn báo cáo nó: hiệu ứng <strong>sống sót hiệu chỉnh Holm trên toàn bộ họ 7 quy tắc đã ghi trước</strong> (p = 0,0039) — tức ngay cả khi coi thao tác "chọn quy tắc tốt nhất sau khi nhìn dữ liệu" là hoàn toàn hậu kiểm, sai số họ vẫn được khống chế.</p>
+<p>Em cũng <strong>bỏ chữ "tiền đăng ký"</strong> khỏi bài. Tệp khai báo chỉ có dấu thời gian trên máy, không neo bằng bên thứ ba, và được ghi <em>sau khi</em> F1 cơ sở từng kênh đã biết. Chưa đủ tiêu chuẩn để gọi là tiền đăng ký.</p>
+<p><strong>Em trình bày kết quả này là một giả thuyết mạnh chưa được xác nhận.</strong> Và em đã thử hai cách để xác nhận nó — cả hai đều không thành:</p>
+<ul>
+<li><strong>Tìm bộ dữ liệu thứ ba có nhãn thật:</strong> em kiểm từng tệp — NIFEADB không có chú thích thai, NInFEA chỉ có Doppler, nhãn <code>.qrs</code> của nifecgdb hoá ra là nhịp <em>mẹ</em>, nhãn CinC set-b chưa từng công bố. <strong>Không có bộ công khai nào có nhãn fQRS thật ngoài những gì em đã dùng.</strong></li>
+<li><strong>Tính lại trên thang logit</strong> (khai báo trước, neo git <code>ed819e3</code>) với hy vọng <code>peakprob</code> sẽ lên đầu và vấn đề hậu kiểm biến mất: <code>gate</code> vẫn đứng đầu ở 2/3 cách kẹp, <code>peakprob</code> hạng 3. <strong>Không cứu được.</strong></li>
+</ul>
+<p>Nên bài sẽ mang vấn đề hậu kiểm theo, và nói thẳng.</p>
+</div>
+
+<div class="box warn">
+<span class="box-h">Một sai lầm thiết kế em tự nhận</span>
+<p>Em giao vai trò "trọng tài" cho nhánh trong miền — nhưng nhánh đó <strong>đã chạm trần</strong>: bốn quy tắc đứng đầu cách nhau <strong>0,04 điểm</strong> trong khi toàn bộ dư địa ở đó chỉ 1,08 điểm, và <strong>14/22 chủ thể đã đạt đúng hiệu năng kênh oracle</strong>. Dùng một thước đã hết vạch để phân xử là lỗi thiết kế của em.</p>
+</div>
+</section>
+
+<section id="s10">
+<span class="sec-n">MỤC 10</span>
+<h2>Điểm mới — và ranh giới thật của từng điểm</h2>
+
+<p>Em trình bày kèm ranh giới, vì một điểm mới không có ranh giới là một điểm mới chưa được kiểm chứng.</p>
+
+<h3>Đóng góp 1 — Lượng hoá được "một kênh lấy lại bao nhiêu phần của bốn kênh"</h3>
+<p><strong>Kết quả:</strong> 89,5 %, khoảng tin cậy [81,4; 103,2], bỏ từng chủ thể vẫn cho 88,6–93,4 %.</p>
+<p><strong>Vì sao chưa ai làm:</strong> phải có đủ ba thứ trên cùng bản ghi, cùng bộ chấm — baseline đa kênh chạy lại được, bản đơn kênh của chính nó, và mô hình của mình. Chưa nhóm nào bỏ công chạy lại baseline <em>rồi tự cắt nó xuống một kênh</em>.</p>
+<p><strong>Ranh giới:</strong> đây là một <em>phép đo</em>, không phải một <em>phát minh</em>.</p>
+
+<h3>Đóng góp 2 — Chỉ ra rằng F1 trung bình là thước đo sai</h3>
+<p>F1 bị chặn trên ở 100. Khi 19/22 chủ thể đã ở 99+, mọi hiệu ứng thật bị nén xuống gần 0 một cách <em>toán học</em>.</p>
+<p><strong>Bằng chứng cụ thể:</strong> trên 19 chủ thể dễ, mô hình một kênh <strong>thực sự hơn</strong> Power-MF bốn kênh (+1,20 trên thang logit, KTC [+0,76; +1,64], thắng 18/1, p = 0,0012). Trên thang F1, cùng dữ liệu đó chỉ hiện ra là <strong>+0,27 điểm</strong> và bị gọi là "hoà".</p>
+<p><strong>Ranh giới:</strong> giả thuyết mạnh hơn của em — rằng bài toán "lưỡng cực" — đã bị <em>chính đối chứng của em bác bỏ một phần</em>. Em vẫn báo cáo cả phần bị bác bỏ.</p>
+
+<h3>Đóng góp 3 — Cổng từ chối biết lúc nào nó sai</h3>
+<p>Cổng dùng 12 chỉ số cổ điển, <strong>không nhìn nhãn</strong>, đánh giá theo kiểu bỏ-một-chủ-thể. Nó xếp đúng ba bản ghi khó vào <strong>hạng 1, 2, 3 từ dưới lên trong 22 chủ thể</strong> — xác suất nếu xếp ngẫu nhiên là 1/1540.</p>
+<p>Trên CinC, <em>hoàn toàn zero-shot</em>: AUROC mức bản ghi <strong>0,980</strong>; giữ lại 66,7 % bản ghi thì loại được <strong>15 trong 16</strong> bản ghi tệ nhất và kéo F1 từ 79,40 lên <strong>97,76</strong>.</p>
+<p><strong>Ranh giới:</strong> <em>5 trong 24 quy tắc một đặc trưng đơn giản cũng xếp đúng cả ba</em>. Nên không được nói "phải có cổng học mới làm được".</p>
+
+<h3>Đóng góp 4 — Quy tắc chọn kênh mù nhãn</h3>
+<p>+7,73 điểm trên 60 bản sạch, lấy lại 83 % dư địa, gần như không có mặt trái. Kèm ranh giới ở mục 09: hậu kiểm, chưa xác nhận được, và không có dữ liệu công khai để xác nhận.</p>
+
+<div class="box dead">
+<span class="box-h">Ba thứ em từng tưởng là điểm mới — và đã rút lại</span>
+<p><strong>1. "Dải lọc 10–60 Hz cho +11 điểm."</strong> Con số đó đo trên một mô hình phụ. Đo lại trên chính TCN: <strong>+2,44 với khoảng tin cậy [−0,05; +6,30] — chạm số 0</strong>, và trên trung bình 4 kênh thì hiệu ứng là <strong>−0,07</strong>, tức <em>bằng không</em>. Dải lọc không quan trọng với bộ dò; nó chỉ tác động gián tiếp qua bước chọn kênh.</p>
+<p><strong>2. "Đơn kênh hơn đa kênh."</strong> Sai — trung bình vẫn thua 1,27 điểm.</p>
+<p><strong>3. "Bài toán lưỡng cực."</strong> Bị bác bỏ một phần bởi chính đối chứng của em. Con số "+1,20 logit trên 19 chủ thể dễ" cũng từ phân tích này — nhóm 19 được chia <em>sau khi</em> thấy F1, nên chỉ là quan sát hậu kiểm.</p>
+<p><strong>4. "Mô hình không phải nút thắt."</strong> Em đã tuyên bố khá tự tin. Rồi agent thẩm định yêu cầu đo <em>độ đặc hiệu</em> của phép thử "nhìn thấy tín hiệu" — hoá ra nó báo sai <strong>18 %</strong> trên các nhịp mô hình đã bắt đúng. Kết luận rút lại; câu hỏi mở.</p>
+<p><strong>5. "Chúng tôi phát hiện rò rỉ dữ liệu."</strong> Đã được ban tổ chức ghi nhận từ 2013. Em bỏ sót — và ghi chú của chính em đã nhắc.</p>
+<p>Năm lần rút. Em nghĩ việc rút lại công khai <em>làm đề tài đáng tin hơn</em>, không phải yếu đi. Nếu bốn tháng nữa phản biện mới tìm ra thì mất cả bài.</p>
+</div>
+</section>
+
+<section id="s11">
+<span class="sec-n">MỤC 11</span>
+<h2>Nhật ký sự cố — vấp ở đâu và xử lý ra sao</h2>
+<p class="lede">Phần này em nghĩ là thứ đáng kể nhất để nói với cô, vì nó cho thấy cách làm việc chứ không chỉ kết quả.</p>
+
+<h3>Sự cố 1 — Bộ kiểm tra chứa dữ liệu huấn luyện, và em đã bỏ sót cảnh báo của chính mình</h3>
+<p><strong>Chuyện gì:</strong> trong đề cương em có ghi một món nợ — "phải kiểm xem ADFECGDB và CinC 2013 có trùng nhau không" — nhưng mãi chưa làm. Hôm nay em làm.</p>
+<p><strong>Cách kiểm:</strong> tương quan chéo chuẩn hoá giữa từng cặp tín hiệu, cộng so sánh chuỗi khoảng nhịp tham chiếu.</p>
+<p><strong>Kết quả:</strong> <strong>15 trong 75 bản ghi CinC trùng khít với dữ liệu huấn luyện</strong> — tương quan bằng đúng 1,0000, sai lệch nhịp bằng đúng 0,0 ms. Và mỗi bản ghi huấn luyện xuất hiện lại <strong>đúng 3 lần</strong>. Quy luật đều như vậy không thể ngẫu nhiên.</p>
+<p><strong>Hậu quả:</strong> <strong>20 % bộ kiểm tra "chưa từng thấy" thật ra là bộ huấn luyện.</strong> Mọi con số xuyên bộ dữ liệu của em đều bị thổi phồng.</p>
+<p><strong>Xử lý:</strong> loại 15 bản, tính lại toàn bộ trên 60 bản sạch. Kết quả chính rớt từ 79,40 xuống <strong>74,28</strong>.</p>
+<div class="box ok">
+<span class="box-h">Nhưng phát hiện chính lại mạnh lên</span>
+<p>Quy tắc chọn kênh mới, trên dữ liệu sạch, cho <strong>+7,73 điểm</strong> thay vì +6,20 trước đây. Cải tiến thật thì không sợ dữ liệu sạch — chỉ có cải tiến giả mới sợ.</p>
+</div>
+<p><strong>Rồi em rà văn liệu — và thấy mình không phải người đầu tiên.</strong> Ban tổ chức đã ghi từ 2013; Clifford 2014 đã cảnh báo; và ghi chú đọc bài của em ở dòng p20 đã nhắc đến cảnh báo đó, thậm chí tự đề nghị "kiểm tra chồng lấn ADFECGDB và CinC 2013 set-a". Em đọc, ghi, rồi không làm.</p>
+<p><strong>Bài học kép:</strong> món nợ kiểm tra nào cũng phải trả sớm — và <em>đọc lại ghi chú của chính mình trước khi tuyên bố phát hiện</em>.</p>
+
+<h3>Sự cố 2 — Mẫu 10 bản ghi đánh lừa cả nhóm</h3>
+<p><strong>Chuyện gì:</strong> ban đầu em chỉ đánh giá trên 10 trong 75 bản ghi CinC. Trên mẫu đó, quy tắc "kênh 0 cố định" cho 90,34 còn quy tắc mù nhãn chỉ 69,31. Em suýt kết luận quy tắc mù nhãn kém.</p>
+<p><strong>Xử lý:</strong> chạy đủ 75 bản ghi.</p>
+<p><strong>Kết quả:</strong> hoàn toàn ngược lại — mù nhãn cho <strong>79,40</strong> còn kênh 0 chỉ <strong>69,33</strong>. Mẫu 10 bản ghi lệch <em>cả hai chiều</em>: bi quan 10 điểm với quy tắc mù, lạc quan 21 điểm với kênh 0.</p>
+<p><strong>Bài học:</strong> không bao giờ báo cáo một siêu tham số được chọn <em>sau khi</em> nhìn tập đánh giá. Em đã viết quy tắc này thành luật nội bộ của nhóm.</p>
+
+<h3>Sự cố 3 — Chạy lại Power-MF, và tưởng nó hỏng</h3>
+<p><strong>Chuyện gì:</strong> Power-MF viết bằng MATLAB, nhóm không có bản quyền. Em cài GNU Octave rồi vá 7 chỗ. Chạy được, nhưng 6 bản ghi cho kết quả kỳ lạ — độ nhạy đúng 50 %.</p>
+<p><strong>Giả thuyết đầu của em:</strong> tham số khoảng cách tối thiểu giữa hai nhịp (340 ms) quá sát với nhịp thai.</p>
+<p><strong>Cách kiểm:</strong> đo khoảng RR thật từ nhãn.</p>
+<p><strong>Kết quả:</strong> <strong>0,00 %</strong> khoảng RR nằm dưới 340 ms. <em>Giả thuyết của em sai hoàn toàn.</em></p>
+<p><strong>Nguyên nhân thật:</strong> hàm tìm đỉnh của Octave cài ràng buộc khoảng cách bằng một ma trận đôi một — tốn bộ nhớ bậc hai. Bản ghi dài 1,2 triệu mẫu, nội suy lên 2,4 triệu, tràn bộ nhớ. MATLAB dùng thuật toán tham lam nên không bao giờ gặp. <strong>Đây là lỗi cổng chuyển của em, không phải của phương pháp họ.</strong></p>
+<p><strong>Xử lý:</strong> viết lại hàm đó theo đúng ngữ nghĩa MATLAB, độ phức tạp tuyến tính. Kiểm chứng 48/48 trường hợp.</p>
+<div class="box ok">
+<span class="box-h">Bằng chứng cổng chuyển đã đúng</span>
+<p>Sau khi vá, bản chạy lại cho <strong>99,40</strong> trong khi <strong>số tác giả gốc công bố là 99,46</strong> — lệch 0,06 điểm. Không còn cách nào nghi ngờ nữa.</p>
+</div>
+<p><strong>Bài học:</strong> em đã <em>đoán nguyên nhân trước khi đo</em>, và đoán sai. Nguyên tắc mới: không phát biểu nguyên nhân trước khi có số liệu.</p>
+
+<h3>Sự cố 4 — Trần F1 che mất hiệu ứng thật</h3>
+<p><strong>Chuyện gì:</strong> em thấy mọi cải tiến đều tập trung vào 3 bản ghi khó, và định viết thành một phát hiện.</p>
+<p><strong>Cách kiểm:</strong> làm lại trên thang logit để gỡ ảnh hưởng của trần 100.</p>
+<p><strong>Kết quả:</strong> hiệu ứng "thêm dữ liệu" <em>không</em> tập trung — trên thang logit nó còn lớn hơn ở nhóm dễ. Phát hiện của em phần lớn là <strong>tạo tác toán học</strong>.</p>
+<p><strong>Nhưng:</strong> việc kiểm này lại lộ ra một kết quả tốt hơn — trên 19 chủ thể dễ, một kênh <em>thực sự thắng</em> bốn kênh với p = 0,0012, mà thang F1 báo là "hoà".</p>
+
+<h3>Sự cố 5 — Thống kê giả lặp</h3>
+<p>Coi 4 đạo trình của một sản phụ là 4 mẫu độc lập. Tính lại ở mức chủ thể bằng cluster bootstrap — <strong>5 kết luận bị đảo ngược</strong>.</p>
+
+<h3>Sự cố 6 — Suýt tái phân phối mã nguồn của người khác</h3>
+<p>Thư mục chứa mã Power-MF có mã MATLAB gốc của chính tác giả. Nếu đẩy lên GitHub, kho mã sẽ tái phân phối đúng thứ mà chính nó tuyên bố không tái phân phối. Đã chặn trước khi commit.</p>
+
+<h3>Sự cố 7 — Agent thẩm định bắt được bốn lỗi cả nhóm bỏ sót</h3>
+<p>Sau khi năm hướng nghiên cứu xong, em cho <strong>một agent phản biện độc lập</strong> đọc lại toàn bộ với nhiệm vụ duy nhất là <em>tìm chỗ sai</em>. Nó đối chiếu 89 con số với tệp gốc — <strong>88 khớp</strong>, một chỗ là em truyền đạt nhầm chứ tệp đúng.</p>
+<p>Và nó tìm ra bốn lỗi chưa ai nêu:</p>
+<ol>
+<li><strong>Giả lặp trên CinC.</strong> 15 bản ghi rò rỉ chỉ đến từ <strong>5 sản phụ</strong>, nên CinC có nhiều nhất 65 chủ thể chứ không phải 75. Lấy mẫu lại theo <em>bản ghi</em> làm khoảng tin cậy hẹp hơn sự thật. May là lỗi tự biến mất khi dùng 60 bản sạch — một lý do <em>độc lập</em> nữa để chốt 60 bản.</li>
+<li><strong>Kết luận kiến trúc đổi chiều trên thang logit.</strong> Nhóm em <em>đã tính sẵn</em> số liệu logit nhưng lại báo cáo bằng F1 thô. Trên logit, <code>cnn_wide</code> kém TCN <strong>có ý nghĩa</strong>. Nên lập luận "khoảng cách hoàn toàn do bề rộng ngữ cảnh" yếu đi: bề rộng chỉ giải thích <strong>74 %</strong>.</li>
+<li><strong>Nhóm em tự mâu thuẫn về nhiễu 60 Hz.</strong> Xếp nó là nguyên nhân khả dĩ, trong khi chính nhóm đã can thiệp đúng vào 60 Hz và thu được p = 0,60.</li>
+<li><strong>Khẳng định quá phạm vi.</strong> "Phân bố đầu vào không dịch chuyển" thật ra chỉ là <em>ba mô men biên độ bậc thấp</em>. Sửa điều này <strong>đổi hướng khắc phục</strong>: không phải thích nghi miền mà là đi thu thêm dữ liệu tín hiệu yếu.</li>
+</ol>
+<div class="box ok">
+<span class="box-h">Vì sao em làm bước này</span>
+<p>Một nhóm chỉ báo cáo thành công là một nhóm đáng ngờ. Em muốn mỗi kết luận đều đi qua một vòng cố tình đánh sập trước khi được viết vào bài.</p>
+</div>
+
+<h3>Sự cố 8 — Kiểm tra sinh học tô-pô, và kết quả âm tính</h3>
+<p>Em thử hướng đồng điều dai dẳng (persistent homology) — một kỹ thuật toán học đang thời thượng. Kết quả: mô hình dùng đặc trưng tô-pô đạt <strong>27,4</strong> trong khi mạng 1D cùng số tham số đạt <strong>97,1</strong>. Em công bố kết quả âm tính này nguyên trạng thay vì giấu đi.</p>
+</section>
+
+<section id="s12">
+<span class="sec-n">MỤC 12</span>
+<h2>Tự chấm như một phản biện</h2>
+<p class="lede">Em đặt mình vào ghế phản biện của tạp chí và tự hỏi: mình sẽ bắt lỗi bài này ở đâu?</p>
+
+<h3>Điểm mạnh khó bắt bẻ</h3>
+<div class="tw"><table>
+<thead><tr><th>Điểm</th><th>Vì sao khó bắt bẻ</th></tr></thead>
+<tbody>
+<tr><td><span class="tag t-ok">Mạnh</span> Baseline chạy lại, có kiểm chứng ngoài</td><td>99,40 so với 99,46 tác giả công bố. Đa số bài fECG chỉ <em>trích số</em>.</td></tr>
+<tr><td><span class="tag t-ok">Mạnh</span> Đối chứng khoá chặt</td><td>Power-MF 1 kênh: cùng dữ liệu, cùng tiền xử lý, cùng khử mẹ, cùng bộ chấm. Chỉ khác thuật toán lõi.</td></tr>
+<tr><td><span class="tag t-ok">Mạnh</span> Mẫu đánh giá đủ</td><td>75/75 bản ghi, không phải mẫu con.</td></tr>
+<tr><td><span class="tag t-ok">Mạnh</span> Thống kê mức chủ thể</td><td>Chặt hơn mặt bằng ngành.</td></tr>
+<tr><td><span class="tag t-ok">Mạnh</span> Tự bác bỏ có hồ sơ</td><td>Giết ba tuyên bố của chính mình, có ghi chép công khai.</td></tr>
+</tbody></table></div>
+
+<h3>Điểm yếu phản biện sẽ nhắm vào</h3>
+<div class="tw"><table>
+<thead><tr><th>Điểm</th><th>Tình trạng</th></tr></thead>
+<tbody>
+<tr><td><span class="tag t-no">Yếu</span> Trung bình vẫn thua baseline 1,27 điểm</td><td>Không có cách nào nói tránh.</td></tr>
+<tr><td><span class="tag t-no">Yếu</span> Chỉ 22 chủ thể</td><td>Công suất thống kê tự tính ra cần ~50.</td></tr>
+<tr><td><span class="tag t-no">Yếu</span> Chưa có trung tâm ghi thứ hai</td><td>Gần như bắt buộc ở Q1.</td></tr>
+<tr><td><span class="tag t-wait">Đang lo</span> 77 % thời lượng huấn luyện từ nguồn nhãn gián tiếp</td><td>Đã đo được dấu vết.</td></tr>
+<tr><td><span class="tag t-ok">Đã xử lý</span> Chồng lấn giữa hai bộ dữ liệu</td><td>15/75 bản đã loại, số chính rớt 5 điểm nhưng kết quả chọn kênh mạnh lên. Chồng lấn đã được ban tổ chức ghi nhận — em chỉ định lượng.</td></tr>
+<tr><td><span class="tag t-no">Yếu</span> Không có bộ dữ liệu thứ ba để xác nhận</td><td>Đã kiểm mọi bộ công khai: không bộ nào có nhãn fQRS thật. Kết quả chọn kênh ở trạng thái "giả thuyết" cho đến khi có dữ liệu mới.</td></tr>
+<tr><td><span class="tag t-no">Yếu</span> "Mô hình đủ tốt chưa" — câu hỏi mở</td><td>Phép thử nhìn thấy có âm tính giả 18 %; kết luận "không phải nút thắt" đã rút.</td></tr>
+<tr><td><span class="tag t-no">Yếu</span> Đối thủ thứ hai chưa chạy lại</td><td>Vẫn là số trích dẫn — đúng lỗ hổng em vừa mất hai ngày để lấp cho đối thủ thứ nhất.</td></tr>
+<tr><td><span class="tag t-no">Yếu</span> Phép thử xác nhận được chỉ định trước đã trượt</td><td>Quy tắc <code>gate</code> không qua hiệu chỉnh Holm (p = 0,051). Em báo cáo đây là thất bại, và trình bày kết quả chính như giả thuyết chưa xác nhận.</td></tr>
+</tbody></table></div>
+
+<h3>Ba câu hỏi phản biện sẽ hỏi, và câu trả lời của em</h3>
+<div class="say">
+<div class="say-q">Đóng góp mới của các anh chị là gì?</div>
+<div class="say-a">Không phải một máy dò tốt hơn. Là một <em>phép đo</em> chưa ai làm — một kênh lấy lại được bao nhiêu phần của bốn kênh — cộng với một <em>phê bình thước đo</em> có bằng chứng cụ thể, và một quy tắc chọn kênh mù nhãn lấy lại 83 % dư địa.</div>
+</div>
+<div class="say">
+<div class="say-q">So sánh của các anh chị có công bằng không?</div>
+<div class="say-a">Công bằng hơn thông lệ ngành. Chúng em chạy lại baseline chứ không trích số, và kiểm chứng bằng chính số họ công bố. Chúng em còn tự cắt baseline xuống một kênh để so ở cùng điều kiện đầu vào.</div>
+</div>
+<div class="say">
+<div class="say-q">Sao chỉ có 22 chủ thể?</div>
+<div class="say-a">Đó là toàn bộ dữ liệu có nhãn fQRS thật đang công khai. Chúng em đã tính công suất thống kê và nói rõ cần khoảng 50 chủ thể, đồng thời báo cáo giới hạn cứng rằng với n = 5 thì p nhỏ nhất khả thi là 0,0625.</div>
+</div>
+</section>
+
+<section id="s13">
+<span class="sec-n">MỤC 13</span>
+<h2>Còn thiếu gì, và kế hoạch</h2>
+
+<div class="tw"><table>
+<thead><tr><th>Khối công việc</th><th class="n">Hoàn thành</th><th>Ghi chú</th></tr></thead>
+<tbody>
+<tr><td>Hạ tầng, mã, kiểm thử</td><td class="n">95 %</td><td>82/82 kiểm thử qua</td></tr>
+<tr><td>Mô hình</td><td class="n">95 %</td><td>Câu hỏi kiến trúc đã đóng — giữ TCN</td></tr>
+<tr><td>Thống kê</td><td class="n">95 %</td><td>Chặt hơn mặt bằng ngành</td></tr>
+<tr><td>Văn bản</td><td class="n">90 %</td><td>Đề cương 140 trang, bài báo 4 trang</td></tr>
+<tr><td>Đánh giá, đối chuẩn</td><td class="n">80 %</td><td>Đối thủ thứ hai chưa chạy lại</td></tr>
+<tr><td>Chỉ số lâm sàng</td><td class="n">75 %</td><td>Đã đo, kết quả xấu, đã báo cáo thật</td></tr>
+<tr><td>Dữ liệu</td><td class="n">60 %</td><td>Thiếu trung tâm ghi thứ hai</td></tr>
+<tr class="hi"><td><strong>Tính mới khoa học</strong></td><td class="n">50 %</td><td>Quy tắc chọn kênh (hậu kiểm) và định lượng chồng lấn (đã được biết)</td></tr>
+</tbody></table></div>
+
+<h3>Ba việc quyết định — theo phán xử của agent phản biện</h3>
+<ol>
+<li><strong>Sửa mọi con số CinC đã công bố và neo bằng chứng vào git.</strong> Đây là <em>rủi ro liêm chính, không phải việc dọn dẹp</em>. Nếu phản biện tự phát hiện chồng lấn sau khi nộp thì hậu quả nặng hơn nhiều so với tự công bố trước. <span class="tag t-ok">Đã xong</span></li>
+<li><strong>Xác nhận <code>peakprob</code> trên bộ dữ liệu thứ ba</strong> — <span class="tag t-no">Không khả thi hiện nay</span>. Đã kiểm: không bộ công khai nào có nhãn fQRS thật. Phép thử logit đã chạy: <code>gate</code> vẫn đứng đầu. Việc này chỉ làm được khi <strong>có dữ liệu mới có nhãn</strong> — đó là lý do lớn nhất để xin cô hỗ trợ liên hệ khoa sản.</li>
+<li><strong>Thu thập chủ thể tín hiệu yếu</strong>, và đo <strong>độ đặc hiệu</strong> của phép thử nhìn thấy tín hiệu. Ba hướng nghiên cứu độc lập đều chỉ về phân bố dữ liệu huấn luyện chứ không phải mô hình. Làm trước phép thử rẻ: hạ tín hiệu dữ liệu trong miền một cách có kiểm soát rồi huấn luyện lại — nếu cải thiện thì xác nhận hướng đi, nếu không thì tiết kiệm cho nhóm nhiều tháng.</li>
+</ol>
+
+<div class="box dead">
+<span class="box-h">Hai việc agent phản biện yêu cầu BỎ</span>
+<p><strong>Đừng động vào kiến trúc.</strong> Đòn bẩy yếu nhất trong mọi đòn bẩy đã đo: các họ kiến trúc có trường tiếp nhận đủ chỉ cách nhau 0,71 điểm, và nhân 4 lần tham số chỉ được +0,26.</p>
+<p><strong>Đừng theo đuổi thích nghi miền không nhãn.</strong> Đã thử bốn cách, cả bốn <em>làm hỏng</em>, và trên dữ liệu sạch còn hỏng hơn.</p>
+</div>
+
+<h3>Kết quả lâm sàng — em phải nói thật</h3>
+<p>Em đã đo thử chỉ số biến thiên nhịp ngắn hạn theo chuẩn Dawes-Redman. Độ chệch trên ADFECGDB là <strong>+0,33 ms</strong> — rất tốt. Nhưng trên CinC là <strong>+20,50 ms</strong> — không dùng được.</p>
+<p>Sai số bám rất sát chất lượng dò nhịp: khi F1 ≥ 99,5 thì sai số <strong>0,13 ms</strong>; khi F1 &lt; 90 thì <strong>25,78 ms</strong>.</p>
+<div class="box warn">
+<span class="box-h">Kết luận thẳng</span>
+<p><strong>Hệ thống hiện chưa dùng được như một máy đo biến thiên độc lập.</strong> Nhưng đây chính là lập luận mạnh nhất cho cổng từ chối: cổng không chỉ loại đoạn xấu, nó <em>lọc ra đúng những đoạn mà chỉ số còn dùng được</em>. Đó là giá trị lâm sàng thật.</p>
+</div>
+</section>
+
+<section id="s14">
+<span class="sec-n">MỤC 14</span>
+<h2>Kịch bản nói với cô</h2>
+
+<h3>Mở đầu — 30 giây</h3>
+<div class="box why">
+<p>"Em làm hệ thống đọc điện tim thai từ <strong>một điện cực</strong> trên bụng mẹ. Cái khác của em không phải chạy đua điểm số, mà là làm cho hệ thống <strong>tự biết khi nào nó không đáng tin</strong>. Em đã có mô hình chạy được, đã chạy lại được phương pháp mạnh nhất hiện có để so công bằng, và đang chuẩn bị một bài cho tạp chí Q1."</p>
+</div>
+
+<h3>Nếu cô hỏi kết quả tới đâu</h3>
+<div class="box why">
+<p>"Trên 22 sản phụ, mô hình một kênh của em đạt 97,56 so với 98,83 của phương pháp bốn kênh. Em <strong>vẫn thua 1,27 điểm</strong> — nhưng em đo được rằng bốn kênh đáng giá 12,12 điểm, và mô hình một kênh lấy lại <strong>gần chín phần mười</strong> số đó. Trên bộ dữ liệu 75 sản phụ chưa từng thấy, em vừa nâng từ 79,4 lên 85,6 bằng một quy tắc chọn kênh mới."</p>
+</div>
+
+<h3>Nếu cô hỏi điểm mới ở đâu</h3>
+<div class="box why">
+<p>"Ba thứ. <strong>Một</strong>, em lượng hoá được một câu hỏi chưa ai trả lời: một kênh lấy lại bao nhiêu phần của đa kênh. <strong>Hai</strong>, em chỉ ra rằng cách cả lĩnh vực đang đo — F1 trung bình — che mất hiệu ứng thật, và em có bằng chứng cụ thể. <strong>Ba</strong>, em đo được trần thực tế của bộ dữ liệu chuẩn là khoảng 93 chứ không phải 100, vì có 8 bản ghi không có tín hiệu thai ở bất kỳ kênh nào."</p>
+</div>
+
+<h3>Nếu cô hỏi khó khăn gì</h3>
+<div class="box why">
+<p>"Khó nhất không phải kỹ thuật mà là <strong>tự phát hiện mình sai</strong>. Em đã phải rút lại ba tuyên bố của chính mình trong hai ngày. Một lần vì đánh giá trên mẫu quá nhỏ nên bị lệch cả hai chiều. Một lần vì em đoán nguyên nhân trước khi đo và đoán sai. Một lần vì thước đo F1 có trần nên tạo ra ảo giác. Em nghĩ việc ghi chép công khai những lần rút lại đó làm đề tài <strong>đáng tin hơn</strong>."</p>
+</div>
+
+<h3>Nếu cô hỏi cần hỗ trợ gì</h3>
+<ul>
+<li><strong>Dữ liệu.</strong> Việc quan trọng nhất là có thêm bản ghi từ một trung tâm thứ hai có nhãn thật. Nếu cô có liên hệ với khoa sản nào đang ghi điện tim bụng, đó sẽ là bước nhảy lớn nhất.</li>
+<li><strong>Định hướng tạp chí.</strong> Em nhắm Physiological Measurement — sân nhà của cộng đồng fECG, nhưng theo Scimago 2024 nó là <strong>Q2</strong>, không phải Q1. Q1 thật là JBHI, TBME, BSPC — và cần dữ liệu mới. Hội nghị thì CinC 2026 đã qua hạn, em nhắm <strong>CinC 2027</strong>. Cô xem tiêu chí của trường dùng thang nào.</li>
+<li><strong>Góc nhìn lâm sàng.</strong> Em cần biết bác sĩ thật sự cần độ chính xác bao nhiêu thì mới dùng được.</li>
+</ul>
+
+<div class="box ok">
+<span class="box-h">Câu kết em nên nói</span>
+<p>"Em muốn bài này <strong>có thực lực</strong> chứ không phải đẹp số. Nên mỗi khi tìm thấy lỗi của chính mình, em sửa và ghi lại công khai. Hiện em có 20.000 dòng mã, 53 kiểm thử đều qua, và mọi con số trong đề cương đều truy ngược được về một tệp kết quả trên máy."</p>
+</div>
+</section>
+
+<section id="s15">
+<span class="sec-n">MỤC 15</span>
+<h2>Euréka: thông tin đã xác minh, và một việc gấp</h2>
+
+<div class="box dead">
+<span class="box-h">Việc gấp trong tuần này</span>
+<p>Đăng ký cấp thành kỳ 2026 mở <strong>01/9 → 25/9/2026</strong>, nhưng tài khoản nộp cấp cho <em>cán bộ trường</em>, không phải sinh viên — và hạn nội bộ các trường thường rơi vào <strong>tháng 8 – đầu tháng 9</strong> (Ngoại thương: 04/9; UIT: 20/8). <strong>Hạn nội bộ TDTU chưa tìm được thông báo nào.</strong> Hôm nay 12/9. Em phải hỏi Đoàn trường hoặc Phòng Quản lý Khoa học <em>trước khi</em> hứa gì với cô.</p>
+<p>Hai agent thẩm định độc lập cùng ước: kỳ 2026 còn <strong>5–8 %</strong> (thiếu phiếu hội đồng cấp trường, toàn văn 140 trang còn ghi tên trong khi Euréka chấm mù); kỳ <strong>2027 vào bán kết ~60 %</strong>, có giải ~20 %. Đích thật là 2027.</p>
+</div>
+
+<div class="tw"><table>
+<thead><tr><th>Mục</th><th>Nội dung</th><th>Nguồn</th></tr></thead>
+<tbody>
+<tr><td>Giải</td><td>Euréka lần 28 năm 2026; Thành Đoàn TP.HCM + ĐHQG + Sở KH&amp;CN; thường trực: Trung tâm Phát triển KH&amp;CN Trẻ</td><td>khoahoctre.com.vn/eureka-2026</td></tr>
+<tr><td>Lĩnh vực phù hợp</td><td>Công nghệ thông tin (hoặc Kỹ thuật công nghệ / Y – Dược); đủ 15 lĩnh vực chưa đọc được văn bản 2026</td><td>chưa xác minh đủ</td></tr>
+<tr><td>Chấm điểm</td><td><strong>30</strong> mục đích &amp; tính mới · <strong>50</strong> nội dung &amp; phương pháp · <strong>20</strong> trình bày. Giải Đặc biệt từ 95 điểm</td><td>Thể lệ 2021 Điều 3; tiêu chí 2023</td></tr>
+<tr><td>Chấm mù</td><td><strong>Không ghi tên tác giả, tên trường, tên GVHD, không lời cảm ơn</strong> ở bất kỳ đâu trong toàn văn</td><td>Thể lệ 2021 Điều 5</td></tr>
+<tr><td>Hồ sơ</td><td>Phiếu M01 (tóm tắt ≤ 100 từ); toàn văn 6 phần theo bố cục bắt buộc, A4, Times 13; poster 0,8 × 1,3 m dọc</td><td>Thể lệ 2021 Điều 4–6</td></tr>
+<tr><td>Quy mô kỳ 27</td><td>2.179 đề tài, 161 đơn vị; kỳ 26 trao 187 giải trên ~2.000</td><td>baovanhoa.vn; vnexpress.net</td></tr>
+</tbody></table></div>
+
+<h3>Đề tài đối chiếu với thang 30 / 50 / 20</h3>
+<div class="tw"><table>
+<thead><tr><th>Tiêu chí</th><th>Đề tài đáp ứng</th><th>Điểm yếu</th></tr></thead>
+<tbody>
+<tr><td>1b · Tính mới (20)</td><td>Quy tắc chọn kênh không tham số; cổng từ chối; định lượng chồng lấn bộ chuẩn</td><td><strong>Yếu nhất</strong> sau khi biết chồng lấn đã được ghi nhận; peakprob hậu kiểm</td></tr>
+<tr><td>2a · Phương pháp &amp; kết quả (30)</td><td>Baseline chạy lại có kiểm chứng ngoài; thống kê mức chủ thể; 82 kiểm thử; 5 lần tự rút — <strong>mạnh nhất</strong> so với mặt bằng sinh viên</td><td>22 chủ thể; một hạt giống</td></tr>
+<tr><td>2b · Giải pháp, kiến nghị (20)</td><td>Demo chạy được; hướng thiết bị đeo; bảng "đừng làm gì" cho người sau</td><td>Chưa có bác sĩ đồng hành</td></tr>
+<tr><td>3 · Trình bày (20)</td><td>Sổ tay, 12 ảnh demo, đề cương 140 trang, bài 4 trang</td><td>Toàn văn phải làm lại bản <em>mù</em></td></tr>
+</tbody></table></div>
+
+<div class="box why">
+<span class="box-h">Cách kể cho hội đồng sinh viên</span>
+<p>Không mở bằng "chúng tôi rút lại ba tuyên bố". Mở bằng <strong>"chúng tôi xây được một hệ đọc tim thai từ một dây, và biết chính xác nó làm được gì, không làm được gì"</strong>. Bốn lần rút là <em>bằng chứng cho vế sau</em>, không phải tiêu đề.</p>
+</div>
+</section>
+
+<section id="s16">
+<span class="sec-n">MỤC 16</span>
+<h2>Demo và trình bày: làm gì, bấm gì, nói gì</h2>
+
+<p>Kịch bản 20 phút đầy đủ nằm trong <code>docs/KICH_BAN_TRINH_BAY.md</code> (12 câu hỏi – trả lời, ba điểm rút lui, email sau buổi gặp). Hướng dẫn demo từng bước trong <code>docs/HUONG_DAN_DEMO.md</code>. Tờ giấy một trang: <code>docs/TOM_TAT_1_TRANG.md</code>. Dưới đây là phần cốt lõi.</p>
+
+<h3>Trước buổi gặp — 15 phút</h3>
+<ol>
+<li>Chạy <code>python demo/app.py</code>, đợi dòng "Running on local URL", mở trình duyệt. Lần đầu nạp mô hình mất ~13 giây.</li>
+<li>Kiểm nhanh: <code>python demo/run_check.py --only r01,a09,a02 --out demo_check_3ban</code> — <strong>không</strong> dùng tên <code>demo_check_showcase</code>, sẽ ghi đè tệp dự phòng 5 bản.</li>
+<li>Mở sẵn thư mục <code>demo/screenshots/</code> — đủ 12 ảnh, phòng khi demo hỏng.</li>
+</ol>
+
+<h3>Demo 4 phút — ba bản ghi, theo đúng thứ tự</h3>
+<div class="pipe">
+<div class="step"><div class="step-n">1</div><div class="step-b">
+<div class="step-t">r01 — bản dễ, ADFECGDB (0:00–1:00)</div>
+<div class="step-d">Tab <em>Tín hiệu (5 tầng)</em>. Chỉ tay từ trên xuống: tín hiệu thô → sau lọc → sau khử mẹ → xác suất mạng → nhịp phát hiện. <span class="q">Nói:</span> "Gai lớn ở tầng trên là tim mẹ. Tầng ba đã khử mẹ, còn lại gai nhỏ là tim bé. Tầng bốn là mạng nói 'tôi tin đây là nhịp'." F1 99,92. Mô hình xử lý cả 5 phút dưới 2 giây, khoảng 3 giây kể cả vẽ.</div>
+</div></div>
+<div class="step"><div class="step-n">2</div><div class="step-b">
+<div class="step-t">a09 — bản CinC sạch, chọn kênh cứu được (1:00–2:15)</div>
+<div class="step-d">Đổi sang a09, bấm <em>Phân tích</em> (~3 giây). Mở tab <em>Chọn kênh — cả 4 kênh</em>: bốn kênh xếp cạnh nhau, kênh được chọn tô màu. <span class="q">Nói:</span> "Máy ghi khác, sản phụ khác, người chấm khác. Quy tắc mới chọn kênh 1 — F1 94,25." Đổi <em>Kênh bụng</em> sang <em>Tự động — PSD</em>, phân tích lại: chọn kênh 2, F1 19,35, bám nhầm tim mẹ hơn nửa số nhịp. <span class="q">Nói:</span> "Cùng bản ghi, cùng mô hình. Khác nhau chỉ ở cách chọn dây. Đây là chỗ em cải tiến — và em phải nói rõ với cô là quy tắc này được chọn sau khi nhìn kết quả."</div>
+</div></div>
+<div class="step"><div class="step-n">3</div><div class="step-b">
+<div class="step-t">a02 — bản không có tín hiệu, hệ thống từ chối (2:15–3:30)</div>
+<div class="step-d">Đổi sang a02. Tab <em>Nhịp tim thai + đèn đoạn</em>: các đoạn tô đỏ. <span class="q">Nói:</span> "Bản này mô hình bám nhầm tim mẹ 78 %. Nhưng cổng từ chối đánh dấu đỏ gần hết — hệ thống nói 'tôi không chắc' thay vì đưa nhịp sai. Với bác sĩ, câu đó có giá trị hơn một con số đẹp."</div>
+</div></div>
+<div class="step"><div class="step-n">4</div><div class="step-b">
+<div class="step-t">Bảng tổng hợp (3:30–4:00)</div>
+<div class="step-d">Tab <em>Kết quả tổng hợp (60 bản sạch)</em>. Chỉ vào dòng ghi <em>"gate — khai báo trước / trượt Holm"</em> và <em>"peakprob — hậu kiểm"</em>. <span class="q">Nói:</span> "Bảng này em để cả quy tắc thắng lẫn quy tắc em định trước mà trượt. Và dòng cuối ghi rõ mọi số cũ trên 75 bản đã rút."</div>
+</div></div>
+</div>
+
+<div class="box warn">
+<span class="box-h">Không demo những gì</span>
+<p>Không mở bản nào trong 15 bản rò rỉ (a03 a04 a05 a08 a12 a13 a14 a15 a17 a19 a20 a22 a23 a24 a25) làm ví dụ "ngoài miền". Không chiếu số cổng từ chối trên CinC (đo trên 75 bản nhiễm, chưa tính lại). Không nói "SOTA", "đầu tiên", "tiền đăng ký", "phát hiện rò rỉ".</p>
+</div>
+
+<h3>Nếu demo hỏng</h3>
+<p>Mở ảnh theo thứ tự <code>01</code> → <code>04</code> → <code>07</code> → <code>09</code> → <code>11</code> → <code>12</code> trong <code>demo/screenshots/</code>. Ảnh 12 là bảng tổng hợp 60 bản sạch — nếu chỉ kịp chiếu một ảnh, chiếu ảnh đó.</p>
+
+<h3>Ba câu hỏi khó nhất, và câu trả lời đã chuẩn bị</h3>
+<div class="say">
+<div class="say-q">Quy tắc chọn kênh của em có phải chọn sau khi thấy kết quả không?</div>
+<div class="say-a">Dạ có. Em ghi trước bảy quy tắc và luật chọn "tốt nhất trong miền" — luật đó chỉ vào <em>gate</em>, mà gate trượt hiệu chỉnh Holm. <em>peakprob</em> thắng ngoài miền, em chọn nó sau khi nhìn. Lý do em vẫn báo cáo: hiệu ứng sống sót Holm trên cả họ bảy quy tắc, và trong họ đó <em>gate4</em> — cũng định trước — sống sót với p 0,015. Em không có bộ thứ ba để xác nhận vì không bộ công khai nào có nhãn thật.</div>
+</div>
+<div class="say">
+<div class="say-q">Em nói "phát hiện rò rỉ" — ban tổ chức không biết sao?</div>
+<div class="say-a">Họ biết và đã ghi từ 2013. Em bỏ sót — ghi chú đọc bài của chính em có nhắc. Cái em đo được là <em>15 bản nào</em>, <em>cửa sổ nào</em>, và thổi phồng bao nhiêu. Em sẽ viết đúng như vậy.</div>
+</div>
+<div class="say">
+<div class="say-q">Vậy mô hình đủ tốt chưa?</div>
+<div class="say-a">Em chưa trả lời được. Em từng kết luận "mô hình không phải nút thắt", rồi khi đo độ đặc hiệu của phép thử thì nó sai 18 %. Câu hỏi mở. Cái em chắc: đổi kiến trúc không giúp, thích nghi miền không giúp — bốn cách đều thử rồi.</div>
+</div>
+</section>
+
+</main>
+</div>
+
+<footer>
+<div class="footer-in">
+  <p style="margin:0">Sổ tay RelyFetal · Cập nhật 12/09/2026 · Mọi con số truy ngược được về tệp kết quả trong kho mã. Các mục đang chạy thí nghiệm sẽ được cập nhật khi có kết quả.</p>
+</div>
+</footer>

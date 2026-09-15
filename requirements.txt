@@ -1,26 +1,37 @@
-# Core pipeline -- CPU only, no GPU required
-numpy>=1.24
-scipy>=1.10
-scikit-learn>=1.3
-torch>=2.0
-mne>=1.5              # EDF reader
-wfdb>=4.1             # PhysioNet annotations and records
+# RelyFetal -- goi LOI: pipeline, demo, API, kiem thu. Chi can CPU, khong can GPU.
+#
+#   pip install -r requirements.txt
+#
+# Da kiem thu voi Python 3.12.6 tren Windows 11 (15/09/2026). Cot ben phai ghi phien ban
+# da chay qua 82/82 kiem thu. Can duoi (>=) la muc toi thieu nhom tin la an toan.
+#
+# Muon chay them thi nghiem phan tich, dung lai tai lieu, chup anh demo:
+#   pip install -r requirements-research.txt
 
-# Figure and document generation (de_cuong_latex/)
-matplotlib>=3.7
-pymupdf>=1.23         # PDF inspection and rasterisation
-python-docx>=1.1      # DOCX verification
-pillow>=10.0
+# ---- pipeline tin hieu va mo hinh -------------------------------------------------------
+numpy>=1.24            # da kiem: 2.4.6
+scipy>=1.10            # da kiem: 1.18.0
+torch>=2.0             # da kiem: 2.13.0+cpu  -- ban CPU la du
+scikit-learn>=1.3      # da kiem: 1.9.0       -- cong tu choi; fsqi/gate_classical.pkl HUAN LUYEN voi 1.9.0
+mne>=1.5               # da kiem: 1.12.1      -- doc EDF (ADFECGDB)
+wfdb>=4.1              # da kiem: 4.3.1       -- doc WFDB .hea/.dat va nhan (CinC 2013)
+requests>=2.28         # da kiem: 2.34.2      -- model/download_*.py tai du lieu
+# ripser BAT BUOC, khong phai tuy chon: fsqi/fsqi.py import no o dau tep, va den tin cay mac dinh
+# ('hoc') nap fsqi/gate.py -> fsqi.py. Thieu ripser thi demo va API sap khi phan tich ban ghi.
+ripser>=0.6            # da kiem: 0.6.15
 
-# Tests
-pytest>=7.4
+# ---- demo (demo/app.py) -----------------------------------------------------------------
+# BAT BUOC Gradio 6.x: CSS thanh tab nham .tab-container, ten lop chi co tu Gradio 6.
+gradio>=6.0,<7         # da kiem: 6.26.0 (keo theo gradio_client 2.6.1)
+pandas>=2.0            # da kiem: 3.0.5       -- bang trong tab "Du lieu cua nhom"
+plotly>=5.0            # da kiem: 7.0.0       -- bieu do tuong tac
+matplotlib>=3.7        # da kiem: 3.11.0      -- hinh tin hieu tho
 
-# API (api/main.py) -- REST wrapper around demo/core.py; httpx is needed only for tests/test_api.py
-fastapi>=0.110
-uvicorn>=0.29
-httpx>=0.27
-python-multipart>=0.0.9
+# ---- API REST (api/main.py) -------------------------------------------------------------
+fastapi>=0.110         # da kiem: 0.141.1
+uvicorn>=0.29          # da kiem: 0.52.4
+python-multipart>=0.0.9  # da kiem: 0.0.32    -- tai tep len qua API
+httpx>=0.27            # da kiem: 0.28.1      -- chi tests/test_api.py can
 
-# External tools, NOT installable via pip -- needed only to rebuild documents:
-#   xelatex   (MiKTeX or TeX Live)  -- compiles the LaTeX proposal
-#   pandoc    (>= 3.0)              -- exports PDF sources to DOCX
+# ---- kiem thu ----------------------------------------------------------------------------
+pytest>=7.4            # da kiem: 9.1.1

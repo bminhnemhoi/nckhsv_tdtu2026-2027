@@ -1,6 +1,6 @@
 # Giải thưởng Euréka và đề tài RelyFetal — thông tin xác minh, bảng đối chiếu, đánh giá cửa
 
-Soạn ngày 12/09/2026 cho chủ nhiệm Ngô Bình Minh (TDTU); cập nhật cùng ngày sau thẩm định vòng 7 (`THAMDINH_VONG7.md`): bỏ số cổng từ chối đo trên 75 bản nhiễm, bỏ số logit từ phân tích đã rút, sửa kế hoạch "bộ thứ ba" (không có bộ công khai nào có nhãn), thêm mục 4b cho trường hợp lỡ hạn 2026. Tài liệu tách bạch bốn loại phát biểu:
+Soạn ngày 12/09/2026 cho chủ nhiệm Ngô Bình Minh (TDTU); cập nhật cùng ngày sau thẩm định vòng 7 (`docs/nhat_ky/THAMDINH_VONG7.md`): bỏ số cổng từ chối đo trên 75 bản nhiễm, bỏ số logit từ phân tích đã rút, sửa kế hoạch "bộ thứ ba" (không có bộ công khai nào có nhãn), thêm mục 4b cho trường hợp lỡ hạn 2026. Tài liệu tách bạch bốn loại phát biểu:
 **[XÁC MINH]** = có nguồn chính thức đọc được; **[CHƯA XÁC MINH]** = chưa tìm được nguồn chính thức, phải hỏi Đoàn trường; **[SUY LUẬN]** = suy ra từ dữ kiện; **[KHUYẾN NGHỊ]** = ý kiến.
 
 Mọi con số về đề tài trong tài liệu này truy ngược về tệp trên đĩa (ghi kèm). Không dùng các con số đã rút (xem mục 6).

@@ -18,7 +18,7 @@ WORKDIR /app
 # torch CPU wheel first (largest layer, changes least), then the rest.
 RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu \
  && pip install --no-cache-dir \
-        "numpy>=1.24" "scipy>=1.10" "mne>=1.5" "wfdb>=4.1" ripser \
+        "numpy>=1.24" "scipy>=1.10" "mne>=1.5" "wfdb>=4.1" ripser "scikit-learn==1.9.0" \
         fastapi uvicorn python-multipart
 
 # Only what the API needs (see .dockerignore for what is excluded from the context).

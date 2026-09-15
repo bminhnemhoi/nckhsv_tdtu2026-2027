@@ -511,7 +511,7 @@ S21 — cột trái là tám vòng theo thời gian, mỗi vòng một dòng m�
 **H: "Tám vòng trong mấy ngày? Nghe không giống tiến độ nghiên cứu bình thường."**
 > "Em làm tập trung trong một đợt ngắn, và em nói thẳng là các vòng không đều nhau. Có vòng chỉ là rà soát lại, không chạy thí nghiệm mới. Em nghĩ cái đáng nói không phải là số vòng, mà là mỗi vòng đều có một lượt đọc với nhiệm vụ tìm lỗi. Nếu cô thấy nên giãn ra và làm kỹ hơn từng vòng, em nghe cô."
 
-*Nguồn: `THAMDINH_VONG6.md`, `THAMDINH_VONG7.md`, `THAMDINH_VONG8.md`; `analysis/xacnhan_khaibao.md`; `analysis/STATS.md`; `analysis/CHONKENH.md` (phép xáo nhãn 0/776).*
+*Nguồn: `docs/nhat_ky/THAMDINH_VONG6.md`, `docs/nhat_ky/THAMDINH_VONG7.md`, `docs/nhat_ky/THAMDINH_VONG8.md`; `analysis/xacnhan_khaibao.md`; `analysis/STATS.md`; `analysis/CHONKENH.md` (phép xáo nhãn 0/776).*
 
 ---
 

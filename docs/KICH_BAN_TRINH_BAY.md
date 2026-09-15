@@ -1,6 +1,6 @@
 # Kịch bản buổi gặp đầu tiên với giảng viên hướng dẫn (20 phút + hỏi đáp)
 
-Viết lại 12/09/2026 sau thẩm định vòng 7 (`THAMDINH_VONG7.md`). Mọi con số dưới đây truy về `survey/facts_phase4.json` (nguồn tổng hợp) hoặc tệp JSON ghi trong ngoặc. Không có con số nào tính trên 75 bản CinC; không có số nào từ các phân tích đã rút.
+Viết lại 12/09/2026 sau thẩm định vòng 7 (`docs/nhat_ky/THAMDINH_VONG7.md`). Mọi con số dưới đây truy về `survey/facts_phase4.json` (nguồn tổng hợp) hoặc tệp JSON ghi trong ngoặc. Không có con số nào tính trên 75 bản CinC; không có số nào từ các phân tích đã rút.
 
 Sổ tay (HTML): https://claude.ai/code/artifact/7f120fe6-e199-47b9-8aac-1a194c2d8b00
 Hướng dẫn demo chi tiết: `docs/HUONG_DAN_DEMO.md`. Tờ tóm tắt in giấy: `docs/TOM_TAT_1_TRANG.md`.

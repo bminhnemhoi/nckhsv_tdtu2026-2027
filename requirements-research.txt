@@ -1,0 +1,30 @@
+# RelyFetal -- goi NGHIEN CUU: chay lai thi nghiem phan tich, dung lai tai lieu, chup anh demo.
+# Cai SAU requirements.txt:
+#
+#   pip install -r requirements.txt
+#   pip install -r requirements-research.txt
+#
+# Da kiem thu voi Python 3.12.6 tren Windows 11 (15/09/2026).
+
+-r requirements.txt
+
+# ---- thi nghiem phan tich (analysis/, pilot_evidence/, fsqi/) ---------------------------
+diptest>=0.8           # da kiem: 0.11.0  -- kiem dinh luong cuc Hartigan (analysis/luongcuc.py)
+persim>=0.3            # da kiem: 0.3.8   -- anh dai dang (pilot TDA, KET QUA AM TINH)
+# (ripser nam trong requirements.txt vi demo va API can no)
+
+# ---- dung lai tai lieu (de_cuong_latex/, paper/) ----------------------------------------
+pymupdf>=1.23          # da kiem: 1.28.2  -- doc va raster PDF
+python-docx>=1.1       # da kiem: 1.2.0   -- kiem tep DOCX
+pillow>=10.0           # da kiem: 12.2.0
+pypdf>=4.0             # da kiem: 6.16.1  -- dem trang, trich van ban kiem so da rut
+
+# ---- chup anh man hinh demo (demo/screenshot.py) ----------------------------------------
+playwright>=1.40       # da kiem: 1.62.0  -- sau khi cai phai chay: playwright install chromium
+
+# ---- CONG CU NGOAI, KHONG cai bang pip ----------------------------------------------------
+#   xelatex  (MiKTeX hoac TeX Live)  -- bien dich de cuong LaTeX 148 trang
+#   pdflatex + bibtex                -- bien dich bai bao CinC 2027
+#   pandoc >= 3.0                    -- xuat de cuong sang DOCX
+#   GNU Octave 11.x (portable)       -- CHI de chay lai baseline Power-MF;
+#                                       tai bang: python baselines/powermf_setup.py

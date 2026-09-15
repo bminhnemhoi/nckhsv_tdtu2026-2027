@@ -1,6 +1,6 @@
 # CHANGELOG — bản thảo CinC (`paper/cinc2026/main.tex`)
 
-## 2026-09-12 — Viết lại cho CinC 2027 trên 60 bản CinC sạch (sau THAMDINH_VONG7.md)
+## 2026-09-12 — Viết lại cho CinC 2027 trên 60 bản CinC sạch (sau docs/nhat_ky/THAMDINH_VONG7.md)
 
 **Vì sao viết lại.** Phản biện V2 phán bản trước "phải bỏ": còn số 75 bản CinC (nhiễm 15 bản sao ADFECGDB),
 hạn CinC 2026 đã qua (Madrid 20–23/9/2026). Đích mới: **CinC 2027**. Thư mục giữ nguyên tên; tiêu đề đổi thành
@@ -23,7 +23,7 @@ all 75). PDF xuất ra `docs/CinC2027_RelyFetal.pdf`; `docs/CinC2026_RelyFetal.p
 | 15 bản sao | a03–a05, a08, a12–a15, a17, a19, a20, a22–a25; NCC 1,0000; ΔRR 0,0 ms; 60 bản còn lại ≤ 0,62; thổi phồng 3,27–7,18; 99,87 | `benchmark_dpss/eval_cinc60_sach.json → meta.leak_records`, `analysis/dulieu_results.json → chong_lan`, `survey/facts_phase4.json → A`; 99,87 tính lại từ `benchmark_dpss/eval_cinc75.json` (15 bản, m22 PSD) |
 | Bảng 3 CinC-60 | PSD 64,04 → 74,28 (+10,24 [7,13; 13,60], p 3,5e-10, 52/3), ≥90 27→33, <50 22→16, trung vị 95,07; mean4 56,00 / 67,69; oracle 72,76 / 83,60; PSD−oracle 9,32 [5,10; 14,15], trúng 17/60; 53 bản 64,19 → 75,27 (+11,08, p 4,4e-09) | `benchmark_dpss/eval_cinc60_sach.json → variants.60_sach`, `variants.53_sach_loai_7_nhan_sai`; `survey/facts_phase4.json → A` |
 | Bảy quy tắc chọn kênh | gate 80,72 (+6,44 [2,49; 11,10], p 0,010, p_Holm 0,051, 16/37/7); gate4 81,01 (+6,72, p_Holm 0,015); rrcv 80,00 (+5,72, p_Holm 0,41); peakprob 82,01 (+7,73 [3,82; 12,41], p 5,6e-04, p_Holm 0,0039, 19/35/6, <50: 9, 82,9 % dư địa, không bản nào mất quá 3,90) | `analysis/dulieu_results.json → chon_kenh_60_sach.bang`, `survey/facts_phase4.json → B` |
-| Logit 22 chủ thể | gate dẫn 2/3 cách kép; peakprob hạng 3, +0,13 [−0,04; +0,41]; 4 quy tắc đầu cách 0,04, dư địa 1,08 | `analysis/xacnhan_results.json → viec3_logit_22`; `THAMDINH_VONG6.md` VIỆC 6 |
+| Logit 22 chủ thể | gate dẫn 2/3 cách kép; peakprob hạng 3, +0,13 [−0,04; +0,41]; 4 quy tắc đầu cách 0,04, dư địa 1,08 | `analysis/xacnhan_results.json → viec3_logit_22`; `docs/nhat_ky/THAMDINH_VONG6.md` VIỆC 6 |
 | Không có bộ thứ ba | NIFEADB / NInFEA / nifecgdb / set-b không nhãn fQRS | `analysis/xacnhan_results.json → viec2_bo_thu_ba` |
 | Bảng 4 kiến trúc | tham số, RF, F1, ΔF1, Δlogit, T/H/B, TOST/Holm cho 7 mô hình | `analysis/kientruc_results.json → table, comparisons, holm_wilcoxon, holm_tost` |
 | Dải lọc trên TCN | +2,44 [−0,04; 6,29] kênh PSD; −0,07 [−0,51; 0,39] TB 4 kênh | `pilot_evidence/band_tcn_stats.json → so_sanh_voi_1_45` |
@@ -51,7 +51,7 @@ all 75). PDF xuất ra `docs/CinC2027_RelyFetal.pdf`; `docs/CinC2026_RelyFetal.p
 
 * `refs.bib`: `li2018` (AdaBN, DOI 10.1016/j.patcog.2018.03.005 — xác minh Crossref) và `wang2021` (TENT, ICLR 2021,
   arXiv:2006.10726 — xác minh trang arXiv; không có DOI). `silva2013` và `clifford2014` đã có từ vòng 7.
-* Mục 2.4 "Lead rules": phát biểu chính thức theo `THAMDINH_VONG6.md` VIỆC 6 — kế hoạch viết trước khi chạy CinC
+* Mục 2.4 "Lead rules": phát biểu chính thức theo `docs/nhat_ky/THAMDINH_VONG6.md` VIỆC 6 — kế hoạch viết trước khi chạy CinC
   nhưng sau khi có F1 từng kênh, không neo bên thứ ba → "written plan and nothing stronger".
 * Mục 3.4: kiến trúc báo cáo trên **cả F1 lẫn logit**; cnn_wide hoà trên F1, kém trên logit.
 * Mục 3.5 + Thảo luận: 4 phương pháp thích nghi miền thất bại; **không** kết luận "thiếu tín hiệu" (âm tính giả 18 %).

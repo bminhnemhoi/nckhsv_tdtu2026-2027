@@ -1,7 +1,7 @@
 # CHIẾN LƯỢC CÔNG BỐ — RelyFetal ĐANG Ở ĐÂU VÀ ĐI ĐÂU ĐƯỢC?
 
-*Nhiệm vụ R6. Viết ngày 2026-09-12, sau thẩm định vòng 6 (`THAMDINH_VONG6.md`, commit fb1c53b).*
-*Cập nhật cùng ngày sau thẩm định vòng 7 (`THAMDINH_VONG7.md`): đích chính đổi thành Physiological Measurement + CinC 2027; JBHI là dự phòng có điều kiện (cần dữ liệu có nhãn mới); abstract sửa ba câu; ước lượng Q1 hạ. Các chỗ sửa đánh dấu **[V7]**.*
+*Nhiệm vụ R6. Viết ngày 2026-09-12, sau thẩm định vòng 6 (`docs/nhat_ky/THAMDINH_VONG6.md`, commit fb1c53b).*
+*Cập nhật cùng ngày sau thẩm định vòng 7 (`docs/nhat_ky/THAMDINH_VONG7.md`): đích chính đổi thành Physiological Measurement + CinC 2027; JBHI là dự phòng có điều kiện (cần dữ liệu có nhãn mới); abstract sửa ba câu; ước lượng Q1 hạ. Các chỗ sửa đánh dấu **[V7]**.*
 *Vai trò: phản biện senior trong xử lý tín hiệu y sinh. Mọi con số trong tài liệu này truy về một tệp trên đĩa (ghi cạnh số). Mọi xếp hạng venue truy về một nguồn web (ghi ở mục 2.4). Những gì tôi không kiểm được, tôi ghi "không xác minh".*
 
 ---

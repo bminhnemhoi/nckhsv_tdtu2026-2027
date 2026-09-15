@@ -395,7 +395,7 @@ trong khi khoảng cách thật giữa hai miền còn **17,92 điểm**.
 > điểm **chưa xác định được**. Kết luận cũ *"mô hình không phải nút thắt"* **đã rút**.
 
 *Nguồn: `adapt/adapt_results.json` → `per_record_cinc` (tự tính lại sau khi loại đúng 15 bản chồng lấn;
-phép tính này đã được thẩm định độc lập, `THAMDINH_VONG8.md` mục 1.2 số 21) và `mo_phong_dich_chuyen`;
+phép tính này đã được thẩm định độc lập, `docs/nhat_ky/THAMDINH_VONG8.md` mục 1.2 số 21) và `mo_phong_dich_chuyen`;
 `analysis/xacnhan_results.json` → `viec4_phep_thu_nhin_thay`.*
 
 *Ghi chú chênh lệch: `README.vi.md` ghi self-training **−0,68** và p của notch là **0,70**; tính lại từ
@@ -526,11 +526,11 @@ viên tự kiểm.
 | **P7** | Tiền huấn luyện FECGSYNDB | **Chưa động tới** | 0 % | Cần ~40 GB. Sau khi thấy **16/60** bản CinC sạch vẫn dưới 50, mục này **trở lại thành ưu tiên** |
 | **P8** | Thống kê đầy đủ + đường cong | Phần lớn | ~85 % | `analysis/stats_results.json`, `pilot_evidence/snr_curve.json`, `analysis/xacnhan_results.json`, `benchmark_dpss/eval_cinc60_sach.json` |
 | **P9** | Đóng gói: demo, API, Docker | Phần lớn | ~85 % | `demo/app.py` (924 dòng), `demo/core.py` (1 147 dòng), 8 tab, **16 ảnh** `demo/screenshots/`, `api/`, `Dockerfile` (viết, **chưa build**) |
-| **P10** | Bản thảo | Bản nháp | ~60 % | `paper/cinc2026/main.tex` → `docs/CinC2027_RelyFetal.pdf` (4 trang, 0 số đã rút, 25/25 số khớp nguồn theo `THAMDINH_VONG8.md`). **Còn:** dựng bằng `cinc.cls` chính thức |
+| **P10** | Bản thảo | Bản nháp | ~60 % | `paper/cinc2026/main.tex` → `docs/CinC2027_RelyFetal.pdf` (4 trang, 0 số đã rút, 25/25 số khớp nguồn theo `docs/nhat_ky/THAMDINH_VONG8.md`). **Còn:** dựng bằng `cinc.cls` chính thức |
 | **P11** | Nộp | Chưa | 0 % | — |
 | *Ngoài kế hoạch* | Bộ chỉ số lâm sàng | **Xong** | — | `analysis/clinical_results.json` — 32 bản ghi / 269,6 phút |
 | *Ngoài kế hoạch* | Thích nghi miền | **Xong (kết quả phủ định)** | — | `adapt/adapt_results.json` — cả 4 phương pháp thất bại |
-| *Ngoài kế hoạch* | Tám vòng thẩm định đối kháng nội bộ | **Xong** | — | `THAMDINH_VONG6/7/8.md`, `QA_VONG4.md`, `DON_REPO_VONG7.md` |
+| *Ngoài kế hoạch* | Tám vòng thẩm định đối kháng nội bộ | **Xong** | — | `THAMDINH_VONG6/7/8.md`, `docs/nhat_ky/QA_VONG4.md`, `docs/nhat_ky/DON_REPO_VONG7.md` |
 
 **Kiểm thử:** `pytest tests/ demo/test_core.py` → **82/82 qua** (43 ở `tests/` + 17 ở `demo/test_core.py`).
 **Kho mã:** 11 commit, commit hiện tại `c20417b` đã đẩy.

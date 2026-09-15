@@ -58,7 +58,7 @@ Rely 97,56; Rely − PMF4 = −1,27 [−3,08; +0,27]; Rely − PMF1 = +10,85; 89
 | `analysis/{THICHNGHI,CHONKENH,ABLATION_B1,LUONGCUC,GATE22,CLINICAL,KIENTRUC}.md`, `baselines/BASELINES.md`, `fsqi/README.md` | header cảnh báo: số CinC-75 đã rút, số hiện hành 60 bản sạch; số gốc giữ để truy vết |
 | `docs/CHIEN_LUOC_CONG_BO.md` | "Phát hiện về dữ liệu" → kiểm toán, ban tổ chức đã ghi nhận; "tự tìm ra rò rỉ" → sửa; nút thắt → đã rút; ứng viên bộ thứ ba → không có nhãn (R2) |
 | `docs/EUREKA.md`, `docs/KICH_BAN_TRINH_BAY.md` | "em/tự phát hiện rò rỉ" → phát biểu đúng; "PM Q1" → Q2/Q3 |
-| `BUILD_VONG5.md`, `QA_VONG4.md`, `THAMDINH_VONG6.md`, `docs/README_KET_QUA.md`, `docs/DE_CUONG_NCKH_v2.md`, `docs/De_xuat_fECG_TDA_PI_CNN.md`, `docs/BAO_CAO_PHAN_BIEN_*.md` | header "báo cáo/tài liệu lịch sử, số đã rút" |
+| `docs/nhat_ky/BUILD_VONG5.md`, `docs/nhat_ky/QA_VONG4.md`, `docs/nhat_ky/THAMDINH_VONG6.md`, `docs/README_KET_QUA.md`, `docs/DE_CUONG_NCKH_v2.md`, `docs/De_xuat_fECG_TDA_PI_CNN.md`, `docs/BAO_CAO_PHAN_BIEN_*.md` | header "báo cáo/tài liệu lịch sử, số đã rút" |
 | `demo/README.md` | header: bảng mục 4 có 4 bản rò rỉ; số hiện hành 82 bản |
 | `CITATION.cff` | abstract bỏ +11,00 / bimodal / p = 0,7012; v3.5, 12/09/2026 |
 | `tests/test_api.py` | 2 assertion ghim tên checkpoint 5 ca → chấp nhận checkpoint 22 ca chưa thấy r01 (fold 05) / production 22 ca (hành vi mới của `demo/core.checkpoint_for`, R4) |
