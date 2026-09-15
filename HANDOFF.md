@@ -168,6 +168,16 @@ python demo/smoke_app.py                         # kỳ vọng: KẾT QUẢ: Đ�
 python demo/app.py                               # mở trình duyệt, đếm đủ 8 tab
 ```
 
+Demo mặc định chạy ở `http://127.0.0.1:7860`. Cổng bị chiếm thì đổi bằng **`RELYFETAL_PORT`** — không phải
+`GRADIO_SERVER_PORT`, biến đó demo không đọc:
+
+```powershell
+$env:RELYFETAL_PORT="7861"; python demo/app.py
+```
+
+Demo **chạy được cả khi chưa tải dữ liệu** — đã kiểm trên bản clone mới (lên trong ~8 giây); các tab cần bản ghi
+sẽ báo thiếu dữ liệu kèm lệnh tải, không sập.
+
 **Chưa tải dữ liệu mà test báo `skipped` là bình thường** — các test cần bản ghi cụ thể tự bỏ qua kèm lý do
 (`chưa có ADFECGDB r01`). Chỉ `failed` mới là lỗi.
 
@@ -301,6 +311,7 @@ Khi viết về chọn kênh, **luôn báo cáo cả ba**. Không bao giờ trì
 | **Mã nguồn MATLAB của tác giả Power-MF** | Tái phân phối mã không được phép | `baselines/octave/PowerMF*.m` đã gitignore — chỉ commit bản vá của nhóm |
 | **`ripser` trông như tuỳ chọn nhưng bắt buộc** | Demo, API sập `ModuleNotFoundError: ripser` khi bấm Phân tích | `fsqi/fsqi.py` import nó ở đầu tệp; đèn tin cậy mặc định nạp `fsqi.py`. Đã đưa vào `requirements.txt`, CI, Dockerfile. Muốn bỏ hẳn thì chuyển import vào trong hàm đặc trưng tô-pô |
 | **Mô hình cổng từ chối pickle với `scikit-learn` 1.9.0** | Khác phiên bản thì cảnh báo, có thể không unpickle được | Dockerfile ghim `scikit-learn==1.9.0`. Nâng sklearn thì chạy lại `python fsqi/train_gate.py` rồi commit `.pkl` mới |
+| **Đặt `GRADIO_SERVER_PORT` không đổi được cổng demo** | Demo vẫn chạy 7860, trình duyệt mở cổng khác không thấy gì | Demo đọc `RELYFETAL_PORT` (`demo/app.py`) |
 | **Giả lập thiếu gói bằng `ImportError` cho kết quả sai** | `pytest.importorskip` báo lỗi thay vì bỏ qua | pytest ≥ 8.2 chỉ bỏ qua với `ModuleNotFoundError`. Khi giả lập một gói vắng, phải ném đúng loại đó |
 
 ---
