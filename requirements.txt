@@ -26,6 +26,7 @@ gradio>=6.0,<7         # da kiem: 6.26.0 (keo theo gradio_client 2.6.1)
 pandas>=2.0            # da kiem: 3.0.5       -- bang trong tab "Du lieu cua nhom"
 plotly>=5.0            # da kiem: 7.0.0       -- bieu do tuong tac
 matplotlib>=3.7        # da kiem: 3.11.0      -- hinh tin hieu tho
+markdown>=3.4          # da kiem: 3.10.2      -- dinh dang thuyet minh Markdown trong demo
 
 # ---- API REST (api/main.py) -------------------------------------------------------------
 fastapi>=0.110         # da kiem: 0.141.1
