@@ -862,3 +862,22 @@ def test_trinh_bay_luot_dang_tinh_bi_bam_the_khac_thi_khong_ve_de(monkeypatch):
     o = app.story_run('r01', 'phien_dang_tinh')
     assert len(o) == app.STORY_N_OUTS and all(isinstance(x, dict) and x.get('__type__') == 'update' for x in o)
     assert '5–10 giây' in app.story_card_html('r01') and 'khi cần, trang tự cuộn' in ''.join(_story_texts_on_screen(app))
+
+
+# ------------------------------------------------------------------ ghép vòng 10 với commit 16/09 (máy chủ FastAPI của Khánh)
+@need_a02
+@need_22
+def test_may_chu_fastapi_den_tin_cay_doc_dung_muc_va_gradio_co_css():
+    """/api/run_analysis từng đọc khoá 'gate' không tồn tại -> đèn luôn 'xanh' (a02 đèn đỏ thật vẫn hiện XANH)."""
+    app = _app()
+    from fastapi.testclient import TestClient
+    import inspect
+    import gradio as gr
+    with TestClient(app.server_app) as cl:
+        j = cl.post('/api/run_analysis', json={'rec_name': 'a02'}).json()
+        assert j['confidence']['state'] == 'do' and 'ĐỎ' in j['confidence']['label']
+        assert [c['f1'] for c in j['lead_chips']][0] == '75.9'          # F1 từng dây không còn rỗng
+        assert cl.get('/gradio/').status_code == 200
+    kw = app.mount_kwargs()
+    if 'css' in inspect.signature(gr.mount_gradio_app).parameters:
+        assert kw['css'] is app.CSS and '.rf-story-col' in kw['css']

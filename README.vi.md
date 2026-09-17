@@ -290,10 +290,13 @@ CNN giãn nở được giữ vì **hiệu quả tham số**, không phải vì 
 ## Demo
 
 ```bash
-python demo/app.py        # → http://127.0.0.1:7860
+python demo/app.py        # máy chủ FastAPI: /gradio/ chế độ trình bày · / trang nghiên cứu · /monitor
 ```
 
-Mặc định mở **chế độ trình bày** (thẻ `r01` `a09` `a02` `a27` và thẻ *Tệp của bạn*, đi theo 5 bước). **Tám tab**
+Mở **http://127.0.0.1:7860/gradio/**. Từ lần ghép 17/09, `demo/app.py` chạy máy chủ FastAPI: `/` là trang nghiên cứu HTML
+của Khánh (bố cục 8 tab), `/monitor` là trang theo dõi tín hiệu, `/gradio/` là giao diện Gradio mô tả dưới đây.
+
+Ở `/gradio/` mặc định mở **chế độ trình bày** (thẻ `r01` `a09` `a02` `a27` và thẻ *Tệp của bạn*, đi theo 5 bước). **Tám tab**
 cũ nằm trong *Chế độ chuyên gia* (tắt sẵn): năm tầng tín hiệu, chọn kênh mù nhãn trên cả 4 kênh (`peakprob` hoặc PSD), đồ thị nhịp
 tim thai kèm đèn từng đoạn, so sánh với nhãn, tổng hợp 60 bản sạch, **Dữ liệu của nhóm** (bảng mọi bản ghi của
 5 bộ đọc thật từ header `.hea`/`.edf`, kèm nút xem tín hiệu thô có vạch nhãn), **Tải dữ liệu mới** (`.edf`,

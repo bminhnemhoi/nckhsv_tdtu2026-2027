@@ -20,10 +20,16 @@ ROOT = os.path.dirname(HERE)
 import numpy as np
 import pandas as pd
 import gradio as gr
+import fastapi
+import uvicorn
+import markdown
+from fastapi.responses import HTMLResponse, JSONResponse
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 import core
+from monitor_template import MONITOR_HTML
+from research_template import RESEARCH_HTML
 
 DISCLAIMER = 'Bản mẫu nghiên cứu. Không phải thiết bị y tế. Không dùng cho chẩn đoán.'
 UPLOAD_DIR = os.path.join(HERE, '_uploads')
@@ -1835,8 +1841,264 @@ def launch_kwargs(**extra):
 
 
 demo = build_app()
+server_app = fastapi.FastAPI(title='RelyFetal Live Clinical ECG Monitor')
+
+
+@server_app.get('/monitor', response_class=HTMLResponse)
+def monitor_page():
+    return HTMLResponse(content=MONITOR_HTML)
+
+
+@server_app.get('/api/monitor_data')
+def monitor_data(rec: str = 'r01'):
+    recs = core.sample_records()
+    rec_name = rec if rec in recs else 'r01'
+    rec_obj = core.load_sample(rec_name, recs)
+    out = core.analyze_record(rec_obj, lead='peakprob')
+
+    raw_1000 = out.get('raw', np.array([]))
+    if len(raw_1000) > 0:
+        step = max(1, int(out.get('fs_raw', 1000) // 250))
+        raw_250 = raw_1000[::step]
+    else:
+        raw_250 = np.array([])
+
+    residual = out.get('residual_250', np.array([]))
+    peaks_250 = out.get('fetal_peaks_250', np.array([]))
+    peaks_sec = [float(p / 250.0) for p in peaks_250]
+
+    fhr_time = out.get('fhr_time_s', np.array([]))
+    fhr_series = out.get('fhr_series', np.array([]))
+    tachogram = []
+    for t, b in zip(fhr_time, fhr_series):
+        if np.isfinite(b):
+            tachogram.append({'t': round(float(t), 2), 'bpm': round(float(b), 1)})
+
+    dur_limit = min(30.0, float(out.get('duration_s', 30.0)))
+    n_samples = int(dur_limit * 250)
+    residual = residual[:n_samples]
+    raw_250 = raw_250[:n_samples]
+    peaks_sec = [round(float(p), 3) for p in peaks_sec if p <= dur_limit]
+    tachogram = [t for t in tachogram if t['t'] <= dur_limit]
+
+    def _norm_signal(sig):
+        if len(sig) == 0:
+            return []
+        s = np.asarray(sig, dtype=float)
+        s = s - np.median(s)
+        p99 = np.percentile(np.abs(s), 99.5) if len(s) > 0 else 1.0
+        scale = p99 if p99 > 1e-12 else (np.max(np.abs(s)) if np.max(np.abs(s)) > 1e-12 else 1.0)
+        return [round(float(v), 5) for v in (s / scale)]
+
+    norm_res = _norm_signal(residual)
+    norm_raw = _norm_signal(raw_250)
+
+    m_peaks = out.get('maternal_peaks', np.array([]))
+    m_peaks_sec = [round(float(p / 250.0), 3) for p in m_peaks if (p / 250.0) <= dur_limit]
+    m_bpm = 74.0
+    if len(m_peaks) > 1:
+        dur_m = (m_peaks[-1] - m_peaks[0]) / 250.0
+        if dur_m > 0:
+            m_bpm = round((len(m_peaks) - 1) / dur_m * 60.0, 1)
+
+    f1 = None
+    if 'metrics' in out and 'F1' in out['metrics']:
+        f1 = round(float(out['metrics']['F1']), 2)
+
+    return JSONResponse({
+        'case_name': rec_name,
+        'duration': dur_limit,
+        'fs': 250,
+        'signals': {
+            'residual': norm_res,
+            'raw': norm_raw,
+        },
+        'max_amp': 1.0,
+        'peaks': peaks_sec,
+        'maternal_peaks': m_peaks_sec,
+        'tachogram': tachogram,
+        'median_fhr': round(float(out.get('fhr_mean', 140.0)), 1),
+        'maternal_bpm': m_bpm,
+        'f1_score': f1,
+        'latency_ms': round(float(out.get('latency_ms', 12.0)), 1),
+    })
+
+
+
+@server_app.get('/', response_class=HTMLResponse)
+def home_research_page():
+    """Trang chủ Nghiên cứu RelyFetal — Giao diện OLED Hiện đại thuần FastAPI + Plotly.js."""
+    return HTMLResponse(content=RESEARCH_HTML)
+
+
+@server_app.post('/api/run_analysis')
+async def api_run_analysis(request: fastapi.Request):
+    t0 = time.perf_counter()
+    try:
+        data = await request.json()
+    except Exception:
+        data = {}
+    rec_name = data.get('rec_name', 'r01')
+    lead_mode_in = data.get('lead_mode', 'peakprob')
+    conf_mode_in = data.get('conf_mode', 'hoc')
+
+    recs = core.sample_records()
+    if rec_name not in recs:
+        for k in recs:
+            if k == rec_name or rec_name in k:
+                rec_name = k
+                break
+        else:
+            rec_name = 'r01'
+    rec_obj = core.load_sample(rec_name, recs)
+    lead_arg = _lead_arg(lead_mode_in) if lead_mode_in in LEAD_MODE or lead_mode_in in ('1', '2', '3', '4') else 'peakprob'
+    conf_mode = 'hoc' if conf_mode_in in ('hoc', CONF_CHOICES[0]) else 'luat'
+
+    out = core.analyze_record(rec_obj, lead=lead_arg, confidence_mode=conf_mode)
+    wall = (time.perf_counter() - t0) * 1000
+
+    fig_sig = signal_figure(out)
+    fig_leads = leads_figure(out)
+    fig_fhr = fhr_figure(out)
+
+    lead_chips = []
+    if out.get('lead_scores'):
+        rule_k = out.get('lead_rule', 'peakprob')
+        fmt = (lambda v: f'{v:.3f}') if rule_k == 'peakprob' else (lambda v: f'{v:.2e}')
+        # F1 từng kênh nằm ở out['leads'][k]['F1'] (khoá 'candidate_metrics' không tồn tại -> cột F1 từng luôn rỗng)
+        leads_out = out.get('leads') or {}
+        for k, v in out['lead_scores'].items():
+            f1_str = None
+            if k in leads_out and leads_out[k].get('F1') is not None:
+                f1_str = f"{leads_out[k]['F1']:.1f}"
+            lead_chips.append({
+                'lead': k,
+                'score': fmt(v),
+                'f1': f1_str,
+                'selected': (k == out.get('lead'))
+            })
+
+    conf_obj = None
+    if 'confidence' in out:
+        # Mức đèn nằm ở out['confidence']['level'] ('cao' / 'trung_binh' / 'thap'). Khoá 'gate' không tồn tại, nên
+        # bản 16/09 luôn rơi về 'xanh': a02 (đèn ĐỎ thật) hiện "XANH (tin cậy)". Sửa 17/09 khi ghép vòng 10.
+        c_state = {'cao': 'xanh', 'trung_binh': 'vang', 'thap': 'do'}.get(out['confidence'].get('level'), 'vang')
+        col_map = {'xanh': '#30d158', 'vang': '#ffd60a', 'do': '#ff453a'}
+        label_map = {'xanh': 'XANH (tin cậy)', 'vang': 'VÀNG (nghi ngờ)', 'do': 'ĐỎ (từ chối)'}
+        conf_obj = {
+            'state': c_state,
+            'label': label_map.get(c_state, c_state.upper()),
+            'color': col_map.get(c_state, '#30d158'),
+            'score': float(out['confidence'].get('score', 1.0)),
+            'mode_label': core.CONF_MODE_LABEL.get(out.get('confidence_mode', 'hoc'), '')
+        }
+
+    leads_html = markdown.markdown(leads_md(out), extensions=['tables', 'fenced_code'])
+    cmp_html = markdown.markdown(compare_md(out), extensions=['tables', 'fenced_code'])
+    cmp_df_obj = compare_df(out)
+    cmp_table_html = (cmp_df_obj.to_html(classes='table', index=False)
+                      if cmp_df_obj is not None and not cmp_df_obj.empty
+                      else '<p style="color:var(--text-muted)">Không có sự kiện nhãn đối chiếu.</p>')
+
+    summary_obj = core.summary(out)
+
+    # Định dạng status và cards_html y chang Gradio ban đầu
+    lead_txt = ''
+    if out.get('lead_scores'):
+        key = out.get('lead_rule')
+        fmt = (lambda v: f'{v:.3f}') if key == 'peakprob' else (lambda v: f'{v:.2e}')
+        lead_txt = f' · điểm {key} từng kênh: ' + ', '.join(f'k{k}={fmt(v)}' for k, v in out['lead_scores'].items())
+    note = out.get('record_note') or ''
+    status_raw = (f'Đã phân tích **{out["record"]}** ({out["source"]}, {out["duration_s"]:.0f} s, {rec_obj["signals"].shape[0]} kênh'
+                  f'{"; " + note if note else ""}) — kênh **{out["lead"]}** ({out["lead_mode"]}){lead_txt} — checkpoint *{out["checkpoint_note"]}* '
+                  f'— đèn tin cậy: *{core.CONF_MODE_LABEL[out["confidence_mode"]]}*.')
+    status_html = markdown.markdown(status_raw)
+    cards_html_code = cards_html(out, wall)
+
+    return JSONResponse({
+        'record': out.get('record', rec_name),
+        'duration_s': float(out.get('duration_s', 0.0)),
+        'fhr_mean': float(out.get('fhr_mean', 0.0)) if out.get('fhr_mean') is not None else None,
+        'n_beats': len(out.get('fetal_peaks_250', [])),
+        'lead': out.get('lead', 1),
+        'n_leads': rec_obj['signals'].shape[0],
+        'lead_rule': out.get('lead_rule', 'peakprob'),
+        'lead_chips': lead_chips,
+        'confidence': conf_obj,
+        'latency_ms': round(wall, 1),
+        'latency_all_ms': round(float(out.get('latency_ms', wall)), 1),
+        'checkpoint_note': out.get('checkpoint_note', ''),
+        'status_html': status_html,
+        'cards_html': cards_html_code,
+        'fig_sig': fig_sig.to_json(),
+        'fig_leads': fig_leads.to_json(),
+        'fig_fhr': fig_fhr.to_json(),
+        'leads_html': leads_html,
+        'cmp_html': cmp_html,
+        'cmp_table_html': cmp_table_html,
+        'summary_json': summary_obj
+    })
+
+
+@server_app.get('/api/list_samples')
+def api_list_samples():
+    recs = core.sample_records()
+    items = [{'name': n, 'label': _rec_label(n)} for n in recs]
+    return JSONResponse({'records': items})
+
+
+@server_app.get('/api/summary_info')
+def api_summary_info():
+    md = summary_tables_md()
+    return JSONResponse({'html': markdown.markdown(md, extensions=['tables', 'fenced_code'])})
+
+
+@server_app.get('/api/dataset_table')
+def api_dataset_table(ds: str = 'adfecgdb'):
+    key = ds if ds in core.DATASET_KEYS else DS_LABELS.get(ds, 'adfecgdb')
+    df, head, _ = dataset_table(key)
+    rows, _ = core.dataset_rows(key)
+    records = [r['ten'] for r in rows] if rows else []
+    table_html = markdown.markdown(head, extensions=['tables', 'fenced_code']) + df.to_html(classes='table', index=False)
+    return JSONResponse({
+        'table_html': table_html,
+        'records': records
+    })
+
+
+@server_app.post('/api/dataset_raw')
+async def api_dataset_raw(request: fastapi.Request):
+    data = await request.json()
+    ds = data.get('ds', 'adfecgdb')
+    rec = data.get('rec', '')
+    key = ds if ds in core.DATASET_KEYS else DS_LABELS.get(ds, 'adfecgdb')
+    try:
+        fig, cap = dataset_raw_figure(key, rec)
+        return JSONResponse({
+            'fig': fig.to_json(),
+            'cap': markdown.markdown(cap, extensions=['tables', 'fenced_code'])
+        })
+    except Exception as e:
+        return JSONResponse({'error': str(e)}, status_code=400)
+
+
+def mount_kwargs():
+    """CSS/theme/ẩn chân trang cho Gradio khi GẮN vào FastAPI. Gradio 6 chỉ nhận css ở launch() hoặc mount_gradio_app();
+    thiếu phần này thì chế độ trình bày ở /gradio mất toàn bộ bố cục thẻ, thanh bước, thanh tóm tắt."""
+    sig = inspect.signature(gr.mount_gradio_app).parameters
+    kw = dict(css=CSS, footer_links=[])
+    if hasattr(gr, 'themes'):
+        kw['theme'] = gr.themes.Soft(primary_hue='emerald')
+    return {k: v for k, v in kw.items() if k in sig}
+
+
+# Gắn Gradio Blocks (chế độ trình bày 5 bước + chế độ chuyên gia 8 tab) vào đường dẫn '/gradio'
+server_app = gr.mount_gradio_app(server_app, demo, path='/gradio', **mount_kwargs())
 
 if __name__ == '__main__':
     port = int(os.environ.get('RELYFETAL_PORT', '7860'))
-    print(f'RelyFetal demo: http://127.0.0.1:{port}   ({DISCLAIMER})')
-    demo.launch(**launch_kwargs(server_port=port))
+    print(f'RelyFetal Web App: http://127.0.0.1:{port}   ({DISCLAIMER})')
+    print(f'Live Monitor:      http://127.0.0.1:{port}/monitor')
+    print(f'Chế độ trình bày:  http://127.0.0.1:{port}/gradio/   (5 bước; Chế độ chuyên gia = 8 tab)')
+    uvicorn.run(server_app, host='127.0.0.1', port=port, log_level='info')
+

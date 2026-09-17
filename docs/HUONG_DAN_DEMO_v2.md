@@ -34,7 +34,10 @@ $env:OPENBLAS_NUM_THREADS = "1"; $env:OMP_NUM_THREADS = "1"; $env:MKL_NUM_THREAD
 python demo/app.py
 ```
 
-Mở trình duyệt tại **http://127.0.0.1:7860**. Cổng bận thì đặt `$env:RELYFETAL_PORT = "7870"` rồi chạy lại, mở cổng 7870.
+Mở trình duyệt tại **http://127.0.0.1:7860/gradio/** — đây là chế độ trình bày. Từ commit ghép 17/09, `python demo/app.py`
+chạy một máy chủ FastAPI có ba trang: `/` là trang nghiên cứu HTML của Khánh (bố cục 8 tab), `/monitor` là trang theo dõi
+tín hiệu, `/gradio/` là chế độ trình bày 5 bước dùng cho buổi báo cáo. Cửa sổ dòng lệnh in đủ ba địa chỉ khi khởi động.
+Cổng bận thì đặt `$env:RELYFETAL_PORT = "7870"` rồi chạy lại, mở `http://127.0.0.1:7870/gradio/`.
 Demo đọc biến `RELYFETAL_PORT`, **không** đọc `GRADIO_SERVER_PORT`.
 
 Màn hình gồm các phần sau, từ trên xuống. Tiêu đề mục hiện bằng chữ in hoa.

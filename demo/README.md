@@ -26,7 +26,8 @@ Chọn kênh mù nhãn mặc định là **peakprob** (quy tắc hậu kiểm �
 
 ```bash
 pip install gradio plotly            # đã kiểm với gradio 6.26.0, plotly 7.0.0 (Python 3.12.6, torch 2.13.0+cpu)
-python demo/app.py                   # mở http://127.0.0.1:7860
+python demo/app.py                   # máy chủ FastAPI; chế độ trình bày: http://127.0.0.1:7860/gradio/
+                                     # / = trang nghiên cứu HTML (research_template.py), /monitor = monitor_template.py
 ```
 
 | Biến môi trường | Ý nghĩa | Mặc định |

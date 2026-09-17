@@ -176,7 +176,8 @@ python demo/smoke_app.py                         # kỳ vọng: KẾT QUẢ: Đ�
 python demo/app.py                               # mở trình duyệt: 5 thẻ (4 bản ghi + Tệp của bạn) + 5 bước; tick "Chế độ chuyên gia" -> đếm đủ 8 tab
 ```
 
-Demo mặc định chạy ở `http://127.0.0.1:7860`. Cổng bị chiếm thì đổi bằng **`RELYFETAL_PORT`** — không phải
+Demo chạy máy chủ FastAPI ở cổng 7860 (từ lần ghép 17/09): chế độ trình bày ở **`http://127.0.0.1:7860/gradio/`**,
+trang nghiên cứu HTML của Khánh ở `/`, trang theo dõi tín hiệu ở `/monitor`. Cổng bị chiếm thì đổi bằng **`RELYFETAL_PORT`** — không phải
 `GRADIO_SERVER_PORT`, biến đó demo không đọc:
 
 ```powershell
@@ -345,6 +346,7 @@ Xếp theo **giá trị chia chi phí**. Việc cần người ngoài đứng đ
 | 8 | Dựng bài CinC bằng **`cinc.cls` chính thức**, đếm lại trang | Hiện dùng template mô phỏng; hạn ~4/2027 | 1 ngày |
 | 9 | Toàn văn **mù** cho Euréka | Chấm mù: không tên, trường, GVHD | 1 ngày |
 | 10 | **Xuất cổng từ chối 22 ca thành tệp và thay cổng cũ trong demo** | Demo đang chạy cổng 5 ca `fsqi/gate_classical.pkl` (AUROC trong bản ghi 0,721 [0,517; 0,898], đo khi ghép mô hình 5 ca; ghép mô hình 22 ca đang chạy: chưa đo lại); cổng 22 ca (0,934 [0,872; 0,981]) mới chỉ tồn tại dưới dạng phân tích (`analysis/GATE22.md`). Thay xong phải chạy lại `demo/run_check.py` và cập nhật `F_demo` | Chưa ước |
+| 11 | **Rà hai trang HTML mới (`demo/research_template.py`, `demo/monitor_template.py`, commit 16/09 của Khánh)** | Lần ghép 17/09 đã sửa hai lỗi sai sự thật ở `/api/run_analysis`: đèn luôn "XANH" vì đọc khoá `gate` không tồn tại (a02 đèn đỏ thật hiện xanh), và cột F1 từng dây luôn rỗng. Còn phải rà: tiêu đề "Live Clinical ECG Monitor" và câu "không phải thiết bị y tế chẩn đoán chính thức" (dễ hiểu là thiết bị chẩn đoán không chính thức); `/api/monitor_data` tự điền số khi thiếu dữ liệu (nhịp mẹ 74, nhịp thai 140, thời gian 12 ms); trang `/` chép tĩnh nội dung chế độ chuyên gia trước vòng 10 nên cần đối chiếu lại với `demo/app.py` | Chưa ước |
 
 **Đừng làm** — bằng chứng đã nói là đòn bẩy yếu:
 

@@ -13,6 +13,18 @@ Chi tiết từng vòng thẩm định: [`docs/nhat_ky/`](docs/nhat_ky/). Danh s
 
 ## Vòng 10 — 16–17/09/2026 — Buổi trình bày với giảng viên: kịch bản, bối cảnh, demo dễ hiểu
 
+**Ghép với commit `cbce196` của Khánh (16/09) — máy chủ FastAPI**
+
+- `python demo/app.py` nay chạy máy chủ FastAPI của Khánh: `/` trang nghiên cứu HTML (`demo/research_template.py`),
+  `/monitor` trang theo dõi tín hiệu (`demo/monitor_template.py`), **`/gradio/` chế độ trình bày** của vòng 10. Giữ nguyên
+  cách định tuyến và hai trang của Khánh; tài liệu đổi địa chỉ demo sang `http://127.0.0.1:7860/gradio/`.
+- **Sửa khi ghép — sai sự thật:** `/api/run_analysis` đọc khoá `gate` không tồn tại nên đèn luôn "XANH (tin cậy)"; a02
+  (đèn đỏ thật) hiện xanh. Nay đọc `confidence.level`. Cột F1 từng dây đọc khoá `candidate_metrics` không tồn tại nên luôn
+  rỗng; nay đọc `leads[k].F1`. Thêm kiểm thử.
+- **Sửa khi ghép — hiển thị:** Gradio 6 chỉ nhận CSS ở `launch()` hoặc `mount_gradio_app()`; gắn vào `/gradio` mà không
+  truyền CSS thì chế độ trình bày mất toàn bộ bố cục. Nay truyền `css`, `theme`, `footer_links`.
+- Việc còn lại cho hai trang HTML: `HANDOFF.md` mục 10, việc 11.
+
 **Đã làm**
 
 - Tài liệu mới: `docs/BOI_CANH_1_KENH.md` (vì sao một kênh, 30 bài theo số kênh, các bài đơn kênh đã tới đâu),

@@ -381,8 +381,11 @@ The dilated CNN was kept for **parameter efficiency**, not because its family is
 ## Demo
 
 ```bash
-python demo/app.py        # → http://127.0.0.1:7860
+python demo/app.py        # FastAPI server: /gradio/ presentation mode · / research page · /monitor
 ```
+
+Open **http://127.0.0.1:7860/gradio/**. Since the 17/09 merge, `demo/app.py` runs a FastAPI server: `/` is a standalone
+HTML research page (team member's 8-tab layout), `/monitor` a signal monitor, `/gradio/` the Gradio app below.
 
 Gradio. The page opens in a **presentation mode** (four record cards — r01, a09, a02, a27 — that run on click, a
 five-step walkthrough shown one step at a time, and a sticky six-item summary bar; guide:
