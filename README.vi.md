@@ -349,7 +349,7 @@ model/                    Thư viện lõi, huấn luyện, suy luận, 20 check
 benchmark_dpss/           Bộ đối chuẩn: full_measure, blind_lead, silesia_eval, eval_22, eval_cinc75, eval_cinc60_sach
 baselines/                TS / TS-PCA / độ nhô; Power-MF 4 kênh (Octave) và 1 kênh; BASELINES.md
 fsqi/                     Chỉ số chất lượng tín hiệu (C3): kết quả phủ định về topo, cổng 12 chỉ số (6 dựa trên đầu ra mạng)
-demo/                     Gradio: chế độ trình bày 5 bước + 8 tab chuyên gia (core.py không phụ thuộc UI, 66 kiểm thử trong test_core.py; run_check.py chấm 82 bản; ảnh chụp thật trong screenshots/)
+demo/                     Gradio: chế độ trình bày 5 bước + 8 tab chuyên gia (core.py không phụ thuộc UI, 68 kiểm thử trong test_core.py; run_check.py chấm 82 bản; ảnh chụp thật trong screenshots/)
 api/                      FastAPI (main.py), lược đồ trong api/README.md
 pilot_evidence/           Thí nghiệm tiền khả thi kèm nhật ký (dải lọc, kiến trúc, trường tiếp nhận, band_tcn)
 adapt/                    Thích nghi miền không nhãn — bốn phương pháp, đều thất bại (adapt_results.json)
@@ -363,7 +363,7 @@ docs/                     PDF/DOCX đã biên dịch; DE_CUONG_HIEN_TRANG.md, KI
 docs/trinh_bay/           Slide 31 trang (phím N ghi chú, O tổng quan) và sổ tay đề tài — HTML mở bằng trình duyệt
 docs/nhat_ky/             Biên bản 7 vòng thẩm định phản biện
 archive/                  Script vá một lần đã rút khỏi cây làm việc (kèm README)
-tests/                    Kiểm thử ghim số tham số, trường tiếp nhận, API (43; cộng 66 trong demo/test_core.py = 109, đếm 17/09/2026)
+tests/                    Kiểm thử ghim số tham số, trường tiếp nhận, API (43; cộng 68 trong demo/test_core.py = 111, đếm 18/09/2026)
 ```
 
 ---
@@ -385,7 +385,7 @@ python model/predict.py --input model/data/adfecgdb/r01.edf --lead 1 --annot qrs
 Chạy lại toàn bộ (thứ tự trong `README.md`, mục *Reproducing every number*); riêng số CinC:
 `python benchmark_dpss/eval_cinc75.py && python benchmark_dpss/eval_cinc60_sach.py`, kiểm toán trùng:
 `python analysis/dulieu_audit.py && python analysis/dulieu_m4b_verify.py`, kiểm thử:
-`pytest tests/ demo/test_core.py` (109 kiểm thử tại 17/09/2026; bản ghi chưa tải sẽ *skipped* chứ không *failed*).
+`pytest tests/ demo/test_core.py` (111 kiểm thử tại 18/09/2026; bản ghi chưa tải sẽ *skipped* chứ không *failed*).
 
 ---
 

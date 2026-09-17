@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Chế độ trình bày (T3): khởi động demo thật, đi hết 5 bước với 4 thẻ, ghi thời gian, chụp 6 ảnh
--> demo/screenshots/17..23 + demo/screenshots/screenshots_v2.json.
+-> demo/screenshots/17..24 + demo/screenshots/screenshots_v2.json.
 
   17_the_r01.png   sau khi bấm thẻ r01: bước 1 + thanh tóm tắt (toàn trang)
   18_the_a09.png   sau khi bấm thẻ a09
@@ -10,21 +10,25 @@ Chế độ trình bày (T3): khởi động demo thật, đi hết 5 bước v�
   21_a09_buoc4.png a09 ở bước 4 (chọn dây: hai quy tắc)
   22_a02_buoc5.png a02 ở bước 5 (đèn ĐỎ, bám nhịp mẹ; chi tiết kỹ thuật đóng sẵn)
   23_a02_buoc4.png a02 ở bước 4 (hộp vàng: dây 1 tốt hơn nhưng 6/7 cách chọn mù nhãn chọn dây 2, không cách nào chọn dây 1)
+  24_a09_buoc3.png a09 ở bước 3 (mức tin của mạng; vạch tím đậm = nhịp mạng đã báo, chưa biết đúng hay sai)
 
 Cần: pip install playwright && python -m playwright install chromium
 Chạy: python demo/screenshot_v2.py       (server tạm ở cổng 7863, tự tắt khi xong)
 """
-import os, sys, time, json, traceback
+import os, sys, time, json, traceback, subprocess, urllib.request
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
+ROOT = os.path.dirname(HERE)
 OUT = os.path.join(HERE, 'screenshots'); os.makedirs(OUT, exist_ok=True)
 PORT = int(os.environ.get('RELYFETAL_SHOT_PORT', '7863'))
 os.environ['RELYFETAL_AUTORUN'] = '1'
 
 from playwright.sync_api import sync_playwright
-import app
 
-url = f'http://127.0.0.1:{PORT}/'
+# Chạy ĐÚNG như người dùng: python demo/app.py (máy chủ FastAPI) rồi mở /gradio/.
+# Không import app rồi demo.launch() trong cùng tiến trình: từ 17/09 app.py đã gắn Blocks vào FastAPI lúc import,
+# gọi launch() thêm lần nữa làm trang mất hàng phút mới sẵn sàng.
+url = f'http://127.0.0.1:{PORT}/gradio/'
 log = dict(port=PORT, shots={}, thoi_gian={}, ok=False)
 SHOT = {'r01': '17_the_r01.png', 'a09': '18_the_a09.png', 'a02': '19_the_a02.png', 'a27': '20_the_a27.png'}
 
@@ -100,9 +104,18 @@ def go_next(page, expect_step, max_s=120):
     return time.perf_counter() - t0
 
 
-demo = app.demo
+env = dict(os.environ, RELYFETAL_PORT=str(PORT), PYTHONIOENCODING='utf-8', PYTHONUNBUFFERED='1')
+srv_log = open(os.path.join(OUT, 'may_chu.log'), 'w', encoding='utf-8')
+srv = subprocess.Popen([sys.executable, os.path.join(HERE, 'app.py')], cwd=ROOT, env=env,
+                       stdout=srv_log, stderr=subprocess.STDOUT)
 try:
-    demo.launch(**app.launch_kwargs(server_port=PORT, prevent_thread_lock=True, quiet=True))
+    for _ in range(180):                                     # đợi máy chủ lên
+        try:
+            urllib.request.urlopen(url, timeout=3); break
+        except Exception:                                    # noqa: BLE001
+            if srv.poll() is not None:
+                raise RuntimeError(f'demo/app.py thoát sớm, mã {srv.returncode}; xem screenshots/may_chu.log')
+            time.sleep(1)
     with sync_playwright() as pw:
         br = pw.chromium.launch(args=['--use-gl=swiftshader', '--enable-webgl', '--ignore-gpu-blocklist'])
         page = br.new_page(viewport=dict(width=1366, height=768), device_scale_factor=1.5)
@@ -122,6 +135,8 @@ try:
             steps = {}
             for s in range(2, 6):
                 steps[s] = round(go_next(page, s), 2)
+                if name == 'a09' and s == 3:
+                    shot(page, '24_a09_buoc3.png')
                 if name == 'a09' and s == 4:
                     shot(page, '21_a09_buoc4.png')
                 if name == 'a02' and s == 4:
@@ -151,10 +166,13 @@ try:
 except Exception as e:                                       # noqa: BLE001
     log['error'] = f'{type(e).__name__}: {e}'; print('LỖI:', log['error']); traceback.print_exc(limit=3)
 finally:
+    srv.terminate()
     try:
-        demo.close()
+        srv.wait(timeout=10)
     except Exception:                                        # noqa: BLE001
-        pass
+        srv.kill()
+    srv_log.close()
+    log['duong_dan'] = url
     with open(os.path.join(OUT, 'screenshots_v2.json'), 'w', encoding='utf-8') as f:
         json.dump(log, f, indent=1, ensure_ascii=False)
     print('KẾT QUẢ:', 'ĐẠT' if log['ok'] else 'LỖI', '->', OUT)

@@ -558,7 +558,7 @@ python fsqi/eval_fsqi.py                                 # reject gate + negativ
 python demo/run_check.py && python demo/smoke_app.py     # demo checks
 python analysis/xacnhan.py                               # round-7 confirmation checks (no new inference)
 python survey/make_facts_phase4.py                       # regenerate the single source of truth
-pytest tests/ demo/test_core.py                          # 109 tests as of 17 Sep 2026 (43 + 66), rising as the demo is edited (records not downloaded are skipped, not failed)
+pytest tests/ demo/test_core.py                          # 111 tests as of 18 Sep 2026 (43 + 68), rising as the demo is edited (records not downloaded are skipped, not failed)
 ```
 
 ---

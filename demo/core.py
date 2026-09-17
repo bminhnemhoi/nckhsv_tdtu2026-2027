@@ -304,7 +304,15 @@ def checkpoint_for(record_name):
             return p, f'22 ca, fold {fold} (chủ thể {n} KHÔNG nằm trong tập huấn luyện)'
     p = _ckpt('fetalqrs_tcn_22_production.pt')
     if os.path.isfile(p):
-        return p, '22 ca, production (zero-shot: bản ghi không thuộc 22 chủ thể huấn luyện)'
+        # chỉ khẳng định "zero-shot" khi KIỂM ĐƯỢC: bản ghi CinC sạch thì chắc chắn ngoài 22 chủ thể;
+        # bản CinC rò rỉ là bản sao của chủ thể ĐÃ huấn luyện; tệp tải lên thì demo không kiểm được gì ngoài cái tên
+        if n in CINC_LEAK:
+            return p, (f'22 ca, production (CẢNH BÁO: {n} là bản sao của {CINC_LEAK[n]} trong tập huấn luyện '
+                       '— KHÔNG phải zero-shot, F1 ở đây là số bị thổi)')
+        if n in CINC_RECS:
+            return p, f'22 ca, production (zero-shot: {n} không thuộc 22 chủ thể huấn luyện)'
+        return p, ('22 ca, production (tên bản ghi không khớp danh sách 22 chủ thể huấn luyện; '
+                   'demo KHÔNG kiểm được tệp có trùng chủ thể huấn luyện hay không)')
     if n in ADFECGDB_RECS and os.path.isfile(_ckpt(f'fetalqrs_tcn_fold_{n}.pt')):
         return _ckpt(f'fetalqrs_tcn_fold_{n}.pt'), f'5 ca, fold {n} (dự phòng: thiếu checkpoint 22 ca)'
     return _ckpt('fetalqrs_tcn_production.pt'), '5 ca, production (dự phòng: thiếu checkpoint 22 ca)'
@@ -1110,6 +1118,11 @@ def doc_tai_len(paths, workdir, fs=1000, label_paths=None, lead=None):
         raise LoiDuLieu(f'Tệp {os.path.basename(main)} không chứa kênh tín hiệu nào.')
     if not np.isfinite(rec['signals']).any():
         raise LoiDuLieu(f'Tệp {os.path.basename(main)} không có giá trị số hợp lệ nào (toàn NaN/rỗng).')
+    # tệp rác đọc ra bảng gần như rỗng: báo đúng nguyên nhân, đừng đẩy sang nhánh "quá ngắn" rồi bảo kiểm tần số
+    if ext in ('.csv', '.txt', '.npy') and rec['signals'].shape[1] < 2:
+        raise LoiDuLieu(f'Không đọc được tệp {os.path.basename(main)} thành bảng số: chỉ lấy ra được '
+                        f'{rec["signals"].shape[1]} mẫu. Tệp .csv/.txt/.npy phải gồm các cột SỐ, mỗi cột một kênh, '
+                        'mỗi dòng một mẫu; được phép có một dòng tiêu đề.')
     if rec['duration_s'] < MIN_DURATION_S:
         raise LoiDuLieu(f'Bản ghi chỉ dài {rec["duration_s"]:.2f} giây — quá ngắn. '.replace('.', ',', 1)
                         + f'Cần ít nhất {MIN_DURATION_S:g} giây (mô hình dùng cửa sổ 4 giây, trường tiếp nhận 1,516 giây). '

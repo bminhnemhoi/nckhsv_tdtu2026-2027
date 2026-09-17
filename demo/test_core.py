@@ -181,6 +181,20 @@ def test_checkpoint_routing():
     assert p.endswith('fetalqrs_tcn_22_production.pt')
 
 
+@need_22
+def test_checkpoint_note_chi_noi_zero_shot_khi_kiem_duoc():
+    """'zero-shot' là một khẳng định: chỉ được nói khi bản ghi nằm trong danh sách CinC sạch.
+
+    a04 là bản sao của r01 (chủ thể ĐÃ huấn luyện) nên phải cảnh báo, không được gọi là zero-shot;
+    tệp tải lên thì demo chỉ biết cái tên, không kiểm được trùng chủ thể hay không.
+    """
+    note_leak = core.checkpoint_for('a04')[1]
+    assert 'r01' in note_leak and 'KHÔNG phải zero-shot' in note_leak
+    note_up = core.checkpoint_for('benh_nhan_moi')[1]
+    assert 'zero-shot' not in note_up and 'KHÔNG kiểm được' in note_up
+    assert 'zero-shot' in core.checkpoint_for('a09')[1]
+
+
 # ------------------------------------------------------------------ hợp đồng của analyze()
 @need_r01
 def test_analyze_returns_required_keys():
@@ -875,9 +889,18 @@ def test_may_chu_fastapi_den_tin_cay_doc_dung_muc_va_gradio_co_css():
     import gradio as gr
     with TestClient(app.server_app) as cl:
         j = cl.post('/api/run_analysis', json={'rec_name': 'a02'}).json()
-        assert j['confidence']['state'] == 'do' and 'ĐỎ' in j['confidence']['label']
+        assert j['confidence']['state'] == 'do' and j['confidence']['label'] == core.LEVEL_LABEL['thap']
         assert [c['f1'] for c in j['lead_chips']][0] == '75.9'          # F1 từng dây không còn rỗng
+        assert j['latency_selected_ms'] and 'latency_all_leads_ms' in j and 'wall_ms' in j
         assert cl.get('/gradio/').status_code == 200
+        # [/monitor] trang này từng không có đèn nào: a02 (đèn ĐỎ thật) hiện "NHỊP TIM THAI BÌNH THƯỜNG"
+        m = cl.get('/api/monitor_data?rec=a02').json()
+        assert m['confidence']['level'] == 'thap' and m['confidence']['label'] == core.LEVEL_LABEL['thap']
+        assert m['confidence']['maternal_lock'] > 0.6 and m['checkpoint_note']
+        html = cl.get('/monitor').text
+        assert 'ĐÈN ĐỎ — HỆ THỐNG TỪ CHỐI, KHÔNG DÙNG SỐ NÀY' in html
+        for bia in ('99.9%', '>74<', '>12<', '|| 74', '|| 12', '|| 140', 'AAMI'):
+            assert bia not in html, bia                                # không tự điền số, không gán chuẩn AAMI
     kw = app.mount_kwargs()
     if 'css' in inspect.signature(gr.mount_gradio_app).parameters:
         assert kw['css'] is app.CSS and '.rf-story-col' in kw['css']

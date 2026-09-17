@@ -7,8 +7,9 @@
 > Mọi con số ở đây truy ngược được về một tệp trên đĩa (ghi ở Phụ lục). Không có kết quả nào tính trên 75 bản CinC;
 > số chính là **60 bản sạch**.
 
-Cập nhật: 17/09/2026, khớp demo **sau lượt sửa thứ ba (kiểm demo độc lập lần hai)** (`demo/app.py` sửa lần cuối 21:55,
-`demo/core.py` và `fsqi/gate.py` 21:50, ảnh `demo/screenshots/17..23` chụp 22:01–22:02). Quy ước trong tài liệu này:
+Cập nhật: 18/09/2026, khớp demo **sau lượt sửa thứ ba (kiểm demo độc lập lần hai) và sau khi ghép máy chủ FastAPI**
+(`demo/app.py` sửa lần cuối 17/09 23:27, `demo/core.py` 17/09 23:14, `fsqi/gate.py` 17/09 21:50; ảnh
+`demo/screenshots/17..24` chụp lại 18/09 lúc 01:21–01:22 qua `/gradio/`). Quy ước trong tài liệu này:
 
 * Chữ nghiêng = **chuỗi giao diện**, chép từ `demo/app.py`, `demo/core.py` hoặc `fsqi/gate.py`. Dấu `…` là chỗ demo điền số của bản ghi.
   Mọi chuỗi nghiêng đã được đối chiếu tự động với mã và với chuỗi hiển thị thật của bốn thẻ (Phụ lục B).
@@ -49,18 +50,18 @@ Màn hình gồm các phần sau, từ trên xuống. Tiêu đề mục hiện b
 | Dòng trạng thái ngay dưới hàng thẻ | Trong lúc chạy: *⏳ Đang phân tích bản ghi a02 (Máy bám nhầm tim mẹ) — khoảng 5–10 giây. Xong thì hình bên dưới tự đổi; chờ xong rồi hãy bấm "Tiếp ▶".* Nếu lỗi, dòng này chuyển nền đỏ: *Không phân tích được bản ghi …: … Hình bên dưới vẫn là bản ghi trước — bấm lại thẻ hoặc chọn thẻ khác.* | Chờ dòng này biến mất **và** ô *Bản ghi* ở thanh tóm tắt đổi sang đúng bản vừa bấm. Xong thì trang **tự cuộn** tới thanh 5 bước, trừ khi thanh đó đã nằm ở nửa trên màn hình. Lỡ bấm hai thẻ liền nhau: chỉ **thẻ bấm sau cùng** được vẽ; lượt cũ tính xong nhưng không vẽ, nên có thể phải chờ lâu hơn (mục 4.5) |
 | *2 · Đi theo 5 bước* | Dòng gợi ý *Bấm "Tiếp ▶" để sang bước sau; khi cần, trang tự cuộn tới thanh 5 bước. Bấm thẻ khác ở trên để đổi bản ghi.* Thanh 5 bước, nút *◀ Quay lại* và *Tiếp ▶*. Mỗi lúc chỉ hiện một bước | Bấm *Tiếp ▶*: trang tự cuộn tới thanh 5 bước nếu thanh đó chưa nằm ở nửa trên màn hình. Nếu người xem đã bật chế độ chuyên gia và cuộn đi chỗ khác trong lúc chờ, trang **không** kéo họ về. Ở bước 5 nút đổi thành *Xem lại từ đầu ↺* |
 | **Thanh tóm tắt** | **Dính đáy màn hình** suốt khi xem 5 bước, trên màn hình rộng hơn 700 px; hẹp từ 700 px trở xuống thì nằm yên cuối các bước. Cuộn xuống chế độ chuyên gia thì thôi dính. 6 ô: *Bản ghi* · *Bộ dữ liệu* · *Dây đã chọn* · *F1 (bắt đủ và báo đúng, 100 là hoàn hảo)* · *Nhịp tim thai trung bình* · *Đèn tin cậy*. Dòng dưới: F1 trung bình trên 60 bản ngoài miền theo năm cách chọn dây (mục 4) | Nhìn khi bị hỏi "kết quả là gì" |
-| Ô tick cuối trang, mặc định TẮT | *Chế độ chuyên gia — hiện 8 tab đầy đủ (bảng số, dữ liệu của nhóm, tải tệp, nhật ký)* | Chỉ bật khi bị hỏi sâu (mục 5) |
+| Ô tick cuối trang, mặc định TẮT | *Chế độ chuyên gia — hiện 8 tab đầy đủ (bảng số, dữ liệu của nhóm, tải tệp, nhật ký); màn hẹp thì hai tab cuối nằm trong nút "…" ở cuối hàng tab* | Chỉ bật khi bị hỏi sâu (mục 5) |
 
 Mở trang xong, thẻ **r01 tự chạy**, dòng trạng thái ghi *⏳ Đang mở sẵn bản ghi r01 (Ca dễ) — khoảng 5–10 giây.*
 Lần đầu phải nạp mô hình nên lâu hơn các lần sau (bảng thời gian ở mục 2.5). Chân trang Gradio (`Use via API`,
 `Built with Gradio`, `Settings`) đã ẩn.
 
-**Kiểm trước buổi** (số kiểm thử đếm bằng `pytest --collect-only` ngày 17/09/2026 sau lượt sửa thứ ba; thời gian chạy chưa đo lại):
+**Kiểm trước buổi** (số kiểm thử đếm bằng `pytest --collect-only` ngày 18/09/2026, sau khi ghép máy chủ FastAPI; thời gian chạy chưa đo lại):
 
 ```powershell
 python demo/smoke_app.py                              # dòng cuối bắt đầu bằng: KẾT QUẢ: ĐẠT
-python -m pytest demo/test_core.py -k trinh_bay -q    # 22 kiểm thử của chế độ trình bày
-python -m pytest tests/ demo/test_core.py -q          # toàn bộ: 109 kiểm thử (43 trong tests/ + 66 trong demo/test_core.py)
+python -m pytest demo/test_core.py -k trinh_bay -q    # 23 kiểm thử của chế độ trình bày
+python -m pytest tests/ demo/test_core.py -q          # toàn bộ: 111 kiểm thử (43 trong tests/ + 68 trong demo/test_core.py)
 ```
 
 Tầng `[5]` của smoke là chế độ trình bày: bấm thẻ ra 33 đầu ra (phần tử cuối là dòng trạng thái, rỗng khi chạy xong) và về bước 1.
@@ -157,20 +158,23 @@ Chỉ vào thanh tóm tắt:
 > "Tách nhịp bé khỏi nhịp mẹ, tự chọn dây, tự báo đỏ khi đáng ngờ. Chọn dây chưa phải lúc nào cũng đúng, như a02.
 > Đèn cũng còn phải kiểm thêm."
 
-**Thời gian đo bằng trình duyệt tự động** (`python demo/screenshot_v2.py`, 17/09/2026, lần chạy ghi tệp lúc 22:02; Chromium
-không giao diện, 1366×768, vẽ đồ thị bằng phần mềm, không dùng GPU). Mở trang đến khi r01 sẵn: **7,2 s**.
+**Thời gian đo bằng trình duyệt tự động** (`python demo/screenshot_v2.py`, 18/09/2026; script khởi động đúng lệnh
+`python demo/app.py` rồi mở `/gradio/`; Chromium không giao diện, 1366×768, vẽ đồ thị bằng phần mềm, không dùng GPU).
+Mở trang đến khi r01 sẵn: **7,1 s**.
 
-> ⚠ Đây là **một lần đo**, không phải phép đo hiệu năng chuẩn; nhóm không ghi lại lúc đó máy có chạy việc khác hay không,
-> và tệp `screenshots_v2.json` bị ghi đè mỗi lần chụp lại. **Không dùng các số này để kết luận demo nhanh hay chậm.**
+> ⚠ Đây là **một lần đo**, không phải phép đo hiệu năng chuẩn, và tệp `screenshots_v2.json` bị ghi đè mỗi lần chụp lại.
+> **Không dùng các số này để kết luận demo nhanh hay chậm.** Số đo phụ thuộc rất mạnh vào việc máy đang bận gì: cùng ngày
+> 18/09, khi một tiến trình quét ổ đĩa còn sót lại chiếm CPU, cùng script cho **51,7 s** mở trang và 14–24 s mỗi thẻ;
+> tắt tiến trình đó rồi đo lại thì còn 7,1 s và 3–6 s. Trước buổi báo cáo nên đóng các việc nặng khác.
 > Chữ *khoảng 5–10 giây* trên thẻ và ở dòng trạng thái là ước lượng ghi trong mã, không phải số đo của
 > lần này. Vì sao lúc nhanh lúc chậm: mục 4.5.
 
 | Thẻ | Bấm thẻ → bước 1 hiện | Sang bước 2 · 3 · 4 · 5 | Đi hết 5 bước |
 |---|---:|---|---:|
-| r01 (300 s) | 6,95 s | 2,55 · 2,91 · 4,55 · 0,90 s | 18,22 s |
-| a09 (60 s) | 2,77 s | 1,63 · 1,73 · 2,23 · 1,09 s | 10,03 s |
-| a02 (60 s) | 3,48 s | 1,72 · 1,82 · 2,05 · 1,08 s | 10,93 s |
-| a27 (60 s) | 3,40 s | 1,62 · 1,78 · 2,10 · 1,41 s | 10,52 s |
+| r01 (300 s) | 5,50 s | 2,59 · 2,95 · 4,74 · 0,89 s | 19,12 s |
+| a09 (60 s) | 2,95 s | 1,72 · 1,85 · 2,52 · 1,10 s | 10,92 s |
+| a02 (60 s) | 4,18 s | 1,73 · 1,84 · 2,23 · 1,08 s | 11,84 s |
+| a27 (60 s) | 3,55 s | 1,75 · 2,45 · 2,37 · 1,04 s | 11,39 s |
 
 Chuyển bước không tính toán lại, chỉ hiện hình đã vẽ. Trình duyệt thật có GPU thường vẽ nhanh hơn, nhưng nhóm chưa đo.
 
@@ -439,7 +443,7 @@ a57 bằng mã hiện tại ngày 17/09, ra cùng kết quả):
 
 ## 5. Chế độ chuyên gia
 
-Tick ô *Chế độ chuyên gia — hiện 8 tab đầy đủ (bảng số, dữ liệu của nhóm, tải tệp, nhật ký)* ở cuối trang.
+Tick ô *Chế độ chuyên gia — hiện 8 tab đầy đủ (bảng số, dữ liệu của nhóm, tải tệp, nhật ký); màn hẹp thì hai tab cuối nằm trong nút "…" ở cuối hàng tab* ở cuối trang.
 Phần mở ra gồm: hàng điều khiển (*Nguồn dữ liệu*, *Bản ghi minh hoạ cho buổi demo (thứ tự gợi ý: từ trên xuống)*,
 *Kênh bụng*, *Đèn tin cậy*, nút *Phân tích*) và 8 tab:
 *Tín hiệu (5 tầng)* · *Chọn kênh — cả 4 kênh* · *Nhịp tim thai + đèn đoạn* · *So sánh với nhãn* ·
@@ -583,7 +587,7 @@ Thẻ số, hình và bảng của lần trước đã bị xoá trước khi ch
 | Bỏ cả tệp tín hiệu lẫn tệp nhãn một cột vào ô tệp bản ghi | *Ô "Tệp bản ghi" đang có … tệp bảng số (…). Tệp … chỉ có một cột, nhiều khả năng là tệp NHÃN: hãy chuyển nó sang ô "Nhãn tham chiếu" rồi bấm Phân tích lại.* |
 | `.csv`/`.txt` sai cột, lẫn chữ | *Không đọc được tệp … thành bảng số. Tệp .csv/.txt phải gồm các cột SỐ: mỗi cột một kênh, mỗi dòng một mẫu, được phép có một dòng tiêu đề; mọi dòng phải có cùng số cột và không lẫn chữ.* Phần chi tiết kỹ thuật **không** hiện trên giao diện; demo chỉ in nó ra cửa sổ dòng lệnh đang chạy `python demo/app.py` |
 | Chỉ có `.dat`, thiếu `.hea` | *Tệp … là WFDB nhị phân nhưng THIẾU tệp header .hea đi kèm. Hãy chọn CẢ HAI tệp (.dat và .hea) cùng lúc rồi tải lên lại.* |
-| Bản ghi quá ngắn | *Bản ghi chỉ dài … s — quá ngắn.* |
+| Bản ghi quá ngắn | *Bản ghi chỉ dài … giây — quá ngắn.* |
 | Tần số nhập ngoài 50–20 000 Hz | *Tần số lấy mẫu … Hz không hợp lý (chấp nhận …–… Hz). Tệp .csv/.npy/.txt KHÔNG tự khai tần số nên bạn phải nhập đúng.* |
 | Mọi chỉ số nhãn nằm ngoài bản ghi (thường do nhãn ghi bằng giây) | *Mọi chỉ số trong tệp nhãn đều nằm NGOÀI bản ghi* … gợi ý đơn vị giây hoặc tần số khác |
 | Nhịp tim suy ra ngoài 100–200 nhịp/phút (thường do nhập sai tần số) — **cảnh báo**, vẫn chạy, hiện trong dòng trạng thái dưới dấu ⚠. Khoảng 100–200 lấy từ luật cứng của đèn (`demo/core.py: CONF_RULE`), trước đây là 80–220 | Có nhãn: *Tệp nhãn cho … nhịp trong … giây (≈ … nhịp/phút), ngoài khoảng thường gặp của tim thai (bình thường 110–160; demo cảnh báo ngoài 100–200). Kiểm tra lại ô tần số lấy mẫu.* Không có nhãn: *Nhịp tim máy tìm ≈ … nhịp/phút, ngoài khoảng thường gặp của tim thai. Nếu tệp không tự khai tần số, hãy kiểm tra lại ô tần số lấy mẫu.* |
@@ -633,24 +637,25 @@ Trường hợp chỉ có giấy in CTG, không có nhãn, mẫu thư xin dữ l
 
 | Sự cố | Làm gì |
 |---|---|
-| Trang không mở / cổng bận | `$env:RELYFETAL_PORT = "7870"; python demo/app.py` → http://127.0.0.1:7870 |
+| Trang không mở / cổng bận | `$env:RELYFETAL_PORT = "7870"; python demo/app.py` → http://127.0.0.1:7870/gradio/ (thiếu `/gradio/` là ra trang nghiên cứu HTML, không phải chế độ trình bày) |
 | Bấm thẻ không thấy gì đổi | Nhìn dòng trạng thái dưới hàng thẻ (*⏳ Đang phân tích bản ghi …*) và ô *Bản ghi* ở thanh tóm tắt. Xong là khi ô *Bản ghi* đổi sang **đúng bản vừa bấm**; dòng trạng thái biến mất thôi chưa đủ (lượt trước đã chạy dở có thể xoá dòng đó sớm, mục 4.5). Trang chỉ tự cuộn khi thanh 5 bước chưa nằm ở nửa trên màn hình, nên không thấy cuộn chưa chắc là lỗi. Máy đang bận việc khác thì có thể lâu hơn *khoảng 5–10 giây* (mục 2.5, 4.5). Vẫn không được thì tải lại trang (F5) |
 | Dòng trạng thái chuyển nền đỏ: *Không phân tích được bản ghi …: …* | Hình bên dưới **vẫn là bản ghi trước**, không phải kết quả của thẻ vừa bấm. Làm đúng như dòng đó ghi: *bấm lại thẻ hoặc chọn thẻ khác*. Lỗi lặp lại thì chiếu ảnh dự phòng |
 | Lỡ bấm hai thẻ liền nhau | Không bấm thêm. Chờ; chỉ thẻ bấm sau cùng được vẽ, nhưng máy phải tính xong lượt cũ trước nên có thể chờ lâu gấp đôi (mục 4.5). Chỉ nói tiếp khi ô *Bản ghi* ở thanh tóm tắt ghi đúng bản vừa bấm |
 | Thanh tóm tắt không dính đáy | Cửa sổ trình duyệt hẹp từ 700 px trở xuống thì thanh nằm yên cuối các bước (cố ý, để thanh không che hình). Phóng to cửa sổ |
 | Thẻ mờ, ghi *⚠ chưa có trên đĩa — xem hướng dẫn tải dữ liệu* | Chưa tải dữ liệu: `HANDOFF.md` mục 4 (`python model/download_data.py --root model/data --only adfecgdb`, `python model/download_more.py --only cinc75`) |
 | Không thấy tab *Tải dữ liệu mới* hoặc *Nhật ký (JSON)* | Bấm nút **⋯** ở cuối thanh tab (mục 5), hoặc bấm thẻ *Tệp của bạn* |
-| Biểu đồ trắng (WebGL bị chặn) | Hộp *Con số cần nhớ*, thanh tóm tắt và thẻ vẫn đúng; chiếu ảnh `demo/screenshots/17..23` thay hình |
+| Biểu đồ trắng (WebGL bị chặn) | Hộp *Con số cần nhớ*, thanh tóm tắt và thẻ vẫn đúng; chiếu ảnh `demo/screenshots/17..24` thay hình |
 | Gradio lỗi khi khởi động | `python demo/run_check.py --only r01,a09,a02,a27 --mode hoc --out demo_check_4the --threads 2`, kể theo bảng in ra terminal |
-| Python hoặc torch hỏng hẳn | Chiếu 7 ảnh theo thứ tự dưới. **Không sửa mã trước mặt người xem** |
+| Python hoặc torch hỏng hẳn | Chiếu 8 ảnh theo thứ tự dưới. **Không sửa mã trước mặt người xem** |
 | Bị hỏi con số không nhớ | Nút **⋯** → *Nhật ký (JSON)*; hoặc mở `demo/results/demo_check_showcase.json` |
 
-**Chiếu ảnh thay demo — 7 ảnh, thư mục `demo/screenshots/`** (chụp bằng `python demo/screenshot_v2.py`, 17/09/2026 22:01–22:02, sau lượt sửa thứ ba):
+**Chiếu ảnh thay demo — 8 ảnh, thư mục `demo/screenshots/`** (chụp bằng `python demo/screenshot_v2.py`, 18/09/2026, sau lượt sửa cuối và sau khi ghép máy chủ FastAPI):
 
 | # | Tệp | Nói gì |
 |---|---|---|
 | 17 | `17_the_r01.png` | "Năm thẻ, mỗi thẻ một ca. Đây là Ca dễ, bản r01: F1 99,92, đèn xanh." |
 | 18 | `18_the_a09.png` | "Chọn dây quyết định, bản a09 của bộ CinC 2013, không trùng dữ liệu huấn luyện. Thẻ ghi 19,35 thành 94,25." |
+| 24 | `24_a09_buoc3.png` | "Bước 3 của a09: đường tím là mức tin của mạng, vạch tím đậm là nhịp mạng đã báo. Hàng dưới mới so với đáp án: 123 đúng, 8 báo dư, 7 bỏ sót." |
 | 21 | `21_a09_buoc4.png` | "Bước 4 của a09: cách cũ chọn dây 2, F1 19,35; cách mới chọn dây 1, F1 94,25. Chọn mà không nhìn đáp án." |
 | 19 | `19_the_a02.png` | "Máy bám nhầm tim mẹ, bản a02: 78 phần trăm nhịp trùng nhịp mẹ. Đèn đỏ, ô nhịp tim bị gạch." |
 | 23 | `23_a02_buoc4.png` | "Hộp vàng: dây 1 đạt 75,88, nhưng 6 trên 7 cách chọn không nhìn đáp án chọn dây 2, không cách nào chọn dây 1." |
@@ -701,9 +706,9 @@ Nếu chỉ kịp chiếu **một** ảnh: `21_a09_buoc4.png`, nói ba câu:
 | a57: dây 4, điểm tin 0,951 / 0,976 / 0,984 / 0,985; F1 bốn dây 38,28 / 20,92 / 17,87 / 17,02; TP 20 · FP 67 · FN 128; máy 87 nhịp, đáp án 148; nhịp tim ≈ 86; 14 xanh · 1 vàng · 0 đỏ; trùng mẹ 0 %; luật cứng TRUNG BÌNH, RR CV 0,04 | cùng tệp → `rows.a57_leadpeakprob` (`.lead`, `.lead_scores`, `.leads.<1–4>.F1`, `.metrics`, `.n_beats`, `.n_labels`, `.fhr_mean`, `.confidence.components`, `.confidence_by_mode.luat`); chạy lại bằng mã hiện tại 17/09 ra cùng số |
 | a52, a54 thuộc 7 bản nhãn sai đã khai báo | cùng tệp → `cinc_bad_annotation`; `demo/core.py: CINC_BAD_ANN` |
 | Thời gian tính toán từng thẻ (dây đã chọn 424 / 135 / 128 / 116 ms; cả 4 dây 1.997 / 513 / 497 / 423 ms; cổng 1.041 / 177 / 161 / 173 ms) | `demo/results/demo_check_showcase.json` → `rows.<bản>_leadpeakprob.latency_ms`, `.latency_all_leads_ms`, `.confidence.components.gate_ms`; `torch_threads` 2, `generated` 12/09/2026 |
-| Thời gian trong trình duyệt (mở trang 7,2 s; bấm thẻ 6,95 / 2,77 / 3,48 / 3,40 s; 5 bước 18,22 / 10,03 / 10,93 / 10,52 s) | `demo/screenshots/screenshots_v2.json` (ghi 17/09 22:02) → `mo_trang_toi_r01_s`, `thoi_gian` |
+| Thời gian trong trình duyệt (mở trang 7,1 s; bấm thẻ 5,50 / 2,95 / 4,18 / 3,55 s; 5 bước 19,12 / 10,92 / 11,84 / 11,39 s) | `demo/screenshots/screenshots_v2.json` (ghi 18/09) → `mo_trang_toi_r01_s`, `thoi_gian`, `duong_dan` |
 | 6 tab hiện ở 1366 px; hai tab trong nút **⋯** | `demo/screenshots/screenshots_v2.json` → `tab_khi_bat_chuyen_gia`, `tab_trong_menu_tran` |
-| 22 kiểm thử chế độ trình bày; 109 kiểm thử toàn bộ (43 + 66); smoke 33 đầu ra | `python -m pytest --collect-only -q demo/test_core.py -k trinh_bay` (22/66) và `python -m pytest --collect-only -q tests/ demo/test_core.py` (109), đếm 17/09/2026 sau lượt sửa thứ ba; `demo/results/smoke_app.json → trinh_bay.n_dau_ra` (33) |
+| 23 kiểm thử chế độ trình bày; 111 kiểm thử toàn bộ (43 + 68); smoke 33 đầu ra | `python -m pytest --collect-only -q demo/test_core.py -k trinh_bay` (23/68) và `python -m pytest --collect-only -q tests/ demo/test_core.py` (111), đếm 18/09/2026 sau khi ghép máy chủ FastAPI; `demo/results/smoke_app.json → trinh_bay.n_dau_ra` (33) |
 | Bảng dữ liệu mục 6.1 (tần số, độ dài, số dây, nguồn nhãn) | đọc từ đĩa bằng `demo/core.py: dataset_rows` |
 | Tệp ví dụ: 4 cột, 30 000 dòng, 1000 Hz, 30 s, µV; nhãn 65 dòng | `demo/assets/vidu_tai_len_META.json`; đếm trực tiếp hai tệp `.csv` |
 | Điều kiện tải lên: ≥ 8 s; 50–20 000 Hz; cảnh báo khi hơn 12 cột; cảnh báo nhịp tim ngoài 100–200; lỗi hiện ở dòng trạng thái | `demo/core.py`: `MIN_DURATION_S`, `FS_MIN`, `FS_MAX`, `CONF_RULE` (`fhr_lo` 100, `fhr_hi` 200), `doc_tai_len`; `demo/app.py: run_upload`, `upload_clear` |
@@ -711,7 +716,7 @@ Nếu chỉ kịp chiếu **một** ảnh: `21_a09_buoc4.png`, nói ba câu:
 | 15 bản CinC nhiễm | `demo/core.py: CINC_LEAK`; `survey/ro_ri_vanlieu.json` |
 | Số đã rút — không trích lại | `survey/facts_phase4.json` → `Z_DA_RUT` |
 
-**22 kiểm thử của chế độ trình bày** (`python -m pytest demo/test_core.py -k trinh_bay`): 5 bước mỗi lúc một bước; chế độ
+**23 kiểm thử của chế độ trình bày** (`python -m pytest demo/test_core.py -k trinh_bay`): 5 bước mỗi lúc một bước; chế độ
 chuyên gia bật/tắt và đủ 8 tab; không có chuỗi cấm trên giao diện; thẻ đọc số từ JSON; a09 hiện cả hai cách chọn; thanh
 tóm tắt đủ 6 mục; a02 đèn đỏ và bám mẹ ở bước 5; a02 bước 4 hiện hộp "chọn chưa đúng dây"; a09 không hiện hộp đó; nội
 dung thẻ a02, a27 khớp đĩa; chi tiết kỹ thuật đóng sẵn và chân trang ẩn; số kiểu Việt trên hình và bảng; bước 5 có dải
@@ -720,10 +725,12 @@ dung thẻ a02, a27 khớp đĩa; chi tiết kỹ thuật đóng sẵn và chân
 tiêu đề và chú thích không nói quá ("một kênh", "không phải lần nào cũng thấy", vạch tím đậm, câu đèn xanh đọc số từ đĩa);
 bước 1 nói theo biên độ thật của bản ghi (r01 gai bé to ngang gai mẹ, a09 nhỏ hơn nhiều); bản ghi không có đáp án không
 nói sai; thanh tóm tắt dính thật (CSS `overflow` của `.gradio-container`) và tự cuộn có điều kiện.
+Kiểm thử thứ 23, thêm ngày 18/09 khi ghép máy chủ FastAPI: bấm thẻ khác **trong lúc** lượt trước đang tính thì lượt trước
+tính xong cũng không được vẽ đè (`test_trinh_bay_luot_dang_tinh_bi_bam_the_khac_thi_khong_ve_de`, `demo/test_core.py` dòng 853).
 
 ## Phụ lục B — đối chiếu chuỗi giao diện
 
-Ngày 17/09/2026, mọi chuỗi nghiêng trong tài liệu này được đối chiếu tự động bằng script `dsync_doi_chieu.py`
+Ngày 18/09/2026, mọi chuỗi nghiêng trong tài liệu này được đối chiếu tự động bằng script `dsync_doi_chieu.py`
 (chạy ngoài kho mã, trong thư mục tạm của phiên làm việc). Script làm ba việc:
 
 1. Đọc mọi chuỗi trong `demo/app.py`, `demo/core.py` và (từ lượt D-sync2) `fsqi/gate.py`, nơi có câu lý do của đèn, bằng
@@ -738,9 +745,12 @@ Lần chạy trước lượt sửa thứ ba của demo (17/09, trên bản tài
 khớp 272, **không khớp 8** (nhãn ô F1 cũ "độ đúng", dòng mô tả thẻ CinC, chú thích bước 2, 3, 4, 5, tiêu đề hình bước 3,
 chữ đường trung bình khi đèn đỏ) và 1 chỉ khớp khuôn (cảnh báo nhịp tim ngoài khoảng). Các chỗ đó đã sửa ở trên.
 
-Kết quả lần chạy cuối (17/09/2026, sau D-sync2): **329 chuỗi nghiêng, khớp 329** (279 nguyên văn trong mã, 50 khớp chuỗi
-hiển thị thật, 0 chỉ khớp khuôn), **không khớp 0**. Chuỗi trong ngoặc kép thường là lời thoại, không bắt buộc khớp.
-Khi `demo/app.py`, `demo/core.py` hoặc `fsqi/gate.py` đổi chữ, chạy lại hai script trước khi in tài liệu này.
+Kết quả lần chạy cuối (18/09/2026, sau khi ghép máy chủ FastAPI và sau lượt sửa tài liệu ngày 18/09; chuỗi hiển thị thật
+sinh lại từ `demo/app.py` bản 17/09 23:27): **336 chuỗi nghiêng, khớp 336** (282 nguyên văn trong mã, 53 khớp chuỗi hiển
+thị thật, 1 chỉ khớp khuôn), **không khớp 0**. Chuỗi chỉ khớp khuôn là dòng lỗi tệp quá ngắn trích ở mục 5: con số 5,00
+giây là ví dụ của tài liệu, mã chỉ có chỗ điền số, nên chỉ phần chữ khớp được. Chuỗi trong ngoặc kép là lời thoại, không
+bắt buộc khớp. Chạy lại hai script trước khi in tài liệu này mỗi khi `demo/app.py`, `demo/core.py` hoặc `fsqi/gate.py`
+đổi chữ, **hoặc** khi chính tài liệu này được sửa (lần này tài liệu đổi mà mã không đổi, nên điều kiện cũ không bắt được).
 
 ---
 

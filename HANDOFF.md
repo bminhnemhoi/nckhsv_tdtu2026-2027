@@ -3,7 +3,7 @@
 > **Đọc tệp này trước mọi tệp khác.** Nó cho bạn biết đề tài đang ở đâu, cài đặt thế nào, số liệu nào
 > được phép dùng, và những cái bẫy nhóm đã rơi vào để bạn khỏi rơi lại.
 >
-> Cập nhật: **17/09/2026** · Chủ nhiệm: **Ngô Bình Minh** (TDTU) · Kho mã:
+> Cập nhật: **18/09/2026** · Chủ nhiệm: **Ngô Bình Minh** (TDTU) · Kho mã:
 > <https://github.com/bminhnemhoi/nckhsv_tdtu2026-2027>
 
 ---
@@ -171,7 +171,7 @@ chú thích thai; NInFEA chỉ có tham chiếu Doppler — **không dùng đư�
 ```powershell
 $env:OPENBLAS_NUM_THREADS="1"; $env:OMP_NUM_THREADS="1"; $env:MKL_NUM_THREADS="1"
 
-python -m pytest tests/ demo/test_core.py -q     # kỳ vọng: 0 failed; đủ dữ liệu thì 109 passed (43 tests/ + 66 demo, đếm 17/09/2026 sau lượt sửa demo thứ ba; số tăng khi sửa demo)
+python -m pytest tests/ demo/test_core.py -q     # kỳ vọng: 0 failed; đủ dữ liệu thì 111 passed (43 tests/ + 68 demo, đếm 18/09/2026 sau khi ghép máy chủ FastAPI; số tăng khi sửa demo)
 python demo/smoke_app.py                         # kỳ vọng: KẾT QUẢ: ĐẠT
 python demo/app.py                               # mở trình duyệt: 5 thẻ (4 bản ghi + Tệp của bạn) + 5 bước; tick "Chế độ chuyên gia" -> đếm đủ 8 tab
 ```
@@ -214,7 +214,7 @@ khi chạy song song nhiều thí nghiệm máy sẽ treo.
 | `docs/` | Mọi tài liệu người đọc: đề cương, kịch bản, slide, hướng dẫn | `docs/trinh_bay/` |
 | `docs/nhat_ky/` | Biên bản các vòng thẩm định phản biện (vòng 4–10) | `README.md` trong đó |
 | `archive/` | Script dùng một lần đã chạy xong, giữ để truy vết | `archive/README.md` |
-| `tests/` | Kiểm thử lõi (43) — thêm 66 test demo trong `demo/test_core.py`; tổng hai nơi **109** (đếm bằng `pytest --collect-only`, 17/09/2026 sau lượt sửa demo thứ ba), số tăng khi sửa demo | — |
+| `tests/` | Kiểm thử lõi (43) — thêm 68 test demo trong `demo/test_core.py`; tổng hai nơi **111** (đếm bằng `pytest --collect-only`, 18/09/2026 sau khi ghép máy chủ FastAPI), số tăng khi sửa demo | — |
 
 **Bảng thí nghiệm phân tích** — mỗi dòng là một câu hỏi đã được trả lời:
 
@@ -346,7 +346,87 @@ Xếp theo **giá trị chia chi phí**. Việc cần người ngoài đứng đ
 | 8 | Dựng bài CinC bằng **`cinc.cls` chính thức**, đếm lại trang | Hiện dùng template mô phỏng; hạn ~4/2027 | 1 ngày |
 | 9 | Toàn văn **mù** cho Euréka | Chấm mù: không tên, trường, GVHD | 1 ngày |
 | 10 | **Xuất cổng từ chối 22 ca thành tệp và thay cổng cũ trong demo** | Demo đang chạy cổng 5 ca `fsqi/gate_classical.pkl` (AUROC trong bản ghi 0,721 [0,517; 0,898], đo khi ghép mô hình 5 ca; ghép mô hình 22 ca đang chạy: chưa đo lại); cổng 22 ca (0,934 [0,872; 0,981]) mới chỉ tồn tại dưới dạng phân tích (`analysis/GATE22.md`). Thay xong phải chạy lại `demo/run_check.py` và cập nhật `F_demo` | Chưa ước |
-| 11 | **Rà hai trang HTML mới (`demo/research_template.py`, `demo/monitor_template.py`, commit 16/09 của Khánh)** | Lần ghép 17/09 đã sửa hai lỗi sai sự thật ở `/api/run_analysis`: đèn luôn "XANH" vì đọc khoá `gate` không tồn tại (a02 đèn đỏ thật hiện xanh), và cột F1 từng dây luôn rỗng. Còn phải rà: tiêu đề "Live Clinical ECG Monitor" và câu "không phải thiết bị y tế chẩn đoán chính thức" (dễ hiểu là thiết bị chẩn đoán không chính thức); `/api/monitor_data` tự điền số khi thiếu dữ liệu (nhịp mẹ 74, nhịp thai 140, thời gian 12 ms); trang `/` chép tĩnh nội dung chế độ chuyên gia trước vòng 10 nên cần đối chiếu lại với `demo/app.py` | Chưa ước |
+| 11 | ~~**Rà hai trang HTML mới (`demo/research_template.py`, `demo/monitor_template.py`, commit 16/09 của Khánh)**~~ **XONG 18/09** | Danh sách 14 mục ở §10.1: **13 mục đã sửa**, còn mục 13 (bố cục hàng thẻ ở 800 px). Lần ghép 17/09 sửa đèn luôn "XANH" và cột F1 từng dây rỗng; lượt 18/09 sửa tiếp đèn tin cậy trên `/monitor`, nhãn checkpoint tĩnh, số dự phòng bịa, nhãn "AAMI", tiêu đề "Live Clinical ECG Monitor" và câu "chẩn đoán chính thức". Trang `/` đã đối chiếu: không chép cứng số đo nào, mọi con số lấy qua `/api/*` | — |
+
+### 10.1 `/monitor` và `/api/run_analysis` — rà ngày 18/09, **đã sửa 13/14 trong cùng ngày**
+
+Lượt rà độc lập ngày 18/09 mở từng dòng hai trang HTML Khánh thêm ở commit `cbce196` và lập 14 mục dưới đây.
+Trưởng nhóm giữ `demo/*.py` nên đã sửa tại chỗ ngay trong ngày, theo đúng một nguyên tắc: **giữ nguyên bố cục,
+màu sắc, định tuyến và ý đồ thiết kế của Khánh — chỉ đụng vào những câu chữ và con số nói sai sự thật.** Mỗi mục
+ghi rõ trạng thái để Khánh đối chiếu; mục nào chưa xong thì nói thẳng là chưa xong.
+
+**Nặng — nên xử lý trước buổi báo cáo:**
+
+1. ~~**`/monitor` không có đèn tin cậy ở bất kỳ đâu.**~~ **ĐÃ SỬA.** `demo/monitor_template.py` không chứa một lần
+   nào các chữ "tin cậy", "confidence", "từ chối"; `/api/monitor_data` cũng không trả trường `confidence`. Hệ quả:
+   chọn a02 trong ô *Ca minh hoạ* thì trang ghi **NHỊP TIM THAI 130 BPM** kèm nhãn xanh *NHỊP TIM THAI BÌNH THƯỜNG
+   (110 - 160)* — đúng con số mà bước 5 của chế độ trình bày gạch ngang kèm chữ *đèn đỏ: không dùng số này*. a27
+   tương tự (126 BPM, "BÌNH THƯỜNG", trong khi 14/15 đoạn bị từ chối). Trang này phản bác đúng luận điểm trung tâm
+   của đề tài. *Đã sửa:* `/api/monitor_data` trả thêm `confidence {level, label, color, maternal_lock}`; HUD đổi
+   màu số, **gạch ngang** số nhịp và thay huy hiệu khi `level='thap'`. Kiểm bằng trình duyệt 18/09: a02 → *ĐÈN ĐỎ —
+   HỆ THỐNG TỪ CHỐI, KHÔNG DÙNG SỐ NÀY*, số 130 bị gạch; r01 → *ĐÈN XANH · NHỊP TIM THAI BÌNH THƯỜNG (110 - 160)*.
+2. ~~**Nhãn tĩnh "FetalQRS-TCN · Zero-shot"** hiện cho **mọi** ca.~~ **ĐÃ SỬA.** `core.checkpoint_for`: r01 →
+   `fetalqrs_tcn_22_fold_05.pt` "(chủ thể r01 KHÔNG nằm trong tập huấn luyện)" — tức bỏ-một-chủ-thể, **không phải
+   zero-shot**; B2_03 → fold 11, cũng LOSO; chỉ a09/a02/a27 mới là `production`. *Đã sửa:* ô `hud-subtext` thành
+   `id="ckptVal"` và đổ `out['checkpoint_note']` thật vào; ô chọn ca bỏ hai chuỗi ghi cứng *(F1: 99.9%, Chuẩn mẫu)*
+   và *(Zero-shot, F1: 94%)*.
+3. ~~**Số dự phòng bịa khi thiếu dữ liệu.**~~ **ĐÃ SỬA.** HTML tĩnh 74 / 99.9% / 12 và JS `|| 74`, `? … : '99.9%'`,
+   `|| 12`, `median_fhr || 140`; phía máy chủ `m_bpm = 74.0`, `out.get('fhr_mean', 140.0)`,
+   `out.get('latency_ms', 12.0)`. Fetch hỏng thì các số này **ở lại** cạnh dòng "LỖI NẠP"; thêm nữa `? :` là phép
+   thử falsy nên F1 đúng bằng 0,0 cũng bị thay bằng 99.9 %. *Đã sửa:* mọi ô khởi tạo bằng `—`, JS dùng `== null`
+   thay `? :`, ba giá trị mặc định ở máy chủ trả `None`. Test `test_may_chu_fastapi_...` chặn `'99.9%'`, `'>74<'`,
+   `'>12<'` quay lại.
+
+**Trung bình:**
+
+4. ~~Nhãn **"ĐỘ CHÍNH XÁC (AAMI F1)"**~~ **ĐÃ SỬA** → **"F1 SO VỚI ĐÁP ÁN (±50 ms)"**. Nhãn cũ gán kết quả cho chuẩn
+   ANSI/AAMI EC57, trong khi giao thức chấm thật là dung sai ±50 ms, ghép một-đối-một tham lam theo quy ước CinC
+   2013 / Behar 2014 — chính demo ghi vậy ở tab *So sánh với nhãn*. Test chặn chữ "AAMI" quay lại.
+5. ~~Bấm *Tiếp ▶* trong lúc một thẻ đang tính thì trang dừng sai bước.~~ **ĐÃ SỬA.** Sự kiện `story_step` xếp hàng
+   chụp `gr.State` lúc gửi nên chạy **sau** `story_run` và ghi đè. *Đã sửa:* `_bam(n)` vô hiệu hoá hai nút *Quay
+   lại* / *Tiếp* trong lúc dòng "Đang phân tích" còn hiện, `story_view` bật lại; thêm hai test hồi quy
+   (`..._bo_qua_luot_cu_va_bao_loi_o_trang_thai`, `..._luot_dang_tinh_bi_bam_the_khac_thi_khong_ve_de`).
+6. ~~Tệp rác tải lên báo **sai hướng**~~ **ĐÃ SỬA.** `demo/core.py` kiểm độ dài **trước**, nên tệp không đọc được ra
+   "Bản ghi chỉ dài 0,00 giây … kiểm tra lại ô tần số lấy mẫu" thay vì nhánh "Không đọc được … thành bảng số" đã có
+   sẵn. *Đã sửa:* thêm chốt chặn `.csv/.txt/.npy` ra < 2 cột thì báo đúng nhánh đọc-không-được.
+7. ~~Với **mọi** tệp tải lên, `checkpoint_for` khẳng định "zero-shot".~~ **ĐÃ SỬA, và rộng hơn mục đã nêu.** Hệ
+   thống không kiểm được điều đó, chỉ suy từ chỗ tên tệp không khớp danh sách 22 chủ thể. *Đã sửa:* tách ba nhánh —
+   bản CinC sạch thì **kiểm được** nên vẫn nói "zero-shot: a02 không thuộc 22 chủ thể huấn luyện"; tệp tải lên nói
+   "tên bản ghi không khớp danh sách 22 chủ thể huấn luyện; demo **KHÔNG kiểm được** tệp có trùng chủ thể hay
+   không"; và — điểm lượt rà chưa bắt — **15 bản CinC rò rỉ** (a04 là bản sao của r01 **đã** nằm trong tập huấn
+   luyện) trước đây cũng bị dán nhãn "zero-shot", nay báo "CẢNH BÁO: a04 là bản sao của r01 trong tập huấn luyện —
+   KHÔNG phải zero-shot, F1 ở đây là số bị thổi". Test `test_checkpoint_note_chi_noi_zero_shot_khi_kiem_duoc`.
+8. ~~Trang `/` in **"NaN"** vào các ô trống của bảng *Danh sách sự kiện*.~~ **ĐÃ SỬA:** `to_html(…, na_rep='—')`.
+
+**Nhẹ:**
+
+9. ~~`latency_all_ms` trong `/api/run_analysis` thực ra là độ trễ của **một dây**.~~ **ĐÃ SỬA:** đổi thành ba khoá
+   đúng nghĩa `wall_ms` (đọc tệp + mô hình + vẽ), `latency_selected_ms` (riêng dây đã chọn), `latency_all_leads_ms`
+   (chi phí chạy cả 4 dây, `None` nếu không đo).
+10. ~~Một phản hồi chứa **hai bộ nhãn đèn**: `label_map` ghi "ĐỎ (từ chối)", `cards_html` ghi "THẤP (đỏ)".~~
+    **ĐÃ SỬA:** cả hai lấy thẳng `out['confidence']['label']`, test so với `core.LEVEL_LABEL['thap']`.
+11. ~~Dòng tĩnh **"ỔN ĐỊNH · KHỬ TÁCH MẪU"** không bao giờ đổi; nhãn *ĐỘ TRỄ SUY LUẬN AI* thực ra là cả tiền xử lý
+    + khử mẹ + mô hình.~~ **ĐÃ SỬA:** dòng tĩnh thành "Khử bằng mẫu trung vị, co giãn từng nhịp" (mô tả phương
+    pháp, không phải trạng thái bịa); nhãn thành **"THỜI GIAN XỬ LÝ (lọc + khử mẹ + mô hình)"**.
+12. ~~Hai câu báo lỗi `.csv`/`.txt` khác nhau giữa `demo/app.py` và `demo/core.py`.~~ **ĐÃ SỬA:** hai chỗ dùng chung
+    một câu ("… mọi dòng phải có cùng số cột và không lẫn chữ."), khớp với tài liệu.
+13. **CHƯA XONG.** Bề rộng 800 px: bốn thẻ bản ghi cao 460 px trong khi thẻ *Tệp của bạn* cao 251 px nên hàng thẻ so
+    le (1440 px và 400 px thì đều). *Đã giảm nhẹ:* thêm `@media (max-width:900px)` cho thẻ xuống 2 thẻ/hàng. Chênh
+    lệch chiều cao giữa thẻ bản ghi và thẻ *Tệp của bạn* **vẫn còn** và chưa đo lại ở đúng 800 px. Máy chiếu hội
+    đồng là 1366 px nên mục này không chặn buổi báo cáo.
+14. ~~Ô đánh dấu ghi *hiện 8 tab đầy đủ* nhưng ở 1440 px chỉ 6 tab hiện thẳng.~~ **ĐÃ SỬA:** nhãn ghi thêm "màn hẹp
+    thì hai tab cuối nằm trong nút \"…\" ở cuối hàng tab"; `docs/HUONG_DAN_DEMO_v2.md` chép đúng nhãn mới.
+
+**Hai chỗ sửa thêm ngoài danh sách 14 mục** (cùng loại "câu chữ vượt quá sự thật", `demo/monitor_template.py`):
+
+* Tiêu đề tab **"RelyFetal — Live Clinical ECG Monitor"** → "RelyFetal — màn hình theo dõi (bản mẫu nghiên cứu)".
+  Chữ *Clinical* khẳng định một tư cách lâm sàng mà đề tài chưa có.
+* Chân trang "Không phải thiết bị y tế chẩn đoán **chính thức**" → "Không phải thiết bị y tế. Không dùng cho chẩn
+  đoán." Câu cũ hàm ý đây *là* thiết bị y tế, chỉ chưa chính thức; câu mới khớp `demo/research_template.py`.
+
+**Còn lại cho Khánh** (trưởng nhóm không sửa vì thuộc phần thiết kế, không phải sai sự thật): mục 13 ở trên, và
+quyết định có đưa a02/a27 vào ô *Ca minh hoạ* mặc định hay không — giờ trang đã tự bật đèn đỏ nên **nên giữ**, vì
+đó là ca cho thấy giá trị của cổng từ chối.
 
 **Đừng làm** — bằng chứng đã nói là đòn bẩy yếu:
 

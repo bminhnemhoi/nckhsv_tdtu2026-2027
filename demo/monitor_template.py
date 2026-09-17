@@ -9,7 +9,7 @@ MONITOR_HTML = """<!DOCTYPE html>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RelyFetal — Live Clinical ECG Monitor</title>
+  <title>RelyFetal — màn hình theo dõi (bản mẫu nghiên cứu)</title>
   <style>
     :root {
       --bg-deep: #000000;
@@ -491,30 +491,30 @@ MONITOR_HTML = """<!DOCTYPE html>
         </label>
         <div class="hud-label">NHỊP TIM MẸ (MATERNAL HR)</div>
         <div class="hud-val-row">
-          <span class="hud-val-medium" id="matBpmVal">74</span>
+          <span class="hud-val-medium" id="matBpmVal">—</span>
           <span class="hud-unit">BPM</span>
         </div>
-        <div class="hud-subtext" style="color: var(--apple-green); font-weight: 700;">
-          ỔN ĐỊNH · KHỬ TÁCH MẪU
+        <div class="hud-subtext">
+          Khử bằng mẫu trung vị, co giãn từng nhịp
         </div>
       </div>
 
       <!-- 3. AI Model Accuracy -->
       <div class="hud-card">
-        <div class="hud-label">ĐỘ CHÍNH XÁC (AAMI F1)</div>
+        <div class="hud-label">F1 SO VỚI ĐÁP ÁN (±50 ms)</div>
         <div class="hud-val-row">
-          <span class="hud-val-medium" style="color: var(--apple-cyan);" id="f1Val">99.9%</span>
+          <span class="hud-val-medium" style="color: var(--apple-cyan);" id="f1Val">—</span>
         </div>
-        <div class="hud-subtext">
-          FetalQRS-TCN · Zero-shot
+        <div class="hud-subtext" id="ckptVal">
+          FetalQRS-TCN
         </div>
       </div>
 
       <!-- 4. Latency & Beats -->
       <div class="hud-card">
-        <div class="hud-label">ĐỘ TRỄ SUY LUẬN AI</div>
+        <div class="hud-label">THỜI GIAN XỬ LÝ (lọc + khử mẹ + mô hình)</div>
         <div class="hud-val-row">
-          <span class="hud-val-medium" style="color: var(--apple-green);" id="latVal">12</span>
+          <span class="hud-val-medium" style="color: var(--apple-green);" id="latVal">—</span>
           <span class="hud-unit">ms</span>
         </div>
         <div class="hud-subtext" id="beatsVal">
@@ -565,11 +565,11 @@ MONITOR_HTML = """<!DOCTYPE html>
       <div style="display: flex; align-items: center; gap: 14px;">
         <span style="font-size: 12px; color: var(--text-muted); font-weight: 600;">Ca minh hoạ:</span>
         <select class="ctrl-select" id="caseSelect">
-          <option value="r01">r01 — ADFECGDB (F1: 99.9%, Chuẩn mẫu)</option>
-          <option value="a09">a09 — CinC 2013 (Zero-shot, F1: 94%)</option>
-          <option value="B2_03">B2_03 — Silesia (Chuyển dạ khó)</option>
-          <option value="a02">a02 — CinC 2013 (Cảnh báo nhịp mẹ)</option>
-          <option value="a27">a27 — CinC 2013 (Tín hiệu yếu)</option>
+          <option value="r01">r01 — ADFECGDB (fold 05, chủ thể không nằm trong tập huấn luyện)</option>
+          <option value="a09">a09 — CinC 2013 (zero-shot, F1 94,25, đèn xanh)</option>
+          <option value="B2_03">B2_03 — Silesia (fold 11, chuyển dạ khó)</option>
+          <option value="a02">a02 — CinC 2013 (zero-shot, đèn ĐỎ: máy bám nhịp mẹ)</option>
+          <option value="a27">a27 — CinC 2013 (zero-shot, đèn ĐỎ: bốn dây đều kém)</option>
         </select>
         <span class="time-tracker" id="trackerTimer">00:00 / 00:30</span>
       </div>
@@ -577,7 +577,7 @@ MONITOR_HTML = """<!DOCTYPE html>
   </main>
 
   <footer class="disclaimer-foot">
-    Bản mẫu nghiên cứu RelyFetal. Không phải thiết bị y tế chẩn đoán chính thức.
+    Bản mẫu nghiên cứu RelyFetal. Không phải thiết bị y tế. Không dùng cho chẩn đoán.
   </footer>
 
   <script>
@@ -671,9 +671,14 @@ MONITOR_HTML = """<!DOCTYPE html>
 
     function updateHUDStatic() {
       if (!ecgData) return;
-      document.getElementById('matBpmVal').innerText = Math.round(ecgData.maternal_bpm || 74);
-      document.getElementById('f1Val').innerText = ecgData.f1_score ? (ecgData.f1_score + '%') : '99.9%';
-      document.getElementById('latVal').innerText = Math.round(ecgData.latency_ms || 12);
+      document.getElementById('matBpmVal').innerText =
+        (ecgData.maternal_bpm == null) ? '—' : Math.round(ecgData.maternal_bpm);
+      document.getElementById('f1Val').innerText =
+        (ecgData.f1_score == null) ? '—' : (String(ecgData.f1_score).replace('.', ',') + '%');
+      document.getElementById('latVal').innerText =
+        (ecgData.latency_ms == null) ? '—' : Math.round(ecgData.latency_ms);
+      const ckptEl = document.getElementById('ckptVal');
+      if (ckptEl) ckptEl.innerText = 'FetalQRS-TCN · ' + (ecgData.checkpoint_note || '');
       document.getElementById('beatsVal').innerText = 'Phát hiện: ' + (ecgData.peaks ? ecgData.peaks.length : 0) + ' nhịp / ' + Math.round(ecgData.duration) + 's';
     }
 
@@ -1093,7 +1098,7 @@ MONITOR_HTML = """<!DOCTYPE html>
       trackerTimerEl.innerText = formatTime(currentTimeSec) + ' / ' + formatTime(dur);
 
       // Find instantaneous BPM from tachogram
-      let curBpm = ecgData.median_fhr || 140;
+      let curBpm = (ecgData.median_fhr == null) ? null : ecgData.median_fhr;   // thiếu dữ liệu -> '—', không tự điền 140
       if (ecgData.tachogram && ecgData.tachogram.length > 0) {
         for (let i = 0; i < ecgData.tachogram.length; i++) {
           if (ecgData.tachogram[i].t <= currentTimeSec) {
@@ -1105,7 +1110,7 @@ MONITOR_HTML = """<!DOCTYPE html>
       }
 
       const roundedBpm = Math.round(curBpm);
-      bpmValEl.innerText = roundedBpm;
+      bpmValEl.innerText = (curBpm == null) ? '—' : roundedBpm;
 
       // Clinical FIGO Threshold Styling
       if (roundedBpm < 110) {
@@ -1126,6 +1131,27 @@ MONITOR_HTML = """<!DOCTYPE html>
         statusBadgeEl.style.color = 'var(--apple-green)';
         statusBadgeEl.style.borderColor = 'rgba(48, 209, 88, 0.4)';
         statusBadgeEl.style.background = 'rgba(48, 209, 88, 0.12)';
+      }
+
+      // Đèn tin cậy của cổng từ chối GHI ĐÈ nhãn nhịp tim: bản ghi đèn đỏ thì con số không được dùng,
+      // dù nó rơi đúng vào khoảng 110-160 (ví dụ a02: máy báo 130, đáp án ≈ 160, 78 % nhịp trùng nhịp mẹ).
+      const conf = ecgData.confidence || {};
+      if (conf.level === 'thap') {
+        bpmValEl.style.color = 'var(--apple-red)';
+        bpmValEl.style.textDecoration = 'line-through';
+        statusBadgeEl.innerText = 'ĐÈN ĐỎ — HỆ THỐNG TỪ CHỐI, KHÔNG DÙNG SỐ NÀY';
+        statusBadgeEl.style.color = 'var(--apple-red)';
+        statusBadgeEl.style.borderColor = 'rgba(255, 59, 48, 0.4)';
+        statusBadgeEl.style.background = 'rgba(255, 59, 48, 0.12)';
+      } else if (conf.level === 'trung_binh') {
+        bpmValEl.style.textDecoration = 'none';
+        statusBadgeEl.innerText = 'ĐÈN VÀNG — CHƯA CHẮC · ' + statusBadgeEl.innerText;
+        statusBadgeEl.style.color = 'var(--apple-orange)';
+        statusBadgeEl.style.borderColor = 'rgba(255, 159, 10, 0.4)';
+        statusBadgeEl.style.background = 'rgba(255, 159, 10, 0.12)';
+      } else {
+        bpmValEl.style.textDecoration = 'none';
+        if (conf.level === 'cao') statusBadgeEl.innerText = 'ĐÈN XANH · ' + statusBadgeEl.innerText;
       }
 
       // Check for heartbeat pulse (peaks)

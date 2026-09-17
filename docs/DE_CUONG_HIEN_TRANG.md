@@ -548,8 +548,8 @@ viên tự kiểm.
 | *Ngoài kế hoạch* | Thích nghi miền | **Xong (kết quả phủ định)** | — | `adapt/adapt_results.json` — cả 4 phương pháp thất bại |
 | *Ngoài kế hoạch* | Tám vòng thẩm định đối kháng nội bộ | **Xong** | — | `THAMDINH_VONG6/7/8.md`, `docs/nhat_ky/QA_VONG4.md`, `docs/nhat_ky/DON_REPO_VONG7.md` |
 
-**Kiểm thử:** `pytest tests/ demo/test_core.py` → **109 kiểm thử** (43 ở `tests/` + 66 ở `demo/test_core.py`;
-đếm lại 17/09/2026 sau lượt sửa demo thứ ba — con số "82/82" ghi ở bản 13/09 không khớp tổng 43 + 17).
+**Kiểm thử:** `pytest tests/ demo/test_core.py` → **111 kiểm thử** (43 ở `tests/` + 68 ở `demo/test_core.py`;
+đếm lại 18/09/2026 sau khi ghép máy chủ FastAPI — con số "82/82" ghi ở bản 13/09 không khớp tổng 43 + 17).
 **Kho mã:** 11 commit, commit hiện tại `c20417b` đã đẩy.
 
 **Năm bản ghi minh hoạ cho demo** (không bản nào nằm trong 15 bản chồng lấn):

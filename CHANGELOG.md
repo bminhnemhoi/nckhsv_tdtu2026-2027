@@ -11,7 +11,19 @@ Chi tiết từng vòng thẩm định: [`docs/nhat_ky/`](docs/nhat_ky/). Danh s
 
 ---
 
-## Vòng 10 — 16–17/09/2026 — Buổi trình bày với giảng viên: kịch bản, bối cảnh, demo dễ hiểu
+## Vòng 10 — 16–18/09/2026 — Buổi trình bày với giảng viên: kịch bản, bối cảnh, demo dễ hiểu
+
+**Ảnh chụp và thời gian đo (18/09)**
+
+- `demo/screenshot_v2.py` nay chạy đúng lệnh người dùng chạy: mở tiến trình `python demo/app.py` rồi chụp ở `/gradio/`.
+  Import `app` rồi gọi `demo.launch()` trong cùng tiến trình làm trang mất hàng phút mới sẵn, vì `app.py` đã gắn Blocks
+  vào FastAPI lúc import.
+- Thêm ảnh `24_a09_buoc3.png` (bước 3: vạch tím là nhịp mạng đã báo). Bộ ảnh dự phòng thành 8 ảnh, `17..24`.
+- **Số đo thời gian phụ thuộc mạnh vào tải máy.** Một tiến trình `find` mồ côi do agent để lại đang quét cả ổ đĩa và
+  chiếm 96 % CPU: cùng script cho 51,7 s mở trang và 14–24 s mỗi thẻ. Tắt tiến trình đó rồi đo lại: **7,1 s** mở trang,
+  5,50 / 2,95 / 4,18 / 3,55 s mỗi thẻ. Tài liệu ghi cả hai lần đo. Mọi số ở dòng này mở được từ
+  `demo/screenshots/screenshots_v2.json` (`mo_trang_toi_r01_s`, `thoi_gian.*.bam_the_s`). Hai số `story_compute` nêu ở
+  bản trước của mục này (4,39 s và 0,65 s) đã bỏ: chúng chỉ là một lần đo trong phiên gỡ lỗi, không có tệp nào lưu lại.
 
 **Ghép với commit `cbce196` của Khánh (16/09) — máy chủ FastAPI**
 
@@ -23,7 +35,40 @@ Chi tiết từng vòng thẩm định: [`docs/nhat_ky/`](docs/nhat_ky/). Danh s
   rỗng; nay đọc `leads[k].F1`. Thêm kiểm thử.
 - **Sửa khi ghép — hiển thị:** Gradio 6 chỉ nhận CSS ở `launch()` hoặc `mount_gradio_app()`; gắn vào `/gradio` mà không
   truyền CSS thì chế độ trình bày mất toàn bộ bố cục. Nay truyền `css`, `theme`, `footer_links`.
-- Việc còn lại cho hai trang HTML: `HANDOFF.md` mục 10, việc 11.
+- Việc còn lại cho hai trang HTML: `HANDOFF.md` mục 10.1 (mục 13, bố cục hàng thẻ ở 800 px).
+
+**Rà độc lập hai trang của Khánh (18/09) — 14 mục, đã sửa 13**
+
+Lượt rà mở từng dòng `demo/monitor_template.py`, `demo/research_template.py` và các tuyến `/api/*`. Nguyên tắc sửa:
+giữ nguyên bố cục, màu và định tuyến của Khánh, **chỉ đụng vào câu chữ và con số nói sai sự thật**. Danh sách đầy đủ
+kèm trạng thái từng mục: `HANDOFF.md` mục 10.1.
+
+- **Trang `/monitor` phản bác chính luận điểm của đề tài.** Trang không có đèn tin cậy ở bất kỳ đâu, nên chọn a02 thì
+  nó ghi **"NHỊP TIM THAI 130 BPM"** kèm nhãn xanh *NHỊP TIM THAI BÌNH THƯỜNG (110 - 160)* — đúng con số mà chế độ
+  trình bày gạch ngang kèm chữ *đèn đỏ: không dùng số này* (a02: bám nhịp mẹ 0,783, 6/15 đoạn đỏ, đáp án ≈ 160). a27
+  tương tự. Nay `/api/monitor_data` trả `confidence {level, label, color, maternal_lock}`; HUD đổi màu, **gạch ngang**
+  số nhịp và thay huy hiệu thành *ĐÈN ĐỎ — HỆ THỐNG TỪ CHỐI, KHÔNG DÙNG SỐ NÀY* khi `level='thap'`. Kiểm bằng trình
+  duyệt: a02 → đèn đỏ, số bị gạch, F1 24,91 %; r01 → đèn xanh, F1 99,92 %.
+- **Số bịa khi thiếu dữ liệu.** HTML và JS có sẵn 74 nhịp/phút mẹ, 99.9 % F1, 12 ms, 140 nhịp/phút thai; máy chủ cũng
+  có ba giá trị mặc định tương ứng. Fetch hỏng thì các số này **ở lại** cạnh dòng "LỖI NẠP"; thêm nữa phép thử falsy
+  `? :` khiến F1 đúng bằng 0,0 hiện thành 99.9 %. Nay mọi ô là `—`, JS dùng `== null`, máy chủ trả `None`.
+- **Nhãn khẳng định sai.** "ĐỘ CHÍNH XÁC (AAMI F1)" → **"F1 SO VỚI ĐÁP ÁN (±50 ms)"** (giao thức thật là CinC 2013 /
+  Behar 2014, không phải ANSI/AAMI EC57). "ĐỘ TRỄ SUY LUẬN AI" → "THỜI GIAN XỬ LÝ (lọc + khử mẹ + mô hình)". Nhãn
+  checkpoint tĩnh "FetalQRS-TCN · Zero-shot" hiện cho mọi ca, kể cả r01 vốn là **bỏ-một-chủ-thể**; nay đổ
+  `checkpoint_note` thật. Tiêu đề tab "Live **Clinical** ECG Monitor" → "màn hình theo dõi (bản mẫu nghiên cứu)";
+  chân trang "không phải thiết bị y tế chẩn đoán **chính thức**" → "Không phải thiết bị y tế. Không dùng cho chẩn đoán."
+- **`checkpoint_for` nói "zero-shot" cho cả những bản không kiểm được.** Tách ba nhánh: bản CinC sạch (kiểm được) giữ
+  "zero-shot"; tệp tải lên nói rõ "demo **KHÔNG kiểm được** tệp có trùng chủ thể huấn luyện hay không"; và **15 bản
+  CinC rò rỉ** — a04 là bản sao của r01 vốn **nằm trong** tập huấn luyện — nay báo "CẢNH BÁO … KHÔNG phải zero-shot,
+  F1 ở đây là số bị thổi" thay vì dán nhãn zero-shot như trước.
+- **Sửa nhỏ:** `/api/run_analysis` đổi `latency_all_ms` (thực ra là độ trễ **một** dây) thành ba khoá đúng nghĩa
+  `wall_ms` / `latency_selected_ms` / `latency_all_leads_ms`; hai bộ nhãn đèn trong cùng một phản hồi nay đều lấy
+  `out['confidence']['label']`; bảng *Danh sách sự kiện* hết in "NaN" (`na_rep='—'`); tệp rác `.csv/.txt/.npy` báo
+  đúng "không đọc được thành bảng số" thay vì "bản ghi chỉ dài 0,00 giây"; hai câu báo lỗi `.csv` ở `app.py` và
+  `core.py` nay giống nhau; bấm *Tiếp ▶* trong lúc một thẻ đang tính không còn đưa trang về sai bước (khoá hai nút
+  trong lúc tính); nhãn ô "Chế độ chuyên gia" nói rõ màn hẹp thì hai tab cuối nằm trong nút "…".
+- **Chưa xong:** ở bề rộng 800 px, bốn thẻ bản ghi (cao 460 px) và thẻ *Tệp của bạn* (251 px) vẫn so le; đã thêm
+  `@media (max-width:900px)` cho xuống 2 thẻ/hàng nhưng chưa đo lại. Máy chiếu hội đồng 1366 px nên không chặn.
 
 **Đã làm**
 
@@ -127,9 +172,11 @@ Chi tiết từng vòng thẩm định: [`docs/nhat_ky/`](docs/nhat_ky/). Danh s
 - **Lý do của đèn mô tả đúng 6/4/2 chỉ số** (`fsqi/gate.py`): 6 thuần tín hiệu, 4 tính trên nhịp mạng tìm ra, 2 là xác suất
   của mạng; ngưỡng in ba chữ số (0,052 / 0,540), dấu % cách số.
 - **Ngưỡng cảnh báo nhịp tim khi tải tệp: 100–200** theo luật cứng của đèn (`demo/core.py: CONF_RULE`), thay 80–220.
-- Kiểm thử 103 → **109** (43 trong `tests/` + 66 trong `demo/test_core.py`, trong đó 22 của chế độ trình bày; đếm bằng
-  `python -m pytest --collect-only -q tests/ demo/test_core.py`).
-- Tài liệu đồng bộ theo giao diện mới: `docs/HUONG_DAN_DEMO_v2.md` (329/329 chuỗi nghiêng khớp mã hoặc chuỗi hiển thị thật;
+- Kiểm thử 103 → **109** (lượt 3, 17/09) → **111** sau khi ghép máy chủ FastAPI (43 trong `tests/` + 68 trong
+  `demo/test_core.py`, trong đó 23 của chế độ trình bày; đếm bằng
+  `python -m pytest --collect-only -q tests/ demo/test_core.py`, 18/09; chạy đủ bộ cùng ngày: 111 passed, 39,2 giây).
+- Tài liệu đồng bộ theo giao diện mới: `docs/HUONG_DAN_DEMO_v2.md` (336/336 chuỗi nghiêng khớp mã hoặc chuỗi hiển thị thật,
+  đối chiếu lại 18/09 sau lượt sửa tài liệu;
   thêm hỏi đáp "đèn xanh mà vẫn sai" với a57 F1 17,02, và "vì sao lúc nhanh lúc chậm"), `docs/KICH_BAN_THUYET_TRINH_v2.md`,
   slide, sổ tay, `docs/NOI_DUNG_SLIDE.md`, `docs/TOM_TAT_1_TRANG.md`, `HANDOFF.md`, README.
 

@@ -688,7 +688,7 @@ Kết thúc: tờ tóm tắt in giấy, hai bản.
 ## Kiểm 15 phút trước buổi trình bày
 
 1. Mở sổ tay HTML, rà lại: **không mục nào còn số tính trên 75 bản**, và không mục nào còn số cổng từ chối ngoài miền chưa tính lại.
-2. `python -m pytest demo/test_core.py -q` (66 kiểm thử) và `python -m pytest tests/ -q` (43) — tổng 109 tại 17/09/2026.
+2. `python -m pytest demo/test_core.py -q` (68 kiểm thử) và `python -m pytest tests/ -q` (43) — tổng 111 tại 17/09/2026.
 3. `python demo/run_check.py --only r01,a09,a02 --out demo_check_3ban --threads 2` — xác nhận ba con số 99,92 · 94,25 · 24,91 khớp kịch bản.
 4. Mở sẵn `survey/facts_phase4.json` trong trình soạn thảo, để tra khi bị hỏi số không nhớ.
 5. In hai bản `docs/TOM_TAT_1_TRANG.md`.

@@ -258,8 +258,8 @@ footer{
       <span class="chip">Mô hình <b>113.481</b> tham số</span>
       <span class="chip"><b>22</b> sản phụ huấn luyện</span>
       <span class="chip"><b>60</b> bản ghi kiểm tra ngoài <i style="font-style:normal;color:var(--accent)">(đã lọc rò rỉ)</i></span>
-      <span class="chip"><b>≈31.000</b> dòng Python · <b>109</b> kiểm thử (17/09)</span>
-      <span class="chip">Cập nhật <b>17/09/2026</b></span>
+      <span class="chip"><b>≈31.000</b> dòng Python · <b>111</b> kiểm thử (18/09)</span>
+      <span class="chip">Cập nhật <b>18/09/2026</b></span>
     </div>
   </div>
 </header>
@@ -558,7 +558,7 @@ footer{
   <div class="b3" style="flex:16.40">16,40</div>
 </div>
 <div class="legend">
-  <span><span class="sw" style="background:var(--verify)"></span>Chọn kênh: peakprob đã lấy lại 74,28 → 82,01 (hậu kiểm)</span>
+  <span><span class="sw" style="background:var(--verify)"></span>Chọn kênh: 74,28 → 80,72 (gate, quy tắc kế hoạch chọn, trượt Holm) → 81,01 (gate4) → 82,01 (peakprob, hậu kiểm)</span>
   <span><span class="sw" style="background:var(--accent)"></span>Chọn kênh: còn lại tới oracle 82,01 → 83,60</span>
   <span><span class="sw" style="background:#6B7280"></span>Oracle 83,60 → 100: chưa tách được bộ dò hay thiếu tín hiệu</span>
 </div>
@@ -764,7 +764,7 @@ footer{
 <div class="tw"><table>
 <thead><tr><th>Khối công việc</th><th class="n">Hoàn thành</th><th>Ghi chú</th></tr></thead>
 <tbody>
-<tr><td>Hạ tầng, mã, kiểm thử</td><td class="n">95 %</td><td>109 kiểm thử: 43 trong <code>tests/</code> + 66 trong <code>demo/test_core.py</code> (đếm bằng <code>pytest --collect-only</code>, 17/09/2026 sau lượt sửa demo thứ ba; số tăng khi sửa demo). ≈31.000 dòng Python (30.957 dòng trong 136 tệp <code>.py</code> đang theo dõi hoặc chưa bị bỏ qua, bỏ <code>tools/</code>, đếm bằng <code>wc -l</code> kể cả dòng trống và chú thích, 17/09)</td></tr>
+<tr><td>Hạ tầng, mã, kiểm thử</td><td class="n">95 %</td><td>111 kiểm thử: 43 trong <code>tests/</code> + 68 trong <code>demo/test_core.py</code> (đếm bằng <code>pytest --collect-only</code>, 18/09/2026 sau khi ghép máy chủ FastAPI; số tăng khi sửa demo). ≈31.000 dòng Python (30.957 dòng trong 136 tệp <code>.py</code> đang theo dõi hoặc chưa bị bỏ qua, bỏ <code>tools/</code>, đếm bằng <code>wc -l</code> kể cả dòng trống và chú thích, 17/09)</td></tr>
 <tr><td>Mô hình</td><td class="n">95 %</td><td>Câu hỏi kiến trúc đã đóng — giữ TCN</td></tr>
 <tr><td>Thống kê</td><td class="n">95 %</td><td>Chặt hơn mặt bằng ngành</td></tr>
 <tr><td>Văn bản</td><td class="n">90 %</td><td>Đề cương 140 trang, bài báo 4 trang</td></tr>
@@ -829,7 +829,7 @@ footer{
 
 <div class="box ok">
 <span class="box-h">Câu kết em nên nói</span>
-<p>"Em muốn bài này <strong>có thực lực</strong> chứ không phải đẹp số. Nên mỗi khi tìm thấy lỗi của chính mình, em sửa và ghi lại công khai. Hiện em có khoảng 31.000 dòng Python, 109 kiểm thử, và mọi con số trong đề cương đều truy ngược được về một tệp kết quả trên máy."</p>
+<p>"Em muốn bài này <strong>có thực lực</strong> chứ không phải đẹp số. Nên mỗi khi tìm thấy lỗi của chính mình, em sửa và ghi lại công khai. Hiện em có khoảng 31.000 dòng Python, 111 kiểm thử, và mọi con số trong đề cương đều truy ngược được về một tệp kết quả trên máy."</p>
 </div>
 </section>
 
@@ -859,9 +859,9 @@ footer{
 <thead><tr><th>Tiêu chí</th><th>Đề tài đáp ứng</th><th>Điểm yếu</th></tr></thead>
 <tbody>
 <tr><td>1b · Tính mới (20)</td><td>Quy tắc chọn kênh không tham số; cổng từ chối; định lượng chồng lấn bộ chuẩn</td><td><strong>Yếu nhất</strong> sau khi biết chồng lấn đã được ghi nhận; peakprob hậu kiểm</td></tr>
-<tr><td>2a · Phương pháp &amp; kết quả (30)</td><td>Baseline chạy lại có kiểm chứng ngoài; thống kê mức chủ thể; 109 kiểm thử (17/09); tự rút nhiều tuyên bố, có ghi chép (<code>Z_DA_RUT</code>) — <strong>mạnh nhất</strong> so với mặt bằng sinh viên</td><td>22 chủ thể; một hạt giống</td></tr>
+<tr><td>2a · Phương pháp &amp; kết quả (30)</td><td>Baseline chạy lại có kiểm chứng ngoài; thống kê mức chủ thể; 111 kiểm thử (18/09); tự rút nhiều tuyên bố, có ghi chép (<code>Z_DA_RUT</code>) — <strong>mạnh nhất</strong> so với mặt bằng sinh viên</td><td>22 chủ thể; một hạt giống</td></tr>
 <tr><td>2b · Giải pháp, kiến nghị (20)</td><td>Demo chạy được; hướng thiết bị đeo; bảng "đừng làm gì" cho người sau</td><td>Chưa có bác sĩ đồng hành</td></tr>
-<tr><td>3 · Trình bày (20)</td><td>Sổ tay, 7 ảnh demo dự phòng (17–23), đề cương 140 trang, bài 4 trang</td><td>Toàn văn phải làm lại bản <em>mù</em></td></tr>
+<tr><td>3 · Trình bày (20)</td><td>Sổ tay, 8 ảnh demo dự phòng (17–24), đề cương 140 trang, bài 4 trang</td><td>Toàn văn phải làm lại bản <em>mù</em></td></tr>
 </tbody></table></div>
 
 <div class="box why">
@@ -878,9 +878,9 @@ footer{
 
 <h3>Trước buổi gặp — 15 phút</h3>
 <ol>
-<li>Mở PowerShell tại gốc dự án, đặt <code>$env:PYTHONIOENCODING = "utf-8"</code> và ba biến <code>OPENBLAS_NUM_THREADS</code>, <code>OMP_NUM_THREADS</code>, <code>MKL_NUM_THREADS</code> bằng <code>"1"</code>, rồi chạy <code>python demo/app.py</code> và mở <code>http://127.0.0.1:7860/gradio/</code> (chế độ trình bày; trang <code>/</code> là trang nghiên cứu HTML của Khánh). Cổng bận thì đặt <code>$env:RELYFETAL_PORT</code> (demo <strong>không</strong> đọc <code>GRADIO_SERVER_PORT</code>). Thẻ r01 tự chạy; lần đầu phải nạp mô hình nên lâu hơn (lần đo tự động ghi lúc 22:02 ngày 17/09 được 7,2 giây từ lúc mở trang đến khi r01 sẵn; đó là một lần đo, không dùng để kết luận demo nhanh hay chậm; <code>demo/screenshots/screenshots_v2.json → mo_trang_toi_r01_s</code>).</li>
-<li>Kiểm nhanh: <code>python demo/smoke_app.py</code> — dòng cuối phải là <em>KẾT QUẢ: ĐẠT</em>; và <code>python -m pytest demo/test_core.py -k trinh_bay -q</code> — 22 kiểm thử của chế độ trình bày.</li>
-<li>Mở sẵn 7 ảnh dự phòng <code>demo/screenshots/17_the_r01.png</code> … <code>23_a02_buoc4.png</code>. <strong>Không</strong> chạy <code>demo/run_check.py --out demo_check_showcase</code>: lệnh đó ghi đè tệp mà các thẻ đọc số.</li>
+<li>Mở PowerShell tại gốc dự án, đặt <code>$env:PYTHONIOENCODING = "utf-8"</code> và ba biến <code>OPENBLAS_NUM_THREADS</code>, <code>OMP_NUM_THREADS</code>, <code>MKL_NUM_THREADS</code> bằng <code>"1"</code>, rồi chạy <code>python demo/app.py</code> và mở <code>http://127.0.0.1:7860/gradio/</code> (chế độ trình bày; trang <code>/</code> là trang nghiên cứu HTML của Khánh). Cổng bận thì đặt <code>$env:RELYFETAL_PORT</code> (demo <strong>không</strong> đọc <code>GRADIO_SERVER_PORT</code>). Thẻ r01 tự chạy; lần đầu phải nạp mô hình nên lâu hơn (lần đo tự động ngày 18/09 được 7,1 giây từ lúc mở trang đến khi r01 sẵn, đo khi máy rảnh; đó là một lần đo, không dùng để kết luận demo nhanh hay chậm; <code>demo/screenshots/screenshots_v2.json → mo_trang_toi_r01_s</code>).</li>
+<li>Kiểm nhanh: <code>python demo/smoke_app.py</code> — dòng cuối phải là <em>KẾT QUẢ: ĐẠT</em>; và <code>python -m pytest demo/test_core.py -k trinh_bay -q</code> — 23 kiểm thử của chế độ trình bày.</li>
+<li>Mở sẵn 8 ảnh dự phòng <code>demo/screenshots/17_the_r01.png</code> … <code>24_a09_buoc3.png</code>. <strong>Không</strong> chạy <code>demo/run_check.py --out demo_check_showcase</code>: lệnh đó ghi đè tệp mà các thẻ đọc số.</li>
 </ol>
 
 <h3>Demo 5 phút — bốn thẻ, theo đúng thứ tự</h3>
@@ -922,7 +922,7 @@ footer{
 </div>
 
 <h3>Nếu demo hỏng</h3>
-<p>Chiếu 7 ảnh trong <code>demo/screenshots/</code> theo thứ tự <code>17</code> → <code>18</code> → <code>21</code> → <code>19</code> → <code>23</code> → <code>22</code> → <code>20</code> (chụp bằng <code>python demo/screenshot_v2.py</code>, 17/09/2026). Nếu chỉ kịp chiếu một ảnh, chiếu <code>21_a09_buoc4.png</code> và nói: "Cùng bản ghi, cùng mô hình, chỉ khác dây. Dây 1 F1 94,25, dây 2 F1 19,35; quy tắc cũ chọn dây 2. Trên 60 bản sạch: cũ 74,28, <em>gate</em> 80,72 (trượt Holm), <em>gate4</em> 81,01, mới 82,01 — quy tắc mới chọn sau khi xem kết quả." Nếu Gradio lỗi khi khởi động: <code>python demo/run_check.py --only r01,a09,a02,a27 --out demo_check_4the --threads 2</code>, kể theo bảng in ra terminal.</p>
+<p>Chiếu 8 ảnh trong <code>demo/screenshots/</code> theo thứ tự <code>17</code> → <code>18</code> → <code>24</code> → <code>21</code> → <code>19</code> → <code>23</code> → <code>22</code> → <code>20</code> (chụp bằng <code>python demo/screenshot_v2.py</code>, 18/09/2026, qua <code>/gradio/</code>). Nếu chỉ kịp chiếu một ảnh, chiếu <code>21_a09_buoc4.png</code> và nói: "Cùng bản ghi, cùng mô hình, chỉ khác dây. Dây 1 F1 94,25, dây 2 F1 19,35; quy tắc cũ chọn dây 2. Trên 60 bản sạch: cũ 74,28, <em>gate</em> 80,72 (trượt Holm), <em>gate4</em> 81,01, mới 82,01 — quy tắc mới chọn sau khi xem kết quả." Nếu Gradio lỗi khi khởi động: <code>python demo/run_check.py --only r01,a09,a02,a27 --out demo_check_4the --threads 2</code>, kể theo bảng in ra terminal.</p>
 
 <h3>Ba câu hỏi khó nhất, và câu trả lời đã chuẩn bị</h3>
 <div class="say">
@@ -944,6 +944,6 @@ footer{
 
 <footer>
 <div class="footer-in">
-  <p style="margin:0">Sổ tay RelyFetal · Cập nhật 17/09/2026 · Mọi con số truy ngược được về tệp kết quả trong kho mã. Các mục đang chạy thí nghiệm sẽ được cập nhật khi có kết quả.</p>
+  <p style="margin:0">Sổ tay RelyFetal · Cập nhật 18/09/2026 · Mọi con số truy ngược được về tệp kết quả trong kho mã. Các mục đang chạy thí nghiệm sẽ được cập nhật khi có kết quả.</p>
 </div>
 </footer>

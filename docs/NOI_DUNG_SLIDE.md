@@ -5,7 +5,7 @@
 > `docs/KICH_BAN_THUYET_TRINH_v2.md` và `docs/HUONG_DAN_DEMO_v2.md`. Ngày 17/09/2026 đã sửa tại chỗ các lỗi sự
 > thật: cổng từ chối không độc lập với mạng; "17,92 điểm" đã rút (thay bằng 23,28 theo PSD); 0,934 ghi rõ phạm
 > vi 11/22 chủ thể; bỏ số kiểm thử cố định ở slide bìa. Cùng ngày, đồng bộ với demo sau lượt sửa thứ ba: slide 1–2
-> theo tiêu đề demo *chỉ cần một kênh* và câu đèn không nói quá; bỏ "máy khác" ở slide CinC; 109 kiểm thử.
+> theo tiêu đề demo *chỉ cần một kênh* và câu đèn không nói quá; bỏ "máy khác" ở slide CinC; 111 kiểm thử.
 
 **Đề tài:** RelyFetal — dò phức bộ QRS thai nhi từ một đạo trình bụng, có cổng từ chối
 **Chủ nhiệm:** Ngô Bình Minh · NCKH sinh viên TDTU 2026–2027
@@ -39,7 +39,7 @@
 Nguồn: 113.481 từ `analysis/kientruc_results.json → table.tcn.params`; 22 chủ thể từ
 `baselines/powermf_fair_stats.json → so_sanh.tat_ca_22.rely_vs_pmf4.n`; 60 bản ghi từ
 `analysis/dulieu_results.json → chon_kenh_60_sach.bang.psd.n`. **Không ghi số kiểm thử trên bìa** — số này đổi
-theo từng vòng (17/09/2026 sau lượt sửa demo thứ ba: 109 = 43 + 66, đếm bằng `pytest --collect-only tests/ demo/test_core.py`).
+theo từng vòng (18/09/2026 sau khi ghép máy chủ FastAPI: 111 = 43 + 68, đếm bằng `pytest --collect-only tests/ demo/test_core.py`).
 
 **GHI CHÚ NGƯỜI NÓI:** "Em chào cô. Em xin khoảng 20 phút, có demo ở giữa, cô ngắt bất cứ lúc nào
 cũng được ạ." Nói rõ đây là báo cáo tiến độ, không phải xin duyệt kết quả. Nêu ngay ba con số
@@ -742,7 +742,7 @@ không cạnh tranh được — em xin không đặt mục tiêu đó.
 | Mô hình + huấn luyện (1 hạt giống) | 100 | `analysis/kientruc_results.json`, checkpoint 11 fold |
 | Đánh giá trong miền + baseline | 100 | `baselines/powermf_fair_stats.json`, `analysis/recovery_ratio.json` |
 | Đánh giá ngoài miền, 60 bản sạch | 100 | `benchmark_dpss/eval_cinc60_sach.json` |
-| Demo + kiểm thử | 100 | 109 kiểm thử (43 `tests/` + 66 `demo/test_core.py`, đếm 17/09/2026 sau lượt sửa demo thứ ba); ảnh trong `demo/screenshots/` |
+| Demo + kiểm thử | 100 | 111 kiểm thử (43 `tests/` + 68 `demo/test_core.py`, đếm 18/09/2026 sau khi ghép máy chủ FastAPI); ảnh trong `demo/screenshots/` |
 | Cổng từ chối | 70 | xong trên 22 chủ thể; **chưa** tính lại trên 60 sạch |
 | Lâm sàng (STV) | 60 | đo xong; **chưa** đo trên nhịp đã qua cổng |
 | Ba hạt giống cho kết quả chính | 33 | mới có hạt giống 0; hạt giống 1 chỉ có F1, không có checkpoint |
@@ -829,7 +829,8 @@ quả, không xin cô sửa mã, không xin thêm thời gian."
 
 **HÌNH/BẢNG:** Một ảnh chụp demo lớn (`demo/screenshots/01.png` — tab *Tín hiệu (5 tầng)* của
 r01) làm nền mờ, chồng lên là 5 dòng nội dung. Ở góc: đường dẫn chạy `python demo/app.py` và
-`http://127.0.0.1:7860`. Số F1 của 5 bản minh hoạ lấy từ `demo/results/demo_check_showcase.json`.
+`http://127.0.0.1:7860/gradio/` (từ commit ghép 17/09, địa chỉ không có `/gradio/` mở trang nghiên
+cứu HTML chứ không phải chế độ trình bày). Số F1 của 5 bản minh hoạ lấy từ `demo/results/demo_check_showcase.json`.
 **Dự phòng:** nếu demo trực tiếp hỏng, chuyển sang 16 ảnh `demo/screenshots/01…12` theo thứ tự
 01–03 (r01) → 04–06 (a09, hai quy tắc) → 07–08 (B2_03) → 09–10 (a02) → 11 (a27) → 12 (bảng tổng
 hợp 60 bản sạch).

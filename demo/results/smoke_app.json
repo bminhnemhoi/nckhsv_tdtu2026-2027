@@ -3,13 +3,13 @@
  "plotly": "7.0.0",
  "python": "3.12.6",
  "port": 7861,
- "build_s": 3.3,
+ "build_s": 3.23,
  "ok": true,
  "http_status": 200,
- "launch_s": 0.98,
+ "launch_s": 0.99,
  "n_components": 125,
  "n_dependencies": 35,
- "direct_wall_s": 3.86,
+ "direct_wall_s": 3.75,
  "direct": {
   "record": "r01",
   "lead": 4,
@@ -20,7 +20,7 @@
   "n_beats": 645,
   "fhr_mean": 129.02548389415804,
   "level": "cao",
-  "latency_ms": 368.8730000285432,
+  "latency_ms": 406.38509998098016,
   "n_traces_fig1": 10,
   "n_rows_cmp": 201
  },
@@ -50,7 +50,7 @@
  ],
  "client": {
   "endpoint": "/run",
-  "wall_s": 4.63,
+  "wall_s": 4.51,
   "n_outputs": 9,
   "F1": 99.92242048099301,
   "level": "cao"
@@ -60,24 +60,24 @@
   "n_ban_ghi": 5,
   "ban_ghi": "r01",
   "n_traces": 5,
-  "wall_s": 0.17
+  "wall_s": 0.16
  },
  "tab_tai_len": {
   "tep": "vidu_tai_len.csv",
   "F1_khi_co_nhan": 98.46153846153847,
   "lead": 1,
   "level": "cao",
-  "wall_co_nhan_s": 0.54,
-  "wall_khong_nhan_s": 0.53,
+  "wall_co_nhan_s": 0.48,
+  "wall_khong_nhan_s": 0.43,
   "loi_than_thien": "**Không phân tích được tệp.** Chưa chọn tệp nào. Hãy tải lên .edf, hoặc CẶP .dat + .hea, hoặc .csv / .npy / .txt.\n\nKết q"
  },
  "client_tab_moi": {
-  "/du_lieu_nhom": 0.45,
-  "/xem_tin_hieu_tho": 0.45
+  "/du_lieu_nhom": 0.42,
+  "/xem_tin_hieu_tho": 0.41
  },
  "trinh_bay": {
   "the": "r01",
   "n_dau_ra": 33,
-  "wall_s": 2.9
+  "wall_s": 2.97
  }
 }

@@ -1,12 +1,14 @@
 # Kịch bản buổi gặp đầu tiên với giảng viên hướng dẫn (20 phút + hỏi đáp)
 
 > **⚠ CẢNH BÁO (17/09/2026) — tệp lưu trữ** của buổi gặp 14/09, dựng quanh demo 8 tab. Đã cũ so với demo sau lượt
-> sửa thứ ba: số kiểm thử (17, 82; hiện 109 = 43 trong `tests/` + 66 trong `demo/test_core.py`); số dòng mã (27.700;
+> sửa thứ ba: số kiểm thử (17, 82; hiện 111 = 43 trong `tests/` + 68 trong `demo/test_core.py`); số dòng mã (27.700;
 > hiện ≈ 31.000 — 30.957 dòng trong 136 tệp `.py` theo dõi hoặc chưa bị bỏ qua, `wc -l`, 17/09); tên
 > `docs/HUONG_DAN_DEMO.md` (nay là `HUONG_DAN_DEMO_v1.md`); câu "hệ thống tự biết khi nào nó không đáng tin" nói quá
 > (đèn chỉ báo khi thấy dấu hiệu xấu, không phải lần nào cũng thấy: a57 đèn xanh, F1 17,02 —
 > `demo/results/demo_check_2modes.json → summary_by_mode.hoc.green_but_F1_below_90`); "bộ khác, máy khác" chưa kiểm được (ban tổ chức CinC 2013 không công bố
 > thiết bị ghi của từng bản). Buổi trình bày mới dùng `docs/KICH_BAN_THUYET_TRINH_v2.md` và `docs/HUONG_DAN_DEMO_v2.md`.
+> **Địa chỉ demo trong tệp này cũng đã cũ:** từ commit ghép 17/09, `http://127.0.0.1:7860` mở trang nghiên cứu HTML,
+> còn chế độ trình bày nằm ở `http://127.0.0.1:7860/gradio/`.
 >
 > **Thẩm định cuối 17/09 — các chỗ trong lời thoại dưới đây đã sửa hoặc phải đọc theo ghi chú này:**
 > - **Số STV ngoài miền đã rút:** "lệch 20,5 ms trên CinC" và "0,13 ms khi cổng cho phép" (cùng 25,74–25,78 ms) tính trên

@@ -870,7 +870,7 @@ def _run_upload(files, fs_in, lead_choice, conf_choice, label_files):
     except ValueError as e:
         ten = ', '.join(os.path.basename(p) for p in paths) or 'tệp tải lên'
         raise _loi(f'Không đọc được {ten} thành bảng số. Tệp .csv/.txt phải gồm các cột SỐ: mỗi cột một kênh, mỗi dòng một mẫu, '
-                   f'được phép có một dòng tiêu đề; các dòng phải có cùng số cột. (Chi tiết kỹ thuật: {e})')
+                   f'được phép có một dòng tiêu đề; mọi dòng phải có cùng số cột và không lẫn chữ. (Chi tiết kỹ thuật: {e})')
     except Exception as e:                                      # noqa: BLE001
         raise _loi(f'Không xử lý được tệp tải lên: {type(e).__name__}: {e}')
     try:
@@ -897,7 +897,9 @@ def _run_upload(files, fs_in, lead_choice, conf_choice, label_files):
     canh = ''.join(f'\n\n> ⚠ {c}' for c in canh_list)
     status = (f'Đã phân tích tệp **{os.path.basename(rec["upload_main"])}** '
               f'({rec["source"]}, {_vn(rec["duration_s"], 1)} giây, {rec["signals"].shape[0]} kênh, {fs_txt}) — {nhan}.\n\n'
-              f'Kênh được chọn: **{out["lead"]}** ({out["lead_mode"]}) · checkpoint *{out["checkpoint_note"]}* · '
+              f'Kênh được chọn: **{out["lead"]}** ({out["lead_mode"]}) · checkpoint *{out["checkpoint_note"]}*. '
+              'Demo **không kiểm được** tệp bạn tải lên có trùng 22 chủ thể huấn luyện hay không; nếu tệp lấy từ '
+              'ADFECGDB hoặc Silesia thì đây **không phải** kết quả ngoài miền. · '
               f'đèn tin cậy *{core.CONF_MODE_LABEL[out["confidence_mode"]]}* · '
               f'toàn bộ (đọc tệp + mô hình + vẽ): **{_vn_int(wall)} ms**.\n\n'
               f'Tệp đã nhận: `{", ".join(rec["upload_files"])}`.{canh}')
@@ -1509,8 +1511,9 @@ def story_view(step):
     """Trạng thái bước hiện tại -> (bước, thanh tiến trình, 5 cột ẩn/hiện, nút Quay lại, nút Tiếp)."""
     step = int(min(max(int(step), 1), STORY_N_STEPS))
     vis = [gr.update(visible=(i == step)) for i in range(1, STORY_N_STEPS + 1)]
+    # bật lại hai nút: chúng bị khoá trong lúc một thẻ đang tính (bấm Tiếp lúc đó làm lệch bước)
     return (step, story_progress_html(step), *vis, gr.update(interactive=step > 1),
-            gr.update(value=('Tiếp ▶' if step < STORY_N_STEPS else 'Xem lại từ đầu ↺')))
+            gr.update(value=('Tiếp ▶' if step < STORY_N_STEPS else 'Xem lại từ đầu ↺'), interactive=True))
 
 
 def story_step(cur, delta):
@@ -1610,6 +1613,7 @@ footer{display:none !important}
 /* thẻ xuống hàng trên màn hẹp thay vì bóp còn 54 px */
 .rf-sc-row{flex-wrap:wrap !important;gap:12px !important}
 .rf-sc-row>.rf-sc-wrap{flex:1 1 200px !important;min-width:200px !important}
+@media (max-width:900px){.rf-sc-row>.rf-sc-wrap{flex-basis:47% !important}}
 @media (max-width:520px){.rf-sc-row>.rf-sc-wrap{flex-basis:100% !important}}
 /* thanh tóm tắt dính đáy: dính theo cột bọc các bước (khung cha của chính thanh thì chỉ cao bằng nó) */
 .rf-story-col .rf-sum-wrap{position:sticky !important;bottom:0;z-index:30}
@@ -1676,7 +1680,8 @@ def build_app():
             summary = gr.HTML(story_summary_html(None), elem_classes=['rf-story', 'rf-sum-wrap'])
         # ------------------------------------------------------------------ [D] chế độ chuyên gia (8 tab cũ, nguyên vẹn)
         with gr.Row(elem_classes=['rf-expert-head']):
-            expert = gr.Checkbox(value=False, label='Chế độ chuyên gia — hiện 8 tab đầy đủ (bảng số, dữ liệu của nhóm, tải tệp, nhật ký)')
+            expert = gr.Checkbox(value=False, label='Chế độ chuyên gia — hiện 8 tab đầy đủ (bảng số, dữ liệu của nhóm, tải tệp, nhật ký); '
+                                                    'màn hẹp thì hai tab cuối nằm trong nút "…" ở cuối hàng tab')
         with gr.Column(visible=False) as expert_col:
             gr.HTML('<div class="rf-title"><h1>RelyFetal — dò phức bộ QRS thai nhi từ điện tim ổ bụng <em>đơn kênh</em>, có cổng từ chối</h1>'
                     '<p>FetalQRS-TCN (113 481 tham số, CPU, huấn luyện 22 chủ thể) · khử QRS mẹ bằng mẫu trung vị · '
@@ -1770,9 +1775,9 @@ def build_app():
                       summary, *view_outs, story_status]
         assert len(story_outs) == STORY_N_OUTS
 
-        def _bam(n):                    # chạy ngay (queue=False): ghi thẻ bấm sau cùng + hiện "đang phân tích"
-            def f(request: gr.Request):
-                return story_request(n, _phien(request))
+        def _bam(n):                    # chạy ngay (queue=False): ghi thẻ bấm sau cùng, hiện "đang phân tích",
+            def f(request: gr.Request):  # và KHOÁ hai nút bước (bấm Tiếp lúc đang tính làm lệch bước)
+                return story_request(n, _phien(request)), gr.update(interactive=False), gr.update(interactive=False)
             return f
 
         def _chay(n):                   # xếp hàng 'trinh_bay': phân tích; bỏ qua nếu đã có thẻ bấm sau
@@ -1782,7 +1787,7 @@ def build_app():
 
         for comp, name in zip(card_comps, STORY_RECS):
             comp.click(None, None, None, js=JS_GHI_VI_TRI)
-            (comp.click(_bam(name), None, story_status, queue=False)
+            (comp.click(_bam(name), None, [story_status, btn_back, btn_next], queue=False)
                  .then(_chay(name), None, story_outs, concurrency_id='trinh_bay', show_progress='hidden',
                        **_api(f'trinh_bay_{name}'))
                  .then(None, None, None, js=JS_CUON_TOI_BUOC))
@@ -1818,8 +1823,8 @@ def build_app():
                 def _mo_trang(request: gr.Request):
                     if _phien(request) is not None:
                         _YEU_CAU[_phien(request)] = first
-                    return story_loading_html(first, lan_dau=True)
-                (demo.load(_mo_trang, None, story_status, queue=False)
+                    return story_loading_html(first, lan_dau=True), gr.update(interactive=False), gr.update(interactive=False)
+                (demo.load(_mo_trang, None, [story_status, btn_back, btn_next], queue=False)
                      .then(_chay(first), None, story_outs, concurrency_id='trinh_bay', show_progress='hidden'))
             # 8 tab cũ chỉ tự chạy khi được yêu cầu (mặc định ẩn -> chạy r01 hai lần lúc mở là phí)
             if SHOWCASE_LABELS and os.environ.get('RELYFETAL_AUTORUN_EXPERT', '0') == '1':
@@ -1895,7 +1900,7 @@ def monitor_data(rec: str = 'r01'):
 
     m_peaks = out.get('maternal_peaks', np.array([]))
     m_peaks_sec = [round(float(p / 250.0), 3) for p in m_peaks if (p / 250.0) <= dur_limit]
-    m_bpm = 74.0
+    m_bpm = None                       # thieu du lieu thi tra None de trang hien '—', KHONG tu dien so
     if len(m_peaks) > 1:
         dur_m = (m_peaks[-1] - m_peaks[0]) / 250.0
         if dur_m > 0:
@@ -1917,10 +1922,19 @@ def monitor_data(rec: str = 'r01'):
         'peaks': peaks_sec,
         'maternal_peaks': m_peaks_sec,
         'tachogram': tachogram,
-        'median_fhr': round(float(out.get('fhr_mean', 140.0)), 1),
+        'median_fhr': (round(float(out['fhr_mean']), 1) if np.isfinite(out.get('fhr_mean', float('nan'))) else None),
         'maternal_bpm': m_bpm,
         'f1_score': f1,
-        'latency_ms': round(float(out.get('latency_ms', 12.0)), 1),
+        'latency_ms': (round(float(out['latency_ms']), 1) if out.get('latency_ms') is not None else None),
+        # den tin cay: trang /monitor tung khong co den nao, nen a02 (den DO that) hien "BINH THUONG"
+        'confidence': {
+            'level': out['confidence'].get('level'),
+            'label': out['confidence'].get('label'),
+            'color': out['confidence'].get('color'),
+            'maternal_lock': (out['confidence'].get('components') or {}).get('maternal_lock'),
+        },
+        'checkpoint_note': out.get('checkpoint_note', ''),
+        'f1_note': 'F1 so với đáp án, dung sai ±50 ms (quy ước CinC 2013 / Behar 2014)',
     })
 
 
@@ -1984,10 +1998,10 @@ async def api_run_analysis(request: fastapi.Request):
         # bản 16/09 luôn rơi về 'xanh': a02 (đèn ĐỎ thật) hiện "XANH (tin cậy)". Sửa 17/09 khi ghép vòng 10.
         c_state = {'cao': 'xanh', 'trung_binh': 'vang', 'thap': 'do'}.get(out['confidence'].get('level'), 'vang')
         col_map = {'xanh': '#30d158', 'vang': '#ffd60a', 'do': '#ff453a'}
-        label_map = {'xanh': 'XANH (tin cậy)', 'vang': 'VÀNG (nghi ngờ)', 'do': 'ĐỎ (từ chối)'}
         conf_obj = {
             'state': c_state,
-            'label': label_map.get(c_state, c_state.upper()),
+            # dung CHUNG nhan voi giao dien ('THAP (do)' ...), khong dat ten thu hai cho cung mot den
+            'label': out['confidence'].get('label', c_state.upper()),
             'color': col_map.get(c_state, '#30d158'),
             'score': float(out['confidence'].get('score', 1.0)),
             'mode_label': core.CONF_MODE_LABEL.get(out.get('confidence_mode', 'hoc'), '')
@@ -1996,7 +2010,7 @@ async def api_run_analysis(request: fastapi.Request):
     leads_html = markdown.markdown(leads_md(out), extensions=['tables', 'fenced_code'])
     cmp_html = markdown.markdown(compare_md(out), extensions=['tables', 'fenced_code'])
     cmp_df_obj = compare_df(out)
-    cmp_table_html = (cmp_df_obj.to_html(classes='table', index=False)
+    cmp_table_html = (cmp_df_obj.to_html(classes='table', index=False, na_rep='—')
                       if cmp_df_obj is not None and not cmp_df_obj.empty
                       else '<p style="color:var(--text-muted)">Không có sự kiện nhãn đối chiếu.</p>')
 
@@ -2025,8 +2039,10 @@ async def api_run_analysis(request: fastapi.Request):
         'lead_rule': out.get('lead_rule', 'peakprob'),
         'lead_chips': lead_chips,
         'confidence': conf_obj,
-        'latency_ms': round(wall, 1),
-        'latency_all_ms': round(float(out.get('latency_ms', wall)), 1),
+        'wall_ms': round(wall, 1),                                   # ca luot: doc tep + mo hinh + ve
+        'latency_selected_ms': round(float(out.get('latency_ms', wall)), 1),   # rieng day da chon
+        'latency_all_leads_ms': (round(float(out['latency_all_leads_ms']), 1)
+                                 if out.get('latency_all_leads_ms') else None),
         'checkpoint_note': out.get('checkpoint_note', ''),
         'status_html': status_html,
         'cards_html': cards_html_code,
