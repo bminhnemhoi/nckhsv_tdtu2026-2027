@@ -1,63 +1,63 @@
 {
  "port": 7863,
  "shots": {
-  "17_the_r01.png": 527840,
-  "18_the_a09.png": 518272,
-  "24_a09_buoc3.png": 603800,
-  "21_a09_buoc4.png": 744648,
-  "19_the_a02.png": 538536,
-  "23_a02_buoc4.png": 834101,
-  "22_a02_buoc5.png": 618487,
-  "20_the_a27.png": 525980
+  "17_the_r01.png": 530368,
+  "18_the_a09.png": 520973,
+  "24_a09_buoc3.png": 606467,
+  "21_a09_buoc4.png": 747308,
+  "19_the_a02.png": 541171,
+  "23_a02_buoc4.png": 836835,
+  "22_a02_buoc5.png": 621012,
+  "20_the_a27.png": 528525
  },
  "thoi_gian": {
   "r01": {
-   "bam_the_s": 5.5,
+   "bam_the_s": 7.55,
    "buoc": {
-    "2": 2.59,
-    "3": 2.95,
-    "4": 4.74,
+    "2": 3.11,
+    "3": 3.18,
+    "4": 5.27,
     "5": 0.89
    },
-   "tong_5_buoc_s": 19.12,
+   "tong_5_buoc_s": 22.81,
    "tom_tat": "BẢN GHI | r01 | BỘ DỮ LIỆU | ADFECGDB | DÂY ĐÃ CHỌN | 4 / 4 (quy tắc mới) | F1 (BẮT ĐỦ VÀ BÁO ĐÚNG, 100 LÀ HOÀN HẢO) | 99,92 | NHỊP TIM THAI TRUNG BÌNH | 129 nhịp/phút | ĐÈN TIN CẬY | ● CAO (xanh) | Trên 60 bản ghi ngoài miền, F1 trung bình theo cách chọn dây: cách cũ (PSD) 74,28 · cách kế hoạch đã chọn trước khi chạy (gat"
   },
   "a09": {
-   "bam_the_s": 2.95,
+   "bam_the_s": 3.4,
    "buoc": {
-    "2": 1.72,
-    "3": 1.85,
-    "4": 2.52,
-    "5": 1.1
+    "2": 1.8,
+    "3": 2.21,
+    "4": 2.48,
+    "5": 1.19
    },
-   "tong_5_buoc_s": 10.92,
+   "tong_5_buoc_s": 12.07,
    "tom_tat": "BẢN GHI | a09 | BỘ DỮ LIỆU | CinC 2013 set-a | DÂY ĐÃ CHỌN | 1 / 4 (quy tắc mới) | F1 (BẮT ĐỦ VÀ BÁO ĐÚNG, 100 LÀ HOÀN HẢO) | 94,25 | NHỊP TIM THAI TRUNG BÌNH | 130 nhịp/phút | ĐÈN TIN CẬY | ● CAO (xanh) | Trên 60 bản ghi ngoài miền, F1 trung bình theo cách chọn dây: cách cũ (PSD) 74,28 · cách kế hoạch đã chọn trước khi ch"
   },
   "a02": {
-   "bam_the_s": 4.18,
+   "bam_the_s": 4.33,
    "buoc": {
-    "2": 1.73,
-    "3": 1.84,
-    "4": 2.23,
-    "5": 1.08
+    "2": 1.77,
+    "3": 2.62,
+    "4": 2.74,
+    "5": 1.43
    },
-   "tong_5_buoc_s": 11.84,
+   "tong_5_buoc_s": 13.88,
    "tom_tat": "BẢN GHI | a02 | BỘ DỮ LIỆU | CinC 2013 set-a | DÂY ĐÃ CHỌN | 2 / 4 (quy tắc mới) | F1 (BẮT ĐỦ VÀ BÁO ĐÚNG, 100 LÀ HOÀN HẢO) | 24,91 | NHỊP TIM THAI TRUNG BÌNH | 130 nhịp/phút | đèn đỏ: không dùng số này | ĐÈN TIN CẬY | ● THẤP (đỏ) | Trên 60 bản ghi ngoài miền, F1 trung bình theo cách chọn dây: cách cũ (PSD) 74,28 · cách kế h"
   },
   "a27": {
-   "bam_the_s": 3.55,
+   "bam_the_s": 5.15,
    "buoc": {
-    "2": 1.75,
-    "3": 2.45,
-    "4": 2.37,
-    "5": 1.04
+    "2": 1.89,
+    "3": 2.13,
+    "4": 2.36,
+    "5": 1.37
    },
-   "tong_5_buoc_s": 11.39,
+   "tong_5_buoc_s": 13.13,
    "tom_tat": "BẢN GHI | a27 | BỘ DỮ LIỆU | CinC 2013 set-a | DÂY ĐÃ CHỌN | 3 / 4 (quy tắc mới) | F1 (BẮT ĐỦ VÀ BÁO ĐÚNG, 100 LÀ HOÀN HẢO) | 32,94 | NHỊP TIM THAI TRUNG BÌNH | 126 nhịp/phút | đèn đỏ: không dùng số này | ĐÈN TIN CẬY | ● THẤP (đỏ) | Trên 60 bản ghi ngoài miền, F1 trung bình theo cách chọn dây: cách cũ (PSD) 74,28 · cách kế h"
   }
  },
  "ok": true,
- "mo_trang_toi_r01_s": 7.1,
+ "mo_trang_toi_r01_s": 12.3,
  "tab_hien_luc_mo": 0,
  "tab_khi_bat_chuyen_gia": [
   "Tín hiệu (5 tầng)",
