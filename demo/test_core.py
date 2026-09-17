@@ -9,7 +9,7 @@ Hai kiểm thử "bám mốc" bắt buộc, chạy ở CẢ HAI chế độ đè
 Quy tắc chọn kênh peakprob (mặc định): định nghĩa khớp fsqi/gate.py, mù nhãn, và cứu được a09 so với PSD
 (con số đối chiếu: analysis/chonkenh_results.json -> F1_tung_ban_ghi.cinc.a09: psd 19,35 / peakprob 94,25).
 """
-import os, sys, json
+import os, sys, json, re
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 import numpy as np
 import pytest
@@ -441,3 +441,424 @@ def test_tep_vi_du_dung_la_trich_tu_a09():
     ann = np.asarray(wfdb.rdann(os.path.join(core.cinc2013_dir(), 'a09'), 'fqrs').sample, int)
     nhan = np.loadtxt(_vidu('vidu_tai_len_nhan.csv'), dtype=int, ndmin=1)
     assert list(nhan) == list(ann[(ann >= 0) & (ann < 30000)])
+
+
+
+# ------------------------------------------------------------------ T3: chế độ trình bày (kể chuyện 5 bước) trong demo/app.py
+def _app():
+    pytest.importorskip('gradio')
+    import app                                                   # dựng Blocks khi import (~5 s)
+    return app
+
+
+CHUOI_CAM = ('SOTA', 'novel', 'state-of-the-art', 'đầu tiên', 'tiền đăng ký', 'pre-registered', 'phát hiện rò rỉ',
+             'em phát hiện', 'mô hình không phải nút thắt', 'lượng cực', 'thiếu tín hiệu thật', 'Q1', 'CinC 2026',
+             # yêu cầu [E]: không JSON, không đường dẫn tệp, không tên hàm, không số đã rút, không bảng 75 bản
+             '.json', 'analysis/', 'fsqi/', '.pkl', '.pt ', 'checkpoint', '75 bản', 'demo/', 'core.')
+
+
+def _story_texts_on_screen(app):
+    """Mọi chữ tĩnh của chế độ trình bày: hằng số + giá trị ban đầu của thành phần gắn lớp rf-story."""
+    parts = [app.STORY_TITLE_HTML, app.STORY_UPLOAD_CARD, *app.STORY_STEPS, *app.STORY_CAPTION, app.story_summary_html(None)]
+    parts += [app.story_card_html(n) for n in app.STORY_RECS]
+    for b in app.demo.blocks.values():
+        cls = getattr(b, 'elem_classes', None) or []
+        if 'rf-story' in cls and isinstance(getattr(b, 'value', None), str):
+            parts.append(b.value)
+    return parts
+
+
+def test_trinh_bay_5_buoc_moi_luc_mot_buoc():
+    app = _app()
+    assert len(app.STORY_STEPS) == 5 == app.STORY_N_STEPS == len(app.STORY_CAPTION)
+    for s in range(1, 6):
+        v = app.story_view(s)
+        assert v[0] == s
+        vis = [u['visible'] for u in v[2:7]]
+        assert vis.count(True) == 1 and vis[s - 1] is True
+        assert f'rf-pg-on"><span class="rf-pg-n">{s}<' in v[1]
+    assert app.story_step(1, -1)[0] == 1                          # không lùi quá bước 1
+    assert app.story_step(5, +1)[0] == 1                          # hết bước 5 -> xem lại từ đầu
+    assert app.story_step(2, +1)[0] == 3
+
+
+def test_trinh_bay_che_do_chuyen_gia_bat_tat_giu_8_tab():
+    app = _app()
+    import gradio as gr
+    assert app.toggle_expert(True)['visible'] is True and app.toggle_expert(False)['visible'] is False
+    tabs = [b.label for b in app.demo.blocks.values() if isinstance(b, gr.Tab)]
+    for t in ('Tín hiệu (5 tầng)', 'Chọn kênh — cả 4 kênh', 'Nhịp tim thai + đèn đoạn', 'So sánh với nhãn',
+              'Kết quả tổng hợp (60 bản sạch)', 'Dữ liệu của nhóm', 'Tải dữ liệu mới', 'Nhật ký (JSON)'):
+        assert t in tabs, f'thiếu tab {t}'
+    cb = [b for b in app.demo.blocks.values() if isinstance(b, gr.Checkbox) and str(b.label).startswith('Chế độ chuyên gia')]
+    assert len(cb) == 1 and cb[0].value is False                  # mặc định TẮT
+
+
+def test_trinh_bay_khong_co_chuoi_cam_tren_giao_dien():
+    app = _app()
+    for txt in _story_texts_on_screen(app):
+        for cam in CHUOI_CAM:
+            assert cam not in txt, f'chuỗi cấm "{cam}" trong: {txt[:120]}'
+
+
+def test_trinh_bay_the_so_doc_tu_json_tren_dia():
+    app = _app()
+    n = app.STORY_NUM
+    p = os.path.join(ROOT, 'demo', 'results', 'demo_check_showcase.json')
+    if not os.path.isfile(p):
+        pytest.skip('chưa có demo/results/demo_check_showcase.json')
+    with open(p, encoding='utf-8') as f:
+        d = json.load(f)
+    for r in app.STORY_RECS:
+        assert abs(n[r]['F1'] - d['rows'][f'{r}_leadpeakprob']['metrics']['F1']) < 1e-9
+    assert n['a02']['bam_me'] > 0.6                              # cổng "bám nhịp mẹ" ghi đè -> đỏ
+    spec = app.story_card_spec('a02')
+    assert f'{n["a02"]["bam_me"] * 100:.0f} %' in spec['cho_thay'] and 'ĐỎ' in spec['so']
+    assert app._vn(n['r01']['F1']) in app.story_card_spec('r01')['so']
+
+
+@need_a09
+@need_22
+def test_trinh_bay_bam_the_a09_ra_dung_ban_ghi_va_ca_2_quy_tac():
+    app = _app()
+    r = app.story_compute('a09')
+    out = r['out']
+    assert out['record'] == 'a09' and out['lead_rule'] == 'peakprob' and out['confidence_mode'] == 'hoc'
+    assert sorted(r['figs']) == [1, 2, 3, 4, 5] and sorted(r['texts']) == [1, 2, 3, 4, 5]
+    assert all(len(fig.data) > 0 for fig in r['figs'].values())
+    rules = app.story_rules(out)
+    assert rules['khac'] and rules['k_pp'] == out['lead']
+    with open(os.path.join(ROOT, 'analysis', 'chonkenh_results.json'), encoding='utf-8') as f:
+        ref = json.load(f)['F1_tung_ban_ghi']['cinc']['a09']
+    assert rules['f1_pp'] == app._vn(ref['peakprob']) and rules['f1_psd'] == app._vn(ref['psd'])
+    assert 'peakprob' in r['rules_md'] and 'PSD' in r['rules_md'] and rules['f1_pp'] in r['rules_md'] and rules['f1_psd'] in r['rules_md']
+    assert rules['f1_pp'] in r['texts'][4][0] and rules['f1_psd'] in r['texts'][4][0]
+    # đầu ra Gradio: 4 thẻ + 18 ô nội dung + thanh tóm tắt + 9 ô trạng thái bước = 32, và quay về bước 1
+    o = app.story_run('a09')
+    assert len(o) == 33 == app.STORY_N_OUTS and o[-10] == 1 and o[-1] == ''     # phần tử cuối: dòng trạng thái đã xoá
+    assert 'rf-sc-on' in o[1] and 'rf-sc-on' not in o[0]          # thẻ a09 sáng, thẻ r01 tắt
+    # màn hình sau khi chạy không được có chuỗi cấm
+    for txt in (r['cards'], r['compare'], r['summary'], r['rules_md'], *[t for pair in r['texts'].values() for t in pair]):
+        for cam in CHUOI_CAM:
+            assert cam not in txt, f'chuỗi cấm "{cam}" trong: {txt[:120]}'
+
+
+@need_a09
+@need_22
+def test_trinh_bay_thanh_tom_tat_du_6_muc():
+    app = _app()
+    out = app.story_compute('a09')['out']
+    h = app.story_summary_html(out)
+    assert h.count('class="rf-sum-i"') == 6
+    for k in ('Bản ghi', 'Bộ dữ liệu', 'Dây đã chọn', 'F1 (bắt đủ và báo đúng, 100 là hoàn hảo)', 'Nhịp tim thai trung bình', 'Đèn tin cậy'):
+        assert k in h
+    assert 'a09' in h and 'CinC 2013' in h and 'quy tắc mới' in h and out['confidence']['label'] in h
+    assert '<s>' not in h                                          # đèn xanh: nhịp tim không bị gạch
+    s60 = app.STORY_60
+    if s60 is None:
+        pytest.skip('chưa có analysis/dulieu_results.json')
+    # luôn báo đủ bốn số: cũ · khai báo trước (gate4) · mới hậu kiểm · trần
+    with open(os.path.join(ROOT, 'analysis', 'dulieu_results.json'), encoding='utf-8') as f:
+        B = json.load(f)['chon_kenh_60_sach']['bang']
+    assert s60['n'] == 60
+    # đủ năm số: cũ · gate (kế hoạch chọn trước, trượt Holm) · gate4 · peakprob (hậu kiểm) · trần
+    for k in ('psd', 'gate', 'gate4', 'peakprob', 'oracle'):
+        assert abs(s60[k] - B[k]['mean_60_sach']) < 1e-9 and app._vn(s60[k]) in h, k
+    assert 'trước khi chạy (gate)' in h and 'chọn sau khi xem kết quả' in h and 'trần' in h
+    assert app.story_summary_html(None).count('class="rf-sum-i"') == 6   # trước khi chạy cũng đủ 6 ô
+
+
+@need_a02
+@need_22
+def test_trinh_bay_a02_den_do_va_bam_me_hien_o_buoc_5():
+    app = _app()
+    r = app.story_compute('a02')
+    assert r['out']['confidence']['level'] == 'thap'
+    assert 'THẤP' in r['texts'][5][0] and 'trùng nhịp mẹ' in r['texts'][5][0]
+    assert 'THẤP' in r['summary'] and 'fsqi/' not in r['cards'] and 'checkpoint' not in r['cards']
+    # [B] đèn đỏ -> nhịp tim ở thanh tóm tắt bị gạch và có cảnh báo
+    assert '<s>' in r['summary'] and 'không dùng số này' in r['summary']
+    # nhịp tim máy báo lệch đáp án >= 10 nhịp/phút -> nói rõ ở bước 5
+    assert 'theo đáp án ≈' in r['texts'][5][0]
+
+
+@need_a02
+@need_22
+def test_trinh_bay_a02_buoc_4_bao_trung_thuc_chon_sai_day():
+    """[F] a02: dây 1 đạt 75,88 nhưng mọi quy tắc chọn mù đều chọn dây 2 -> hộp vàng phải nói thẳng, số khớp đĩa."""
+    app = _app()
+    r = app.story_compute('a02')
+    out = r['out']
+    with open(os.path.join(ROOT, 'analysis', 'chonkenh_results.json'), encoding='utf-8') as f:
+        d = json.load(f)
+    ref = d['F1_tung_ban_ghi']['cinc']['a02']
+    chon = d['chon_kenh_theo_quy_tac']['cinc']['a02']
+    rules = app.story_rules(out)
+    assert rules['k_best'] == 1 and rules['f1_best'] == app._vn(ref['oracle'])
+    assert out['lead'] == chon['peakprob'] + 1                    # JSON đánh số từ 0, demo từ 1
+    assert 'rf-box-warn' in r['rules_md']
+    assert f'Dây 1 đạt F1 {app._vn(ref["lead0"])}' in r['rules_md'] and f'chọn dây {out["lead"]}' in r['rules_md']
+    # 7 cách chọn MỘT dây không nhìn nhãn: 6 chọn dây 2, 'learned' chọn dây 3, không cách nào chọn dây 1
+    bay = ('psd', 'gate', 'gate4', 'rrcv', 'peakprob', 'rrplaus', 'learned')
+    so_quy_tac = sum(1 for k in bay if chon[k] + 1 == out['lead'])
+    assert so_quy_tac == 6 and not any(chon[k] == 0 for k in bay)
+    assert f'6/7 cách chọn dây không nhìn đáp án' in r['rules_md'] and 'Không cách nào chọn dây 1' in r['rules_md']
+    assert 'Cả 6' not in r['rules_md']                            # câu cũ nói quá (bỏ sót bộ chọn học)
+    for cam in CHUOI_CAM:
+        assert cam not in r['rules_md'], cam
+    # bước 1 và 3 không được đưa nhịp tim máy đếm (130) ra như sự thật khi bước 5 bảo không dùng
+    t1, t3 = r['texts'][1][0], r['texts'][3][0]
+    assert 'Theo đáp án' in t1 and 'không tin được' in t1 and 'bé đập nhanh hơn' not in t1
+    assert 'bám nhầm tim mẹ' in t3
+
+
+@need_a09
+@need_22
+def test_trinh_bay_a09_khong_hien_hop_chon_sai_day():
+    app = _app()
+    r = app.story_compute('a09')
+    assert 'rf-box-warn' not in r['rules_md']                    # dây được chọn chính là dây tốt nhất
+
+
+def test_trinh_bay_the_a02_a27_noi_dung_khop_dia():
+    """[A][G] thẻ a02 nói rõ 'trông bình thường nhưng sai' kèm nhịp đáp án; thẻ a27 nêu khoảng F1 bốn dây và số đoạn bị từ chối."""
+    app = _app()
+    n = app.STORY_NUM
+    if 'fhr' not in n.get('a02', {}):
+        pytest.skip('chưa có demo/results/demo_check_showcase.json')
+    a02 = app.story_card_spec('a02')
+    assert 'số đẹp' not in a02['so_giai'] and 'sai' in a02['so_giai']
+    assert f'Máy báo nhịp tim {n["a02"]["fhr"]:.0f}' in a02['cho_thay'] and f'đáp án ≈ {n["a02"]["fhr_dap_an"]:.0f}' in a02['cho_thay']
+    a27 = app.story_card_spec('a27')
+    assert f'{n["a27"]["n_red"]}/{n["a27"]["n_seg"]} đoạn' in a27['cho_thay']
+    assert app._vn(n['a27']['f1_max_day']) in a27['cho_thay'] and 'ĐỎ' in a27['so']
+    # thẻ 'Tệp của bạn' có cùng cấu trúc (cùng chiều cao) với 4 thẻ còn lại
+    for cls in ('rf-sc-name', 'rf-sc-code', 'rf-sc-ds', 'rf-sc-show', 'rf-sc-num', 'rf-sc-numk', 'rf-sc-go'):
+        assert cls in app.STORY_UPLOAD_CARD and cls in app.story_card_html('r01')
+    assert 'rf-sc-small' not in app.STORY_UPLOAD_CARD
+
+
+def test_trinh_bay_chi_tiet_ky_thuat_dong_san_va_an_chan_trang():
+    """[C] bảng kỹ thuật nằm trong Accordion đóng; [E] chân trang Gradio ẩn; [S2] ghi rõ đèn dùng cổng 5 ca."""
+    app = _app()
+    import gradio as gr
+    acc = [b for b in app.demo.blocks.values() if isinstance(b, gr.Accordion) and str(b.label).startswith('Chi tiết kỹ thuật')]
+    assert len(acc) == 1 and acc[0].open is False
+    assert 'footer{display:none' in app.CSS.replace(' ', '')
+    # vòng 9 ẩn nút '...' của thanh tab -> ở 1366 px hai tab cuối không mở được. Không được ẩn lại.
+    assert not re.search(r'aria-haspopup\]\s*\{\s*display\s*:\s*none', app.CSS)
+    assert not re.search(r'overflow-menu[^{]*\{[^}]*display\s*:\s*none', app.CSS)
+    kw = app.launch_kwargs()
+    import inspect
+    if 'footer_links' in inspect.signature(gr.Blocks.launch).parameters:
+        assert kw['footer_links'] == []
+    assert '5 sản phụ' in app.STORY_GATE_NOTE and '22 sản phụ' in app.STORY_GATE_NOTE
+    assert any(app.STORY_GATE_NOTE in t for t in _story_texts_on_screen(app))
+
+
+@need_a09
+@need_22
+def test_trinh_bay_so_kieu_viet_tren_hinh_va_bang():
+    """[D] chế độ trình bày: tiêu đề hình bước 4 và bảng kỹ thuật dùng dấu phẩy thập phân, không 'e+', không 'bpm'."""
+    app = _app()
+    import re as _re
+    r = app.story_compute('a09')
+    titles4 = [a.text for a in r['figs'][4].layout.annotations if a.text and a.text.startswith('Dây')]
+    assert len(titles4) == r['out']['n_leads']
+    for t in titles4:
+        assert not _re.search(r'\d\.\d', t) and 'e+' not in t and 'e-' not in t, t
+    for t in (a.text for a in r['figs'][5].layout.annotations if a.text):
+        assert 'bpm' not in t and not _re.search(r'\d\.\d', t), t
+    assert r['figs'][5].layout.separators == ', ' and r['figs'][4].layout.separators == ', '
+    for txt in (r['cards'], r['compare']):
+        # dấu chấm chỉ được là dấu ngăn nghìn (1.005 ms), không được là dấu thập phân (0.963)
+        assert not _re.search(r'\d\.\d{1,2}(?!\d)', _re.sub(r'<[^>]+>', '', txt)), txt[:200]
+
+
+
+# ------------------------------------------------------------------ vòng 10c lượt 2: phát hiện của kiểm demo độc lập
+@need_r01
+@need_22
+def test_trinh_bay_buoc_5_co_dai_binh_thuong_110_160():
+    """plotly 7 bỏ qua add_hrect gọi trước khi ô có đường -> dải 110–160 từng biến mất mà hộp chữ vẫn nhắc tới."""
+    app = _app()
+    fig = app.story_compute('r01')['figs'][5]
+    assert any(getattr(sh, 'y0', None) == 110 and getattr(sh, 'y1', None) == 160 for sh in fig.layout.shapes)
+    assert any(a.text and 'vùng bình thường 110–160' in a.text for a in fig.layout.annotations)
+
+
+@need_r01
+@need_22
+def test_trinh_bay_r01_diem_ngang_nhau_in_4_chu_so():
+    """r01: bốn dây cùng 0,998 khi làm tròn 3 chữ số -> tiêu đề in 4 chữ số và hộp số nói rõ gần như ngang nhau."""
+    app = _app()
+    r = app.story_compute('r01')
+    titles = [a.text for a in r['figs'][4].layout.annotations if a.text and a.text.startswith('Dây')]
+    vals = [t.split('điểm tin của mạng ')[1].split(' ')[0] for t in titles]
+    assert len(set(vals)) == len(vals) and all(len(v.split(',')[1]) == 4 for v in vals), vals
+    assert 'gần như ngang điểm' in r['texts'][4][0]
+
+
+def test_trinh_bay_the_co_ten_ca_va_ma_ban_ghi():
+    app = _app()
+    for n, ten in (('r01', 'Ca dễ'), ('a09', 'Chọn dây quyết định'), ('a02', 'Máy bám nhầm tim mẹ'), ('a27', 'Bốn dây đều kém')):
+        h = app.story_card_html(n)
+        assert f'<div class="rf-sc-name">{ten}</div>' in h and f'bản ghi {n}' in h
+    assert 'chưa từng thấy sản phụ này' in app.story_card_spec('r01')['du_lieu']
+    for cam in CHUOI_CAM:
+        assert cam not in app.story_loading_html('a02') and cam not in app.story_loading_html('r01', lan_dau=True)
+
+
+def test_trinh_bay_chu_thich_buoc_khong_noi_qua():
+    """Bước 1-2 không được khẳng định tim bé luôn nhỏ/không thấy (r01 thấy rõ); bước 5 phải giải thích xanh/vàng/đỏ."""
+    app = _app()
+    cap = app.STORY_CAPTION
+    assert 'nhỏ hơn nhiều lần' not in cap[0] and 'đó là tim bé' not in cap[1]
+    assert 'vàng' in cap[4] and '30 %' in cap[4] and 'bám nhịp mẹ' in cap[4]
+
+
+def test_trinh_bay_thanh_tom_tat_dinh_day_va_the_xuong_hang():
+    app = _app()
+    import gradio as gr
+    css = app.CSS.replace(' ', '')
+    assert '.rf-story-col.rf-sum-wrap{position:sticky!important;bottom:0' in css
+    assert '.rf-sc-row{flex-wrap:wrap!important' in css
+    wraps = [b for b in app.demo.blocks.values() if 'rf-sum-wrap' in (getattr(b, 'elem_classes', None) or [])]
+    assert len(wraps) == 1
+    # sau Tiếp / Quay lại / bấm thẻ: trang tự cuộn tới thanh 5 bước
+    assert '.rf-pgbar' in app.JS_CUON_TOI_BUOC and 'scrollIntoView' in app.JS_CUON_TOI_TAI_TEP
+
+
+def test_che_do_chuyen_gia_tab_con_khong_trung_ten_tab_ngoai():
+    app = _app()
+    import gradio as gr
+    labels = [str(b.label) for b in app.demo.blocks.values() if isinstance(b, gr.Tab)]
+    assert len(labels) == len(set(labels)), [l for l in labels if labels.count(l) > 1]
+
+
+def test_che_do_chuyen_gia_so_kieu_viet_trong_bang_tong_hop():
+    app = _app()
+    assert not re.search(r'\d\.\d', app.SUMMARY_MD)
+    assert '0,721' in app.SUMMARY_MD and '11/22' in app.SUMMARY_MD and 'không độc lập với mạng' in app.SUMMARY_MD
+
+
+def test_tai_len_phat_hien_tep_nhan_bo_nham_o_tin_hieu(tmp_path):
+    app = _app()
+    import gradio as gr
+    sig = tmp_path / 'tin_hieu.csv'; lab = tmp_path / 'nhan.csv'
+    sig.write_text('k1,k2,k3,k4\n' + '\n'.join('0.1,0.2,0.3,0.4' for _ in range(20)), encoding='utf-8')
+    lab.write_text('\n'.join(str(i * 400) for i in range(1, 20)), encoding='utf-8')
+    # lỗi không ném ra giao diện: hiện ở dòng trạng thái (phần tử cuối), 7 ô kết quả rỗng
+    o = app.run_upload([str(sig), str(lab)], 1000, app.LEAD_CHOICES[0], app.CONF_CHOICES[0], None)
+    assert len(o) == 8 and o[0] == '' and o[1] is None
+    assert o[-1].startswith('**Không phân tích được tệp.**') and 'NHÃN' in o[-1] and 'nhan.csv' in o[-1]
+    rac = tmp_path / 'rac.txt'
+    rac.write_text('1 2 3 4 5 6 7 8\n1 2 3\nabc def\n', encoding='utf-8')
+    o = app.run_upload([str(rac)], 1000, app.LEAD_CHOICES[0], app.CONF_CHOICES[0], None)
+    assert 'thành bảng số' in o[-1] and 'Some errors were detected' not in o[-1] and 'Chi tiết kỹ thuật' not in o[-1]
+    o = app.upload_clear()
+    assert len(o) == 8 and 'kết quả cũ đã được xoá' in o[-1]
+
+
+def test_core_goi_y_tai_cinc_dung_lenh_ghi_vao_pcdb():
+    """download_data.py --only cinc2013 ghi vào model/data/cinc2013, demo không đọc thư mục đó."""
+    for k in ('cinc_sach', 'cinc_nhiem'):
+        thu_muc, lenh = core.DATASET_DIR_HINT[k]
+        assert thu_muc == 'benchmark_dpss/pcdb' and 'download_more.py --only cinc75' in lenh
+
+
+
+# ------------------------------------------------------------------ vòng 10d: phát hiện của kiểm demo độc lập lần hai
+def _fns(app):
+    f = app.demo.fns
+    return list(f.values()) if isinstance(f, dict) else list(f)
+
+
+def test_che_do_chuyen_gia_nut_phan_tich_gan_dung_ham_run():
+    """Vòng lặp nút Tiếp/Quay lại từng đặt tên biến 'btn', ghi đè nút "Phân tích": run() bị gắn vào "◀ Quay lại"."""
+    app = _app()
+    import gradio as gr
+    run_fns = [f for f in _fns(app) if getattr(f.fn, '__name__', '') == 'run']
+    assert len(run_fns) == 1
+    dich = [app.demo.blocks[t[0]] for t in run_fns[0].targets]
+    assert dich and all(isinstance(b, gr.Button) and b.value == 'Phân tích' for b in dich), [getattr(b, 'value', b) for b in dich]
+    back = [b for b in app.demo.blocks.values() if isinstance(b, gr.Button) and b.value == '◀ Quay lại']
+    assert len(back) == 1
+    co_ham = [f for f in _fns(app) if f.fn is not None and any(t[0] == back[0]._id for t in f.targets)]
+    assert len(co_ham) == 1                                        # chỉ story_step
+
+
+def test_trinh_bay_story_run_bo_qua_luot_cu_va_bao_loi_o_trang_thai():
+    app = _app()
+    app._YEU_CAU['phien_kiem_thu'] = 'a02'                       # người dùng đã bấm a02 sau r01
+    o = app.story_run('r01', 'phien_kiem_thu')
+    assert len(o) == app.STORY_N_OUTS and all(isinstance(x, dict) and x.get('__type__') == 'update' for x in o)
+    o = app.story_run('khong_co_ban_nay')                          # lỗi: không ném, báo ở dòng trạng thái
+    assert len(o) == app.STORY_N_OUTS and 'Không phân tích được bản ghi khong_co_ban_nay' in o[-1]
+    assert all(isinstance(x, dict) for x in o[:-1])               # giữ nguyên hình của bản ghi trước
+    for cam in CHUOI_CAM:
+        assert cam not in o[-1]
+
+
+def test_trinh_bay_chu_de_va_chu_thich_khong_noi_qua():
+    app = _app()
+    assert 'một</em> điện cực' not in app.STORY_TITLE_HTML and 'kênh' in app.STORY_TITLE_HTML
+    assert 'không phải lần nào cũng thấy' in app.STORY_TITLE_HTML
+    assert 'Vạch đỏ' not in app.STORY_CAPTION[2] and 'tím đậm' in app.STORY_CAPTION[2]
+    assert 'xanh là tin được' not in app.STORY_CAPTION[4] and 'Xanh không bảo đảm là đúng' in app.STORY_CAPTION[4]
+    if app._DX:
+        n, xanh_sai, f1_min = app._DX
+        p = os.path.join(ROOT, 'demo', 'results', 'demo_check_2modes.json')
+        with open(p, encoding='utf-8') as f:
+            s = json.load(f)['summary_by_mode']['hoc']
+        assert n == s['n_records'] and xanh_sai == len(s['green_but_F1_below_90'])
+        assert f'{f1_min:.2f}'.replace('.', ',') in app.STORY_CAPTION[4]
+    assert 'độ đúng' not in app.story_summary_html(None)
+    assert '−0,68' not in app.UP_WARN_DOMAIN and '−0,67' in app.UP_WARN_DOMAIN and 'đầu tiên' not in app.UP_WARN_DOMAIN
+    assert 'khác thiết bị, khác dân số' not in app.DS_FORMAT_MD['cinc_sach'] and '80,72' in app.DS_FORMAT_MD['cinc_sach']
+
+
+@need_r01
+@need_a09
+@need_22
+def test_trinh_bay_buoc_1_noi_theo_bien_do_that_cua_ban_ghi():
+    """r01 dây 4: gai bé to ngang gai mẹ -> không được nói 'gai bé nhỏ hơn nhiều'; a09 thì ngược lại."""
+    app = _app()
+    r01 = app.story_compute('r01')
+    a09 = app.story_compute('a09')
+    assert app.story_ti_le_bien_do(r01['out']) >= 0.5 and 'to ngang gai của mẹ' in r01['texts'][1][1]
+    assert app.story_ti_le_bien_do(a09['out']) < 0.5 and 'nhỏ hơn nhiều' in a09['texts'][1][1]
+
+
+@need_a09
+@need_22
+def test_trinh_bay_ban_ghi_khong_co_dap_an_khong_noi_sai():
+    app = _app()
+    rec = dict(core.load_sample('a09', RECS)); rec['labels'] = None
+    out = core.analyze_record(rec, lead='peakprob', confidence_mode='hoc')
+    rules = app.story_rules_md(out)
+    assert 'chưa biết cách nào đúng' in rules and 'kết quả gần như nhau' not in rules and 'rf-box-warn' not in rules
+    T = app.story_texts(out)
+    assert 'đáp án' not in T[5][1] and 'không có đáp án' in T[1][1] and app.story_ti_le_bien_do(out) is None
+
+
+def test_trinh_bay_thanh_tom_tat_dinh_that_va_cuon_co_dieu_kien():
+    app = _app()
+    css = app.CSS.replace(' ', '')
+    assert '.gradio-container{overflow:visible!important;overflow-x:clip!important}' in css
+    js = app.JS_CUON_TOI_BUOC
+    assert 'innerHeight*0.5' in js.replace(' ', '') and 'checked' in js and '__rfY' in js and '__rfY' in app.JS_GHI_VI_TRI
+
+
+def test_trinh_bay_luot_dang_tinh_bi_bam_the_khac_thi_khong_ve_de(monkeypatch):
+    """Người dùng bấm thẻ khác TRONG LÚC lượt trước đang tính: lượt trước tính xong cũng không được vẽ đè."""
+    app = _app()
+
+    def tinh_gia(name):
+        app._YEU_CAU['phien_dang_tinh'] = 'a09'
+        return {}
+    monkeypatch.setattr(app, 'story_compute', tinh_gia)
+    app._YEU_CAU['phien_dang_tinh'] = 'r01'
+    o = app.story_run('r01', 'phien_dang_tinh')
+    assert len(o) == app.STORY_N_OUTS and all(isinstance(x, dict) and x.get('__type__') == 'update' for x in o)
+    assert '5–10 giây' in app.story_card_html('r01') and 'khi cần, trang tự cuộn' in ''.join(_story_texts_on_screen(app))

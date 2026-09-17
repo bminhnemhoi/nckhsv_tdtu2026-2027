@@ -55,7 +55,7 @@ LEAD_RULE_DEFAULT = 'peakprob'
 LEAD_RULE_LABEL = {'peakprob': 'auto (peakprob)', 'psd': 'auto (PSD)'}
 SEG_S = 4.0             # đoạn 4 s dùng cho peakprob và cho đèn tin cậy học (cùng lưới)
 
-# Bản ghi minh hoạ cho buổi demo (docs/HUONG_DAN_DEMO.md). Lý do chọn ở đó; con số kiểm bằng demo/run_check.py.
+# Bản ghi minh hoạ cho buổi demo (docs/HUONG_DAN_DEMO_v2.md; bản cũ docs/HUONG_DAN_DEMO_v1.md). Lý do chọn ở đó; con số kiểm bằng demo/run_check.py.
 DEMO_SHOWCASE = ('r01', 'a09', 'B2_03', 'a02', 'a27')
 
 # --------------------------------------------------------------------------- quy tắc đèn tin cậy
@@ -77,11 +77,13 @@ LEVEL_COLOR = {'cao': '#0ca30c', 'trung_binh': '#fab219', 'thap': '#d03b3b'}
 LEVEL_LABEL = {'cao': 'CAO (xanh)', 'trung_binh': 'TRUNG BÌNH (vàng)', 'thap': 'THẤP (đỏ)'}
 CONFIDENCE_MODES = ('hoc', 'luat', 'ca_hai')
 CONFIDENCE_MODE_DEFAULT = 'hoc'
-CONF_MODE_LABEL = {'hoc': 'học (GBM trên 12 chỉ số cổ điển / đoạn 4 s, fsqi/gate.py)',
+CONF_MODE_LABEL = {'hoc': 'học (GBM trên 12 chỉ số / đoạn 4 s, trong đó 2 là xác suất của mạng; fsqi/gate.py)',
                    'luat': 'luật cứng (4 thành phần, ngưỡng đặt tay)'}
 # Cổng đang dùng là bản hiệu chuẩn trên MÔ HÌNH 5 CA (fsqi/gate_classical.pkl, train_gate.py trên ADFECGDB).
 # Cổng 22 ca (analysis/GATE22.md, LOSO, AUROC trong bản ghi 0,934) hiện CHỈ là kết quả phân tích, chưa có tệp tải được.
 GATE_NOTE = ('Cổng tin cậy: GBM hiệu chuẩn trên mô hình 5 ca ADFECGDB (fsqi/gate_classical.pkl). '
+             'Khi ghép với mô hình 5 ca, AUROC trong bản ghi 0,721 [0,517; 0,898] trên 5 bản CinC sạch; '
+             'ghép với mô hình 22 ca đang chạy: chưa đo lại. Cổng dùng cả xác suất của mạng nên không độc lập với mạng. '
              'Cổng 22 ca trong analysis/GATE22.md chưa được xuất thành tệp -> chưa dùng ở demo.')
 
 
@@ -808,10 +810,11 @@ DATASET_DIR_HINT = {
                    'python model/download_silesia.py  (rồi giải nén Data_Records.zip vào model/data/silesia/extracted/)'),
     'silesia_b1': ('model/data/silesia/extracted/Data Records/B1_Pregnancy_dataset',
                    'python model/download_silesia.py  (rồi giải nén Data_Records.zip vào model/data/silesia/extracted/)'),
+    # download_data.py --only cinc2013 ghi vào model/data/cinc2013 -- demo KHÔNG đọc thư mục đó (xem benchmark_dpss/_paths.py)
     'cinc_sach': ('benchmark_dpss/pcdb',
-                  'python model/download_data.py --root model/data --only cinc2013'),
+                  'python model/download_more.py --only cinc75'),
     'cinc_nhiem': ('benchmark_dpss/pcdb',
-                   'python model/download_data.py --root model/data --only cinc2013'),
+                   'python model/download_more.py --only cinc75'),
 }
 DATASET_CACHE = {}
 
@@ -1095,14 +1098,21 @@ def doc_tai_len(paths, workdir, fs=1000, label_paths=None, lead=None):
     except LoiDuLieu:
         raise
     except Exception as e:                                      # noqa: BLE001
+        if ext in ('.csv', '.txt') and isinstance(e, ValueError):
+            # lỗi numpy nguyên văn ("Some errors were detected ! Line #2 (got 3 columns instead of 8)") khó hiểu
+            # -> nói điều người dùng cần sửa trước, chi tiết kỹ thuật để cuối
+            chi_tiet = ' '.join(str(e).split())
+            raise LoiDuLieu(f'Không đọc được tệp {os.path.basename(main)} thành bảng số. Tệp .csv/.txt phải gồm các cột SỐ: '
+                            'mỗi cột một kênh, mỗi dòng một mẫu, được phép có một dòng tiêu đề; mọi dòng phải có cùng số cột '
+                            f'và không lẫn chữ. (Chi tiết kỹ thuật: {chi_tiet})') from None
         raise LoiDuLieu(f'Không đọc được tệp {os.path.basename(main)}: {type(e).__name__}: {e}') from None
     if rec['signals'].size == 0 or rec['signals'].shape[0] == 0:
         raise LoiDuLieu(f'Tệp {os.path.basename(main)} không chứa kênh tín hiệu nào.')
     if not np.isfinite(rec['signals']).any():
         raise LoiDuLieu(f'Tệp {os.path.basename(main)} không có giá trị số hợp lệ nào (toàn NaN/rỗng).')
     if rec['duration_s'] < MIN_DURATION_S:
-        raise LoiDuLieu(f'Bản ghi chỉ dài {rec["duration_s"]:.2f} s — quá ngắn. '
-                        f'Cần ít nhất {MIN_DURATION_S:g} s (mô hình dùng cửa sổ 4 s, trường tiếp nhận 1,516 s). '
+        raise LoiDuLieu(f'Bản ghi chỉ dài {rec["duration_s"]:.2f} giây — quá ngắn. '.replace('.', ',', 1)
+                        + f'Cần ít nhất {MIN_DURATION_S:g} giây (mô hình dùng cửa sổ 4 giây, trường tiếp nhận 1,516 giây). '
                         'Nếu tệp thực ra dài hơn, hãy kiểm tra lại ô tần số lấy mẫu.')
     if rec['signals'].shape[0] > 12:
         canh_bao.append(f'Bản ghi có {rec["signals"].shape[0]} kênh — nhiều hơn 4 kênh bụng thường gặp. '

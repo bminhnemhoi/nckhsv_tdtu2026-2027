@@ -1,4 +1,21 @@
-# Sổ tay vận hành demo RelyFetal — v2
+# Sổ tay vận hành demo RelyFetal — v1 (lưu trữ, bản 8 tab)
+
+> **⚠ TỆP LƯU TRỮ (8 tab, 13/09/2026) — đọc cảnh báo này trước khi dùng bất kỳ số nào bên dưới.**
+> Bản đang dùng là `docs/HUONG_DAN_DEMO_v2.md`; v2 chỉ trỏ sang tệp này cho các mục 4(b), 5, 6(c)–(đ). Tệp này
+> trước đây tên `HUONG_DAN_DEMO.md` và tự ghi "— v2" ở tiêu đề; thẩm định cuối 17/09 đã sửa các chỗ sau ngay trong tệp:
+> - **Số STV ngoài miền đã rút:** +20,50 ms trên CinC, 0,13 ms (F1 ≥ 99,5) và 25,74 ms (F1 < 90) tính trên mẫu CinC
+>   10 bản và mẫu 32 bản có a03 a04 a05 a08 là bản trùng dữ liệu huấn luyện. Số STV dùng được duy nhất là +0,33 ms
+>   trong miền, n = 5 (`analysis/clinical_results.json → summary.ADFECGDB.stv_ba`).
+> - **0,934 [0,872; 0,981]** là AUROC trong bản ghi của cổng 22 ca, LOSO, chỉ tính trên 11/22 chủ thể có đoạn xấu, chỉ ở
+>   dạng phân tích, **chưa có trong demo**. Đèn trong demo là cổng 5 ca: 0,721 [0,517; 0,898] trên 5 bản CinC sạch khi
+>   ghép với mô hình 5 ca; ghép với mô hình 22 ca chưa đo lại (`docs/HUONG_DAN_DEMO_v2.md` mục 4.1).
+> - **Cổng không độc lập với mạng:** 12 chỉ số gồm 6 thuần tín hiệu, 4 tính trên nhịp mạng tìm ra, 2 là xác suất của
+>   mạng (`fsqi/gate.py`). Câu "12 chỉ số cổ điển" và "tự biết khi nào không nên tin kết quả" đã sửa.
+> - **Tự huấn luyện nhãn giả là −0,67** (−0,6746), không phải −0,68; p Wilcoxon của notch là **0,68** (0,679), không phải
+>   0,70 — tính lại từ `adapt/adapt_results.json → per_record_cinc` trên 60 bản sạch.
+> - **82,01 không đứng một mình:** luôn kèm 74,28 (PSD) · 80,72 (gate, quy tắc kế hoạch chọn, trượt Holm 0,051) ·
+>   81,01 (gate4, cũng ghi trước, qua Holm 0,015) · trần 83,60.
+> - Số kiểm thử và tên tab trong tệp này là của bản 8 tab; demo hiện tại xem `docs/HUONG_DAN_DEMO_v2.md`.
 
 **Dành cho buổi gặp giảng viên hướng dẫn, 14/09/2026.**
 Viết cho người đang căng thẳng: mỗi phần đọc được rời, lệnh copy dán được, câu nói có sẵn.
@@ -38,9 +55,9 @@ Một bảng, đọc từ trái sang phải: **làm được gì** → **để l
 | **Đọc tín hiệu thô nhiều định dạng** — `.edf`, `.hea`+`.dat`, `.csv`, `.npy`, `.txt`, mảng numpy (`demo/core.py: load_record`) | Mở được dữ liệu từ PhysioNet, từ Silesia, và từ file cô đưa mà không phải viết mã | Không đọc được ảnh/giấy in CTG, không đọc file có mã hoá riêng của hãng máy |
 | **Lọc + khử điện tim mẹ** — Butterworth 10–60 Hz pha-không, notch 50 Hz, hạ mẫu về 250 Hz, khử mẹ bằng mẫu trung vị + tỉ lệ bình phương tối thiểu từng nhịp | Làm nổi nhịp thai (biên độ nhỏ hơn nhịp mẹ nhiều lần) trước khi đưa vào mô hình | Cần ít nhất 3 nhịp mẹ dò được trong bản ghi, nếu không thì bỏ qua bước khử mẹ (`fqrs_model.cancel_maternal`) |
 | **Chọn kênh bụng mù nhãn — 2 quy tắc**: `peakprob` (mặc định) và `PSD` (của Power-MF) | Thiết bị thật thường chỉ đọc được 1 kênh tốt; hệ thống phải tự biết chọn kênh nào mà **không nhìn nhãn** | `peakprob` là **lựa chọn hậu kiểm**. Quy tắc khai báo trước là `gate` (trượt Holm, p 0,051) và `gate4` (sống sót Holm, p 0,015). Phải nói rõ điều này khi trình bày |
-| **Phát hiện nhịp thai** — FetalQRS-TCN, 113 481 tham số, chuỗi-sang-chuỗi, ngưỡng 0,75 lưu trong checkpoint | Ra danh sách thời điểm từng nhịp tim thai | Một kênh, CPU; F1 mức chủ thể **97,56** trên 22 chủ thể trong miền, nhưng ngoài miền (60 bản CinC sạch) chỉ **82,01** |
+| **Phát hiện nhịp thai** — FetalQRS-TCN, 113 481 tham số, chuỗi-sang-chuỗi, ngưỡng 0,75 lưu trong checkpoint | Ra danh sách thời điểm từng nhịp tim thai | Một kênh, CPU; F1 mức chủ thể **97,56** trên 22 chủ thể trong miền, nhưng ngoài miền (60 bản CinC sạch) chỉ 74,28 (PSD) · 80,72 (gate) · 81,01 (gate4) · **82,01** (peakprob, hậu kiểm) |
 | **Tính nhịp tim thai theo thời gian** — median RR trong từng cửa sổ 4 s | Cho thấy đường fHR giống thứ cô quen nhìn trên máy monitor | Đây là fHR suy ra từ nhịp phát hiện; nếu mô hình bám nhịp mẹ thì đường này **vẫn trông đẹp** mà sai (bản a02) |
-| **Chấm điểm tin cậy từng đoạn 4 s và từ chối** — cổng học (GBM, 12 chỉ số cổ điển) hoặc luật cứng 4 thành phần | Đây là phần quan trọng nhất của đề tài: hệ thống tự nói "đoạn này đừng tin tôi" | Cổng đang dùng trong demo **hiệu chuẩn trên mô hình 5 ca ADFECGDB**; cổng 22 ca mới có kết quả phân tích, chưa xuất được tệp |
+| **Chấm điểm tin cậy từng đoạn 4 s và từ chối** — cổng học (GBM, 12 chỉ số: 6 thuần tín hiệu, 4 trên nhịp mạng tìm ra, 2 là xác suất của mạng — không độc lập với mạng) hoặc luật cứng 4 thành phần | Đây là phần quan trọng nhất của đề tài: khi thấy dấu hiệu xấu, hệ thống nói "đoạn này đừng tin tôi" (không phải lần nào cũng thấy) | Cổng đang dùng trong demo **hiệu chuẩn trên mô hình 5 ca ADFECGDB**; cổng 22 ca mới có kết quả phân tích, chưa xuất được tệp |
 | **So sánh với nhãn nếu có** — Se, PPV, F1, jitter, TP/FP/FN, ghép ±50 ms | Để cô kiểm chứng ngay trên màn hình, không phải tin lời kể | Chỉ có với bản ghi có nhãn. Nhãn Silesia B1 là **nhãn gián tiếp** (tác giả khử mẹ rồi đo), nên F1 ở đó là "đồng ý với nhãn gián tiếp" |
 | **Xem dữ liệu của nhóm** — tab *Dữ liệu của nhóm*: chọn bộ → bảng từng bản ghi → nút *Xem tín hiệu thô* (10 giây đầu, tất cả kênh, kèm vạch nhãn) | Chứng minh dữ liệu là thật, có trên đĩa, tải từ nguồn công khai | Chỉ liệt kê bộ đã có trên đĩa máy này |
 | **Chạy trên dữ liệu mới tải lên** — tab *Tải dữ liệu mới* | Cô đưa file gì cũng thử được ngay trong buổi | Kết quả ngoài miền thường kém hơn nhiều; không có nhãn thì không có F1 |
@@ -49,8 +66,9 @@ Một bảng, đọc từ trái sang phải: **làm được gì** → **để l
 
 * **Không chẩn đoán.** Không kết luận thai suy, không cảnh báo lâm sàng, không phân loại bệnh.
 * **Không phải thiết bị y tế.** Chưa qua bất kỳ kiểm định nào.
-* **Không đo được STV tin cậy.** Chệch STV: +0,33 ms trên ADFECGDB, +1,86 ms B2, +1,84 ms B1, nhưng **+20,50 ms trên CinC**
-  (mẫu 10 bản cũ, `analysis/clinical_results.json`). Sai số bám sát F1: F1 ≥ 99,5 → 0,13 ms; F1 < 90 → 25,74 ms.
+* **Không đo được STV tin cậy.** Số STV dùng được duy nhất: chệch +0,33 ms trên ADFECGDB, n = 5
+  (`analysis/clinical_results.json → summary.ADFECGDB.stv_ba`). Các số STV ngoài miền cũ (+20,50 ms trên CinC;
+  0,13 ms khi F1 ≥ 99,5; 25,74 ms khi F1 < 90) **đã rút** — mẫu CinC 10 bản và mẫu 32 bản có bản trùng dữ liệu huấn luyện.
   → **Không dùng làm máy đo STV độc lập.**
 * **Không chạy thời gian thực từ máy đo.** Demo đọc file đã ghi sẵn. Tốc độ đủ nhanh về lý thuyết
   (4,35 ms cho một cửa sổ 4 s trên CPU) nhưng chưa có đường nối tới thiết bị.
@@ -143,7 +161,7 @@ Thời gian trong cột đầu là **thời gian thật đã đo**, nguồn: `de
 
 | THỜI ĐIỂM | BẤM GÌ | NÓI GÌ |
 |---|---|---|
-| 0:00–0:40 | Không bấm. Màn hình đang là r01, tab *Tín hiệu (5 tầng)*. | "Đề tài làm một việc hẹp: từ **một** kênh điện tim ổ bụng của mẹ, tìm vị trí từng nhịp tim thai." · "Và tự biết khi nào không nên tin kết quả." · "Mô hình 113 nghìn tham số, chạy CPU, huấn luyện trên 22 sản phụ." |
+| 0:00–0:40 | Không bấm. Màn hình đang là r01, tab *Tín hiệu (5 tầng)*. | "Đề tài làm một việc hẹp: từ **một** kênh điện tim ổ bụng của mẹ, tìm vị trí từng nhịp tim thai." · "Và báo khi thấy dấu hiệu kết quả chưa đáng tin — không phải lần nào cũng thấy." · "Mô hình 113 nghìn tham số, chạy CPU, huấn luyện trên 22 sản phụ." |
 | 0:40–1:10 | Chỉ tay vào thẻ **Kênh được chọn** (kênh 4/4) và thẻ **Đèn tin cậy** (CAO, 0,999). | "Đây là r01: 5 phút, 4 kênh bụng, nhãn lấy từ điện cực da đầu thai nhi." · "Checkpoint dùng ở đây là fold **chưa từng thấy** sản phụ này." · "Bốn kênh đều ≈ 0,998 nên kênh nào cũng tốt." |
 | 1:10–1:40 | Trong tab *Tín hiệu (5 tầng)*: kéo chuột phóng to khoảng 3 giây bất kỳ. Chỉ lần lượt tầng 2 → 3 → 4 → 5. | "Tầng 2: vạch đỏ là nhịp **mẹ**, lớn gấp nhiều lần nhịp thai." · "Tầng 3: sau khi khử mẹ chỉ còn nhịp thai nhỏ." · "Tầng 4: xác suất của mô hình, ngưỡng 0,75 cố định." · "Tầng 5: chấm xanh là đúng." |
 | 1:40–2:00 | Bấm tab **So sánh với nhãn**. | "F1 **99,92**, Se 100,00, PPV 99,84, lệch thời điểm 1,47 ms." · "Đây là bản dễ. Con số thật của đề tài là **97,56** trên 22 chủ thể, không phải 100." |
@@ -156,7 +174,7 @@ Thời gian trong cột đầu là **thời gian thật đã đo**, nguồn: `de
 | 4:35–5:30 | Bấm tab **Dữ liệu của nhóm**. Ô *Bộ dữ liệu* → chọn **"ADFECGDB — 5 bản (PhysioNet, nhãn da đầu)"**, rồi **"CinC 2013 set-a — 60 bản SẠCH (ngoài miền)"**. Ở ô *Bản ghi muốn xem tín hiệu thô* chọn **a09** → bấm **Xem tín hiệu thô**. | "Dữ liệu nhóm đang có: 5 bản ADFECGDB nhãn điện cực da đầu, 22 bản Silesia, 75 bản CinC." · "Bảng này đọc thật từ tệp trên đĩa: đường dẫn, định dạng, tần số, độ dài, số kênh, số nhịp trong nhãn, nguồn nhãn." · "Nút này vẽ 10 giây đầu của tất cả kênh bụng, vạch đỏ là nhãn nhịp thai — để cô thấy đây là tín hiệu thật." |
 | 5:30–6:00 | Vẫn ở tab *Dữ liệu của nhóm*, ô *Bộ dữ liệu* → **"CinC 2013 set-a — 15 bản NHIỄM (bản sao ADFECGDB)"**. | "15 bản này là bản sao nguyên văn của dữ liệu huấn luyện — em **loại** khỏi mọi con số." · "Như ban tổ chức đã ghi nhận [Silva 2013; Clifford 2014], set-a có chứa bản ghi ADFECGDB." · "Việc của nhóm em là xác định **đúng 15 bản nào** và **đo mức thổi phồng** — tới +7,18 điểm." |
 | 6:00–7:00 | Bấm tab **Tải dữ liệu mới**. Ô *Tệp bản ghi* → chọn `demo\assets\vidu_tai_len.csv`. Ô *Tần số lấy mẫu (Hz)* → **1000**. Ô *Nhãn tham chiếu (tuỳ chọn)* → chọn `vidu_tai_len_nhan.csv`. Bấm **Phân tích**. | "Cô đưa file gì em cũng chạy được ngay: EDF, WFDB, CSV, NPY." · "Chỉ cần cho em biết tần số lấy mẫu; hệ thống tự đưa về 1000 Hz." · "Nói rõ: tệp ví dụ này em **cắt từ a09** để thử luồng tải lên, **không phải** dữ liệu mới." · "Nếu file không có nhãn thì vẫn ra nhịp và đèn tin cậy, chỉ không có F1." |
-| 7:00–7:40 | Không bấm. | "Tóm lại: một kênh, F1 mức chủ thể 97,56 trên 22 ca — kém Power-MF **4 kênh** 1,27 điểm (chưa có ý nghĩa thống kê), hơn Power-MF **1 kênh** 10,85 điểm." · "Ngoài miền còn kém: 60 bản CinC sạch chỉ 82,01. Bốn cách thích nghi miền em thử đều thất bại, nguyên nhân **chưa xác định**." · "Vì thế cổng từ chối là phần quan trọng nhất." · "Còn thiếu: một bộ dữ liệu có nhãn fQRS thật ngoài những gì đã dùng — hiện không có bộ công khai nào." |
+| 7:00–7:40 | Không bấm. | "Tóm lại: một kênh, F1 mức chủ thể 97,56 trên 22 ca — kém Power-MF **4 kênh** 1,27 điểm (chưa có ý nghĩa thống kê), hơn Power-MF **1 kênh** 10,85 điểm." · "Ngoài miền còn kém: 60 bản CinC sạch chỉ 74,28 với quy tắc cũ, 80,72 với quy tắc kế hoạch chọn, 81,01 với gate4, 82,01 với quy tắc hậu kiểm. Bốn cách thích nghi miền em thử đều thất bại, nguyên nhân **chưa xác định**." · "Vì thế cổng từ chối là phần quan trọng nhất." · "Còn thiếu: một bộ dữ liệu có nhãn fQRS thật ngoài những gì đã dùng — hiện không có bộ công khai nào." |
 
 **Nếu cô cắt ngang và chỉ còn 3 phút:** làm r01 (0:40–2:00) → a09 hai quy tắc (2:00–3:20) → kết (7:00–7:40).
 
@@ -442,7 +460,7 @@ Cảnh báo giao diện sẽ hiện (và phải nói thành lời):
 
 * **Không có nhãn** → *"Không có nhãn: không tính được F1/Se/PPV. Chỉ xem được nhịp, fHR và đèn tin cậy."*
 * **Về miền dữ liệu** → *"Đây là dữ liệu ngoài miền huấn luyện. Trên bộ ngoài miền đã đo (60 bản CinC sạch), F1 trung bình
-  chỉ 82,01 so với 97,56 trong miền. Kết quả kém hơn là điều phải dự kiến."*
+  chỉ 74,28 đến 82,01 tuỳ quy tắc chọn kênh (74,28 quy tắc cũ · 80,72 kế hoạch chọn · 81,01 gate4 · 82,01 hậu kiểm) so với 97,56 trong miền. Kết quả kém hơn là điều phải dự kiến."*
 
 **Tệp ví dụ có sẵn để thử ngay** (`D:\NCKHSV2026-2027\demo\assets\`):
 
@@ -605,7 +623,7 @@ Thư mục: `D:\NCKHSV2026-2027\demo\screenshots\`
 | 3 | `07_B2_03_fhr_den_doan.png` | "Bản chuyển dạ khó, F1 chỉ 83,9 — nhưng hệ thống tự tô đỏ đúng những đoạn nó sai." |
 | 4 | `09_a02_the_so.png` | "Lỗi nguy hiểm nhất: mô hình bám nhịp mẹ, 78 % nhịp trùng đỉnh R của mẹ. Đèn báo đỏ." |
 | 5 | `11_a27_the_so.png` | "Bản gần như không có tín hiệu thai dùng được. Việc đúng duy nhất là nói 'tôi không chắc' — đèn đỏ ở cả hai chế độ." |
-| 6 | `12_tong_hop.png` | "Bảng tổng hợp 60 bản CinC sạch: peakprob 82,01 so với PSD 74,28, gate4 81,01." |
+| 6 | `12_tong_hop.png` | "Bảng tổng hợp 60 bản CinC sạch: PSD 74,28, gate (kế hoạch chọn) 80,72, gate4 81,01, peakprob (hậu kiểm) 82,01." |
 
 Bốn ảnh dự phòng cho **hai tab mới** (chụp ngày 13/09/2026, cùng thư mục) — chỉ dùng khi cô hỏi thẳng về dữ liệu:
 
@@ -641,7 +659,8 @@ Lý do chọn ảnh này: nó cho thấy **vấn đề**, **giải pháp**, và 
 2. **KHÔNG chiếu số cổng từ chối đo trên CinC.** Các số AUROC 0,980 / độ phủ 66,7 % / 15 trong 16 được đo trên
    **75 bản nhiễm** → không dùng làm số chính, và **chưa tính lại trên 60 bản sạch**.
    Số cổng được phép dùng: **LOSO 22 chủ thể**, AUROC gộp **0,965** [0,857; 0,992], AUROC **trong bản ghi 0,934** [0,872; 0,981]
-   (`analysis/gate22_results.json`).
+   tính trên 11/22 chủ thể có đoạn xấu, chỉ ở dạng phân tích, chưa có trong demo (`analysis/gate22_results.json`).
+   Đèn trong demo là cổng 5 ca: 0,721 [0,517; 0,898] trên 5 bản CinC sạch khi ghép mô hình 5 ca.
 
 3. **KHÔNG nói "phải có cổng học mới làm được".** Cổng học xếp đúng 3 bản khó nhất (B2_03, B1_07, B1_06) vào hạng 1-2-3 từ dưới
    (xác suất ngẫu nhiên 1/1540) — **nhưng** 5/24 quy tắc chỉ dùng **một** đặc trưng cũng xếp đúng 3/3.
@@ -652,7 +671,7 @@ Lý do chọn ảnh này: nó cho thấy **vấn đề**, **giải pháp**, và 
    "Physiological Measurement là Q1" · "CinC 2026" (như đích nộp).*
 
 5. **KHÔNG kết luận "ngoài miền kém vì thiếu tín hiệu thật".** Bốn phương pháp thích nghi miền đều thất bại
-   (chuẩn diện lưới +0,25 p 0,70 · tự huấn luyện nhãn giả −0,68 · AdaBN −1,58 · TENT −2,43), nhưng phép thử này
+   (chuẩn diện lưới +0,25 p 0,68 · tự huấn luyện nhãn giả −0,67 · AdaBN −1,58 · TENT −2,43), nhưng phép thử này
    có **âm tính giả 18,0 %** [12,1; 25,0] → **nguyên nhân chưa xác định**. Nói đúng: *"chưa chứng minh được nguyên nhân."*
 
 6. **KHÔNG trình bày peakprob như quy tắc đã xác nhận.** Luôn kèm: *"đây là lựa chọn hậu kiểm; quy tắc khai báo trước là gate
@@ -682,11 +701,11 @@ Lý do chọn ảnh này: nó cho thấy **vấn đề**, **giải pháp**, và 
 | F1 từng bản / từng quy tắc (a09 psd 19,35 so với peakprob 94,25; a02; a27) | `analysis/chonkenh_results.json` → `F1_tung_ban_ghi.cinc` |
 | Kiểm rò rỉ nhãn của peakprob: 0/776 lựa chọn đổi | `analysis/chonkenh_results.json` → `kiem_tra_ro_ri` |
 | 15 bản CinC nhiễm, ánh xạ r01/r04/r07/r08/r10, NCC 1,0000 | `analysis/dulieu_results.json`; `demo/core.py: CINC_LEAK`; `survey/ro_ri_vanlieu.json` |
-| Cổng 22 ca: AUROC gộp 0,965 · trong bản ghi 0,934 · xếp hạng B2_03/B1_07/B1_06 | `analysis/gate22_results.json` |
+| Cổng 22 ca (chỉ phân tích, chưa có trong demo): AUROC gộp 0,965 · trong bản ghi 0,934 trên 11/22 chủ thể · xếp hạng B2_03/B1_07/B1_06 | `analysis/gate22_results.json` |
 | Kiến trúc 7 họ, TOST-Holm | `analysis/kientruc_results.json` |
 | Thích nghi miền (4 phương pháp thất bại, âm tính giả 18,0 %) | `adapt/adapt_results.json` |
 | Dải lọc trên TCN: +2,44 kênh PSD, −0,07 trung bình 4 kênh | `pilot_evidence/band_tcn_stats.json` |
-| Chệch STV +0,33 / +1,86 / +1,84 / +20,50 ms | `analysis/clinical_results.json` |
+| Chệch STV +0,33 ms trong miền, n = 5 (số dùng được); +1,86 B2 / +1,84 B1; +20,50 ms CinC **đã rút** | `analysis/clinical_results.json` |
 | Jitter 3,76 ms trên nhịp đã bắt đúng; phổ lỗi 6 nhóm | `analysis/xacnhan_results.json` |
 | Kết quả 5 bản minh hoạ (F1, đèn, thời gian) | `demo/results/demo_check_showcase.json` |
 | Thời gian thật trong trình duyệt (12,9 s · 3,0 s · 3,1 s · 6,0 s · 3,5 s) | `demo/screenshots/screenshots.json` |

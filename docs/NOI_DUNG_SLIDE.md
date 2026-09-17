@@ -1,5 +1,12 @@
 # NỘI DUNG SLIDE — buổi gặp giảng viên hướng dẫn 14/09/2026
 
+> **⚠ CẢNH BÁO (17/09/2026) — tệp lưu trữ.** Tệp viết cho buổi 14/09 và mô tả demo **8 tab / 16 ảnh** như mặc
+> định; demo hiện mở **chế độ trình bày 5 bước**, 8 tab nằm trong chế độ chuyên gia. Dựng slide mới theo
+> `docs/KICH_BAN_THUYET_TRINH_v2.md` và `docs/HUONG_DAN_DEMO_v2.md`. Ngày 17/09/2026 đã sửa tại chỗ các lỗi sự
+> thật: cổng từ chối không độc lập với mạng; "17,92 điểm" đã rút (thay bằng 23,28 theo PSD); 0,934 ghi rõ phạm
+> vi 11/22 chủ thể; bỏ số kiểm thử cố định ở slide bìa. Cùng ngày, đồng bộ với demo sau lượt sửa thứ ba: slide 1–2
+> theo tiêu đề demo *chỉ cần một kênh* và câu đèn không nói quá; bỏ "máy khác" ở slide CinC; 109 kiểm thử.
+
 **Đề tài:** RelyFetal — dò phức bộ QRS thai nhi từ một đạo trình bụng, có cổng từ chối
 **Chủ nhiệm:** Ngô Bình Minh · NCKH sinh viên TDTU 2026–2027
 **Tệp này viết ngày:** 13/09/2026 · **Buổi gặp:** 14/09/2026
@@ -16,7 +23,7 @@
 
 ## SLIDE 1
 
-**TIÊU ĐỀ:** RelyFetal — nhịp tim thai một điện cực
+**TIÊU ĐỀ:** RelyFetal — nhịp tim thai, chỉ cần một kênh
 
 **LOẠI:** tiêu đề
 
@@ -27,12 +34,12 @@
 - Nghiên cứu khoa học sinh viên 2026–2027
 - Báo cáo tiến độ · 14/09/2026
 
-**HÌNH/BẢNG:** Bốn ô số lớn xếp ngang dưới tiêu đề, không viền, nền nhạt:
-`113.481 tham số` · `22 sản phụ` · `60 bản ghi kiểm ngoài` · `82 kiểm thử tự động`.
+**HÌNH/BẢNG:** Ba ô số lớn xếp ngang dưới tiêu đề, không viền, nền nhạt:
+`113.481 tham số` · `22 sản phụ` · `60 bản ghi kiểm ngoài`.
 Nguồn: 113.481 từ `analysis/kientruc_results.json → table.tcn.params`; 22 chủ thể từ
 `baselines/powermf_fair_stats.json → so_sanh.tat_ca_22.rely_vs_pmf4.n`; 60 bản ghi từ
-`analysis/dulieu_results.json → chon_kenh_60_sach.bang.psd.n`; 82 kiểm thử từ
-`pytest tests/ demo/test_core.py` (ghi trong `docs/TOM_TAT_1_TRANG.md`).
+`analysis/dulieu_results.json → chon_kenh_60_sach.bang.psd.n`. **Không ghi số kiểm thử trên bìa** — số này đổi
+theo từng vòng (17/09/2026 sau lượt sửa demo thứ ba: 109 = 43 + 66, đếm bằng `pytest --collect-only tests/ demo/test_core.py`).
 
 **GHI CHÚ NGƯỜI NÓI:** "Em chào cô. Em xin khoảng 20 phút, có demo ở giữa, cô ngắt bất cứ lúc nào
 cũng được ạ." Nói rõ đây là báo cáo tiến độ, không phải xin duyệt kết quả. Nêu ngay ba con số
@@ -48,16 +55,17 @@ khung: một mô hình rất nhỏ, 22 sản phụ huấn luyện, 60 bản ghi 
 **LOẠI:** số lớn (một câu, chữ to)
 
 **NỘI DUNG CHÍNH:**
-- Đọc từng nhịp tim thai từ một điện cực dán bụng mẹ —
-- và tự nói "tôi không chắc" khi không nhìn thấy tín hiệu.
+- Tìm từng nhịp tim thai trên bụng mẹ, chỉ một kênh —
+- và nói "tôi không chắc" khi thấy dấu hiệu tín hiệu xấu.
 
 **HÌNH/BẢNG:** Không có hình. Một câu duy nhất, cỡ chữ 40–48 pt, căn giữa, chiếm cả slide.
-Tô đậm hai cụm: **một điện cực** và **tự nói "tôi không chắc"**. Không có số liệu trên slide này.
+Tô đậm hai cụm: **một kênh** và **nói "tôi không chắc"**. Không có số liệu trên slide này.
 
 **GHI CHÚ NGƯỜI NÓI:** Dừng lại 3 giây sau khi chiếu, để cô đọc xong câu rồi mới nói. "Vế đầu là
-phần kỹ thuật, ai cũng làm. Vế sau mới là phần em coi là chính: hệ thống biết khi nào nó không
-đáng tin và từ chối trả lời, thay vì đưa ra một con số sai." Nói thêm: tầm nhìn xa là miếng dán
-mẹ tự đeo ở nhà, nhưng đó là tầm nhìn, chưa phải sản phẩm.
+phần kỹ thuật, ai cũng làm. Vế sau mới là phần em coi là chính: hệ thống báo khi thấy dấu hiệu nó không
+đáng tin và từ chối trả lời, thay vì đưa ra một con số sai. Không phải lần nào nó cũng thấy." Nói thêm: tầm nhìn xa là miếng dán
+mẹ tự đeo ở nhà, nhưng đó là tầm nhìn, chưa phải sản phẩm. Nếu bị hỏi "có lúc nào đèn không thấy không":
+có — trong 82 bản đã chấm, 3 bản đèn xanh mà F1 dưới 90, thấp nhất a57 F1 17,02 (`demo/results/demo_check_2modes.json → summary_by_mode.hoc.green_but_F1_below_90`).
 
 ---
 
@@ -68,15 +76,15 @@ mẹ tự đeo ở nhà, nhưng đó là tầm nhìn, chưa phải sản phẩm.
 **LOẠI:** nội dung
 
 **NỘI DUNG CHÍNH:**
-- Thai chậm phát triển: nguyên nhân hàng đầu của thai lưu
-- Dấu hiệu sớm là mất biến thiên nhịp tim thai
+- Theo tài liệu nhóm đọc, thai chậm phát triển gắn với nguy cơ thai lưu [CẦN KIỂM BẢN GỐC]
+- Giảm biến thiên nhịp tim thai là một dấu hiệu được theo dõi [CẦN KIỂM BẢN GỐC]
 - Đo biến thiên cần biết từng nhịp đến mili-giây
-- Doppler phổ biến nhưng sai số thời điểm lớn
+- CTG (Doppler) phổ biến, cho nhịp tim nhưng không cho hình dạng sóng điện tim; CTG thương mại có tính biến thiên ngắn hạn theo Dawes–Redman [CẦN KIỂM BẢN GỐC]
 - Điện cực da đầu chính xác nhưng xâm lấn, chỉ khi chuyển dạ
 
-**HÌNH/BẢNG:** Bảng nhỏ 3 dòng × 3 cột: *Cách đo* | *Chính xác thời điểm* | *Dùng được khi nào*.
-Ba dòng: Doppler / thấp / trước và trong chuyển dạ — Điện cực da đầu / cao / chỉ khi đã chuyển dạ —
-Điện tim bụng mẹ / cao / mọi lúc, không xâm lấn. Bảng này là **mô tả định tính, không có số đo
+**HÌNH/BẢNG:** Bảng nhỏ 3 dòng × 3 cột: *Cách đo* | *Cho gì* | *Dùng được khi nào*.
+Ba dòng: Doppler (CTG) / nhịp tim, không có hình dạng sóng / trước và trong chuyển dạ — Điện cực da đầu / tín hiệu điện sạch, từng nhịp / chỉ khi đã chuyển dạ —
+Điện tim bụng mẹ / tín hiệu điện từng nhịp, lẫn tim mẹ / về nguyên tắc mọi lúc, không xâm lấn. Bảng này là **mô tả định tính, không có số đo
 của nhóm** — ghi chú chân slide: "đặc tính chung, không phải kết quả đo của đề tài".
 
 **GHI CHÚ NGƯỜI NÓI:** Nhấn vào chỗ này: cái bác sĩ cần không phải nhịp nhanh hay chậm, mà là
@@ -187,12 +195,12 @@ nói ở slide 19.
 - 2. Khử điện tim mẹ: mẫu trung vị, co giãn từng nhịp
 - 3. Chọn kênh **mù nhãn** — không nhìn nhãn khi chọn
 - 4. Mạng tích chập thời gian → xác suất từng mẫu
-- 5. Cổng từ chối từ 12 chỉ số chất lượng cổ điển
+- 5. Cổng từ chối: 12 chỉ số, 6 dựa trên đầu ra mạng
 
 **HÌNH/BẢNG:** **SƠ ĐỒ KHỐI ngang, 5 hộp nối bằng mũi tên.** Dưới mỗi hộp một dòng nhỏ:
 hộp 1 "→ 250 Hz"; hộp 2 "tỉ lệ bình phương tối thiểu từng nhịp"; hộp 3 "4 kênh → 1 kênh";
 hộp 4 "113.481 tham số · 0,48 MB · 4,35 ms / cửa sổ 4 s";
-hộp 5 "12 SQI, không dùng nhãn". Hộp 3 và hộp 5 tô màu nhấn — đó là hai đóng góp. Nguồn thông số
+hộp 5 "12 chỉ số / đoạn 4 s, không dùng nhãn, không độc lập với mạng". Hộp 3 và hộp 5 tô màu nhấn — đó là hai đóng góp. Nguồn thông số
 hộp 4: `analysis/kientruc_results.json → table.tcn` (params 113481, rf_ms 1516, sigma_ms 12).
 
 **GHI CHÚ NGƯỜI NÓI:** Đi nhanh, 45 giây. Chỉ dừng ở hai hộp tô màu: hộp 3 là chỗ em có kết quả
@@ -443,18 +451,20 @@ Nguồn: `analysis/dulieu_results.json → chon_kenh_60_sach.bang.peakprob.phan_
 = 82,92; `analysis/chonkenh_leakcheck.py`; README mục Lead selection.
 
 **GHI CHÚ NGƯỜI NÓI:** Đây là slide em muốn cô chất vấn nhiều nhất. Bốn ý, theo thứ tự:
-(1) Bối cảnh — bộ này của nhóm khác, máy khác, người chấm độc lập, mô hình chưa từng thấy, và em
+(1) Bối cảnh — bộ này của nhóm khác, không trùng dữ liệu huấn luyện (ban tổ chức không công bố thiết bị ghi
+của từng bản), người chấm độc lập, mô hình chưa từng thấy, và em
 đã loại 15 bản trùng nên còn 60 bản sạch.
 (2) Trung thực về thủ tục — em viết trước một tài liệu phân tích với luật "lấy quy tắc tốt nhất
 trong miền". Luật đó chỉ vào `gate`. Gate trên 60 bản sạch cho 80,72 và **trượt** hiệu chỉnh
 Holm với p 0,051. Em không giấu chuyện đó.
-(3) Kết quả trung thực mạnh nhất là `gate4`: cùng họ khai báo trước, 81,01, p Holm 0,015, sống
-sót. Đây mới là con số em dám gọi là kết quả.
+(3) `gate4`: cùng họ ghi trước khi chạy, 81,01, p Holm 0,015, sống sót — nhưng nó **không phải**
+quy tắc kế hoạch chọn, nên em luôn đọc nó cùng câu "gate 80,72 trượt", không đọc riêng.
 (4) `peakprob` 82,01 là cao nhất nhưng em chọn **sau khi nhìn kết quả**, nên em gọi nó là giả
 thuyết mạnh chưa xác nhận. Em đã thử hai đường cứu: tính lại trên thang logit ở 22 chủ thể — gate
 vẫn đứng đầu, peakprob hạng 3; và tìm bộ thứ ba có nhãn để chạy đúng một lần — không có bộ công
 khai nào. Nên vấn đề hậu kiểm vẫn còn.
-Nếu cô hỏi "vậy con số nào được dùng": gate4 là kết quả, peakprob là giả thuyết.
+Nếu cô hỏi "vậy con số nào được dùng": số chính vẫn là PSD 74,28; quy tắc kế hoạch chọn (gate 80,72)
+trượt; gate4 81,01 sống sót Holm nhưng không phải quy tắc kế hoạch chọn; peakprob là giả thuyết.
 
 ---
 
@@ -465,8 +475,8 @@ Nếu cô hỏi "vậy con số nào được dùng": gate4 là kết quả, pea
 **LOẠI:** biểu đồ + nội dung
 
 **NỘI DUNG CHÍNH:**
-- 12 chỉ số chất lượng cổ điển, bỏ-một-chủ-thể, **không dùng nhãn**
-- AUROC trong bản ghi **0,934** [0,872; 0,981]
+- 12 chỉ số (6 dựa trên đầu ra mạng), bỏ-một-chủ-thể, **không dùng nhãn**
+- AUROC trong bản ghi **0,934** [0,872; 0,981] — trên 11/22 chủ thể
 - Xếp đúng 3 bản khó nhất vào 3 hạng chót (ngẫu nhiên 1/1540)
 - Nhưng 5 / 24 quy tắc **một đặc trưng** cũng làm được như vậy
 - Nên: cổng học được có thể chỉ tương đương một ngưỡng SNR
@@ -480,10 +490,15 @@ thứ hạng từ `muc_ban_ghi.hang_cua_ba_ban_ghi_kho` = {B2_03: 1, B1_07: 2, B
 AUROC từ `cong.auroc_within_mean` = 0,9336 và `cong.auroc_within_ci` = [0,8717; 0,9810];
 AUROC gộp `cong.auroc_pooled` = 0,9646 [0,8568; 0,9922];
 đối chứng một đặc trưng: `muc_ban_ghi.doi_chung_mot_dac_trung` — 5 trong 24 quy tắc đạt 3/3.
+Phạm vi 0,934: trung bình trên **11/22** chủ thể có cả đoạn tốt lẫn đoạn xấu (`cong.n_records_with_both_classes`).
+Độ quan trọng hoán vị: `cong.permutation_importance_delta_auroc` — `rr_cv` 0,140, `peak_prob_mean` 0,032,
+10 chỉ số còn lại < 0,002.
 
-**GHI CHÚ NGƯỜI NÓI:** Cổng này không nhìn đầu ra mô hình như một lời sấm, nó nhìn 12 chỉ số chất
-lượng tín hiệu cổ điển — entropy mẫu, bSQI, độ nhọn, biến thiên RR. Huấn luyện bỏ-một-chủ-thể
-nên không rò rỉ. Kết quả: nó xếp đúng ba bản ghi khó nhất vào ba hạng chót, xác suất ngẫu nhiên
+**GHI CHÚ NGƯỜI NÓI:** Nói thẳng: cổng này **không độc lập với mạng**. Trong 12 chỉ số, 6 thuần tín
+hiệu (entropy mẫu, độ nhọn, entropy phổ…), 4 tính trên các nhịp chính mạng dò ra (biến thiên RR,
+bSQI…), 2 là xác suất của mạng. Hai chỉ số gánh gần hết độ quan trọng là biến thiên RR và xác suất
+trung bình tại đỉnh — cả hai đều đến từ mạng. Huấn luyện bỏ-một-chủ-thể nên không rò rỉ. Cổng 22 ca
+này mới ở dạng phân tích, **chưa đưa vào demo**; đèn trong demo là cổng hiệu chuẩn trên mô hình 5 ca. Kết quả: nó xếp đúng ba bản ghi khó nhất vào ba hạng chót, xác suất ngẫu nhiên
 là 1 trên 1540. Nhưng em phải tự khai một điều làm yếu kết quả này: em đã dựng 24 quy tắc chỉ
 dùng **một** đặc trưng làm đối chứng, và 5 trong số đó cũng xếp đúng cả 3. Nên em **không** được
 nói "phải có cổng học mới làm được". Còn một việc chưa xong: số cổng trên CinC hiện có đo trên 75
@@ -501,22 +516,25 @@ bản gồm 15 bản nhiễm, em đã rút và sẽ tính lại trên 60 bản s
 - Thích nghi miền: **cả bốn phương pháp đều thất bại**
 - Dải lọc: +2,44 trên kênh PSD nhưng −0,07 trên trung bình 4 kênh
 - Kiến trúc: ba họ đầu cách nhau dưới 0,1 điểm
-- Ba dịch chuyển đo được chỉ giải thích 0,01 / 17,92 điểm
+- Ba dịch chuyển đo được chỉ giải thích 0,01 / 23,28 điểm
 - Em **chưa** xác định được nguyên nhân khoảng cách ngoài miền
 
 **HÌNH/BẢNG:** **BIỂU ĐỒ THANH CÓ THANH LỖI, ngang, quanh vạch 0.**
 Bốn thanh, trục X là Δ F1 trên 60 bản sạch:
-`chặn điện lưới +0,25 [−0,25; +1,08], p 0,70` · `tự huấn luyện nhãn giả −0,67 [−1,11; −0,29]` ·
+`chặn điện lưới +0,25 [−0,25; +1,08], p 0,68` · `tự huấn luyện nhãn giả −0,67 [−1,11; −0,29]` ·
 `AdaBN −1,58 [−2,50; −0,73]` · `TENT −2,43 [−3,64; −1,35]`.
 Nguồn bốn dòng: `analysis/THICHNGHI.md` và các JSON trong `adapt/` (`adapt_results.json`), trích
 lại trong `docs/CHIEN_LUOC_CONG_BO.md` mục 1 dòng 6 và bản thảo trong `paper/` (thư mục giữ tên
 cũ để truy vết lịch sử; nội dung đã đồng bộ về 60 bản sạch).
-**Cần kiểm trước khi dựng slide:** dòng tự huấn luyện ghi **−0,67** trong bản thảo và **−0,68**
-trong `docs/CHIEN_LUOC_CONG_BO.md` — lệch 0,01 do làm tròn; lấy lại từ `adapt/` rồi chốt một số.
+*Đã chốt 17/09:* tự huấn luyện **−0,67** (−0,6746) và p notch **0,68** (0,679, Wilcoxon ghép cặp, 8 hơn / 10 kém /
+42 hoà) — tính lại từ `adapt/adapt_results.json → per_record_cinc` trên 60 bản sạch; mọi tài liệu dùng hai số này.
 Ô chú thích bên phải: *Áp cả ba dịch chuyển đo được (60 s · lượng tử hoá · điện lưới 60 Hz) lên
-22 chủ thể chỉ mất **0,01** điểm, trong khi khoảng cách thật còn **17,92** điểm* — nguồn
-`adapt/adapt_results.json → mo_phong_dich_chuyen.hieu_C3_tru_C0` = −0,0135 và
-`.khoang_cach_CinC_con_lai` = 17,92.
+22 chủ thể chỉ mất **0,01** điểm, trong khi khoảng cách trong/ngoài miền là **23,28** điểm theo PSD* — nguồn
+`adapt/adapt_results.json → mo_phong_dich_chuyen.hieu_C3_tru_C0` = −0,0135; khoảng cách = 97,56
+(`baselines/powermf_fair_stats.json → so_sanh.tat_ca_22.rely_vs_pmf4.mean_a`) − 74,28
+(`analysis/dulieu_results.json → chon_kenh_60_sach.bang.psd.mean_60_sach`). **Không dùng**
+`.khoang_cach_CinC_con_lai` = 17,92: nó tính từ mốc 79,40 trên 75 bản nhiễm, đã rút
+(`survey/facts_phase4.json → Z_DA_RUT.khoang_cach_trong_ngoai_mien_17_92`).
 Ô cảnh báo dưới cùng, viền đỏ: *Không kết luận được "vì không có tín hiệu": phép thử nhìn thấy có
 âm tính giả **18,0 %** [12,1; 25,0] → nguyên nhân **chưa xác định**.* Nguồn
 `analysis/xacnhan_results.json → viec4_phep_thu_nhin_thay` (`cinc60|psd`:
@@ -526,10 +544,10 @@ trong `docs/CHIEN_LUOC_CONG_BO.md` — lệch 0,01 do làm tròn; lấy lại t�
 nữa. Bốn phương pháp thích nghi miền không giám sát: chặn điện lưới thích nghi, tự huấn luyện
 nhãn giả, AdaBN, TENT — không cái nào giúp, hai cái làm xấu đi rõ rệt. Rồi em thử theo hướng
 ngược: đo ba khác biệt giữa hai bộ dữ liệu và **áp chúng lên** dữ liệu trong miền để xem mất bao
-nhiêu — chỉ mất 0,01 điểm, trong khi khoảng cách thật là 17,92. Nghĩa là ba dịch chuyển đó không
+nhiêu — chỉ mất 0,01 điểm, trong khi khoảng cách thật là 23,28 theo quy tắc PSD. Nghĩa là ba dịch chuyển đó không
 giải thích được gì. Điều em **phải** nói kèm: em từng viết rằng khoảng cách đó là do không có tín
 hiệu để bắt — em đã rút, vì phép thử em dùng để nói "không nhìn thấy" có âm tính giả 18 %. Nguyên
-nhân khoảng cách 15–18 điểm hiện vẫn để mở, và em thấy nói "chưa biết" đúng hơn là đoán.
+nhân khoảng cách — 23,28 điểm theo PSD, còn 15,55 nếu dùng peakprob hậu kiểm — hiện vẫn để mở, và em thấy nói "chưa biết" đúng hơn là đoán.
 
 ---
 
@@ -681,14 +699,14 @@ Rào cản*.
 
 | Nơi nộp | Loại | Xếp hạng | Cửa | Rào cản |
 |---|---|---|---:|---|
-| Physiological Measurement | tạp chí | Scimago 2024: Q2 / Q3 | ~58 % | — (đích mặc định) |
-| BSPC | tạp chí | Scimago: Q1 | ~32 % | đòi bảng so sánh rộng |
+| Physiological Measurement | tạp chí | Scimago 2024: Q2 / Q3 | ~55 % | — (đích mặc định) |
+| BSPC | tạp chí | Scimago: Q1 | ~35 % | đòi bảng so sánh rộng |
 | Computers in Biology and Medicine | tạp chí | Scimago: Q1 | ~30 % | cạnh tranh đông |
-| IEEE JBHI | tạp chí | Scimago: Q1 | 12 % / 6 tháng · ~32 % / 12 tháng | **cần bộ có nhãn mới** |
+| IEEE JBHI | tạp chí | Scimago: Q1 | 15–20 % / 6 tháng · ~35 % / 12 tháng | **cần bộ có nhãn mới** |
 | Computing in Cardiology 2027 | hội nghị | không có trong CORE | ~80 % | hạn ~4/2027 |
 
 Chân bảng, chữ nhỏ: *Cột "Cửa" là ước lượng chủ quan, **không phải số đo** — nguồn
-`docs/CHIEN_LUOC_CONG_BO.md` mục 2.1. Xếp hạng Scimago lấy qua trang tổng hợp bên thứ ba, chưa
+`docs/CHIEN_LUOC_CONG_BO.md` mục 2.1, cột `P_nay` bản [V7] (sửa 17/09: trước ghi 58 / 32 / 12 / 32 %, không khớp nguồn). Xếp hạng Scimago lấy qua trang tổng hợp bên thứ ba, chưa
 xác minh trực tiếp từ JCR. **Không có hội nghị A\* nào đúng lĩnh vực này**; MICCAI là A và không
 nhận tín hiệu 1-D.*
 
@@ -697,7 +715,7 @@ Physiology và Q3 Biomedical Engineering, **không phải Q1**. Em nói trước
 Giải thích vì sao vẫn chọn nó: đó là nơi chính CinC Challenge 2013 công bố, ban biên tập quen với
 bài kiểm toán và kết quả âm tính — đúng loại bài này. Cửa lên Q1 là JBHI, nhưng rào cản không
 phải kỹ thuật mà là **dữ liệu**: cần một bộ có nhãn thật để chạy quy tắc chọn kênh đúng một lần.
-Em ước cửa Q1 trong 6 tháng khoảng 12 %. Và em nói rõ: cột "Cửa" là em ước, không phải số đo.
+Em ước cửa Q1 trong 6 tháng khoảng 15–20 %. Và em nói rõ: cột "Cửa" là em ước, không phải số đo.
 Về A*: không có hội nghị A* nào đúng lĩnh vực, muốn A* là phải ra khỏi lĩnh vực và ở đó bài này
 không cạnh tranh được — em xin không đặt mục tiêu đó.
 
@@ -712,8 +730,8 @@ không cạnh tranh được — em xin không đặt mục tiêu đó.
 **NỘI DUNG CHÍNH:**
 - Nền tảng đã xong: dữ liệu, mô hình, đánh giá, demo
 - Còn thiếu: hạt giống thứ 2–3, cổng trên 60 sạch, bản thảo
-- 82/82 kiểm thử tự động đang chạy qua
-- 16 ảnh chụp demo dự phòng nếu máy hỏng
+- Kiểm thử tự động chạy qua (17/09/2026: 109)
+- Ảnh chụp demo dự phòng nếu máy hỏng
 - Không khối nào bị chặn bởi kỹ thuật — chỉ bởi dữ liệu và thời gian
 
 **HÌNH/BẢNG:** **BIỂU ĐỒ THANH TIẾN ĐỘ NGANG (progress bars), 8 thanh, trục X 0–100 %.**
@@ -724,7 +742,7 @@ không cạnh tranh được — em xin không đặt mục tiêu đó.
 | Mô hình + huấn luyện (1 hạt giống) | 100 | `analysis/kientruc_results.json`, checkpoint 11 fold |
 | Đánh giá trong miền + baseline | 100 | `baselines/powermf_fair_stats.json`, `analysis/recovery_ratio.json` |
 | Đánh giá ngoài miền, 60 bản sạch | 100 | `benchmark_dpss/eval_cinc60_sach.json` |
-| Demo + kiểm thử | 100 | 82/82 kiểm thử qua; 16 ảnh trong `demo/screenshots/` |
+| Demo + kiểm thử | 100 | 109 kiểm thử (43 `tests/` + 66 `demo/test_core.py`, đếm 17/09/2026 sau lượt sửa demo thứ ba); ảnh trong `demo/screenshots/` |
 | Cổng từ chối | 70 | xong trên 22 chủ thể; **chưa** tính lại trên 60 sạch |
 | Lâm sàng (STV) | 60 | đo xong; **chưa** đo trên nhịp đã qua cổng |
 | Ba hạt giống cho kết quả chính | 33 | mới có hạt giống 0; hạt giống 1 chỉ có F1, không có checkpoint |
@@ -805,7 +823,7 @@ quả, không xin cô sửa mã, không xin thêm thời gian."
 **NỘI DUNG CHÍNH:**
 - Năm bản minh hoạ, trong đó có hai bản hệ thống **thất bại**
 - r01 (F1 99,92) · a09 (hai quy tắc chọn kênh, 94,25 so 19,35)
-- a02 (F1 24,91 — đèn đỏ, hệ thống từ chối) · a27 (gần như không có tín hiệu)
+- a02 (F1 24,91 — đèn đỏ, hệ thống từ chối) · a27 (32,94; cả bốn dây kém, F1 21,26–32,94; đèn đỏ 14/15 đoạn)
 - Mọi bảng trong demo đọc trực tiếp từ tệp kết quả
 - Bản mẫu nghiên cứu — **không phải thiết bị y tế**
 
@@ -818,7 +836,7 @@ hợp 60 bản sạch).
 
 **GHI CHÚ NGƯỜI NÓI:** Trước khi chuyển màn hình, nói câu định khung: "Em cho cô xem cả chỗ nó
 chạy tốt lẫn chỗ nó hỏng, và chỗ nó hỏng thì em muốn cô xem kỹ hơn." Thứ tự demo 4 phút theo
-`docs/HUONG_DAN_DEMO.md` mục 3: r01 → a09 (đổi qua lại hai quy tắc chọn kênh) → a02 (đèn đỏ, từ
+`docs/HUONG_DAN_DEMO_v1.md` mục 3 (bản 8 tab, lưu trữ; bản hiện hành `docs/HUONG_DAN_DEMO_v2.md`): r01 → a09 (đổi qua lại hai quy tắc chọn kênh) → a02 (đèn đỏ, từ
 chối). Điểm cần nói ở a02: mô hình bám tàn dư tim mẹ, ra một chuỗi nhịp rất đều trông như thai,
 F1 chỉ 24,91 — nhưng cổng bật đỏ và hệ thống từ chối trả lời. Câu cuối bắt buộc: "Đây là bản mẫu
 nghiên cứu, không phải thiết bị y tế — em ghi câu đó ngay đầu trang demo."
@@ -834,9 +852,9 @@ nghiên cứu, không phải thiết bị y tế — em ghi câu đó ngay đầ
 **NỘI DUNG CHÍNH:**
 - Em không làm ra bộ dò tốt nhất — em làm ra một phép đo có ranh giới
 - Một kênh lấy lại **89,5 %** lợi ích của bốn kênh
-- Hệ thống **tự biết** lúc nào nó không nhìn thấy tín hiệu
+- Có **cổng báo** lúc không đáng tin — cổng dựa một phần vào mạng
 - Mọi con số báo trên dữ liệu sạch; mọi số sai đều được rút công khai
-- Cái em cần tiếp theo không phải mô hình tốt hơn — mà là **dữ liệu có nhãn**
+- Cái em cần tiếp theo là **dữ liệu có nhãn** để xác nhận quy tắc chọn kênh và tìm nguyên nhân khoảng cách ngoài miền (chưa xác định là do mô hình hay dữ liệu)
 
 **HÌNH/BẢNG:** Nền sạch. Dòng 2 và 3 làm đậm. Không bảng, không biểu đồ. Góc dưới:
 `github.com/bminhnemhoi/nckhsv_tdtu2026-2027` · `survey/facts_phase4.json` ·
@@ -844,7 +862,8 @@ nghiên cứu, không phải thiết bị y tế — em ghi câu đó ngay đầ
 
 **GHI CHÚ NGƯỜI NÓI:** Nói chậm, đây là câu cô sẽ nhớ. "Em không làm ra bộ dò tốt nhất, và em
 không định nói vậy. Em làm ra một phép đo có ranh giới rõ: một kênh lấy lại 89,5 % lợi ích của
-bốn kênh, và hệ thống tự biết khi nào nó không nhìn thấy tín hiệu." Rồi câu cuối, nhìn thẳng:
+bốn kênh, và hệ thống có một cổng báo khi nó không đáng tin — cổng đó dựa một phần vào chính mạng, nên
+em chưa nói nó độc lập." Rồi câu cuối, nhìn thẳng:
 "Thứ em cần tiếp theo không phải là mô hình tốt hơn, mà là dữ liệu có nhãn — và đó là chỗ em cần
 cô." Dừng, mời cô hỏi.
 
@@ -949,8 +968,9 @@ thay cho "chúng tôi phát hiện"; "chưa xác định nguyên nhân" thay cho
 - Cấu hình từng khối giãn nở, số kênh mỗi tầng, kích thước nhân.
 - Công thức khử mẹ (tỉ lệ bình phương tối thiểu từng nhịp) — chỉ nói tên bước ở slide 7.
 - Bảng phổ lỗi 6 nhóm đầy đủ. Nếu cần nói, chỉ nói **một** con số của 22 chủ thể: *"lỗi loại bỏ
-  nhịp dù tín hiệu nhìn thấy được chỉ chiếm 3,8 %, trong khi mức ngẫu nhiên là 15,2 %"*
-  (`analysis/CHANDOAN_MOHINH.md` mục 1.1) — và **không** trích con số tương ứng trên CinC vì nó
+  nhịp dù tín hiệu nhìn thấy được chỉ chiếm 3,8 %, trong khi mức ngẫu nhiên là 14,7 %"*
+  (`analysis/chandoan_results.json → pho_loi.22_chu_the_kenh_PSD.pct_null`; số 15,2 % từng ghi ở đây là mức ngẫu nhiên của hàng `peakprob`, không cùng hàng với 3,8 % của PSD —
+  `m1_bo_sung.pho_loi_theo_quy_tac`) — và **không** trích con số tương ứng trên CinC vì nó
   đo trên 75 bản, chưa tính lại trên 60 sạch.
 - Jitter 3,76 ms và bảng jitter theo phân tầng F1 — chỉ nói nếu cô hỏi về độ chính xác thời điểm.
 - Chi tiết lưới siêu tham số của bốn phương pháp thích nghi miền.
@@ -967,15 +987,18 @@ hiện ở slide 25.
   chưa xác minh từ JCR) — slide 21 chỉ in quartile Scimago kèm năm.
 - Hạn nội bộ Euréka kỳ 2026 của TDTU (chưa xác minh) — chỉ nói miệng là "em sẽ hỏi Đoàn trường".
 - Tỉ lệ nhận của Euréka — nếu in thì phải ghi "ước lượng, chưa xác minh".
-- Số sản phụ thật trong 60 bản CinC sạch: **không biết**, chỉ biết chắc chắn nhỏ hơn 60
-  (`survey/ro_ri_vanlieu.json → kiem_cheo_ky_thuat.cung_san_phu_khac_buoi`). Không in "60 sản phụ".
+- Số sản phụ thật trong 60 bản CinC sạch: **không biết**, nhiều nhất 60, có thể ít hơn
+  (`survey/ro_ri_vanlieu.json → kiem_cheo_ky_thuat.cung_san_phu_khac_buoi`; NIFECGDB góp 14 bản từ một sản phụ vào cuộc thi nhưng chưa định danh được trong set-a). Không in "60 sản phụ".
 
 ### 6. Hai cách nói sai thường gặp — không được dùng dù chỉ một lần
 
 - **"Một kênh hơn bốn kênh."** Sai: −1,27 điểm. Nói đúng: "một kênh lấy lại 89,5 % lợi ích của
   bốn kênh, và chênh lệch còn lại chưa phân biệt được về thống kê".
-- **"peakprob là kết quả."** Sai: đó là lựa chọn hậu kiểm. Nói đúng: "gate4 là kết quả sống sót
-  hiệu chỉnh; peakprob là giả thuyết mạnh chưa xác nhận".
+- **"peakprob là kết quả."** Sai: đó là lựa chọn hậu kiểm. Nói đúng: "quy tắc kế hoạch chọn là gate,
+  80,72, trượt Holm; gate4 81,01 cùng họ ghi trước sống sót Holm nhưng không phải quy tắc kế hoạch chọn;
+  peakprob là giả thuyết mạnh chưa xác nhận".
+- **"Cổng dùng chỉ số cổ điển, không lấy từ mạng."** Sai: 2/12 chỉ số là xác suất mạng, 4/12 tính trên
+  nhịp mạng dò. Nói đúng: "cổng không độc lập với mạng".
 
 ---
 

@@ -140,7 +140,8 @@ facts = {
   },
   'E_dai_loc_tren_TCN': {
     'nguon': 'pilot_evidence/band_tcn.json, pilot_evidence/band_tcn_stats.json',
-    'ghi_chu': '+2,44 [-0,05; +6,30] tren kenh PSD; -0,07 [-0,49; +0,40] trung binh 4 kenh -> +11,00 (GBM 300 ms) DA RUT voi TCN',
+    # KTC theo band_tcn_stats.json (20.000 lan cluster bootstrap); band_tcn_log.txt ghi [-0,05; +6,30] / [-0,49; +0,40] tu lan chay khac
+    'ghi_chu': '+2,44 [-0,04; +6,29] tren kenh PSD; -0,07 [-0,51; +0,39] trung binh 4 kenh -> +11,00 (GBM 300 ms) DA RUT voi TCN',
     'band_tcn_stats_keys': (list(band.keys())[:20] if isinstance(band, dict) else None),
   },
   'F_demo': {
@@ -168,6 +169,21 @@ facts = {
     'cum_tu': ['8 kien truc khong phan biet duoc', 'luong cuc (nhu co che)', 'tien dang ky', 'phat hien ro ri',
                'mo hinh khong phai nut that', '71 % du dia khong co tin hieu', '1,85 diem thuoc mo hinh',
                '8 ban gioi han cung', 'Physiological Measurement la Q1', 'SOTA/novel/first'],
+    'khoang_cach_trong_ngoai_mien_17_92': {
+      'gia_tri': 17.92,
+      'ly_do': 'tinh tu moc CinC 79,40 tren 75 ban nhiem da rut: khoang_cach_CinC_con_lai = C3_ca_hai (97,32, mo phong dich chuyen tren 22 chu the) - CINC_REF_PSD 79,40; moc 79,40 nam trong cinc_75_o_nhiem',
+      'nguon': 'adapt/adapt_analyze.py dong 15 (CINC_REF_PSD = 79.40) va dong 76 (khoang_cach_CinC_con_lai); adapt/adapt_results.json -> mo_phong_dich_chuyen.khoang_cach_CinC_con_lai = 17.9166; analysis/THICHNGHI.md (dong 110)',
+      'thay_bang': {
+        'cach_tinh': 'F1 trong mien 97,56 (baselines/powermf_fair_stats.json -> so_sanh.tat_ca_22.rely_vs_pmf4.mean_a) tru F1 tren 60 ban CinC sach (analysis/dulieu_results.json -> chon_kenh_60_sach.bang.<quy_tac>.mean_60_sach)',
+        'psd': 23.28,
+        'gate': 16.84,
+        'gate4': 16.55,
+        'peakprob': 15.55,
+        'tran_oracle': 13.96,
+        'ghi_chu': 'psd la so chinh; gate la quy tac ke hoach chon (truot Holm p 0,051); gate4 ghi truoc khi chay, song sot Holm p 0,015 nhung khong phai quy tac ke hoach chon; peakprob chon lam mac dinh sau khi xem ket qua CinC (hau kiem); tran_oracle dung nhan. Phan 0,01 diem cua mo phong dich chuyen (C0_60s - C3_ca_hai) khong doi.',
+      },
+      'ngay_rut': '17/09/2026',
+    },
   },
 }
 

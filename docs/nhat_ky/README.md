@@ -15,3 +15,4 @@ bắt đầu làm việc — xem [`HANDOFF.md`](../../HANDOFF.md) ở gốc repo
 | `DON_REPO_VONG7.md` | 7 | Biên bản dọn repo: tệp dư thừa, chuyển vào `archive/`, đồng bộ số về 60 bản sạch |
 | `THAMDINH_VONG8.md` | 8 | Thẩm định bài CinC 2027 và kịch bản; phát hiện `gate4` sống sót Holm bị bỏ quên |
 | `THAMDINH_VONG9.md` | 9 | Chạy thật demo 8 tab trước buổi gặp giảng viên; phát hiện cột Thắng/Thua bị đảo và CSS tab nhắm sai selector |
+| `THAMDINH_VONG10_KICH_BAN.md` | 10 | Giảng viên y sinh nghe lần đầu phản biện `docs/KICH_BAN_THUYET_TRINH_v2.md`: bốn lỗi sự thật (cổng dùng xác suất của mạng; AUROC 0,934 không phải cổng đang chạy trong demo; ở a02 dây 1 đạt 75,88; số lệch STV ngoài miền lấy từ mẫu có 4 bản nhiễm) cùng các lỗi nhỏ S5–S8; khái niệm chưa giải thích, mục lâm sàng còn thiếu, thứ tự trình bày |

@@ -1,5 +1,11 @@
 # Kịch bản trình bày toàn bộ hành trình đề tài — RelyFetal
 
+> **⚠ CẢNH BÁO (17/09/2026) — tệp lưu trữ.** Kịch bản này dựng quanh demo **8 tab** (S15, Phần 7) và bìa có số
+> kiểm thử cố định; demo hiện mở **chế độ trình bày 5 bước**, 8 tab nằm trong chế độ chuyên gia. Buổi trình bày mới
+> dùng `docs/KICH_BAN_THUYET_TRINH_v2.md` và `docs/HUONG_DAN_DEMO_v2.md`. Ngày 17/09/2026 đã sửa tại chỗ các lỗi
+> sự thật: cổng từ chối **không** độc lập với mạng; "17,92 điểm" đã rút (thay bằng 23,28 theo PSD); số STV ngoài
+> miền đã rút; mức ngẫu nhiên nhóm lỗi (a) lấy đúng hàng PSD; số kiểm thử.
+
 **Bản 13/09/2026.** Dùng cho buổi trình bày **dài** (bản đầy đủ 45 phút, có bản rút 20 phút và 10 phút ở Phụ lục A).
 
 Tệp này **không thay thế** `docs/KICH_BAN_TRINH_BAY.md`. Tệp kia là bản 20 phút cho buổi gặp giảng viên ngày 14/09, vẫn dùng nguyên. Tệp này kể **toàn bộ quá trình**: từ lúc nghĩ ra đề tài, đọc tài liệu, chọn mô hình, đến năm lần rút lại kết luận và chỗ đứng thật hiện nay.
@@ -22,7 +28,7 @@ Tệp này **không thay thế** `docs/KICH_BAN_TRINH_BAY.md`. Tệp kia là b�
 
 | Slide | Nội dung | Lấy từ |
 |---|---|---|
-| S1 | Bìa: tên đề tài + 4 ô số (113.481 tham số · 22 chủ thể · 60 bản kiểm ngoài · 82 kiểm thử) | sổ tay mục 01 |
+| S1 | Bìa: tên đề tài + 3 ô số (113.481 tham số · 22 chủ thể · 60 bản kiểm ngoài) — không ghi số kiểm thử cố định trên bìa | sổ tay mục 01 |
 | S2 | Vì sao phải biết **từng nhịp** — thai chậm phát triển, biến thiên ngắn hạn | mới, vẽ tay |
 | S3 | Hai cách đo hiện có: Doppler và điện cực da đầu | sổ tay mục 02 |
 | S4 | Thành phần tín hiệu điện tim bụng mẹ | sổ tay mục 03 |
@@ -36,7 +42,7 @@ Tệp này **không thay thế** `docs/KICH_BAN_TRINH_BAY.md`. Tệp kia là b�
 | S12 | Bảng 4 bộ dữ liệu + thẳng thắn về điểm yếu B1 | sổ tay mục 05 |
 | S13 | Bảng 22 chủ thể: Power-MF 4 kênh / 1 kênh / RelyFetal | sổ tay mục 08 |
 | S14 | Tỉ lệ lấy lại 89,49 % và khoảng tin cậy của nó | mới |
-| S15 | **DEMO** — 8 tab | `demo/app.py` |
+| S15 | **DEMO** — 8 tab (nay nằm trong chế độ chuyên gia; xem cảnh báo đầu tệp) | `demo/app.py` |
 | S16 | Bảng 7 quy tắc chọn kênh trên 60 bản sạch, có cột p Holm | sổ tay mục 09 |
 | S17 | Nhật ký sự cố 1: mẫu 10 bản ghi | sổ tay mục 11 |
 | S18 | Nhật ký sự cố 2: Power-MF chạy qua Octave | sổ tay mục 11 |
@@ -74,7 +80,7 @@ S1 → S2 → S3 → S4 → S5. Dừng lâu nhất ở S3 (bảng so Doppler và
 
 ### [NẾU CÓ HỎI]
 **H: "Biến thiên ngắn hạn phải chính xác tới bao nhiêu mili-giây thì mới có nghĩa lâm sàng?"**
-> "Em chưa biết con số ngưỡng theo hướng dẫn nào, và em không đoán. Em chỉ đo được sai số của chính hệ mình. Trong miền, chỉ số đó lệch 0,33 mili-giây. Ngoài miền trên bộ CinC thì lệch 20,5. Nên em nói thẳng là chưa dùng làm máy đo độc lập được. Câu ngưỡng bao nhiêu là câu em muốn xin cô một đầu mối bác sĩ để hỏi."
+> "Em chưa biết con số ngưỡng theo hướng dẫn nào, và em không đoán. Em chỉ đo được sai số của chính hệ mình. Trong miền, trên năm sản phụ, chỉ số đó lệch 0,33 mili-giây. Ngoài miền em chưa có số dùng được, vì mẫu đo cũ lẫn cả bản trùng dữ liệu huấn luyện. Nên em nói thẳng là chưa dùng làm máy đo độc lập được. Câu ngưỡng bao nhiêu là câu em muốn xin cô một đầu mối bác sĩ để hỏi."
 
 **H: "Doppler rẻ và có sẵn, sao phải làm cái khó hơn?"**
 > "Doppler đo chuyển động van nên thời điểm bị nhoè, mà đề tài của em cần đúng thời điểm. Ngoài ra Doppler cần người cầm đầu dò. Miếng dán điện cực thì mẹ tự đeo được nhiều giờ. Em không nói Doppler kém, em nói nó không trả lời được câu hỏi biến thiên."
@@ -118,7 +124,7 @@ S6 (bảng 7 nhóm, đếm số bài từng nhóm) → S7. Ở S7 chiếu **đú
 
 ---
 
-# PHẦN 3 — TÍNH MỚI: bốn đóng góp, mỗi cái kèm ranh giới (≈4 phút)
+# PHẦN 3 — ĐÓNG GÓP: bốn đóng góp, mỗi cái kèm ranh giới (≈4 phút)
 
 ### [NÓI GÌ]
 
@@ -126,9 +132,9 @@ S6 (bảng 7 nhóm, đếm số bài từng nhóm) → S7. Ở S7 chiếu **đú
 >
 > **Thứ nhất là một phép đo.** Câu hỏi: một kênh lấy lại được bao nhiêu phần lợi ích của bốn kênh? Em đo được 89,49 phần trăm. Khoảng tin cậy từ 81,4 đến 103,2. Kiểm lại bằng jackknife thì nằm trong 88,6 đến 93,4. Ranh giới: đây là phép đo so với **một** phương pháp đối chuẩn, trên 22 chủ thể. Cận trên vượt 100 phần trăm nghĩa là em chưa loại được khả năng một kênh lấy lại toàn bộ. Em gọi đây là phép đo, không phải một máy dò tốt hơn.
 >
-> **Thứ hai là một quy tắc chọn kênh mù nhãn.** Trên 60 bản ghi ngoài miền, quy tắc cũ cho 74,28, quy tắc mới cho 82,01. Cộng 7,73 điểm. Ranh giới, và đây là ranh giới nặng nhất: quy tắc thắng là quy tắc em chọn **sau khi** nhìn kết quả. Luật ghi trước của em chỉ vào một quy tắc khác, và quy tắc đó trượt hiệu chỉnh nhiều phép thử với p bằng 0,051. Trong cùng họ đã khai báo trước, còn một quy tắc nữa sống sót với p 0,015. Em báo cáo cả ba số, không giấu số trượt.
+> **Thứ hai là một quy tắc chọn kênh mù nhãn.** Trên 60 bản ghi ngoài miền, quy tắc cũ cho 74,28, quy tắc mới cho 82,01. Cộng 7,73 điểm. Ranh giới, và đây là ranh giới nặng nhất: quy tắc thắng là quy tắc em chọn **sau khi** nhìn kết quả. Luật ghi trước của em chỉ vào một quy tắc khác. Quy tắc đó cho 80,72, và trượt hiệu chỉnh nhiều phép thử với p bằng 0,051. Trong cùng họ đã khai báo trước, còn một quy tắc nữa cho 81,01 và sống sót với p 0,015, nhưng nó không phải quy tắc kế hoạch chọn. Em báo cáo cả ba số, không giấu số trượt.
 >
-> **Thứ ba là cách đo phổ lỗi có mức ngẫu nhiên đối chứng.** Em chia lỗi thành sáu nhóm. Nhưng em không dừng ở tỉ lệ. Em tính thêm: nếu gán nhãn nhóm hoàn toàn ngẫu nhiên thì tỉ lệ sẽ là bao nhiêu. Nhóm 'bỏ nhịp dù có tín hiệu' chiếm 3,8 phần trăm trong miền. Mức ngẫu nhiên là 15,2. Ngoài miền là 1,0 so với 11,2. Cặp ngoài miền đó em đo trước khi loại mười lăm bản trùng. Ranh giới: đây là đóng góp phương pháp phụ, không phải kết quả chính. Em nêu vì trong tài liệu điện tim thai em ít thấy ai đặt mức ngẫu nhiên đối chứng.
+> **Thứ ba là cách đo phổ lỗi có mức ngẫu nhiên đối chứng.** Em chia lỗi thành sáu nhóm. Nhưng em không dừng ở tỉ lệ. Em tính thêm: nếu gán nhãn nhóm hoàn toàn ngẫu nhiên thì tỉ lệ sẽ là bao nhiêu. Nhóm 'bỏ nhịp dù có tín hiệu' chiếm 3,8 phần trăm trong miền. Mức ngẫu nhiên là 14,7. Ngoài miền là 1,0 so với 10,3. Cặp ngoài miền đó em đo trước khi loại mười lăm bản trùng. Ranh giới: đây là đóng góp phương pháp phụ, không phải kết quả chính. Em nêu vì trong tài liệu điện tim thai em ít thấy ai đặt mức ngẫu nhiên đối chứng.
 >
 > **Thứ tư là định lượng hậu quả chồng lấn dữ liệu.** Em nói rõ ngay: **ban tổ chức đã ghi việc này từ 2013**, và bài tổng kết 2014 còn cảnh báo nguyên văn. Cái em làm thêm là định danh đúng mười lăm bản nào, và đo mức thổi phồng từ 3,27 đến 7,18 điểm. Ranh giới: đây không phải một phát hiện. Đây là một phép đo trên một sự kiện đã được ghi."
 
@@ -139,7 +145,7 @@ S8 — bảng bốn dòng, mỗi dòng hai cột: *đóng góp* và *ranh giới
 - **Vì sao đặt ranh giới cạnh đóng góp ngay trên cùng một slide:** người phản biện sẽ tìm đúng những chỗ đó. Nêu trước thì mất chủ động ít hơn là bị hỏi.
 - **Vì sao vẫn báo cáo quy tắc chọn hậu kiểm:** nó sống sót hiệu chỉnh Holm trên cả họ bảy quy tắc, p 0,0039, và nó không có siêu tham số nào để tinh chỉnh. Giấu đi thì mất thông tin; báo cáo mà không gắn nhãn hậu kiểm thì là gian.
 - **Vì sao đóng góp thứ ba lại là "phương pháp":** vì tỉ lệ phần trăm của một phép phân nhóm chỉ có nghĩa khi biết mức ngẫu nhiên của chính phép phân nhóm đó. Không có mức đối chứng thì 3,8 phần trăm nghe như nhỏ mà không chứng minh được gì.
-- **Cảnh báo phải nhớ khi bị hỏi sâu:** cặp số ngoài miền (1,0 so với 11,2) được đo trên **toàn bộ 75 bản**, trước khi loại 15 bản trùng. Tỉ lệ này là tỉ số giữa các nhóm lỗi nên hướng kết luận ít nhạy với việc loại bản, nhưng **con số cụ thể chưa tính lại trên 60 bản sạch**. Nếu bị hỏi chính xác thì nói đúng câu đó, đừng đọc con số như số hiện hành. Cặp trong miền (3,8 so với 15,2) đo trên 22 chủ thể nên không bị ảnh hưởng.
+- **Cảnh báo phải nhớ khi bị hỏi sâu:** cặp số ngoài miền (1,0 so với 10,3) được đo trên **toàn bộ 75 bản**, trước khi loại 15 bản trùng. Tỉ lệ này là tỉ số giữa các nhóm lỗi nên hướng kết luận ít nhạy với việc loại bản, nhưng **con số cụ thể chưa tính lại trên 60 bản sạch**. Nếu bị hỏi chính xác thì nói đúng câu đó, đừng đọc con số như số hiện hành. Cặp trong miền (3,8 so với 14,7) đo trên 22 chủ thể nên không bị ảnh hưởng. Mức ngẫu nhiên lấy cùng hàng kênh PSD (`analysis/chandoan_results.json` → `pho_loi.*_kenh_PSD.pct_null`); cặp 15,2 / 11,2 ghi trước 17/09/2026 là hàng `peakprob`, lệch hàng.
 
 ### [NẾU CÓ HỎI]
 **H: "Bốn đóng góp mà ba cái kèm chữ 'chưa xác nhận'. Vậy đóng góp chắc chắn là cái nào?"**
@@ -166,7 +172,7 @@ S8 — bảng bốn dòng, mỗi dòng hai cột: *đóng góp* và *ranh giới
 >
 > **Bước bốn, mạng.** Mạng tích chập thời gian giãn nở, 113.481 tham số, 0,48 mê-ga-bai. Nó chạy 4,35 mili-giây cho mỗi cửa sổ bốn giây trên chíp thường. Điểm cần nói là đầu ra. Mạng không trả về 'cửa sổ này có nhịp'. Nó trả về một bản đồ nhiệt **từng mẫu**, dạng chuông, độ rộng 12 mili-giây. Vì sao: nếu đầu ra là cửa sổ thì sai số thời điểm bị chặn dưới bởi bề rộng cửa sổ. Còn ra từng mẫu thì em đo được sai số thật. Sai số đó là 3,76 mili-giây, trên dung sai chấm 50.
 >
-> **Bước năm, cổng từ chối.** Mười hai chỉ số chất lượng tín hiệu cổ điển, không có đặc trưng nào do mạng nhìn ra. Chúng vào một bộ phân loại nhỏ cho ra xác suất 'đoạn này không đáng tin'. Đánh giá bỏ-một-chủ-thể trên 22 sản phụ."
+> **Bước năm, cổng từ chối.** Mười hai chỉ số cho mỗi đoạn bốn giây. Sáu chỉ số lấy thẳng từ tín hiệu. Bốn chỉ số tính trên các nhịp mà mạng dò ra. Hai chỉ số là xác suất của chính mạng. Nên cổng **không độc lập** với mạng, em nói luôn. Chúng vào một bộ phân loại nhỏ cho ra xác suất 'đoạn này không đáng tin'. Đánh giá bỏ-một-chủ-thể trên 22 sản phụ."
 
 ### [CHIẾU GÌ]
 S9 (sơ đồ 5 bước) → S10 (mạng, ô số). Nếu còn thời gian: mở demo tab *Tín hiệu (5 tầng)* với bản **r01** và chỉ tay theo đúng 5 tầng, mỗi tầng ứng một bước. Ảnh dự phòng: `01`–`03`.
@@ -176,7 +182,7 @@ S9 (sơ đồ 5 bước) → S10 (mạng, ô số). Nếu còn thời gian: mở
 - **Dải 10–60 Hz:** chọn từ khảo sát dải. Nhưng con số ưu thế của dải này **đã được đo lại trên đúng mô hình hiện hành** và chỉ còn +2,44 điểm ở kênh chọn theo phổ, khoảng tin cậy chạm 0, và gần bằng 0 khi lấy trung bình bốn kênh. Nói đúng: dải lọc không quan trọng với bộ dò này.
 - **Khử mẹ từng nhịp:** đây là chỗ sinh ra chế độ hỏng nguy hiểm nhất của cả hệ. Khi tàn dư mẹ còn lại, mô hình bám vào tàn dư và trả về một chuỗi nhịp rất đều, trông y như nhịp thai. Bản a02 trong demo là ví dụ đúng cho chuyện này.
 - **Đầu ra từng mẫu:** cho phép đo jitter thật, và cho phép ghép nhịp một-một theo quy ước chấm mà không cần hậu xử lý nặng.
-- **Cổng dùng chỉ số cổ điển:** cố ý không dùng đặc trưng của mạng, để cổng không sụp cùng lúc với mạng khi mạng sai.
+- **Cổng KHÔNG độc lập với mạng** [SỰ KIỆN]: 2/12 chỉ số là xác suất mạng (`peak_prob_mean`, `prob_max`), 4/12 tính trên nhịp mạng dò (`n_det`, `rr_cv`, `rr_plaus`, `bsqi`). Độ quan trọng hoán vị: `rr_cv` 0,140, `peak_prob_mean` 0,032, 10 chỉ số còn lại < 0,002 (`analysis/gate22_results.json` → `cong.permutation_importance_delta_auroc`). [SUY LUẬN] Cổng có thể sai cùng chiều với mạng khi mạng sai một cách tự tin. Câu cũ "cố ý không dùng đặc trưng của mạng" là sai và đã rút.
 
 ### [NẾU CÓ HỎI]
 **H: "Lọc pha-không nghĩa là phải có toàn bộ tín hiệu. Vậy thiết bị đeo thời gian thực làm sao?"**
@@ -300,9 +306,9 @@ Trình tự demo (máy đã mở sẵn, bản r01 đã phân tích xong, ô *Kê
 
 | Phút | Thao tác | Nói gì (ngắn) |
 |---|---|---|
-| 0:00–1:00 | Tab *Tín hiệu (5 tầng)*, bản **r01**. Chỉ tay 5 tầng. | "Tầng trên là tín hiệu thô, gai lớn là tim mẹ. Tầng ba là sau khi trừ mẹ. Cái còn lại rất nhỏ, đó là tim bé. Bản này F1 99,92. Đèn xanh." |
-| 1:00–2:15 | Đổi sang **a09**, *Phân tích*. Mở tab *Chọn kênh — cả 4 kênh*. Đổi quy tắc sang *PSD*, rồi đổi lại. | "Bộ khác, máy khác, chưa từng huấn luyện. Quy tắc mới chọn kênh 1, được 94,25. Quy tắc cũ chọn kênh 2, chỉ được 19,35. Trên 60 bản thì quy tắc mới thắng 19, hoà 35, thua 6. Không bản nào mất quá 3,90 điểm." |
-| 2:15–3:15 | Chọn **a02**, *Phân tích*. Chỉ *Đèn tin cậy* và tab *Nhịp tim thai + đèn đoạn*. | "Đây là phần em coi là quan trọng nhất. Mô hình bám nhầm vào tàn dư tim mẹ. Nó trả một chuỗi nhịp rất đều, trông y như thai. F1 chỉ 24,91. Nhưng đèn đỏ. Cổng thấy 78 phần trăm nhịp trùng đỉnh mẹ, nên hệ thống từ chối trả lời." |
+| 0:00–1:00 | Tab *Tín hiệu (5 tầng)*, bản **r01**. Chỉ tay 5 tầng. | "Tầng trên là tín hiệu thô. Ở kênh 4 của bản này gai của bé to ngang gai của mẹ. Tầng ba là sau khi trừ mẹ, phần còn lại là nơi tìm tim bé. Bản này F1 99,92. Đèn xanh." |
+| 1:00–2:15 | Đổi sang **a09**, *Phân tích*. Mở tab *Chọn kênh — cả 4 kênh*. Đổi quy tắc sang *PSD*, rồi đổi lại. | "Bộ khác, không trùng dữ liệu huấn luyện. Quy tắc mới chọn kênh 1, được 94,25. Quy tắc cũ chọn kênh 2, chỉ được 19,35. Trên 60 bản thì quy tắc mới thắng 19, hoà 35, thua 6. Không bản nào mất quá 3,90 điểm." |
+| 2:15–3:15 | Chọn **a02**, *Phân tích*. Chỉ *Đèn tin cậy* và tab *Nhịp tim thai + đèn đoạn*. | "Đây là phần em coi là quan trọng nhất. Mô hình bám nhầm vào tàn dư tim mẹ. Nó trả một chuỗi nhịp rất đều, trông y như thai. F1 chỉ 24,91. Nhưng đèn đỏ, theo hai đường: 6 trên 15 đoạn bị đỏ, và luật bám nhịp mẹ bật vì 78 phần trăm nhịp trùng nhịp mẹ. Nên hệ thống từ chối trả lời." |
 | 3:15–4:00 | Tab *Kết quả tổng hợp (60 bản sạch)* rồi *Nhật ký (JSON)*. | "Bảng này đọc thẳng từ tệp kết quả, không có số nào ghi cứng trong mã. Dòng cảnh báo hậu kiểm nằm ngay trong bảng. Đây là bản mẫu nghiên cứu, không phải thiết bị y tế." |
 
 Dự phòng nếu demo hỏng: ảnh `01`–`03` (r01) → `04`–`06` (a09 hai quy tắc) → `09`–`10` (a02) → `12` (bảng tổng hợp).
@@ -332,7 +338,7 @@ Dự phòng nếu demo hỏng: ảnh `01`–`03` (r01) → `04`–`06` (a09 hai 
 >
 > Lần một. Hồi đầu em thử nghiệm trên một mẫu mười bản ghi của bộ kiểm ngoài, cho nhanh. Trên mẫu đó, một cấu hình cho 90,34, cấu hình kia cho 69,31. Chênh hơn hai mươi điểm. Em tin ngay, vì chênh lệch quá lớn.
 >
-> Rồi em chạy trên toàn bộ. Cấu hình 90,34 xuống còn 69,33. Cấu hình 69,31 lên thành 79,40.
+> Rồi em chạy trên toàn bộ. Cấu hình 90,34 xuống còn 69,33. Cấu hình 69,31 lên thành 79,40. Cả bốn con số này về sau đều đã rút, em chỉ kể để thấy chiều đảo.
 >
 > Nghĩa là nó không chỉ sai một chút. Nó **đảo chiều**, và đảo cả hai đầu.
 >
@@ -448,16 +454,16 @@ S19 — bảng ánh xạ r01→a04, a05, a22; r04→a13, a20, a25; r07→a19, a2
 >
 > Nghĩa là phép thử nói 'không có tín hiệu' trong khi thực ra có, cứ năm lần thì gần một lần. Vậy em không được dùng nó để quy trách nhiệm cho dữ liệu. Em rút kết luận đó và mọi con số phái sinh.
 >
-> Phát biểu đúng bây giờ là: khoảng cách trong miền và ngoài miền là 17,92 điểm, đó là sự thật đo được. Bốn phương pháp thích nghi miền em thử đều thất bại, đó cũng là sự thật đo được. Còn **nguyên nhân thì em chưa xác định được**. Em để ngỏ.
+> Phát biểu đúng bây giờ là: khoảng cách trong miền và ngoài miền là 23,28 điểm theo quy tắc chọn kênh cũ, đó là sự thật đo được. Bốn phương pháp thích nghi miền em thử đều thất bại, đó cũng là sự thật đo được. Còn **nguyên nhân thì em chưa xác định được**. Em để ngỏ.
 >
-> Em nói thêm một chi tiết làm em tin là còn thứ gì đó em chưa hiểu. Em đo được ba loại dịch chuyển giữa hai miền, rồi em áp cả ba lên dữ liệu trong miền. Kết quả chỉ mất 0,01 điểm. Trong khi khoảng cách thật là gần mười tám điểm. Nên ba thứ em đo được không giải thích nổi khoảng cách."
+> Em nói thêm một chi tiết làm em tin là còn thứ gì đó em chưa hiểu. Em đo được ba loại dịch chuyển giữa hai miền, rồi em áp cả ba lên dữ liệu trong miền. Kết quả chỉ mất 0,01 điểm. Trong khi khoảng cách thật là hơn hai mươi ba điểm. Nên ba thứ em đo được không giải thích nổi khoảng cách."
 
 ### [CHIẾU GÌ]
 S20 — hai khối. Khối trái: đường cong hiệu ứng theo F1 gốc và theo logit, đặt cạnh nhau. Khối phải: một ô lớn ghi "âm tính giả 18,0 % [12,1; 25,0]" và dưới đó là dòng "→ rút kết luận về nguyên nhân". Không đọc các số đã rút thành tiếng.
 
 ### [VÌ SAO LÀM VẬY]
 - **Vì sao logit là thang đúng:** F1 bị chặn hai đầu, nên hiệu số F1 không có cùng ý nghĩa ở giữa thang và ở gần trần. Logit giãn hai đầu ra, nên so được.
-- **Vì sao phải đo độ đặc hiệu của chính phép thử:** khi một kết luận dựa vào một phép phân loại phụ, sai số của phép phân loại đó vào thẳng kết luận. Đây là bước rất ít khi ai làm, và là bước đã cứu nhóm.
+- **Vì sao phải đo độ đặc hiệu của chính phép thử:** khi một kết luận dựa vào một phép phân loại phụ, sai số của phép phân loại đó vào thẳng kết luận. Đây là bước đã cứu nhóm.
 - **Vì sao dừng thích nghi miền:** bốn phương pháp đều thất bại, hai trong bốn còn làm xấu đi rõ rệt. Không có lý do cơ chế nào để tin phương pháp thứ năm sẽ khác.
 - **Chỗ để ngỏ đúng cách:** ghi vào bài là "chưa xác định nguyên nhân", kèm bằng chứng ba dịch chuyển đo được chỉ giải thích 0,01 điểm.
 
@@ -468,7 +474,7 @@ S20 — hai khối. Khối trái: đường cong hiệu ứng theo F1 gốc và 
 **H: "Làm sao em biết mình không còn ảo giác thống kê nào nữa?"**
 > "Em không biết chắc, và em nói thẳng. Cái em làm được là mỗi vòng có một lượt phản biện độc lập với nhiệm vụ tìm chỗ sai, chứ không phải xác nhận. Năm kết luận em rút thì em tự rút trước khi có ai chỉ ra. Nhưng em không dám nói là hết. Nếu cô thấy chỗ nào nghi thì em đi đo lại chỗ đó."
 
-*Nguồn: `analysis/xacnhan_results.json` mục `viec4_phep_thu_nhin_thay`; `analysis/XACNHAN.md`; `adapt/adapt_results.json`; `analysis/CHANDOAN_MOHINH.md` (khối rút lại ở đầu tệp).*
+*Nguồn: `analysis/xacnhan_results.json` mục `viec4_phep_thu_nhin_thay`; `analysis/XACNHAN.md`; `adapt/adapt_results.json` (chỉ phần 0,01 điểm); khoảng cách 23,28 = 97,56 (`baselines/powermf_fair_stats.json` → `so_sanh.tat_ca_22.rely_vs_pmf4.mean_a`) − 74,28 (`analysis/dulieu_results.json` → `chon_kenh_60_sach.bang.psd.mean_60_sach`); số cũ 17,92 đã rút (`survey/facts_phase4.json` → `Z_DA_RUT.khoang_cach_trong_ngoai_mien_17_92`); `analysis/CHANDOAN_MOHINH.md` (khối rút lại ở đầu tệp).*
 
 ---
 
@@ -525,13 +531,13 @@ S21 — cột trái là tám vòng theo thời gian, mỗi vòng một dòng m�
 >
 > **Ngoài miền, 60 bản sạch, người chấm độc lập.** Quy tắc cũ 74,28. Quy tắc ghi trước 80,72. Quy tắc trong cùng họ 81,01. Quy tắc tốt nhất theo điểm thô 82,01. Trần lý thuyết nếu chọn kênh hoàn hảo là 83,60. Cải tiến lấy lại 82,9 phần trăm dư địa tới trần đó. Số bản dưới 50 điểm giảm từ 16 xuống 9, và không bản nào mất quá 3,90 điểm.
 >
-> **Cổng từ chối,** đánh giá bỏ-một-chủ-thể trên 22 sản phụ. Diện tích dưới đường cong trong bản ghi 0,934, khoảng tin cậy 0,872 đến 0,981. Nó xếp đúng ba bản khó nhất vào ba hạng chót; ngẫu nhiên là một phần một nghìn năm trăm bốn mươi. Nhưng em nói rõ: năm trong hai mươi bốn quy tắc một đặc trưng đơn giản cũng làm được vậy. Nên em không nói phải học mới làm được.
+> **Cổng từ chối,** đánh giá bỏ-một-chủ-thể trên 22 sản phụ. Diện tích dưới đường cong trong bản ghi 0,934, khoảng tin cậy 0,872 đến 0,981, tính trên mười một trong hai mươi hai sản phụ có đoạn xấu. Nó xếp đúng ba bản khó nhất vào ba hạng chót; ngẫu nhiên là một phần một nghìn năm trăm bốn mươi. Nhưng em nói rõ ba điều. Năm trong hai mươi bốn quy tắc một đặc trưng đơn giản cũng làm được vậy, nên em không nói phải học mới làm được. Cổng dựa một phần vào đầu ra của mạng, nên không độc lập với mạng. Và cổng này mới ở dạng phân tích, chưa đưa vào demo.
 >
-> **Hệ thống chạy được.** Mã khoảng hai mươi bảy nghìn bảy trăm dòng, sáu mươi kiểm thử tự động qua hết. Demo web tám tab. Mô hình 0,48 mê-ga-bai, 4,35 mili-giây mỗi cửa sổ bốn giây trên chíp thường.
+> **Hệ thống chạy được.** Mã khoảng ba mươi mốt nghìn dòng Python, một trăm linh chín kiểm thử tự động. Demo web, mặc định là chế độ trình bày năm bước; tám tab cũ nằm trong chế độ chuyên gia. Mô hình 0,48 mê-ga-bai, 4,35 mili-giây mỗi cửa sổ bốn giây trên chíp thường.
 >
 > **Còn thiếu gì.** Một, chỉ có hai hạt giống; hạt giống thứ hai cho 97,59. Hai, số cổng từ chối ngoài miền chưa tính lại trên 60 bản sạch. Ba, chưa chạy lại đối thủ thứ hai. Bốn, chỉ 22 chủ thể trong khi cần khoảng 50. Năm, quy tắc chọn kênh vẫn là chọn hậu kiểm và chưa có bộ thứ ba để xác nhận.
 >
-> **Định vị thật.** Đích gần là tạp chí chuyên ngành đo lường sinh lý, nơi cộng đồng điện tim thai công bố. Tạp chí đó xếp hạng Q2 theo bảng 2024. Em ước cửa khoảng năm mươi tám phần trăm. Đích thứ hai là hội nghị điện tim, kỳ 2027, hạn khoảng tháng tư. Nhóm tạp chí Q1 thì em ước mười hai phần trăm trong sáu tháng. Trong mười hai tháng là ba mươi hai phần trăm. Rào cản là dữ liệu có nhãn mới, không phải phương pháp. Còn nhóm hội nghị hạng A sao thì dưới năm phần trăm. Thực ra **không có hội nghị hạng đó đúng lĩnh vực này**. Nên em bỏ nó khỏi bảng mục tiêu.
+> **Định vị thật.** Đích gần là tạp chí chuyên ngành đo lường sinh lý, nơi cộng đồng điện tim thai công bố. Tạp chí đó xếp hạng Q2 theo bảng 2024. Em ước cửa khoảng năm mươi lăm phần trăm. Đích thứ hai là hội nghị điện tim, kỳ 2027, hạn khoảng tháng tư. Nhóm tạp chí Q1 thì em ước mười lăm đến hai mươi phần trăm trong sáu tháng. Trong mười hai tháng khoảng ba mươi lăm phần trăm, và chỉ khi có dữ liệu có nhãn mới. Các con số này là em ước, không phải số đo. Rào cản là dữ liệu có nhãn mới, không phải phương pháp. Còn nhóm hội nghị hạng A sao thì dưới năm phần trăm. Thực ra **không có hội nghị hạng đó đúng lĩnh vực này**. Nên em bỏ nó khỏi bảng mục tiêu.
 >
 > Về Euréka, hạn nội bộ của trường em chưa xác minh được nên em sẽ hỏi Đoàn trường trong tuần. Em nghĩ thực tế là kỳ sau.
 >
@@ -572,7 +578,7 @@ Kết thúc: tờ tóm tắt in giấy, hai bản.
 | Phần | Thời lượng | Cắt gì |
 |---|---|---|
 | 1 — Lên ý tưởng | 2 phút | Bỏ đoạn về bộ lọc và dải tần. Giữ ba câu: vì sao từng nhịp, vì sao một kênh, vì sao cổng từ chối. |
-| 3 — Tính mới | 2,5 phút | Giữ cả bốn đóng góp nhưng mỗi cái **một câu đóng góp + một câu ranh giới**, không hơn. |
+| 3 — Đóng góp | 2,5 phút | Giữ cả bốn đóng góp nhưng mỗi cái **một câu đóng góp + một câu ranh giới**, không hơn. |
 | 7 — Đối chuẩn + demo | 4 phút | Demo rút còn **90 giây**: chỉ r01 (30 s) và a02 (60 s). Bỏ a09 và bỏ tab *Chọn kênh*. |
 | 13 — Hiện tại đạt gì | 1,5 phút | Chỉ đọc bảng kết quả và ba việc xin hỗ trợ. Bỏ bảng định vị venue. |
 
@@ -585,7 +591,7 @@ Kết thúc: tờ tóm tắt in giấy, hai bản.
 | Phần | Thời lượng |
 |---|---|
 | 1 — Lên ý tưởng | 2 phút |
-| 3 — Tính mới | 2,5 phút |
+| 3 — Đóng góp | 2,5 phút |
 | 4 — Phương pháp | 3 phút |
 | 5 — Chọn mô hình | 2 phút |
 | 6 — Dữ liệu và điểm yếu | 2 phút |
@@ -602,7 +608,7 @@ Kết thúc: tờ tóm tắt in giấy, hai bản.
 
 | Nhóm phần | Thời lượng |
 |---|---|
-| Phần 1–3 (ý tưởng, tài liệu, tính mới) | 10 phút |
+| Phần 1–3 (ý tưởng, tài liệu, đóng góp) | 10 phút |
 | Phần 4–7 (phương pháp, mô hình, dữ liệu, đối chuẩn + demo 4 phút) | 14 phút |
 | Phần 8–11 (bốn nhóm sai lầm) | 10 phút |
 | Phần 12–13 (quy trình, kết quả) | 9 phút |
@@ -621,16 +627,16 @@ Kết thúc: tờ tóm tắt in giấy, hai bản.
 > "Nó nghĩa là ước lượng điểm là 89,5, còn dữ liệu của em chưa loại trừ được khả năng lấy lại toàn bộ. Em kiểm lại bằng jackknife thì nằm trong 88,6 đến 93,4, hẹp hơn. Em báo cáo cả hai. Muốn khoảng hẹp hơn nữa thì phải tăng số chủ thể, không có cách nào khác."
 
 **B2. "Luật ghi trước chỉ vào một quy tắc, quy tắc đó trượt. Rồi em lại nêu một quy tắc khác cũng trong họ đó và nó sống. Có phải em chọn cái nào sống thì lấy không?"**
-> "Câu này đúng chỗ đau nhất của em. Em trả lời thế này. Em báo cáo **cả ba** con số theo đúng thứ tự. Luật ghi trước trượt với p 0,051. Một quy tắc cùng họ sống với p 0,015. Còn quy tắc tốt nhất theo điểm thô là chọn hậu kiểm. Em không bỏ con số trượt đi. Nếu chỉ được giữ một kết luận, em giữ cái trượt, vì nó là luật em ghi trước. Nhưng em cho rằng người đọc có quyền thấy cả ba."
+> "Câu này đúng chỗ đau nhất của em. Em trả lời thế này. Em báo cáo **cả ba** con số theo đúng thứ tự. Luật ghi trước chỉ vào quy tắc cho 80,72, trượt với p 0,051. Một quy tắc cùng họ cho 81,01, sống với p 0,015, nhưng không phải quy tắc kế hoạch chọn. Còn quy tắc tốt nhất theo điểm thô là chọn hậu kiểm. Em không bỏ con số trượt đi. Nếu chỉ được giữ một kết luận, em giữ cái trượt, vì nó là luật em ghi trước. Nhưng em cho rằng người đọc có quyền thấy cả ba."
 
 **B3. "Sáu mươi bản sạch có bao nhiêu sản phụ?"**
 > "Em không biết, và em ghi rõ là không biết. Em chỉ biết chắc là nhỏ hơn 60. Một phần các bản đó đến từ một bộ mà toàn bộ bản ghi là của cùng một người. Hệ quả là bootstrap theo bản ghi của em chỉ là gần đúng, và khoảng tin cậy ngoài miền có thể hẹp hơn thực tế. Em ghi câu này vào phần hạn chế."
 
 **B4. "Trường tiếp nhận 1,5 giây nghĩa là mạng nhìn được nhiều nhịp cùng lúc. Vậy nó có đang đoán nhịp theo chu kỳ thay vì thật sự thấy nhịp không?"**
-> "Câu này em có đi đo. Nếu mạng đoán theo chu kỳ thì nó sẽ bỏ sót những nhịp có tín hiệu rõ mà lệch chu kỳ. Em đếm loại lỗi đó. Trong miền là 3,8 phần trăm, trong khi mức ngẫu nhiên là 15,2. Ngoài miền là 1,0 so với 11,2, nhưng cặp ngoài miền này em đo trước khi loại 15 bản trùng. Nên bằng chứng không ủng hộ giả thuyết đoán theo chu kỳ. Nhưng em chưa làm thí nghiệm cắt chu kỳ chủ động, đó là việc nên làm."
+> "Câu này em có đi đo. Nếu mạng đoán theo chu kỳ thì nó sẽ bỏ sót những nhịp có tín hiệu rõ mà lệch chu kỳ. Em đếm loại lỗi đó. Trong miền là 3,8 phần trăm, trong khi mức ngẫu nhiên là 14,7. Ngoài miền là 1,0 so với 10,3, nhưng cặp ngoài miền này em đo trước khi loại 15 bản trùng. Nên bằng chứng không ủng hộ giả thuyết đoán theo chu kỳ. Nhưng em chưa làm thí nghiệm cắt chu kỳ chủ động, đó là việc nên làm."
 
 **B5. "Cổng từ chối từ chối bao nhiêu phần trăm dữ liệu? Nếu từ chối nhiều thì con số nào cũng đẹp."**
-> "Đúng, và đó là lý do em không bao giờ báo cáo F1 sau khi cổng lọc như số chính. Số chính 97,56 và 82,01 đều là số **không** có cổng, tính trên toàn bộ. Cổng em đánh giá riêng bằng diện tích dưới đường cong và bằng thứ hạng, không bằng cách cải thiện F1. Số độ phủ ngoài miền em chưa tính lại trên 60 bản sạch nên em không đọc ra."
+> "Đúng, và đó là lý do em không bao giờ báo cáo F1 sau khi cổng lọc như số chính. Số 97,56 trong miền, 74,28 ngoài miền, và cả 82,01 của quy tắc hậu kiểm đều là số **không** có cổng, tính trên toàn bộ. Cổng em đánh giá riêng bằng diện tích dưới đường cong và bằng thứ hạng, không bằng cách cải thiện F1. Số độ phủ ngoài miền em chưa tính lại trên 60 bản sạch nên em không đọc ra."
 
 **B6. "Sao không dùng dữ liệu tổng hợp để tăng số chủ thể?"**
 > "Em chưa thử, em ghi lại. Em có một e ngại. Nếu tổng hợp bằng mô hình sinh tín hiệu thì mạng học đúng mô hình sinh đó. Nó không học sinh lý thật. Và bộ kiểm ngoài của em vốn có sẵn một phần bản mô phỏng. Nhưng đó là e ngại, không phải kết quả đo. Nếu cô thấy đáng thử, em thử và báo cáo cả khi nó hỏng."
@@ -638,8 +644,8 @@ Kết thúc: tờ tóm tắt in giấy, hai bản.
 **B7. "Em bảo nhóm nhãn gián tiếp chiếm 77 phần trăm thời lượng huấn luyện mà nhãn lại kém. Sao không bỏ hẳn nhóm đó?"**
 > "Bỏ thì còn 12 chủ thể, quá ít. Em chọn cách khác. Giữ để huấn luyện, nhưng cấm dùng nhóm đó cho kết luận về sai số thời điểm. Cấm cả cho chỉ số biến thiên. Em có chạy thí nghiệm bỏ nhóm đó ra để xem ảnh hưởng, và em báo cáo kèm. Nếu sau này có thêm chủ thể nhãn trực tiếp thì em sẽ bỏ."
 
-**B8. "Khoảng cách trong miền và ngoài miền gần mười tám điểm mà em không giải thích được. Vậy hệ thống có dùng được không?"**
-> "Nói thẳng thì hiện chỉ dùng được trong điều kiện giống dữ liệu huấn luyện. Nhưng có một điều làm em nghĩ hệ vẫn có ích. Cổng từ chối không cần biết nguyên nhân; nó chỉ cần nhận ra đoạn nào không đáng tin. Nếu cổng làm đúng việc đó thì hệ vẫn an toàn khi ra ngoài miền. Đó là lý do việc tính lại số cổng trên 60 bản sạch là ưu tiên số một của em."
+**B8. "Khoảng cách trong miền và ngoài miền hơn hai mươi ba điểm mà em không giải thích được. Vậy hệ thống có dùng được không?"**
+> "Nói thẳng thì hiện chỉ dùng được trong điều kiện giống dữ liệu huấn luyện. Nhưng có một điều làm em nghĩ hệ vẫn có thể có ích. Cổng từ chối không cần biết nguyên nhân; nó chỉ cần nhận ra đoạn nào không đáng tin. Nếu cổng làm đúng việc đó thì hệ an toàn hơn khi ra ngoài miền. Nhưng em chưa chứng minh được: cổng dựa một phần vào chính mạng, và trên năm bản ngoài miền sạch, ghép với mô hình năm ca, diện tích dưới đường cong trong bản ghi chỉ 0,721, khoảng tin cậy 0,517 đến 0,898. Đó là lý do việc tính lại số cổng trên 60 bản sạch là ưu tiên số một của em."
 
 **B9. "Em dùng công cụ trí tuệ nhân tạo. Phần nào là của em, và em chứng minh thế nào?"**
 > "Em dùng công cụ để chạy đối chiếu số và để có một lượt đọc phản biện độc lập. Phần thiết kế thí nghiệm và phần quyết định rút tuyên bố nào là của em. Cách chứng minh là: mỗi con số trong bài đều mở được tệp gốc tại chỗ, và lịch sử mã ghi từng vòng. Cô chọn bất kỳ con số nào, em mở tệp ngay."
@@ -659,7 +665,7 @@ Kết thúc: tờ tóm tắt in giấy, hai bản.
 
 ### C2. Không nói "mô hình không phải nút thắt", cũng không nói "phần còn lại là do thiếu tín hiệu thật"
 
-**Thay bằng:** *"Khoảng cách trong miền và ngoài miền là 17,92 điểm, đó là số đo. Bốn phương pháp thích nghi miền em thử đều thất bại, đó cũng là số đo. Nguyên nhân thì em chưa xác định được."*
+**Thay bằng:** *"Khoảng cách trong miền và ngoài miền là 23,28 điểm theo quy tắc chọn kênh cũ, đó là số đo. Bốn phương pháp thích nghi miền em thử đều thất bại, đó cũng là số đo. Nguyên nhân thì em chưa xác định được."*
 
 **Vì sao:** kết luận cũ dựa trên một phép thử phụ dùng để định nghĩa "chỗ này không có tín hiệu". Khi đo độ đặc hiệu của chính phép thử đó thì tỉ lệ âm tính giả là 18,0 phần trăm, khoảng tin cậy 12,1 đến 25,0, và lên 55 đến 70 phần trăm trên những bản khó. Phép thử sai gần một phần năm số lần thì không dùng để quy trách nhiệm được. Mọi con số phái sinh của kết luận đó đã bị rút và **không được đọc thành tiếng**.
 
@@ -682,7 +688,7 @@ Kết thúc: tờ tóm tắt in giấy, hai bản.
 ## Kiểm 15 phút trước buổi trình bày
 
 1. Mở sổ tay HTML, rà lại: **không mục nào còn số tính trên 75 bản**, và không mục nào còn số cổng từ chối ngoài miền chưa tính lại.
-2. `python -m pytest demo/test_core.py -q` (39 pass) và `python -m pytest tests/ -q`.
+2. `python -m pytest demo/test_core.py -q` (66 kiểm thử) và `python -m pytest tests/ -q` (43) — tổng 109 tại 17/09/2026.
 3. `python demo/run_check.py --only r01,a09,a02 --out demo_check_3ban --threads 2` — xác nhận ba con số 99,92 · 94,25 · 24,91 khớp kịch bản.
 4. Mở sẵn `survey/facts_phase4.json` trong trình soạn thảo, để tra khi bị hỏi số không nhớ.
 5. In hai bản `docs/TOM_TAT_1_TRANG.md`.

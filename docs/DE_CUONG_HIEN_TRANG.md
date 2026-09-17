@@ -2,6 +2,12 @@
 
 **RelyFetal — Dò phức bộ QRS thai nhi từ điện tim ổ bụng đơn kênh, có cổng từ chối trả lời**
 
+> **⚠ CẢNH BÁO (17/09/2026).** Đây là bản chụp ngày 13/09/2026 (commit `c20417b`). Mô tả demo "8 tab, 16 ảnh"
+> đã cũ: demo hiện mặc định là chế độ trình bày 5 bước, 8 tab nằm trong chế độ chuyên gia — dùng
+> `docs/HUONG_DAN_DEMO_v2.md` và `docs/KICH_BAN_THUYET_TRINH_v2.md`. Ngày 17/09/2026 đã sửa tại chỗ: cổng từ chối
+> **không** độc lập với mạng (6/12 chỉ số dựa trên đầu ra mạng); khoảng cách "17,92 điểm" **đã rút** (tính từ
+> mốc 79,40 trên 75 bản nhiễm); số STV ngoài miền không dùng; số kiểm thử hiện tại.
+
 > Bản gọn để đọc trong buổi gặp giảng viên hướng dẫn ngày 14/09/2026.
 > Bản đầy đủ (148 trang, có toàn bộ nhật ký thí nghiệm) ở `de_cuong_latex/de_cuong.pdf`.
 >
@@ -34,7 +40,7 @@
 
 ## 2. TÓM TẮT
 
-*(296 từ)*
+*(≈ 332 từ sau khi sửa 17/09/2026)*
 
 **Vấn đề.** Theo dõi tim thai hiện dựa vào Doppler (chỉ cho nhịp, cần kỹ thuật viên) hoặc điện cực xoắn
 da đầu thai (chuẩn vàng nhưng xâm lấn, chỉ dùng được sau khi vỡ ối). Điện tim ổ bụng mẹ khắc phục cả
@@ -43,13 +49,14 @@ tách nguồn mù đa kênh, vốn là họ phương pháp chính xác nhất.
 
 **Phương pháp.** Đề tài xây dựng **RelyFetal**: mạng tích chập thời gian giãn nở 113.481 tham số,
 chuỗi-sang-chuỗi, nhận một đạo trình và cho ra bản đồ nhiệt xác suất từng mẫu, kèm **cổng từ chối trả
-lời** dựng trên 12 chỉ số chất lượng tín hiệu cổ điển. Đánh giá ở mức chủ thể, dung sai ±50 ms,
+lời** dựng trên 12 chỉ số mỗi đoạn 4 s (6 thuần tín hiệu, 6 dựa trên đầu ra mạng). Đánh giá ở mức chủ thể, dung sai ±50 ms,
 bootstrap cụm, hiệu chỉnh Holm.
 
 **Kết quả chính.** Trên 22 chủ thể trong miền, RelyFetal một kênh đạt F1 97,56, lấy lại **89,49 %**
 phần lợi ích mà Power-MF có nhờ bốn kênh, và hơn Power-MF một kênh 10,85 điểm ở 22/22 chủ thể. Ngoài
-miền, trên 60 bản CinC 2013 sạch, quy tắc chọn kênh mù nhãn chỉ định trước `gate4` nâng F1 từ 74,28 lên
-81,01 và sống sót Holm (p = 0,015). Cổng từ chối đạt AUROC gộp 0,965.
+miền, trên 60 bản CinC 2013 sạch, quy tắc kế hoạch chọn `gate` nâng F1 từ 74,28 lên 80,72 nhưng trượt Holm
+(p = 0,051); `gate4`, cùng họ ghi trước khi chạy, đạt 81,01 và sống sót Holm (p = 0,015). Cổng từ chối (22 chủ
+thể, LOSO) đạt AUROC gộp 0,965; AUROC trong bản ghi 0,934 tính trên 11/22 chủ thể có đoạn xấu.
 
 **Đóng góp.** Kiểm toán chồng lấn dữ liệu định lượng: 15/75 bản set-a là bản sao nguyên văn của 5 bản
 ADFECGDB huấn luyện, thổi phồng 3,27–7,18 điểm. Chồng lấn này đã được ban tổ chức ghi nhận từ 2013;
@@ -140,9 +147,9 @@ Danh mục đầy đủ 30 công trình ở `de_cuong_latex/tables/danhmuc.tex`.
 nhóm chứ không củng cố nó. Hệ quả: nhóm **định vị lại đề tài là tiếp nối, không phải phản bác**.
 Andreotti 2016 đã nói đúng điều nhóm đo được (tiền xử lý đảo thứ hạng), chỉ là nói định tính trên dữ
 liệu tổng hợp; Andreotti 2017 đã có fSQI; Fotiadou 2021 đã quét trường tiếp nhận; Zahid 2022 đã có đầu
-ra từng mẫu. Điều còn lại nhóm gọi là mới: **chưa công trình nào ghép ba tầng front-end / ngữ cảnh /
-kiến trúc vào một thí nghiệm duy nhất trong fECG**, giữ cố định bộ phân loại, dữ liệu, giao thức và
-ngân sách huấn luyện.
+ra từng mẫu. Điều còn lại nhóm làm: **ghép ba tầng front-end / ngữ cảnh / kiến trúc vào một thí nghiệm
+duy nhất**, giữ cố định bộ phân loại, dữ liệu, giao thức và ngân sách huấn luyện — trong 30 công trình đã
+đọc, nhóm không thấy công trình nào làm đúng thiết kế này (phạm vi chỉ là 30 bài đó, không phải toàn văn liệu).
 
 ---
 
@@ -175,7 +182,7 @@ trước một phần** trong tháng 9/2026 (mục 11), không phải vì mục 
 | 2 | **Khử điện tim mẹ** | Mẫu trung vị theo nhịp + co giãn theo tỉ lệ bình phương tối thiểu từng nhịp |
 | 3 | **Chọn kênh mù nhãn** | Quy tắc dựa trên mật độ phổ công suất / cổng đa tiêu chí — **không nhìn nhãn** (mục 8b) |
 | 4 | **Mạng dò** | FetalQRSTCN — chuỗi-sang-chuỗi, ra bản đồ nhiệt Gauss từng mẫu (σ = 12 ms) |
-| 5 | **Cổng từ chối trả lời** | 12 chỉ số chất lượng tín hiệu cổ điển, phân loại từng đoạn 4 s |
+| 5 | **Cổng từ chối trả lời** | 12 chỉ số từng đoạn 4 s (6 thuần tín hiệu, 4 tính trên nhịp mạng dò, 2 là xác suất mạng), phân loại từng đoạn |
 
 ### 6.2 Kiến trúc mô hình
 
@@ -210,8 +217,11 @@ trước một phần** trong tháng 9/2026 (mục 11), không phải vì mục 
 
 ### 6.5 Cổng từ chối trả lời
 
-- **12 đặc trưng cổ điển**, không có đặc trưng học từ mạng: `sampen`, `kurtosis`, `spec_entropy`,
-  `band_ratio`, `rr_cv`, `rr_plaus`, `bsqi`, `n_det`, `psd_fhr`, `tau_acf`, `peak_prob_mean`, `prob_max`.
+- **12 đặc trưng, KHÔNG độc lập với mạng** [SỰ KIỆN]: 6 thuần tín hiệu (`sampen`, `kurtosis`, `spec_entropy`,
+  `band_ratio`, `psd_fhr`, `tau_acf`); 4 tính trên nhịp mạng dò ra (`n_det`, `rr_cv`, `rr_plaus`, `bsqi`);
+  2 là xác suất của mạng (`peak_prob_mean`, `prob_max`). Độ quan trọng hoán vị (giảm AUROC): `rr_cv` 0,140,
+  `peak_prob_mean` 0,032, 10 chỉ số còn lại < 0,002 (`analysis/gate22_results.json` →
+  `cong.permutation_importance_delta_auroc`).
 - Đơn vị: đoạn **4 giây**. Nhãn "xấu" = đoạn thuộc bản ghi có F1 < 80.
 - Bộ học: `HistGradientBoostingClassifier`, kiểm chéo **leave-one-SUBJECT-out** trên 22 chủ thể.
 
@@ -313,18 +323,19 @@ mà tác giả công bố — lệch 0,06 điểm.
 | Quy tắc | Loại khai báo | F1 (60 sạch) | Hiệu so với psd | KTC 95 % | p Wilcoxon | **p Holm** (7 quy tắc) | Bản F1 < 50 | Thắng / Thua / Hoà |
 |---|---|---|---|---|---|---|---|---|
 | `psd` | mốc tham chiếu | 74,28 | 0,00 | — | 1,00 | — | 16 | — |
-| `learned` | khai báo trước | 77,80 | +3,52 | [−0,77; +8,48] | 0,69 | 1,00 | 16 | 15 / 13 / 32 |
-| `rrplaus` | khai báo trước | 78,87 | +4,59 | [+0,88; +8,93] | 0,13 | 0,41 | 14 | 17 / 9 / 34 |
-| `rrcv` | khai báo trước | 80,00 | +5,72 | [+1,61; +10,41] | 0,10 | 0,41 | 12 | 15 / 10 / 35 |
-| `gate` | **chỉ định trước (trọng tài)** | 80,72 | +6,44 | [+2,49; +11,10] | 0,010 | **0,051 → TRƯỢT** | 12 | 16 / 7 / 37 |
-| **`gate4`** | **chỉ định trước** | **81,01** | **+6,72** | **[+2,85; +11,18]** | 0,0025 | **0,015 → SỐNG SÓT** | 12 | 17 / 5 / 38 |
-| `peakprob` | **hậu kiểm** | **82,01** | **+7,73** | [+3,82; +12,41] | 5,6 × 10⁻⁴ | 0,0039 | **9** | 19 / 6 / 35 |
-| `oracle` (trần) | nhìn nhãn | 83,60 | +9,32 | [+5,10; +14,15] | — | — | 8 | — |
+| `learned` | ghi trước khi chạy (chưa neo git) | 77,80 | +3,52 | [−0,77; +8,48] | 0,69 | 1,00 | 16 | 15 / 13 / 32 |
+| `rrplaus` | ghi trước khi chạy (chưa neo git) | 78,87 | +4,59 | [+0,88; +8,93] | 0,13 | 0,41 | 14 | 17 / 9 / 34 |
+| `rrcv` | ghi trước khi chạy (chưa neo git) | 80,00 | +5,72 | [+1,61; +10,41] | 0,10 | 0,41 | 12 | 15 / 10 / 35 |
+| `gate` | **quy tắc kế hoạch chọn (trọng tài)** | 80,72 | +6,44 | [+2,49; +11,10] | 0,010 | **0,051 → TRƯỢT** | 12 | 16 / 7 / 37 |
+| **`gate4`** | **cũng ghi trước khi chạy, không phải quy tắc kế hoạch chọn** | **81,01** | **+6,72** | **[+2,85; +11,18]** | 0,0025 | **0,015 → SỐNG SÓT** | 12 | 17 / 5 / 38 |
+| `peakprob` | **có trong danh sách khai báo, chọn làm mặc định sau khi xem CinC → hậu kiểm** | **82,01** | **+7,73** | [+3,82; +12,41] | 5,6 × 10⁻⁴ | 0,0039 | **9** | 19 / 6 / 35 |
+| `oracle` (trần) | nhìn nhãn | 83,60 | +9,32 | [+5,01; +14,09] | — | — | 8 | — |
 
 **Đọc bảng này cho đúng:**
 
-- **[SỰ KIỆN]** `gate4` là quy tắc **chỉ định trước** (nằm trong cùng hồ khai báo trước) và **sống sót**
-  hiệu chỉnh Holm với p = 0,015. **Đây là kết quả trung thực mạnh nhất của đề tài.**
+- **[SỰ KIỆN]** `gate4` nằm trong họ bảy quy tắc **ghi trước khi chạy** và **sống sót** hiệu chỉnh Holm với
+  p = 0,015 — nhưng **không phải** quy tắc kế hoạch chọn (`analysis/chonkenh_results.json` → `khai_bao_truoc`).
+  Phải nêu cùng lúc với `gate` 80,72 trượt Holm, không nêu riêng.
 - **[SỰ KIỆN]** `gate` — quy tắc được chỉ định làm **trọng tài** theo F1 trong miền — **trượt** Holm
   (p = 0,051). Nhóm báo cáo thất bại này nguyên vẹn.
 - **[GIẢ THUYẾT]** `peakprob` cho F1 thô cao nhất (82,01), lấy lại **82,92 %** dư địa oracle, kéo số bản
@@ -334,7 +345,7 @@ mà tác giả công bố — lệch 0,06 điểm.
 - Bản khai báo trước (`analysis/chonkenh_khaibao_truoc.json`) **không được bên thứ ba neo** và được viết
   sau khi đã có F1 từng kênh. Vì vậy tài liệu này **không dùng chữ "tiền đăng ký"**.
 
-*Nguồn: `analysis/dulieu_results.json` → `chon_kenh_60_sach.bang.*`; `benchmark_dpss/eval_cinc60_sach.json`;
+*Nguồn: `analysis/dulieu_results.json` → `chon_kenh_60_sach.bang.*` (mọi KTC trong bảng, kể cả oracle [+5,01; +14,09]; `benchmark_dpss/eval_cinc60_sach.json → variants.60_sach.psd_vs_oracle_m22` cho cùng hiệu +9,32 với KTC [+5,10; +14,15] do một lần bootstrap khác); `benchmark_dpss/eval_cinc60_sach.json`;
 `analysis/xacnhan_results.json` → `viec3_logit_22`.*
 
 **Nhánh đối chiếu (loại tiếp 7 bản nhãn sai, còn 53 bản):** psd m5 64,19 → m22 75,27, hiệu +11,08
@@ -388,40 +399,45 @@ trung bình 4 kênh. Con số cũ **+11,00** (đo trên GBM cửa sổ 300 ms, k
 
 **Thí nghiệm mô phỏng dịch chuyển:** áp cả ba dịch chuyển đo được (cửa sổ 60 s, lượng tử hoá 10,13 bit
 hiệu dụng, điện lưới 60 Hz) lên 22 chủ thể trong miền chỉ làm mất **0,013 điểm** (97,330 → 97,317),
-trong khi khoảng cách thật giữa hai miền còn **17,92 điểm**.
+trong khi khoảng cách giữa hai miền (97,56 trong miền trừ F1 trên 60 bản sạch) là **23,28 điểm** theo PSD
+(16,84 theo `gate`, 16,55 theo `gate4`, 15,55 theo `peakprob` hậu kiểm, 13,96 ở trần oracle). *Con số cũ
+"17,92 điểm" đã rút: nó tính từ mốc 79,40 trên 75 bản nhiễm (`adapt/adapt_analyze.py` dòng 15 và 76).*
 
 > **[SUY LUẬN] KHÔNG được kết luận "thiếu tín hiệu thật".** Phép thử "nhìn thấy" dùng để kết luận điều đó
-> có **tỉ lệ âm tính giả 18,0 %** [12,1 ; 25,0] trên chính 60 bản sạch. Nguyên nhân của khoảng cách 17,92
-> điểm **chưa xác định được**. Kết luận cũ *"mô hình không phải nút thắt"* **đã rút**.
+> có **tỉ lệ âm tính giả 18,0 %** [12,1 ; 25,0] trên chính 60 bản sạch. Nguyên nhân của khoảng cách 23,28
+> điểm (theo PSD) **chưa xác định được**. Kết luận cũ *"mô hình không phải nút thắt"* **đã rút**.
 
 *Nguồn: `adapt/adapt_results.json` → `per_record_cinc` (tự tính lại sau khi loại đúng 15 bản chồng lấn;
 phép tính này đã được thẩm định độc lập, `docs/nhat_ky/THAMDINH_VONG8.md` mục 1.2 số 21) và `mo_phong_dich_chuyen`;
-`analysis/xacnhan_results.json` → `viec4_phep_thu_nhin_thay`.*
+`analysis/xacnhan_results.json` → `viec4_phep_thu_nhin_thay`. Khoảng cách: `baselines/powermf_fair_stats.json` →
+`so_sanh.tat_ca_22.rely_vs_pmf4.mean_a` (97,56) trừ `analysis/dulieu_results.json` → `chon_kenh_60_sach.bang.<quy_tắc>.mean_60_sach`.*
 
-*Ghi chú chênh lệch: `README.vi.md` ghi self-training **−0,68** và p của notch là **0,70**; tính lại từ
-JSON gốc cho **−0,67** và **p = 0,68**. Chênh do làm tròn / phiên bản bootstrap; bảng trên dùng số tính
-lại từ JSON.*
+*Ghi chú chênh lệch: một số tài liệu từng ghi self-training **−0,68** và p của notch là **0,70**; tính lại từ
+JSON gốc cho **−0,67** (−0,6746) và **p = 0,68** (0,679, `scipy.stats.wilcoxon` mặc định, 8 hơn / 10 kém / 42 hoà).
+Bảng trên dùng số tính lại từ JSON; ngày 17/09 đã chốt hai số này ở `README.md`, `README.vi.md`,
+`docs/CHIEN_LUOC_CONG_BO.md`, `docs/NOI_DUNG_SLIDE.md` và `docs/HUONG_DAN_DEMO_v1.md`.*
 
 ---
 
 ### (e) Bảng 5 — Cổng từ chối trả lời và phổ lỗi
 
-**Cổng từ chối** (22 chủ thể, LOSO, 12 chỉ số cổ điển, đoạn 4 s, 3.890 đoạn / 210 đoạn xấu = 5,4 %):
+**Cổng từ chối** (22 chủ thể, LOSO, 12 chỉ số trong đó 6 dựa trên đầu ra mạng, đoạn 4 s, 3.890 đoạn / 210 đoạn
+xấu = 5,4 %; **chỉ ở dạng phân tích, chưa đưa vào demo** — đèn trong demo là cổng hiệu chuẩn trên mô hình 5 ca):
 
 | Chỉ số | Giá trị | KTC 95 % |
 |---|---|---|
 | AUROC **gộp** | **0,965** | [0,857; 0,992] |
 | AUPRC gộp | 0,801 | — |
-| AUROC **trong bản ghi** (trung bình 11 bản có cả hai lớp) | **0,934** | [0,872; 0,981] |
+| AUROC **trong bản ghi** (trung bình 11/22 bản có cả hai lớp; 11 bản còn lại không có đoạn xấu) | **0,934** | [0,872; 0,981] |
 | AUROC trong bản ghi, trung vị | 0,983 | — |
 
 **[SỰ KIỆN]** Cổng xếp đúng ba bản ghi khó nhất (**B2_03**, **B1_07**, **B1_06**) vào ba hạng cuối trong
-22 chủ thể. Nếu xếp ngẫu nhiên, xác suất đúng cả ba hạng là **1/1540**.
+22 chủ thể. Nếu xếp ngẫu nhiên, xác suất để ba bản này cùng rơi vào ba hạng đó (không kể thứ tự) là **1/1540**.
 
 > **[SUY LUẬN] Nhưng không được nói "phải có cổng học mới làm được".** Khi thử 24 quy tắc dùng **một**
 > đặc trưng duy nhất (12 đặc trưng × 2 chiều dấu), **5/24** quy tắc cũng xếp đúng cả 3/3. Đóng góp của
 > cổng học là ở **AUROC và đường cong rủi ro–độ phủ**, không phải ở việc xếp đúng ba bản khó.
-> *(Con số 5/24 lấy từ `analysis/GATE22.md` dòng 293–304; chưa truy được về một trường JSON riêng.)*
+> *(Con số 5/24: `analysis/gate22_results.json → muc_ban_ghi.so_quy_tac_mot_dac_trung_bat_du_3` = 5 và `→ muc_ban_ghi.so_quy_tac_mot_dac_trung` = 24; diễn giải ở `analysis/GATE22.md` dòng 293–304.)*
 
 **Đường cong rủi ro–độ phủ (22 chủ thể):** bỏ B2_03 (còn độ phủ 95,5 % số bản, 98,1 % thời lượng) →
 hiệu số RelyFetal − PMF4 thu về −0,87; bỏ thêm B1_07 (90,9 % / 90,4 %) → −0,27; bỏ thêm B1_06
@@ -464,7 +480,7 @@ hiệu số RelyFetal − PMF4 thu về −0,87; bỏ thêm B1_07 (90,9 % / 90,4
 | **C1** | Kiểm toán rò rỉ định lượng cho CinC 2013 set-a: định danh **15 bản**, ánh xạ 5 → 15, đo mức thổi phồng 3,27–7,18 điểm | `benchmark_dpss/eval_cinc60_sach.json`; `analysis/dulieu_results.json` | **Không phải phát hiện rò rỉ.** Ban tổ chức đã ghi nhận từ 2013 (Silva; Clifford 2014). Chỉ kiểm trùng **nguyên văn**; trùng **chủ thể** chưa kiểm |
 | **C2** | Tách bạch ba tầng đóng góp trong một thí nghiệm: front-end / ngữ cảnh / kiến trúc, cùng tham số ±2,7 % | `analysis/kientruc_results.json`; `pilot_evidence/band_tcn_stats.json` | Giao thức **thu nhỏ** (3 epoch, 3 fold, **1 hạt giống**). Dải lọc chỉ quan trọng trên kênh PSD, **không** trên trung bình 4 kênh |
 | **C3** | Tỉ lệ lấy lại **89,49 %** lợi ích đa kênh bằng một kênh, kèm KTC cụm và jackknife | `analysis/recovery_ratio.json`; `baselines/powermf_fair_stats.json` | Hiệu số so với Power-MF 4 kênh vẫn **âm** (−1,27) và KTC **chạm 0**. Không được đọc là "một kênh tốt hơn bốn kênh" |
-| **C4** | Cổng từ chối xuyên hệ ghi, zero-shot, kèm đường cong rủi ro–độ phủ | `analysis/gate22_results.json` | Ý tưởng fSQI đã có từ Andreotti 2017. **5/24 quy tắc một đặc trưng** cũng xếp đúng 3/3 bản khó. Số trên CinC đo trên 75 bản nhiễm |
+| **C4** | Cổng từ chối 22 ca, đánh giá bỏ-một-chủ-thể trong miền, kèm đường cong rủi ro–độ phủ; số xuyên hệ ghi (CinC) chưa tính lại trên 60 bản sạch | `analysis/gate22_results.json` (`thiet_ke.cv` = leave-one-subject-out) | Ý tưởng fSQI đã có từ Andreotti 2017. **5/24 quy tắc một đặc trưng** cũng xếp đúng 3/3 bản khó. Cổng **không độc lập với mạng** (`rr_cv` và `peak_prob_mean` gánh gần hết độ quan trọng). Cổng 22 ca chưa đưa vào demo. Số trên CinC đo trên 75 bản nhiễm |
 
 ### 9.2 Năm tuyên bố đã rút, và vì sao
 
@@ -472,9 +488,9 @@ hiệu số RelyFetal − PMF4 thu về −0,87; bỏ thêm B1_07 (90,9 % / 90,4
 |---|---|---|---|---|
 | 1 | Mọi con số CinC trên **75 bản** (71,21 / 79,40 / 86,87 / 85,60 / 62,82 / 22 trên 75…) | `benchmark_dpss/eval_cinc75.json` | 15/75 bản là bản sao nguyên văn của dữ liệu huấn luyện → thổi phồng 3,27–7,18 điểm | **74,28** (psd) trên **60 bản sạch** |
 | 2 | *"Nhóm phát hiện rò rỉ dữ liệu"* | — | Sai về quyền ưu tiên: Silva 2013 Bảng 1 và Clifford 2014 đã ghi nhận; cảnh báo nằm ngay trong ghi chú đọc bài của nhóm | *"Như ban tổ chức đã ghi nhận…, chúng tôi xác định bằng đo lường 15 bản nào và mức thổi phồng"* |
-| 3 | *"Mô hình không phải nút thắt"* / *"thiếu tín hiệu thật"* | `analysis/chandoan_results.json` | Phép thử "nhìn thấy" có **âm tính giả 18,0 %** [12,1; 25,0] trên chính 60 bản sạch | *"Nguyên nhân của khoảng cách 17,92 điểm chưa xác định được"* |
+| 3 | *"Mô hình không phải nút thắt"* / *"thiếu tín hiệu thật"* | `analysis/chandoan_results.json` | Phép thử "nhìn thấy" có **âm tính giả 18,0 %** [12,1; 25,0] trên chính 60 bản sạch | *"Nguyên nhân của khoảng cách 23,28 điểm (theo PSD) chưa xác định được"* — con số 17,92 cũng đã rút |
 | 4 | Dải lọc **+11,00 điểm** | Đo trên **GBM cửa sổ 300 ms**, phát biểu như thể về TCN | Lặp lại trên chính TCN cho **+2,44** [−0,04; +6,29] (kênh PSD) và **−0,07** (trung bình 4 kênh) | *"Dải lọc không quan trọng với bộ dò hiện tại"* |
-| 5 | *"Tiền đăng ký"* + *"peakprob nâng F1 lên 82,01"* như một kết quả | `analysis/chonkenh_khaibao_truoc.json` | Bản khai báo **không được bên thứ ba neo** và viết **sau** khi đã có F1 từng kênh; `gate` (trọng tài) **trượt** Holm | `gate4` (chỉ định trước, Holm 0,015) là kết quả; `peakprob` là **giả thuyết hậu kiểm** |
+| 5 | *"Tiền đăng ký"* + *"peakprob nâng F1 lên 82,01"* như một kết quả | `analysis/chonkenh_khaibao_truoc.json` | Bản khai báo **không được bên thứ ba neo** và viết **sau** khi đã có F1 từng kênh; `gate` (trọng tài) **trượt** Holm | `gate` (quy tắc kế hoạch chọn) 80,72 **trượt** Holm 0,051; `gate4` (cùng họ ghi trước, không phải quy tắc kế hoạch chọn) 81,01 sống sót Holm 0,015; `peakprob` là **giả thuyết hậu kiểm** |
 | *(bổ sung)* | Power-MF **94,87**; *"loại hai bản bắt cách nhịp còn 98,38 vs 97,33"* | Bản Octave hỏng | Lỗi cổng chuyển của chính nhóm (`findpeaks` tốn O(k²) bộ nhớ), **không phải** vì tham số 340 ms như nhóm đã đoán (0,00 % khoảng RR dưới 340 ms) | Power-MF 4 kênh = **98,83**; tái lập số tác giả đến 0,06 điểm |
 
 ### 9.3 Điều học được về phương pháp luận
@@ -499,7 +515,7 @@ hiệu số RelyFetal − PMF4 thu về −0,87; bỏ thêm B1_07 (90,9 % / 90,4
 | **G2** | **Một hạt giống** cho kết quả chính | Seed 0 = 97,56 vs seed 1 = 97,59 (lệch 0,03; max lệch từng chủ thể 2,81 ở B2_03). Nhưng **không có checkpoint seed 1** → không lặp lại được nhánh `peakprob` trên seed 1 |
 | **G3** | `peakprob` là **lựa chọn hậu kiểm** và không có bộ thứ ba | NIFEADB, NInFEA, nifecgdb, CinC set-b đều đã kiểm và **không bộ nào có nhãn fQRS thật**. Kết luận chọn kênh **chưa nhân rộng được** |
 | **G4** | **Nhãn B1 gián tiếp**, chiếm **76,9 %** thời lượng tập trong miền | Jitter và STV trên B1 **không dùng được**; 5/10 bản B1 lệch 8–12 ms so với nhãn da đầu |
-| **G5** | **Chưa dùng được làm máy đo STV độc lập** | Chệch STV: +0,33 ms (ADFECGDB) / +1,86 (B2) / +1,84 (B1) nhưng **+20,50 ms** trên CinC (mẫu 10 bản, đã rút khỏi số chính). Sai số bám sát F1: F1 ≥ 99,5 → **0,13 ms**; F1 < 90 → **25,74 ms** |
+| **G5** | **Chưa dùng được làm máy đo STV độc lập** | Số dùng được duy nhất: chệch STV **+0,33 ms** trong miền (ADFECGDB, **n = 5**, `analysis/CLINICAL.md`). Mọi số STV ngoài miền (+20,50 ms; 0,13 ms và 25,74–25,78 ms theo nhóm F1) đo trên mẫu có a03 a04 a05 a08 — bản trùng dữ liệu huấn luyện — **không dùng** |
 | **G6** | Cổng từ chối trên CinC **chưa tính lại trên 60 bản sạch** | Các số AUROC 0,980 / độ phủ 66,7 % / 15 trong 16 đo trên **75 bản nhiễm** → không dùng làm số chính |
 | **G7** | Bảng kiến trúc chạy theo **giao thức thu nhỏ** (3 epoch, 3 fold, 1 seed) | Kết luận tương đương giữa TCN / `rf_wide` / `tcn_ms` chỉ đúng trong ngân sách đó |
 | **G8** | Bản thảo CinC dựng trên **template mô phỏng**, không phải `cinc.cls` chính thức | Số trang (4) có thể đổi khi dựng bằng lớp chính thức. Phải dựng lại trước khi nộp |
@@ -522,7 +538,7 @@ viên tự kiểm.
 | **P1** | Bảng kiến trúc đúng giao thức | Phần lớn | ~70 % | `analysis/kientruc_results.json` (7 họ). **Còn:** 3 hạt giống, giao thức đầy đủ |
 | **P2** | Baseline cổ điển + Power-MF | **Xong** | 100 % | `baselines/powermf_fair_stats.json`, `baselines/powermf_1ch.json`, `baselines/BASELINES.md` (48/48 ca kiểm `findpeaks`) |
 | **P3** | Huấn luyện lại mô hình chính | **Xong** | 100 % | 22 chủ thể, 11 fold nhóm; `model/checkpoints/` (**20 tệp**). **Còn:** đo riêng đóng góp tăng cường |
-| **P4–P6** | fSQI + cổng từ chối | Nguyên mẫu xong | ~80 % | `analysis/gate22_results.json`, `fsqi/`. Kết quả **phủ định** cho đặc trưng topo, **khẳng định** cho cổng cổ điển. **Còn:** tính lại trên 60 sạch |
+| **P4–P6** | fSQI + cổng từ chối | Nguyên mẫu xong | ~80 % | `analysis/gate22_results.json`, `fsqi/`. Kết quả **phủ định** cho đặc trưng topo; cổng 12 chỉ số (6 dựa trên đầu ra mạng) hoạt động nhưng **không độc lập với mạng**. **Còn:** tính lại trên 60 sạch; đưa cổng 22 ca vào demo |
 | **P7** | Tiền huấn luyện FECGSYNDB | **Chưa động tới** | 0 % | Cần ~40 GB. Sau khi thấy **16/60** bản CinC sạch vẫn dưới 50, mục này **trở lại thành ưu tiên** |
 | **P8** | Thống kê đầy đủ + đường cong | Phần lớn | ~85 % | `analysis/stats_results.json`, `pilot_evidence/snr_curve.json`, `analysis/xacnhan_results.json`, `benchmark_dpss/eval_cinc60_sach.json` |
 | **P9** | Đóng gói: demo, API, Docker | Phần lớn | ~85 % | `demo/app.py` (924 dòng), `demo/core.py` (1 147 dòng), 8 tab, **16 ảnh** `demo/screenshots/`, `api/`, `Dockerfile` (viết, **chưa build**) |
@@ -532,12 +548,13 @@ viên tự kiểm.
 | *Ngoài kế hoạch* | Thích nghi miền | **Xong (kết quả phủ định)** | — | `adapt/adapt_results.json` — cả 4 phương pháp thất bại |
 | *Ngoài kế hoạch* | Tám vòng thẩm định đối kháng nội bộ | **Xong** | — | `THAMDINH_VONG6/7/8.md`, `docs/nhat_ky/QA_VONG4.md`, `docs/nhat_ky/DON_REPO_VONG7.md` |
 
-**Kiểm thử:** `pytest tests/ demo/test_core.py` → **82/82 qua** (43 ở `tests/` + 17 ở `demo/test_core.py`).
+**Kiểm thử:** `pytest tests/ demo/test_core.py` → **109 kiểm thử** (43 ở `tests/` + 66 ở `demo/test_core.py`;
+đếm lại 17/09/2026 sau lượt sửa demo thứ ba — con số "82/82" ghi ở bản 13/09 không khớp tổng 43 + 17).
 **Kho mã:** 11 commit, commit hiện tại `c20417b` đã đẩy.
 
 **Năm bản ghi minh hoạ cho demo** (không bản nào nằm trong 15 bản chồng lấn):
 r01 (F1 99,92) | a09 (peakprob 94,25 / PSD 19,35 — cho thấy chọn kênh quan trọng) | B2_03 (83,91 (kênh peakprob) — bản
-khó nhất) | a02 (24,91, bám nhịp mẹ 78 %) | a27 (32,94, gần như không có tín hiệu thai).
+khó nhất) | a02 (24,91, bám nhịp mẹ 78 %) | a27 (32,94; cả bốn dây kém, F1 21,26–32,94; đèn đỏ 14/15 đoạn).
 
 ### Ba việc cần làm ngay, trước buổi gặp
 
@@ -563,7 +580,7 @@ cần người ngoài (giảng viên, khoa sản) khởi động từ tuần 1 v
 | **5** (12–18/10) | (a) Huấn luyện **2 hạt giống** thêm cho cấu hình chính. (b) Bắt đầu thí nghiệm SNR thấp có kiểm soát | Checkpoint seed 2, 3; `snr_aug_results.json` | GPU; tuần 2 | Chủ nhiệm |
 | **6** (19–25/10) | (a) Tổng hợp 3 hạt giống: bảng chính có trung bình ± SD hạt giống. (b) Kết thúc SNR thấp | `main_3seed.json` | Tuần 5 | Chủ nhiệm |
 | **7** (26/10–1/11) | (a) Rà văn liệu: liệt kê các bài huấn luyện ADFECGDB rồi kiểm trên set-a, ghi từng bài có / không bị ảnh hưởng. (b) Viết mục kiểm toán rò rỉ và mục tỉ lệ 89,5 % | `survey/anh_huong_ro_ri.md`; bản nháp 2 mục | — | Thành viên 2; **cô góp ý mục kiểm toán** |
-| **8** (2–8/11) | (a) Viết các mục còn lại. (b) Bốn hình chính. (c) **Xin một buổi góp ý lâm sàng từ bác sĩ sản**: cổng từ chối có chấp nhận được trong theo dõi không, độ phủ 67 % nghĩa là gì trong thực hành | Bản nháp đầy đủ v1; 4 hình | Tuần 4–7 | Chủ nhiệm; **PHỤ THUỘC VÀO CÔ**: 1 buổi với bác sĩ |
+| **8** (2–8/11) | (a) Viết các mục còn lại. (b) Bốn hình chính. (c) **Xin một buổi góp ý lâm sàng từ bác sĩ sản**: cổng từ chối có chấp nhận được trong theo dõi không, độ phủ của cổng (số trên 60 bản sạch, chưa tính) nghĩa là gì trong thực hành | Bản nháp đầy đủ v1; 4 hình | Tuần 4–7 | Chủ nhiệm; **PHỤ THUỘC VÀO CÔ**: 1 buổi với bác sĩ |
 | **9** (9–15/11) | (a) Gói tái lập: Zenodo cho checkpoint + JSON; `reproduce_tables.py` chạy từ JSON ra mọi bảng. (b) **Cô đọc phản biện nội bộ** | DOI Zenodo; phiếu phản biện | Tuần 8 | Thành viên 3; **PHỤ THUỘC VÀO CÔ**: phản biện |
 | **10** (16–22/11) | Sửa theo phản biện; viết thư gửi toà soạn nêu thẳng: chồng lấn dữ liệu, lựa chọn hậu kiểm, các số đã rút; **đề xuất 3–4 phản biện** | Bản v2; cover letter | Tuần 9 | Chủ nhiệm; **cô gợi ý tên phản biện** |
 | **11** (23–29/11) | (a) Kiểm cuối tự động: mọi số trong bài ↔ JSON. (b) Chuẩn bị bản CinC 2027 4 trang bằng `cinc.cls` chính thức. (c) Chuẩn bị tóm tắt tiếng Việt cho Euréka | Báo cáo kiểm số; `paper/cinc2027/` | Tuần 10 | Chủ nhiệm |
@@ -581,7 +598,7 @@ biện (tuần 10).
 
 | # | Câu hỏi | Vì sao hỏi | Câu trả lời của cô sẽ đổi cái gì |
 |---|---|---|---|
-| a1 | Cô có đầu mối nào ở khoa sản (Từ Dũ / Hùng Vương / BV ĐH Y Dược) để xin **ghi điện tim bụng có tham chiếu** không? | Rào cản số một của đề tài **không phải mô hình mà là dữ liệu**: bảng kiến trúc cho thấy nhân bốn lần tham số chỉ được +0,26 điểm | Nếu **có**: mở đường lên tạp chí Q1 (cần bộ thứ ba có nhãn) và lên mức "hai trung tâm". Nếu **không**: đích cố định là *Physiological Measurement*, và nhánh tuần 3–4 bị bỏ |
+| a1 | Cô có đầu mối nào ở khoa sản (Từ Dũ / Hùng Vương / BV ĐH Y Dược) để xin **ghi điện tim bụng có tham chiếu** không? | Dữ liệu có nhãn là điều kiện để xác nhận `peakprob` và nâng đích tạp chí. Nguyên nhân khoảng cách ngoài miền **chưa xác định** (nhân bốn lần tham số chỉ được +0,26 điểm, nhưng đo trong mẫu, n = 4) | Nếu **có**: mở đường lên tạp chí Q1 (cần bộ thứ ba có nhãn) và lên mức "hai trung tâm". Nếu **không**: đích cố định là *Physiological Measurement*, và nhánh tuần 3–4 bị bỏ |
 | a2 | Có bộ dữ liệu nào **có nhãn fQRS thật** mà cô biết, ngoài bốn bộ nhóm đã kiểm? | Nhóm đã kiểm và loại NIFEADB, NInFEA, nifecgdb, CinC set-b — **không bộ nào có nhãn thai thật** | Quyết định `peakprob` có nhân rộng được không. Đây là điều kiện duy nhất để nâng đích lên JBHI |
 | a3 | Quy trình **đạo đức nghiên cứu** và chấp thuận sản phụ ở trường như thế nào, mất bao lâu? | Nhóm ước lượng 3–6 tháng nhưng **chưa xác minh**; nếu đúng thì không kịp cho bài này | Nếu < 3 tháng: đưa vào bài này. Nếu ≥ 3 tháng: ghi vào hồ sơ Euréka là "đang tiến hành", không tính vào bài |
 | a4 | Sinh viên **có được tự chú thích nhãn fQRS** không, và ai kiểm chứng? | Tự chú thích NIFEADB là con đường rẻ nhất để có bộ thứ ba, nhưng nhãn không có chuyên gia kiểm thì phản biện sẽ bác | Nếu có bác sĩ kiểm: chạy nhánh tuần 3–4. Nếu không: **bỏ hẳn nhánh bộ thứ ba**, viết `peakprob` là giả thuyết và dừng ở đó |
@@ -726,9 +743,12 @@ D:/NCKHSV2026-2027/
 1. `docs/CHIEN_LUOC_CONG_BO.md` ghi mức ngẫu nhiên của nhóm lỗi (a) là **15,2 % / 11,2 %**.
    JSON gốc (`analysis/chandoan_results.json`, hàng **kênh PSD**) cho **14,66 % / 10,26 %**;
    hàng **kênh oracle** cho 15,42 % / 11,12 %. Bảng 5 của tài liệu này dùng hàng kênh PSD
-   để khớp với cặp 3,82 % / 1,03 %.
+   để khớp với cặp 3,82 % / 1,03 %. *(Cập nhật 17/09/2026: 15,2 % / 11,2 % là hàng `peakprob` trong
+   `m1_bo_sung.pho_loi_theo_quy_tac` (15,24 / 11,23); `CHIEN_LUOC_CONG_BO.md` đã sửa về hàng PSD.)*
 2. `docs/EUREKA.md` ghi sai số STV khi F1 < 90 là **25,78 ms**; tính lại trực tiếp từ
    `analysis/clinical_results.json` (n = 9, hiệu tuyệt đối trên cặp epoch) cho **25,74 ms**.
+   **Cập nhật 17/09/2026:** cả hai số này đều **không dùng** — mẫu 32 bản chứa a03 a04 a05 a08 (bản trùng dữ
+   liệu huấn luyện). Số STV dùng được duy nhất là +0,33 ms trong miền, n = 5.
 
 ---
 

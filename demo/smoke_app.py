@@ -115,12 +115,11 @@ try:
                                   wall_co_nhan_s=t_co, wall_khong_nhan_s=round(time.perf_counter() - t0, 2))
         print(f'[4b] Tải dữ liệu mới: vidu_tai_len.csv -> kênh {su["lead"]}, F1 = {su["metrics"]["F1"]:.2f}, '
               f'{t_co} s; không nhãn -> KHÔNG có F1 (đúng)')
-        loi = None
-        try:
-            app.run_upload([], 1000, app.LEAD_CHOICES[0], app.CONF_CHOICES[0], None)
-        except gr.Error as e:
-            loi = str(e)
-        assert loi and 'Traceback' not in loi
+        # lỗi không ném ra giao diện nữa: hiện ở dòng trạng thái (phần tử cuối), kết quả cũ bị xoá
+        o3 = app.run_upload([], 1000, app.LEAD_CHOICES[0], app.CONF_CHOICES[0], None)
+        loi = o3[-1]
+        assert len(o3) == 8 and loi.startswith('**Không phân tích được tệp.**') and 'Traceback' not in loi
+        assert o3[0] == '' and o3[1] is None
         res['tab_tai_len']['loi_than_thien'] = loi[:120]
         print(f'[4c] lỗi thân thiện khi không có tệp: {loi[:70]}')
     else:
@@ -135,6 +134,19 @@ try:
                 cl.predict(*args, api_name=ep)
                 print(f'[4d] gradio_client {ep} -> OK, {time.perf_counter() - t0:.2f} s')
                 res.setdefault('client_tab_moi', {})[ep] = round(time.perf_counter() - t0, 2)
+
+    # ---------------------------------------------------------------- 5. chế độ trình bày (T3): bấm thẻ -> 33 đầu ra, 5 bước
+    the = next((n for n in app.STORY_RECS if n in app.RECS), None)
+    if the:
+        t0 = time.perf_counter()
+        o = app.story_run(the)
+        assert len(o) == 33 and o[-10] == 1 and 'rf-sum-i' in o[-11] and o[-1] == ''
+        vis = [u['visible'] for u in app.story_view(3)[2:7]]
+        assert vis == [False, False, True, False, False]
+        res['trinh_bay'] = dict(the=the, n_dau_ra=len(o), wall_s=round(time.perf_counter() - t0, 2))
+        print(f'[5] chế độ trình bày: thẻ {the} -> {len(o)} đầu ra, về bước 1, {res["trinh_bay"]["wall_s"]} s')
+    else:
+        res['trinh_bay'] = dict(bo_qua='không có thẻ nào trên đĩa')
 
     res['ok'] = True
 except Exception as e:                                      # noqa: BLE001

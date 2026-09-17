@@ -116,19 +116,21 @@ def record_confidence(p_bad_list, maternal_lock=float('nan'), path=PKL_DEFAULT):
         score = float(1.0 - p.mean())
         comp.update(mean_p_bad=float(p.mean()), frac_green=fg, frac_yellow=fy, frac_red=fr,
                     n_green=int((lv == 'xanh').sum()), n_yellow=int((lv == 'vang').sum()), n_red=int((lv == 'do').sum()))
-        reasons.append(f'Bộ phân loại GBM (12 chỉ số cổ điển, huấn luyện trên ADFECGDB): '
-                       f'{comp["n_green"]}/{n} đoạn 4 s xanh ({fg * 100:.0f}%), {comp["n_yellow"]} vàng, {comp["n_red"]} đỏ ({fr * 100:.0f}%)')
+        # 12 chỉ số = 6 thuần tín hiệu + 4 tính trên nhịp mạng tìm ra + 2 xác suất của mạng -> cổng KHÔNG độc lập với mạng
+        reasons.append(f'Bộ phân loại GBM (12 chỉ số của đoạn: 6 thuần tín hiệu, 4 tính trên nhịp mạng tìm ra, 2 là xác suất của mạng; '
+                       f'huấn luyện trên ADFECGDB): '
+                       f'{comp["n_green"]}/{n} đoạn 4 s xanh ({fg * 100:.0f} %), {comp["n_yellow"]} vàng, {comp["n_red"]} đỏ ({fr * 100:.0f} %)')
         reasons.append(f'Xác suất đoạn lỗi trung bình {p.mean():.2f} → điểm {score:.2f} '
-                       f'(ngưỡng đoạn: xanh < {g["q1"]:.2f}, đỏ > {g["q2"]:.2f}, hiệu chuẩn trên ADFECGDB ngoài fold: 85 % xanh, 5 % đỏ)')
+                       f'(ngưỡng đoạn: xanh < {g["q1"]:.3f}, đỏ > {g["q2"]:.3f}, hiệu chuẩn trên ADFECGDB ngoài fold: 85 % xanh, 5 % đỏ)')
         if fr > R['red_frac_thr']:
-            level = 'thap'; reasons.append(f'> {R["red_frac_thr"] * 100:.0f}% đoạn đỏ → THẤP')
+            level = 'thap'; reasons.append(f'> {R["red_frac_thr"] * 100:.0f} % đoạn đỏ → THẤP')
         elif fg > R['green_frac_thr']:
-            level = 'cao'; reasons.append(f'> {R["green_frac_thr"] * 100:.0f}% đoạn xanh và ≤ {R["red_frac_thr"] * 100:.0f}% đoạn đỏ → CAO')
+            level = 'cao'; reasons.append(f'> {R["green_frac_thr"] * 100:.0f} % đoạn xanh và ≤ {R["red_frac_thr"] * 100:.0f} % đoạn đỏ → CAO')
         else:
-            level = 'trung_binh'; reasons.append(f'≤ {R["green_frac_thr"] * 100:.0f}% đoạn xanh, ≤ {R["red_frac_thr"] * 100:.0f}% đoạn đỏ → TRUNG BÌNH')
+            level = 'trung_binh'; reasons.append(f'≤ {R["green_frac_thr"] * 100:.0f} % đoạn xanh, ≤ {R["red_frac_thr"] * 100:.0f} % đoạn đỏ → TRUNG BÌNH')
     if np.isfinite(lock):
-        reasons.append(f'{lock * 100:.0f}% nhịp thai trùng đỉnh R mẹ (±50 ms; ngẫu nhiên ≈ 13–22%)'
-                       + (f' ≥ {R["maternal_lock"] * 100:.0f}% → mô hình đang BÁM NHỊP MẸ → THẤP (luật ghi đè)' if locked else ''))
+        reasons.append(f'{lock * 100:.0f} % nhịp thai trùng đỉnh R mẹ (±50 ms; ngẫu nhiên ≈ 13–22 %)'
+                       + (f' ≥ {R["maternal_lock"] * 100:.0f} % → mô hình đang BÁM NHỊP MẸ → THẤP (luật ghi đè)' if locked else ''))
     if locked:
         level = 'thap'
     comp['locked'] = bool(locked)

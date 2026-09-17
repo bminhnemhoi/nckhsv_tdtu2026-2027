@@ -3,13 +3,13 @@
  "plotly": "7.0.0",
  "python": "3.12.6",
  "port": 7861,
- "build_s": 3.84,
+ "build_s": 2.81,
  "ok": true,
  "http_status": 200,
- "launch_s": 1.59,
- "n_components": 69,
- "n_dependencies": 7,
- "direct_wall_s": 20.53,
+ "launch_s": 1.02,
+ "n_components": 125,
+ "n_dependencies": 35,
+ "direct_wall_s": 3.41,
  "direct": {
   "record": "r01",
   "lead": 4,
@@ -20,22 +20,37 @@
   "n_beats": 645,
   "fhr_mean": 129.02548389415804,
   "level": "cao",
-  "latency_ms": 2046.4797999011353,
+  "latency_ms": 354.06130002229474,
   "n_traces_fig1": 10,
   "n_rows_cmp": 201
  },
  "api_endpoints": [
+  "/f",
+  "/trinh_bay_r01",
+  "/f_1",
+  "/trinh_bay_a09",
+  "/f_2",
+  "/trinh_bay_a02",
+  "/f_3",
+  "/trinh_bay_a27",
+  "/lambda",
+  "/lambda_1",
+  "/toggle_expert",
+  "/lambda_2",
+  "/lambda_3",
   "/_toggle",
   "/run",
   "/du_lieu_nhom",
   "/xem_tin_hieu_tho",
+  "/upload_clear",
   "/tai_du_lieu_moi",
   "/run_dataset",
-  "/run_1"
+  "/_mo_trang",
+  "/f_4"
  ],
  "client": {
   "endpoint": "/run",
-  "wall_s": 13.88,
+  "wall_s": 4.4,
   "n_outputs": 9,
   "F1": 99.92242048099301,
   "level": "cao"
@@ -45,19 +60,24 @@
   "n_ban_ghi": 5,
   "ban_ghi": "r01",
   "n_traces": 5,
-  "wall_s": 0.56
+  "wall_s": 0.14
  },
  "tab_tai_len": {
   "tep": "vidu_tai_len.csv",
   "F1_khi_co_nhan": 98.46153846153847,
   "lead": 1,
   "level": "cao",
-  "wall_co_nhan_s": 1.41,
-  "wall_khong_nhan_s": 1.42,
-  "loi_than_thien": "'Chưa chọn tệp nào. Hãy tải lên .edf, hoặc CẶP .dat + .hea, hoặc .csv / .npy / .txt.'"
+  "wall_co_nhan_s": 0.42,
+  "wall_khong_nhan_s": 0.41,
+  "loi_than_thien": "**Không phân tích được tệp.** Chưa chọn tệp nào. Hãy tải lên .edf, hoặc CẶP .dat + .hea, hoặc .csv / .npy / .txt.\n\nKết q"
  },
  "client_tab_moi": {
-  "/du_lieu_nhom": 1.01,
-  "/xem_tin_hieu_tho": 1.02
+  "/du_lieu_nhom": 0.4,
+  "/xem_tin_hieu_tho": 0.46
+ },
+ "trinh_bay": {
+  "the": "r01",
+  "n_dau_ra": 33,
+  "wall_s": 2.66
  }
 }

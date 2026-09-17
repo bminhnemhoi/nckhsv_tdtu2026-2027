@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Chụp màn hình demo bằng playwright (Chromium headless) -> demo/screenshots/*.png
-(dùng cho docs/HUONG_DAN_DEMO.md và làm ảnh dự phòng khi demo trực tiếp gặp sự cố).
+(dùng cho docs/HUONG_DAN_DEMO_v1.md — bố cục 8 tab cũ — và làm ảnh dự phòng khi demo trực tiếp gặp sự cố).
 
 Theo đúng kịch bản 5 bản minh hoạ (core.DEMO_SHOWCASE):
   01_r01_tong_quan.png       r01: thẻ số + tab "Tín hiệu (5 tầng)"                  (toàn trang)

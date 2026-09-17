@@ -1,6 +1,28 @@
 # Kịch bản buổi gặp đầu tiên với giảng viên hướng dẫn (20 phút + hỏi đáp)
 
-Viết lại 12/09/2026 sau thẩm định vòng 7 (`docs/nhat_ky/THAMDINH_VONG7.md`). Mọi con số dưới đây truy về `survey/facts_phase4.json` (nguồn tổng hợp) hoặc tệp JSON ghi trong ngoặc. Không có con số nào tính trên 75 bản CinC; không có số nào từ các phân tích đã rút.
+> **⚠ CẢNH BÁO (17/09/2026) — tệp lưu trữ** của buổi gặp 14/09, dựng quanh demo 8 tab. Đã cũ so với demo sau lượt
+> sửa thứ ba: số kiểm thử (17, 82; hiện 109 = 43 trong `tests/` + 66 trong `demo/test_core.py`); số dòng mã (27.700;
+> hiện ≈ 31.000 — 30.957 dòng trong 136 tệp `.py` theo dõi hoặc chưa bị bỏ qua, `wc -l`, 17/09); tên
+> `docs/HUONG_DAN_DEMO.md` (nay là `HUONG_DAN_DEMO_v1.md`); câu "hệ thống tự biết khi nào nó không đáng tin" nói quá
+> (đèn chỉ báo khi thấy dấu hiệu xấu, không phải lần nào cũng thấy: a57 đèn xanh, F1 17,02 —
+> `demo/results/demo_check_2modes.json → summary_by_mode.hoc.green_but_F1_below_90`); "bộ khác, máy khác" chưa kiểm được (ban tổ chức CinC 2013 không công bố
+> thiết bị ghi của từng bản). Buổi trình bày mới dùng `docs/KICH_BAN_THUYET_TRINH_v2.md` và `docs/HUONG_DAN_DEMO_v2.md`.
+>
+> **Thẩm định cuối 17/09 — các chỗ trong lời thoại dưới đây đã sửa hoặc phải đọc theo ghi chú này:**
+> - **Số STV ngoài miền đã rút:** "lệch 20,5 ms trên CinC" và "0,13 ms khi cổng cho phép" (cùng 25,74–25,78 ms) tính trên
+>   mẫu CinC 10 bản và mẫu 32 bản có a03 a04 a05 a08 là bản trùng dữ liệu huấn luyện (`README.vi.md` bảng rút lại).
+>   Số STV dùng được duy nhất là +0,33 ms trong miền, n = 5 (`analysis/clinical_results.json → summary.ADFECGDB.stv_ba`).
+>   Hai chỗ lời thoại cũ (mục 12–16 phút và câu hỏi 9) đã viết lại.
+> - **Không dùng "khoảng cách 15 điểm".** Khoảng cách trong/ngoài miền trên 60 bản sạch: 23,28 (PSD) · 16,84 (gate) ·
+>   16,55 (gate4) · 15,55 (peakprob, hậu kiểm) · 13,96 (trần) — `survey/facts_phase4.json → Z_DA_RUT.khoang_cach_trong_ngoai_mien_17_92.thay_bang`.
+> - **0,934 [0,872; 0,981]** là cổng 22 ca, LOSO, chỉ tính trên 11/22 chủ thể có đoạn xấu, chỉ ở dạng phân tích, chưa có
+>   trong demo (`analysis/gate22_results.json`). Đèn trong demo là cổng 5 ca, 0,721 [0,517; 0,898] trên 5 bản CinC sạch.
+> - **Cổng không độc lập với mạng:** 12 chỉ số gồm 6 thuần tín hiệu, 4 tính trên nhịp mạng tìm ra, 2 là xác suất của mạng
+>   (`fsqi/gate.py`); câu "12 chỉ số chất lượng tín hiệu cổ điển" trong tệp này đã sửa.
+> - **82,01 không đứng một mình:** luôn kèm 74,28 (PSD) · 80,72 (gate, quy tắc kế hoạch chọn, trượt Holm 0,051) ·
+>   81,01 (gate4, cũng ghi trước, qua Holm 0,015) · trần 83,60 (`analysis/dulieu_results.json → chon_kenh_60_sach.bang`).
+
+Viết lại 12/09/2026 sau thẩm định vòng 7 (`docs/nhat_ky/THAMDINH_VONG7.md`). Mọi con số dưới đây truy về `survey/facts_phase4.json` (nguồn tổng hợp) hoặc tệp JSON ghi trong ngoặc. Không có con số nào tính trên 75 bản CinC. Lúc viết (12/09) tệp này vẫn còn số STV ngoài miền, về sau (17/09) cũng đã rút; các chỗ đó đã sửa theo cảnh báo ở trên.
 
 Sổ tay (HTML): https://claude.ai/code/artifact/7f120fe6-e199-47b9-8aac-1a194c2d8b00
 Hướng dẫn demo chi tiết: `docs/HUONG_DAN_DEMO.md`. Tờ tóm tắt in giấy: `docs/TOM_TAT_1_TRANG.md`.
@@ -50,11 +72,11 @@ Thứ **không** phải mục tiêu buổi này: xin cô duyệt kết quả, xi
 ### 6–12 phút — Phương pháp và kết quả, kèm demo 4 phút
 
 **Nói gì (2 phút, trước demo):**
-> "Đường ống có 5 bước. Bước một, lọc 10–60 Hz pha-không. Bước hai, khử điện tim mẹ bằng mẫu trung vị co giãn từng nhịp. Bước ba, chọn kênh mù nhãn. Bước bốn, một mạng tích chập thời gian nhỏ cho ra xác suất từng mẫu. Mạng này có 113 nghìn tham số, 0,48 MB, chạy 4,35 mili-giây cho mỗi cửa sổ 4 giây trên CPU. Bước năm, một cổng từ chối dùng 12 chỉ số chất lượng tín hiệu cổ điển.
+> "Đường ống có 5 bước. Bước một, lọc 10–60 Hz pha-không. Bước hai, khử điện tim mẹ bằng mẫu trung vị co giãn từng nhịp. Bước ba, chọn kênh mù nhãn. Bước bốn, một mạng tích chập thời gian nhỏ cho ra xác suất từng mẫu. Mạng này có 113 nghìn tham số, 0,48 MB, chạy 4,35 mili-giây cho mỗi cửa sổ 4 giây trên CPU. Bước năm, một cổng từ chối dùng 12 chỉ số: 6 thuần tín hiệu, 4 tính trên nhịp mạng tìm ra, 2 là xác suất của mạng — nên cổng không độc lập với mạng.
 >
 > Kết quả chính đo trên 22 sản phụ, F1 mức chủ thể, ghép ±50 mili-giây. Phương pháp mạnh nhất hiện có mà em chạy lại được là Power-MF. Nó dùng 4 kênh thì đạt 98,83; cắt xuống 1 kênh còn 86,71. Mạng 1 kênh của em đạt 97,56. Nói đúng thì em vẫn thua 4 kênh 1,27 điểm, khoảng tin cậy từ −3,08 đến +0,27. Mức đó chưa có ý nghĩa, nhưng em thắng 18 trên 22 bản. Bốn kênh đáng giá 12,12 điểm cho Power-MF; một kênh của em lấy lại 10,85. Tức là 89,5 %, khoảng tin cậy 81 đến 103 %. Em chạy lại Power-MF bằng Octave và đối chiếu với số tác giả công bố: 99,40 so với 99,46.
 >
-> Bộ CinC 2013 thì mô hình chưa từng thấy. Em loại 15 bản trùng với dữ liệu huấn luyện, còn 60 bản sạch. Trên 60 bản đó, quy tắc chọn kênh cũ cho 74,28, quy tắc mới cho 82,01. Cộng 7,73 điểm, khoảng tin cậy 3,82 đến 12,41. Em sẽ nói ở phần vấp vì sao con số này phải gọi là giả thuyết chứ chưa phải kết quả xác nhận. Giờ em cho cô xem nó chạy."
+> Bộ CinC 2013 thì mô hình chưa từng thấy. Em loại 15 bản trùng với dữ liệu huấn luyện, còn 60 bản sạch. Trên 60 bản đó, quy tắc chọn kênh cũ (PSD) cho 74,28; quy tắc kế hoạch chọn (gate) cho 80,72; gate4, cũng ghi trước, cho 81,01; quy tắc mới chọn sau khi xem kết quả (peakprob) cho 82,01; trần chọn kênh nhìn đáp án là 83,60. Quy tắc mới hơn quy tắc cũ 7,73 điểm, khoảng tin cậy 3,82 đến 12,41. Em sẽ nói ở phần vấp vì sao con số này phải gọi là giả thuyết chứ chưa phải kết quả xác nhận. Giờ em cho cô xem nó chạy."
 
 *(nguồn: `analysis/recovery_ratio.json`, `analysis/dulieu_results.json`)*
 
@@ -84,11 +106,13 @@ Kể **bốn** lần rút lại như điểm mạnh: em biết chính xác hệ 
 >
 > **Hai, em chạy lại Power-MF bằng Octave** vì không có MATLAB. Lúc đầu nó cho kết quả thấp hơn tác giả vài điểm. Em đoán nguyên nhân trước khi đo, và đoán sai. Đo lại thì ra lỗi cổng chuyển của em — hàm tìm đỉnh của Octave tràn bộ nhớ. Sửa xong: 99,40 so với 99,46 tác giả công bố. Em rút kinh nghiệm là phải đo trước rồi mới nói.
 >
-> **Ba, quy tắc chọn kênh là chọn sau khi nhìn kết quả.** Em thử 7 quy tắc và ghi trước luật 'lấy quy tắc tốt nhất trong miền'. Luật đó chỉ vào quy tắc *gate*. Gate trên 60 bản sạch cho 80,72, trượt hiệu chỉnh Holm với p 0,051. Quy tắc thắng, *peakprob* 82,01, là em chọn sau. Nó sống sót Holm trên cả họ 7 quy tắc với p 0,0039 và không có siêu tham số. Nên em vẫn báo cáo, nhưng gọi là giả thuyết mạnh chưa xác nhận. Em đã thử hai đường cứu. Một là tính lại trên thang logit ở 22 sản phụ — gate vẫn đứng đầu, peakprob hạng 3. Hai là tìm bộ thứ ba có nhãn để chạy đúng một lần, nhưng không có bộ công khai nào. Nên vấn đề hậu kiểm không biến mất. Cái này phải có dữ liệu mới mới giải được.
+> **Ba, quy tắc chọn kênh là chọn sau khi nhìn kết quả.** Em thử 7 quy tắc và ghi trước luật 'lấy quy tắc tốt nhất trong miền'. Luật đó chỉ vào quy tắc *gate*. Gate trên 60 bản sạch cho 80,72, trượt hiệu chỉnh Holm với p 0,051. *gate4* cũng ghi trước, cho 81,01 và qua Holm với p 0,015, nhưng không phải quy tắc kế hoạch chọn. Quy tắc thắng, *peakprob* 82,01 (PSD cũ 74,28, trần 83,60), là em chọn sau. Nó sống sót Holm trên cả họ 7 quy tắc với p 0,0039 và không có siêu tham số. Nên em vẫn báo cáo, nhưng gọi là giả thuyết mạnh chưa xác nhận. Em đã thử hai đường cứu. Một là tính lại trên thang logit ở 22 sản phụ — gate vẫn đứng đầu, peakprob hạng 3. Hai là tìm bộ thứ ba có nhãn để chạy đúng một lần, nhưng không có bộ công khai nào. Nên vấn đề hậu kiểm không biến mất. Cái này phải có dữ liệu mới mới giải được.
 >
-> **Bốn, em rút ba tuyên bố khác.** Dải lọc từng được ghi là cộng hơn mười điểm. Đo lại trên đúng mô hình thì chỉ +2,44 ở kênh PSD, khoảng tin cậy chạm 0. Lấy trung bình 4 kênh thì gần bằng 0. 'Đơn kênh hơn đa kênh' — sai, thua 1,27. Còn kết luận 'khoảng cách ngoài miền là do không có tín hiệu, không phải do mô hình' thì em rút. Lý do là phép thử em dùng để nói 'không nhìn thấy tín hiệu' có âm tính giả 18 %. Khoảng tin cậy từ 12 đến 25 %. Bốn phương pháp thích nghi miền đều thất bại — cái đó là sự thật đo được. Còn nguyên nhân khoảng cách 15 điểm giữa trong miền và ngoài miền thì em chưa trả lời được.
+> **Bốn, em rút ba tuyên bố khác.** Dải lọc từng được ghi là cộng hơn mười điểm. Đo lại trên đúng mô hình thì chỉ +2,44 ở kênh PSD, khoảng tin cậy chạm 0. Lấy trung bình 4 kênh thì gần bằng 0. 'Đơn kênh hơn đa kênh' — sai, thua 1,27. Còn kết luận 'khoảng cách ngoài miền là do không có tín hiệu, không phải do mô hình' thì em rút. Lý do là phép thử em dùng để nói 'không nhìn thấy tín hiệu' có âm tính giả 18 %. Khoảng tin cậy từ 12 đến 25 %. Bốn phương pháp thích nghi miền đều thất bại — cái đó là sự thật đo được. Còn nguyên nhân khoảng cách giữa trong miền và ngoài miền — 23,28 điểm với quy tắc cũ, 15,55 với quy tắc hậu kiểm, 13,96 với trần — thì em chưa trả lời được.
 >
-> Chỉ số lâm sàng STV cũng vậy. Nó lệch 0,33 mili-giây trên dữ liệu trong miền, nhưng lệch 20,5 trên CinC. Nên chưa dùng được làm máy đo độc lập. Khi cổng cho phép thì sai số điển hình 0,13 mili-giây. Vậy thứ làm chỉ số này dùng được là cổng từ chối, chưa phải mô hình."
+> Chỉ số lâm sàng STV cũng vậy. Nó lệch 0,33 mili-giây trên dữ liệu trong miền, nhưng chỉ có 5 sản phụ. Số ngoài miền em từng nêu thì em đã rút, vì mẫu đo có bản trùng với dữ liệu huấn luyện. Nên em chưa có bằng chứng nó dùng được làm máy đo độc lập."
+
+*(Ghi chú 17/09, không đọc: hai số STV ngoài miền cũ — lệch 20,5 ms trên CinC và 0,13 ms khi cổng cho phép — **đã rút**; xem cảnh báo đầu tệp.)*
 
 *(nguồn: `analysis/DULIEU.md`, `baselines/powermf_published.json`, `analysis/xacnhan_results.json`, `analysis/clinical_results.json`)*
 
@@ -99,7 +123,7 @@ Kể **bốn** lần rút lại như điểm mạnh: em biết chính xác hệ 
 ### 16–18 phút — Định vị thật và kế hoạch
 
 **Nói gì:**
-> "Đóng góp em định nộp không phải 'một máy dò tốt hơn', mà là ba thứ có ranh giới rõ. Thứ nhất là một phép đo: một kênh lấy lại 89,5 % lợi ích của bốn kênh, trên cùng bản ghi cùng bộ chấm. Thứ hai là một cổng từ chối không dùng nhãn. Nó được đánh giá bỏ-một-chủ-thể trên 22 sản phụ, AUROC trong bản ghi 0,934, xếp đúng ba bản khó nhất vào ba hạng chót. Thứ ba là một bản kiểm toán bộ chuẩn: 15 bản trùng, mức thổi phồng, và mọi số báo cáo trên 60 bản sạch. Quy tắc chọn kênh đi kèm như giả thuyết mạnh.
+> "Đóng góp em định nộp không phải 'một máy dò tốt hơn', mà là ba thứ có ranh giới rõ. Thứ nhất là một phép đo: một kênh lấy lại 89,5 % lợi ích của bốn kênh, trên cùng bản ghi cùng bộ chấm. Thứ hai là một cổng từ chối không dùng nhãn. Nó được đánh giá bỏ-một-chủ-thể trên 22 sản phụ, AUROC trong bản ghi 0,934 tính trên 11/22 chủ thể có đoạn xấu — mới ở dạng phân tích, chưa có trong demo — xếp đúng ba bản khó nhất vào ba hạng chót. Thứ ba là một bản kiểm toán bộ chuẩn: 15 bản trùng, mức thổi phồng, và mọi số báo cáo trên 60 bản sạch. Quy tắc chọn kênh đi kèm như giả thuyết mạnh.
 >
 > Nơi nộp thực tế là **Physiological Measurement**. Tạp chí đó Q2 theo Scimago 2024, không phải Q1. Nhưng đó là nơi cộng đồng điện tim thai công bố, và chính CinC Challenge 2013 cũng ở đó. Chỗ thứ hai là **Computing in Cardiology 2027**, hạn dự kiến tháng 4/2027; kỳ 2026 đã diễn ra rồi, em không kịp. Q1 như IEEE JBHI chỉ có cửa nếu em có một bộ có nhãn mới để chạy quy tắc chọn kênh đúng một lần. Em ước cửa Q1 trong 6 tháng khoảng 15–20 %, không hơn.
 >
@@ -133,7 +157,7 @@ Kể **bốn** lần rút lại như điểm mạnh: em biết chính xác hệ 
 Từ dễ đến khó. Mỗi câu trả lời 2–4 câu, không hơn.
 
 1. **"Em tóm tắt lại đề tài trong một phút được không?"**
-   "Em đọc điện tim thai từ một điện cực trên bụng mẹ, tìm từng nhịp, và hệ thống tự chấm mức tin cậy để từ chối khi tín hiệu không đủ. Trên 22 sản phụ em đạt 97,56, còn phương pháp bốn kênh mạnh nhất em chạy lại được đạt 98,83. Chính phương pháp đó khi chỉ dùng một kênh thì em hơn 10,85 điểm. Trên 60 bản ghi chưa từng thấy em đạt 82,01 — với quy tắc chọn kênh hậu kiểm. Cổng từ chối, đánh giá bỏ-một-chủ-thể, xếp đúng ba bản khó nhất vào ba hạng chót."
+   "Em đọc điện tim thai từ một điện cực trên bụng mẹ, tìm từng nhịp, và hệ thống tự chấm mức tin cậy để từ chối khi tín hiệu không đủ. Trên 22 sản phụ em đạt 97,56, còn phương pháp bốn kênh mạnh nhất em chạy lại được đạt 98,83. Chính phương pháp đó khi chỉ dùng một kênh thì em hơn 10,85 điểm. Trên 60 bản ghi chưa từng thấy em đạt 74,28 với quy tắc chọn kênh cũ, 80,72 với quy tắc kế hoạch chọn, 81,01 với gate4, 82,01 với quy tắc hậu kiểm. Cổng từ chối, đánh giá bỏ-một-chủ-thể, xếp đúng ba bản khó nhất vào ba hạng chót."
 
 2. **"Vì sao chỉ một kênh, trong khi bệnh viện dùng nhiều kênh?"**
    "Vì mục tiêu xa là thiết bị mẹ tự đeo ở nhà, một dây mới đeo được. Câu hỏi khoa học em đặt là 'mất bao nhiêu khi bỏ ba kênh' — em đo được mất 1,27 điểm so với bốn kênh, tức lấy lại 89,5 %. Em không nói một kênh tốt hơn."
@@ -148,16 +172,16 @@ Từ dễ đến khó. Mỗi câu trả lời 2–4 câu, không hơn.
    "Không ạ, là chủ đích. Nhân bốn lần tham số chỉ được cộng 0,26 điểm trong mẫu. 113 nghìn tham số, 0,48 MB, 4,35 mili-giây cho 4 giây tín hiệu trên CPU — đủ nhét vào vi điều khiển sau này. Em so 7 họ kiến trúc cùng tham số ±2,7 %, cùng hạt giống, giao thức rút gọn 3 epoch 3 fold. Ba họ đầu tương đương theo kiểm định tương đương, họ kém nhất cách 3 điểm (`analysis/kientruc_results.json`)."
 
 6. **"Cổng từ chối hoạt động thế nào, nó sai thì sao?"**
-   "Mỗi đoạn 4 giây em tính 12 chỉ số chất lượng cổ điển. Ví dụ entropy, độ nhọn, tỉ lệ RR hợp lý, năng lượng dải thai. Rồi em đưa chúng vào một bộ phân loại nhỏ, ra xác suất 'đoạn này xấu'. Không dùng nhãn lúc chạy. Trên 22 sản phụ, đánh giá bỏ-một-chủ-thể, AUROC trong bản ghi 0,934, khoảng tin cậy 0,872 đến 0,981. Nó xếp đúng ba bản khó nhất vào ba hạng chót; ngẫu nhiên là 1 trên 1540. Nhưng 5 trong 24 quy tắc một đặc trưng đơn giản cũng xếp đúng ba bản đó, nên em không dám nói phải học mới làm được. Số cổng trên CinC em chưa tính lại trên 60 bản sạch nên em không đọc ra."
+   "Mỗi đoạn 4 giây em tính 12 chỉ số: 6 thuần tín hiệu, ví dụ entropy, độ nhọn, năng lượng dải thai; 4 tính trên nhịp mạng tìm ra, ví dụ tỉ lệ RR hợp lý; 2 là xác suất của mạng. Nên cổng không độc lập với mạng. Rồi em đưa chúng vào một bộ phân loại nhỏ, ra xác suất 'đoạn này xấu'. Không dùng nhãn lúc chạy. Trên 22 sản phụ, đánh giá bỏ-một-chủ-thể, AUROC trong bản ghi 0,934, khoảng tin cậy 0,872 đến 0,981, tính trên 11/22 chủ thể có đoạn xấu; cổng 22 ca này mới ở dạng phân tích, đèn trong demo là cổng 5 ca. Nó xếp đúng ba bản khó nhất vào ba hạng chót; ngẫu nhiên là 1 trên 1540. Nhưng 5 trong 24 quy tắc một đặc trưng đơn giản cũng xếp đúng ba bản đó, nên em không dám nói phải học mới làm được. Số cổng trên CinC em chưa tính lại trên 60 bản sạch nên em không đọc ra."
 
 7. **"Rò rỉ dữ liệu là sao — em có chắc không? Người khác có bị không?"**
    "Ban tổ chức đã ghi từ 2013 rằng set-a có 25 bản từ ADFECGDB; cái em làm là đo để biết đúng bản nào. Em kiểm bằng tương quan chéo chuẩn hoá từng cặp, và so cả chuỗi khoảng nhịp tham chiếu. 15 bản cho tương quan đúng 1,0000, lệch 0,0 mili-giây, cả 4 kênh đúng thứ tự. Đối chứng dương là các bản cùng sản phụ đã biết, chỉ cho 0,86–0,98. 60 bản còn lại cao nhất 0,62. Hai cách cài đặt độc lập cho cùng kết quả. Về người khác: em đã rà 20 bài, 4 bài chắc chắn huấn luyện trên ADFECGDB và kiểm trên set-a, 2 bài nghi ngờ (`survey/RO_RI_VANLIEU.md`). Em sẽ nêu dè dặt trong bài, kèm trích dẫn Clifford 2014."
 
 8. **"Quy tắc chọn kênh mới có phải em chọn sau khi nhìn kết quả không?"**
-   "Dạ đúng, và em nói rõ trong bài. Luật ghi trước chỉ vào gate; gate trượt Holm với p 0,051. peakprob là chọn sau. Em vẫn báo cáo vì nó sống sót Holm trên cả họ 7 quy tắc với p 0,0039 và không có siêu tham số. Em đã thử cứu bằng thang logit trên 22 sản phụ — gate vẫn đứng đầu, peakprob hạng 3 — nên không cứu được. Bước tiếp theo duy nhất là chạy đúng một lần trên một bộ có nhãn mới, mà không có bộ công khai nào; đó là lý do em xin cô mục dữ liệu."
+   "Dạ đúng, và em nói rõ trong bài. Luật ghi trước chỉ vào gate; gate 80,72 trượt Holm với p 0,051. gate4 cũng ghi trước, 81,01, qua Holm với p 0,015. peakprob 82,01 là chọn sau; quy tắc cũ PSD là 74,28. Em vẫn báo cáo vì nó sống sót Holm trên cả họ 7 quy tắc với p 0,0039 và không có siêu tham số. Em đã thử cứu bằng thang logit trên 22 sản phụ — gate vẫn đứng đầu, peakprob hạng 3 — nên không cứu được. Bước tiếp theo duy nhất là chạy đúng một lần trên một bộ có nhãn mới, mà không có bộ công khai nào; đó là lý do em xin cô mục dữ liệu."
 
 9. **"Có ý nghĩa lâm sàng chưa? Bác sĩ dùng được gì?"**
-   "Chưa, và em phải nói thẳng. Chỉ số STV em đo lệch 0,33 mili-giây trên dữ liệu trong miền nhưng lệch 20,5 trên CinC — chưa dùng được làm máy đo độc lập. Điều bác sĩ dùng được là cổng từ chối: khi cổng cho phép, sai số STV điển hình 0,13 mili-giây. Còn 'bác sĩ cần chính xác bao nhiêu' là câu em muốn hỏi cô, vì em chưa gặp bác sĩ nào."
+   "Chưa, và em phải nói thẳng. Chỉ số STV em đo lệch 0,33 mili-giây trên dữ liệu trong miền, nhưng chỉ 5 sản phụ; số ngoài miền em từng nêu đã rút vì mẫu có bản trùng dữ liệu huấn luyện — nên chưa dùng được làm máy đo độc lập. *(Không đọc: 20,5 ms và 0,13 ms là số STV ngoài miền đã rút.)* Còn 'bác sĩ cần chính xác bao nhiêu' là câu em muốn hỏi cô, vì em chưa gặp bác sĩ nào."
 
 10. **"22 chủ thể có đủ để kết luận không?"**
     "Không đủ cho kết luận mạnh. Em tự tính công suất thống kê thì cần khoảng 50. Với 5 sản phụ ADFECGDB, p nhỏ nhất Wilcoxon có thể cho là 0,0625 nên không bao giờ có p dưới 0,05. Em làm mọi thống kê ở mức chủ thể với cluster bootstrap, và 5 kết luận cũ bị đảo khi làm đúng. Vì vậy dữ liệu trung tâm thứ hai là việc em cần cô giúp nhất."

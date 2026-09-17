@@ -1,6 +1,6 @@
 > **Cập nhật vòng 7 (12/09/2026).** Bảng kết quả ở mục 4 dưới đây là lần chạy 32 bản ghi cũ và **có 4 bản
 > CinC là bản sao ADFECGDB** (a03, a04, a05, a08 — F1 = 100 vì là dữ liệu huấn luyện). Lần chạy hiện hành
-> `results/demo_check_2modes.json` (17:07, chạy lại 23:11 cùng ngày cho tóm tắt giống hệt; `python demo/run_check.py --threads 2`, quy tắc kênh `peakprob`,
+> `results/demo_check_2modes.json` (lần đầu 12/09 17:07; tệp hiện trên đĩa là lần chạy lại 13/09 23:13, `torch_threads` 3, tóm tắt giống hệt; `python demo/run_check.py`, quy tắc kênh `peakprob`,
 > loại bản trùng và bản rò rỉ) chấm 82 bản có nhãn (5 ADFECGDB + 60 CinC sạch + 17 Silesia): chế độ *học* —
 > 46 xanh (F1 TB 95,70; 3 bản xanh có F1 < 90: a52, a54, a57), 17 vàng, 19 đỏ (F1 TB 54,26), không bản đỏ
 > nào có F1 ≥ 95; chế độ *luật* — 58 xanh (97,79; 5 bản xanh có F1 < 90), 19 vàng, 5 đỏ (`summary_by_mode`).
@@ -8,12 +8,17 @@
 
 # RelyFetal — demo dò phức bộ QRS thai nhi từ điện tim ổ bụng đơn kênh
 
+> **Cập nhật 17/09/2026 — chế độ trình bày.** Mở trang là thấy **5 thẻ**: 4 thẻ bản ghi (r01 · a09 · a02 · a27, bấm thẻ là chạy ngay) và thẻ *Tệp của bạn*,
+> và **5 bước** kể chuyện (mỗi lúc một bước, nút Tiếp/Quay lại) cùng **thanh tóm tắt** 6 ô dính đáy màn hình.
+> 8 tab cũ vẫn nguyên vẹn trong ô tick **Chế độ chuyên gia** (mặc định tắt). Hướng dẫn: `docs/HUONG_DAN_DEMO_v2.md`;
+> phần còn lại của tệp này mô tả 8 tab (hướng dẫn cũ: `docs/HUONG_DAN_DEMO_v1.md`).
+
 > **Bản mẫu nghiên cứu. Không phải thiết bị y tế. Không dùng cho chẩn đoán.**
 
 Demo web một trang (Gradio + Plotly, chạy cục bộ trên CPU) bao bọc đúng pipeline chuẩn của
 `model/fqrs_model.py` — *tiền xử lý → khử QRS mẹ → FetalQRS-TCN → chọn đỉnh* — và bổ sung:
 chọn kênh mù nhãn theo PSD, chuỗi nhịp tim thai theo cửa sổ 4 s, đối chiếu với nhãn (nếu có)
-và một **đèn tin cậy** không cần nhãn với hai chế độ — *học* (GBM trên 12 chỉ số cổ điển của từng đoạn 4 s, `fsqi/gate.py`, mặc định)
+và một **đèn tin cậy** không cần nhãn với hai chế độ — *học* (GBM trên 12 chỉ số của từng đoạn 4 s — 2 trong đó là xác suất đầu ra của mạng, nên đèn không độc lập với mạng; `fsqi/gate.py`, mặc định)
 và *luật* (quy tắc cứng) — kiểm chứng trên **82 bản ghi có nhãn** không rò rỉ (hộp đầu trang, `results/demo_check_2modes.json`; bảng 32 bản cũ ở mục 4 giữ để truy vết).
 Chọn kênh mù nhãn mặc định là **peakprob** (quy tắc hậu kiểm — xem README gốc); PSD (Power-MF) có trên giao diện để so sánh.
 
@@ -27,7 +32,8 @@ python demo/app.py                   # mở http://127.0.0.1:7860
 | Biến môi trường | Ý nghĩa | Mặc định |
 |---|---|---|
 | `RELYFETAL_PORT` | cổng HTTP | `7860` |
-| `RELYFETAL_AUTORUN` | `1` = mở trang là tự phân tích bản ghi đầu tiên (r01) | `1` |
+| `RELYFETAL_AUTORUN` | `1` = mở trang là tự chạy thẻ đầu tiên (r01) ở chế độ trình bày | `1` |
+| `RELYFETAL_AUTORUN_EXPERT` | `1` = 8 tab chuyên gia cũng tự chạy r01 lúc mở (mặc định tắt cho đỡ chạy hai lần) | `0` |
 | `PYTHONIOENCODING` | trên Windows nên đặt `utf-8` để in tiếng Việt ra console | — |
 
 Dữ liệu mẫu được tìm qua `benchmark_dpss/_paths.py` (ADFECGDB r01/r04/r07/r08/r10 dạng EDF 1000 Hz;
@@ -44,19 +50,23 @@ và `fetalqrs_tcn_production.pt` (mọi bản ghi khác, kể cả CinC 2013 = z
 |---|---|
 | `core.py` | **Lõi xử lý, không phụ thuộc gradio.** Đọc bản ghi (EDF/WFDB/CSV/NPY/mảng) → 1000 Hz; `select_lead` (PSD Power-MF, mù nhãn); `analyze`/`analyze_record` gọi `M.preprocess`, `M.cancel_maternal`, `M.probability_series`, `M.pick_peaks` của `model/fqrs_model.py`; `fhr_series`; `match_with_lists` (ghép một-đối-một, ±50 ms, giống `M.match_events`); `confidence_rule` / `confidence_learned` (đèn tin cậy, hai chế độ — mục 4); `summary` (JSON). Không sửa gì trong `model/`. |
 | `app.py` | Giao diện Gradio: hàng điều khiển (nguồn: *Minh hoạ (5 bản)* / *Bản ghi mẫu* / *Tải lên*; kênh: peakprob / PSD / 1–4; chế độ đèn; nút *Phân tích*), 4 thẻ số, 6 tab (*Tín hiệu 5 tầng*, *Chọn kênh — cả 4 kênh*, *Nhịp tim thai + đèn đoạn*, *So sánh với nhãn*, *Kết quả tổng hợp (60 bản sạch)* — đọc từ `analysis/dulieu_results.json`, không ghi cứng số, *Nhật ký JSON*). Chỉ dựng giao diện và vẽ Plotly; mọi tính toán ở `core.py`. Tự thích nghi Gradio 5/6 (`css`/`theme` chuyển sang `launch()` ở Gradio 6). |
-| `test_core.py` | 17 kiểm thử pytest cho lõi (không cần gradio), gồm hai mốc bắt buộc chạy ở **cả hai** chế độ đèn (`luat` và `hoc`): r01 kênh 4 F1 > 99 & đèn *cao*; a02 đèn *không cao*. |
+| `test_core.py` | Kiểm thử pytest cho lõi (không cần gradio; 66 kiểm thử, toàn repo 109 cùng 43 trong `tests/`, đếm bằng `pytest --collect-only` 17/09/2026; số tăng theo các vòng sửa demo), gồm hai mốc bắt buộc chạy ở **cả hai** chế độ đèn (`luat` và `hoc`): r01 kênh 4 F1 > 99 & đèn *cao*; a02 đèn *không cao*. |
 | `run_check.py` | `--mode hoc / luat / ca_hai`, `--threads N`, `--lead peakprob / psd`, `--only r01,a09,…`, `--include-leak`, `--no-silesia`. Chạy lõi trên 82 bản ghi có nhãn (5 ADFECGDB + 60 CinC sạch + 17 Silesia qua `model/silesia_loader.py`; 15 bản CinC rò rỉ bị loại mặc định; chọn kênh tự động) + r01 kênh 4, chấm đèn ở cả hai chế độ → `results/demo_check_2modes.json` + `.log` (hộp đầu trang). JSON được ghi lại sau mỗi bản ghi. |
 | `smoke_app.py` | Khởi động thử app không mở trình duyệt: HTTP 200, gọi thẳng `app.run()` với r01, gọi qua `gradio_client` API `/run` → `results/smoke_app.json`. |
-| `screenshot.py` | Chụp 12 ảnh giao diện thật theo kịch bản 5 bản minh hoạ bằng playwright/Chromium → `screenshots/` + `screenshots.json` (thời gian thật từng bản). |
-| `results/` | `demo_check_2modes.json` / `.log` (82 bản ghi + r01 kênh 4, hai chế độ đèn, 12/09/2026 23:11 — hộp đầu trang), `demo_check_showcase.json` (5 bản minh hoạ — bảng ở `docs/HUONG_DAN_DEMO.md` mục 6), `demo_check.json` / `.log` (lần chạy 15 bản ghi mẫu cũ, 4 luồng — nguồn số thời gian ở mục 2), `smoke_app.json`. |
+| `screenshot.py` | Chụp 12 ảnh giao diện thật theo kịch bản 5 bản minh hoạ bằng playwright/Chromium → `screenshots/` + `screenshots.json` (thời gian thật từng bản). **Viết cho bố cục 8 tab cũ** (dropdown ở đầu trang); từ 17/09 phải bật *Chế độ chuyên gia* trước, script này chưa được sửa. |
+| `screenshot_v2.py` | Chế độ trình bày: khởi động thật, bấm 4 thẻ, đi hết 5 bước, ghi thời gian và chụp 7 ảnh `17..23` → `screenshots/screenshots_v2.json`. |
+| `results/` | `demo_check_2modes.json` / `.log` (82 bản ghi + r01 kênh 4, hai chế độ đèn, 13/09/2026 23:13, 3 luồng — hộp đầu trang), `demo_check_showcase.json` (5 bản minh hoạ — bảng ở `docs/HUONG_DAN_DEMO_v1.md` mục 6; chế độ trình bày đọc F1 và tỉ lệ bám mẹ của 4 thẻ từ tệp này), `demo_check.json` / `.log` (lần chạy 15 bản ghi mẫu cũ, 4 luồng — nguồn số thời gian ở mục 2), `smoke_app.json`. |
 | `screenshots/` | 12 ảnh PNG theo kịch bản 5 bản minh hoạ + `screenshots.json` (mục 6). Bộ ảnh cũ (6 ảnh, mô hình 5 ca, PSD) đã chuyển sang `archive/demo_screenshots_v1/`. |
 | `_uploads/` | thư mục tạm cho file tải lên (tự tạo, tự xoá khi tải file mới). |
 
 **Thời gian xử lý** hiển thị trên thẻ = tiền xử lý + khử mẹ của kênh được chọn + mô hình + chọn đỉnh
 (không tính đọc file và vẽ); CPU 4 luồng (`torch.set_num_threads(4)`). Bản ghi 300 s: ≈ 0,57–0,76 s;
 bản ghi 60 s: ≈ 0,12–0,16 s (lần chạy sạch cuối, `results/demo_check.json`). Toàn bộ chu trình kể cả đọc EDF và dựng hình r01: ≈ 1,8–2,1 s (`results/smoke_app.json`).
-Chế độ đèn *học* tốn thêm ≈ 11–23 ms mỗi đoạn 4 s (trung vị 15 ms; cột `gate_ms` trong `results/demo_check_2modes.json`, 2 luồng, máy bận),
-tức ≈ 1–1,7 s cho bản ghi 300 s — hiển thị riêng cạnh điểm đèn, không tính vào thẻ thời gian xử lý.
+Chế độ đèn *học* tốn thêm ≈ 8–40 ms mỗi đoạn 4 s (trung vị 12,7 ms trên 83 hàng; `gate_ms / n_seg` trong
+`results/demo_check_2modes.json → rows.*.confidence.components`, 3 luồng, 13/09, máy bận). Bản r01 (300 s, 75 đoạn): 1.041 ms
+trong `results/demo_check_showcase.json` (2 luồng, 12/09) và 2.963 ms trong `demo_check_2modes.json` — hiển thị riêng cạnh
+điểm đèn, không tính vào thẻ thời gian xử lý. *(Sửa 17/09: bản trước ghi "11–23 ms, trung vị 15 ms, 2 luồng, ≈ 1–1,7 s", không
+mở lại được từ tệp hiện có vì `demo_check_2modes.json` đã bị ghi đè bằng lần chạy 13/09.)*
 
 ## 3. Quy trình trong demo (những gì người xem thấy trên tab *Tín hiệu*)
 
@@ -78,7 +88,7 @@ Demo có hai chế độ, chọn trên giao diện (ô *Đèn tin cậy*) hoặc
 
 | Chế độ | Cách tính | Nguồn / bằng chứng |
 |---|---|---|
-| **`hoc` (mặc định)** | Mỗi đoạn 4 s: 12 chỉ số cổ điển (SampEn, kurtosis, entropy phổ, tỉ số năng lượng 10–60 Hz, CV RR, tỉ lệ RR hợp lý, bSQI, số đỉnh, đỉnh PSD dải thai, τ ACF, xác suất trung bình tại đỉnh, xác suất cực đại) → HistGradientBoosting → `p_bad` = P(F1 đoạn < 80). Đoạn **xanh** nếu `p_bad` < 0,052, **đỏ** nếu > 0,540 (phân vị 85 % / 95 % của xác suất *ngoài fold* trên ADFECGDB), còn lại vàng. Bản ghi: > 30 % đoạn đỏ ⇒ **thấp**; > 70 % đoạn xanh ⇒ **cao**; còn lại **trung bình**; điểm = 1 − TB `p_bad`. | `fsqi/gate.py` + `fsqi/gate_classical.pkl`, huấn luyện bởi `fsqi/train_gate.py` trên 1 500 đoạn ADFECGDB (checkpoint fold; 71 đoạn xấu = 4,7 %). AUROC đoạn: ADFECGDB ngoài fold 0,90 (TB 4 fold), CinC zero-shot 0,93 (`fsqi/gate_meta.json`). Không có đặc trưng tô-pô (kết quả phủ định, `fsqi/results.json`). |
+| **`hoc` (mặc định)** | Mỗi đoạn 4 s: 12 chỉ số (SampEn, kurtosis, entropy phổ, tỉ số năng lượng 10–60 Hz, CV RR, tỉ lệ RR hợp lý, bSQI, số đỉnh, đỉnh PSD dải thai, τ ACF, xác suất trung bình tại đỉnh, xác suất cực đại). **Không độc lập với mạng:** hai chỉ số cuối là xác suất đầu ra của mạng; CV RR, tỉ lệ RR hợp lý, bSQI, số đỉnh tính trên nhịp do mạng tìm ra; chỉ số quan trọng nhất là CV RR (ΔAUROC hoán vị 0,140, kế đến xác suất trung bình tại đỉnh 0,032 — `analysis/gate22_results.json → cong.permutation_importance_delta_auroc`) → HistGradientBoosting → `p_bad` = P(F1 đoạn < 80). Đoạn **xanh** nếu `p_bad` < 0,052, **đỏ** nếu > 0,540 (phân vị 85 % / 95 % của xác suất *ngoài fold* trên ADFECGDB), còn lại vàng. Bản ghi: > 30 % đoạn đỏ ⇒ **thấp**; > 70 % đoạn xanh ⇒ **cao**; còn lại **trung bình**; điểm = 1 − TB `p_bad`. | `fsqi/gate.py` + `fsqi/gate_classical.pkl`, huấn luyện bởi `fsqi/train_gate.py` trên 1 500 đoạn ADFECGDB (checkpoint fold; 71 đoạn xấu = 4,7 %). AUROC đoạn: ADFECGDB ngoài fold 0,90 (TB 4 fold), CinC zero-shot gộp 0,93 (`fsqi/gate_meta.json`) — số gộp này tính trên a01–a10, mẫu có 4 bản nhiễm (a03 a04 a05 a08); AUROC **trong bản ghi** của cổng này là 0,721 [0,517; 0,898], trung bình 5 bản có cả đoạn tốt lẫn xấu (`analysis/STATS.md` §4). Con số 0,934 là của cổng 22 ca trong `analysis/GATE22.md`, **chưa chạy trong demo**. Không có đặc trưng tô-pô (kết quả phủ định, `fsqi/results.json`). |
 | `luat` | Quy tắc cứng 4 thành phần + ngưỡng đặt tay (bảng dưới), phiên bản đầu của demo | `core.CONF_RULE` |
 | `ca_hai` | Tính cả hai; `out['confidence_by_mode'][chế_độ]`, `out['confidence']` = học | dùng bởi `run_check.py` |
 
@@ -98,7 +108,14 @@ mô hình bám phần dư QRS mẹ ở ~125 bpm mà bốn thành phần của lu
 
 Mức: `score ≥ 0,75` và (iv) đúng ⇒ **cao**; `≥ 0,45` ⇒ **trung bình**; còn lại hoặc < 10 nhịp hoặc (v) ⇒ **thấp**.
 
-### 4.1 Kết quả trên 32 bản ghi có nhãn (`results/demo_check_2modes.json` / `.log`)
+### 4.1 Kết quả trên 32 bản ghi có nhãn — LƯU TRỮ (lần chạy 12/09, tệp nguồn đã bị ghi đè)
+
+> **⚠ Bảng lưu trữ, không mở lại được từ đĩa.** Bảng dưới đây lấy từ lần chạy 32 bản ngày 12/09. Tệp ghi trong tiêu đề cũ,
+> `results/demo_check_2modes.json` / `.log`, nay là lần chạy 83 lần phân tích ngày 13/09 (23:13, `torch_threads` 3), nên các
+> số trong bảng **không** truy được về tệp đó: ví dụ bảng ghi a02 F1 21,75 và a09 16,96, còn tệp hiện hành và chế độ trình
+> bày dùng a02 24,91 và a09 94,25 (quy tắc `peakprob`). **a03 a04 a05 a08 là bản sao dữ liệu huấn luyện ADFECGDB**, không phải
+> ngoài miền: F1 100 ở các hàng đó không phải kết quả "production, zero-shot". Số hiện hành: xem hộp cập nhật đầu tệp.
+> Mô tả dưới đây giữ nguyên văn để truy vết.
 
 `python demo/run_check.py --mode ca_hai --threads 2` — chọn kênh tự động (PSD), nhãn chỉ dùng để chấm F1 *sau* khi phân tích; 2,3 phút.
 32 bản ghi = **5 ADFECGDB** (checkpoint fold rXX, 300 s, nhãn da đầu) + **10 CinC 2013 set-a** (production, zero-shot, 60 s)
@@ -194,7 +211,7 @@ phải hiệu chuẩn lại trên dữ liệu khác rồi chạy lại `run_chec
 
 ## 5. Kịch bản demo 3 phút
 
-Kịch bản đầy đủ 8–10 phút với 5 bản minh hoạ (r01, a09, B2_03, a02, a27) ở `docs/HUONG_DAN_DEMO.md`; con số dưới đây
+Kịch bản 5 phút theo 4 thẻ ở `docs/HUONG_DAN_DEMO_v2.md`; kịch bản đầy đủ 8–10 phút với 5 bản minh hoạ (r01, a09, B2_03, a02, a27) ở `docs/HUONG_DAN_DEMO_v1.md`; con số dưới đây
 lấy từ `results/demo_check_showcase.json` (mô hình 22 ca, peakprob, 2 luồng).
 
 | Phút | Thao tác | Điều cần nói |
@@ -202,14 +219,14 @@ lấy từ `results/demo_check_showcase.json` (mô hình 22 ca, peakprob, 2 lu�
 | 0:00–0:30 | Mở `python demo/app.py`; trang tự phân tích **r01**. Chỉ vào 4 thẻ số. | Một kênh bụng, 300 s, 645 nhịp thai, fHR 129 bpm; checkpoint fold 22 ca **chưa từng thấy** r01. Đèn xanh, chế độ học 0,999 (luật 0,861). Thẻ *Thời gian xử lý* hiện hai số: kênh đã chọn ≈ 0,4 s và cả 4 kênh ≈ 2 s (chi phí thật của peakprob). |
 | 0:30–1:30 | Tab **Tín hiệu (5 tầng)**: kéo chuột phóng to 2–3 giây; chỉ vạch đỏ (mẹ) ở tầng 2, phần dư tầng 3, xác suất tầng 4, TP ở tầng 5. | QRS mẹ lớn gấp ~3 lần QRS thai; sau khử mẹ mô hình chỉ còn nhìn phần dư; ngưỡng cố định từ validation, không chỉnh theo bản ghi. |
 | 1:30–2:00 | Tab **So sánh với nhãn**. | Se/PPV/F1 = 100,00 / 99,84 / 99,92 với dung sai ±50 ms; jitter 1,47 ms. |
-| 2:00–2:30 | Chọn **a09 — CinC sạch** → *Phân tích*; tab **Chọn kênh — cả 4 kênh**. | Zero-shot. peakprob chọn kênh 1 (F1 94,25); kênh 2 — kênh PSD sẽ chọn — chỉ 19,35. Đổi *Kênh bụng* sang *PSD* để thấy đèn đỏ. Nói rõ: peakprob là quy tắc hậu kiểm, +7,73 trên 60 bản sạch là giả thuyết chưa nhân rộng. |
+| 2:00–2:30 | Chọn **a09 — CinC sạch** → *Phân tích*; tab **Chọn kênh — cả 4 kênh**. | Zero-shot. peakprob chọn kênh 1 (F1 94,25); kênh 2 — kênh PSD sẽ chọn — chỉ 19,35. Đổi *Kênh bụng* sang *PSD* để thấy đèn đỏ. Nói rõ: peakprob là quy tắc hậu kiểm, +7,73 trên 60 bản sạch là giả thuyết chưa nhân rộng; báo đủ — PSD 74,28, gate 80,72 (quy tắc kế hoạch chọn trước khi chạy, trượt Holm p 0,051), gate4 81,01 (cũng ghi trước khi chạy, p_Holm 0,015), peakprob 82,01 (hậu kiểm, p_Holm 0,0039), trần oracle 83,60. |
 | 2:30–3:00 | Chọn **a02 — CinC sạch** → *Phân tích*. Kết bằng dòng miễn trừ. | Đèn **đỏ** ở cả hai chế độ: 78 % nhịp "thai" trùng đỉnh R mẹ → mô hình bám mẹ (F1 24,91). Hệ thống phải nói "tôi không chắc". *Bản mẫu nghiên cứu, không dùng cho chẩn đoán.* |
 
 Không dùng a03/a04/a05/a08 (và 11 bản khác) làm ví dụ zero-shot: chúng là bản sao ADFECGDB (`core.CINC_LEAK`), giao diện gắn cờ ⚠ RÒ RỈ.
 
 ## 6. Ảnh chụp màn hình (`screenshots/`, playwright 1.62.0 + Chromium, 1500 px × 1,5)
 
-12 ảnh theo đúng kịch bản 5 bản minh hoạ (`docs/HUONG_DAN_DEMO.md` mục 5), chụp bằng `python demo/screenshot.py`
+12 ảnh theo đúng kịch bản 5 bản minh hoạ (`docs/HUONG_DAN_DEMO_v1.md` mục 5), chụp bằng `python demo/screenshot.py`
 (server tạm ở cổng 7862, 2 luồng CPU). `screenshots.json` ghi thời gian thật từ lúc bấm *Phân tích* đến khi thẻ số đổi.
 
 | Tệp | Nội dung |
@@ -224,7 +241,7 @@ Không dùng a03/a04/a05/a08 (và 11 bản khác) làm ví dụ zero-shot: chún
 | `08_B2_03_the_so.png` | B2_03: đèn ĐỎ chế độ học (luật: xanh — sai) |
 | `09_a02_the_so.png` | a02: đèn ĐỎ, bám nhịp mẹ 78 % |
 | `10_a02_fhr.png` | a02: tab fHR |
-| `11_a27_the_so.png` | a27: đèn ĐỎ, gần như không có tín hiệu thai |
+| `11_a27_the_so.png` | a27: đèn ĐỎ, cả bốn dây đều kém (F1 từng dây 21,26–32,94) |
 | `12_tong_hop.png` | tab *Kết quả tổng hợp (60 bản sạch)* |
 
 ![r01 — tổng quan](screenshots/01_r01_tong_quan.png)
@@ -236,7 +253,7 @@ Chụp lại: `pip install playwright && python -m playwright install chromium &
 ## 7. Kiểm thử
 
 ```bash
-python -m pytest demo/test_core.py -v     # 17 kiểm thử lõi (≈ 50 s với 2 luồng; cần dữ liệu mẫu)
+python -m pytest demo/test_core.py -v     # kiểm thử lõi (≈ 50 s với 2 luồng đo khi còn 17 kiểm thử; số kiểm thử đã tăng; cần dữ liệu mẫu)
 python demo/smoke_app.py                  # server + gọi thẳng + gradio_client -> results/smoke_app.json
 python demo/run_check.py --mode ca_hai --threads 2   # 83 lần phân tích (82 bản ghi có nhãn + r01 kênh 4), hai chế độ đèn -> results/demo_check_2modes.json / .log (≈ 3 phút)
 python demo/run_check.py --only r01,a09,B2_03,a02,a27 --out demo_check_showcase --threads 2   # 5 bản minh hoạ
@@ -253,7 +270,7 @@ python demo/run_check.py --mode luat --no-silesia    # tái tạo 15 bản ghi m
   0 bản đỏ có F1 ≥ 95; chế độ luật 58 / 19 / 5 với 5 bản xanh F1 < 90. Tức là đèn **không** còn "0 lỗi nguy hiểm" như trên 32 bản cũ.
   Ngưỡng của chế độ học hiệu chuẩn trên mô hình 5 ca / ADFECGDB chuyển dạ, chưa hiệu chuẩn lại trên mô hình 22 ca hay thai kỳ;
   cổng 22 ca của `analysis/GATE22.md` chưa được xuất sang demo.
-* CinC 2013 là zero-shot với checkpoint production 22 ca: trên **60 bản sạch** F1 trung bình 74,28 (PSD) / 82,01 (peakprob), 16 → 9 bản
+* CinC 2013 là zero-shot với checkpoint production 22 ca: trên **60 bản sạch** F1 trung bình 74,28 (PSD) / 80,72 (gate, quy tắc kế hoạch chọn, trượt Holm) / 81,01 (gate4, cũng ghi trước khi chạy) / 82,01 (peakprob, hậu kiểm), trần oracle 83,60; 16 / 12 / 12 / 9 bản
   F1 < 50 (`analysis/dulieu_results.json` → `chon_kenh_60_sach`); demo cho thấy đúng thực trạng này, không che. Mọi số CinC trên
   mẫu 10 bản hay 75 bản đã rút (README gốc, mục *Retractions*).
 * Chỉ hỗ trợ bản ghi ≤ vài phút trong trình duyệt (Plotly WebGL, bản ghi 300 s ở 250 Hz vẽ mượt; thô 1000 Hz hiển thị 1/4 mẫu).
