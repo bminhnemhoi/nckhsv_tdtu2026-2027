@@ -1,0 +1,275 @@
+{
+  "model": "FetalQRS-TCN",
+  "input_window_s": 4.0,
+  "input_samples": 1000,
+  "total_parameters": 113041,
+  "total_macs": 112600000,
+  "total_macs_m": 112.6,
+  "gflops": 0.2252,
+  "memory": {
+    "flash_fp32_kb": 441.6,
+    "flash_int8_kb": 110.6,
+    "flash_savings_pct": 75.0,
+    "ram_arena_fp32_kb": 468.8,
+    "ram_arena_int8_kb": 117.2,
+    "ram_savings_pct": 75.0
+  },
+  "stm32h7": {
+    "mcu": "STM32H743ZI / STM32H753VI",
+    "core": "ARM Cortex-M7 @ 480 MHz",
+    "flash_available_kb": 2048,
+    "ram_available_kb": 1024,
+    "flash_usage_pct": 5.4,
+    "ram_usage_pct": 11.44,
+    "clock_cycles": 134706000,
+    "latency_ms": 280.64,
+    "rtf": 14.3,
+    "duty_cycle_pct": 7.02,
+    "deep_sleep_pct": 92.98
+  },
+  "esp32s3": {
+    "mcu": "ESP32-S3 (WROOM-1 / DevKit)",
+    "core": "Xtensa Dual-Core LX7 @ 240 MHz",
+    "flash_available_kb": 8192,
+    "ram_available_kb": 512,
+    "flash_usage_pct": 1.35,
+    "ram_usage_pct": 22.89,
+    "clock_cycles_1core": 157584000,
+    "latency_1core_ms": 656.6,
+    "rtf_1core": 6.1,
+    "latency_2core_ms": 364.78,
+    "rtf_2core": 11.0,
+    "duty_cycle_2core_pct": 9.12,
+    "deep_sleep_2core_pct": 90.88
+  },
+  "layers": [
+    {
+      "name": "Stem (Conv1D + GELU)",
+      "in_shape": [
+        1,
+        2,
+        1000
+      ],
+      "out_shape": [
+        1,
+        40,
+        1000
+      ],
+      "kernel": 7,
+      "dilation": 1,
+      "params": 600,
+      "macs": 560000,
+      "cycles_per_mac_m7": 0.85,
+      "cycles_per_mac_esp": 1.2
+    },
+    {
+      "name": "Block_1_ConvA (d=1)",
+      "in_shape": [
+        1,
+        40,
+        1000
+      ],
+      "out_shape": [
+        1,
+        40,
+        1000
+      ],
+      "kernel": 7,
+      "dilation": 1,
+      "params": 11240,
+      "macs": 11200000,
+      "cycles_per_mac_m7": 1.15,
+      "cycles_per_mac_esp": 1.35
+    },
+    {
+      "name": "Block_1_ConvB (d=1)",
+      "in_shape": [
+        1,
+        40,
+        1000
+      ],
+      "out_shape": [
+        1,
+        40,
+        1000
+      ],
+      "kernel": 7,
+      "dilation": 1,
+      "params": 11240,
+      "macs": 11200000,
+      "cycles_per_mac_m7": 1.15,
+      "cycles_per_mac_esp": 1.35
+    },
+    {
+      "name": "Block_2_ConvA (d=2)",
+      "in_shape": [
+        1,
+        40,
+        1000
+      ],
+      "out_shape": [
+        1,
+        40,
+        1000
+      ],
+      "kernel": 7,
+      "dilation": 2,
+      "params": 11240,
+      "macs": 11200000,
+      "cycles_per_mac_m7": 1.15,
+      "cycles_per_mac_esp": 1.35
+    },
+    {
+      "name": "Block_2_ConvB (d=2)",
+      "in_shape": [
+        1,
+        40,
+        1000
+      ],
+      "out_shape": [
+        1,
+        40,
+        1000
+      ],
+      "kernel": 7,
+      "dilation": 2,
+      "params": 11240,
+      "macs": 11200000,
+      "cycles_per_mac_m7": 1.15,
+      "cycles_per_mac_esp": 1.35
+    },
+    {
+      "name": "Block_3_ConvA (d=4)",
+      "in_shape": [
+        1,
+        40,
+        1000
+      ],
+      "out_shape": [
+        1,
+        40,
+        1000
+      ],
+      "kernel": 7,
+      "dilation": 4,
+      "params": 11240,
+      "macs": 11200000,
+      "cycles_per_mac_m7": 1.15,
+      "cycles_per_mac_esp": 1.35
+    },
+    {
+      "name": "Block_3_ConvB (d=4)",
+      "in_shape": [
+        1,
+        40,
+        1000
+      ],
+      "out_shape": [
+        1,
+        40,
+        1000
+      ],
+      "kernel": 7,
+      "dilation": 4,
+      "params": 11240,
+      "macs": 11200000,
+      "cycles_per_mac_m7": 1.15,
+      "cycles_per_mac_esp": 1.35
+    },
+    {
+      "name": "Block_4_ConvA (d=8)",
+      "in_shape": [
+        1,
+        40,
+        1000
+      ],
+      "out_shape": [
+        1,
+        40,
+        1000
+      ],
+      "kernel": 7,
+      "dilation": 8,
+      "params": 11240,
+      "macs": 11200000,
+      "cycles_per_mac_m7": 1.25,
+      "cycles_per_mac_esp": 1.45
+    },
+    {
+      "name": "Block_4_ConvB (d=8)",
+      "in_shape": [
+        1,
+        40,
+        1000
+      ],
+      "out_shape": [
+        1,
+        40,
+        1000
+      ],
+      "kernel": 7,
+      "dilation": 8,
+      "params": 11240,
+      "macs": 11200000,
+      "cycles_per_mac_m7": 1.25,
+      "cycles_per_mac_esp": 1.45
+    },
+    {
+      "name": "Block_5_ConvA (d=16)",
+      "in_shape": [
+        1,
+        40,
+        1000
+      ],
+      "out_shape": [
+        1,
+        40,
+        1000
+      ],
+      "kernel": 7,
+      "dilation": 16,
+      "params": 11240,
+      "macs": 11200000,
+      "cycles_per_mac_m7": 1.25,
+      "cycles_per_mac_esp": 1.45
+    },
+    {
+      "name": "Block_5_ConvB (d=16)",
+      "in_shape": [
+        1,
+        40,
+        1000
+      ],
+      "out_shape": [
+        1,
+        40,
+        1000
+      ],
+      "kernel": 7,
+      "dilation": 16,
+      "params": 11240,
+      "macs": 11200000,
+      "cycles_per_mac_m7": 1.25,
+      "cycles_per_mac_esp": 1.45
+    },
+    {
+      "name": "Head (Conv1D 1x1 + Sigmoid)",
+      "in_shape": [
+        1,
+        40,
+        1000
+      ],
+      "out_shape": [
+        1,
+        1,
+        1000
+      ],
+      "kernel": 1,
+      "dilation": 1,
+      "params": 41,
+      "macs": 40000,
+      "cycles_per_mac_m7": 0.5,
+      "cycles_per_mac_esp": 0.8
+    }
+  ]
+}

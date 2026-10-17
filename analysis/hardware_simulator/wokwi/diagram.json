@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "author": "NCKH TDTU 2026-2027",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp_patient",
+      "top": 20,
+      "left": -220,
+      "attrs": {}
+    },
+    {
+      "type": "board-esp32-s3-devkitc-1",
+      "id": "esp_ai",
+      "top": 20,
+      "left": 220,
+      "attrs": {}
+    },
+    {
+      "type": "board-ssd1306",
+      "id": "oled",
+      "top": -140,
+      "left": 250,
+      "attrs": { "i2cAddress": "0x3c" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_filter",
+      "top": 120,
+      "left": 10,
+      "attrs": { "value": "1000" }
+    },
+    {
+      "type": "wokwi-capacitor",
+      "id": "c_filter",
+      "top": 180,
+      "left": 80,
+      "attrs": { "value": "100n" }
+    }
+  ],
+  "connections": [
+    [ "esp_patient:GND.1", "esp_ai:GND.1", "black", [ "v40", "h440" ] ],
+    [ "esp_patient:25", "r_filter:1", "green", [ "v0" ] ],
+    [ "r_filter:2", "esp_ai:1", "green", [ "v0" ] ],
+    [ "r_filter:2", "c_filter:1", "green", [ "v20" ] ],
+    [ "c_filter:2", "esp_ai:GND.1", "black", [ "v20" ] ],
+    [ "esp_ai:3V3", "oled:VCC", "red", [ "v-30" ] ],
+    [ "esp_ai:GND.2", "oled:GND", "black", [ "v-30" ] ],
+    [ "esp_ai:8", "oled:SDA", "gold", [ "v-50" ] ],
+    [ "esp_ai:9", "oled:SCL", "blue", [ "v-60" ] ]
+  ]
+}
