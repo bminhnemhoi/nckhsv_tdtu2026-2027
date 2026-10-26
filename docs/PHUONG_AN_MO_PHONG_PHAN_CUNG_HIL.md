@@ -1,3 +1,5 @@
+> **HIỆN HÀNH 21/10/2026:** Báo cáo tuần cũ được giữ để truy vết; cấu hình và kết luận đã được rà soát lại trong [hồ sơ Rev C](HIL_RA_SOAT_VA_NGHIEM_THU.md). Dùng [BOM Rev C](HIL_DANH_MUC_MUA_HANG.md) để mua hàng. Các số mô phỏng/ước lượng bên dưới không phải đo trên bo thật.
+
 # BÁO CÁO TIẾN ĐỘ TUẦN: KIỂM THỬ GIẢ LẬP & TRIỂN KHAI PHẦN CỨNG
 **Dự án:** RelyFetal — Nhận diện nhịp tim thai đơn kênh có cổng từ chối an toàn  
 **Tuần thực hiện:** 21/09/2026 – 27/09/2026  
@@ -7,9 +9,9 @@
 
 ## 1. TÓM TẮT CÔNG VIỆC TRỌNG TÂM
 
-* **Giải quyết rào cản Y đức (IRB):** Không tự ý dán mạch tự chế lên thai phụ khi chưa có kiểm định an toàn điện; chuyển sang phương pháp kiểm chuẩn công nghiệp **Hardware-in-the-Loop (HIL)** dùng chip phát lại sóng thực tế.
-* **Kiểm thử mô phỏng thành công 100%:** Lập trình giả lập tín hiệu qua bộ chuyển đổi DAC 8-bit của vi điều khiển, chứng minh mô hình giữ nguyên độ chính xác (suy hao F1 đúng 0.0000%) và Cổng an toàn Đèn Đỏ kích hoạt chuẩn xác.
-* **Chốt cấu hình và sẵn sàng linh kiện:** Lập danh mục phần cứng giá sinh viên (~270.000 – 310.000 VNĐ), hoàn thành mã nguồn C header và firmware nạp chip.
+* **Phạm vi nghiên cứu:** Thử HIL trên bàn bằng dữ liệu phát lại; cấu hình này không có đầu vào điện cực hay cách ly để kết nối người.
+* **Kết quả mô phỏng số được báo cáo trước đây (chưa xác nhận HIL thật):** Mô phỏng lượng tử hóa DAC 8 bit được báo cáo không đổi F1 trong các ca đã chọn; chưa bao gồm DAC/RC/ADC thật, mất mẫu, nhiễu hoặc firmware nhúng.
+* **Chuẩn bị nguyên mẫu:** Đã có header và firmware minh họa 250 Hz. Firmware thu chưa chạy TCN/gate thật; xem các việc bắt buộc trong hồ sơ Rev C. Giá cũ không áp dụng BOM mới.
 
 ---
 
@@ -21,49 +23,34 @@ Nhóm đã cho tín hiệu điện tim bụng thực tế đi qua bộ lượng 
 | Bản ghi kiểm thử | Tiêu chí kỹ thuật | Tín hiệu gốc Float32 (Chuẩn Lab) | Qua mô phỏng DAC 8-bit | Đánh giá sai lệch |
 | :--- | :--- | :---: | :---: | :--- |
 | **Ca r01 (ADFECGDB)**<br>*(Chuẩn vàng da đầu thai)* | **Điểm F1-score** | **99.92%** | **99.92%** | **Suy hao: 0.0000%** (Bảo toàn nguyên vẹn) |
-| | **Sai số định thời (Jitter)**| **1.47 ms** | **1.27 ms** | Nằm sâu trong chuẩn cho phép (±50 ms) |
-| | **Số nhịp tim bắt được** | **644 / 645 nhịp** | **644 / 645 nhịp** | Bắt trúng 100% các chu kỳ nhịp thai |
+| | **Sai số định thời phát hiện QRS**| **1.47 ms** | **1.27 ms** | ±50 ms là dung sai ghép nhịp đánh giá, không phải chuẩn jitter phần cứng |
+| | **Số nhịp tim bắt được** | **644 / 645 nhịp** | **644 / 645 nhịp** | 644/645; không phải 100% |
 | | **Trạng thái Đèn tin cậy** | **CAO (Xanh)** | **CAO (Xanh)** | Nhận diện chính xác chất lượng cao |
 | **Ca a02 (CinC 2013)**<br>*(Ca bẫy bám nhịp mẹ)* | **Tỷ lệ bám nhịp mẹ** | **78.3%** | **78.3%** | Phát hiện bẫy nhịp mẹ vượt ngưỡng 60% |
-| | **Trạng thái Đèn tin cậy** | **THẤP (Đỏ)** | **THẤP (Đỏ)** | **Cổng an toàn tự động ngắt 100%** |
-| | **Xử lý an toàn lâm sàng** | Tự gạch bỏ số đo FHR | Tự gạch bỏ số đo FHR | Chống chẩn đoán nhầm thai suy cấp |
+| | **Trạng thái Đèn tin cậy** | **THẤP (Đỏ)** | **THẤP (Đỏ)** | **Trạng thái mô phỏng; chưa đo HIL** |
+| | **Hành vi từ chối dự kiến** | Tự gạch bỏ số đo FHR | Tự gạch bỏ số đo FHR | Không suy ra hiệu quả/an toàn lâm sàng từ mô phỏng |
 
-### 2.2. Đo lường tài nguyên vi điều khiển (Chuẩn STM32Cube.AI & ARM CMSIS-NN)
-Mô hình `FetalQRS-TCN` (113.481 tham số) sau khi xuất ra ONNX và lượng tử hóa INT8 đạt các thông số tài nguyên thực tế:
+### 2.2. Ước lượng tài nguyên vi điều khiển (không phải benchmark nhúng)
+Các số dưới đây xuất phát từ mô hình tính toán trong `analysis/profile_mcu_hardware.py`: số phép MAC, cycles/MAC giả định và arena ước lượng. Chưa có bằng chứng trong bộ firmware HIL hiện tại về xuất/triển khai INT8, STM32Cube.AI hoặc đo latency trên bo; không dùng bảng này làm kết quả thực nghiệm:
 
 | Thông số phần cứng | STM32H7 (Cortex-M7 @ 480MHz) | ESP32-S3 (Xtensa Dual-Core @ 240MHz) | Kết luận khả thi |
 | :--- | :---: | :---: | :--- |
 | **Dung lượng Flash ROM** | **110.6 KB** (Chiếm 5.4% / 2MB) | **110.6 KB** (Chiếm 1.35% / 8MB) | **Tiết kiệm 75% Flash** nhờ nén INT8 |
 | **Bộ nhớ RAM đệm (Arena)**| **117.2 KB** (Chiếm 11.4% / 1MB) | **117.2 KB** (Chiếm 22.9% / 512KB) | Vừa vặn RAM nội, chống tràn bộ nhớ |
 | **Thời gian chạy 4s tín hiệu**| **280.64 ms** | **364.78 ms** | **Nhanh hơn thời gian thực 11x – 14x** |
-| **Thời gian ngủ sâu (Sleep)**| **92.98% thời gian** | **90.88% thời gian** | **Pin duy trì liên tục nhiều tuần** |
+| **Thời gian ngủ sâu (Sleep)**| **92.98% thời gian** | **90.88% thời gian** | **Chưa đo công suất/thời lượng pin** |
 
 ---
 
 ## 3. KẾ HOẠCH TRIỂN KHAI CỤ THỂ TRÊN PHẦN CỨNG
 
-### 3.1. Danh mục linh kiện cần mua & Báo giá thực tế (Tháng 9/2026)
+### 3.1. Danh mục linh kiện hiện hành
 
-| STT | Tên linh kiện | Mã hiệu đề xuất | Vai trò trong hệ thống HIL | Đơn giá tham khảo |
-| :---: | :--- | :--- | :--- | :---: |
-| 1 | **Mạch phát bệnh nhân** | **ESP32 NodeMCU-32S** | Đóng vai trò thai phụ: phát lại tín hiệu bụng 250 Hz qua chân DAC GPIO25. | **68.000 – 78.000 VNĐ** |
-| 2 | **Mạch xử lý RelyFetal** | **ESP32-S3 DevKitC-1 N8R8** | Nhận tín hiệu, chạy AI INT8 (364 ms), xuất kết quả ra OLED/Web. | **125.000 – 145.000 VNĐ** |
-| 3 | **Màn hình hiển thị tại chỗ** | **OLED 0.96" I2C SSD1306** | Hiển thị nhịp tim thai (bpm) và đèn XANH/ĐỎ độc lập không cần laptop. | **55.000 – 65.000 VNĐ** |
-| 4 | **Dây nối & Cáp nguồn** | Dây Dupont Cái - Cái + Cáp USB | Nối 3 đường tín hiệu và cấp nguồn 5V từ cổng USB. | **20.000 – 25.000 VNĐ** |
-| | **TỔNG KINH PHÍ TRỌN BỘ:** | *(Gồm 2 mạch + màn hình OLED + dây cáp)* | | **~ 268.000 – 313.000 VNĐ** |
+Dùng [BOM Rev C](HIL_DANH_MUC_MUA_HANG.md): A1 ESP32-DevKitC-32E, A2 ESP32-S3-DevKitC-1-N8R8 v1.1, A3 DFR0486, R1=10k, R2=39k, C1/C2=100nF và R3/R4=4k7. Danh mục đã bao gồm dây, cáp, breadboard và yêu cầu dụng cụ đo; chưa có báo giá cả bộ xác nhận.
 
-### 3.2. Sơ đồ kết nối phần cứng (Chỉ cần 3 dây nối)
+### 3.2. Sơ đồ kết nối hiện hành
 
-```text
-[MẠCH 1: ESP32 PHÁT TÍN HIỆU]                 [MẠCH 2: ESP32-S3 XỬ LÝ AI]
-       (Giả lập bụng mẹ)                             (Thiết bị RelyFetal)
-   ┌───────────────────────┐                     ┌────────────────────────┐
-   │ Chân DAC: GPIO25      │ ────── Dây 1 ──────>│ Chân ADC: GPIO1        │
-   │ Chân Mass: GND        │ ────── Dây 2 ──────>│ Chân Mass chung: GND   │
-   │ Nút bấm chuyển ca:    │                     │ Chân OLED: SDA / SCL   │──> [OLED 0.96"]
-   │ Nút BOOT trên mạch    │                     │                        │
-   └───────────────────────┘                     └────────────────────────┘
-```
+Xem [bản vẽ Rev C](hil_revC/RF-HIL-001_RevC_schematic.pdf) và [bảng đấu nối](hil_revC/RF-HIL-001_RevC_connections.csv). Không dùng cấu hình nối trực tiếp GPIO25 sang GPIO1. Đây là mạch HIL mức điện áp vào ADC, không có đầu vào điện cực/AFE.
 
 ### 3.3. Các tệp mã nguồn nhúng đã chuẩn bị sẵn trong thư mục dự án
 * **Dữ liệu mẫu C Header:** `analysis/hardware_simulator/patient_sim_data.h` (Lưu sẵn 2.500 điểm mẫu chuẩn hóa của ca `r01` và `a02`).
@@ -71,11 +58,6 @@ Mô hình `FetalQRS-TCN` (113.481 tham số) sau khi xuất ra ONNX và lượng
 
 ---
 
-## 4. KẾ HOẠCH HÀNH ĐỘNG TUẦN TIẾP THEO
+## 4. KẾ HOẠCH HÀNH ĐỘNG HIỆN HÀNH
 
-| Ngày / Giai đoạn | Nội dung công việc cụ thể | Kết quả đầu ra dự kiến |
-| :--- | :--- | :--- |
-| **Ngày 1 – Ngày 2** | Đặt mua 2 bo mạch ESP32 và màn hình OLED trên Shopee/Hshop. | Nhận đủ linh kiện phần cứng theo danh mục. |
-| **Ngày 3** | Nạp firmware `esp32_patient_simulator.ino` vào Mạch 1; cắm nối 3 dây sang Mạch 2. | Mạch 1 phát sóng analog 250 Hz ổn định qua chân GPIO25. |
-| **Ngày 4** | Triển khai mô hình TCN INT8 lên Mạch 2, kết nối hiển thị màn hình OLED SSD1306. | Mạch 2 hiển thị nhịp tim thai và nhảy Đèn Đỏ khi bấm nút chuyển ca. |
-| **Ngày 5 – Ngày 6** | Ghép nối Mạch 2 gửi dữ liệu qua Serial/Bluetooth lên giao diện Web Live Monitor. | Hệ thống hoàn thiện 100%, sẵn sàng Live Demo trước Hội đồng. |
+Áp dụng các cổng G0-G5 trong [kế hoạch nghiệm thu Rev C](HIL_RA_SOAT_VA_NGHIEM_THU.md#4-kế-hoạch-hil-sửa-lại-theo-cổng-nghiệm-thu): chốt linh kiện → đo điện tĩnh → thu/phát có log → đối chiếu dạng sóng → pipeline thật → chạy dài. Không cam kết hoàn thành HIL AI trong 5-6 ngày trước khi vượt các cổng này. Các kết quả F1/gate cần đánh giá lại trên ADC thu thật, cùng dữ liệu và nhãn, không dùng chữ trên OLED làm bằng chứng.

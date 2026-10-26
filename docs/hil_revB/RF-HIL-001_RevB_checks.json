@@ -1,0 +1,248 @@
+{
+  "document": "RF-HIL-001",
+  "revision": "B",
+  "check_type": "custom connectivity and analytical electrical checks; NOT ECAD ERC or certification",
+  "status": "PASS_UNDER_STATED_ASSUMPTIONS",
+  "passed_checks": 24,
+  "checks": [
+    {
+      "name": "net-DAC_OUT-connected",
+      "pass": true,
+      "evidence": [
+        "A1:GPIO25",
+        "R1:1",
+        "TP1:1"
+      ]
+    },
+    {
+      "name": "net-GND-connected",
+      "pass": true,
+      "evidence": [
+        "A1:GND",
+        "A2:GND",
+        "A3:GND",
+        "R2:2",
+        "C1:2",
+        "C2:2",
+        "TP3:1",
+        "USB1:GND",
+        "USB2:GND"
+      ]
+    },
+    {
+      "name": "net-USB5_A1-connected",
+      "pass": true,
+      "evidence": [
+        "A1:USB_VBUS",
+        "USB1:VBUS"
+      ]
+    },
+    {
+      "name": "net-ADC_IN-connected",
+      "pass": true,
+      "evidence": [
+        "A2:GPIO1",
+        "R1:2",
+        "R2:1",
+        "C1:1",
+        "TP2:1"
+      ]
+    },
+    {
+      "name": "net-I2C_SDA-connected",
+      "pass": true,
+      "evidence": [
+        "A2:GPIO8",
+        "A3:SDA",
+        "R3:2"
+      ]
+    },
+    {
+      "name": "net-I2C_SCL-connected",
+      "pass": true,
+      "evidence": [
+        "A2:GPIO9",
+        "A3:SCL",
+        "R4:2"
+      ]
+    },
+    {
+      "name": "net-3V3_A2-connected",
+      "pass": true,
+      "evidence": [
+        "A2:3V3",
+        "A3:VCC",
+        "C2:1",
+        "R3:1",
+        "R4:1"
+      ]
+    },
+    {
+      "name": "net-USB5_A2-connected",
+      "pass": true,
+      "evidence": [
+        "A2:USB_VBUS",
+        "USB2:VBUS"
+      ]
+    },
+    {
+      "name": "unique-endpoints",
+      "pass": true,
+      "evidence": 32
+    },
+    {
+      "name": "DAC-to-R1",
+      "pass": true,
+      "evidence": [
+        "A1:GPIO25",
+        "R1:1",
+        "TP1:1"
+      ]
+    },
+    {
+      "name": "ADC-node",
+      "pass": true,
+      "evidence": [
+        "A2:GPIO1",
+        "R1:2",
+        "R2:1",
+        "C1:1",
+        "TP2:1"
+      ]
+    },
+    {
+      "name": "signal-GND",
+      "pass": true,
+      "evidence": [
+        "A1:GND",
+        "A2:GND",
+        "A3:GND",
+        "R2:2",
+        "C1:2",
+        "C2:2",
+        "TP3:1",
+        "USB1:GND",
+        "USB2:GND"
+      ]
+    },
+    {
+      "name": "OLED-supply-from-A2",
+      "pass": true,
+      "evidence": [
+        "A2:3V3",
+        "A3:VCC",
+        "C2:1",
+        "R3:1",
+        "R4:1"
+      ]
+    },
+    {
+      "name": "separate-USB-rails",
+      "pass": true,
+      "evidence": {
+        "first": [
+          "A1:USB_VBUS",
+          "USB1:VBUS"
+        ],
+        "second": [
+          "A2:USB_VBUS",
+          "USB2:VBUS"
+        ]
+      }
+    },
+    {
+      "name": "I2C-SDA",
+      "pass": true,
+      "evidence": [
+        "A2:GPIO8",
+        "A3:SDA",
+        "R3:2"
+      ]
+    },
+    {
+      "name": "I2C-SCL",
+      "pass": true,
+      "evidence": [
+        "A2:GPIO9",
+        "A3:SCL",
+        "R4:2"
+      ]
+    },
+    {
+      "name": "ADC-voltage-corner",
+      "pass": true,
+      "evidence": {
+        "maximum_volt": 2.8125222993062438,
+        "acceptance_volt": 2.85,
+        "calibration_guidance_upper_volt": 2.9,
+        "old_R2_56k_maximum_volt": 2.9830453879941436
+      }
+    },
+    {
+      "name": "I2C-rise-time",
+      "pass": true,
+      "evidence": {
+        "rise_time_s": 8.642460000000001e-7,
+        "limit_s": 0.000001,
+        "assumed_bus_capacitance_f": 2e-10
+      }
+    },
+    {
+      "name": "I2C-pullup-sink",
+      "pass": true,
+      "evidence": {
+        "current_ampere": 0.0027863636363636363,
+        "limit_ampere": 0.003,
+        "low_level_assumption_volt": 0.4
+      }
+    },
+    {
+      "name": "optional-resistors-explicit",
+      "pass": true,
+      "evidence": {
+        "ONBOARD_PULLUPS": "R3/R4 DNP; prove A3 existing pull-ups go to 3V3_A2 and meet electrical limits",
+        "EXTERNAL_PULLUPS": "Fit R3/R4 4k7 when A3 lacks suitable pull-ups; verify effective resistance and rise time"
+      }
+    },
+    {
+      "name": "Wokwi-R2-matches",
+      "pass": true,
+      "evidence": 39000
+    },
+    {
+      "name": "firmware-ADC-pin",
+      "pass": true,
+      "evidence": "GPIO1"
+    },
+    {
+      "name": "firmware-I2C-pins",
+      "pass": true,
+      "evidence": "GPIO8/GPIO9"
+    },
+    {
+      "name": "firmware-DAC-pin",
+      "pass": true,
+      "evidence": "GPIO25"
+    }
+  ],
+  "analog": {
+    "gain": 0.7959183673469388,
+    "nominal_peak_volt": 2.6265306122448977,
+    "corner_peak_volt": 2.8125222993062438,
+    "calibrated_upper_margin_volt": 0.08747770069375616,
+    "tau_s": 0.0007959183673469387,
+    "cutoff_hz": 199.963902859048,
+    "cutoff_range_hz_R5percent_C20percent": [
+      158.70151020559362,
+      263.1103984987474
+    ]
+  },
+  "open_items": [
+    "Physical module revisions and header ordinal pin mappings are not frozen.",
+    "A3 pull-up population, effective resistance, bus capacitance and rise time require measurement.",
+    "No full IEC clause audit, no KiCad/Altium ERC run, no bench measurements.",
+    "Firmware still 250 Hz demo; attenuation/calibration and gate thresholds require setup.",
+    "TCN real inference and full 1 kHz HIL are not established.",
+    "R2 39k procurement quotation and optional R3/R4 costs require confirmation."
+  ]
+}

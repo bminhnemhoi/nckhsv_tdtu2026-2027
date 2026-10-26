@@ -29,7 +29,14 @@
       "id": "r_filter",
       "top": 120,
       "left": 10,
-      "attrs": { "value": "1000" }
+      "attrs": { "value": "10000" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_shunt",
+      "top": 165,
+      "left": 95,
+      "attrs": { "value": "39000" }
     },
     {
       "type": "wokwi-capacitor",
@@ -43,6 +50,8 @@
     [ "esp_patient:GND.1", "esp_ai:GND.1", "black", [ "v40", "h440" ] ],
     [ "esp_patient:25", "r_filter:1", "green", [ "v0" ] ],
     [ "r_filter:2", "esp_ai:1", "green", [ "v0" ] ],
+    [ "r_filter:2", "r_shunt:1", "green", [ "v20" ] ],
+    [ "r_shunt:2", "esp_ai:GND.1", "black", [ "v20" ] ],
     [ "r_filter:2", "c_filter:1", "green", [ "v20" ] ],
     [ "c_filter:2", "esp_ai:GND.1", "black", [ "v20" ] ],
     [ "esp_ai:3V3", "oled:VCC", "red", [ "v-30" ] ],

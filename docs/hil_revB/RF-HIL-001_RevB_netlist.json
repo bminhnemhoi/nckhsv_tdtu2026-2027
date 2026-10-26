@@ -1,0 +1,197 @@
+{
+  "document": "RF-HIL-001",
+  "revision": "B",
+  "date": "2026-10-18",
+  "status": "PROTOTYPE_NOT_RELEASED",
+  "endpoint_naming": "module terminal labels, not header ordinal pin numbers",
+  "components": {
+    "A1": {
+      "kind": "assembly",
+      "model": "ESP32 DevKit V1 / ESP-WROOM-32",
+      "pins": {
+        "GPIO25": "DAC_OUT",
+        "GND": "GND",
+        "USB_VBUS": "USB5_A1"
+      }
+    },
+    "A2": {
+      "kind": "assembly",
+      "model": "TMe ESP32-S3 Dev / WROOM-1 N8R8",
+      "pins": {
+        "GPIO1": "ADC_IN",
+        "GPIO8": "I2C_SDA",
+        "GPIO9": "I2C_SCL",
+        "3V3": "3V3_A2",
+        "GND": "GND",
+        "USB_VBUS": "USB5_A2"
+      }
+    },
+    "A3": {
+      "kind": "assembly",
+      "model": "OLED SSD1306 128x64 I2C 3.3V, revision TBD",
+      "pins": {
+        "VCC": "3V3_A2",
+        "GND": "GND",
+        "SDA": "I2C_SDA",
+        "SCL": "I2C_SCL"
+      }
+    },
+    "R1": {
+      "kind": "resistor",
+      "value": 10000,
+      "tolerance": 0.05,
+      "power_watt": 0.25,
+      "pins": {
+        "1": "DAC_OUT",
+        "2": "ADC_IN"
+      }
+    },
+    "R2": {
+      "kind": "resistor",
+      "value": 39000,
+      "tolerance": 0.05,
+      "power_watt": 0.25,
+      "pins": {
+        "1": "ADC_IN",
+        "2": "GND"
+      }
+    },
+    "C1": {
+      "kind": "capacitor",
+      "value": 1e-7,
+      "required_tolerance_max": 0.2,
+      "voltage_rating": 50,
+      "pins": {
+        "1": "ADC_IN",
+        "2": "GND"
+      }
+    },
+    "C2": {
+      "kind": "capacitor",
+      "value": 1e-7,
+      "voltage_rating": 50,
+      "pins": {
+        "1": "3V3_A2",
+        "2": "GND"
+      }
+    },
+    "R3": {
+      "kind": "resistor",
+      "value": 4700,
+      "tolerance": 0.05,
+      "default_population": "DNP",
+      "pins": {
+        "1": "3V3_A2",
+        "2": "I2C_SDA"
+      }
+    },
+    "R4": {
+      "kind": "resistor",
+      "value": 4700,
+      "tolerance": 0.05,
+      "default_population": "DNP",
+      "pins": {
+        "1": "3V3_A2",
+        "2": "I2C_SCL"
+      }
+    },
+    "TP1": {
+      "kind": "test_node",
+      "pins": {
+        "1": "DAC_OUT"
+      }
+    },
+    "TP2": {
+      "kind": "test_node",
+      "pins": {
+        "1": "ADC_IN"
+      }
+    },
+    "TP3": {
+      "kind": "test_node",
+      "pins": {
+        "1": "GND"
+      }
+    },
+    "USB1": {
+      "kind": "external_supply_port",
+      "pins": {
+        "VBUS": "USB5_A1",
+        "GND": "GND"
+      }
+    },
+    "USB2": {
+      "kind": "external_supply_port",
+      "pins": {
+        "VBUS": "USB5_A2",
+        "GND": "GND"
+      }
+    }
+  },
+  "nets": {
+    "DAC_OUT": [
+      "A1:GPIO25",
+      "R1:1",
+      "TP1:1"
+    ],
+    "GND": [
+      "A1:GND",
+      "A2:GND",
+      "A3:GND",
+      "R2:2",
+      "C1:2",
+      "C2:2",
+      "TP3:1",
+      "USB1:GND",
+      "USB2:GND"
+    ],
+    "USB5_A1": [
+      "A1:USB_VBUS",
+      "USB1:VBUS"
+    ],
+    "ADC_IN": [
+      "A2:GPIO1",
+      "R1:2",
+      "R2:1",
+      "C1:1",
+      "TP2:1"
+    ],
+    "I2C_SDA": [
+      "A2:GPIO8",
+      "A3:SDA",
+      "R3:2"
+    ],
+    "I2C_SCL": [
+      "A2:GPIO9",
+      "A3:SCL",
+      "R4:2"
+    ],
+    "3V3_A2": [
+      "A2:3V3",
+      "A3:VCC",
+      "C2:1",
+      "R3:1",
+      "R4:1"
+    ],
+    "USB5_A2": [
+      "A2:USB_VBUS",
+      "USB2:VBUS"
+    ]
+  },
+  "assembly_options": {
+    "ONBOARD_PULLUPS": "R3/R4 DNP; prove A3 existing pull-ups go to 3V3_A2 and meet electrical limits",
+    "EXTERNAL_PULLUPS": "Fit R3/R4 4k7 when A3 lacks suitable pull-ups; verify effective resistance and rise time"
+  },
+  "limits": {
+    "dac_rail_min": 3.135,
+    "dac_rail_max": 3.465,
+    "a2_3v3_min": 3.135,
+    "a2_3v3_max": 3.465,
+    "adc_measurement_acceptance_max": 2.85,
+    "adc_guideline_calibrated_upper": 2.9,
+    "i2c_hz": 100000,
+    "bus_capacitance_assumption_f": 2e-10,
+    "effective_pullup_min_ohm": 1100,
+    "effective_pullup_max_ohm": 5100
+  }
+}

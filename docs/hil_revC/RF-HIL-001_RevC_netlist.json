@@ -1,0 +1,232 @@
+{
+  "document": "RF-HIL-001",
+  "revision": "C",
+  "date": "2026-10-21",
+  "status": "BENCH_PROTOTYPE_NOT_VERIFIED",
+  "endpoint_naming": "module terminal labels, not header ordinal pin numbers",
+  "components": {
+    "A1": {
+      "kind": "assembly",
+      "model": "Espressif ESP32-DevKitC-32E / DevKitC V4",
+      "pins": {
+        "GPIO25": "DAC_OUT",
+        "GND": "GND",
+        "USB_VBUS": "USB5_A1"
+      },
+      "header_map": {
+        "GPIO25": "J2.9",
+        "GND": "J2.14",
+        "USB_VBUS": "USB-to-UART Micro-B"
+      }
+    },
+    "A2": {
+      "kind": "assembly",
+      "model": "Espressif ESP32-S3-DevKitC-1-N8R8 v1.1",
+      "pins": {
+        "GPIO1": "ADC_IN",
+        "GPIO8": "I2C_SDA",
+        "GPIO9": "I2C_SCL",
+        "3V3": "3V3_A2",
+        "GND": "GND",
+        "USB_VBUS": "USB5_A2"
+      },
+      "header_map": {
+        "GPIO1": "J3.4",
+        "GPIO8": "J1.12",
+        "GPIO9": "J1.15",
+        "3V3": "J1.1",
+        "GND": "J1.22",
+        "USB_VBUS": "USB-to-UART Micro-B"
+      }
+    },
+    "A3": {
+      "kind": "assembly",
+      "model": "DFRobot DFR0486 / schematic V1.0",
+      "pins": {
+        "VCC": "3V3_A2",
+        "GND": "GND",
+        "SDA": "I2C_SDA",
+        "SCL": "I2C_SCL"
+      },
+      "header_map": {
+        "VCC": "P1.4",
+        "GND": "P1.3",
+        "SCL": "P1.2",
+        "SDA": "P1.1"
+      }
+    },
+    "R1": {
+      "kind": "resistor",
+      "value": 10000,
+      "tolerance": 0.05,
+      "power_watt": 0.25,
+      "pins": {
+        "1": "DAC_OUT",
+        "2": "ADC_IN"
+      },
+      "procurement_tolerance": 0.01,
+      "package": "axial through-hole"
+    },
+    "R2": {
+      "kind": "resistor",
+      "value": 39000,
+      "tolerance": 0.05,
+      "power_watt": 0.25,
+      "pins": {
+        "1": "ADC_IN",
+        "2": "GND"
+      },
+      "procurement_tolerance": 0.01,
+      "package": "axial through-hole"
+    },
+    "C1": {
+      "kind": "capacitor",
+      "value": 1e-07,
+      "required_tolerance_max": 0.2,
+      "voltage_rating": 50,
+      "pins": {
+        "1": "ADC_IN",
+        "2": "GND"
+      },
+      "procurement_tolerance": 0.1,
+      "package": "radial X7R through-hole"
+    },
+    "C2": {
+      "kind": "capacitor",
+      "value": 1e-07,
+      "voltage_rating": 50,
+      "pins": {
+        "1": "3V3_A2",
+        "2": "GND"
+      },
+      "procurement_tolerance": 0.1,
+      "required_tolerance_max": 0.2,
+      "package": "radial X7R through-hole"
+    },
+    "R3": {
+      "kind": "resistor",
+      "value": 4700,
+      "tolerance": 0.05,
+      "default_population": "FIT",
+      "pins": {
+        "1": "3V3_A2",
+        "2": "I2C_SDA"
+      },
+      "procurement_tolerance": 0.01,
+      "power_watt": 0.25,
+      "package": "axial through-hole"
+    },
+    "R4": {
+      "kind": "resistor",
+      "value": 4700,
+      "tolerance": 0.05,
+      "default_population": "FIT",
+      "pins": {
+        "1": "3V3_A2",
+        "2": "I2C_SCL"
+      },
+      "procurement_tolerance": 0.01,
+      "power_watt": 0.25,
+      "package": "axial through-hole"
+    },
+    "TP1": {
+      "kind": "test_node",
+      "pins": {
+        "1": "DAC_OUT"
+      }
+    },
+    "TP2": {
+      "kind": "test_node",
+      "pins": {
+        "1": "ADC_IN"
+      }
+    },
+    "TP3": {
+      "kind": "test_node",
+      "pins": {
+        "1": "GND"
+      }
+    },
+    "USB1": {
+      "kind": "external_supply_port",
+      "pins": {
+        "VBUS": "USB5_A1",
+        "GND": "GND"
+      }
+    },
+    "USB2": {
+      "kind": "external_supply_port",
+      "pins": {
+        "VBUS": "USB5_A2",
+        "GND": "GND"
+      }
+    }
+  },
+  "nets": {
+    "DAC_OUT": [
+      "A1:GPIO25",
+      "R1:1",
+      "TP1:1"
+    ],
+    "GND": [
+      "A1:GND",
+      "A2:GND",
+      "A3:GND",
+      "R2:2",
+      "C1:2",
+      "C2:2",
+      "TP3:1",
+      "USB1:GND",
+      "USB2:GND"
+    ],
+    "USB5_A1": [
+      "A1:USB_VBUS",
+      "USB1:VBUS"
+    ],
+    "ADC_IN": [
+      "A2:GPIO1",
+      "R1:2",
+      "R2:1",
+      "C1:1",
+      "TP2:1"
+    ],
+    "I2C_SDA": [
+      "A2:GPIO8",
+      "A3:SDA",
+      "R3:2"
+    ],
+    "I2C_SCL": [
+      "A2:GPIO9",
+      "A3:SCL",
+      "R4:2"
+    ],
+    "3V3_A2": [
+      "A2:3V3",
+      "A3:VCC",
+      "C2:1",
+      "R3:1",
+      "R4:1"
+    ],
+    "USB5_A2": [
+      "A2:USB_VBUS",
+      "USB2:VBUS"
+    ]
+  },
+  "assembly_options": {
+    "DFR0486_V1_0": "Fit R3/R4 on host side; module has onboard level shifters and pull-ups. Verify SDA/SCL electrically."
+  },
+  "limits": {
+    "dac_rail_min": 3.135,
+    "dac_rail_max": 3.465,
+    "a2_3v3_min": 3.135,
+    "a2_3v3_max": 3.465,
+    "adc_measurement_acceptance_max": 2.85,
+    "adc_guideline_calibrated_upper": 2.9,
+    "i2c_hz": 100000,
+    "bus_capacitance_assumption_f": 2e-10,
+    "effective_pullup_min_ohm": 1100,
+    "effective_pullup_max_ohm": 5100,
+    "power_sequence": "A2 on before A1; A1 off before A2; no hot-plug or powered-off receiver drive"
+  },
+  "physical_pin_note": "A3 P1 numbering follows schematic V1.0, not the wiki Num list; identify by silk and continuity."
+}

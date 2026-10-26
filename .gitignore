@@ -129,3 +129,7 @@ demo/assets/
 demo/_uploads/
 demo/_uploads_moi/
 demo/_uploads_test/
+
+# HIL slide edit and review build artifacts
+.hil*
+.pptx_review/
