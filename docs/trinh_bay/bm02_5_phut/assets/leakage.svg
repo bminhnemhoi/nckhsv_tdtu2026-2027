@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="240" viewBox="0 0 1160 240">
+  <style>
+    text{font-family:Arial,Helvetica,sans-serif;fill:#182630}
+    .lab{font-size:27px;font-weight:700}
+    .val{font-size:27px;font-weight:800}
+    .sub{font-size:23px;fill:#4b5c68}
+  </style>
+
+  <!-- Trái: kết quả bị thổi phồng khi không loại bản trùng -->
+  <rect x="0" y="0" width="540" height="240" fill="#fbeaec"/>
+  <text x="26" y="44" class="lab" fill="#8e2434">Nếu KHÔNG loại bản trùng</text>
+  <text x="26" y="96" style="font-size:24px">F1 trên 75 bản CinC</text>
+  <rect x="26" y="108" width="300" height="32" fill="#a8434f"/>
+  <text x="26" y="186" class="val" fill="#8e2434">cao giả 3,27 – 7,18 điểm</text>
+  <text x="26" y="220" class="sub">15 bản ghi y hệt 5 bản của ADFECGDB</text>
+  <text x="26" y="244" class="sub" visibility="hidden">.</text>
+
+  <!-- Mũi tên -->
+  <path d="M556 120 h26" stroke="#16232c" stroke-width="5" fill="none"/>
+  <path d="M582 120 l-14 -11 v22 z" fill="#16232c"/>
+
+  <!-- Phải: sau khi loại -->
+  <rect x="600" y="0" width="560" height="240" fill="#e6f2ec"/>
+  <text x="626" y="44" class="lab" fill="#1d6b4f">Sau khi loại 15 bản trùng</text>
+  <text x="626" y="96" style="font-size:24px">F1 trên 60 bản CinC sạch</text>
+  <rect x="626" y="108" width="168" height="32" fill="#3f8f6f"/>
+  <text x="626" y="186" class="val" fill="#1d6b4f">74,28% — con số thật</text>
+  <text x="626" y="220" class="sub">75 bản − 15 bản trùng = 60 bản</text>
+</svg>

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1152" height="372" viewBox="4 2 1152 372">
+  <style>
+    text{font-family:Arial,Helvetica,sans-serif;fill:#182630}
+    .lab{font-size:30px;font-weight:700}
+  </style>
+
+  <!-- Tim mẹ: biên độ lớn, chiếm phần chính -->
+  <g>
+    <text x="6" y="26" class="lab" fill="#b3384a">Điện tim MẸ — sóng lớn, chiếm phần chính</text>
+    <g stroke="#b3384a" stroke-width="2.6" fill="none" stroke-linejoin="round" stroke-linecap="round" opacity=".55">
+      <path d="M6 108 L70 108 L82 99 L90 112 L100 104 L112 108 L270 108 L282 99 L290 112 L300 104 L312 108 L470 108 L482 99 L490 112 L500 104 L512 108 L680 108 L692 99 L700 112 L710 104 L722 108 L880 108 L892 99 L900 112 L910 104 L922 108 L1100 108 L1112 99 L1120 112 L1130 104 L1140 108 L1154 108"/>
+    </g>
+    <g stroke="#b3384a" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M120 108 L142 108 L150 100 L158 124 L164 52 L172 148 L179 103 L186 96 L196 108 L214 108"/>
+      <path d="M320 108 L342 108 L350 100 L358 124 L364 52 L372 148 L379 103 L386 96 L396 108 L414 108"/>
+      <path d="M530 108 L552 108 L560 100 L568 124 L574 52 L582 148 L589 103 L596 96 L606 108 L624 108"/>
+      <path d="M730 108 L752 108 L760 100 L768 124 L774 52 L782 148 L789 103 L796 96 L806 108 L824 108"/>
+      <path d="M940 108 L962 108 L970 100 L978 124 L984 52 L992 148 L999 103 L1006 96 L1016 108 L1034 108"/>
+    </g>
+  </g>
+
+  <!-- Tim thai: nhỏ hơn nhiều lần -->
+  <g transform="translate(0,152)">
+    <text x="6" y="26" class="lab" fill="#0b6f8f">Điện tim THAI — nhỏ hơn nhiều lần, bị che lấp</text>
+    <g stroke="#0b6f8f" stroke-width="2.4" fill="none" stroke-linejoin="round" stroke-linecap="round" opacity=".5">
+      <path d="M6 76 L120 76 L126 71 L131 81 L136 76 L210 76 L224 70 L229 82 L234 44 L239 100 L244 72 L250 70 L256 76 L330 76 L344 70 L349 82 L354 44 L359 100 L364 72 L370 70 L376 76 L450 76 L464 70 L469 82 L474 44 L479 100 L484 72 L490 70 L496 76 L570 76 L584 70 L589 82 L594 44 L599 100 L604 72 L610 70 L616 76 L690 76 L704 70 L709 82 L714 44 L719 100 L724 72 L730 70 L736 76 L810 76 L824 70 L829 82 L834 44 L839 100 L844 72 L850 70 L856 76 L930 76 L944 70 L949 82 L954 44 L959 100 L964 72 L970 70 L976 76 L1050 76 L1064 70 L1069 82 L1074 44 L1079 100 L1084 72 L1090 70 L1096 76 L1154 76"/>
+    </g>
+    <g stroke="#0b6f8f" stroke-width="4.5" fill="none" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M224 76 L229 70 L234 44 L239 100 L244 72"/>
+      <path d="M344 76 L349 70 L354 44 L359 100 L364 72"/>
+      <path d="M464 76 L469 70 L474 44 L479 100 L484 72"/>
+      <path d="M584 76 L589 70 L594 44 L599 100 L604 72"/>
+      <path d="M704 76 L709 70 L714 44 L719 100 L724 72"/>
+      <path d="M824 76 L829 70 L834 44 L839 100 L844 72"/>
+      <path d="M944 76 L949 70 L954 44 L959 100 L964 72"/>
+      <path d="M1064 76 L1069 70 L1074 44 L1079 100 L1084 72"/>
+    </g>
+  </g>
+
+  <!-- Nhiễu -->
+  <g transform="translate(0,282)">
+    <text x="6" y="26" class="lab" fill="#61717d">Nhiễu cơ · cử động · điện lưới 50 Hz — luôn phủ lên cả hai</text>
+    <g stroke="#8f9ea9" stroke-width="2.4" fill="none">
+      <path d="M6 62 q13 -20 26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0 t26 0"/>
+    </g>
+  </g>
+</svg>

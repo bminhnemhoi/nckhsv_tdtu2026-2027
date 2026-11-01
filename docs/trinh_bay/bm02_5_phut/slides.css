@@ -1,0 +1,333 @@
+/* RelyFetal · BM02 — academic editorial deck.
+   Fixed 1280x720 projection canvas, white ground, TDTU logo, large type.
+   Design tokens: one ink, one accent (blue), two semantic colours (green/red). */
+:root{
+  --ink:#16232c; --accent:#00557f; --accent-soft:#e8f1f6;
+  --ok:#1d6b4f; --ok-soft:#e6f2ec;
+  --bad:#95293a; --bad-soft:#fbeaec;
+  --muted:#4b5c68; --rule:#cfdae1; --paper:#fff;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#2a343c;color:var(--ink);font-family:"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+
+.slide{width:1280px;height:720px;background:var(--paper);padding:26px 56px 20px;display:flex;flex-direction:column;margin:26px auto;position:relative;overflow:hidden}
+
+/* ---------- Chrome: logo, title, section kicker, page number ---------- */
+header{flex-shrink:0;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:28px;padding-bottom:14px;border-bottom:3px solid var(--ink)}
+header img{width:126px;height:76px;object-fit:contain;display:block}
+h1,h2{font-size:43px;line-height:1.1;letter-spacing:-1.2px;margin:0}
+.kicker{font-size:21px;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;color:var(--accent);margin:6px 0 0}
+.pageno{font-size:20px;font-weight:700;color:var(--muted);align-self:start;padding-top:6px}
+
+main{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:22px;padding:22px 0 6px}
+main.roomy,.slide main.roomy{justify-content:space-evenly;padding:10px 0 4px}
+main.roomy>svg,main.roomy>img{flex:1 1 auto;min-height:0}
+#s10 main.roomy{gap:6px;padding:0}
+#s10 .monitor-shot.hero img{max-height:232px}
+#s10 .monitor-shot.small img{max-height:150px}
+#s10 .monitor-shot figcaption{font-size:17px}
+#s10 .products>div{padding:7px 15px 9px}
+#s10 .products h3{font-size:20px;margin-bottom:3px}
+#s10 .products li{font-size:18px;line-height:1.18}
+#s2 main.roomy{gap:10px;padding:2px 0 0}
+p{font-size:28px;line-height:1.32;margin:0}
+h3{font-size:31px;line-height:1.15;margin:0}
+
+/* ---------- Cover ---------- */
+#s1 header{border-bottom:0;grid-template-columns:auto 1fr}
+#s1 .slide-title{font-size:50px;letter-spacing:-1.6px}
+.cover{display:flex;flex-direction:column;gap:22px;margin-top:6px}
+.cover-title{font-size:88px;line-height:1.06;font-weight:800;letter-spacing:-3px;color:var(--ink)}
+.cover-title em{font-style:normal;color:var(--accent)}
+.project{font-size:32px;line-height:1.3;max-width:1100px;color:var(--ink)}
+.cover-stats{display:flex;gap:14px;margin-top:2px}
+.cover-stats div{background:var(--accent-soft);padding:12px 20px;font-size:24px;line-height:1.15}
+.cover-stats b small{font-size:24px;font-weight:700}
+.cover-stats b{font-size:34px;color:var(--accent);display:block;letter-spacing:-1px}
+.cover-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;border-top:2px solid var(--rule);padding-top:18px;margin-top:auto}
+.cover-bottom p{font-size:25px;line-height:1.45}
+.caption{font-size:20px;line-height:1.3;color:var(--muted)}
+.cover-bottom .caption{text-align:right;font-size:21px}
+
+/* ---------- Generic blocks ---------- */
+.lede{font-size:30px;line-height:1.3;color:var(--ink)}
+.note{font-size:21px;line-height:1.32;color:var(--muted)}
+.definition{background:var(--accent-soft);padding:16px 22px}
+.definition p{font-size:24px;line-height:1.32}
+.definition b{color:var(--accent)}
+
+/* ---------- Slide 2: why + signal figure ---------- */
+.problem-points{display:grid;grid-template-columns:1fr 1fr;gap:44px}
+.problem-points h3{font-size:31px;margin-bottom:8px}
+.problem-points p{font-size:26px;line-height:1.3}
+.signal-figure{background:#f7f9fa;border-left:6px solid var(--accent);padding:10px 22px 12px;display:flex;flex-direction:column;justify-content:center}
+.signal-figure svg,.signal-figure img{width:100%;height:auto;display:block}
+.signal-figure .caption{font-size:21px;line-height:1.28;margin-top:6px}
+#s2 .signal-figure{flex:0 0 auto;justify-content:flex-start;padding:6px 20px 8px}
+#s2 .signal-figure img{width:100%;height:auto;max-height:252px;max-width:none;object-fit:contain;object-position:left top;margin-bottom:4px}
+#s2 .problem-points p{font-size:22px;line-height:1.24}
+#s2 .signal-figure .caption{font-size:19.5px;margin-top:0;line-height:1.24}
+#s2 .goal-chain.compact>div{padding:9px 16px;border-top-width:4px}
+#s2 .goal-chain.compact h3{font-size:21px;margin-bottom:2px}
+#s2 .goal-chain.compact p{font-size:18.5px;line-height:1.22}
+#s2 .note{font-size:19px;line-height:1.24}
+
+/* ---------- Slide 3: three questions ---------- */
+.questions{display:flex;flex-direction:column;gap:12px}
+.questions>div{display:grid;grid-template-columns:64px 300px 1fr;gap:26px;align-items:center;background:#f7f9fa;padding:16px 22px;border-left:6px solid var(--accent)}
+.qnum{font-size:38px;font-weight:800;color:var(--accent);line-height:1}
+.questions h3{font-size:29px;letter-spacing:-.3px}
+.questions p{font-size:25px;line-height:1.3}
+
+/* ---------- Slide 4: pilot result ---------- */
+.stat-band{display:grid;grid-template-columns:1.05fr 1.25fr 1fr;gap:0;background:var(--accent-soft);align-items:stretch}
+.stat-band>div{padding:18px 24px}
+.stat-band .hero{background:var(--accent);color:#fff}
+.stat-band .hero b{font-size:74px;line-height:1;letter-spacing:-4px;display:block}
+.stat-band .hero span{font-size:24px;line-height:1.3;display:block;margin-top:8px}
+.stat-band.two{grid-template-columns:1fr 1.05fr}
+.stat-band.two .hero b{font-size:80px}
+.stat-band b.plain{font-size:50px;line-height:1;letter-spacing:-2px;display:block;color:var(--accent)}
+.stat-band .plain-label{font-size:24px;line-height:1.32;display:block;margin-top:6px}
+.pctbar{height:26px;background:#fff;border:2px solid var(--accent);position:relative}
+.pctbar>span{position:absolute;inset:0;background:var(--accent)}
+.pilot-meta{font-size:23px;line-height:1.35}
+.pilot-meta b{color:var(--accent)}
+#s5 main{gap:18px}
+#s5 .stat-band>div{padding:15px 22px}
+#s5 .delta>div{padding:11px 19px}
+#s5 .delta b{font-size:34px}
+#s5 .delta p{font-size:21px;line-height:1.26}
+
+/* ---------- Slide 5: goal ---------- */
+.goal-chain{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+.goal-chain>div{background:#f7f9fa;padding:18px 22px;border-top:6px solid var(--accent)}
+.goal-chain h3{font-size:27px;margin-bottom:8px;color:var(--accent)}
+.goal-chain p{font-size:24px;line-height:1.3}
+.goal-chain.compact>div{padding:12px 18px;border-top-width:5px}
+.goal-chain.compact h3{font-size:23px;margin-bottom:4px}
+.goal-chain.compact p{font-size:20px;line-height:1.26}
+.goal-line{font-size:34px;font-weight:700;line-height:1.24;letter-spacing:-.6px}
+.goal-line em{font-style:normal;color:var(--accent)}
+/* ---------- Slide 3: data sources (three domains) + protocol ---------- */
+.data-three{display:grid;grid-template-columns:1.15fr 1.15fr 0.8fr;gap:18px}
+.data-three>div{padding:12px 18px;background:#f7f9fa;border-top:6px solid var(--accent)}
+.data-three .dom-out{background:var(--accent-soft)}
+.data-three .dom-noise{background:#f2f6f8;border-top-color:var(--muted)}
+.metric{font-size:56px;line-height:1.1;letter-spacing:-2.4px;font-weight:800;color:var(--accent);margin-bottom:2px}
+.data-three>div:last-child .metric{font-size:40px;letter-spacing:-1.6px;color:var(--ink)}
+.data-three h3{font-size:24px;margin-bottom:6px}
+.data-three p{font-size:20px;line-height:1.28;margin-bottom:4px}
+#s3 main.roomy{gap:14px}
+#s3 .split-fig img{max-height:196px;width:auto;max-width:100%;margin:0 auto}
+#s3 .protocol{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:32px}
+#s3 .protocol li{font-size:22px;line-height:1.28;margin-bottom:5px}
+#s3 .protocol h3{font-size:25px;margin-bottom:6px}
+#s3 .split-fig figcaption{font-size:19px}
+
+/* ---------- Slide 4: pipeline + training + evidence ---------- */
+.pipeline{display:flex;align-items:stretch;gap:8px}
+.pipeline .step{flex:1;background:var(--accent-soft);padding:11px 13px;display:flex;flex-direction:column;gap:5px}
+.pipeline .step b{font-size:24px;line-height:1.15;color:var(--accent)}
+.pipeline .step span{font-size:19px;line-height:1.24;color:var(--muted)}
+.pipeline .arrow{align-self:center;color:var(--accent);font-size:34px;font-weight:700;line-height:1;padding:0 2px}
+.train-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.train-strip>div{background:#f7f9fa;border-left:5px solid var(--ink);padding:10px 13px;display:flex;flex-direction:column;gap:4px}
+.train-strip b{font-size:20px;color:var(--ink);letter-spacing:.2px}
+.train-strip span{font-size:18.5px;line-height:1.24;color:var(--muted)}
+.train-strip span b{font-size:18.5px;color:var(--accent)}
+#s4 main.roomy{gap:16px}
+.evidence{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.evidence figure{margin:0}
+.evidence figcaption{font-size:23px;font-weight:700;margin-bottom:6px}
+.evidence img{width:100%;height:150px;object-fit:fill;display:block;background:#fff;border:1px solid var(--rule)}
+.evidence .caption{font-size:20px;margin-top:6px}
+.legend{display:flex;gap:22px;font-size:20px;color:var(--muted);align-items:center}
+.dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:middle}
+
+/* ---------- Slide 8: protocol ---------- */
+.protocol{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:40px;align-items:center}
+.protocol img{width:100%;height:auto;display:block}
+.split-fig{margin:0}
+.split-fig img{width:100%;height:auto;display:block}
+.split-fig figcaption{font-size:21px;line-height:1.3;color:var(--muted);margin-top:10px}
+.protocol h3{font-size:28px;margin-bottom:8px;color:var(--accent)}
+.protocol li{font-size:24px;line-height:1.3;margin-bottom:7px}
+.protocol li:last-child{margin-bottom:0}
+.protocol ul{margin:0;padding-left:26px}
+
+/* ---------- Slide 9: in-domain benchmark ---------- */
+.chart{display:flex;flex-direction:column;gap:18px}
+.chart .row{display:grid;grid-template-columns:330px 1fr 120px;align-items:center;gap:18px;font-size:27px}
+.chart .name{line-height:1.15}
+.chart .track{height:42px;background:#eef2f4;position:relative}
+.chart .fill{position:absolute;left:0;top:0;bottom:0;background:#9db7c6}
+.chart .fill.hi{background:var(--accent)}
+.chart .val{font-size:37px;font-weight:800;text-align:right;letter-spacing:-1.4px}
+.chart .row.hi .val{color:var(--accent)}
+.chart .row .name b{display:block;font-size:19px;color:var(--muted);font-weight:400;line-height:1.25}
+.chart-axis{display:flex;justify-content:space-between;font-size:19px;color:var(--muted);padding-left:348px;padding-right:138px;margin-top:-10px}
+.delta{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.delta>div{padding:14px 20px}
+.delta .up{background:var(--ok-soft);border-left:6px solid var(--ok)}
+.delta .down{background:var(--bad-soft);border-left:6px solid var(--bad)}
+.delta b{font-size:38px;letter-spacing:-1px;display:block;line-height:1.1}
+.delta .up b{color:var(--ok)}
+.delta .down b{color:var(--bad)}
+.delta p{font-size:22px;line-height:1.28;margin-top:4px}
+
+/* ---------- Slide 10: leakage ---------- */
+.leak-figure{width:100%;height:auto;display:block}
+.leak-body{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:stretch}
+.leak-body p{font-size:25px;line-height:1.32}
+.leak-body .big{font-size:26px;font-weight:700;line-height:1.3;padding:16px 20px;background:var(--accent-soft);display:flex;align-items:center}
+
+/* ---------- Slide 11: out-of-domain ---------- */
+.benchmark{width:100%;border-collapse:collapse;font-size:26px;line-height:1.24}
+.benchmark th{text-align:left;background:var(--ink);color:#fff;font-size:22px;font-weight:700;padding:14px 16px;vertical-align:bottom}
+.benchmark td{padding:18px 16px;background:#f7f9fa;vertical-align:middle}
+.benchmark tbody tr:nth-child(even) td{background:#fff}
+.benchmark tr.highlight td{background:var(--accent-soft);font-weight:700}
+.benchmark .num{font-size:31px;font-weight:800;text-align:right;letter-spacing:-.8px;white-space:nowrap}
+.benchmark .flag{font-size:20px;font-weight:700;padding:4px 10px;display:inline-block;line-height:1.25;white-space:nowrap}
+.flag.bad{background:var(--bad-soft);color:var(--bad)}
+.flag.ok{background:var(--ok-soft);color:var(--ok)}
+.flag.soft{background:#eef2f4;color:var(--muted)}
+.bench-cols{display:grid;grid-template-columns:1fr;gap:12px}
+
+/* ---------- Slide 12: reliability gate ---------- */
+.gate-figure{display:grid;grid-template-columns:1.45fr 1fr;gap:32px;align-items:stretch}
+.gate-figure figure{margin:0;display:flex;flex-direction:column}
+.gate-figure img{width:100%;height:216px;object-fit:fill;display:block;border:1px solid var(--rule)}
+.gate-figure figcaption{font-size:22px;line-height:1.3;margin-top:8px}
+.gate-out{display:flex;flex-direction:column}
+.gate-out>div{padding:16px 20px;margin-bottom:12px}
+.accept{background:var(--ok-soft);border-left:6px solid var(--ok)}
+.reject{background:var(--bad-soft);border-left:6px solid var(--bad)}
+.gate-out h3{margin-bottom:4px;font-size:27px}
+.gate-out p{font-size:23px;line-height:1.3}
+.gate-target{background:var(--accent-soft);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:0!important;flex:1}
+.gate-target b{font-size:32px;color:var(--accent)}
+.gate-target span{font-size:21px;line-height:1.3}
+
+/* ---------- Slide 13: embedded ---------- */
+.embedded{display:grid;grid-template-columns:1fr 430px;gap:44px;align-items:center}
+.embedded h3{font-size:29px;color:var(--accent);margin-bottom:10px}
+.embedded p{font-size:25px;line-height:1.3;margin-bottom:16px}
+.embedded svg{width:100%;height:auto;display:block}
+.targets{display:flex;flex-direction:column;gap:10px}
+.targets p{display:grid;grid-template-columns:132px 1fr;align-items:center;gap:12px;padding:12px 16px;background:var(--accent-soft);margin:0}
+.targets b{font-size:31px;color:var(--accent);letter-spacing:-.8px}
+.targets span{font-size:22px;line-height:1.25}
+
+/* ---------- Cover of contribution / application / plan ---------- */
+.section-open{display:flex;flex-direction:column;gap:16px;justify-content:center;height:100%}
+.section-lede{font-size:36px;line-height:1.25;font-weight:600;letter-spacing:-.6px}
+
+/* ---------- Contribution grid ---------- */
+.contrib{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:16px}
+.contrib>div{padding:16px 20px;border-left:6px solid var(--accent);background:#f7f9fa;display:flex;flex-direction:column;justify-content:center}
+.contrib h3{font-size:25px;color:var(--accent);margin-bottom:6px}
+.contrib p{font-size:22px;line-height:1.25}
+.contrib .kpi{font-size:32px;font-weight:800;color:var(--ink);letter-spacing:-1px;display:block;margin-bottom:4px}
+.contrib.three{grid-template-columns:repeat(3,1fr)}
+#s11 main.roomy{gap:11px}
+#s11 .contrib>div{padding:11px 17px}
+#s11 .contrib h3{font-size:22px;margin-bottom:4px}
+#s11 .contrib p{font-size:19.5px;line-height:1.22}
+#s11 .contrib .kpi{font-size:25px;margin-bottom:2px}
+#s11 .section-lede{font-size:31px}
+#s11 .note{font-size:19.5px;line-height:1.28}
+
+/* ---------- Application ---------- */
+.app-flow{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.app-flow>div{padding:14px 18px;background:var(--accent-soft)}
+.app-flow b{font-size:24px;color:var(--accent);display:block;margin-bottom:4px}
+.app-flow p{font-size:21px;line-height:1.28}
+.horizon{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.horizon>div{padding:16px 20px}
+.horizon .now{background:var(--ok-soft);border-left:6px solid var(--ok)}
+.horizon .next{background:var(--accent-soft);border-left:6px solid var(--accent)}
+.horizon h3{font-size:26px;margin-bottom:6px}
+.horizon p{font-size:23px;line-height:1.3}
+.horizon.compact>div{padding:11px 18px}
+.horizon.compact h3{font-size:22px;margin-bottom:3px}
+.horizon.compact p{font-size:20px;line-height:1.26}
+
+/* ---------- Plan ---------- */
+.timeline{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+.timeline>div{padding:13px 12px 11px;background:var(--accent-soft);position:relative}
+.timeline h3{font-size:22px;letter-spacing:-.4px;margin-bottom:6px}
+.timeline p{font-size:18.5px;line-height:1.24;margin-bottom:8px}
+.timeline span{font-size:18px;font-weight:700;color:var(--accent)}
+.budget{display:grid;grid-template-columns:260px 1fr;gap:34px;align-items:center;background:#f7f9fa;padding:14px 22px}
+.budget .total b{font-size:64px;line-height:1;color:var(--accent);letter-spacing:-3px;display:block}
+.budget .total p{font-size:22px;margin-top:4px}
+.budget .parts p{display:flex;justify-content:space-between;font-size:22px;padding:6px 0;border-bottom:1px solid var(--rule)}
+.budget .parts p b{font-size:24px}
+
+/* ---------- Products ---------- */
+/* ---------- Handoff: monitor screenshots + products ---------- */
+.handoff-main{gap:12px}
+.monitor-shot{margin:0;display:flex;flex-direction:column;gap:6px}
+.monitor-shot img{width:100%;height:auto;display:block;border-radius:9px;border:1px solid #1c202e}
+.monitor-shot.hero img{max-height:272px;min-height:0;width:auto;max-width:100%;margin:0 auto}
+.monitor-shot figcaption{font-size:18.5px;line-height:1.28;color:var(--ink)}
+.monitor-shot figcaption b{color:var(--accent)}
+
+.monitor-row{display:grid;grid-template-columns:minmax(0,0.86fr) minmax(0,1.14fr);gap:22px;align-items:start;margin-top:2px}
+.monitor-shot.small figcaption{font-size:17px;line-height:1.22}
+.monitor-shot.small img{max-height:186px;width:auto;max-width:100%}
+
+.products{display:flex;flex-direction:column;gap:12px;min-width:0}
+.products>div{padding:9px 16px 11px;border-left:6px solid var(--accent)}
+.products .have{background:var(--ok-soft);border-left-color:var(--ok)}
+.products .todo{background:#f7f9fa}
+.products h3{font-size:21px;margin-bottom:5px}
+.products .have h3{color:var(--ok)}
+.products .todo h3{color:var(--accent)}
+.products ul{margin:0;padding-left:20px}
+.products li{font-size:19px;line-height:1.2;margin-bottom:2px}
+.products li:last-child{margin-bottom:0}
+.products li b{color:var(--ink);font-weight:700}
+
+/* ---------- Final ---------- */
+.criteria{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.criteria>div{background:#f7f9fa;padding:16px 18px;border-top:6px solid var(--accent)}
+.criteria b{font-size:44px;letter-spacing:-2px;display:block;color:var(--accent);line-height:1}
+.criteria h3{font-size:23px;margin:10px 0 6px}
+.criteria p{font-size:20px;line-height:1.25}
+.criteria.compact>div{padding:11px 15px;border-top-width:5px}
+.criteria.compact b{font-size:34px}
+.criteria.compact h3{font-size:21px;margin:6px 0 3px}
+.criteria.compact p{font-size:18.5px;line-height:1.22}
+#s13 main.roomy{gap:16px}
+#s13 .questions>div{padding:12px 20px;grid-template-columns:58px 290px 1fr}
+#s13 .questions h3{font-size:26px}
+#s13 .questions p{font-size:22px;line-height:1.26}
+
+/* ---------- Recap (closing slide) ---------- */
+.recap{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.recap>div{background:#f7f9fa;border-left:6px solid var(--accent);padding:13px 17px}
+.recap b{font-size:31px;color:var(--accent);letter-spacing:-.8px;display:block;margin-bottom:4px}
+.recap span{font-size:20px;line-height:1.24;color:var(--ink);display:block}
+
+.final-message{font-size:38px;line-height:1.2;font-weight:800;letter-spacing:-1.2px;background:var(--ink);color:#fff;padding:22px 28px}
+.final-message em{font-style:normal;color:#8fc6e4}
+
+/* ---------- Present mode / print ---------- */
+nav{position:fixed;bottom:10px;right:10px;z-index:10;display:flex;gap:8px}
+button{font:700 18px Arial;padding:10px 16px;background:#fff;border:0;cursor:pointer;color:var(--ink)}
+button:focus-visible{outline:4px solid var(--accent)}
+body.present{overflow:hidden;height:100vh;display:grid;place-items:center}
+body.present .slide{display:none;margin:0}
+body.present .slide.active{display:flex;transform-origin:center}
+@page{size:1280px 720px;margin:0}
+@media print{
+  body{background:#fff}
+  .slide,body.present .slide{display:flex!important;transform:none!important;margin:0;break-after:page;break-inside:avoid}
+  .slide:last-of-type{break-after:auto}
+  nav{display:none}
+  *{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+}
+.stat-band.two .hero-sub{font-size:22px;line-height:1.3;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.35);color:#cfe4ef}

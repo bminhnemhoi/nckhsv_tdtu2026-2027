@@ -1,0 +1,347 @@
+<!doctype html><html lang="vi"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>RelyFetal · Đề cương NCKH 2026–2027</title><link rel="stylesheet" href="slides.css">
+<body>
+
+<!-- 1 · Cover -->
+<section class="slide" id="s1">
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><h2 class="slide-title">RelyFetal</h2></header>
+  <main>
+    <div class="cover">
+      <div class="cover-title">Một kênh đo.<br>Thêm <em>độ tin cậy</em>.</div>
+      <p class="project">Phát hiện phức bộ QRS thai nhi từ điện tim ổ bụng <b>đơn kênh</b>, có cơ chế <b>tự đánh giá độ tin cậy</b>, hướng tới triển khai trên thiết bị nhúng</p>
+      <div class="cover-stats">
+        <div><b>97,56%</b>F1 · 1 kênh đo</div>
+        <div><b>113<small> nghìn</small></b>tham số · 0,48 MB</div>
+        <div><b>8 tháng</b>10/2026 – 05/2027</div>
+      </div>
+      <div class="cover-bottom">
+        <div>
+          <p>Ngô Bình Minh · Lê Xuân Khánh · Ngô Lâm Tiến</p>
+          <p class="caption">GVHD: ThS. Võ Thị Kim Anh</p>
+        </div>
+        <p class="caption">NCKH sinh viên · Khoa CNTT<br>Năm học 2026–2027 · Đề cương BM02</p>
+      </div>
+    </div>
+  </main>
+  <footer><span class="pageno">1 / 14</span></footer>
+</section>
+
+<!-- 2 · Why + data -->
+<section class="slide" id="s2">
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Vì sao chọn đề tài?</h2><p class="kicker">Lý do · mục tiêu · dữ liệu</p></div><span class="pageno">2 / 14</span></header>
+  <main class="roomy">
+    <div class="problem-points">
+      <div>
+        <h3>Thiết bị đeo cần ít điện cực</h3>
+        <p>Monitor Doppler chỉ cho nhịp trung bình, không cho biết từng nhịp. Phương pháp chính xác nhất cần <b>4 kênh trở lên</b> — nhiều dây, khó thành miếng dán.</p>
+      </div>
+      <div>
+        <h3>Nhưng còn con số sai thì sao?</h3>
+        <p>Khi tiếp xúc kém hoặc mẹ cử động, mô hình <b>vẫn trả một con số</b> — con số đó có thể sai mà người dùng không biết.</p>
+      </div>
+    </div>
+    <div class="signal-figure">
+      <img src="assets/signal-mix.svg" alt="Minh họa một kênh điện tim ổ bụng chứa điện tim mẹ lớn, điện tim thai nhỏ và nhiễu">
+      <p class="caption">Trong <b>một</b> kênh ghi có cả tim mẹ, tim thai và nhiễu — càng ít kênh thì việc tách tín hiệu thai càng khó.</p>
+    </div>
+    <div class="goal-chain compact">
+      <div><h3>Độ chính xác</h3><p>F1 ≥ 97% trên 22 sản phụ, ổn định qua 3 hạt giống.</p></div>
+      <div><h3>Độ tin cậy</h3><p>Cổng từ chối trả lời đạt AUROC ≥ 0,85.</p></div>
+      <div><h3>Triển khai</h3><p>INT8 &lt; 200 KB, F1 giảm ≤ 1 điểm, đoạn 4 giây chạy &lt; 4 giây.</p></div>
+    </div>
+    <p class="note">Dữ liệu trình bày ở slide sau; nhóm <b>không</b> thu thập dữ liệu và không thử nghiệm trên sản phụ.</p>
+  </main>
+</section>
+
+<!-- 3 · Data + protocol -->
+<section class="slide" id="s3">
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Dữ liệu và cách chia không rò rỉ</h2><p class="kicker">Nguồn dữ liệu · giao thức chốt trước</p></div><span class="pageno">3 / 14</span></header>
+  <main class="roomy">
+    <div class="data-three">
+      <div class="dom-in">
+        <div class="metric">22</div>
+        <h3>sản phụ — trong miền</h3>
+        <p><b>ADFECGDB</b> (PhysioNet) + <b>Silesia</b>, đã loại bản trùng.</p>
+        <p>← <b>Huấn luyện và kiểm tra</b>.</p>
+      </div>
+      <div class="dom-out">
+        <div class="metric">60</div>
+        <h3>bản — ngoài miền</h3>
+        <p><b>CinC 2013</b>: 75 bản − 15 bản trùng.</p>
+        <p>← <b>Chỉ kiểm tra</b>.</p>
+      </div>
+      <div class="dom-noise">
+        <div class="metric">MIT-BIH</div>
+        <h3>thử nhiễu</h3>
+        <p>Tất cả hạ về <b>250 Hz</b>.</p>
+      </div>
+    </div>
+    <div class="protocol">
+      <figure class="split-fig"><img src="assets/data-split.png" alt="Sơ đồ chia dữ liệu: mỗi lượt 20 sản phụ huấn luyện, 2 sản phụ kiểm tra, lặp lại 11 lượt"><figcaption>11 lượt × 2 sản phụ: mỗi người vừa làm dữ liệu huấn luyện, vừa có lượt là người được kiểm tra.</figcaption></figure>
+      <div>
+        <h3>Bốn điều cố định trước khi chạy</h3>
+        <ul>
+          <li>Chia theo sản phụ, <b>11 lượt</b> — không người nào ở cả hai tập.</li>
+          <li>Dung sai ghép nhịp <b>±50 ms</b>.</li>
+          <li>KTC 95% bootstrap theo cụm.</li>
+          <li>Wilcoxon có dấu hạng, hiệu chỉnh Holm.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note">Dữ liệu có nhãn còn ít (22 sản phụ, cùng một hệ thống ghi tại Ba Lan) nên kết luận luôn đi kèm khoảng tin cậy.</p>
+  </main>
+</section>
+
+<!-- 4 · Pipeline + training -->
+<section class="slide" id="s4">
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Từ tín hiệu đến từng nhịp thai</h2><p class="kicker">Phương pháp · cách huấn luyện</p></div><span class="pageno">4 / 14</span></header>
+  <main class="roomy">
+    <div class="pipeline">
+      <div class="step"><b>1 · Lọc</b><span>Butterworth 10–60 Hz pha không + chặn 50 Hz</span></div>
+      <div class="arrow">›</div>
+      <div class="step"><b>2 · Khử tim mẹ</b><span>Đỉnh R mẹ → mẫu sóng trung vị → trừ, chỉnh biên độ bình phương tối thiểu</span></div>
+      <div class="arrow">›</div>
+      <div class="step"><b>3 · Chọn kênh</b><span>7 quy tắc (phổ công suất, độ đều RR, độ tự tin), không nhìn nhãn</span></div>
+      <div class="arrow">›</div>
+      <div class="step"><b>4 · Mạng TCN</b><span>5 khối dư, giãn 1–16, tiếp nhận ~1,5 s, 113 nghìn tham số</span></div>
+      <div class="arrow">›</div>
+      <div class="step"><b>5 · Cổng tin cậy</b><span>12 chỉ số cho mỗi đoạn 4 giây</span></div>
+    </div>
+    <div class="train-strip">
+      <div><b>Đầu vào</b><span>Đoạn 4 giây, 1 kênh</span></div>
+      <div><b>Nhãn</b><span>Hàm Gauss σ = 12 ms quanh mỗi nhịp thai</span></div>
+      <div><b>Hàm mất mát</b><span>Entropy chéo nhị phân có trọng số + tăng cường dữ liệu</span></div>
+      <div><b>Tối ưu</b><span>AdamW · <b>3 hạt giống</b> để báo cáo độ dao động</span></div>
+      <div><b>Lấy nhịp</b><span>Đỉnh đường xác suất, cách nhau ≥ 250 ms</span></div>
+    </div>
+    <div class="evidence">
+      <figure>
+        <figcaption>Đầu ra: xác suất có nhịp thai tại từng mẫu</figcaption>
+        <img src="assets/model-probability.png" alt="Đồ thị xác suất đầu ra thật của mạng TCN trên bản ghi a09">
+        <p class="caption">Đỉnh vượt ngưỡng → đó là một nhịp thai.</p>
+      </figure>
+      <figure>
+        <figcaption>Đối chiếu nhịp phát hiện với nhãn tham chiếu</figcaption>
+        <img src="assets/model-beats.png" alt="Tín hiệu và vị trí nhịp thai tham chiếu của bản ghi a09">
+        <p class="legend"><span><i class="dot" style="background:#22a06b"></i>khớp nhịp thật</span><span><i class="dot" style="background:#d64545"></i>lệch</span><span>Ví dụ demo a09</span></p>
+      </figure>
+    </div>
+  </main>
+</section>
+
+<!-- 5 · Pilot result -->
+<section class="slide" id="s5">
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Bước đầu đã chạy thật: tháng 9/2026</h2><p class="kicker">Kết quả thử nghiệm khả thi</p></div><span class="pageno">5 / 14</span></header>
+  <main class="roomy">
+    <div class="stat-band two">
+      <div class="hero"><b>97,56%</b><span>F1 trung bình · 22 sản phụ · chỉ dùng <b>1 kênh</b></span><p class="hero-sub">113 nghìn tham số · 0,48 MB</p></div>
+      <div>
+        <p class="plain-label"><b class="plain">89,5%</b>phần chênh lệch mà 4 kênh mang lại, mô hình 1 kênh lấy lại được</p>
+        <div class="pctbar" style="margin-top:12px"><span style="width:89.5%"></span></div>
+        <p class="pilot-meta" style="margin-top:12px"><b>Đối chứng cùng điều kiện:</b> Power-MF 4 kênh 98,83% · Power-MF 1 kênh 86,71%.</p>
+      </div>
+    </div>
+    <div class="delta">
+      <div class="up"><b>+10,85 điểm</b><p>so với Power-MF một kênh · KTC [6,80; 15,40] · 22/22 sản phụ thắng</p></div>
+      <div class="down"><b>−1,27 điểm</b><p>so với Power-MF bốn kênh · KTC [−3,08; +0,27] · chưa chứng minh tương đương</p></div>
+    </div>
+    <p class="note">Chia theo sản phụ, dung sai ±50 ms. Power-MF một kênh là biến thể nhóm tạo từ mã nguồn gốc.</p>
+  </main>
+</section>
+
+<!-- 6 · Leakage -->
+<section class="slide" id="s6">
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>15 bản ghi trùng làm điểm cao giả</h2><p class="kicker">Kiểm tra trùng lặp dữ liệu</p></div><span class="pageno">6 / 14</span></header>
+  <main class="roomy">
+    <img class="leak-figure" src="assets/leakage.svg" alt="So sánh kết quả khi không loại và sau khi loại 15 bản ghi trùng: F1 cao 3,27 đến 7,18 điểm so với 74,28 phần trăm thật">
+    <div class="leak-body">
+      <p><b>Đo bằng hai tín hiệu:</b> hệ số tương quan chéo chuẩn hóa trên từng kênh (NCC = 1,0000) và độ lệch khoảng RR (0 ms). 15 bản CinC trùng nguyên văn với 5 bản ADFECGDB.</p>
+      <p class="big">Ban tổ chức CinC đã ghi nhận trùng lặp này. Nhóm định lượng mức ảnh hưởng và loại bỏ — trước khi báo cáo bất kỳ kết quả ngoài miền nào.</p>
+    </div>
+  </main>
+</section>
+
+<!-- 7 · Out-of-domain -->
+<section class="slide" id="s7">
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Đổi máy ghi: còn 74–82%</h2><p class="kicker">Trả lời câu hỏi 1 · kiểm tra ngoài miền</p></div><span class="pageno">7 / 14</span></header>
+  <main class="roomy">
+    <p class="goal-line">Huấn luyện trên 22 sản phụ, <em>kiểm tra trên 60 bản của bệnh viện khác</em>: điểm tụt xuống — đây là mức trung thực, không phải mức cao nhất.</p>
+    <table class="benchmark">
+      <thead><tr><th style="width:40%">Phương pháp / quy tắc chọn kênh</th><th style="width:12%">F1 (%)</th><th style="width:20%">Trạng thái</th><th>Cách đọc</th></tr></thead>
+      <tbody>
+        <tr><td>Power-MF một kênh</td><td class="num">55,97</td><td><span class="flag soft">Đối chứng</span></td><td>Nhóm chạy lại</td></tr>
+        <tr class="highlight"><td>RelyFetal · phổ công suất (PSD)</td><td class="num">74,28</td><td><span class="flag ok">Cơ sở</span></td><td>Chưa đạt ≥ 80%</td></tr>
+        <tr><td>RelyFetal · quy tắc gate</td><td class="num">80,72</td><td><span class="flag bad">Chưa đạt</span></td><td>Holm p = 0,051</td></tr>
+        <tr><td>RelyFetal · peakprob</td><td class="num">82,01</td><td><span class="flag bad">Chọn sau</span></td><td>Chọn hậu kiểm</td></tr>
+      </tbody>
+    </table>
+    <p class="note">Quy tắc cố định <b>trước</b> khi kiểm tra. Cần một tập dữ liệu thứ ba để xác nhận — đây là việc tháng 12/2026.</p>
+  </main>
+</section>
+
+<!-- 8 · Reliability gate -->
+<section class="slide" id="s8">
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Tự biết khi nào nên báo “tín hiệu kém”</h2><p class="kicker">Cơ chế tự đánh giá độ tin cậy</p></div><span class="pageno">8 / 14</span></header>
+  <main class="roomy">
+    <div class="gate-figure">
+      <figure>
+        <img src="assets/reliability-case.png" alt="Ca khó a02: đường nhịp dự đoán lệch nhãn tham chiếu, có đoạn bị từ chối">
+        <figcaption><b>Ví dụ khó · a02:</b> nhịp dự đoán lệch nhãn tham chiếu → các đoạn đỏ bị cổng từ chối. <span style="color:#4b5c68">Nét xanh: dự đoán · nét đen: tham chiếu · nền đỏ: bị từ chối.</span></figcaption>
+      </figure>
+      <div class="gate-out">
+        <div class="accept"><h3>Đủ tin cậy</h3><p>Hiển thị nhịp tim thai.</p></div>
+        <div class="reject"><h3>Tín hiệu kém</h3><p>Không hiển thị số — báo người dùng kiểm tra lại điện cực.</p></div>
+        <div class="gate-target"><span><b>12</b> chỉ số / đoạn 4 giây:<br>6 từ tín hiệu, 6 từ đầu ra mô hình</span><span><b>AUROC</b><br>mục tiêu ≥ 0,85</span></div>
+      </div>
+    </div>
+    <p class="note">Bộ phân loại tăng cường gradient, kiểm tra chéo bỏ-ra-từng-sản-phụ, đọc bằng đường cong rủi ro – độ phủ. Demo hiện có cổng và cổng nghiên cứu khác nhau; trạng thái xanh chưa bảo đảm kết quả đúng — đó là phần cần nghiệm thu trong năm học.</p>
+  </main>
+</section>
+
+<!-- 9 · Embedded -->
+<section class="slide" id="s9">
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Hướng tới ESP32-S3</h2><p class="kicker">Nén mô hình và triển khai</p></div><span class="pageno">9 / 14</span></header>
+  <main class="roomy">
+    <div class="embedded">
+      <div>
+        <h3>Ba việc sẽ làm</h3>
+        <p>Lượng tử hóa INT8 sau huấn luyện; nếu F1 giảm quá 1 điểm thì chuyển sang huấn luyện có xét lượng tử hóa.</p>
+        <p>Viết lại lọc và khử điện tim mẹ bằng C; chạy bằng TensorFlow Lite Micro hoặc ESP-DL.</p>
+        <p>Phát lại tín hiệu từ cơ sở dữ liệu vào bo, đo thời gian, RAM, dòng tiêu thụ (INA219) và hiển thị lên OLED.</p>
+      </div>
+      <div>
+        <img src="assets/embedded.svg" alt="Sơ đồ khái niệm phát lại dữ liệu vào ESP32-S3, mô hình INT8, đo tốc độ, RAM và điện năng" style="width:100%;height:auto;margin-bottom:14px">
+        <div class="targets">
+          <p><b>&lt; 200 KB</b><span>Kích thước mô hình INT8 (ước tính &lt; 150 KB)</span></p>
+          <p><b>≤ 1 điểm</b><span>Mức giảm F1 cho phép</span></p>
+          <p><b>&lt; 4 giây</b><span>Xử lý đoạn 4 giây</span></p>
+        </div>
+      </div>
+    </div>
+    <p class="note">Sơ đồ là kế hoạch thử nghiệm, không phải thiết bị đã đo. Bo mạch dùng trong đề tài có giá khoảng 200 nghìn đồng.</p>
+  </main>
+</section>
+
+<!-- 10 · Products -->
+<section class="slide" id="s10">
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Sản phẩm bàn giao</h2><p class="kicker">Đã có · sẽ hoàn thiện</p></div><span class="pageno">10 / 14</span></header>
+  <main class="roomy handoff-main">
+    <figure class="monitor-shot hero">
+      <img src="assets/monitor-r01.png" alt="Màn hình theo dõi RelyFetal trên nền đen: nhịp tim thai 129 bpm, đèn xanh, đường điện tâm đồ thai màu đỏ với các đỉnh nhịp được đánh dấu">
+      <figcaption><b>Màn hình theo dõi thật</b> · bản ghi r01: sóng thai màu đỏ, đèn xanh, 129 bpm · F1 <b>99,92%</b> (một ca) · 291 ms.</figcaption>
+    </figure>
+    <div class="monitor-row">
+      <figure class="monitor-shot small">
+        <img src="assets/monitor-b203.png" alt="Ca chuyển dạ khó B2_03: đèn đỏ, hệ thống từ chối số đo 160 bpm">
+        <figcaption>Ca khó B2_03: đèn <b style="color:#e0503f">đỏ</b>, hệ thống <b>từ chối</b> không đưa số ra.</figcaption>
+      </figure>
+      <div class="products">
+        <div class="have">
+          <h3>Đã có từ giai đoạn khả thi</h3>
+          <ul>
+            <li>Mô hình TCN, tiền xử lý, bộ chấm điểm</li>
+            <li>Web demo, API REST, bộ kiểm thử tự động</li>
+            <li>Màn hình theo dõi và bảng đối chứng Power-MF</li>
+          </ul>
+        </div>
+        <div class="todo">
+          <h3>Hoàn thiện trong 2026–2027</h3>
+          <ul>
+            <li>Mô hình <b>INT8 &lt; 200 KB</b> (bản đầy đủ và bản INT8) + cổng đã nghiệm thu</li>
+            <li><b>Kịch bản chạy lại toàn bộ bảng kết quả</b></li>
+            <li>Nguyên mẫu <b>ESP32-S3</b>, bảng đo thời gian/RAM/điện năng</li>
+            <li>Bài báo và báo cáo nghiệm thu</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+</section>
+
+<!-- 11 · Contributions + significance -->
+<section class="slide" id="s11">
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Đóng góp và ý nghĩa thực tế</h2><p class="kicker">Khoa học · kỹ thuật · kinh tế – xã hội</p></div><span class="pageno">11 / 14</span></header>
+  <main class="roomy">
+    <p class="section-lede">Lợi ích lớn nhất không phải một con số cao hơn, mà là <em style="font-style:normal;color:#00557f">biết được khi nào con số đó đáng tin</em>.</p>
+    <div class="contrib">
+      <div><span class="kpi">89,5%</span><h3>Đo được cái giá của 1 kênh</h3><p>Trả lời “bỏ kênh thì mất bao nhiêu” — kèm khoảng tin cậy.</p></div>
+      <div><span class="kpi">15 bản</span><h3>Giao thức liêm chính</h3><p>Loại bản trùng, công khai bộ chấm điểm để nhóm sau so sánh công bằng.</p></div>
+      <div><span class="kpi">12 chỉ số</span><h3>Đo hiệu quả cơ chế từ chối</h3><p>Hệ thống nói rõ mức tin cậy của từng đoạn 4 giây.</p></div>
+      <div><span class="kpi">0,48 MB</span><h3>Gọn, hướng thiết bị đeo</h3><p>Một kênh thay vì bốn → mạch thu đơn giản, chạy được trên chip rẻ.</p></div>
+    </div>
+    <div class="horizon compact">
+      <div class="now"><h3>Dùng được ngay</h3><p>Web demo, API, mã nguồn cho học tập và giảng dạy.</p></div>
+      <div class="next"><h3>Hiệu quả dài hạn</h3><p>Theo dõi tại nhà, bớt lần đến viện, gánh nặng khoa sản giảm.</p></div>
+    </div>
+    <p class="note">Không tuyên bố phát minh TCN hay phát hiện đầu tiên về trùng lặp. Đề tài dừng ở mức nguyên mẫu — <b>không dùng để chẩn đoán</b>.</p>
+  </main>
+</section>
+
+<!-- 12 · Plan and budget -->
+<section class="slide" id="s12">
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Tiến độ 8 tháng và kinh phí</h2><p class="kicker">10/2026 – 05/2027</p></div><span class="pageno">12 / 14</span></header>
+  <main>
+    <div class="timeline">
+      <div><h3>10/2026</h3><p>Giao thức, dữ liệu sạch, danh sách bản trùng, tiền xử lý, chọn kênh</p><span>10%</span></div>
+      <div><h3>11/2026</h3><p>Huấn luyện TCN × 3 hạt giống; đối chứng Power-MF 1 và 4 kênh</p><span>25%</span></div>
+      <div><h3>12/2026</h3><p>Cổng 12 chỉ số; AUROC, rủi ro – độ phủ; ngoài miền có Holm</p><span>40%</span></div>
+      <div><h3>01–02/2027</h3><p>INT8, tiền xử lý bằng C, đo trên bo, OLED; bản thảo bài báo</p><span>55%</span></div>
+      <div><h3>03/2027</h3><p>Demo hoàn chỉnh, báo cáo tổng kết, poster</p><span>90%</span></div>
+      <div><h3>04/2027</h3><p>Nghiệm thu cấp khoa</p><span>100%</span></div>
+      <div><h3>05/2027</h3><p>Báo cáo cấp Trường, hồ sơ dự giải</p><span>—</span></div>
+    </div>
+    <div class="budget">
+      <div class="total"><b>2,95</b><p>triệu đồng · tổng dự toán<br>đề nghị nhà trường hỗ trợ</p></div>
+      <div class="parts">
+        <p><span>Thuê GPU đám mây — 100 giờ × 14.000 đ</span><b>1,40 triệu</b></p>
+        <p><span>Linh kiện — ESP32-S3, OLED, INA219, thẻ nhớ, pin</span><b>1,00 triệu</b></p>
+        <p><span>In ấn — poster A0, báo cáo, tài liệu</span><b>0,55 triệu</b></p>
+      </div>
+    </div>
+    <p class="note">Dự toán theo BM02 §10; là số liệu <b>đề xuất</b>, không phải chi phí đã phát sinh.</p>
+  </main>
+</section>
+
+<!-- 13 · Questions and criteria -->
+<section class="slide" id="s13">
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Ba câu hỏi và bốn tiêu chí hoàn thành</h2><p class="kicker">Mục đích · cam kết đo lường</p></div><span class="pageno">13 / 14</span></header>
+  <main class="roomy">
+    <div class="questions">
+      <div><span class="qnum">01</span><h3>Mất bao nhiêu độ chính xác?</h3><p>Mô hình một kênh lấy lại được bao nhiêu phần so với bốn kênh — và giữ được đến đâu khi đổi hệ thống ghi?</p></div>
+      <div><span class="qnum">02</span><h3>Tự biết khi nào không đáng tin?</h3><p>Cơ chế từ chối trả lời, không cần nhãn khi vận hành, nhận ra đoạn hệ thống nhiều khả năng phát hiện sai.</p></div>
+      <div><span class="qnum">03</span><h3>Chạy được trên vi điều khiển?</h3><p>Sau khi nén, mô hình có chạy thời gian thực với mức điện năng phù hợp thiết bị đeo?</p></div>
+    </div>
+    <div class="criteria compact">
+      <div><b>≥ 97%</b><h3>F1 trong miền</h3><p>22 sản phụ, 3 hạt giống.</p></div>
+      <div><b>≥ 80%</b><h3>F1 ngoài miền</h3><p>Quy tắc cố định trước, Holm.</p></div>
+      <div><b>≥ 0,85</b><h3>AUROC cổng</h3><p>Chéo theo sản phụ.</p></div>
+      <div><b>&lt; 200 KB</b><h3>INT8</h3><p>Giảm F1 ≤ 1 điểm, &lt; 4 giây.</p></div>
+    </div>
+  </main>
+</section>
+
+<!-- 14 · Closing -->
+<section class="slide" id="s14">
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Kết luận</h2><p class="kicker">Thông điệp của đề tài</p></div><span class="pageno">14 / 14</span></header>
+  <main class="roomy">
+    <div class="final-message">Một kênh đo. <em>Thêm độ tin cậy.</em><br><span style="font-size:26px;font-weight:600;letter-spacing:0">Độ chính xác chỉ có giá trị khi hệ thống biết lúc nào không nên trả lời.</span></div>
+    <div class="recap">
+      <div><b>1 kênh</b><span>thay vì 4 — lấy lại 89,5% khoảng cách</span></div>
+      <div><b>15 bản</b><span>trùng đã loại, điểm cao giả 3,27–7,18 điểm</span></div>
+      <div><b>12 chỉ số</b><span>để nói “tín hiệu kém” thay vì số sai</span></div>
+      <div><b>&lt; 200 KB</b><span>mục tiêu INT8 cho ESP32-S3</span></div>
+    </div>
+    <p class="note">Nguyên mẫu phục vụ nghiên cứu, không dùng để chẩn đoán. Em xin cảm ơn hội đồng đã lắng nghe và sẵn sàng nhận câu hỏi.</p>
+  </main>
+</section>
+
+<nav><button id="present">Trình chiếu</button><button id="full">Toàn màn hình</button></nav>
+<script>
+let index=0;const slides=[...document.querySelectorAll('.slide')];
+function show(){slides.forEach((s,i)=>s.classList.toggle('active',i===index));if(document.body.classList.contains('present')){const scale=Math.min(innerWidth/1280,innerHeight/720);slides[index].style.transform=`scale(${scale})`}}
+document.addEventListener('keydown',e=>{if(['ArrowRight','ArrowLeft','Home','End',' '].includes(e.key)){e.preventDefault();index=e.key==='Home'?0:e.key==='End'?slides.length-1:Math.max(0,Math.min(slides.length-1,index+((e.key==='ArrowRight'||e.key===' ')?1:-1)));show()}if(e.key==='Escape'){document.body.classList.remove('present');slides.forEach(s=>s.style.transform='')}});
+document.querySelector('#present').onclick=()=>{document.body.classList.toggle('present');slides.forEach(s=>s.style.transform='');show()};
+document.querySelector('#full').onclick=()=>document.documentElement.requestFullscreen();
+addEventListener('resize',show);
+if(location.search.includes('qa')){document.fonts.ready.then(()=>{const issues=[];document.querySelectorAll('main,header,main div,main p,main h3,main li,main table,main figcaption').forEach(e=>{if(e.scrollHeight>e.clientHeight+2||e.scrollWidth>e.clientWidth+2)issues.push(e.closest('.slide').id+': '+e.tagName+'.'+e.className+' '+e.scrollWidth+'/'+e.clientWidth+' '+e.scrollHeight+'/'+e.clientHeight)});document.querySelector('#present').click();document.dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowRight'}));const nextWorks=slides[1].classList.contains('active');document.dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowLeft'}));const previousWorks=slides[0].classList.contains('active');document.dispatchEvent(new KeyboardEvent('keydown',{key:'End'}));const endWorks=slides[slides.length-1].classList.contains('active');document.dispatchEvent(new KeyboardEvent('keydown',{key:'Home'}));const homeWorks=slides[0].classList.contains('active');document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape'}));const exitWorks=!document.body.classList.contains('present');const report=document.createElement('pre');report.id='qa-result';report.textContent=JSON.stringify({slides:slides.length,overflow:issues,navigation:{nextWorks,previousWorks,endWorks,homeWorks,exitWorks},missingImages:[...document.images].filter(i=>!i.complete||!i.naturalWidth).map(i=>i.src)});document.body.append(report)})}
+</script>
+</body></html>
