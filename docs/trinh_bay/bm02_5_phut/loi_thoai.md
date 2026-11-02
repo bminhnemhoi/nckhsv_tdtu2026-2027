@@ -1,4 +1,4 @@
-# Lời thoại thuyết trình — RelyFetal, BM02, 14 slide
+# Lời thoại thuyết trình — RelyFetal, BM02, 13 slide
 
 Đọc liền mạch từ trên xuống. Chữ **in đậm** là chỗ nhấn giọng. Phần *in nghiêng trong ngoặc* là ghi chú cho bạn, không đọc lên.
 
@@ -72,39 +72,27 @@ Hai hình dưới là **kết quả thật**: bên trái là đường xác su�
 
 Trong tháng 9, mô hình chỉ dùng **một kênh** đạt F1 trung bình **97,56%** trên **22 sản phụ**, kiểm tra không trùng người với tập huấn luyện, dung sai **±50 mili giây**.
 
-Cùng điều kiện đó, nhóm chạy lại Power-MF từ mã nguồn của tác giả: bản **bốn kênh** đạt **98,83%**, còn bản **một kênh** chỉ đạt **86,71%**. Nghĩa là mô hình của nhóm **lấy lại được khoảng 89,5%** phần chênh lệch mà bốn kênh mang lại.
+Mô hình chỉ **113 nghìn tham số**, tệp trọng số **0,48 megabyte** — đây là lý do nhóm em tin có thể đưa xuống một con chip rẻ.
 
-Mô hình chỉ **113 nghìn tham số**, tệp trọng số **0,48 megabyte**.
-
-Hai ô dưới là hai khoảng cách: so với bản một kênh của Power-MF, mô hình **hơn 10,85 điểm**, khoảng tin cậy từ 6,80 đến 15,40, và **thắng ở cả 22 trên 22 sản phụ**. So với bản bốn kênh thì còn **thấp hơn 1,27 điểm** — và nhóm em **không tuyên bố** là đã tương đương.
+Việc so sánh với phương pháp bốn kênh em xin để sang slide sau, vì đó là câu hỏi riêng.
 
 ---
 
-## Slide 6 — Trùng lặp dữ liệu
+## Slide 6 — So với phương pháp 4 kênh tốt nhất
 
-Slide này dành cho một cái bẫy mà nhóm phải xử lý **trước** khi báo cáo bất kỳ kết quả ngoài miền nào.
+Đây là slide nhóm em muốn thầy cô xem kỹ nhất, vì nó trả lời thẳng câu hỏi: **bỏ ba kênh thì mất bao nhiêu?**
 
-Tập set-a của CinC 2013 có **75 bản ghi**, nhưng có **15 bản trùng nguyên văn** với 5 bản thuộc ADFECGDB — tức là nằm trong dữ liệu huấn luyện của nhóm. Nhóm kiểm tra bằng hai tín hiệu độc lập: tương quan chéo chuẩn hóa **bằng 1,0000**, và **độ lệch khoảng RR bằng 0**.
+Chuẩn so sánh là **Power-MF** — phương pháp bốn kênh có mã nguồn công khai, nhóm em chạy lại được và chấm bằng **cùng một bộ chấm ±50 ms** trên **cùng 22 sản phụ**.
 
-Nếu để nguyên, F1 trên tập CinC sẽ **cao giả từ 3,27 đến 7,18 điểm**. Loại bỏ 15 bản đó, còn lại **60 bản sạch**, con số thật là **74,28%**.
+Kết quả: Power-MF bốn kênh đạt **98,83%**. RelyFetal một kênh đạt **97,56%**. Chênh **1,27 điểm**, khoảng tin cậy từ trừ 3,08 đến cộng 0,27 — tức là **chưa chứng minh được tương đương**, nhóm em không nói mạnh hơn thế.
 
-Em xin nói chính xác nguồn gốc: ban tổ chức CinC **đã ghi nhận** việc trùng lặp này từ trước. Nhóm em chỉ **định lượng mức ảnh hưởng** và loại bỏ, chứ **không nhận** là người phát hiện đầu tiên.
+Nhưng so với **chính phương pháp Power-MF khi chỉ có một kênh** thì khoảng cách rõ ràng: 86,71% so với 97,56%, chênh **10,85 điểm**, khoảng tin cậy [6,80; 15,40], và **cả 22 trên 22 sản phụ đều thắng**. Đây là con số chứng minh giá trị của hướng tiếp cận.
 
----
-
-## Slide 7 — Kết quả ngoài miền
-
-Đây là câu trả lời cho câu hỏi thứ nhất, ở phần khó nhất: khi sang một **bệnh viện khác, một máy ghi khác** thì mô hình còn đúng đến đâu.
-
-Theo dõi tim thai ở một chỗ là một chuyện; dùng được ở chỗ khác mới là chuyện của sản phẩm. Nên nhóm **huấn luyện trên 22 sản phụ** nhưng **kiểm tra trên 60 bản của CinC** — hoàn toàn chưa thấy khi huấn luyện.
-
-Bảng này có bốn dòng. Power-MF một kênh, chạy lại trên tập sạch, chỉ đạt **55,97%**. RelyFetal với quy tắc **phổ công suất** đạt **74,28%**. Với quy tắc **gate** thì lên **80,72%**, nhưng p-value sau Holm là **0,051**, tức là **chưa đạt**. Còn quy tắc **peakprob** đạt **82,01%**, nhưng quy tắc này được chọn **sau khi đã xem kết quả**, nên nhóm ghi rõ là chọn hậu kiểm.
-
-Điểm tụt xuống, và nhóm báo cáo **đúng mức đó** chứ không chọn con số cao nhất. Toàn bộ quy tắc được cố định **trước** khi kiểm tra. Điều còn thiếu là **một tập dữ liệu thứ ba** để xác nhận — đó là việc của tháng 12.
+Hai điều phải nói để không ai hiểu quá: một là Varanini 2014 công bố **97,04%** trên tập CinC — cao hơn nhóm em — nhưng bằng bộ chấm riêng, nhóm **chưa chạy lại được** nên không đưa vào bảng. Hai là tập CinC có **15 bản trùng** với dữ liệu huấn luyện; nếu để nguyên thì điểm sẽ **cao giả 3,27 đến 7,18 điểm**. Nhóm loại bỏ và báo cáo trên **60 bản sạch**. Việc trùng lặp này **ban tổ chức CinC đã ghi nhận** từ trước — nhóm chỉ định lượng mức ảnh hưởng, không nhận là người phát hiện đầu tiên.
 
 ---
 
-## Slide 8 — Cổng độ tin cậy
+## Slide 7 — Cổng độ tin cậy
 
 Đây là phần trả lời câu hỏi thứ hai, và theo nhóm em là phần **khác biệt nhất** so với các công trình đơn kênh đã công bố.
 
@@ -118,7 +106,7 @@ Em cũng xin nói rõ: đèn xanh của cổng **chưa bảo đảm** kết qu�
 
 ---
 
-## Slide 9 — Phần nhúng ESP32-S3
+## Slide 8 — Phần nhúng ESP32-S3
 
 Câu hỏi thứ ba là chạy trên phần cứng. Có **ba việc** sẽ làm.
 
@@ -134,7 +122,7 @@ Sơ đồ trên slide là **kế hoạch thử nghiệm**, **chưa phải thiế
 
 ---
 
-## Slide 10 — Sản phẩm bàn giao
+## Slide 9 — Sản phẩm bàn giao
 
 Đây là **màn hình theo dõi thật** của nhóm, chạy trên bản ghi r01.
 
@@ -146,7 +134,7 @@ Về bàn giao, nhóm **đã có** mã nguồn, mô hình, web demo, API, bộ k
 
 ---
 
-## Slide 11 — Đóng góp và ý nghĩa thực tế
+## Slide 10 — Đóng góp và ý nghĩa thực tế
 
 Lợi ích lớn nhất của đề tài **không phải** một con số cao hơn, mà là **biết được khi nào con số đó đáng tin**.
 
@@ -158,7 +146,7 @@ Ranh giới thì em xin nói rõ: đề tài dừng ở mức **thuật toán v�
 
 ---
 
-## Slide 12 — Tiến độ và kinh phí
+## Slide 11 — Tiến độ và kinh phí
 
 Lộ trình kéo dài **tám tháng**, từ tháng 10/2026 đến tháng 5/2027, chia thành các mốc có sản phẩm kiểm tra được.
 
@@ -170,7 +158,7 @@ Kinh phí đề nghị nhà trường hỗ trợ là **2,95 triệu đồng**: *
 
 ---
 
-## Slide 13 — Ba câu hỏi · ba mức độ đã trả lời được
+## Slide 12 — Ba câu hỏi · ba mức độ đã trả lời được
 
 Em xin tổng kết bằng cách đặt ba câu hỏi nghiên cứu của đề cương cạnh **câu trả lời đến hôm nay**, để thầy cô thấy rõ phần nào đã xong và phần nào còn lại.
 
@@ -184,11 +172,11 @@ Nói ngắn: **câu một xong, câu hai được một nửa, câu ba chưa là
 
 ---
 
-## Slide 14 — Kết luận
+## Slide 13 — Kết luận
 
 Em xin chốt lại bằng một câu: **một kênh đo, thêm độ tin cậy**.
 
-Bốn con số đáng nhớ: **một kênh** thay vì bốn mà vẫn lấy lại **89,5%** khoảng cách; **15 bản trùng** đã loại, từng làm điểm cao giả tới hơn 7 điểm; **12 chỉ số** để hệ thống nói "tín hiệu kém" thay vì đưa ra số sai; và mục tiêu **dưới 200 kilobyte** cho ESP32-S3.
+Bốn con số đáng nhớ: **một kênh** thay vì bốn mà vẫn lấy lại **89,5%** khoảng cách; **60 bản sạch** sau khi loại 15 bản trùng, tránh được chỗ điểm cao giả tới hơn 7 điểm; **12 chỉ số** để hệ thống nói "tín hiệu kém" thay vì đưa ra số sai; và mục tiêu **dưới 200 kilobyte** cho ESP32-S3.
 
 Em xin cảm ơn thầy cô và các bạn đã lắng nghe, và sẵn sàng nhận câu hỏi ạ.
 

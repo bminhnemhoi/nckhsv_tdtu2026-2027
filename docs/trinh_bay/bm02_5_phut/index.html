@@ -17,12 +17,12 @@
       </div>
     </div>
   </main>
-  <footer><span class="pageno">1 / 14</span></footer>
+  <footer><span class="pageno">1 / 13</span></footer>
 </section>
 
 <!-- 2 · Why + data -->
 <section class="slide" id="s2">
-  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Vì sao chọn đề tài?</h2><p class="kicker">Lý do chọn đề tài</p></div><span class="pageno">2 / 14</span></header>
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Vì sao chọn đề tài?</h2><p class="kicker">Lý do chọn đề tài</p></div><span class="pageno">2 / 13</span></header>
   <main class="roomy">
     <div class="problem-points">
       <div>
@@ -44,7 +44,7 @@
 
 <!-- 3 · Data + protocol -->
 <section class="slide" id="s3">
-  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Dữ liệu và cách chia không rò rỉ</h2><p class="kicker">Nguồn dữ liệu · cách chia</p></div><span class="pageno">3 / 14</span></header>
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Dữ liệu và cách chia không rò rỉ</h2><p class="kicker">Nguồn dữ liệu · cách chia</p></div><span class="pageno">3 / 13</span></header>
   <main class="roomy">
     <div class="data-three">
       <div class="dom-in">
@@ -72,7 +72,7 @@
 
 <!-- 4 · Pipeline + training -->
 <section class="slide" id="s4">
-  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Từ tín hiệu đến từng nhịp thai</h2><p class="kicker">Phương pháp · cách huấn luyện</p></div><span class="pageno">4 / 14</span></header>
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Từ tín hiệu đến từng nhịp thai</h2><p class="kicker">Phương pháp · cách huấn luyện</p></div><span class="pageno">4 / 13</span></header>
   <main class="roomy">
     <div class="pipeline">
       <div class="step"><b>1 · Lọc</b><span>Butterworth 10–60 Hz pha không + chặn 50 Hz</span></div>
@@ -109,7 +109,7 @@
 
 <!-- 5 · Pilot result -->
 <section class="slide" id="s5">
-  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Bước đầu đã chạy thật: tháng 9/2026</h2><p class="kicker">Kết quả thử nghiệm khả thi</p></div><span class="pageno">5 / 14</span></header>
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Bước đầu đã chạy thật: tháng 9/2026</h2><p class="kicker">Kết quả thử nghiệm khả thi</p></div><span class="pageno">5 / 13</span></header>
   <main class="roomy">
     <div class="stat-band two">
       <div class="hero"><b>97,56%</b><span>F1 trung bình · 22 sản phụ · chỉ dùng <b>1 kênh</b></span><p class="hero-sub">113 nghìn tham số · 0,48 MB</p></div>
@@ -127,39 +127,33 @@
   </main>
 </section>
 
-<!-- 6 · Leakage -->
+<!-- 6 · Benchmark vs 4-channel -->
 <section class="slide" id="s6">
-  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>15 bản ghi trùng làm điểm cao giả</h2><p class="kicker">Kiểm tra trùng lặp dữ liệu</p></div><span class="pageno">6 / 14</span></header>
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>So với phương pháp 4 kênh tốt nhất</h2><p class="kicker">Benchmark · cùng dữ liệu, cùng bộ chấm ±50 ms</p></div><span class="pageno">6 / 13</span></header>
   <main class="roomy">
-    <img class="leak-figure" src="assets/leakage.svg" alt="So sánh kết quả khi không loại và sau khi loại 15 bản ghi trùng: F1 cao 3,27 đến 7,18 điểm so với 74,28 phần trăm thật">
-    <div class="leak-body">
-      <p><b>Đo bằng hai tín hiệu:</b> hệ số tương quan chéo chuẩn hóa trên từng kênh (NCC = 1,0000) và độ lệch khoảng RR (0 ms). 15 bản CinC trùng nguyên văn với 5 bản ADFECGDB.</p>
-      <p class="big">Ban tổ chức CinC đã ghi nhận trùng lặp này. Nhóm định lượng mức ảnh hưởng và loại bỏ — trước khi báo cáo bất kỳ kết quả ngoài miền nào.</p>
+    <div class="bench-hero">
+      <div class="vs">
+        <div class="side mine"><b>97,56%</b><h3>RelyFetal</h3><p>1 kênh · 113 nghìn tham số</p></div>
+        <div class="gap"><b>−1,27</b><p>điểm</p></div>
+        <div class="side best"><b>98,83%</b><h3>Power-MF</h3><p>4 kênh · cấu hình tác giả công bố</p></div>
+      </div>
     </div>
-  </main>
-</section>
-
-<!-- 7 · Out-of-domain -->
-<section class="slide" id="s7">
-  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Đổi máy ghi: còn 74–82%</h2><p class="kicker">Trả lời câu hỏi 1 · kiểm tra ngoài miền</p></div><span class="pageno">7 / 14</span></header>
-  <main class="roomy">
-    <p class="goal-line">Huấn luyện trên 22 sản phụ, <em>kiểm tra trên 60 bản của bệnh viện khác</em>: điểm tụt xuống — đây là mức trung thực, không phải mức cao nhất.</p>
-    <table class="benchmark">
-      <thead><tr><th style="width:40%">Phương pháp / quy tắc chọn kênh</th><th style="width:12%">F1 (%)</th><th style="width:20%">Trạng thái</th><th>Cách đọc</th></tr></thead>
-      <tbody>
-        <tr><td>Power-MF một kênh</td><td class="num">55,97</td><td><span class="flag soft">Đối chứng</span></td><td>Nhóm chạy lại</td></tr>
-        <tr class="highlight"><td>RelyFetal · phổ công suất (PSD)</td><td class="num">74,28</td><td><span class="flag ok">Cơ sở</span></td><td>Chưa đạt ≥ 80%</td></tr>
-        <tr><td>RelyFetal · quy tắc gate</td><td class="num">80,72</td><td><span class="flag bad">Chưa đạt</span></td><td>Holm p = 0,051</td></tr>
-        <tr><td>RelyFetal · peakprob</td><td class="num">82,01</td><td><span class="flag bad">Chọn sau</span></td><td>Chọn hậu kiểm</td></tr>
-      </tbody>
-    </table>
-    <p class="note">Quy tắc cố định <b>trước</b> khi kiểm tra. Cần một tập dữ liệu thứ ba để xác nhận — đây là việc tháng 12/2026.</p>
+    <div class="bench-bars">
+      <div class="bar-row"><span>Power-MF · <b>4 kênh</b></span><i style="width:98.83%"><em>98,83</em></i></div>
+      <div class="bar-row mine"><span>RelyFetal · <b>1 kênh</b></span><i style="width:97.56%"><em>97,56</em></i></div>
+      <div class="bar-row base"><span>Power-MF · 1 kênh</span><i style="width:86.71%"><em>86,71</em></i></div>
+    </div>
+    <div class="bench-facts">
+      <div><b>+10,85 điểm</b><p>so với Power-MF 1 kênh · KTC [6,80; 15,40] · <b>22/22</b> sản phụ thắng</p></div>
+      <div><b>−1,27 điểm</b><p>so với Power-MF 4 kênh · KTC [−3,08; +0,27] · <b>chưa chứng minh tương đương</b></p></div>
+    </div>
+    <p class="note">Power-MF là phương pháp 4 kênh có mã nguồn chạy lại được. Varanini 2014 công bố cao hơn trên CinC (97,04%) nhưng bằng bộ chấm riêng, nhóm chưa chạy lại được.</p>
   </main>
 </section>
 
 <!-- 8 · Reliability gate -->
 <section class="slide" id="s8">
-  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Tự biết khi nào nên báo “tín hiệu kém”</h2><p class="kicker">Cơ chế tự đánh giá độ tin cậy</p></div><span class="pageno">8 / 14</span></header>
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Tự biết khi nào nên báo “tín hiệu kém”</h2><p class="kicker">Cơ chế tự đánh giá độ tin cậy</p></div><span class="pageno">7 / 13</span></header>
   <main class="roomy">
     <div class="gate-figure">
       <figure>
@@ -178,7 +172,7 @@
 
 <!-- 9 · Embedded -->
 <section class="slide" id="s9">
-  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Hướng tới ESP32-S3</h2><p class="kicker">Nén mô hình và triển khai</p></div><span class="pageno">9 / 14</span></header>
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Hướng tới ESP32-S3</h2><p class="kicker">Nén mô hình và triển khai</p></div><span class="pageno">8 / 13</span></header>
   <main class="roomy">
     <div class="embedded">
       <div>
@@ -202,7 +196,7 @@
 
 <!-- 10 · Products -->
 <section class="slide" id="s10">
-  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Sản phẩm bàn giao</h2><p class="kicker">Đã có · sẽ hoàn thiện</p></div><span class="pageno">10 / 14</span></header>
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Sản phẩm bàn giao</h2><p class="kicker">Đã có · sẽ hoàn thiện</p></div><span class="pageno">9 / 13</span></header>
   <main class="roomy handoff-main">
     <figure class="monitor-shot hero">
       <img src="assets/monitor-r01.png" alt="Màn hình theo dõi RelyFetal trên nền đen: nhịp tim thai 129 bpm, đèn xanh, đường điện tâm đồ thai màu đỏ với các đỉnh nhịp được đánh dấu">
@@ -238,7 +232,7 @@
 
 <!-- 11 · Contributions + significance -->
 <section class="slide" id="s11">
-  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Đóng góp và ý nghĩa thực tế</h2><p class="kicker">Khoa học · kỹ thuật · kinh tế – xã hội</p></div><span class="pageno">11 / 14</span></header>
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Đóng góp và ý nghĩa thực tế</h2><p class="kicker">Khoa học · kỹ thuật · kinh tế – xã hội</p></div><span class="pageno">10 / 13</span></header>
   <main class="roomy">
     <p class="section-lede">Lợi ích lớn nhất không phải một con số cao hơn, mà là <em style="font-style:normal;color:#00557f">biết được khi nào con số đó đáng tin</em>.</p>
     <div class="contrib">
@@ -255,7 +249,7 @@
 
 <!-- 12 · Plan and budget -->
 <section class="slide" id="s12">
-  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Tiến độ 8 tháng và kinh phí</h2><p class="kicker">10/2026 – 05/2027</p></div><span class="pageno">12 / 14</span></header>
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Tiến độ 8 tháng và kinh phí</h2><p class="kicker">10/2026 – 05/2027</p></div><span class="pageno">11 / 13</span></header>
   <main>
     <div class="timeline">
       <div><h3>10/2026</h3><p>Chuẩn bị dữ liệu</p><span>10%</span></div>
@@ -280,7 +274,7 @@
 
 <!-- 13 · Questions answered -->
 <section class="slide" id="s13">
-  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Ba câu hỏi · ba mức độ đã trả lời được</h2><p class="kicker">Mục đích · tiêu chí · hiện trạng</p></div><span class="pageno">13 / 14</span></header>
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Ba câu hỏi · ba mức độ đã trả lời được</h2><p class="kicker">Mục đích · tiêu chí · hiện trạng</p></div><span class="pageno">12 / 13</span></header>
   <main class="roomy">
     <div class="qa">
       <div class="qa-head"><span></span><span>Câu hỏi nghiên cứu</span><span>Tiêu chí hoàn thành</span><span>Hiện tại</span></div>
@@ -312,7 +306,7 @@
 
 <!-- 14 · Closing -->
 <section class="slide" id="s14">
-  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Kết luận</h2><p class="kicker">Thông điệp của đề tài</p></div><span class="pageno">14 / 14</span></header>
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Kết luận</h2><p class="kicker">Thông điệp của đề tài</p></div><span class="pageno">13 / 13</span></header>
   <main class="roomy">
     <div class="final-message">Một kênh đo. <em>Thêm độ tin cậy.</em><br><span style="font-size:26px;font-weight:600;letter-spacing:0">Độ chính xác chỉ có giá trị khi hệ thống biết lúc nào không nên trả lời.</span></div>
     <div class="recap">
