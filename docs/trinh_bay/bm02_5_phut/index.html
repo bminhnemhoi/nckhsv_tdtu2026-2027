@@ -146,22 +146,40 @@
   </main>
 </section>
 
-<!-- 8 · Reliability gate -->
+<!-- 7 · Reliability gate -->
 <section class="slide" id="s8">
-  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Tự biết khi nào nên báo “tín hiệu kém”</h2><p class="kicker">Cơ chế tự đánh giá độ tin cậy</p></div><span class="pageno">7 / 13</span></header>
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Hệ thống biết “tín hiệu kém” bằng cách nào</h2><p class="kicker">Cơ chế tự đánh giá độ tin cậy</p></div><span class="pageno">7 / 13</span></header>
   <main class="roomy">
-    <div class="gate-figure">
-      <figure>
-        <img src="assets/reliability-case.png" alt="Ca khó a02: đường nhịp dự đoán lệch nhãn tham chiếu, có đoạn bị từ chối">
-        <figcaption><b>Ví dụ khó · a02:</b> nhịp dự đoán lệch nhãn tham chiếu → các đoạn đỏ bị cổng từ chối. <span style="color:#4b5c68">Nét xanh: dự đoán · nét đen: tham chiếu · nền đỏ: bị từ chối.</span></figcaption>
-      </figure>
-      <div class="gate-out">
-        <div class="accept"><h3>Đủ tin cậy</h3><p>Hiển thị nhịp tim thai.</p></div>
-        <div class="reject"><h3>Tín hiệu kém</h3><p>Không hiển thị số — báo người dùng kiểm tra lại điện cực.</p></div>
-        <div class="gate-target"><span><b>12</b> chỉ số / đoạn 4 giây:<br>6 từ tín hiệu, 6 từ đầu ra mô hình</span><span><b>AUROC</b><br>mục tiêu ≥ 0,85</span></div>
+    <div class="gate-steps">
+      <div class="step"><span class="n">1</span><h3>Chia đoạn</h3><p>Mỗi đoạn <b>4 giây</b>. Toàn bộ tín hiệu quay lại thành các đoạn rời.</p></div>
+      <div class="step"><span class="n">2</span><h3>Đo 12 chỉ số</h3><p><b>6 từ tín hiệu</b> · <b>6 từ đầu ra mô hình</b></p></div>
+      <div class="step"><span class="n">3</span><h3>Trả về xác suất</h3><p>Bộ phân loại chấm điểm kém cho đoạn đó.</p></div>
+      <div class="step"><span class="n">4</span><h3>Chốt theo cả bản ghi</h3><p>Nhìn cả phiên đo, không phán xét một đoạn lẻ.</p></div>
+    </div>
+
+    <div class="gate-split">
+      <div class="feats">
+        <h3>Từ tín hiệu</h3>
+        <p>entropy mẫu · độ nhọn · entropy phổ · tỉ lệ năng lượng dải</p>
+        <h3>Từ đầu ra mô hình</h3>
+        <p>số nhịp phát hiện · biến thiên RR · mức hợp lý RR · chất lượng đỉnh</p>
+        <p class="feat-note">Đóng góp nhất: <b>mức hợp lý RR</b> và <b>chất lượng đỉnh</b>.</p>
+      </div>
+
+      <div class="levels">
+        <div class="lv lv-g"><b>XANH</b><p>Đủ tin cậy<br><small>dưới 5% đoạn bị coi là kém</small></p></div>
+        <div class="lv lv-y"><b>VÀNG</b><p>Kết quả tạm<br><small>đoạn tốt và kém lẫn nhau</small></p></div>
+        <div class="lv lv-r"><b>ĐỎ</b><p>Không dùng<br><small>trên 30% đoạn bị coi là kém</small></p></div>
+        <div class="lv lv-lock"><b>KHOÁ MẸ</b><p>Luôn báo đỏ<br><small>khi trên 60% nhịp bám nhịp mẹ</small></p></div>
       </div>
     </div>
-    <p class="note">Bộ phân loại tăng cường gradient, kiểm tra chéo bỏ-ra-từng-sản-phụ, đọc bằng đường cong rủi ro – độ phủ. Demo hiện có cổng và cổng nghiên cứu khác nhau; trạng thái xanh chưa bảo đảm kết quả đúng — đó là phần cần nghiệm thu trong năm học.</p>
+
+    <div class="gate-proof">
+      <div><b>0,90</b><p>AUROC kiểm tra chéo bỏ từng sản phụ<br><small>5 bản ADFECGDB · 1.500 đoạn</small></p></div>
+      <div><b>0,75</b><p>Gộp cả dữ liệu ngoài miền<br><small>dưới mục tiêu 0,85 — phần còn lại</small></p></div>
+      <div><b>thật</b><p>Nhãn “kém”: đoạn mô hình có F1 &lt; 80%<br><small>máy tự chấm, không do người gán</small></p></div>
+    </div>
+    <p class="foot">Đèn xanh chưa bảo đảm kết quả đúng — đó là phần cần nghiệm thu trong năm học.</p>
   </main>
 </section>
 

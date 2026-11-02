@@ -94,13 +94,21 @@ Ba điều phải nói để không ai hiểu quá. Một là Power-MF là phư�
 
 ## Slide 7 — Cổng độ tin cậy
 
-Đây là phần trả lời câu hỏi thứ hai, và theo nhóm em là phần **khác biệt nhất** so với các công trình đơn kênh đã công bố.
+Đây là phần trả lời câu hỏi thứ hai, và theo nhóm em là phần **khác biệt nhất** so với các công trình đơn kênh đã công bố. Câu hỏi là: **làm sao hệ thống biết mình đang đọc sai?**
 
-Với mỗi đoạn 4 giây, hệ thống tính **12 chỉ số**: 6 chỉ số từ chính tín hiệu, như entropy mẫu, độ nhọn, entropy phổ, tỉ lệ năng lượng theo dải tần; và 6 chỉ số từ đầu ra mô hình, như số nhịp phát hiện được, độ biến thiên khoảng RR, mức hợp lý sinh lý của RR.
+Cơ chế có **bốn bước**.
 
-Bộ phân loại tăng cường gradient học từ 12 chỉ số đó, kiểm tra chéo bỏ ra từng sản phụ. Khi cổng đánh giá một đoạn là **không đáng tin**, hệ thống **không hiển thị nhịp tim** mà báo **"tín hiệu kém"** và nhắc người dùng kiểm tra lại điện cực.
+**Bước một, chia đoạn.** Toàn bộ tín hiệu được cắt thành từng đoạn **4 giây**.
 
-Hình bên trái là ca khó a02: đường dự đoán lệch khỏi nhãn, và những **đoạn đỏ** chính là những đoạn đã bị cổng từ chối.
+**Bước hai, đo 12 chỉ số** trên mỗi đoạn: **6 chỉ số từ chính tín hiệu** — entropy mẫu, độ nhọn, entropy phổ, tỉ lệ năng lượng theo dải — và **6 chỉ số từ đầu ra mô hình** — số nhịp phát hiện được, độ biến thiên khoảng RR, mức hợp lý sinh lý của RR, chất lượng đỉnh.
+
+**Bước ba, chấm điểm.** Một bộ phân loại tăng cường gradient học từ 12 chỉ số đó, kiểm tra chéo bỏ ra từng sản phụ, trả về xác suất đoạn này **kém** đến mức nào.
+
+**Bước bốn, chốt theo cả bản ghi.** Đây là chỗ nhóm em làm khác: **không phán xét một đoạn lẻ**. Hệ thống nhìn cả phiên đo và ra một trong ba mức: **xanh** khi dưới 5% số đoạn bị coi là kém; **vàng** khi đoạn tốt và kém lẫn nhau; **đỏ** khi trên 30% đoạn kém. Có thêm một luật ghi đè: nếu **trên 60% nhịp bám nhịp mẹ** thì luôn báo đỏ, vì đó là kiểu sai nguy hiểm nhất.
+
+Có hai con số phải nói kèm. Kiểm tra chéo trên **5 bản ADFECGDB, 1.500 đoạn**, AUROC đạt **0,90**. Nhưng khi gộp cả dữ liệu ngoài miền thì chỉ còn **0,75** — dưới mục tiêu 0,85. Nên cổng mới đúng trên một nguồn dữ liệu, và đó là phần còn lại.
+
+Một điểm quan trọng về cách nhóm em làm: nhãn "kém" **không phải người gán**. Một đoạn bị coi là kém khi mô hình đạt F1 **dưới 80%** trên đoạn đó — máy tự chấm, nên cổng học đúng định nghĩa sai mà nhóm muốn bắt.
 
 Em cũng xin nói rõ: đèn xanh của cổng **chưa bảo đảm** kết quả đúng — đó là phần cần nghiệm thu trong năm học.
 
