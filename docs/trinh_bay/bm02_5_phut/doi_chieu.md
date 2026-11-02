@@ -7,7 +7,7 @@ Bản 15 slide gộp các cặp trùng nội dung của bản 18 slide: mục đ
 | Slide | Nội dung | Nguồn |
 |---|---|---|
 | 1 | Tên đề tài, tác giả, GVHD, 3 số nhanh | BM02 §1; 97,56% và 113 nghìn tham số / 0,48 MB: BM02 §2.1; 8 tháng: BM02 §4 |
-| 2 | Lý do chọn đề tài + hình một kênh + ba cam kết của mục tiêu | BM02 §2.1, §6.1; `assets/signal-mix.svg` là hình minh họa, không phải bản ghi |
+| 2 | Lý do chọn đề tài + hình một kênh (mẹ + thai + nhiễu) + câu rào đạo đức | BM02 §2.1; `assets/signal-mix.svg` là hình minh họa, không phải bản ghi. Tiêu chí số **không** lặp ở đây — để slide 13 |
 | 3 | Ba nguồn dữ liệu (ADFECGDB + Silesia, CinC set-a, MIT-BIH) + chia 11 lượt, ±50 ms, bootstrap, Holm | BM02 §4, §5 nội dung 1, "Phương pháp phân tích thống kê"; `assets/data-split.png` |
 | 4 | Năm khâu xử lý + cách huấn luyện (4 giây, Gauss σ = 12 ms, BCE có trọng số + tăng cường, AdamW, 3 hạt giống, ≥ 250 ms) + đồ thị thật a09 | BM02 §5 nội dung 2–3; `assets/model-probability.png`, `assets/model-beats.png` cắt từ demo |
 | 5 | Kết quả bước đầu 9/2026: 97,56%; 89,5%; đối chứng 98,83 / 86,71; +10,85 [6,80; 15,40] 22/22; −1,27 [−3,08; +0,27] | BM02 §2.1; `baselines/powermf_fair_stats.json` → `so_sanh.tat_ca_22` |

@@ -24,9 +24,9 @@ Nhìn vào hình giữa slide, thầy cô sẽ thấy vấn đề: trong một k
 
 Và còn một chuyện ít ai nói tới. Khi tín hiệu kém, mô hình **vẫn trả ra một con số nhịp tim** — con số đó có thể sai mà người dùng không biết.
 
-Từ đó nhóm em đặt ra ba cam kết ở hàng dưới: **độ chính xác** — F1 từ 97% trở lên; **độ tin cậy** — cổng từ chối trả lời đạt AUROC từ 0,85; và **triển khai** — mô hình nén dưới 200 kilobyte chạy trên vi điều khiển.
+Từ đó nhóm em đặt ra mục tiêu: một kênh đo vẫn phải đạt độ chính xác của bốn kênh, và quan trọng hơn — **hệ thống phải biết khi nào nên từ chối trả lời**. Bốn tiêu chí đo lường cụ thể em xin trình bày ở phần cuối.
 
-Em xin nhấn mạnh: nhóm **không thu thập dữ liệu** và **không thử nghiệm trên sản phụ**. Toàn bộ thí nghiệm dùng dữ liệu công khai đã ẩn danh.
+Em xin nhấn mạnh ngay từ đầu: nhóm **không thu thập dữ liệu** và **không thử nghiệm trên sản phụ**. Toàn bộ thí nghiệm dùng dữ liệu công khai đã ẩn danh.
 
 ---
 
