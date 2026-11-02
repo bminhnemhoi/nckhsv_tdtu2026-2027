@@ -150,13 +150,7 @@ Về bàn giao, nhóm **đã có** mã nguồn, mô hình, web demo, API, bộ k
 
 Lợi ích lớn nhất của đề tài **không phải** một con số cao hơn, mà là **biết được khi nào con số đó đáng tin**.
 
-Bốn đóng góp. Thứ nhất, một **con số cụ thể, có khoảng tin cậy**, trả lời câu hỏi bỏ bớt kênh thì mất bao nhiêu — câu hỏi quan trọng khi thiết kế thiết bị đeo nhưng ít được trả lời trực tiếp.
-
-Thứ hai, một **giao thức đánh giá không rò rỉ dữ liệu**, gồm danh sách bản ghi trùng và bộ chấm điểm công khai, để những nhóm sau so sánh công bằng.
-
-Thứ ba, **đo hiệu quả của cơ chế từ chối trả lời** — khía cạnh còn ít được quan tâm so với việc chỉ tối ưu độ chính xác.
-
-Thứ tư, về kỹ thuật, là một **hệ thống gọn**: một kênh thay vì bốn nghĩa là mạch thu đơn giản hơn, có thể thu gọn thành đai đeo, và mô hình đủ nhỏ cho vi điều khiển giá rẻ.
+Hai đóng góp, cả hai đều **đo được**. Thứ nhất, **đo hiệu quả của cơ chế từ chối trả lời** bằng 12 chỉ số cho mỗi đoạn 4 giây — khía cạnh còn ít được quan tâm so với việc chỉ tối ưu độ chính xác. Thứ hai, về kỹ thuật, là một **hệ thống gọn**: một kênh thay vì bốn nghĩa là mạch thu đơn giản hơn, có thể thu gọn thành đai đeo, và mô hình chỉ 0,48 megabyte nên đủ nhỏ cho vi điều khiển giá rẻ.
 
 Về ứng dụng, web demo, API và mã nguồn đã **dùng được ngay** cho học tập và giảng dạy. Về lâu dài, giúp sản phụ **bớt những lần đến viện** chỉ để đo tim thai, giảm tải khoa sản, và báo "tín hiệu kém" thay vì số sai giúp **giảm cảnh báo sai**.
 
