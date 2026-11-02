@@ -114,17 +114,12 @@ h3{font-size:31px;line-height:1.15;margin:0}
 .pipeline .step b{font-size:24px;line-height:1.15;color:var(--accent)}
 .pipeline .step span{font-size:19px;line-height:1.24;color:var(--muted)}
 .pipeline .arrow{align-self:center;color:var(--accent);font-size:34px;font-weight:700;line-height:1;padding:0 2px}
-.train-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
-.train-strip>div{background:#f7f9fa;border-left:5px solid var(--ink);padding:10px 13px;display:flex;flex-direction:column;gap:4px}
-.train-strip b{font-size:20px;color:var(--ink);letter-spacing:.2px}
-.train-strip span{font-size:18.5px;line-height:1.24;color:var(--muted)}
-.train-strip span b{font-size:18.5px;color:var(--accent)}
 #s4 main.roomy{gap:16px}
-.evidence{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.evidence{display:grid;grid-template-columns:1fr 1fr;gap:34px;flex:1 1 auto;min-height:0}
 .evidence figure{margin:0}
-.evidence figcaption{font-size:23px;font-weight:700;margin-bottom:6px}
-.evidence img{width:100%;height:150px;object-fit:fill;display:block;background:#fff;border:1px solid var(--rule)}
-.evidence .caption{font-size:20px;margin-top:6px}
+.evidence figcaption{font-size:25px;font-weight:700;margin-bottom:8px}
+.evidence img{width:100%;height:300px;object-fit:fill;display:block;background:#fff;border:1px solid var(--rule)}
+.evidence .caption{font-size:21px;margin-top:8px}
 .legend{display:flex;gap:22px;font-size:20px;color:var(--muted);align-items:center}
 .dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:middle}
 

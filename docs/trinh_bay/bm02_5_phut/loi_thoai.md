@@ -60,9 +60,9 @@ Khâu chính là **mạng tích chập thời gian**: năm khối dư với hệ
 
 Và cuối cùng là **cổng tin cậy**.
 
-Hàng giữa là phần **cách huấn luyện**, em xin nói rõ vì hội đồng hay hỏi. Đầu vào là đoạn **4 giây, một kênh**. Nhãn được làm mềm thành **hàm Gauss với độ lệch chuẩn 12 mili giây** quanh mỗi nhịp thai, thay vì nhãn cứng. Hàm mất mát là **entropy chéo nhị phân có trọng số cho lớp thiểu số**, kết hợp tăng cường dữ liệu. Thuật toán tối ưu là **AdamW**, và mỗi cấu hình được huấn luyện với **ba hạt giống** ngẫu nhiên để báo cáo mức dao động. Khi lấy nhịp, hệ thống lấy các đỉnh của đường xác suất, với **khoảng cách tối thiểu 250 mili giây** giữa hai nhịp.
+Hai hình dưới là **kết quả thật**. Bên trái là đường xác suất mô hình đưa ra ở từng mẫu — đỉnh vượt ngưỡng nghĩa là có một nhịp thai. Bên phải là các nhịp phát hiện được đối chiếu với nhãn tham chiếu: chấm xanh là khớp, chấm đỏ là lệch.
 
-Hai hình dưới là **kết quả thật**: bên trái là đường xác suất, bên phải là các nhịp phát hiện được đối chiếu với nhãn tham chiếu.
+Chi tiết huấn luyện — nhãn Gauss 12 mili giây, entropy chéo có trọng số, AdamW, ba hạt giống, khoảng cách tối thiểu 250 mili giây giữa hai nhịp — em xin để trong phần hỏi đáp, vì slide này em muốn giữ mạch phương pháp.
 
 ---
 

@@ -72,7 +72,7 @@
 
 <!-- 4 · Pipeline + training -->
 <section class="slide" id="s4">
-  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Từ tín hiệu đến từng nhịp thai</h2><p class="kicker">Phương pháp · cách huấn luyện</p></div><span class="pageno">4 / 13</span></header>
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Từ tín hiệu đến từng nhịp thai</h2><p class="kicker">Phương pháp</p></div><span class="pageno">4 / 13</span></header>
   <main class="roomy">
     <div class="pipeline">
       <div class="step"><b>1 · Lọc</b><span>Butterworth 10–60 Hz pha không + chặn 50 Hz</span></div>
@@ -84,13 +84,6 @@
       <div class="step"><b>4 · Mạng TCN</b><span>5 khối dư, giãn 1–16, tiếp nhận ~1,5 s, 113 nghìn tham số</span></div>
       <div class="arrow">›</div>
       <div class="step"><b>5 · Cổng tin cậy</b><span>12 chỉ số cho mỗi đoạn 4 giây</span></div>
-    </div>
-    <div class="train-strip">
-      <div><b>Đầu vào</b><span>Đoạn 4 giây, 1 kênh</span></div>
-      <div><b>Nhãn</b><span>Hàm Gauss σ = 12 ms quanh mỗi nhịp thai</span></div>
-      <div><b>Hàm mất mát</b><span>Entropy chéo nhị phân có trọng số + tăng cường dữ liệu</span></div>
-      <div><b>Tối ưu</b><span>AdamW · <b>3 hạt giống</b> để báo cáo độ dao động</span></div>
-      <div><b>Lấy nhịp</b><span>Đỉnh đường xác suất, cách nhau ≥ 250 ms</span></div>
     </div>
     <div class="evidence">
       <figure>
