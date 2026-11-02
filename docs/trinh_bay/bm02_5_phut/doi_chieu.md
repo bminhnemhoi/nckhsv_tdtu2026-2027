@@ -17,7 +17,7 @@ Bản 15 slide gộp các cặp trùng nội dung của bản 18 slide: mục đ
 | 9 | INT8, TFLite Micro/ESP-DL, INA219, OLED; < 200 KB (ước tính < 150 KB), ≤ 1 điểm, < 4 giây | BM02 §5 nội dung 5, §6.1, §6.3; `assets/embedded.svg` là sơ đồ kế hoạch |
 | 10 | Đã có / sẽ hoàn thiện (gồm kịch bản chạy lại toàn bộ bảng kết quả, bản đầy đủ và bản INT8); ví dụ r01 99,92% | BM02 §6.2; `baselines/powermf_fair_stats.json` (`rely` của r01); `assets/monitor-r01.png`, `assets/monitor-b203.png` chụp thật |
 | 11 | Hai đóng góp (12 chỉ số của cổng · hệ thống gọn 0,48 MB) + ứng dụng, hiệu quả KT–XH | BM02 §7; số liệu: slide 8 và 5. Hai thẻ đầu (89,5% và 15 bản) đã **bỏ khỏi slide** vì lặp lại slide 5 và 6 |
-| 12 | Tiến độ **7 mốc** theo §9 (03/2027 90%, 04/2027 100%, 05/2027); kinh phí 1,40 + 1,00 + 0,55 = 2,95 triệu | BM02 §9, §10 |
+| 12 | Tiến độ **7 mốc**, mỗi mốc một ý chính (chuẩn bị dữ liệu → huấn luyện → cổng → nén/chạy bo → demo → nghiệm thu) theo §9; kinh phí 1,40 + 1,00 + 0,55 = 2,95 triệu | BM02 §9, §10 |
 | 13 | Ba câu hỏi nghiên cứu, mỗi câu kèm tiêu chí §6.1 và **trạng thái thật hôm nay**: 97,56% đạt / 74,28% chưa; AUROC 0,90 trên ADFECGDB / 0,75 gộp; INT8 chưa có | BM02 §2.2, §6.1; 97,56%: `baselines/powermf_fair_stats.json`; 74,28%: `facts_phase4.json` mục B; AUROC: `fsqi/gate_meta.json` (`cv_auroc_adfecgdb_mean`, `oof_auroc_pooled`) |
 | 14 | Kết luận: thông điệp + bốn con số đáng nhớ | Tổng hợp từ slide 5, 6, 8, 9 |
 

@@ -240,8 +240,8 @@ h3{font-size:31px;line-height:1.15;margin:0}
 /* ---------- Plan ---------- */
 .timeline{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
 .timeline>div{padding:13px 12px 11px;background:var(--accent-soft);position:relative}
-.timeline h3{font-size:22px;letter-spacing:-.4px;margin-bottom:6px}
-.timeline p{font-size:18.5px;line-height:1.24;margin-bottom:8px}
+.timeline h3{font-size:23px;letter-spacing:-.4px;margin-bottom:8px}
+.timeline p{font-size:22px;line-height:1.24;margin-bottom:12px;font-weight:600}
 .timeline span{font-size:18px;font-weight:700;color:var(--accent)}
 .budget{display:grid;grid-template-columns:260px 1fr;gap:34px;align-items:center;background:#f7f9fa;padding:14px 22px}
 .budget .total b{font-size:64px;line-height:1;color:var(--accent);letter-spacing:-3px;display:block}

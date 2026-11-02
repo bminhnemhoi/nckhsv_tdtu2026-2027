@@ -162,7 +162,9 @@ Ranh giới thì em xin nói rõ: đề tài dừng ở mức **thuật toán v�
 
 Lộ trình kéo dài **tám tháng**, từ tháng 10/2026 đến tháng 5/2027, chia thành các mốc có sản phẩm kiểm tra được.
 
-Tháng 10 chốt giao thức và làm sạch dữ liệu, mục tiêu 10%. Tháng 11 huấn luyện với ba hạt giống và chạy đối chứng, 25%. Tháng 12 xây cổng tin cậy và kiểm tra ngoài miền có hiệu chỉnh Holm, 40%. Tháng 1 và 2 lượng tử hóa, viết lại bằng C, đo trên bo và viết bản thảo, 55%. Tháng 3 hoàn thiện demo, báo cáo tổng kết và poster, 90%. Tháng 4 **nghiệm thu cấp khoa**, đạt 100%. Tháng 5 là báo cáo cấp Trường và hồ sơ dự giải.
+Bốn tháng đầu là **phần kỹ thuật**: tháng 10 chuẩn bị dữ liệu, tháng 11 huấn luyện mô hình, tháng 12 xây cổng tin cậy, tháng 1 và 2 nén mô hình và chạy thử trên bo — cộng dồn đến 55%.
+
+Ba tháng cuối là **phần hoàn thiện**: tháng 3 gom demo, báo cáo và poster, đạt 90%; tháng 4 **nghiệm thu cấp khoa**, đạt 100%; tháng 5 là báo cáo cấp Trường.
 
 Kinh phí đề nghị nhà trường hỗ trợ là **2,95 triệu đồng**: **1,4 triệu** thuê GPU đám mây trong 100 giờ, **1 triệu** linh kiện ESP32-S3, OLED, INA219, thẻ nhớ và pin, và **0,55 triệu** in ấn poster cùng báo cáo. Đây là con số **đề xuất** trong đề cương, không phải chi phí đã phát sinh.
 
