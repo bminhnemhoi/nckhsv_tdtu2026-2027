@@ -40,11 +40,9 @@ Em xin nhấn mạnh ngay từ đầu: nhóm **không thu thập dữ liệu** v
 
 Và bộ nhiễu **MIT-BIH Noise Stress Test** để thử độ bền. Tất cả các bộ đều được hạ về **250 Hz**.
 
-Bên dưới là cách chia dữ liệu. Nhóm chia **theo sản phụ** thành **11 lượt**, mỗi lượt giữ riêng **2 sản phụ** để kiểm tra, 20 người còn lại để huấn luyện. Một sản phụ **không bao giờ** xuất hiện đồng thời ở cả hai tập.
+Bên dưới là cách chia dữ liệu. Nhóm chia **theo sản phụ** thành **11 lượt**, mỗi lượt giữ riêng **2 sản phụ** để kiểm tra, 20 người còn lại để huấn luyện. Một sản phụ **không bao giờ** xuất hiện đồng thời ở cả hai tập trong cùng một lượt.
 
-Bốn điều được cố định trước khi chạy: cách chia, dung sai ghép nhịp **±50 mili giây**, khoảng tin cậy 95% **bootstrap theo cụm**, và so sánh bằng **Wilcoxon có hiệu chỉnh Holm**.
-
-Lý do phải chốt trước thì đã có công trình chỉ ra: chỉ cần đổi bước tiền xử lý là thứ hạng giữa các thuật toán có thể đảo ngược.
+Nói cách khác: mô hình dùng để chấm một sản phụ **chưa từng thấy người đó** khi học. Nhờ vậy điểm số phản ánh đúng khả năng trên người mới, chứ không phải khả năng học thuộc.
 
 ---
 

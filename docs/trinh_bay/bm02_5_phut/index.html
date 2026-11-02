@@ -44,7 +44,7 @@
 
 <!-- 3 · Data + protocol -->
 <section class="slide" id="s3">
-  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Dữ liệu và cách chia không rò rỉ</h2><p class="kicker">Nguồn dữ liệu · giao thức chốt trước</p></div><span class="pageno">3 / 14</span></header>
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Dữ liệu và cách chia không rò rỉ</h2><p class="kicker">Nguồn dữ liệu · cách chia</p></div><span class="pageno">3 / 14</span></header>
   <main class="roomy">
     <div class="data-three">
       <div class="dom-in">
@@ -65,19 +65,8 @@
         <p>Tất cả hạ về <b>250 Hz</b>.</p>
       </div>
     </div>
-    <div class="protocol">
-      <figure class="split-fig"><img src="assets/data-split.png" alt="Sơ đồ chia dữ liệu: mỗi lượt 20 sản phụ huấn luyện, 2 sản phụ kiểm tra, lặp lại 11 lượt"><figcaption>11 lượt × 2 sản phụ: mỗi người vừa làm dữ liệu huấn luyện, vừa có lượt là người được kiểm tra.</figcaption></figure>
-      <div>
-        <h3>Bốn điều cố định trước khi chạy</h3>
-        <ul>
-          <li>Chia theo sản phụ, <b>11 lượt</b> — không người nào ở cả hai tập.</li>
-          <li>Dung sai ghép nhịp <b>±50 ms</b>.</li>
-          <li>KTC 95% bootstrap theo cụm.</li>
-          <li>Wilcoxon có dấu hạng, hiệu chỉnh Holm.</li>
-        </ul>
-      </div>
-    </div>
-    <p class="note">Dữ liệu có nhãn còn ít (22 sản phụ, cùng một hệ thống ghi tại Ba Lan) nên kết luận luôn đi kèm khoảng tin cậy.</p>
+    <figure class="split-fig wide"><img src="assets/data-split.png" alt="Sơ đồ chia dữ liệu: mỗi lượt 20 sản phụ huấn luyện, 2 sản phụ kiểm tra, lặp lại 11 lượt"><figcaption>Mỗi lượt giữ riêng <b>2 sản phụ</b> để kiểm tra, 20 người còn lại dùng huấn luyện — lặp <b>11 lượt</b> cho đủ 22 người.</figcaption></figure>
+    <p class="note">Không người nào vừa huấn luyện vừa kiểm tra trong cùng một lượt: mô hình chấm một sản phụ chưa từng thấy người đó khi học.</p>
   </main>
 </section>
 
