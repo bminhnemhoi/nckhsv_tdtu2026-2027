@@ -84,8 +84,6 @@ Việc so sánh với phương pháp bốn kênh em xin để sang slide sau, v�
 
 Chuẩn so sánh là **Power-MF** — phương pháp bốn kênh có mã nguồn công khai, nhóm em chạy lại được và chấm bằng **cùng một bộ chấm ±50 ms** trên **cùng 22 sản phụ**.
 
-Điểm khác nhau về bản chất nằm ở chỗ nhóm em dùng **mạng học sâu 113.481 tham số** — chính là 0,48 megabyte lúc nãy — còn Power-MF là **bộ dò viết tay, không có tham số học nào**; mọi hằng số đều do tác giả chọn trên bộ Silesia.
-
 Kết quả: Power-MF bốn kênh đạt **98,83%**. RelyFetal một kênh đạt **97,56%**. Chênh **1,27 điểm** nghiêng về phía bốn kênh — nhóm em ghi rõ là còn kém, không nói mạnh hơn thế. Muốn nói tương đương thì phải có cỡ mẫu lớn hơn.
 
 Điều đáng chú ý nằm ở thanh thứ ba: **chính phương pháp Power-MF khi chỉ còn một kênh** chỉ đạt **86,71%**. Vậy giá trị của hướng tiếp cận này không phải đánh bại bốn kênh, mà là **giữ được gần như toàn bộ độ chính xác khi số kênh bị cắt từ bốn xuống một** — điều mà cách làm truyền thống không làm được.

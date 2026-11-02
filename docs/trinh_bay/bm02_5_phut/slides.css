@@ -176,12 +176,12 @@ h3{font-size:31px;line-height:1.15;margin:0}
 .bar-row.mine i em{background:var(--accent)}
 .bar-row.base i em{background:#8fa3b0}
 #s6 main.roomy{gap:12px;justify-content:center;padding:0}
-#s6 .bench-hero .side b{font-size:62px}
+#s6 .bench-hero .side b{font-size:66px}
 #s6 .bench-hero .side{padding:10px 26px}
 #s6 .bench-hero .side h3{font-size:28px}
 #s6 .bench-hero .side h3{margin:4px 0 1px}
 #s6 .bench-hero .side p b{font-size:inherit;font-weight:800;color:var(--ink);letter-spacing:0}
-#s6 .bench-hero .side p{font-size:20px;line-height:1.34}
+#s6 .bench-hero .side p{font-size:20px;line-height:1.3}
 #s6 .bench-hero .gap b{font-size:48px}
 #s6 .bench-bars{gap:14px}
 #s6 .bar-row{grid-template-columns:360px 1fr;gap:22px}
