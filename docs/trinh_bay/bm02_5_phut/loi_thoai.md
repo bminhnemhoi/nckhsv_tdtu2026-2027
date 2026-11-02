@@ -88,7 +88,7 @@ Kết quả: Power-MF bốn kênh đạt **98,83%**. RelyFetal một kênh đạ
 
 Điều đáng chú ý nằm ở thanh thứ ba: **chính phương pháp Power-MF khi chỉ còn một kênh** chỉ đạt **86,71%**. Vậy giá trị của hướng tiếp cận này không phải đánh bại bốn kênh, mà là **giữ được gần như toàn bộ độ chính xác khi số kênh bị cắt từ bốn xuống một** — điều mà cách làm truyền thống không làm được.
 
-Hai điều phải nói để không ai hiểu quá: một là Varanini 2014 công bố **97,04%** trên tập CinC — cao hơn nhóm em — nhưng bằng bộ chấm riêng, nhóm **chưa chạy lại được** nên không đưa vào bảng. Hai là tập CinC có **15 bản trùng** với dữ liệu huấn luyện; nếu để nguyên thì điểm sẽ **cao giả 3,27 đến 7,18 điểm**. Nhóm loại bỏ và báo cáo trên **60 bản sạch**. Việc trùng lặp này **ban tổ chức CinC đã ghi nhận** từ trước — nhóm chỉ định lượng mức ảnh hưởng, không nhận là người phát hiện đầu tiên.
+Ba điều phải nói để không ai hiểu quá. Một là Power-MF là phương pháp **có mã nguồn chạy lại được** — nên nhóm em mới chấm được bằng cùng một bộ chấm. Hai là Varanini 2014 công bố **97,04%** trên tập CinC — cao hơn nhóm em — nhưng bằng bộ chấm riêng, nhóm **chưa chạy lại được** nên không đưa vào bảng. Ba là tập CinC có **15 bản trùng** với dữ liệu huấn luyện; nếu để nguyên thì điểm sẽ **cao giả 3,27 đến 7,18 điểm**. Nhóm loại bỏ và báo cáo trên **60 bản sạch**. Việc trùng lặp này **ban tổ chức CinC đã ghi nhận** từ trước — nhóm chỉ định lượng mức ảnh hưởng, không nhận là người phát hiện đầu tiên.
 
 ---
 
