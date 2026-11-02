@@ -148,38 +148,30 @@
 
 <!-- 7 · Reliability gate -->
 <section class="slide" id="s8">
-  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Hệ thống biết “tín hiệu kém” bằng cách nào</h2><p class="kicker">Cơ chế tự đánh giá độ tin cậy</p></div><span class="pageno">7 / 13</span></header>
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Hệ thống tự biết khi nào không đáng tin</h2><p class="kicker">Cơ chế tự đánh giá độ tin cậy</p></div><span class="pageno">7 / 13</span></header>
   <main class="roomy">
-    <div class="gate-steps">
-      <div class="step"><span class="n">1</span><h3>Chia đoạn</h3><p>Mỗi đoạn <b>4 giây</b>. Toàn bộ tín hiệu quay lại thành các đoạn rời.</p></div>
-      <div class="step"><span class="n">2</span><h3>Đo 12 chỉ số</h3><p><b>6 từ tín hiệu</b> · <b>6 từ đầu ra mô hình</b></p></div>
-      <div class="step"><span class="n">3</span><h3>Trả về xác suất</h3><p>Bộ phân loại chấm điểm kém cho đoạn đó.</p></div>
-      <div class="step"><span class="n">4</span><h3>Chốt theo cả bản ghi</h3><p>Nhìn cả phiên đo, không phán xét một đoạn lẻ.</p></div>
+    <div class="gate-flow">
+      <div class="gstep"><b>1</b><h3>Tín hiệu vào</h3><p>Đoạn 4 giây</p></div>
+      <div class="garrow">→</div>
+      <div class="gstep"><b>2</b><h3>12 chỉ số</h3><p>6 về tín hiệu<br>6 về kết quả mô hình</p></div>
+      <div class="garrow">→</div>
+      <div class="gstep"><b>3</b><h3>Điểm tin cậy</h3><p>Một bộ phân loại<br>chấm đoạn đó</p></div>
+      <div class="garrow">→</div>
+      <div class="gstep"><b>4</b><h3>Cả phiên đo</h3><p>Nhìn toàn bộ<br>không xét đoạn lẻ</p></div>
     </div>
 
-    <div class="gate-split">
-      <div class="feats">
-        <h3>Từ tín hiệu</h3>
-        <p>entropy mẫu · độ nhọn · entropy phổ · tỉ lệ năng lượng dải</p>
-        <h3>Từ đầu ra mô hình</h3>
-        <p>số nhịp phát hiện · biến thiên RR · mức hợp lý RR · chất lượng đỉnh</p>
-        <p class="feat-note">Đóng góp nhất: <b>mức hợp lý RR</b> và <b>chất lượng đỉnh</b>.</p>
-      </div>
-
-      <div class="levels">
-        <div class="lv lv-g"><b>XANH</b><p>Đủ tin cậy<br><small>dưới 5% đoạn bị coi là kém</small></p></div>
-        <div class="lv lv-y"><b>VÀNG</b><p>Kết quả tạm<br><small>đoạn tốt và kém lẫn nhau</small></p></div>
-        <div class="lv lv-r"><b>ĐỎ</b><p>Không dùng<br><small>trên 30% đoạn bị coi là kém</small></p></div>
-        <div class="lv lv-lock"><b>KHOÁ MẸ</b><p>Luôn báo đỏ<br><small>khi trên 60% nhịp bám nhịp mẹ</small></p></div>
-      </div>
+    <div class="gate-verdicts">
+      <div class="verdict v-green"><span>XANH</span><b>Hiện nhịp tim</b><p>Phần lớn đoạn đều tốt</p></div>
+      <div class="verdict v-amber"><span>VÀNG</span><b>Nhịp tim tạm</b><p>Có đoạn tín hiệu kém</p></div>
+      <div class="verdict v-red"><span>ĐỎ</span><b>Báo “tín hiệu kém”</b><p>Kiểm tra lại điện cực</p></div>
     </div>
 
-    <div class="gate-proof">
-      <div><b>0,90</b><p>AUROC kiểm tra chéo bỏ từng sản phụ<br><small>5 bản ADFECGDB · 1.500 đoạn</small></p></div>
-      <div><b>0,75</b><p>Gộp cả dữ liệu ngoài miền<br><small>dưới mục tiêu 0,85 — phần còn lại</small></p></div>
-      <div><b>thật</b><p>Nhãn “kém”: đoạn mô hình có F1 &lt; 80%<br><small>máy tự chấm, không do người gán</small></p></div>
+    <p class="gate-lock">Đặc biệt: nếu nhịp phát hiện <b>bám theo nhịp mẹ</b> — kiểu sai nguy hiểm nhất — hệ thống <b>luôn báo đỏ</b>, dù tín hiệu nhìn có vẻ sạch.</p>
+
+    <div class="gate-score">
+      <div><b>0,90</b><p>Phân biệt tốt và kém<br><small>kiểm tra chéo trên 5 bản ADFECGDB</small></p></div>
+      <div><b>0,75</b><p>Khi gộp dữ liệu bệnh viện khác<br><small>còn kém — đây là việc còn lại</small></p></div>
     </div>
-    <p class="foot">Đèn xanh chưa bảo đảm kết quả đúng — đó là phần cần nghiệm thu trong năm học.</p>
   </main>
 </section>
 

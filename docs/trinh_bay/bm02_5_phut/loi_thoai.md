@@ -96,21 +96,19 @@ Ba điều phải nói để không ai hiểu quá. Một là Power-MF là phư�
 
 Đây là phần trả lời câu hỏi thứ hai, và theo nhóm em là phần **khác biệt nhất** so với các công trình đơn kênh đã công bố. Câu hỏi là: **làm sao hệ thống biết mình đang đọc sai?**
 
-Cơ chế có **bốn bước**.
+Cơ chế gồm **bốn bước, rất giống cách một người đọc kỹ tín hiệu**.
 
-**Bước một, chia đoạn.** Toàn bộ tín hiệu được cắt thành từng đoạn **4 giây**.
+**Một, chia nhỏ.** Tín hiệu được cắt thành từng đoạn **4 giây**.
 
-**Bước hai, đo 12 chỉ số** trên mỗi đoạn: **6 chỉ số từ chính tín hiệu** — entropy mẫu, độ nhọn, entropy phổ, tỉ lệ năng lượng theo dải — và **6 chỉ số từ đầu ra mô hình** — số nhịp phát hiện được, độ biến thiên khoảng RR, mức hợp lý sinh lý của RR, chất lượng đỉnh.
+**Hai, đo.** Mỗi đoạn được đo **12 chỉ số**: sáu chỉ số nhìn vào **chính tín hiệu**, sáu chỉ số nhìn vào **kết quả mô hình** — ví dụ nhịp phát hiện được có đều không.
 
-**Bước ba, chấm điểm.** Một bộ phân loại tăng cường gradient học từ 12 chỉ số đó, kiểm tra chéo bỏ ra từng sản phụ, trả về xác suất đoạn này **kém** đến mức nào.
+**Ba, chấm điểm.** Một bộ phân loại gộp 12 chỉ số đó thành một điểm tin cậy cho đoạn ấy.
 
-**Bước bốn, chốt theo cả bản ghi.** Đây là chỗ nhóm em làm khác: **không phán xét một đoạn lẻ**. Hệ thống nhìn cả phiên đo và ra một trong ba mức: **xanh** khi dưới 5% số đoạn bị coi là kém; **vàng** khi đoạn tốt và kém lẫn nhau; **đỏ** khi trên 30% đoạn kém. Có thêm một luật ghi đè: nếu **trên 60% nhịp bám nhịp mẹ** thì luôn báo đỏ, vì đó là kiểu sai nguy hiểm nhất.
+**Bốn, kết luận cho cả phiên đo.** Đây là chỗ nhóm em làm khác: **không phán xét một đoạn lẻ**. Hệ thống nhìn cả phiên rồi ra một trong ba mức — **xanh** thì hiện nhịp tim, **vàng** thì hiện kèm cảnh báo tạm, **đỏ** thì báo "tín hiệu kém" và nhắc kiểm tra lại điện cực.
 
-Có hai con số phải nói kèm. Kiểm tra chéo trên **5 bản ADFECGDB, 1.500 đoạn**, AUROC đạt **0,90**. Nhưng khi gộp cả dữ liệu ngoài miền thì chỉ còn **0,75** — dưới mục tiêu 0,85. Nên cổng mới đúng trên một nguồn dữ liệu, và đó là phần còn lại.
+Có một luật đặc biệt: nếu nhịp phát hiện **bám theo nhịp mẹ**, hệ thống **luôn báo đỏ**, kể cả khi tín hiệu nhìn có vẻ sạch. Vì đó là kiểu sai nguy hiểm nhất — số trông hợp lý nhưng là số của mẹ.
 
-Một điểm quan trọng về cách nhóm em làm: nhãn "kém" **không phải người gán**. Một đoạn bị coi là kém khi mô hình đạt F1 **dưới 80%** trên đoạn đó — máy tự chấm, nên cổng học đúng định nghĩa sai mà nhóm muốn bắt.
-
-Em cũng xin nói rõ: đèn xanh của cổng **chưa bảo đảm** kết quả đúng — đó là phần cần nghiệm thu trong năm học.
+Hai con số phải nói kèm. Cổng phân biệt đoạn tốt với đoạn kém đạt **0,90** khi kiểm tra chéo trên 5 bản ADFECGDB. Nhưng khi gộp dữ liệu của bệnh viện khác thì chỉ còn **0,75** — chưa đủ tốt. Nên cổng mới đúng trên một nguồn dữ liệu, và đó chính là việc còn lại của đề tài.
 
 ---
 

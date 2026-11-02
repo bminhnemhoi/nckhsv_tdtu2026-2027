@@ -204,36 +204,32 @@ h3{font-size:31px;line-height:1.15;margin:0}
 .bench-cols{display:grid;grid-template-columns:1fr;gap:12px}
 
 /* ---------- Slide 7: reliability gate ---------- */
-#s8 main.roomy{gap:10px;padding:0;justify-content:center}
-.gate-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.gate-steps .step{background:#f7f9fa;border-top:5px solid var(--accent);padding:12px 16px 13px}
-.gate-steps .n{display:inline-block;font-size:15px;font-weight:800;color:#fff;background:var(--accent);padding:1px 9px;margin-bottom:6px;letter-spacing:.5px}
-.gate-steps h3{font-size:24px;line-height:1.16;margin-bottom:5px}
-.gate-steps p{font-size:18.5px;line-height:1.26;color:var(--muted)}
-.gate-steps p b{color:var(--ink)}
-.gate-split{display:grid;grid-template-columns:1fr 1.05fr;gap:20px;align-items:stretch}
-.feats{background:#f7f9fa;padding:14px 20px;border-left:6px solid var(--accent)}
-.feats h3{font-size:19px;text-transform:uppercase;letter-spacing:.6px;color:var(--accent);margin-bottom:3px}
-.feats h3+p{font-size:20px;line-height:1.26;margin-bottom:9px}
-.feats .feat-note{font-size:19px;line-height:1.25;margin-bottom:0;color:var(--ink)}
-.feats .feat-note b{color:var(--bad)}
-.levels{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.lv{padding:11px 16px;border-left:6px solid var(--rule);background:#f7f9fa}
-.lv b{display:block;font-size:17px;letter-spacing:1.2px;margin-bottom:2px}
-.lv p{font-size:22px;line-height:1.16;font-weight:700}
-.lv small{font-size:17px;line-height:1.22;color:var(--muted);font-weight:400;display:block;margin-top:2px}
-.lv-g{border-left-color:var(--ok);background:var(--ok-soft)}.lv-g b{color:var(--ok)}
-.lv-y{border-left-color:#b8860b;background:#fdf6e3}.lv-y b{color:#8a6100}
-.lv-r{border-left-color:var(--bad);background:var(--bad-soft)}.lv-r b{color:var(--bad)}
-.lv-lock{border-left-color:var(--ink);background:var(--accent-soft)}.lv-lock b{color:var(--accent)}
-.gate-proof{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.gate-proof>div{padding:9px 18px;background:#fff;border:1px solid var(--rule)}
-.gate-proof div:nth-child(3) b{color:var(--ok)}
-.gate-proof b{font-size:34px;letter-spacing:-1px;color:var(--accent);display:block;line-height:1}
-.gate-proof div:nth-child(2) b{color:#8a6100}
-.gate-proof p{font-size:18.5px;line-height:1.24;margin-top:3px}
-.gate-proof small{font-size:16.5px;color:var(--muted);line-height:1.2;display:block}
-#s8 .foot{font-size:18.5px;line-height:1.24;color:var(--muted)}
+#s8 main.roomy{gap:24px;padding:0;justify-content:center}
+.gate-flow{display:flex;align-items:stretch;gap:10px}
+.gstep{flex:1;background:#f7f9fa;border-top:6px solid var(--accent);padding:16px 20px}
+.gstep b{display:inline-block;font-size:16px;font-weight:800;color:#fff;background:var(--accent);padding:1px 10px;margin-bottom:8px}
+.gstep h3{font-size:27px;line-height:1.14;margin-bottom:6px}
+.gstep p{font-size:20px;line-height:1.28;color:var(--muted)}
+.garrow{display:flex;align-items:center;font-size:32px;color:var(--rule);font-weight:700}
+.gate-verdicts{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.verdict{padding:16px 22px;border-left:8px solid var(--rule);background:#f7f9fa}
+.verdict span{font-size:16px;font-weight:800;letter-spacing:1.4px;display:block;margin-bottom:4px}
+.verdict b{display:block;font-size:30px;line-height:1.1;letter-spacing:-.8px;margin-bottom:5px}
+.verdict p{font-size:20px;line-height:1.26}
+.v-green{border-left-color:var(--ok);background:var(--ok-soft)}
+.v-green span{color:var(--ok)}
+.v-amber{border-left-color:#b8860b;background:#fdf6e3}
+.v-amber span{color:#8a6100}
+.v-red{border-left-color:var(--bad);background:var(--bad-soft)}
+.v-red span{color:var(--bad)}
+.gate-lock{font-size:22px;line-height:1.3;padding:14px 22px;background:var(--accent-soft);border-left:8px solid var(--accent)}
+.gate-lock b{color:var(--accent)}
+.gate-score{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.gate-score>div{padding:12px 22px;background:#fff;border:1px solid var(--rule)}
+.gate-score b{font-size:42px;line-height:1;letter-spacing:-1.5px;display:block;color:var(--ok)}
+.gate-score div:nth-child(2) b{color:#8a6100}
+.gate-score p{font-size:21px;line-height:1.24;margin-top:4px}
+.gate-score small{font-size:18px;color:var(--muted);display:block;line-height:1.2}
 
 /* ---------- Slide 13: embedded ---------- */
 .embedded{display:grid;grid-template-columns:1fr 430px;gap:44px;align-items:center}
