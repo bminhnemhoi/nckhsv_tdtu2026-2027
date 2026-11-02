@@ -38,7 +38,7 @@ Em xin nhấn mạnh ngay từ đầu: nhóm **không thu thập dữ liệu** v
 
 **Ngoài miền** là **60 bản** của CinC Challenge 2013 set-a, sau khi loại 15 bản trùng. Tập này **chỉ để kiểm tra**, hoàn toàn không dùng để tinh chỉnh.
 
-Và bộ nhiễu **MIT-BIH Noise Stress Test** để thử độ bền. Tất cả các bộ đều được hạ về **250 Hz**.
+Tất cả các bộ đều được hạ về **250 Hz**. Ngoài ra nhóm em còn dùng bộ nhiễu **MIT-BIH Noise Stress Test** để thử độ bền — phần này em xin nói nếu thầy cô hỏi.
 
 Bên dưới là cách chia dữ liệu. Nhóm chia **theo sản phụ** thành **11 lượt**, mỗi lượt giữ riêng **2 sản phụ** để kiểm tra, 20 người còn lại để huấn luyện. Một sản phụ **không bao giờ** xuất hiện đồng thời ở cả hai tập trong cùng một lượt.
 
