@@ -84,9 +84,9 @@ Việc so sánh với phương pháp bốn kênh em xin để sang slide sau, v�
 
 Chuẩn so sánh là **Power-MF** — phương pháp bốn kênh có mã nguồn công khai, nhóm em chạy lại được và chấm bằng **cùng một bộ chấm ±50 ms** trên **cùng 22 sản phụ**.
 
-Kết quả: Power-MF bốn kênh đạt **98,83%**. RelyFetal một kênh đạt **97,56%**. Chênh **1,27 điểm**, khoảng tin cậy từ trừ 3,08 đến cộng 0,27 — tức là **chưa chứng minh được tương đương**, nhóm em không nói mạnh hơn thế.
+Kết quả: Power-MF bốn kênh đạt **98,83%**. RelyFetal một kênh đạt **97,56%**. Chênh **1,27 điểm** nghiêng về phía bốn kênh — nhóm em ghi rõ là còn kém, không nói mạnh hơn thế. Muốn nói tương đương thì phải có cỡ mẫu lớn hơn.
 
-Nhưng so với **chính phương pháp Power-MF khi chỉ có một kênh** thì khoảng cách rõ ràng: 86,71% so với 97,56%, chênh **10,85 điểm**, khoảng tin cậy [6,80; 15,40], và **cả 22 trên 22 sản phụ đều thắng**. Đây là con số chứng minh giá trị của hướng tiếp cận.
+Điều đáng chú ý nằm ở thanh thứ ba: **chính phương pháp Power-MF khi chỉ còn một kênh** chỉ đạt **86,71%**. Vậy giá trị của hướng tiếp cận này không phải đánh bại bốn kênh, mà là **giữ được gần như toàn bộ độ chính xác khi số kênh bị cắt từ bốn xuống một** — điều mà cách làm truyền thống không làm được.
 
 Hai điều phải nói để không ai hiểu quá: một là Varanini 2014 công bố **97,04%** trên tập CinC — cao hơn nhóm em — nhưng bằng bộ chấm riêng, nhóm **chưa chạy lại được** nên không đưa vào bảng. Hai là tập CinC có **15 bản trùng** với dữ liệu huấn luyện; nếu để nguyên thì điểm sẽ **cao giả 3,27 đến 7,18 điểm**. Nhóm loại bỏ và báo cáo trên **60 bản sạch**. Việc trùng lặp này **ban tổ chức CinC đã ghi nhận** từ trước — nhóm chỉ định lượng mức ảnh hưởng, không nhận là người phát hiện đầu tiên.
 

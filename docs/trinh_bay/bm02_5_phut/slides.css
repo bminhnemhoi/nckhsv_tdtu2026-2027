@@ -175,13 +175,17 @@ h3{font-size:31px;line-height:1.15;margin:0}
 .bar-row i em{position:relative;font-style:normal;display:block;height:100%;line-height:42px;padding-left:14px;font-weight:800;font-size:23px;color:#fff;background:var(--muted);box-sizing:border-box}
 .bar-row.mine i em{background:var(--accent)}
 .bar-row.base i em{background:#8fa3b0}
-.bench-facts{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.bench-facts>div{padding:13px 20px;background:#f7f9fa;border-left:6px solid var(--rule)}
-.bench-facts>div:first-child{border-left-color:var(--ok)}
-.bench-facts>div:last-child{border-left-color:var(--bad)}
-.bench-facts b{font-size:26px;letter-spacing:-.6px;display:block;margin-bottom:3px}
-.bench-facts p{font-size:19px;line-height:1.26}
-#s6 main.roomy{gap:12px}
+#s6 main.roomy{gap:26px;justify-content:center}
+#s6 .bench-hero .side b{font-size:76px}
+#s6 .bench-hero .side h3{font-size:29px}
+#s6 .bench-hero .side p{font-size:21px}
+#s6 .bench-hero .gap b{font-size:48px}
+#s6 .bench-bars{gap:14px}
+#s6 .bar-row{grid-template-columns:360px 1fr;gap:22px}
+#s6 .bar-row span{font-size:24px}
+#s6 .bar-row i{height:56px}
+#s6 .bar-row i em{line-height:56px;font-size:27px;padding-left:16px}
+#s6 .note{font-size:20px}
 
 /* ---------- Slide 11: out-of-domain ---------- */
 .benchmark{width:100%;border-collapse:collapse;font-size:26px;line-height:1.24}
