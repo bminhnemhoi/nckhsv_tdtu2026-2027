@@ -278,21 +278,35 @@
   </main>
 </section>
 
-<!-- 13 · Questions and criteria -->
+<!-- 13 · Questions answered -->
 <section class="slide" id="s13">
-  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Ba câu hỏi và bốn tiêu chí hoàn thành</h2><p class="kicker">Mục đích · cam kết đo lường</p></div><span class="pageno">13 / 14</span></header>
+  <header><img src="assets/tdtu-logo.png" alt="Đại học Tôn Đức Thắng"><div><h2>Ba câu hỏi · ba mức độ đã trả lời được</h2><p class="kicker">Mục đích · tiêu chí · hiện trạng</p></div><span class="pageno">13 / 14</span></header>
   <main class="roomy">
-    <div class="questions">
-      <div><span class="qnum">01</span><h3>Mất bao nhiêu độ chính xác?</h3><p>Mô hình một kênh lấy lại được bao nhiêu phần so với bốn kênh — và giữ được đến đâu khi đổi hệ thống ghi?</p></div>
-      <div><span class="qnum">02</span><h3>Tự biết khi nào không đáng tin?</h3><p>Cơ chế từ chối trả lời, không cần nhãn khi vận hành, nhận ra đoạn hệ thống nhiều khả năng phát hiện sai.</p></div>
-      <div><span class="qnum">03</span><h3>Chạy được trên vi điều khiển?</h3><p>Sau khi nén, mô hình có chạy thời gian thực với mức điện năng phù hợp thiết bị đeo?</p></div>
+    <div class="qa">
+      <div class="qa-head"><span></span><span>Câu hỏi nghiên cứu</span><span>Tiêu chí hoàn thành</span><span>Hiện tại</span></div>
+
+      <div class="qa-row done">
+        <span class="qnum">01</span>
+        <span class="q"><b>Bỏ 3 kênh thì mất bao nhiêu?</b><small>Và còn giữ được đến đâu khi đổi máy ghi?</small></span>
+        <span class="crit"><b>F1 ≥ 97% trong miền</b><small>≥ 80% ngoài miền · Holm</small></span>
+        <span class="now"><b class="ok">97,56%</b><small>Đạt trong miền.<br>Ngoài miền 74,28% — <span class="bad">chưa đạt</span></small></span>
+      </div>
+
+      <div class="qa-row part">
+        <span class="qnum">02</span>
+        <span class="q"><b>Tự biết khi nào không đáng tin?</b><small>Không cần nhãn khi vận hành</small></span>
+        <span class="crit"><b>AUROC cổng ≥ 0,85</b><small>Kiểm tra chéo theo sản phụ</small></span>
+        <span class="now"><b class="part">0,90</b><small>Trên ADFECGDB — đạt.<br>Gộp ngoài miền 0,75 — <span class="bad">chưa đạt</span></small></span>
+      </div>
+
+      <div class="qa-row todo">
+        <span class="qnum">03</span>
+        <span class="q"><b>Chạy được trên vi điều khiển?</b><small>Thời gian thực, điện năng cho thiết bị đeo</small></span>
+        <span class="crit"><b>INT8 &lt; 200 KB</b><small>F1 giảm ≤ 1 điểm · &lt; 4 giây</small></span>
+        <span class="now"><b class="todo">Chưa có</b><small>Có mô hình 0,48 MB.<br>Lượng tử hóa: 01–02/2027</small></span>
+      </div>
     </div>
-    <div class="criteria compact">
-      <div><b>≥ 97%</b><h3>F1 trong miền</h3><p>22 sản phụ, 3 hạt giống.</p></div>
-      <div><b>≥ 80%</b><h3>F1 ngoài miền</h3><p>Quy tắc cố định trước, Holm.</p></div>
-      <div><b>≥ 0,85</b><h3>AUROC cổng</h3><p>Chéo theo sản phụ.</p></div>
-      <div><b>&lt; 200 KB</b><h3>INT8</h3><p>Giảm F1 ≤ 1 điểm, &lt; 4 giây.</p></div>
-    </div>
+    <p class="note">Câu 1 có câu trả lời đầy đủ. Câu 2 mới đúng trên một nguồn dữ liệu. Câu 3 chưa làm — đây là phần còn lại của năm học.</p>
   </main>
 </section>
 

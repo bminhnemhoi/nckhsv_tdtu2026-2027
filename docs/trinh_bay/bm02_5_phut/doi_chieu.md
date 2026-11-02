@@ -18,7 +18,7 @@ Bản 15 slide gộp các cặp trùng nội dung của bản 18 slide: mục đ
 | 10 | Đã có / sẽ hoàn thiện (gồm kịch bản chạy lại toàn bộ bảng kết quả, bản đầy đủ và bản INT8); ví dụ r01 99,92% | BM02 §6.2; `baselines/powermf_fair_stats.json` (`rely` của r01); `assets/monitor-r01.png`, `assets/monitor-b203.png` chụp thật |
 | 11 | Hai đóng góp (12 chỉ số của cổng · hệ thống gọn 0,48 MB) + ứng dụng, hiệu quả KT–XH | BM02 §7; số liệu: slide 8 và 5. Hai thẻ đầu (89,5% và 15 bản) đã **bỏ khỏi slide** vì lặp lại slide 5 và 6 |
 | 12 | Tiến độ **7 mốc** theo §9 (03/2027 90%, 04/2027 100%, 05/2027); kinh phí 1,40 + 1,00 + 0,55 = 2,95 triệu | BM02 §9, §10 |
-| 13 | Ba câu hỏi nghiên cứu + bốn tiêu chí hoàn thành | BM02 §2.2, §6.1 |
+| 13 | Ba câu hỏi nghiên cứu, mỗi câu kèm tiêu chí §6.1 và **trạng thái thật hôm nay**: 97,56% đạt / 74,28% chưa; AUROC 0,90 trên ADFECGDB / 0,75 gộp; INT8 chưa có | BM02 §2.2, §6.1; 97,56%: `baselines/powermf_fair_stats.json`; 74,28%: `facts_phase4.json` mục B; AUROC: `fsqi/gate_meta.json` (`cv_auroc_adfecgdb_mean`, `oof_auroc_pooled`) |
 | 14 | Kết luận: thông điệp + bốn con số đáng nhớ | Tổng hợp từ slide 5, 6, 8, 9 |
 
 ## Cách đọc số liệu — những điểm không được nói quá
@@ -26,6 +26,9 @@ Bản 15 slide gộp các cặp trùng nội dung của bản 18 slide: mục đ
 - 89,5% là phần khoảng cách 4 kênh ↔ 1 kênh mà mô hình lấy lại được (BM02 nêu ở §2.1), **không** phải kết quả vượt 4 kênh.
 - Power-MF một kênh là **biến thể do nhóm dựng** từ mã nguồn gốc, không phải cấu hình tác giả công bố.
 - Chênh lệch với 4 kênh có KTC [−3,08; +0,27] → **chưa** chứng minh tương đương.
+- AUROC cổng: 0,90 là **kiểm tra chéo trên ADFECGDB** (5 bản ghi, 1.500 đoạn); gộp ngoài miền chỉ 0,75 — **dưới mục tiêu 0,85**. Không được nói "cổng đạt mục tiêu" mà không kèm điều kiện này.
+- Phần cứng: **chưa có** bản INT8 và chưa có suy luận mạng trên ESP32-S3. Firmware trong `analysis/hardware_simulator/` là mô phỏng HIL (nhịp tim thai gán hằng số 142 bpm), **không phải** chạy mô hình.
+- 0,48 MB là mô hình PyTorch float32 (482.133 byte), không phải bản nén.
 - Ngoài miền: 74,28% (PSD) là quy tắc cơ sở và chưa đạt mục tiêu ≥ 80%; gate trượt Holm (p = 0,051); peakprob (82,01%) chọn sau khi xem kết quả nên chỉ là thăm dò.
 - 15 bản trùng đã được ban tổ chức CinC ghi nhận; nhóm **định lượng mức ảnh hưởng**, không tuyên bố phát hiện đầu tiên.
 - Không tuyên bố phát minh TCN hay đạt mục tiêu phần cứng; slide 9 và 8 ghi rõ là kế hoạch / cần nghiệm thu.

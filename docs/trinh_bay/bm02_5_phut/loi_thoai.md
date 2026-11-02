@@ -168,11 +168,17 @@ Kinh phí đề nghị nhà trường hỗ trợ là **2,95 triệu đồng**: *
 
 ---
 
-## Slide 13 — Ba câu hỏi và bốn tiêu chí
+## Slide 13 — Ba câu hỏi · ba mức độ đã trả lời được
 
-Ba câu hỏi nghiên cứu tương ứng đúng ba mục đích của đề cương: **mất bao nhiêu độ chính xác** khi chỉ dùng một kênh và khi đổi hệ thống ghi; hệ thống có **tự biết** khi nào kết quả không đáng tin; và mô hình nén có **chạy được trên vi điều khiển**.
+Em xin tổng kết bằng cách đặt ba câu hỏi nghiên cứu của đề cương cạnh **câu trả lời đến hôm nay**, để thầy cô thấy rõ phần nào đã xong và phần nào còn lại.
 
-Và đây là bốn tiêu chí để đề tài được coi là hoàn thành, cả bốn đều **đo được**: F1 trong miền **từ 97%**; F1 ngoài miền **từ 80%** với quy tắc cố định trước và có ý nghĩa sau hiệu chỉnh Holm; AUROC của cổng tin cậy **từ 0,85**; và mô hình INT8 **dưới 200 kilobyte**, giảm F1 không quá 1 điểm, xử lý đoạn 4 giây trong dưới 4 giây.
+**Câu một: bỏ ba kênh thì mất bao nhiêu?** Tiêu chí là F1 trong miền từ 97% và ngoài miền từ 80%. Trong miền nhóm đạt **97,56%** — đạt. Ngoài miền đạt **74,28%** — **chưa đạt** mục tiêu.
+
+**Câu hai: hệ thống tự biết khi nào không đáng tin?** Tiêu chí AUROC từ 0,85. Trên ADFECGDB cổng đạt **0,90** — đạt. Nhưng khi gộp cả dữ liệu ngoài miền thì chỉ **0,75** — chưa đạt. Nên câu này nhóm trả lời được một nửa.
+
+**Câu ba: chạy được trên vi điều khiển?** Tiêu chí INT8 dưới 200 kilobyte, F1 giảm không quá 1 điểm, xử lý đoạn 4 giây trong dưới 4 giây. Hiện nhóm **chưa có** kết quả này: mới có mô hình 0,48 megabyte bản đầy đủ, việc lượng tử hóa nằm trong tháng 1 và 2 năm 2027.
+
+Nói ngắn: **câu một xong, câu hai được một nửa, câu ba chưa làm.** Đó chính là phần còn lại của năm học.
 
 ---
 
